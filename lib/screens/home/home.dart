@@ -31,6 +31,7 @@ class _HomeState extends State<Home> {
       ),
       body: Center(
         child: CurrencyInfoBuySell(
+          title: 'Dólar Oficial',
           symbol: '\$',
           valueBuy: '145.33',
           valueSell: '150.39',

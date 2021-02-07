@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'currency_info.dart';
 
 class CurrencyInfoBuySell extends StatelessWidget {
+  final String title;
   final String symbol;
   final String valueBuy;
   final String valueSell;
 
   const CurrencyInfoBuySell({
     Key key,
+    @required this.title,
     @required this.symbol,
     @required this.valueBuy,
     @required this.valueSell,
@@ -19,12 +21,19 @@ class CurrencyInfoBuySell extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
+        Text(title,
+            style: TextStyle(fontSize: 28, fontWeight: FontWeight.w300)),
+        Divider(
+          endIndent: 75,
+          indent: 75,
+          height: 20,
+        ),
+        SizedBox(height: 30),
         CurrencyInfo(symbol: symbol, title: 'COMPRA', value: valueBuy),
         Divider(
-          color: Colors.grey[400],
-          endIndent: 80,
-          indent: 80,
-          height: 80,
+          endIndent: 125,
+          indent: 125,
+          height: 60,
         ),
         CurrencyInfo(symbol: symbol, title: 'VENTA', value: valueSell),
       ],
