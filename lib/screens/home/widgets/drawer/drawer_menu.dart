@@ -1,4 +1,6 @@
 import 'package:dolarbot_app/screens/home/widgets/drawer/drawer_menu_header.dart';
+import 'package:dolarbot_app/screens/home/widgets/drawer/drawer_menu_item.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/material.dart';
 
 class DrawerMenu extends StatelessWidget {
@@ -8,20 +10,30 @@ class DrawerMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(10.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          DrawerMenuHeader(),
-          Divider(
-            color: Colors.grey[500],
-            height: 25,
-          ),
-          //TO DO: DrawerMenuBody
-        ],
-      ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        DrawerMenuHeader(),
+        Divider(),
+        DrawerMenuItem(
+          text: "Dolar",
+          leftIcon: Icon(FontAwesomeIcons.dollarSign),
+          onTap: null,
+        ),
+        DrawerMenuItem(
+          text: "Euro",
+          leftIcon: Icon(FontAwesomeIcons.euroSign),
+          onTap: null,
+        ),
+        DrawerMenuItem(
+          text: "Cripto",
+          leftIcon: Icon(FontAwesomeIcons.bitcoin),
+          onTap: null,
+        )
+
+        //TO DO: DrawerMenuBody
+      ],
     );
   }
 }

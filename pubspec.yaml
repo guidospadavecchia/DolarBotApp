@@ -23,6 +23,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  font_awesome_flutter: ^8.11.0
+  adaptive_theme: ^1.1.0
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -60,3 +62,8 @@ flutter:
         - asset: fonts/montserrat/Montserrat-Bold.ttf
         - asset: fonts/montserrat/Montserrat-Regular.ttf
         - asset: fonts/montserrat/Montserrat-SemiBold.ttf
+    - family: Raleway
+      fonts:
+        - asset: fonts/raleway/Raleway-Bold.ttf
+        - asset: fonts/raleway/Raleway-Regular.ttf
+        - asset: fonts/raleway/Raleway-SemiBold.ttf

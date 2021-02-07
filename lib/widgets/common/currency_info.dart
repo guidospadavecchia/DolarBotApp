@@ -1,3 +1,4 @@
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 
 class CurrencyInfo extends StatelessWidget {
@@ -21,7 +22,9 @@ class CurrencyInfo extends StatelessWidget {
         Text(title,
             style: TextStyle(
                 fontSize: 18,
-                color: Colors.grey[800],
+                color: AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
+                    ? Colors.grey[800]
+                    : Colors.grey[500],
                 fontWeight: FontWeight.w400)),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -33,7 +36,10 @@ class CurrencyInfo extends StatelessWidget {
                 symbol,
                 style: TextStyle(
                   fontSize: 32,
-                  color: Colors.grey[800],
+                  color:
+                      AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
+                          ? Colors.grey[800]
+                          : Colors.grey[400],
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -42,7 +48,9 @@ class CurrencyInfo extends StatelessWidget {
               value.split('.')[0],
               style: TextStyle(
                 fontSize: 72,
-                color: Colors.grey[800],
+                color: AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
+                    ? Colors.grey[800]
+                    : Colors.grey[400],
                 fontWeight: FontWeight.w600,
               ),
             ),
@@ -52,7 +60,10 @@ class CurrencyInfo extends StatelessWidget {
                 '.${value.split('.')[1]}',
                 style: TextStyle(
                   fontSize: 28,
-                  color: Colors.grey[700],
+                  color:
+                      AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
+                          ? Colors.grey[700]
+                          : Colors.grey[500],
                 ),
               ),
             ),
