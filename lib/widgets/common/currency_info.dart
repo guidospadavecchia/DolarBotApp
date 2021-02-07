@@ -24,7 +24,7 @@ class CurrencyInfo extends StatelessWidget {
                 fontSize: 18,
                 color: AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
                     ? Colors.grey[800]
-                    : Colors.grey[500],
+                    : Colors.grey[300],
                 fontWeight: FontWeight.w400)),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -39,7 +39,7 @@ class CurrencyInfo extends StatelessWidget {
                   color:
                       AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
                           ? Colors.grey[800]
-                          : Colors.grey[400],
+                          : Colors.grey[200],
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -50,7 +50,7 @@ class CurrencyInfo extends StatelessWidget {
                 fontSize: 72,
                 color: AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
                     ? Colors.grey[800]
-                    : Colors.grey[400],
+                    : Colors.grey[200],
                 fontWeight: FontWeight.w600,
               ),
             ),
@@ -63,7 +63,7 @@ class CurrencyInfo extends StatelessWidget {
                   color:
                       AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
                           ? Colors.grey[700]
-                          : Colors.grey[500],
+                          : Colors.grey[300],
                 ),
               ),
             ),
