@@ -15,7 +15,10 @@ class DrawerMenu extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         DrawerMenuHeader(),
-        Divider(),
+        Divider(
+          indent: 20,
+          endIndent: 20,
+        ),
         DrawerMenuItem(
           text: "Dolar",
           leftIcon: Icon(FontAwesomeIcons.dollarSign),
@@ -27,10 +30,30 @@ class DrawerMenu extends StatelessWidget {
           onTap: null,
         ),
         DrawerMenuItem(
+          text: "Real",
+          leftIcon: Icon(FontAwesomeIcons.question),
+          onTap: null,
+        ),
+        DrawerMenuItem(
           text: "Cripto",
           leftIcon: Icon(FontAwesomeIcons.ethereum),
           onTap: null,
-        )
+        ),
+        DrawerMenuItem(
+          text: "Metales",
+          leftIcon: Icon(FontAwesomeIcons.question),
+          onTap: null,
+        ),
+        DrawerMenuItem(
+          text: "Indicadores BCRA",
+          leftIcon: Icon(FontAwesomeIcons.question),
+          onTap: null,
+        ),
+        DrawerMenuItem(
+          text: "Venezuela",
+          leftIcon: Icon(FontAwesomeIcons.question),
+          onTap: null,
+        ),
 
         //TO DO: DrawerMenuBody
       ],
