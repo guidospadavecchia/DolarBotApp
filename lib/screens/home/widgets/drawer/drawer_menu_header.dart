@@ -8,10 +8,10 @@ class DrawerMenuHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 35, bottom: 10),
+      padding: const EdgeInsets.only(top: 35, left: 20, bottom: 10),
       child: Center(
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(
@@ -25,7 +25,7 @@ class DrawerMenuHeader extends StatelessWidget {
               height: 64,
             ),
             SizedBox(
-              width: 10,
+              width: 15,
             ),
             Text(
               'DolarBot',
