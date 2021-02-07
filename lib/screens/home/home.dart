@@ -1,6 +1,6 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:dolarbot_app/screens/home/widgets/drawer/drawer_menu.dart';
-import 'package:dolarbot_app/widgets/common/currency_info_buy_sell.dart';
+import 'package:dolarbot_app/widgets/common/currency_info_container_buy_sell.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -30,7 +30,7 @@ class _HomeState extends State<Home> {
         ),
       ),
       body: Center(
-        child: CurrencyInfoBuySell(
+        child: CurrencyInfoContainerBuySell(
           title: 'Dólar Oficial',
           symbol: '\$',
           valueBuy: '145.33',

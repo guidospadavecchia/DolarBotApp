@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'currency_info.dart';
 
-class CurrencyInfoBuySell extends StatelessWidget {
+class CurrencyInfoContainerBuySell extends StatelessWidget {
   final String title;
   final String symbol;
   final String valueBuy;
   final String valueSell;
 
-  const CurrencyInfoBuySell({
+  const CurrencyInfoContainerBuySell({
     Key key,
     @required this.title,
     @required this.symbol,
