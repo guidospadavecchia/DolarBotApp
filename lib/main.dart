@@ -29,6 +29,9 @@ class DolarBotApp extends StatelessWidget {
               color: Colors.grey[800],
             ),
           ),
+          dividerTheme: DividerThemeData(
+            color: Colors.grey[400],
+          ),
           visualDensity: VisualDensity.adaptivePlatformDensity),
       dark: ThemeData(
           brightness: Brightness.dark,
@@ -42,6 +45,9 @@ class DolarBotApp extends StatelessWidget {
             bodyText2: TextStyle(
               color: Colors.white,
             ),
+          ),
+          dividerTheme: DividerThemeData(
+            color: Colors.grey[700],
           ),
           visualDensity: VisualDensity.adaptivePlatformDensity),
       initial: AdaptiveThemeMode.dark,
