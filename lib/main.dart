@@ -43,8 +43,6 @@ class DolarBotApp extends StatelessWidget {
               color: Colors.white,
             ),
           ),
-          bottomNavigationBarTheme:
-              BottomNavigationBarThemeData(selectedItemColor: Colors.red),
           visualDensity: VisualDensity.adaptivePlatformDensity),
       initial: AdaptiveThemeMode.dark,
       builder: (theme, darkTheme) => MaterialApp(

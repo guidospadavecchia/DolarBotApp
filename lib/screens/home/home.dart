@@ -16,7 +16,10 @@ class _HomeState extends State<Home> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        iconTheme: IconThemeData(color: Colors.grey[600]),
+        iconTheme: IconThemeData(
+            color: AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
+                ? Colors.grey[600]
+                : Colors.grey[200]),
         elevation: 0,
       ),
       extendBodyBehindAppBar: true,
@@ -46,6 +49,14 @@ class _HomeState extends State<Home> {
           onPressed: () {
             AdaptiveTheme.of(context).toggleThemeMode();
           },
+          backgroundColor:
+              AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
+                  ? Colors.green[500]
+                  : Colors.green[300],
+          foregroundColor:
+              AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
+                  ? Colors.white
+                  : Color.fromRGBO(48, 48, 48, 1),
           tooltip: 'Opciones',
           elevation: 0,
           child: Icon(Icons.more_horiz),
@@ -53,8 +64,8 @@ class _HomeState extends State<Home> {
       ),
       bottomNavigationBar: Container(
         color: AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
-            ? Colors.green[100]
-            : Colors.green[900],
+            ? Colors.green[200]
+            : Colors.green[700],
         height: 50,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
