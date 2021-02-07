@@ -28,7 +28,7 @@ class DrawerMenu extends StatelessWidget {
         ),
         DrawerMenuItem(
           text: "Cripto",
-          leftIcon: Icon(FontAwesomeIcons.bitcoin),
+          leftIcon: Icon(FontAwesomeIcons.ethereum),
           onTap: null,
         )
 
