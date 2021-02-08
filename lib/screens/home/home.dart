@@ -2,7 +2,7 @@ import 'package:dolarbot_app/classes/theme/theme_manager.dart';
 import 'package:dolarbot_app/screens/home/widgets/drawer/drawer_menu.dart';
 import 'package:dolarbot_app/screens/home/widgets/floating_action_button/home_floating_action_button.dart';
 import 'package:dolarbot_app/widgets/common/currency_info.dart';
-import 'package:dolarbot_app/widgets/common/currency_info_container_buy_sell.dart';
+import 'package:dolarbot_app/widgets/common/currency_info_container.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -32,7 +32,7 @@ class _HomeState extends State<Home> {
       drawer: Drawer(
         child: DrawerMenu(),
       ),
-      drawerEdgeDragWidth: 150,
+      drawerEdgeDragWidth: 250,
       drawerEnableOpenDragGesture: true,
       body: Container(
         padding: EdgeInsets.only(top: 10),
@@ -55,7 +55,7 @@ class _HomeState extends State<Home> {
                 value: '90.33',
               ),
               CurrencyInfo(
-                title: "VENTA",
+                title: "OTRA",
                 symbol: '\$',
                 value: '145.33',
               ),
