@@ -20,10 +20,11 @@ class DrawerMenuHeader extends StatelessWidget {
               children: [
                 SizedBox(
                   child: Image.asset(
-                    'assets/images/logo_medium.png',
+                    'assets/images/logo.png',
                     scale: 3.0,
                     height: 64,
                     width: 64,
+                    filterQuality: FilterQuality.high,
                   ),
                   width: 64,
                   height: 64,
@@ -32,11 +33,20 @@ class DrawerMenuHeader extends StatelessWidget {
                   width: 15,
                 ),
                 Text(
-                  'DolarBot',
+                  'Dolar',
                   style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.w600,
                       fontFamily: 'Raleway',
+                      letterSpacing: 0.5),
+                ),
+                Text(
+                  'Bot',
+                  style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.w600,
+                      fontFamily: 'Raleway',
+                      color: Color.fromRGBO(50, 177, 40, 1),
                       letterSpacing: 0.5),
                 ),
               ],
