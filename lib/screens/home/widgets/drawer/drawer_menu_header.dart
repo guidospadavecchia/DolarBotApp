@@ -7,37 +7,44 @@ class DrawerMenuHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 35, left: 20, bottom: 10),
-      child: Center(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SizedBox(
-              child: Image.asset(
-                'assets/images/logo_medium.png',
-                scale: 3.0,
-                height: 64,
-                width: 64,
-              ),
-              width: 64,
-              height: 64,
+    final paddingTop = MediaQuery.of(context).padding.top + 15;
+
+    return Column(
+      children: [
+        Padding(
+          padding: EdgeInsets.only(top: paddingTop, left: 30, bottom: 10),
+          child: Center(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(
+                  child: Image.asset(
+                    'assets/images/logo_medium.png',
+                    scale: 3.0,
+                    height: 64,
+                    width: 64,
+                  ),
+                  width: 64,
+                  height: 64,
+                ),
+                SizedBox(
+                  width: 15,
+                ),
+                Text(
+                  'DolarBot',
+                  style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.w600,
+                      fontFamily: 'Raleway',
+                      letterSpacing: 0.5),
+                ),
+              ],
             ),
-            SizedBox(
-              width: 15,
-            ),
-            Text(
-              'DolarBot',
-              style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.w600,
-                  fontFamily: 'Raleway',
-                  letterSpacing: 0.5),
-            ),
-          ],
+          ),
         ),
-      ),
+        Divider(),
+      ],
     );
   }
 }

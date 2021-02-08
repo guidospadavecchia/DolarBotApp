@@ -1,5 +1,7 @@
-import 'package:adaptive_theme/adaptive_theme.dart';
+import 'package:dolarbot_app/classes/theme/theme_manager.dart';
 import 'package:dolarbot_app/screens/home/widgets/drawer/drawer_menu.dart';
+import 'package:dolarbot_app/screens/home/widgets/floating_action_button/home_floating_action_button.dart';
+import 'package:dolarbot_app/widgets/common/currency_info.dart';
 import 'package:dolarbot_app/widgets/common/currency_info_container_buy_sell.dart';
 import 'package:flutter/material.dart';
 
@@ -16,60 +18,53 @@ class _HomeState extends State<Home> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        iconTheme: IconThemeData(
-            color: AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
-                ? Colors.grey[600]
-                : Colors.grey[200]),
+        centerTitle: true,
+        title: Text(
+          "Dólar Oficial",
+          style: TextStyle(
+            fontFamily: 'Raleway',
+            fontWeight: FontWeight.bold,
+            color: ThemeManager.getPrimaryTextColor(context),
+          ),
+        ),
         elevation: 0,
       ),
-      extendBodyBehindAppBar: true,
-      drawer: SizedBox(
-        width: 250,
-        child: Drawer(
-          child: DrawerMenu(),
+      drawer: Drawer(
+        child: DrawerMenu(),
+      ),
+      drawerEdgeDragWidth: 150,
+      drawerEnableOpenDragGesture: true,
+      body: Container(
+        padding: EdgeInsets.only(top: 10),
+        color: Colors.transparent,
+        alignment: Alignment.center,
+        height: MediaQuery.of(context).size.height * 0.7,
+        child: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          physics: BouncingScrollPhysics(),
+          child: CurrencyInfoContainer(
+            items: [
+              CurrencyInfo(
+                title: "COMPRA",
+                symbol: '\$',
+                value: '80.33',
+              ),
+              CurrencyInfo(
+                title: "VENTA",
+                symbol: '\$',
+                value: '90.33',
+              ),
+              CurrencyInfo(
+                title: "VENTA",
+                symbol: '\$',
+                value: '145.33',
+              ),
+            ],
+          ),
         ),
       ),
-      body: Center(
-        child: CurrencyInfoContainerBuySell(
-          title: 'Dólar Oficial',
-          symbol: '\$',
-          valueBuy: '145.33',
-          valueSell: '150.39',
-        ),
-      ),
-      floatingActionButton: Container(
-        decoration: BoxDecoration(
-          border: Border.all(
-              color: AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
-                  ? Colors.white
-                  : Color.fromRGBO(48, 48, 48, 1),
-              width: 4),
-          shape: BoxShape.circle,
-        ),
-        child: FloatingActionButton(
-          onPressed: () {
-            AdaptiveTheme.of(context).toggleThemeMode();
-          },
-          backgroundColor:
-              AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
-                  ? Colors.green[500]
-                  : Colors.green[300],
-          foregroundColor:
-              AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
-                  ? Colors.white
-                  : Color.fromRGBO(48, 48, 48, 1),
-          tooltip: 'Opciones',
-          elevation: 0,
-          child: Icon(Icons.more_horiz),
-        ),
-      ),
-      bottomNavigationBar: Container(
-        color: AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
-            ? Colors.green[200]
-            : Colors.green[700],
-        height: 50,
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: HomeFloatingActionButton(),
+      floatingActionButtonLocation: HomeFloatingActionButton.getLocation(),
     );
   }
 }

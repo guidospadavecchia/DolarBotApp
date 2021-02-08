@@ -1,4 +1,4 @@
-import 'package:adaptive_theme/adaptive_theme.dart';
+import 'package:dolarbot_app/classes/theme/theme_manager.dart';
 import 'package:flutter/material.dart';
 
 class CurrencyInfo extends StatelessWidget {
@@ -16,15 +16,11 @@ class CurrencyInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         Text(title,
             style: TextStyle(
                 fontSize: 18,
-                color: AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
-                    ? Colors.grey[800]
-                    : Colors.grey[300],
+                color: ThemeManager.getSecondaryTextColor(context),
                 fontWeight: FontWeight.w400)),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -36,10 +32,7 @@ class CurrencyInfo extends StatelessWidget {
                 symbol,
                 style: TextStyle(
                   fontSize: 32,
-                  color:
-                      AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
-                          ? Colors.grey[800]
-                          : Colors.grey[200],
+                  color: ThemeManager.getPrimaryTextColor(context),
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -48,9 +41,7 @@ class CurrencyInfo extends StatelessWidget {
               value.split('.')[0],
               style: TextStyle(
                 fontSize: 72,
-                color: AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
-                    ? Colors.grey[800]
-                    : Colors.grey[200],
+                color: ThemeManager.getPrimaryTextColor(context),
                 fontWeight: FontWeight.w600,
               ),
             ),
@@ -60,10 +51,7 @@ class CurrencyInfo extends StatelessWidget {
                 '.${value.split('.')[1]}',
                 style: TextStyle(
                   fontSize: 28,
-                  color:
-                      AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
-                          ? Colors.grey[700]
-                          : Colors.grey[300],
+                  color: ThemeManager.getSecondaryTextColor(context),
                 ),
               ),
             ),

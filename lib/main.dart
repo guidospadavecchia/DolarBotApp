@@ -1,4 +1,5 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
+import 'package:dolarbot_app/classes/theme/theme_manager.dart';
 import 'package:dolarbot_app/screens/home/home.dart';
 import 'package:flutter/material.dart';
 
@@ -16,44 +17,12 @@ class DolarBotApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AdaptiveTheme(
-      light: ThemeData(
-          brightness: Brightness.light,
-          primarySwatch: Colors.red,
-          accentColor: Colors.green[500],
-          fontFamily: 'Montserrat',
-          textTheme: TextTheme(
-            bodyText1: TextStyle(
-              color: Colors.grey[800],
-            ),
-            bodyText2: TextStyle(
-              color: Colors.grey[800],
-            ),
-          ),
-          dividerTheme: DividerThemeData(
-            color: Colors.grey[400],
-          ),
-          visualDensity: VisualDensity.adaptivePlatformDensity),
-      dark: ThemeData(
-          brightness: Brightness.dark,
-          primarySwatch: Colors.red,
-          accentColor: Colors.green[500],
-          fontFamily: 'Montserrat',
-          textTheme: TextTheme(
-            bodyText1: TextStyle(
-              color: Colors.white,
-            ),
-            bodyText2: TextStyle(
-              color: Colors.white,
-            ),
-          ),
-          dividerTheme: DividerThemeData(
-            color: Colors.grey[700],
-          ),
-          visualDensity: VisualDensity.adaptivePlatformDensity),
-      initial: AdaptiveThemeMode.dark,
+      light: ThemeManager.getLightThemeData(),
+      dark: ThemeManager.getDarkThemeData(),
+      initial: savedThemeMode ?? ThemeManager.getDefaultTheme(),
       builder: (theme, darkTheme) => MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'DolarBot App',
+        title: 'DolarBot',
         theme: theme,
         darkTheme: darkTheme,
         home: Home(),

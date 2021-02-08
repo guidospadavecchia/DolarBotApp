@@ -22,7 +22,7 @@ class CurrencyInfoContainerBuySell extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(title,
-            style: TextStyle(fontSize: 28, fontWeight: FontWeight.w300)),
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w300)),
         Divider(
           endIndent: 75,
           indent: 75,
@@ -36,6 +36,32 @@ class CurrencyInfoContainerBuySell extends StatelessWidget {
           height: 60,
         ),
         CurrencyInfo(symbol: symbol, title: 'VENTA', value: valueSell),
+      ],
+    );
+  }
+}
+
+class CurrencyInfoContainer extends StatelessWidget {
+  final List<CurrencyInfo> items;
+
+  const CurrencyInfoContainer({
+    Key key,
+    this.items,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        for (var i = 0; i < items.length; i++)
+          Column(
+            children: [
+              items[i],
+              if (i != items.length - 1)
+                Divider(endIndent: 125, indent: 125, height: 50)
+            ],
+          ),
       ],
     );
   }
