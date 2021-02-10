@@ -1,3 +1,5 @@
+import 'package:dolarbot_app/api/api.dart';
+import 'package:dolarbot_app/classes/endpoints/moenda_generica.dart';
 import 'package:dolarbot_app/classes/theme/theme_manager.dart';
 import 'package:dolarbot_app/screens/home/widgets/drawer/drawer_menu.dart';
 import 'package:dolarbot_app/screens/home/widgets/floating_action_button/home_floating_action_button.dart';
@@ -13,6 +15,17 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  MonedaGenerica monedaGenerica;
+
+  @override
+  void initState() {
+    super.initState();
+
+    API.getDolar().then((response) {
+      monedaGenerica = response;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,12 +60,12 @@ class _HomeState extends State<Home> {
               CurrencyInfo(
                 title: "COMPRA",
                 symbol: '\$',
-                value: '80.33',
+                value: monedaGenerica.compra,
               ),
               CurrencyInfo(
                 title: "VENTA",
                 symbol: '\$',
-                value: '93.80',
+                value: monedaGenerica.venta,
               ),
             ],
           ),
