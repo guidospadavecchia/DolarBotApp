@@ -12,7 +12,7 @@ class DrawerMenuHeader extends StatelessWidget {
     return Column(
       children: [
         Padding(
-          padding: EdgeInsets.only(top: paddingTop, left: 30, bottom: 10),
+          padding: EdgeInsets.only(top: paddingTop, left: 35, bottom: 10),
           child: Center(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,

@@ -7,7 +7,7 @@ class DrawerMenuItem extends StatelessWidget {
   final IconData leftIcon;
   final Widget rightIcon;
   final Function onTap;
-  final EdgeInsetsGeometry padding;
+  final int depthLevel;
   final List<DrawerMenuItem> subItems;
 
   const DrawerMenuItem(
@@ -17,38 +17,55 @@ class DrawerMenuItem extends StatelessWidget {
       this.rightIcon,
       @required this.onTap,
       this.subItems,
-      @required this.padding});
+      @required this.depthLevel});
 
   @override
   Widget build(BuildContext context) {
+    final double _paddingOffset = 25;
+
+    EdgeInsetsGeometry _calculatePaddingOffset() {
+      return EdgeInsets.only(left: depthLevel * _paddingOffset, right: 20);
+    }
+
     return (subItems != null)
-        ? (ExpansionTile(
-            tilePadding: padding,
-            title: Text(
-              text,
-              style: TextStyle(fontSize: 16, fontFamily: 'Raleway'),
-            ),
-            leading: Icon(
-              leftIcon,
-              color: ThemeManager.getDrawerMenuItemIconColor(context),
-            ),
-            trailing: rightIcon,
-            subtitle: subtitle != null ? Text(subtitle) : null,
-            children: [...subItems],
-          ))
-        : (ListTile(
-            contentPadding: padding,
-            title: Text(
-              text,
-              style: TextStyle(fontSize: 16, fontFamily: 'Raleway'),
-            ),
-            leading: Icon(
-              leftIcon,
-              color: ThemeManager.getDrawerMenuItemIconColor(context),
-            ),
-            trailing: rightIcon,
-            subtitle: subtitle != null ? Text(subtitle) : null,
-            onTap: () => onTap(),
-          ));
+        ? Theme(
+            data: ThemeManager.getThemeForDrawerMenu(context),
+            child: (ExpansionTile(
+              tilePadding: _calculatePaddingOffset(),
+              title: Text(
+                text,
+                style: TextStyle(
+                  fontSize: 16,
+                  fontFamily: 'Raleway',
+                ),
+              ),
+              leading: Icon(
+                leftIcon,
+              ),
+              trailing: rightIcon,
+              subtitle: subtitle != null ? Text(subtitle) : null,
+              children: [...subItems],
+            )),
+          )
+        : Theme(
+            data: ThemeManager.getThemeForDrawerMenu(context),
+            child: (ListTile(
+              contentPadding: _calculatePaddingOffset(),
+              title: Text(
+                text,
+                style: TextStyle(
+                  fontSize: 16,
+                  fontFamily: 'Raleway',
+                ),
+              ),
+              leading: Icon(
+                leftIcon,
+                color: ThemeManager.getDrawerMenuItemIconColor(context),
+              ),
+              trailing: rightIcon,
+              subtitle: subtitle != null ? Text(subtitle) : null,
+              onTap: () => onTap(),
+            )),
+          );
   }
 }

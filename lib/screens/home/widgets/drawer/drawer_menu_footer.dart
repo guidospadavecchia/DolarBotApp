@@ -20,7 +20,7 @@ class DrawerMenuFooter extends StatelessWidget {
             DrawerMenuItem(
               text: "Opciones",
               leftIcon: FontAwesomeIcons.cog,
-              padding: EdgeInsets.only(left: 25),
+              depthLevel: 1,
               onTap: null,
             ),
           ],

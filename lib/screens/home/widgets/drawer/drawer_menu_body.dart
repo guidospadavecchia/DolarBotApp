@@ -7,8 +7,6 @@ class DrawerMenuBody extends StatelessWidget {
     Key key,
   }) : super(key: key);
 
-  final double paddingOffset = 25;
-
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -23,60 +21,60 @@ class DrawerMenuBody extends StatelessWidget {
             DrawerMenuItem(
               text: "Dolar",
               leftIcon: FontAwesomeIcons.dollarSign,
-              padding: _calculatePaddingOffset(1),
+              depthLevel: 1,
               subItems: [
                 DrawerMenuItem(
                   text: "Oficial",
                   leftIcon: FontAwesomeIcons.accessibleIcon,
-                  padding: _calculatePaddingOffset(2),
+                  depthLevel: 2,
                   onTap: null,
                 ),
                 DrawerMenuItem(
                   text: "Blue",
                   leftIcon: FontAwesomeIcons.accessibleIcon,
-                  padding: _calculatePaddingOffset(2),
+                  depthLevel: 2,
                   onTap: null,
                 ),
                 DrawerMenuItem(
                   text: "Bancos",
-                  leftIcon: FontAwesomeIcons.piggyBank,
-                  padding: _calculatePaddingOffset(2),
+                  leftIcon: FontAwesomeIcons.accessibleIcon,
+                  depthLevel: 2,
                   onTap: null,
                   subItems: [
                     DrawerMenuItem(
                       text: "Supervielle",
                       leftIcon: FontAwesomeIcons.accessibleIcon,
-                      padding: _calculatePaddingOffset(3),
+                      depthLevel: 3,
                       onTap: null,
                     ),
                     DrawerMenuItem(
                       text: "Galicia",
                       leftIcon: FontAwesomeIcons.accessibleIcon,
-                      padding: _calculatePaddingOffset(3),
+                      depthLevel: 3,
                       onTap: null,
                     ),
                     DrawerMenuItem(
                       text: "Santander",
                       leftIcon: FontAwesomeIcons.accessibleIcon,
-                      padding: _calculatePaddingOffset(3),
+                      depthLevel: 3,
                       onTap: null,
                     ),
                     DrawerMenuItem(
                       text: "Santander",
                       leftIcon: FontAwesomeIcons.accessibleIcon,
-                      padding: _calculatePaddingOffset(3),
+                      depthLevel: 3,
                       onTap: null,
                     ),
                     DrawerMenuItem(
                       text: "Santander",
                       leftIcon: FontAwesomeIcons.accessibleIcon,
-                      padding: _calculatePaddingOffset(3),
+                      depthLevel: 3,
                       onTap: null,
                     ),
                     DrawerMenuItem(
                       text: "Santander",
                       leftIcon: FontAwesomeIcons.accessibleIcon,
-                      padding: _calculatePaddingOffset(3),
+                      depthLevel: 3,
                       onTap: null,
                     ),
                   ],
@@ -87,46 +85,42 @@ class DrawerMenuBody extends StatelessWidget {
             DrawerMenuItem(
               text: "Euro",
               leftIcon: FontAwesomeIcons.euroSign,
-              padding: _calculatePaddingOffset(1),
+              depthLevel: 1,
               onTap: null,
             ),
             DrawerMenuItem(
               text: "Real",
               leftIcon: FontAwesomeIcons.question,
-              padding: _calculatePaddingOffset(1),
+              depthLevel: 1,
               onTap: null,
             ),
             DrawerMenuItem(
               text: "Cripto",
               leftIcon: FontAwesomeIcons.ethereum,
-              padding: _calculatePaddingOffset(1),
+              depthLevel: 1,
               onTap: null,
             ),
             DrawerMenuItem(
               text: "Metales",
               leftIcon: FontAwesomeIcons.question,
-              padding: _calculatePaddingOffset(1),
+              depthLevel: 1,
               onTap: null,
             ),
             DrawerMenuItem(
               text: "Indicadores BCRA",
               leftIcon: FontAwesomeIcons.chartLine,
-              padding: _calculatePaddingOffset(1),
+              depthLevel: 1,
               onTap: null,
             ),
             DrawerMenuItem(
               text: "Venezuela",
               leftIcon: FontAwesomeIcons.question,
-              padding: _calculatePaddingOffset(1),
+              depthLevel: 1,
               onTap: null,
             ),
           ],
         ),
       ),
     );
-  }
-
-  EdgeInsetsGeometry _calculatePaddingOffset(int depthLevel) {
-    return EdgeInsets.only(left: depthLevel * paddingOffset, right: 20);
   }
 }

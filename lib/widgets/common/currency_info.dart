@@ -15,49 +15,55 @@ class CurrencyInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Text(title,
+    return Container(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Text(
+            title,
             style: TextStyle(
                 fontSize: 18,
+                fontFamily: 'Raleway',
                 color: ThemeManager.getSecondaryTextColor(context),
-                fontWeight: FontWeight.w400)),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(right: 7),
-              child: Text(
-                symbol,
+                fontWeight: FontWeight.normal),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(right: 7),
+                child: Text(
+                  symbol,
+                  style: TextStyle(
+                    fontSize: 32,
+                    color: ThemeManager.getPrimaryTextColor(context),
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+              Text(
+                value.split('.')[0],
                 style: TextStyle(
-                  fontSize: 32,
+                  fontSize: 92,
                   color: ThemeManager.getPrimaryTextColor(context),
                   fontWeight: FontWeight.w600,
                 ),
               ),
-            ),
-            Text(
-              value.split('.')[0],
-              style: TextStyle(
-                fontSize: 72,
-                color: ThemeManager.getPrimaryTextColor(context),
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 5, bottom: 28),
-              child: Text(
-                '.${value.split('.')[1]}',
-                style: TextStyle(
-                  fontSize: 28,
-                  color: ThemeManager.getSecondaryTextColor(context),
+              Padding(
+                padding: const EdgeInsets.only(left: 5, bottom: 38),
+                child: Text(
+                  '.${value.split('.')[1]}',
+                  style: TextStyle(
+                    fontSize: 32,
+                    color: ThemeManager.getSecondaryTextColor(context),
+                  ),
                 ),
               ),
-            ),
-          ],
-        ),
-      ],
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

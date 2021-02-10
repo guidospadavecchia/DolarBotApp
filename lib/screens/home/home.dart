@@ -17,6 +17,8 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        toolbarHeight: 70,
+        leadingWidth: 80,
         backgroundColor: Colors.transparent,
         centerTitle: true,
         title: Text(
@@ -32,13 +34,11 @@ class _HomeState extends State<Home> {
       drawer: Drawer(
         child: DrawerMenu(),
       ),
-      drawerEdgeDragWidth: 250,
+      drawerEdgeDragWidth: 200,
       drawerEnableOpenDragGesture: true,
       body: Container(
-        padding: EdgeInsets.only(top: 10),
-        color: Colors.transparent,
         alignment: Alignment.center,
-        height: MediaQuery.of(context).size.height * 0.7,
+        padding: EdgeInsets.only(bottom: 80),
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           physics: BouncingScrollPhysics(),
@@ -52,12 +52,7 @@ class _HomeState extends State<Home> {
               CurrencyInfo(
                 title: "VENTA",
                 symbol: '\$',
-                value: '90.33',
-              ),
-              CurrencyInfo(
-                title: "OTRA",
-                symbol: '\$',
-                value: '145.33',
+                value: '93.80',
               ),
             ],
           ),

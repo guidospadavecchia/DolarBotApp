@@ -36,6 +36,19 @@ class ThemeManager {
         : Colors.green[700];
   }
 
+  static ThemeData getThemeForDrawerMenu(BuildContext context) {
+    return Theme.of(context).copyWith(
+      unselectedWidgetColor: ThemeManager.getDrawerMenuItemIconColor(context),
+      textTheme: TextTheme(
+        bodyText1: TextStyle(
+          color: ThemeManager.getSecondaryTextColor(context),
+          fontWeight: FontWeight.w600,
+        ),
+      ),
+      dividerColor: Colors.transparent,
+    );
+  }
+
   static ThemeData getLightThemeData() {
     return ThemeData(
         brightness: Brightness.light,

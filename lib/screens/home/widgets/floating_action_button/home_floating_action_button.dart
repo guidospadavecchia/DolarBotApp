@@ -12,12 +12,13 @@ class HomeFloatingActionButton extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
       child: Container(
-        decoration: BoxDecoration(
-            border: Border.all(
-              color: ThemeManager.getGlobalBackgroundColor(context),
-              width: 5,
-            ),
-            shape: BoxShape.circle),
+        padding: EdgeInsets.only(right: 10),
+        // decoration: BoxDecoration(
+        //     border: Border.all(
+        //       color: ThemeManager.getGlobalBackgroundColor(context),
+        //       width: 5,
+        //     ),
+        //     shape: BoxShape.circle),
         child: FloatingActionButton(
           onPressed: () {
             AdaptiveTheme.of(context).toggleThemeMode();
@@ -33,6 +34,6 @@ class HomeFloatingActionButton extends StatelessWidget {
   }
 
   static FloatingActionButtonLocation getLocation() {
-    return FloatingActionButtonLocation.centerFloat;
+    return FloatingActionButtonLocation.endFloat;
   }
 }
