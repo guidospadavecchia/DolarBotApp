@@ -21,7 +21,7 @@ class _HomeState extends State<Home> {
   void initState() {
     super.initState();
 
-    API.getDolar().then((response) {
+    API.getMonedaGenerica().then((response) {
       monedaGenerica = response;
     });
   }
