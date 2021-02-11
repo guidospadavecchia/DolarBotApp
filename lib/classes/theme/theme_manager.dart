@@ -2,8 +2,14 @@ import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 
 class ThemeManager {
+  static Color primaryColor = Color.fromRGBO(50, 177, 40, 1);
+
   static AdaptiveThemeMode getDefaultTheme() {
     return AdaptiveThemeMode.system;
+  }
+
+  static Color getPrimaryColor() {
+    return primaryColor;
   }
 
   static Color getPrimaryTextColor(BuildContext context) {
@@ -33,7 +39,7 @@ class ThemeManager {
   static Color getFloatingActionButtonColor(BuildContext context) {
     return AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
         ? Colors.green[500]
-        : Colors.green[700];
+        : primaryColor;
   }
 
   static ThemeData getThemeForDrawerMenu(BuildContext context) {
@@ -51,8 +57,9 @@ class ThemeManager {
 
   static ThemeData getLightThemeData() {
     return ThemeData(
-        brightness: Brightness.light,
+        primaryColor: getPrimaryColor(),
         accentColor: Colors.green[500],
+        brightness: Brightness.light,
         fontFamily: 'Montserrat',
         appBarTheme: AppBarTheme(
           iconTheme: IconThemeData(
@@ -79,8 +86,9 @@ class ThemeManager {
 
   static ThemeData getDarkThemeData() {
     return ThemeData(
-        brightness: Brightness.dark,
+        primaryColor: getPrimaryColor(),
         accentColor: Colors.green[500],
+        brightness: Brightness.dark,
         fontFamily: 'Montserrat',
         appBarTheme: AppBarTheme(
           iconTheme: IconThemeData(

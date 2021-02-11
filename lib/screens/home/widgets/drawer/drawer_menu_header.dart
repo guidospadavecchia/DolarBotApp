@@ -1,3 +1,4 @@
+import 'package:dolarbot_app/classes/theme/theme_manager.dart';
 import 'package:flutter/material.dart';
 
 class DrawerMenuHeader extends StatelessWidget {
@@ -46,7 +47,7 @@ class DrawerMenuHeader extends StatelessWidget {
                       fontSize: 24,
                       fontWeight: FontWeight.w600,
                       fontFamily: 'Raleway',
-                      color: Color.fromRGBO(50, 177, 40, 1),
+                      color: ThemeManager.getPrimaryColor(),
                       letterSpacing: 0.5),
                 ),
               ],
