@@ -30,7 +30,7 @@ dependencies:
   loading_indicator: ^1.2.0
   http: ^0.12.2
   show_up_animation: ^1.0.2
-
+  crypto_font_icons: ^0.1.0
 
 
   # The following adds the Cupertino Icons font to your application.

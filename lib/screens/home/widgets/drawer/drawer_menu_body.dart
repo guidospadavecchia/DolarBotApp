@@ -1,3 +1,4 @@
+import 'package:crypto_font_icons/crypto_font_icons.dart';
 import 'package:dolarbot_app/api/api.dart';
 import 'package:dolarbot_app/api/responses/base/apiResponse.dart';
 import 'package:dolarbot_app/screens/crypto_info/crypto_info_screen.dart';
@@ -45,7 +46,7 @@ class DrawerMenuBody extends StatelessWidget {
                 ),
                 DrawerMenuItem(
                   text: "Blue",
-                  leftIcon: FontAwesomeIcons.solidCheckSquare,
+                  leftIcon: FontAwesomeIcons.commentDollar,
                   depthLevel: 2,
                   onTap: () => {
                     navigateTo(
@@ -59,7 +60,7 @@ class DrawerMenuBody extends StatelessWidget {
                 ),
                 DrawerMenuItem(
                   text: "Bolsa (MEP)",
-                  leftIcon: FontAwesomeIcons.shoppingBag,
+                  leftIcon: FontAwesomeIcons.poll,
                   depthLevel: 2,
                   onTap: () => {
                     navigateTo(
@@ -73,7 +74,7 @@ class DrawerMenuBody extends StatelessWidget {
                 ),
                 DrawerMenuItem(
                   text: "Contado con Liqui",
-                  leftIcon: FontAwesomeIcons.moneyBillWave,
+                  leftIcon: FontAwesomeIcons.coins,
                   depthLevel: 2,
                   onTap: () => {
                     navigateTo(
@@ -101,7 +102,7 @@ class DrawerMenuBody extends StatelessWidget {
                 ),
                 DrawerMenuItem(
                   text: "Bancos",
-                  leftIcon: FontAwesomeIcons.piggyBank,
+                  leftIcon: FontAwesomeIcons.landmark,
                   depthLevel: 2,
                   onTap: null,
                   subItems: [
@@ -442,12 +443,12 @@ class DrawerMenuBody extends StatelessWidget {
             ),
             DrawerMenuItem(
               text: "Crypto",
-              leftIcon: FontAwesomeIcons.ethereum,
+              leftIcon: CryptoFontIcons.TRIG,
               depthLevel: 1,
               subItems: [
                 DrawerMenuItem(
                   text: "Bitcoin",
-                  leftIcon: null,
+                  leftIcon: CryptoFontIcons.BTC,
                   depthLevel: 2,
                   onTap: () => {
                     navigateTo(
@@ -459,7 +460,7 @@ class DrawerMenuBody extends StatelessWidget {
                 ),
                 DrawerMenuItem(
                   text: "Bitcoin Cash",
-                  leftIcon: null,
+                  leftIcon: CryptoFontIcons.BTC_ALT,
                   depthLevel: 2,
                   onTap: () => {
                     navigateTo(
@@ -472,7 +473,7 @@ class DrawerMenuBody extends StatelessWidget {
                 ),
                 DrawerMenuItem(
                   text: "DASH",
-                  leftIcon: null,
+                  leftIcon: CryptoFontIcons.DASH,
                   depthLevel: 2,
                   onTap: () => {
                     navigateTo(
@@ -484,7 +485,7 @@ class DrawerMenuBody extends StatelessWidget {
                 ),
                 DrawerMenuItem(
                   text: "Ethereum",
-                  leftIcon: null,
+                  leftIcon: FontAwesomeIcons.ethereum,
                   depthLevel: 2,
                   onTap: () => {
                     navigateTo(
@@ -497,7 +498,7 @@ class DrawerMenuBody extends StatelessWidget {
                 ),
                 DrawerMenuItem(
                   text: "Litecoin",
-                  leftIcon: null,
+                  leftIcon: CryptoFontIcons.LTC,
                   depthLevel: 2,
                   onTap: () => {
                     navigateTo(
@@ -510,7 +511,7 @@ class DrawerMenuBody extends StatelessWidget {
                 ),
                 DrawerMenuItem(
                   text: "Monero",
-                  leftIcon: null,
+                  leftIcon: CryptoFontIcons.XMR,
                   depthLevel: 2,
                   onTap: () => {
                     navigateTo(
@@ -522,7 +523,7 @@ class DrawerMenuBody extends StatelessWidget {
                 ),
                 DrawerMenuItem(
                   text: "Ripple",
-                  leftIcon: null,
+                  leftIcon: CryptoFontIcons.XRP,
                   depthLevel: 2,
                   onTap: () => {
                     navigateTo(
@@ -537,7 +538,7 @@ class DrawerMenuBody extends StatelessWidget {
             ),
             DrawerMenuItem(
               text: "Metales",
-              leftIcon: FontAwesomeIcons.adjust,
+              leftIcon: FontAwesomeIcons.sketch,
               depthLevel: 1,
               subItems: [
                 DrawerMenuItem(
