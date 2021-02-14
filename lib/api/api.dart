@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:async';
 
 import 'package:dolarbot_app/api/responses/base/apiResponse.dart';
+import 'package:dolarbot_app/api/responses/metalResponse.dart';
 import 'package:http/http.dart' as http;
 import 'package:dolarbot_app/api/api_endpoints.dart';
 
@@ -16,7 +17,8 @@ class API {
     Map<String, String> requestHeaders = {
       'Content-type': 'application/json',
       'Accept': 'application/json',
-      'DOLARBOT_APIKEY': ''
+      'DOLARBOT_APIKEY':
+          '9e198dd7889af4c18b69d7c6c3400324e281c75b7af9d2514c5826041c261131'
     };
 
     await http
@@ -46,6 +48,13 @@ class API {
     return _fetch(
       endpoint.value,
       (json) => new RealResponse(json),
+    );
+  }
+
+  static Future<MetalResponse> getMetalRate(MetalEndpoints endpoint) async {
+    return _fetch(
+      endpoint.value,
+      (json) => new MetalResponse(json),
     );
   }
 

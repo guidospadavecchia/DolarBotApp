@@ -29,6 +29,7 @@ dependencies:
   flutter_slider_drawer: ^1.2.1
   loading_indicator: ^1.2.0
   http: ^0.12.2
+  show_up_animation: ^1.0.2
 
 
 

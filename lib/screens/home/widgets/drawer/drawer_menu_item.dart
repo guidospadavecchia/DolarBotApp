@@ -21,7 +21,7 @@ class DrawerMenuItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double _paddingOffset = 25;
+    final double _paddingOffset = leftIcon == null ? 22 : 25;
 
     EdgeInsetsGeometry _calculatePaddingOffset() {
       return EdgeInsets.only(left: depthLevel * _paddingOffset, right: 20);

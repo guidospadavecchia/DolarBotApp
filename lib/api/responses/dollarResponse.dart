@@ -1,16 +1,5 @@
-import 'package:dolarbot_app/api/responses/base/apiResponse.dart';
+import 'package:dolarbot_app/api/responses/base/genericCurrencyResponse.dart';
 
-class DollarResponse extends ApiResponse {
-  String timestamp;
-  String buyPrice;
-  String sellPrice;
-
+class DollarResponse extends GenericCurrencyResponse {
   DollarResponse(Map json) : super(json);
-
-  @override
-  void map(Map json) {
-    timestamp = json["fecha"];
-    buyPrice = json["compra"];
-    sellPrice = json["venta"];
-  }
 }

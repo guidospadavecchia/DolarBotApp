@@ -1,6 +1,10 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
+import 'package:dolarbot_app/api/api.dart';
+import 'package:dolarbot_app/api/responses/base/apiResponse.dart';
 import 'package:dolarbot_app/classes/theme/theme_manager.dart';
-import 'package:dolarbot_app/screens/home/home.dart';
+import 'package:dolarbot_app/screens/currency_info/currency_info_screen.dart';
+import 'package:dolarbot_app/screens/home/home_screen.dart';
+import 'package:dolarbot_app/screens/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() async {
@@ -21,12 +25,11 @@ class DolarBotApp extends StatelessWidget {
       dark: ThemeManager.getDarkThemeData(),
       initial: savedThemeMode ?? ThemeManager.getDefaultTheme(),
       builder: (theme, darkTheme) => MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'DolarBot',
-        theme: theme,
-        darkTheme: darkTheme,
-        home: Home(),
-      ),
+          debugShowCheckedModeBanner: false,
+          title: 'DolarBot',
+          theme: theme,
+          darkTheme: darkTheme,
+          home: SplashScreen()),
     );
   }
 }
