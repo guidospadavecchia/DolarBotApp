@@ -17,8 +17,7 @@ class API {
     Map<String, String> requestHeaders = {
       'Content-type': 'application/json',
       'Accept': 'application/json',
-      'DOLARBOT_APIKEY':
-          '9e198dd7889af4c18b69d7c6c3400324e281c75b7af9d2514c5826041c261131'
+      'DOLARBOT_APIKEY': ''
     };
 
     await http
