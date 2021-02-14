@@ -1,15 +1,14 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
-import 'package:dolarbot_app/api/api.dart';
-import 'package:dolarbot_app/api/responses/base/apiResponse.dart';
+import 'package:global_configuration/global_configuration.dart';
 import 'package:dolarbot_app/classes/theme/theme_manager.dart';
-import 'package:dolarbot_app/screens/currency_info/currency_info_screen.dart';
-import 'package:dolarbot_app/screens/home/home_screen.dart';
 import 'package:dolarbot_app/screens/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final savedThemeMode = await AdaptiveTheme.getThemeMode();
+  await GlobalConfiguration().loadFromAsset("app_settings");
+
   runApp(DolarBotApp(savedThemeMode: savedThemeMode));
 }
 

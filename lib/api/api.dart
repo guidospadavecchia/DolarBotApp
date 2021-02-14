@@ -1,15 +1,17 @@
 import 'dart:convert';
 import 'dart:async';
 
+import 'package:http/http.dart' as http;
 import 'package:dolarbot_app/api/responses/base/apiResponse.dart';
 import 'package:dolarbot_app/api/responses/metalResponse.dart';
-import 'package:http/http.dart' as http;
+import 'package:global_configuration/global_configuration.dart';
 import 'package:dolarbot_app/api/api_endpoints.dart';
 
 export 'package:dolarbot_app/api/api_endpoints.dart';
 
 class API {
-  static var urlBase = 'https://dolarbot-api.herokuapp.com';
+  static var cfg = GlobalConfiguration();
+  static var urlBase = cfg.get("apiBaseUrl");
 
   static Future<T> _fetch<T extends ApiResponse>(
       String endpoint, T Function(Map json) creator) async {
@@ -17,7 +19,7 @@ class API {
     Map<String, String> requestHeaders = {
       'Content-type': 'application/json',
       'Accept': 'application/json',
-      'DOLARBOT_APIKEY': ''
+      'DOLARBOT_APIKEY': cfg.get("apiKey"),
     };
 
     await http
