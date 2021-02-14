@@ -1,10 +1,10 @@
-import 'package:dolarbot_app/classes/theme/theme_manager.dart';
+import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:flutter/material.dart';
 
 class DrawerMenuItem extends StatelessWidget {
   final String text;
   final String subtitle;
-  final IconData leftIcon;
+  final Widget leftIcon;
   final Widget rightIcon;
   final Function onTap;
   final int depthLevel;
@@ -39,9 +39,7 @@ class DrawerMenuItem extends StatelessWidget {
                   fontFamily: 'Raleway',
                 ),
               ),
-              leading: Icon(
-                leftIcon,
-              ),
+              leading: leftIcon,
               trailing: rightIcon,
               subtitle: subtitle != null ? Text(subtitle) : null,
               children: [...subItems],
@@ -58,10 +56,7 @@ class DrawerMenuItem extends StatelessWidget {
                   fontFamily: 'Raleway',
                 ),
               ),
-              leading: Icon(
-                leftIcon,
-                color: ThemeManager.getDrawerMenuItemIconColor(context),
-              ),
+              leading: leftIcon,
               trailing: rightIcon,
               subtitle: subtitle != null ? Text(subtitle) : null,
               onTap: () => onTap(),

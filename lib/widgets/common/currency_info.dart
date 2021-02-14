@@ -1,4 +1,4 @@
-import 'package:dolarbot_app/classes/theme/theme_manager.dart';
+import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -39,7 +39,7 @@ class CurrencyInfo extends StatelessWidget {
   }
 
   Padding _getCurrencyValue(BuildContext context) {
-    final currencyFormat = new NumberFormat("#,###,###", "en_US");
+    final currencyFormat = new NumberFormat("#,###,###", "es_AR");
 
     return Padding(
       padding: const EdgeInsets.only(left: 30, right: 30),
@@ -71,7 +71,7 @@ class CurrencyInfo extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 5, bottom: 38),
               child: Text(
-                '.${value.split('.')[1]}',
+                ',${value.split('.')[1]}',
                 style: TextStyle(
                   fontSize: 32,
                   color: ThemeManager.getSecondaryTextColor(context),

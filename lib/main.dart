@@ -1,6 +1,6 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
+import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:global_configuration/global_configuration.dart';
-import 'package:dolarbot_app/classes/theme/theme_manager.dart';
 import 'package:dolarbot_app/screens/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 

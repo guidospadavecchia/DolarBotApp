@@ -1,4 +1,4 @@
-import 'package:dolarbot_app/classes/theme/theme_manager.dart';
+import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:dolarbot_app/screens/home/widgets/drawer/drawer_menu.dart';
 import 'package:dolarbot_app/screens/home/widgets/floating_action_button/home_floating_action_button.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        excludeHeaderSemantics: true,
         toolbarHeight: 70,
         leadingWidth: 80,
         backgroundColor: Colors.transparent,

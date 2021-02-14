@@ -19,7 +19,7 @@ class DrawerMenuFooter extends StatelessWidget {
             Divider(),
             DrawerMenuItem(
               text: "Opciones",
-              leftIcon: FontAwesomeIcons.cog,
+              leftIcon: Icon(FontAwesomeIcons.cog),
               depthLevel: 1,
               onTap: null,
             ),

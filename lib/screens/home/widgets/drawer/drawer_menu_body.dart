@@ -1,6 +1,8 @@
 import 'package:crypto_font_icons/crypto_font_icons.dart';
 import 'package:dolarbot_app/api/api.dart';
 import 'package:dolarbot_app/api/responses/base/apiResponse.dart';
+import 'package:dolarbot_app/classes/dolarbot_icons.dart';
+import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:dolarbot_app/screens/crypto_info/crypto_info_screen.dart';
 import 'package:dolarbot_app/screens/currency_info/currency_info_screen.dart';
 import 'package:dolarbot_app/screens/home/home_screen.dart';
@@ -27,15 +29,16 @@ class DrawerMenuBody extends StatelessWidget {
           children: [
             DrawerMenuItem(
               text: "Dólar",
-              leftIcon: FontAwesomeIcons.dollarSign,
+              leftIcon: _getIconData(context, FontAwesomeIcons.dollarSign),
               depthLevel: 1,
               subItems: [
                 DrawerMenuItem(
                   text: "Oficial",
-                  leftIcon: FontAwesomeIcons.solidCheckCircle,
+                  leftIcon:
+                      _getIconData(context, FontAwesomeIcons.solidCheckCircle),
                   depthLevel: 2,
                   onTap: () => {
-                    navigateTo(
+                    _navigateTo(
                       context,
                       'Dólar Oficial',
                       CurrencyInfoScreen<DollarResponse>(
@@ -46,10 +49,11 @@ class DrawerMenuBody extends StatelessWidget {
                 ),
                 DrawerMenuItem(
                   text: "Blue",
-                  leftIcon: FontAwesomeIcons.commentDollar,
+                  leftIcon:
+                      _getIconData(context, FontAwesomeIcons.commentDollar),
                   depthLevel: 2,
                   onTap: () => {
-                    navigateTo(
+                    _navigateTo(
                       context,
                       'Dólar Blue',
                       CurrencyInfoScreen<DollarResponse>(
@@ -60,10 +64,10 @@ class DrawerMenuBody extends StatelessWidget {
                 ),
                 DrawerMenuItem(
                   text: "Bolsa (MEP)",
-                  leftIcon: FontAwesomeIcons.poll,
+                  leftIcon: _getIconData(context, FontAwesomeIcons.poll),
                   depthLevel: 2,
                   onTap: () => {
-                    navigateTo(
+                    _navigateTo(
                       context,
                       'Dólar Bolsa (MEP)',
                       CurrencyInfoScreen<DollarResponse>(
@@ -74,12 +78,12 @@ class DrawerMenuBody extends StatelessWidget {
                 ),
                 DrawerMenuItem(
                   text: "Contado con Liqui",
-                  leftIcon: FontAwesomeIcons.coins,
+                  leftIcon: _getIconData(context, FontAwesomeIcons.coins),
                   depthLevel: 2,
                   onTap: () => {
-                    navigateTo(
+                    _navigateTo(
                       context,
-                      'Dólar Contado con Liquidación',
+                      'Dólar Contado con Liqui',
                       CurrencyInfoScreen<DollarResponse>(
                         dollarEndpoint: DollarEndpoints.contadoLiqui,
                       ),
@@ -88,10 +92,10 @@ class DrawerMenuBody extends StatelessWidget {
                 ),
                 DrawerMenuItem(
                   text: "Promedio",
-                  leftIcon: FontAwesomeIcons.percentage,
+                  leftIcon: _getIconData(context, FontAwesomeIcons.percentage),
                   depthLevel: 2,
                   onTap: () => {
-                    navigateTo(
+                    _navigateTo(
                       context,
                       'Dólar Promedio',
                       CurrencyInfoScreen<DollarResponse>(
@@ -102,16 +106,17 @@ class DrawerMenuBody extends StatelessWidget {
                 ),
                 DrawerMenuItem(
                   text: "Bancos",
-                  leftIcon: FontAwesomeIcons.landmark,
+                  leftIcon: _getIconData(context, FontAwesomeIcons.landmark),
                   depthLevel: 2,
                   onTap: null,
                   subItems: [
                     DrawerMenuItem(
                       text: "BBVA",
-                      leftIcon: null,
+                      leftIcon:
+                          _getIconAsset(context, DolarBotIcons.banks.bbva),
                       depthLevel: 3,
                       onTap: () => {
-                        navigateTo(
+                        _navigateTo(
                           context,
                           'Dólar - BBVA',
                           CurrencyInfoScreen<DollarResponse>(
@@ -122,10 +127,11 @@ class DrawerMenuBody extends StatelessWidget {
                     ),
                     DrawerMenuItem(
                       text: "Chaco",
-                      leftIcon: null,
+                      leftIcon: _getIconAsset(
+                          context, "assets/images/bancos/chaco.png"),
                       depthLevel: 3,
                       onTap: () => {
-                        navigateTo(
+                        _navigateTo(
                           context,
                           'Dólar - Banco del Chaco',
                           CurrencyInfoScreen<DollarResponse>(
@@ -136,10 +142,11 @@ class DrawerMenuBody extends StatelessWidget {
                     ),
                     DrawerMenuItem(
                       text: "Ciudad",
-                      leftIcon: null,
+                      leftIcon: _getIconAsset(
+                          context, "assets/images/bancos/ciudad.png"),
                       depthLevel: 3,
                       onTap: () => {
-                        navigateTo(
+                        _navigateTo(
                           context,
                           'Dólar - Banco Ciudad',
                           CurrencyInfoScreen<DollarResponse>(
@@ -150,10 +157,11 @@ class DrawerMenuBody extends StatelessWidget {
                     ),
                     DrawerMenuItem(
                       text: "Comafi",
-                      leftIcon: null,
+                      leftIcon: _getIconAsset(
+                          context, "assets/images/bancos/comafi.png"),
                       depthLevel: 3,
                       onTap: () => {
-                        navigateTo(
+                        _navigateTo(
                           context,
                           'Dólar - Banco Comafi',
                           CurrencyInfoScreen<DollarResponse>(
@@ -164,10 +172,11 @@ class DrawerMenuBody extends StatelessWidget {
                     ),
                     DrawerMenuItem(
                       text: "Córdoba",
-                      leftIcon: null,
+                      leftIcon: _getIconAsset(
+                          context, "assets/images/bancos/cordoba.png"),
                       depthLevel: 3,
                       onTap: () => {
-                        navigateTo(
+                        _navigateTo(
                           context,
                           'Dólar - Banco de Córdoba',
                           CurrencyInfoScreen<DollarResponse>(
@@ -178,10 +187,11 @@ class DrawerMenuBody extends StatelessWidget {
                     ),
                     DrawerMenuItem(
                       text: "Galicia",
-                      leftIcon: null,
+                      leftIcon: _getIconAsset(
+                          context, "assets/images/bancos/galicia.png"),
                       depthLevel: 3,
                       onTap: () => {
-                        navigateTo(
+                        _navigateTo(
                           context,
                           'Dólar - Banco Galicia',
                           CurrencyInfoScreen<DollarResponse>(
@@ -192,10 +202,11 @@ class DrawerMenuBody extends StatelessWidget {
                     ),
                     DrawerMenuItem(
                       text: "Hipotecario",
-                      leftIcon: null,
+                      leftIcon: _getIconAsset(
+                          context, "assets/images/bancos/hipotecario.png"),
                       depthLevel: 3,
                       onTap: () => {
-                        navigateTo(
+                        _navigateTo(
                           context,
                           'Dólar - Banco Hipotecario',
                           CurrencyInfoScreen<DollarResponse>(
@@ -206,10 +217,11 @@ class DrawerMenuBody extends StatelessWidget {
                     ),
                     DrawerMenuItem(
                       text: "Industrial",
-                      leftIcon: null,
+                      leftIcon: _getIconAsset(
+                          context, "assets/images/bancos/industrial.png"),
                       depthLevel: 3,
                       onTap: () => {
-                        navigateTo(
+                        _navigateTo(
                           context,
                           'Dólar - Banco Industrial',
                           CurrencyInfoScreen<DollarResponse>(
@@ -220,10 +232,11 @@ class DrawerMenuBody extends StatelessWidget {
                     ),
                     DrawerMenuItem(
                       text: "La Pampa",
-                      leftIcon: null,
+                      leftIcon: _getIconAsset(
+                          context, "assets/images/bancos/lapampa.png"),
                       depthLevel: 3,
                       onTap: () => {
-                        navigateTo(
+                        _navigateTo(
                           context,
                           'Dólar - Banco de La Pampa',
                           CurrencyInfoScreen<DollarResponse>(
@@ -234,10 +247,11 @@ class DrawerMenuBody extends StatelessWidget {
                     ),
                     DrawerMenuItem(
                       text: "Nación",
-                      leftIcon: null,
+                      leftIcon: _getIconAsset(
+                          context, "assets/images/bancos/nacion.png"),
                       depthLevel: 3,
                       onTap: () => {
-                        navigateTo(
+                        _navigateTo(
                           context,
                           'Dólar - Banco Nación',
                           CurrencyInfoScreen<DollarResponse>(
@@ -248,10 +262,11 @@ class DrawerMenuBody extends StatelessWidget {
                     ),
                     DrawerMenuItem(
                       text: "Patagonia",
-                      leftIcon: null,
+                      leftIcon: _getIconAsset(
+                          context, "assets/images/bancos/patagonia.png"),
                       depthLevel: 3,
                       onTap: () => {
-                        navigateTo(
+                        _navigateTo(
                           context,
                           'Dólar - Banco Patagonia',
                           CurrencyInfoScreen<DollarResponse>(
@@ -262,10 +277,11 @@ class DrawerMenuBody extends StatelessWidget {
                     ),
                     DrawerMenuItem(
                       text: "Piano",
-                      leftIcon: null,
+                      leftIcon: _getIconAsset(
+                          context, "assets/images/bancos/piano.png"),
                       depthLevel: 3,
                       onTap: () => {
-                        navigateTo(
+                        _navigateTo(
                           context,
                           'Dólar - Banco Piano',
                           CurrencyInfoScreen<DollarResponse>(
@@ -276,10 +292,11 @@ class DrawerMenuBody extends StatelessWidget {
                     ),
                     DrawerMenuItem(
                       text: "Santander",
-                      leftIcon: null,
+                      leftIcon: _getIconAsset(
+                          context, "assets/images/bancos/santander.png"),
                       depthLevel: 3,
                       onTap: () => {
-                        navigateTo(
+                        _navigateTo(
                           context,
                           'Dólar - Banco Santander',
                           CurrencyInfoScreen<DollarResponse>(
@@ -290,10 +307,11 @@ class DrawerMenuBody extends StatelessWidget {
                     ),
                     DrawerMenuItem(
                       text: "Supervielle",
-                      leftIcon: null,
+                      leftIcon: _getIconAsset(
+                          context, "assets/images/bancos/supervielle.png"),
                       depthLevel: 3,
                       onTap: () => {
-                        navigateTo(
+                        _navigateTo(
                           context,
                           'Dólar - Banco Supervielle',
                           CurrencyInfoScreen<DollarResponse>(
@@ -309,16 +327,17 @@ class DrawerMenuBody extends StatelessWidget {
             ),
             DrawerMenuItem(
               text: "Euro",
-              leftIcon: FontAwesomeIcons.euroSign,
+              leftIcon: _getIconData(context, FontAwesomeIcons.euroSign),
               depthLevel: 1,
               onTap: null,
               subItems: [
                 DrawerMenuItem(
                   text: "BBVA",
-                  leftIcon: null,
+                  leftIcon:
+                      _getIconAsset(context, "assets/images/bancos/bbva.png"),
                   depthLevel: 2,
                   onTap: () => {
-                    navigateTo(
+                    _navigateTo(
                       context,
                       'Euro - Banco BBVA',
                       CurrencyInfoScreen<EuroResponse>(
@@ -328,10 +347,11 @@ class DrawerMenuBody extends StatelessWidget {
                 ),
                 DrawerMenuItem(
                   text: "Chaco",
-                  leftIcon: null,
+                  leftIcon:
+                      _getIconAsset(context, "assets/images/bancos/chaco.png"),
                   depthLevel: 2,
                   onTap: () => {
-                    navigateTo(
+                    _navigateTo(
                       context,
                       'Euro - Nuevo Banco del Chaco',
                       CurrencyInfoScreen<EuroResponse>(
@@ -341,10 +361,11 @@ class DrawerMenuBody extends StatelessWidget {
                 ),
                 DrawerMenuItem(
                   text: "Galicia",
-                  leftIcon: null,
+                  leftIcon: _getIconAsset(
+                      context, "assets/images/bancos/galicia.png"),
                   depthLevel: 2,
                   onTap: () => {
-                    navigateTo(
+                    _navigateTo(
                       context,
                       'Euro - Banco Galicia',
                       CurrencyInfoScreen<EuroResponse>(
@@ -354,10 +375,11 @@ class DrawerMenuBody extends StatelessWidget {
                 ),
                 DrawerMenuItem(
                   text: "Hipotecario",
-                  leftIcon: null,
+                  leftIcon: _getIconAsset(
+                      context, "assets/images/bancos/hipotecario.png"),
                   depthLevel: 2,
                   onTap: () => {
-                    navigateTo(
+                    _navigateTo(
                       context,
                       'Euro - Banco Hipotecario',
                       CurrencyInfoScreen<EuroResponse>(
@@ -367,10 +389,11 @@ class DrawerMenuBody extends StatelessWidget {
                 ),
                 DrawerMenuItem(
                   text: "La Pampa",
-                  leftIcon: null,
+                  leftIcon: _getIconAsset(
+                      context, "assets/images/bancos/lapampa.png"),
                   depthLevel: 2,
                   onTap: () => {
-                    navigateTo(
+                    _navigateTo(
                       context,
                       'Euro - Banco de La Pampa',
                       CurrencyInfoScreen<EuroResponse>(
@@ -380,10 +403,11 @@ class DrawerMenuBody extends StatelessWidget {
                 ),
                 DrawerMenuItem(
                   text: "Nación",
-                  leftIcon: null,
+                  leftIcon:
+                      _getIconAsset(context, "assets/images/bancos/nacion.png"),
                   depthLevel: 2,
                   onTap: () => {
-                    navigateTo(
+                    _navigateTo(
                       context,
                       'Euro - Banco Nación',
                       CurrencyInfoScreen<EuroResponse>(
@@ -395,15 +419,16 @@ class DrawerMenuBody extends StatelessWidget {
             ),
             DrawerMenuItem(
               text: "Real",
-              leftIcon: FontAwesomeIcons.solidMoneyBillAlt,
+              leftIcon: _getIconAsset(context, "assets/images/otros/real.png"),
               depthLevel: 1,
               subItems: [
                 DrawerMenuItem(
                   text: "BBVA",
-                  leftIcon: null,
+                  leftIcon:
+                      _getIconAsset(context, "assets/images/bancos/bbva.png"),
                   depthLevel: 2,
                   onTap: () => {
-                    navigateTo(
+                    _navigateTo(
                       context,
                       'Real - Banco BBVA',
                       CurrencyInfoScreen<RealResponse>(
@@ -414,10 +439,11 @@ class DrawerMenuBody extends StatelessWidget {
                 ),
                 DrawerMenuItem(
                   text: "Chaco",
-                  leftIcon: null,
+                  leftIcon:
+                      _getIconAsset(context, "assets/images/bancos/chaco.png"),
                   depthLevel: 2,
                   onTap: () => {
-                    navigateTo(
+                    _navigateTo(
                       context,
                       'Real - Banco Chaco',
                       CurrencyInfoScreen<RealResponse>(
@@ -427,10 +453,11 @@ class DrawerMenuBody extends StatelessWidget {
                 ),
                 DrawerMenuItem(
                   text: "Nación",
-                  leftIcon: null,
+                  leftIcon:
+                      _getIconAsset(context, "assets/images/bancos/nacion.png"),
                   depthLevel: 2,
                   onTap: () => {
-                    navigateTo(
+                    _navigateTo(
                       context,
                       'Real - Banco Nación',
                       CurrencyInfoScreen<RealResponse>(
@@ -443,15 +470,15 @@ class DrawerMenuBody extends StatelessWidget {
             ),
             DrawerMenuItem(
               text: "Crypto",
-              leftIcon: CryptoFontIcons.TRIG,
+              leftIcon: _getIconData(context, CryptoFontIcons.TRIG),
               depthLevel: 1,
               subItems: [
                 DrawerMenuItem(
                   text: "Bitcoin",
-                  leftIcon: CryptoFontIcons.BTC,
+                  leftIcon: _getIconData(context, CryptoFontIcons.BTC),
                   depthLevel: 2,
                   onTap: () => {
-                    navigateTo(
+                    _navigateTo(
                       context,
                       'Bitcoin (BTC)',
                       CryptoInfoScreen(cryptoEndpoint: CryptoEndpoints.bitcoin),
@@ -460,10 +487,10 @@ class DrawerMenuBody extends StatelessWidget {
                 ),
                 DrawerMenuItem(
                   text: "Bitcoin Cash",
-                  leftIcon: CryptoFontIcons.BTC_ALT,
+                  leftIcon: _getIconData(context, CryptoFontIcons.BTC_ALT),
                   depthLevel: 2,
                   onTap: () => {
-                    navigateTo(
+                    _navigateTo(
                       context,
                       'Bitcoin Cash (BCH)',
                       CryptoInfoScreen(
@@ -473,10 +500,10 @@ class DrawerMenuBody extends StatelessWidget {
                 ),
                 DrawerMenuItem(
                   text: "DASH",
-                  leftIcon: CryptoFontIcons.DASH,
+                  leftIcon: _getIconData(context, CryptoFontIcons.DASH),
                   depthLevel: 2,
                   onTap: () => {
-                    navigateTo(
+                    _navigateTo(
                       context,
                       'DASH',
                       CryptoInfoScreen(cryptoEndpoint: CryptoEndpoints.dash),
@@ -485,10 +512,10 @@ class DrawerMenuBody extends StatelessWidget {
                 ),
                 DrawerMenuItem(
                   text: "Ethereum",
-                  leftIcon: FontAwesomeIcons.ethereum,
+                  leftIcon: _getIconData(context, FontAwesomeIcons.ethereum),
                   depthLevel: 2,
                   onTap: () => {
-                    navigateTo(
+                    _navigateTo(
                       context,
                       'Ethereum (ETH)',
                       CryptoInfoScreen(
@@ -498,10 +525,10 @@ class DrawerMenuBody extends StatelessWidget {
                 ),
                 DrawerMenuItem(
                   text: "Litecoin",
-                  leftIcon: CryptoFontIcons.LTC,
+                  leftIcon: _getIconData(context, CryptoFontIcons.LTC),
                   depthLevel: 2,
                   onTap: () => {
-                    navigateTo(
+                    _navigateTo(
                       context,
                       'Litecoin (LTC)',
                       CryptoInfoScreen(
@@ -511,10 +538,10 @@ class DrawerMenuBody extends StatelessWidget {
                 ),
                 DrawerMenuItem(
                   text: "Monero",
-                  leftIcon: CryptoFontIcons.XMR,
+                  leftIcon: _getIconData(context, CryptoFontIcons.XMR),
                   depthLevel: 2,
                   onTap: () => {
-                    navigateTo(
+                    _navigateTo(
                       context,
                       'Monero (XMR)',
                       CryptoInfoScreen(cryptoEndpoint: CryptoEndpoints.monero),
@@ -523,10 +550,10 @@ class DrawerMenuBody extends StatelessWidget {
                 ),
                 DrawerMenuItem(
                   text: "Ripple",
-                  leftIcon: CryptoFontIcons.XRP,
+                  leftIcon: _getIconData(context, CryptoFontIcons.XRP),
                   depthLevel: 2,
                   onTap: () => {
-                    navigateTo(
+                    _navigateTo(
                       context,
                       'Ripple (XRP)',
                       CryptoInfoScreen(cryptoEndpoint: CryptoEndpoints.ripple),
@@ -538,15 +565,15 @@ class DrawerMenuBody extends StatelessWidget {
             ),
             DrawerMenuItem(
               text: "Metales",
-              leftIcon: FontAwesomeIcons.sketch,
+              leftIcon: _getIconData(context, FontAwesomeIcons.sketch),
               depthLevel: 1,
               subItems: [
                 DrawerMenuItem(
                   text: "Oro",
-                  leftIcon: null,
+                  leftIcon: _getIconAsset(context, DolarBotIcons.metals.gold),
                   depthLevel: 2,
                   onTap: () => {
-                    navigateTo(
+                    _navigateTo(
                       context,
                       'Oro',
                       MetalInfoScreen(metalEndpoint: MetalEndpoints.oro),
@@ -555,10 +582,10 @@ class DrawerMenuBody extends StatelessWidget {
                 ),
                 DrawerMenuItem(
                   text: "Plata",
-                  leftIcon: null,
+                  leftIcon: _getIconAsset(context, DolarBotIcons.metals.silver),
                   depthLevel: 2,
                   onTap: () => {
-                    navigateTo(
+                    _navigateTo(
                       context,
                       'Plata',
                       MetalInfoScreen(metalEndpoint: MetalEndpoints.plata),
@@ -567,10 +594,10 @@ class DrawerMenuBody extends StatelessWidget {
                 ),
                 DrawerMenuItem(
                   text: "Cobre",
-                  leftIcon: null,
+                  leftIcon: _getIconAsset(context, DolarBotIcons.metals.copper),
                   depthLevel: 2,
                   onTap: () => {
-                    navigateTo(
+                    _navigateTo(
                       context,
                       'Cobre',
                       MetalInfoScreen(metalEndpoint: MetalEndpoints.cobre),
@@ -582,13 +609,13 @@ class DrawerMenuBody extends StatelessWidget {
             ),
             DrawerMenuItem(
               text: "Indicadores BCRA",
-              leftIcon: FontAwesomeIcons.chartLine,
+              leftIcon: _getIconData(context, FontAwesomeIcons.chartLine),
               depthLevel: 1,
               onTap: null,
             ),
             DrawerMenuItem(
               text: "Venezuela",
-              leftIcon: FontAwesomeIcons.solidFlag,
+              leftIcon: _getIconAsset(context, DolarBotIcons.general.venezuela),
               depthLevel: 1,
               onTap: null,
             ),
@@ -598,7 +625,24 @@ class DrawerMenuBody extends StatelessWidget {
     );
   }
 
-  navigateTo(BuildContext context, String title, Widget bodyContent) {
+  _getIconAsset(BuildContext context, String assetPath) {
+    return Image.asset(
+      assetPath,
+      color: ThemeManager.getDrawerMenuItemIconColor(context),
+      width: 24,
+      height: 24,
+      filterQuality: FilterQuality.high,
+    );
+  }
+
+  _getIconData(BuildContext context, IconData iconData) {
+    return Icon(
+      iconData,
+      color: ThemeManager.getDrawerMenuItemIconColor(context),
+    );
+  }
+
+  _navigateTo(BuildContext context, String title, Widget bodyContent) {
     Navigator.push(
       context,
       MaterialPageRoute(
