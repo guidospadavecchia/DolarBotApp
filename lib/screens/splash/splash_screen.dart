@@ -8,8 +8,8 @@ import 'package:show_up_animation/show_up_animation.dart';
 class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    new Future.delayed(const Duration(seconds: 5), () {
-      Navigator.push(
+    new Future.delayed(const Duration(seconds: 6), () {
+      Navigator.pushReplacement(
         context,
         MaterialPageRoute(
           builder: (context) => HomeScreen(
@@ -125,7 +125,7 @@ class Footer extends StatelessWidget {
             padding: EdgeInsets.all(35),
             alignment: Alignment.bottomLeft,
             child: Text(
-              "La app definitiva\npara ver cualquier cotización.",
+              "Una sola app,\ntodas las cotizaciones.",
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.w600,

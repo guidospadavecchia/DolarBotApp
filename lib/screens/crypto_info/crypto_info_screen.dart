@@ -28,7 +28,7 @@ class CryptoInfoScreen extends StatelessWidget {
               items: [
                 CurrencyInfo(
                   title: "PESOS ARGENTINOS",
-                  symbol: 'AR\$',
+                  symbol: '\$',
                   value: data.arsPrice,
                 ),
                 CurrencyInfo(
