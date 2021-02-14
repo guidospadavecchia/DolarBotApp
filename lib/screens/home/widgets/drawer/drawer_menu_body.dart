@@ -25,7 +25,7 @@ class DrawerMenuBody extends StatelessWidget {
           padding: EdgeInsets.zero,
           children: [
             DrawerMenuItem(
-              text: "Dolar",
+              text: "Dólar",
               leftIcon: FontAwesomeIcons.dollarSign,
               depthLevel: 1,
               subItems: [
@@ -36,7 +36,7 @@ class DrawerMenuBody extends StatelessWidget {
                   onTap: () => {
                     navigateTo(
                       context,
-                      'Dolar Oficial',
+                      'Dólar Oficial',
                       CurrencyInfoScreen<DollarResponse>(
                         dollarEndpoint: DollarEndpoints.oficial,
                       ),
@@ -50,7 +50,7 @@ class DrawerMenuBody extends StatelessWidget {
                   onTap: () => {
                     navigateTo(
                       context,
-                      'Dolar Blue',
+                      'Dólar Blue',
                       CurrencyInfoScreen<DollarResponse>(
                         dollarEndpoint: DollarEndpoints.blue,
                       ),
@@ -58,13 +58,13 @@ class DrawerMenuBody extends StatelessWidget {
                   },
                 ),
                 DrawerMenuItem(
-                  text: "Bolsa",
+                  text: "Bolsa (MEP)",
                   leftIcon: FontAwesomeIcons.shoppingBag,
                   depthLevel: 2,
                   onTap: () => {
                     navigateTo(
                       context,
-                      'Dolar Bolsa',
+                      'Dólar Bolsa (MEP)',
                       CurrencyInfoScreen<DollarResponse>(
                         dollarEndpoint: DollarEndpoints.bolsa,
                       ),
@@ -72,13 +72,13 @@ class DrawerMenuBody extends StatelessWidget {
                   },
                 ),
                 DrawerMenuItem(
-                  text: "Contado Liqui",
+                  text: "Contado con Liqui",
                   leftIcon: FontAwesomeIcons.moneyBillWave,
                   depthLevel: 2,
                   onTap: () => {
                     navigateTo(
                       context,
-                      'Dolar Contado con Liqui',
+                      'Dólar Contado con Liquidación',
                       CurrencyInfoScreen<DollarResponse>(
                         dollarEndpoint: DollarEndpoints.contadoLiqui,
                       ),
@@ -92,7 +92,7 @@ class DrawerMenuBody extends StatelessWidget {
                   onTap: () => {
                     navigateTo(
                       context,
-                      'Dolar Promedio',
+                      'Dólar Promedio',
                       CurrencyInfoScreen<DollarResponse>(
                         dollarEndpoint: DollarEndpoints.promedio,
                       ),
@@ -112,7 +112,7 @@ class DrawerMenuBody extends StatelessWidget {
                       onTap: () => {
                         navigateTo(
                           context,
-                          'Dolar BBVA',
+                          'Dólar - BBVA',
                           CurrencyInfoScreen<DollarResponse>(
                             dollarEndpoint: DollarEndpoints.bbva,
                           ),
@@ -126,7 +126,7 @@ class DrawerMenuBody extends StatelessWidget {
                       onTap: () => {
                         navigateTo(
                           context,
-                          'Dolar Banco del Chaco',
+                          'Dólar - Banco del Chaco',
                           CurrencyInfoScreen<DollarResponse>(
                             dollarEndpoint: DollarEndpoints.chaco,
                           ),
@@ -140,7 +140,7 @@ class DrawerMenuBody extends StatelessWidget {
                       onTap: () => {
                         navigateTo(
                           context,
-                          'Dolar Banco Ciudad',
+                          'Dólar - Banco Ciudad',
                           CurrencyInfoScreen<DollarResponse>(
                             dollarEndpoint: DollarEndpoints.ciudad,
                           ),
@@ -154,7 +154,7 @@ class DrawerMenuBody extends StatelessWidget {
                       onTap: () => {
                         navigateTo(
                           context,
-                          'Dolar Banco Comafi',
+                          'Dólar - Banco Comafi',
                           CurrencyInfoScreen<DollarResponse>(
                             dollarEndpoint: DollarEndpoints.comafi,
                           ),
@@ -168,7 +168,7 @@ class DrawerMenuBody extends StatelessWidget {
                       onTap: () => {
                         navigateTo(
                           context,
-                          'Dolar Bancor',
+                          'Dólar - Banco de Córdoba',
                           CurrencyInfoScreen<DollarResponse>(
                             dollarEndpoint: DollarEndpoints.bancor,
                           ),
@@ -182,7 +182,7 @@ class DrawerMenuBody extends StatelessWidget {
                       onTap: () => {
                         navigateTo(
                           context,
-                          'Dolar Banco Galicia',
+                          'Dólar - Banco Galicia',
                           CurrencyInfoScreen<DollarResponse>(
                             dollarEndpoint: DollarEndpoints.galicia,
                           ),
@@ -196,7 +196,7 @@ class DrawerMenuBody extends StatelessWidget {
                       onTap: () => {
                         navigateTo(
                           context,
-                          'Dolar Banco Hipotecario',
+                          'Dólar - Banco Hipotecario',
                           CurrencyInfoScreen<DollarResponse>(
                             dollarEndpoint: DollarEndpoints.hipotecario,
                           ),
@@ -210,7 +210,7 @@ class DrawerMenuBody extends StatelessWidget {
                       onTap: () => {
                         navigateTo(
                           context,
-                          'Dolar Banco Industrial',
+                          'Dólar - Banco Industrial',
                           CurrencyInfoScreen<DollarResponse>(
                             dollarEndpoint: DollarEndpoints.bind,
                           ),
@@ -224,7 +224,7 @@ class DrawerMenuBody extends StatelessWidget {
                       onTap: () => {
                         navigateTo(
                           context,
-                          'Dolar Banco de La Pampa',
+                          'Dólar - Banco de La Pampa',
                           CurrencyInfoScreen<DollarResponse>(
                             dollarEndpoint: DollarEndpoints.pampa,
                           ),
@@ -238,7 +238,7 @@ class DrawerMenuBody extends StatelessWidget {
                       onTap: () => {
                         navigateTo(
                           context,
-                          'Dolar Banco Nación',
+                          'Dólar - Banco Nación',
                           CurrencyInfoScreen<DollarResponse>(
                             dollarEndpoint: DollarEndpoints.nacion,
                           ),
@@ -252,7 +252,7 @@ class DrawerMenuBody extends StatelessWidget {
                       onTap: () => {
                         navigateTo(
                           context,
-                          'Dolar Banco Patagonia',
+                          'Dólar - Banco Patagonia',
                           CurrencyInfoScreen<DollarResponse>(
                             dollarEndpoint: DollarEndpoints.patagonia,
                           ),
@@ -266,7 +266,7 @@ class DrawerMenuBody extends StatelessWidget {
                       onTap: () => {
                         navigateTo(
                           context,
-                          'Dolar Banco Piano',
+                          'Dólar - Banco Piano',
                           CurrencyInfoScreen<DollarResponse>(
                             dollarEndpoint: DollarEndpoints.piano,
                           ),
@@ -280,7 +280,7 @@ class DrawerMenuBody extends StatelessWidget {
                       onTap: () => {
                         navigateTo(
                           context,
-                          'Dolar Banco Santander',
+                          'Dólar - Banco Santander',
                           CurrencyInfoScreen<DollarResponse>(
                             dollarEndpoint: DollarEndpoints.santander,
                           ),
@@ -294,7 +294,7 @@ class DrawerMenuBody extends StatelessWidget {
                       onTap: () => {
                         navigateTo(
                           context,
-                          'Dolar Banco Supervielle',
+                          'Dólar - Banco Supervielle',
                           CurrencyInfoScreen<DollarResponse>(
                             dollarEndpoint: DollarEndpoints.supervielle,
                           ),
@@ -319,7 +319,7 @@ class DrawerMenuBody extends StatelessWidget {
                   onTap: () => {
                     navigateTo(
                       context,
-                      'Euro Banco BBVA',
+                      'Euro - Banco BBVA',
                       CurrencyInfoScreen<EuroResponse>(
                           euroEndpoint: EuroEndpoints.bbva),
                     )
@@ -332,7 +332,7 @@ class DrawerMenuBody extends StatelessWidget {
                   onTap: () => {
                     navigateTo(
                       context,
-                      'Euro Banco del Chaco',
+                      'Euro - Nuevo Banco del Chaco',
                       CurrencyInfoScreen<EuroResponse>(
                           euroEndpoint: EuroEndpoints.chaco),
                     )
@@ -345,7 +345,7 @@ class DrawerMenuBody extends StatelessWidget {
                   onTap: () => {
                     navigateTo(
                       context,
-                      'Euro Banco Galicia',
+                      'Euro - Banco Galicia',
                       CurrencyInfoScreen<EuroResponse>(
                           euroEndpoint: EuroEndpoints.galicia),
                     )
@@ -358,7 +358,7 @@ class DrawerMenuBody extends StatelessWidget {
                   onTap: () => {
                     navigateTo(
                       context,
-                      'Euro Banco Hipotecario',
+                      'Euro - Banco Hipotecario',
                       CurrencyInfoScreen<EuroResponse>(
                           euroEndpoint: EuroEndpoints.hipotecario),
                     )
@@ -371,7 +371,7 @@ class DrawerMenuBody extends StatelessWidget {
                   onTap: () => {
                     navigateTo(
                       context,
-                      'Euro Banco de La Pampa',
+                      'Euro - Banco de La Pampa',
                       CurrencyInfoScreen<EuroResponse>(
                           euroEndpoint: EuroEndpoints.pampa),
                     )
@@ -384,7 +384,7 @@ class DrawerMenuBody extends StatelessWidget {
                   onTap: () => {
                     navigateTo(
                       context,
-                      'Euro Banco Nación',
+                      'Euro - Banco Nación',
                       CurrencyInfoScreen<EuroResponse>(
                           euroEndpoint: EuroEndpoints.nacion),
                     )
@@ -404,7 +404,7 @@ class DrawerMenuBody extends StatelessWidget {
                   onTap: () => {
                     navigateTo(
                       context,
-                      'Real Banco BBVA',
+                      'Real - Banco BBVA',
                       CurrencyInfoScreen<RealResponse>(
                         realEndpoint: RealEndpoints.bbva,
                       ),
@@ -418,7 +418,7 @@ class DrawerMenuBody extends StatelessWidget {
                   onTap: () => {
                     navigateTo(
                       context,
-                      'Real Banco Chaco',
+                      'Real - Banco Chaco',
                       CurrencyInfoScreen<RealResponse>(
                           realEndpoint: RealEndpoints.chaco),
                     )
@@ -431,7 +431,7 @@ class DrawerMenuBody extends StatelessWidget {
                   onTap: () => {
                     navigateTo(
                       context,
-                      'Real Banco Nación',
+                      'Real - Banco Nación',
                       CurrencyInfoScreen<RealResponse>(
                           realEndpoint: RealEndpoints.nacion),
                     )
@@ -452,7 +452,7 @@ class DrawerMenuBody extends StatelessWidget {
                   onTap: () => {
                     navigateTo(
                       context,
-                      'Bitcoin',
+                      'Bitcoin (BTC)',
                       CryptoInfoScreen(cryptoEndpoint: CryptoEndpoints.bitcoin),
                     )
                   },
@@ -464,20 +464,20 @@ class DrawerMenuBody extends StatelessWidget {
                   onTap: () => {
                     navigateTo(
                       context,
-                      'Bitcoin Cash',
+                      'Bitcoin Cash (BCH)',
                       CryptoInfoScreen(
                           cryptoEndpoint: CryptoEndpoints.bitcoincash),
                     )
                   },
                 ),
                 DrawerMenuItem(
-                  text: "Dash",
+                  text: "DASH",
                   leftIcon: null,
                   depthLevel: 2,
                   onTap: () => {
                     navigateTo(
                       context,
-                      'Dash',
+                      'DASH',
                       CryptoInfoScreen(cryptoEndpoint: CryptoEndpoints.dash),
                     )
                   },
@@ -489,7 +489,7 @@ class DrawerMenuBody extends StatelessWidget {
                   onTap: () => {
                     navigateTo(
                       context,
-                      'Ethereum',
+                      'Ethereum (ETH)',
                       CryptoInfoScreen(
                           cryptoEndpoint: CryptoEndpoints.ethereum),
                     )
@@ -502,7 +502,7 @@ class DrawerMenuBody extends StatelessWidget {
                   onTap: () => {
                     navigateTo(
                       context,
-                      'Litecoin',
+                      'Litecoin (LTC)',
                       CryptoInfoScreen(
                           cryptoEndpoint: CryptoEndpoints.litecoin),
                     )
@@ -515,7 +515,7 @@ class DrawerMenuBody extends StatelessWidget {
                   onTap: () => {
                     navigateTo(
                       context,
-                      'Monero',
+                      'Monero (XMR)',
                       CryptoInfoScreen(cryptoEndpoint: CryptoEndpoints.monero),
                     )
                   },
@@ -527,7 +527,7 @@ class DrawerMenuBody extends StatelessWidget {
                   onTap: () => {
                     navigateTo(
                       context,
-                      'Ripple',
+                      'Ripple (XRP)',
                       CryptoInfoScreen(cryptoEndpoint: CryptoEndpoints.ripple),
                     )
                   },

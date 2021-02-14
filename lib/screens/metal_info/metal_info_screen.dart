@@ -24,7 +24,7 @@ class MetalInfoScreen extends StatelessWidget {
           response: API.getMetalRate(metalEndpoint),
           screen: (data) {
             return CurrencyInfo(
-              title: data.unit,
+              title: '/ ${data.unit}',
               symbol: data.currency,
               value: data.value,
             );

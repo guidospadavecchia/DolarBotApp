@@ -125,7 +125,7 @@ class Footer extends StatelessWidget {
             padding: EdgeInsets.all(35),
             alignment: Alignment.bottomLeft,
             child: Text(
-              "Una sola app,\ntodas las cotizaciones.",
+              "Una sola app.\nTodas las cotizaciones.",
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.w600,
