@@ -1,5 +1,6 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
+import 'package:dolarbot_app/screens/options/options_screen.dart';
 import 'package:global_configuration/global_configuration.dart';
 import 'package:dolarbot_app/screens/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
@@ -24,12 +25,14 @@ class DolarBotApp extends StatelessWidget {
       dark: ThemeManager.getDarkThemeData(),
       initial: savedThemeMode ?? ThemeManager.getDefaultTheme(context),
       builder: (lightTheme, darkTheme) => MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'DolarBot',
-        theme: lightTheme,
-        darkTheme: darkTheme,
-        home: SplashScreen(),
-      ),
+          debugShowCheckedModeBanner: false,
+          title: 'DolarBot',
+          theme: lightTheme,
+          darkTheme: darkTheme,
+          home: SplashScreen(),
+          routes: <String, WidgetBuilder>{
+            "/o": (BuildContext context) => OptionsScreen()
+          }),
     );
   }
 }
