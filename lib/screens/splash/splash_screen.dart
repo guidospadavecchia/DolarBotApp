@@ -51,7 +51,7 @@ class SplashScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Image.asset(
-                          'assets/images/logo_d.png',
+                          'assets/images/logos/d.png',
                           scale: 3.0,
                           height: 124,
                           width: 124,
@@ -115,7 +115,7 @@ class Footer extends StatelessWidget {
           Container(
             alignment: Alignment.bottomCenter,
             child: Image.asset(
-              'assets/images/splash_footer.png',
+              'assets/images/general/splash_footer.png',
               width: double.infinity,
               height: 120,
               fit: BoxFit.fill,

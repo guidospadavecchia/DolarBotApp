@@ -1,11 +1,16 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 
 class ThemeManager {
   static Color primaryColor = Color.fromRGBO(50, 177, 40, 1);
 
-  static AdaptiveThemeMode getDefaultTheme() {
-    return AdaptiveThemeMode.system;
+  static AdaptiveThemeMode getDefaultTheme(BuildContext context) {
+    Brightness brightness = SchedulerBinding.instance.window.platformBrightness;
+
+    return brightness == Brightness.light
+        ? AdaptiveThemeMode.light
+        : AdaptiveThemeMode.dark;
   }
 
   static Color getPrimaryColor() {

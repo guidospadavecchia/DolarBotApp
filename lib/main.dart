@@ -22,13 +22,14 @@ class DolarBotApp extends StatelessWidget {
     return AdaptiveTheme(
       light: ThemeManager.getLightThemeData(),
       dark: ThemeManager.getDarkThemeData(),
-      initial: savedThemeMode ?? ThemeManager.getDefaultTheme(),
-      builder: (theme, darkTheme) => MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'DolarBot',
-          theme: theme,
-          darkTheme: darkTheme,
-          home: SplashScreen()),
+      initial: savedThemeMode ?? ThemeManager.getDefaultTheme(context),
+      builder: (lightTheme, darkTheme) => MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'DolarBot',
+        theme: lightTheme,
+        darkTheme: darkTheme,
+        home: SplashScreen(),
+      ),
     );
   }
 }

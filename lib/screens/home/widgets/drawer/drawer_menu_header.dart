@@ -21,7 +21,7 @@ class DrawerMenuHeader extends StatelessWidget {
               children: [
                 SizedBox(
                   child: Image.asset(
-                    'assets/images/logo.png',
+                    'assets/images/logos/borderless/logo.png',
                     scale: 3.0,
                     height: 64,
                     width: 64,
