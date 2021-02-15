@@ -3,12 +3,13 @@ import 'package:dolarbot_app/api/api.dart';
 import 'package:dolarbot_app/api/responses/base/apiResponse.dart';
 import 'package:dolarbot_app/classes/dolarbot_icons.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
-import 'package:dolarbot_app/screens/bcra_info/bcra_Info_Screen.dart';
+import 'package:dolarbot_app/screens/bcra_info/bcra_info_screen.dart';
 import 'package:dolarbot_app/screens/crypto_info/crypto_info_screen.dart';
 import 'package:dolarbot_app/screens/currency_info/currency_info_screen.dart';
 import 'package:dolarbot_app/screens/home/home_screen.dart';
 import 'package:dolarbot_app/screens/home/widgets/drawer/drawer_menu_item.dart';
 import 'package:dolarbot_app/screens/metal_info/metal_info_screen.dart';
+import 'package:dolarbot_app/screens/venezuela_info/venezuela_info_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -689,6 +690,32 @@ class DrawerMenuBody extends StatelessWidget {
       text: "Venezuela",
       leftIcon: _getIconAsset(context, DolarBotIcons.general.venezuela),
       depthLevel: 1,
+      subItems: [
+        DrawerMenuItem(
+          text: "Dólar",
+          leftIcon: _getIconData(context, FontAwesomeIcons.dollarSign),
+          depthLevel: 2,
+          onTap: () => {
+            _navigateTo(
+              context,
+              'Dólar (Venezuela)',
+              VenezuelaInfoScreen(vzlaEndpoint: VenezuelaEndpoints.dolar),
+            )
+          },
+        ),
+        DrawerMenuItem(
+          text: "Euro",
+          leftIcon: _getIconData(context, FontAwesomeIcons.euroSign),
+          depthLevel: 2,
+          onTap: () => {
+            _navigateTo(
+              context,
+              'Euro (Venezuela)',
+              VenezuelaInfoScreen(vzlaEndpoint: VenezuelaEndpoints.euro),
+            )
+          },
+        ),
+      ],
       onTap: null,
     );
   }
