@@ -34,6 +34,6 @@ class HomeFloatingActionButton extends StatelessWidget {
   }
 
   static FloatingActionButtonLocation getLocation() {
-    return FloatingActionButtonLocation.endFloat;
+    return FloatingActionButtonLocation.centerFloat;
   }
 }
