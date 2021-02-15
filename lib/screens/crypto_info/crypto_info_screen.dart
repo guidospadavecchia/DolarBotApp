@@ -32,7 +32,7 @@ class CryptoInfoScreen extends StatelessWidget {
                 ),
                 CurrencyInfo(
                   title: "DÓLARES ESTADOUNIDENSES",
-                  symbol: 'USD',
+                  symbol: 'US\$',
                   value: data.usdPrice,
                 ),
               ],

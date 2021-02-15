@@ -6,12 +6,14 @@ class CurrencyInfo extends StatelessWidget {
   final String title;
   final String symbol;
   final String value;
+  final bool hideDecimals;
 
   const CurrencyInfo({
     Key key,
     @required this.title,
-    @required this.symbol,
+    this.symbol,
     @required this.value,
+    this.hideDecimals = false,
   }) : super(key: key);
 
   @override
@@ -49,38 +51,49 @@ class CurrencyInfo extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(right: 7),
-              child: Text(
-                symbol,
-                style: TextStyle(
-                  fontSize: 32,
-                  color: ThemeManager.getPrimaryTextColor(context),
-                  fontWeight: FontWeight.w600,
+            if (symbol != null && isNumeric(value))
+              Padding(
+                padding: const EdgeInsets.only(right: 7),
+                child: Text(
+                  symbol,
+                  style: TextStyle(
+                    fontSize: 32,
+                    color: ThemeManager.getPrimaryTextColor(context),
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
               ),
-            ),
             Text(
-              currencyFormat.format(int.parse(value.split('.')[0])),
+              isNumeric(value)
+                  ? currencyFormat.format(int.parse(value.split('.')[0]))
+                  : 'N/A',
               style: TextStyle(
                 fontSize: 92,
                 color: ThemeManager.getPrimaryTextColor(context),
                 fontWeight: FontWeight.w600,
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 5, bottom: 38),
-              child: Text(
-                ',${value.split('.')[1]}',
-                style: TextStyle(
-                  fontSize: 32,
-                  color: ThemeManager.getSecondaryTextColor(context),
+            if (value.split('.').length == 2 && !hideDecimals)
+              Padding(
+                padding: const EdgeInsets.only(left: 5, bottom: 38),
+                child: Text(
+                  ',${value.split('.')[1].substring(0, 2)}',
+                  style: TextStyle(
+                    fontSize: 32,
+                    color: ThemeManager.getSecondaryTextColor(context),
+                  ),
                 ),
               ),
-            ),
           ],
         ),
       ),
     );
+  }
+
+  bool isNumeric(String s) {
+    if (s == null) {
+      return false;
+    }
+    return double.tryParse(s) != null;
   }
 }

@@ -3,6 +3,7 @@ import 'package:dolarbot_app/api/api.dart';
 import 'package:dolarbot_app/api/responses/base/apiResponse.dart';
 import 'package:dolarbot_app/classes/dolarbot_icons.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
+import 'package:dolarbot_app/screens/bcra_info/bcra_Info_Screen.dart';
 import 'package:dolarbot_app/screens/crypto_info/crypto_info_screen.dart';
 import 'package:dolarbot_app/screens/currency_info/currency_info_screen.dart';
 import 'package:dolarbot_app/screens/home/home_screen.dart';
@@ -641,6 +642,44 @@ class DrawerMenuBody extends StatelessWidget {
       text: "Indicadores BCRA",
       leftIcon: _getIconData(context, FontAwesomeIcons.chartLine),
       depthLevel: 1,
+      subItems: [
+        DrawerMenuItem(
+          text: "Riesgo País",
+          leftIcon: _getIconData(context, FontAwesomeIcons.exclamationTriangle),
+          depthLevel: 2,
+          onTap: () => {
+            _navigateTo(
+              context,
+              'Riesgo País - Argentina',
+              BcraInfoScreen(bcraEndpoint: BcraEndpoints.riesgoPais),
+            )
+          },
+        ),
+        DrawerMenuItem(
+          text: "Reservas",
+          leftIcon: _getIconData(context, FontAwesomeIcons.handHoldingUsd),
+          depthLevel: 2,
+          onTap: () => {
+            _navigateTo(
+              context,
+              'Reservas del BCRA',
+              BcraInfoScreen(bcraEndpoint: BcraEndpoints.reservas),
+            )
+          },
+        ),
+        DrawerMenuItem(
+          text: "Circulante",
+          leftIcon: _getIconData(context, FontAwesomeIcons.moneyBillWave),
+          depthLevel: 2,
+          onTap: () => {
+            _navigateTo(
+              context,
+              'Dinero en circulación',
+              BcraInfoScreen(bcraEndpoint: BcraEndpoints.circulante),
+            )
+          },
+        ),
+      ],
       onTap: null,
     );
   }
