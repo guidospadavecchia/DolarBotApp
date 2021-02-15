@@ -13,7 +13,7 @@ class SplashScreen extends StatelessWidget {
         context,
         MaterialPageRoute(
           builder: (context) => HomeScreen(
-            title: 'Dolar Oficial',
+            title: 'Dólar Oficial',
             bodyContent: CurrencyInfoScreen<DollarResponse>(
               dollarEndpoint: DollarEndpoints.oficial,
             ),
@@ -58,7 +58,7 @@ class SplashScreen extends StatelessWidget {
                           filterQuality: FilterQuality.high,
                         ),
                         SizedBox(
-                          height: 10,
+                          height: 25,
                         ),
                         ShowUpAnimation(
                           delayStart: Duration(milliseconds: 0),
