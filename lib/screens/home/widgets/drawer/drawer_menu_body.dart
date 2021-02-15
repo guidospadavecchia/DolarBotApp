@@ -83,7 +83,7 @@ class DrawerMenuBody extends StatelessWidget {
                   onTap: () => {
                     _navigateTo(
                       context,
-                      'Dólar Contado con Liqui',
+                      'Dólar Contado con Liquidación',
                       CurrencyInfoScreen<DollarResponse>(
                         dollarEndpoint: DollarEndpoints.contadoLiqui,
                       ),
@@ -127,13 +127,13 @@ class DrawerMenuBody extends StatelessWidget {
                     ),
                     DrawerMenuItem(
                       text: "Chaco",
-                      leftIcon: _getIconAsset(
-                          context, "assets/images/bancos/chaco.png"),
+                      leftIcon:
+                          _getIconAsset(context, DolarBotIcons.banks.chaco),
                       depthLevel: 3,
                       onTap: () => {
                         _navigateTo(
                           context,
-                          'Dólar - Banco del Chaco',
+                          'Dólar - Nuevo Banco del Chaco',
                           CurrencyInfoScreen<DollarResponse>(
                             dollarEndpoint: DollarEndpoints.chaco,
                           ),
@@ -142,8 +142,8 @@ class DrawerMenuBody extends StatelessWidget {
                     ),
                     DrawerMenuItem(
                       text: "Ciudad",
-                      leftIcon: _getIconAsset(
-                          context, "assets/images/bancos/ciudad.png"),
+                      leftIcon:
+                          _getIconAsset(context, DolarBotIcons.banks.ciudad),
                       depthLevel: 3,
                       onTap: () => {
                         _navigateTo(
@@ -157,8 +157,8 @@ class DrawerMenuBody extends StatelessWidget {
                     ),
                     DrawerMenuItem(
                       text: "Comafi",
-                      leftIcon: _getIconAsset(
-                          context, "assets/images/bancos/comafi.png"),
+                      leftIcon:
+                          _getIconAsset(context, DolarBotIcons.banks.comafi),
                       depthLevel: 3,
                       onTap: () => {
                         _navigateTo(
@@ -172,8 +172,8 @@ class DrawerMenuBody extends StatelessWidget {
                     ),
                     DrawerMenuItem(
                       text: "Córdoba",
-                      leftIcon: _getIconAsset(
-                          context, "assets/images/bancos/cordoba.png"),
+                      leftIcon:
+                          _getIconAsset(context, DolarBotIcons.banks.cordoba),
                       depthLevel: 3,
                       onTap: () => {
                         _navigateTo(
@@ -187,8 +187,8 @@ class DrawerMenuBody extends StatelessWidget {
                     ),
                     DrawerMenuItem(
                       text: "Galicia",
-                      leftIcon: _getIconAsset(
-                          context, "assets/images/bancos/galicia.png"),
+                      leftIcon:
+                          _getIconAsset(context, DolarBotIcons.banks.galicia),
                       depthLevel: 3,
                       onTap: () => {
                         _navigateTo(
@@ -203,7 +203,7 @@ class DrawerMenuBody extends StatelessWidget {
                     DrawerMenuItem(
                       text: "Hipotecario",
                       leftIcon: _getIconAsset(
-                          context, "assets/images/bancos/hipotecario.png"),
+                          context, DolarBotIcons.banks.hipotecario),
                       depthLevel: 3,
                       onTap: () => {
                         _navigateTo(
@@ -216,14 +216,14 @@ class DrawerMenuBody extends StatelessWidget {
                       },
                     ),
                     DrawerMenuItem(
-                      text: "Industrial",
-                      leftIcon: _getIconAsset(
-                          context, "assets/images/bancos/industrial.png"),
+                      text: "BIND",
+                      leftIcon:
+                          _getIconAsset(context, DolarBotIcons.banks.bind),
                       depthLevel: 3,
                       onTap: () => {
                         _navigateTo(
                           context,
-                          'Dólar - Banco Industrial',
+                          'Dólar - Banco Industrial (BIND)',
                           CurrencyInfoScreen<DollarResponse>(
                             dollarEndpoint: DollarEndpoints.bind,
                           ),
@@ -232,8 +232,8 @@ class DrawerMenuBody extends StatelessWidget {
                     ),
                     DrawerMenuItem(
                       text: "La Pampa",
-                      leftIcon: _getIconAsset(
-                          context, "assets/images/bancos/lapampa.png"),
+                      leftIcon:
+                          _getIconAsset(context, DolarBotIcons.banks.pampa),
                       depthLevel: 3,
                       onTap: () => {
                         _navigateTo(
@@ -247,8 +247,8 @@ class DrawerMenuBody extends StatelessWidget {
                     ),
                     DrawerMenuItem(
                       text: "Nación",
-                      leftIcon: _getIconAsset(
-                          context, "assets/images/bancos/nacion.png"),
+                      leftIcon:
+                          _getIconAsset(context, DolarBotIcons.banks.nacion),
                       depthLevel: 3,
                       onTap: () => {
                         _navigateTo(
@@ -262,8 +262,8 @@ class DrawerMenuBody extends StatelessWidget {
                     ),
                     DrawerMenuItem(
                       text: "Patagonia",
-                      leftIcon: _getIconAsset(
-                          context, "assets/images/bancos/patagonia.png"),
+                      leftIcon:
+                          _getIconAsset(context, DolarBotIcons.banks.patagonia),
                       depthLevel: 3,
                       onTap: () => {
                         _navigateTo(
@@ -277,8 +277,8 @@ class DrawerMenuBody extends StatelessWidget {
                     ),
                     DrawerMenuItem(
                       text: "Piano",
-                      leftIcon: _getIconAsset(
-                          context, "assets/images/bancos/piano.png"),
+                      leftIcon:
+                          _getIconAsset(context, DolarBotIcons.banks.piano),
                       depthLevel: 3,
                       onTap: () => {
                         _navigateTo(
@@ -292,8 +292,8 @@ class DrawerMenuBody extends StatelessWidget {
                     ),
                     DrawerMenuItem(
                       text: "Santander",
-                      leftIcon: _getIconAsset(
-                          context, "assets/images/bancos/santander.png"),
+                      leftIcon:
+                          _getIconAsset(context, DolarBotIcons.banks.santander),
                       depthLevel: 3,
                       onTap: () => {
                         _navigateTo(
@@ -308,7 +308,7 @@ class DrawerMenuBody extends StatelessWidget {
                     DrawerMenuItem(
                       text: "Supervielle",
                       leftIcon: _getIconAsset(
-                          context, "assets/images/bancos/supervielle.png"),
+                          context, DolarBotIcons.banks.supervielle),
                       depthLevel: 3,
                       onTap: () => {
                         _navigateTo(
@@ -333,8 +333,7 @@ class DrawerMenuBody extends StatelessWidget {
               subItems: [
                 DrawerMenuItem(
                   text: "BBVA",
-                  leftIcon:
-                      _getIconAsset(context, "assets/images/bancos/bbva.png"),
+                  leftIcon: _getIconAsset(context, DolarBotIcons.banks.bbva),
                   depthLevel: 2,
                   onTap: () => {
                     _navigateTo(
@@ -347,8 +346,7 @@ class DrawerMenuBody extends StatelessWidget {
                 ),
                 DrawerMenuItem(
                   text: "Chaco",
-                  leftIcon:
-                      _getIconAsset(context, "assets/images/bancos/chaco.png"),
+                  leftIcon: _getIconAsset(context, DolarBotIcons.banks.chaco),
                   depthLevel: 2,
                   onTap: () => {
                     _navigateTo(
@@ -361,8 +359,7 @@ class DrawerMenuBody extends StatelessWidget {
                 ),
                 DrawerMenuItem(
                   text: "Galicia",
-                  leftIcon: _getIconAsset(
-                      context, "assets/images/bancos/galicia.png"),
+                  leftIcon: _getIconAsset(context, DolarBotIcons.banks.galicia),
                   depthLevel: 2,
                   onTap: () => {
                     _navigateTo(
@@ -375,8 +372,8 @@ class DrawerMenuBody extends StatelessWidget {
                 ),
                 DrawerMenuItem(
                   text: "Hipotecario",
-                  leftIcon: _getIconAsset(
-                      context, "assets/images/bancos/hipotecario.png"),
+                  leftIcon:
+                      _getIconAsset(context, DolarBotIcons.banks.hipotecario),
                   depthLevel: 2,
                   onTap: () => {
                     _navigateTo(
@@ -389,8 +386,7 @@ class DrawerMenuBody extends StatelessWidget {
                 ),
                 DrawerMenuItem(
                   text: "La Pampa",
-                  leftIcon: _getIconAsset(
-                      context, "assets/images/bancos/lapampa.png"),
+                  leftIcon: _getIconAsset(context, DolarBotIcons.banks.pampa),
                   depthLevel: 2,
                   onTap: () => {
                     _navigateTo(
@@ -403,8 +399,7 @@ class DrawerMenuBody extends StatelessWidget {
                 ),
                 DrawerMenuItem(
                   text: "Nación",
-                  leftIcon:
-                      _getIconAsset(context, "assets/images/bancos/nacion.png"),
+                  leftIcon: _getIconAsset(context, DolarBotIcons.banks.nacion),
                   depthLevel: 2,
                   onTap: () => {
                     _navigateTo(
@@ -419,13 +414,12 @@ class DrawerMenuBody extends StatelessWidget {
             ),
             DrawerMenuItem(
               text: "Real",
-              leftIcon: _getIconAsset(context, "assets/images/otros/real.png"),
+              leftIcon: _getIconAsset(context, DolarBotIcons.general.real),
               depthLevel: 1,
               subItems: [
                 DrawerMenuItem(
                   text: "BBVA",
-                  leftIcon:
-                      _getIconAsset(context, "assets/images/bancos/bbva.png"),
+                  leftIcon: _getIconAsset(context, DolarBotIcons.banks.bbva),
                   depthLevel: 2,
                   onTap: () => {
                     _navigateTo(
@@ -439,13 +433,12 @@ class DrawerMenuBody extends StatelessWidget {
                 ),
                 DrawerMenuItem(
                   text: "Chaco",
-                  leftIcon:
-                      _getIconAsset(context, "assets/images/bancos/chaco.png"),
+                  leftIcon: _getIconAsset(context, DolarBotIcons.banks.chaco),
                   depthLevel: 2,
                   onTap: () => {
                     _navigateTo(
                       context,
-                      'Real - Banco Chaco',
+                      'Real - Nuevo Banco del Chaco',
                       CurrencyInfoScreen<RealResponse>(
                           realEndpoint: RealEndpoints.chaco),
                     )
@@ -453,8 +446,7 @@ class DrawerMenuBody extends StatelessWidget {
                 ),
                 DrawerMenuItem(
                   text: "Nación",
-                  leftIcon:
-                      _getIconAsset(context, "assets/images/bancos/nacion.png"),
+                  leftIcon: _getIconAsset(context, DolarBotIcons.banks.nacion),
                   depthLevel: 2,
                   onTap: () => {
                     _navigateTo(

@@ -23,7 +23,7 @@ class DolarBotIconsBanks {
   final cordoba = 'assets/images/bancos/cordoba.png';
   final galicia = 'assets/images/bancos/galicia.png';
   final hipotecario = 'assets/images/bancos/hipotecario.png';
-  final industrial = 'assets/images/bancos/industrial.png';
+  final bind = 'assets/images/bancos/industrial.png';
   final pampa = 'assets/images/bancos/pampa.png';
   final nacion = 'assets/images/bancos/nacion.png';
   final patagonia = 'assets/images/bancos/patagonia.png';
