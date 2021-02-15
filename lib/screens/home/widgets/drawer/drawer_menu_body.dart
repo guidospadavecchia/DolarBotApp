@@ -650,7 +650,7 @@ class DrawerMenuBody extends StatelessWidget {
           onTap: () => {
             _navigateTo(
               context,
-              'Riesgo País - Argentina',
+              'Riesgo País',
               BcraInfoScreen(bcraEndpoint: BcraEndpoints.riesgoPais),
             )
           },
