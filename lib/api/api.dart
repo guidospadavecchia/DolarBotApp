@@ -14,75 +14,94 @@ export 'package:dolarbot_app/api/api_endpoints.dart';
 class API {
   static final cfg = GlobalConfiguration();
 
-  static Future<DollarResponse> getDollarRate(DollarEndpoints endpoint) async {
+  static Future<DollarResponse> getDollarRate(DollarEndpoints endpoint,
+      {bool forceRefresh = false}) async {
     return _getData(
       endpoint.value,
       (json) => new DollarResponse(json),
+      forceRefresh,
     );
   }
 
-  static Future<EuroResponse> getEuroRate(EuroEndpoints endpoint) async {
+  static Future<EuroResponse> getEuroRate(EuroEndpoints endpoint,
+      {bool forceRefresh = false}) async {
     return _getData(
       endpoint.value,
       (json) => new EuroResponse(json),
+      forceRefresh,
     );
   }
 
-  static Future<RealResponse> getRealRate(RealEndpoints endpoint) async {
+  static Future<RealResponse> getRealRate(RealEndpoints endpoint,
+      {bool forceRefresh = false}) async {
     return _getData(
       endpoint.value,
       (json) => new RealResponse(json),
+      forceRefresh,
     );
   }
 
-  static Future<MetalResponse> getMetalRate(MetalEndpoints endpoint) async {
+  static Future<MetalResponse> getMetalRate(MetalEndpoints endpoint,
+      {bool forceRefresh = false}) async {
     return _getData(
       endpoint.value,
       (json) => new MetalResponse(json),
+      forceRefresh,
     );
   }
 
-  static Future<CryptoResponse> getCryptoRate(CryptoEndpoints endpoint) async {
+  static Future<CryptoResponse> getCryptoRate(CryptoEndpoints endpoint,
+      {bool forceRefresh = false}) async {
     return _getData(
       endpoint.value,
       (json) => new CryptoResponse(json),
+      forceRefresh,
     );
   }
 
-  static Future<VenezuelaResponse> getVzlaRate(
-      VenezuelaEndpoints endpoint) async {
+  static Future<VenezuelaResponse> getVzlaRate(VenezuelaEndpoints endpoint,
+      {bool forceRefresh = false}) async {
     return _getData(
       endpoint.value,
       (json) => new VenezuelaResponse(json),
+      forceRefresh,
     );
   }
 
-  static Future<CountryRiskResponse> getCountryRisk() async {
+  static Future<CountryRiskResponse> getCountryRisk(
+      {bool forceRefresh = false}) async {
     return _getData(
       BcraEndpoints.riesgoPais.value,
       (json) => new CountryRiskResponse(json),
+      forceRefresh,
     );
   }
 
-  static Future<BcraResponse> getBcraReserves() async {
+  static Future<BcraResponse> getBcraReserves(
+      {bool forceRefresh = false}) async {
     return _getData(
       BcraEndpoints.reservas.value,
       (json) => new BcraResponse(json),
+      forceRefresh,
     );
   }
 
-  static Future<BcraResponse> getCirculatingCurrency() async {
+  static Future<BcraResponse> getCirculatingCurrency(
+      {bool forceRefresh = false}) async {
     return _getData(
       BcraEndpoints.circulante.value,
       (json) => new BcraResponse(json),
+      forceRefresh,
     );
   }
 
   static Future<HistoricalRateResponse> getHistoricalRates(
-      HistoricalRateEndpoints endpoint) async {
+      HistoricalRateEndpoints endpoint,
+      {bool forceRefresh = false}) async {
     return _getData(
       endpoint.value,
       (json) => new HistoricalRateResponse(json),
+      forceRefresh,
     );
   }
 
@@ -104,11 +123,11 @@ class API {
   }
 
   static Future<T> _getData<T extends ApiResponse>(
-      String endpoint, T Function(Map json) creator) async {
+      String endpoint, T Function(Map json) creator, bool forceRefresh) async {
     Map jsonMap;
     CacheEntry cachedValue = CacheManager.read(endpoint);
 
-    if (cachedValue == null || cachedValue.isExpired()) {
+    if (cachedValue == null || cachedValue.isExpired() || forceRefresh) {
       String response = await _fetch(endpoint);
       CacheManager.save(endpoint, response);
       jsonMap = json.decode(response);
