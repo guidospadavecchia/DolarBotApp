@@ -1,5 +1,7 @@
+import 'dart:io';
+
 import 'package:dolarbot_app/classes/theme_manager.dart';
-import 'package:dolarbot_app/screens/home/widgets/drawer/drawer_menu_item.dart';
+import 'package:dolarbot_app/widgets/common/menu_item.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -18,12 +20,23 @@ class DrawerMenuFooter extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
             Divider(),
-            DrawerMenuItem(
+            MenuItem(
               text: "Opciones",
-              leftIcon: Icon(FontAwesomeIcons.cog,
+              leading: Icon(FontAwesomeIcons.cog,
                   color: ThemeManager.getDrawerMenuItemIconColor(context)),
               depthLevel: 1,
-              onTap: null,
+              onTap: () => {
+                Navigator.of(context).pushNamed("/o"),
+              },
+            ),
+            MenuItem(
+              text: "Salir",
+              leading: Icon(FontAwesomeIcons.signOutAlt,
+                  color: ThemeManager.getDrawerMenuItemIconColor(context)),
+              depthLevel: 1,
+              onTap: () => {
+                exit(0),
+              },
             ),
           ],
         ),

@@ -18,7 +18,7 @@ class SplashScreen extends StatelessWidget {
               dollarEndpoint: DollarEndpoints.oficial,
             ),
           ),
-          transitionDuration: Duration(milliseconds: 1200),
+          transitionDuration: Duration(milliseconds: 600),
           transitionsBuilder: (context, animation1, animation2, child) =>
               FadeTransition(
             opacity: animation1,

@@ -7,9 +7,9 @@ import 'package:dolarbot_app/screens/bcra_info/bcra_info_screen.dart';
 import 'package:dolarbot_app/screens/crypto_info/crypto_info_screen.dart';
 import 'package:dolarbot_app/screens/currency_info/currency_info_screen.dart';
 import 'package:dolarbot_app/screens/home/home_screen.dart';
-import 'package:dolarbot_app/screens/home/widgets/drawer/drawer_menu_item.dart';
 import 'package:dolarbot_app/screens/metal_info/metal_info_screen.dart';
 import 'package:dolarbot_app/screens/venezuela_info/venezuela_info_screen.dart';
+import 'package:dolarbot_app/widgets/common/menu_item.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -61,27 +61,29 @@ class DrawerMenuBody extends StatelessWidget {
 
   _navigateTo(BuildContext context, String title, Widget bodyContent) async {
     Navigator.pop(context, true);
-    await Future.delayed(Duration(milliseconds: 200))
-        .then((value) => Navigator.pushReplacement(
-              context,
-              PageRouteBuilder(
-                pageBuilder: (context, animation1, animation2) => HomeScreen(
-                  title: title,
-                  bodyContent: bodyContent,
-                ),
-              ),
-            ));
+    await Future.delayed(Duration(milliseconds: 200)).then(
+      (value) => Navigator.pushReplacement(
+        context,
+        PageRouteBuilder(
+          pageBuilder: (context, animation1, animation2) => HomeScreen(
+            title: title,
+            bodyContent: bodyContent,
+          ),
+        ),
+      ),
+    );
   }
 
-  DrawerMenuItem _getDollarRootMenu(BuildContext context) {
-    return DrawerMenuItem(
+  MenuItem _getDollarRootMenu(BuildContext context) {
+    return MenuItem(
       text: "Dólar",
-      leftIcon: _getIconData(context, FontAwesomeIcons.dollarSign),
+      leading: _getIconData(context, FontAwesomeIcons.dollarSign),
       depthLevel: 1,
+      disableSplash: true,
       subItems: [
-        DrawerMenuItem(
+        MenuItem(
           text: "Oficial",
-          leftIcon: _getIconData(context, FontAwesomeIcons.solidCheckCircle),
+          leading: _getIconData(context, FontAwesomeIcons.solidCheckCircle),
           depthLevel: 2,
           onTap: () => {
             _navigateTo(
@@ -93,9 +95,9 @@ class DrawerMenuBody extends StatelessWidget {
             )
           },
         ),
-        DrawerMenuItem(
+        MenuItem(
           text: "Blue",
-          leftIcon: _getIconData(context, FontAwesomeIcons.commentDollar),
+          leading: _getIconData(context, FontAwesomeIcons.commentDollar),
           depthLevel: 2,
           onTap: () => {
             _navigateTo(
@@ -107,9 +109,9 @@ class DrawerMenuBody extends StatelessWidget {
             )
           },
         ),
-        DrawerMenuItem(
+        MenuItem(
           text: "Bolsa (MEP)",
-          leftIcon: _getIconData(context, FontAwesomeIcons.poll),
+          leading: _getIconData(context, FontAwesomeIcons.poll),
           depthLevel: 2,
           onTap: () => {
             _navigateTo(
@@ -121,9 +123,9 @@ class DrawerMenuBody extends StatelessWidget {
             )
           },
         ),
-        DrawerMenuItem(
+        MenuItem(
           text: "Contado con Liqui",
-          leftIcon: _getIconData(context, FontAwesomeIcons.coins),
+          leading: _getIconData(context, FontAwesomeIcons.coins),
           depthLevel: 2,
           onTap: () => {
             _navigateTo(
@@ -135,9 +137,9 @@ class DrawerMenuBody extends StatelessWidget {
             )
           },
         ),
-        DrawerMenuItem(
+        MenuItem(
           text: "Promedio",
-          leftIcon: _getIconData(context, FontAwesomeIcons.percentage),
+          leading: _getIconData(context, FontAwesomeIcons.percentage),
           depthLevel: 2,
           onTap: () => {
             _navigateTo(
@@ -149,15 +151,14 @@ class DrawerMenuBody extends StatelessWidget {
             )
           },
         ),
-        DrawerMenuItem(
+        MenuItem(
           text: "Bancos",
-          leftIcon: _getIconData(context, FontAwesomeIcons.landmark),
+          leading: _getIconData(context, FontAwesomeIcons.landmark),
           depthLevel: 2,
-          onTap: null,
           subItems: [
-            DrawerMenuItem(
+            MenuItem(
               text: "BBVA",
-              leftIcon: _getIconAsset(context, DolarBotIcons.banks.bbva),
+              leading: _getIconAsset(context, DolarBotIcons.banks.bbva),
               depthLevel: 3,
               onTap: () => {
                 _navigateTo(
@@ -169,9 +170,9 @@ class DrawerMenuBody extends StatelessWidget {
                 )
               },
             ),
-            DrawerMenuItem(
+            MenuItem(
               text: "Chaco",
-              leftIcon: _getIconAsset(context, DolarBotIcons.banks.chaco),
+              leading: _getIconAsset(context, DolarBotIcons.banks.chaco),
               depthLevel: 3,
               onTap: () => {
                 _navigateTo(
@@ -183,9 +184,9 @@ class DrawerMenuBody extends StatelessWidget {
                 )
               },
             ),
-            DrawerMenuItem(
+            MenuItem(
               text: "Ciudad",
-              leftIcon: _getIconAsset(context, DolarBotIcons.banks.ciudad),
+              leading: _getIconAsset(context, DolarBotIcons.banks.ciudad),
               depthLevel: 3,
               onTap: () => {
                 _navigateTo(
@@ -197,9 +198,9 @@ class DrawerMenuBody extends StatelessWidget {
                 )
               },
             ),
-            DrawerMenuItem(
+            MenuItem(
               text: "Comafi",
-              leftIcon: _getIconAsset(context, DolarBotIcons.banks.comafi),
+              leading: _getIconAsset(context, DolarBotIcons.banks.comafi),
               depthLevel: 3,
               onTap: () => {
                 _navigateTo(
@@ -211,9 +212,9 @@ class DrawerMenuBody extends StatelessWidget {
                 )
               },
             ),
-            DrawerMenuItem(
+            MenuItem(
               text: "Córdoba",
-              leftIcon: _getIconAsset(context, DolarBotIcons.banks.cordoba),
+              leading: _getIconAsset(context, DolarBotIcons.banks.cordoba),
               depthLevel: 3,
               onTap: () => {
                 _navigateTo(
@@ -225,9 +226,9 @@ class DrawerMenuBody extends StatelessWidget {
                 )
               },
             ),
-            DrawerMenuItem(
+            MenuItem(
               text: "Galicia",
-              leftIcon: _getIconAsset(context, DolarBotIcons.banks.galicia),
+              leading: _getIconAsset(context, DolarBotIcons.banks.galicia),
               depthLevel: 3,
               onTap: () => {
                 _navigateTo(
@@ -239,9 +240,9 @@ class DrawerMenuBody extends StatelessWidget {
                 )
               },
             ),
-            DrawerMenuItem(
+            MenuItem(
               text: "Hipotecario",
-              leftIcon: _getIconAsset(context, DolarBotIcons.banks.hipotecario),
+              leading: _getIconAsset(context, DolarBotIcons.banks.hipotecario),
               depthLevel: 3,
               onTap: () => {
                 _navigateTo(
@@ -253,9 +254,9 @@ class DrawerMenuBody extends StatelessWidget {
                 )
               },
             ),
-            DrawerMenuItem(
+            MenuItem(
               text: "BIND",
-              leftIcon: _getIconAsset(context, DolarBotIcons.banks.bind),
+              leading: _getIconAsset(context, DolarBotIcons.banks.bind),
               depthLevel: 3,
               onTap: () => {
                 _navigateTo(
@@ -267,9 +268,9 @@ class DrawerMenuBody extends StatelessWidget {
                 )
               },
             ),
-            DrawerMenuItem(
+            MenuItem(
               text: "La Pampa",
-              leftIcon: _getIconAsset(context, DolarBotIcons.banks.pampa),
+              leading: _getIconAsset(context, DolarBotIcons.banks.pampa),
               depthLevel: 3,
               onTap: () => {
                 _navigateTo(
@@ -281,9 +282,9 @@ class DrawerMenuBody extends StatelessWidget {
                 )
               },
             ),
-            DrawerMenuItem(
+            MenuItem(
               text: "Nación",
-              leftIcon: _getIconAsset(context, DolarBotIcons.banks.nacion),
+              leading: _getIconAsset(context, DolarBotIcons.banks.nacion),
               depthLevel: 3,
               onTap: () => {
                 _navigateTo(
@@ -295,9 +296,9 @@ class DrawerMenuBody extends StatelessWidget {
                 )
               },
             ),
-            DrawerMenuItem(
+            MenuItem(
               text: "Patagonia",
-              leftIcon: _getIconAsset(context, DolarBotIcons.banks.patagonia),
+              leading: _getIconAsset(context, DolarBotIcons.banks.patagonia),
               depthLevel: 3,
               onTap: () => {
                 _navigateTo(
@@ -309,9 +310,9 @@ class DrawerMenuBody extends StatelessWidget {
                 )
               },
             ),
-            DrawerMenuItem(
+            MenuItem(
               text: "Piano",
-              leftIcon: _getIconAsset(context, DolarBotIcons.banks.piano),
+              leading: _getIconAsset(context, DolarBotIcons.banks.piano),
               depthLevel: 3,
               onTap: () => {
                 _navigateTo(
@@ -323,9 +324,9 @@ class DrawerMenuBody extends StatelessWidget {
                 )
               },
             ),
-            DrawerMenuItem(
+            MenuItem(
               text: "Santander",
-              leftIcon: _getIconAsset(context, DolarBotIcons.banks.santander),
+              leading: _getIconAsset(context, DolarBotIcons.banks.santander),
               depthLevel: 3,
               onTap: () => {
                 _navigateTo(
@@ -337,9 +338,9 @@ class DrawerMenuBody extends StatelessWidget {
                 )
               },
             ),
-            DrawerMenuItem(
+            MenuItem(
               text: "Supervielle",
-              leftIcon: _getIconAsset(context, DolarBotIcons.banks.supervielle),
+              leading: _getIconAsset(context, DolarBotIcons.banks.supervielle),
               depthLevel: 3,
               onTap: () => {
                 _navigateTo(
@@ -354,20 +355,19 @@ class DrawerMenuBody extends StatelessWidget {
           ],
         )
       ],
-      onTap: null,
     );
   }
 
-  DrawerMenuItem _getEuroRootMenu(BuildContext context) {
-    return DrawerMenuItem(
+  MenuItem _getEuroRootMenu(BuildContext context) {
+    return MenuItem(
       text: "Euro",
-      leftIcon: _getIconData(context, FontAwesomeIcons.euroSign),
+      leading: _getIconData(context, FontAwesomeIcons.euroSign),
       depthLevel: 1,
-      onTap: null,
+      disableSplash: true,
       subItems: [
-        DrawerMenuItem(
+        MenuItem(
           text: "BBVA",
-          leftIcon: _getIconAsset(context, DolarBotIcons.banks.bbva),
+          leading: _getIconAsset(context, DolarBotIcons.banks.bbva),
           depthLevel: 2,
           onTap: () => {
             _navigateTo(
@@ -378,9 +378,9 @@ class DrawerMenuBody extends StatelessWidget {
             )
           },
         ),
-        DrawerMenuItem(
+        MenuItem(
           text: "Chaco",
-          leftIcon: _getIconAsset(context, DolarBotIcons.banks.chaco),
+          leading: _getIconAsset(context, DolarBotIcons.banks.chaco),
           depthLevel: 2,
           onTap: () => {
             _navigateTo(
@@ -391,9 +391,9 @@ class DrawerMenuBody extends StatelessWidget {
             )
           },
         ),
-        DrawerMenuItem(
+        MenuItem(
           text: "Galicia",
-          leftIcon: _getIconAsset(context, DolarBotIcons.banks.galicia),
+          leading: _getIconAsset(context, DolarBotIcons.banks.galicia),
           depthLevel: 2,
           onTap: () => {
             _navigateTo(
@@ -404,9 +404,9 @@ class DrawerMenuBody extends StatelessWidget {
             )
           },
         ),
-        DrawerMenuItem(
+        MenuItem(
           text: "Hipotecario",
-          leftIcon: _getIconAsset(context, DolarBotIcons.banks.hipotecario),
+          leading: _getIconAsset(context, DolarBotIcons.banks.hipotecario),
           depthLevel: 2,
           onTap: () => {
             _navigateTo(
@@ -417,9 +417,9 @@ class DrawerMenuBody extends StatelessWidget {
             )
           },
         ),
-        DrawerMenuItem(
+        MenuItem(
           text: "La Pampa",
-          leftIcon: _getIconAsset(context, DolarBotIcons.banks.pampa),
+          leading: _getIconAsset(context, DolarBotIcons.banks.pampa),
           depthLevel: 2,
           onTap: () => {
             _navigateTo(
@@ -430,9 +430,9 @@ class DrawerMenuBody extends StatelessWidget {
             )
           },
         ),
-        DrawerMenuItem(
+        MenuItem(
           text: "Nación",
-          leftIcon: _getIconAsset(context, DolarBotIcons.banks.nacion),
+          leading: _getIconAsset(context, DolarBotIcons.banks.nacion),
           depthLevel: 2,
           onTap: () => {
             _navigateTo(
@@ -447,15 +447,16 @@ class DrawerMenuBody extends StatelessWidget {
     );
   }
 
-  DrawerMenuItem _getRealRootMenu(BuildContext context) {
-    return DrawerMenuItem(
+  MenuItem _getRealRootMenu(BuildContext context) {
+    return MenuItem(
       text: "Real",
-      leftIcon: _getIconAsset(context, DolarBotIcons.general.real),
+      leading: _getIconAsset(context, DolarBotIcons.general.real),
       depthLevel: 1,
+      disableSplash: true,
       subItems: [
-        DrawerMenuItem(
+        MenuItem(
           text: "BBVA",
-          leftIcon: _getIconAsset(context, DolarBotIcons.banks.bbva),
+          leading: _getIconAsset(context, DolarBotIcons.banks.bbva),
           depthLevel: 2,
           onTap: () => {
             _navigateTo(
@@ -467,9 +468,9 @@ class DrawerMenuBody extends StatelessWidget {
             )
           },
         ),
-        DrawerMenuItem(
+        MenuItem(
           text: "Chaco",
-          leftIcon: _getIconAsset(context, DolarBotIcons.banks.chaco),
+          leading: _getIconAsset(context, DolarBotIcons.banks.chaco),
           depthLevel: 2,
           onTap: () => {
             _navigateTo(
@@ -480,9 +481,9 @@ class DrawerMenuBody extends StatelessWidget {
             )
           },
         ),
-        DrawerMenuItem(
+        MenuItem(
           text: "Nación",
-          leftIcon: _getIconAsset(context, DolarBotIcons.banks.nacion),
+          leading: _getIconAsset(context, DolarBotIcons.banks.nacion),
           depthLevel: 2,
           onTap: () => {
             _navigateTo(
@@ -494,19 +495,19 @@ class DrawerMenuBody extends StatelessWidget {
           },
         ),
       ],
-      onTap: null,
     );
   }
 
-  DrawerMenuItem _getCryptoRootMenu(BuildContext context) {
-    return DrawerMenuItem(
+  MenuItem _getCryptoRootMenu(BuildContext context) {
+    return MenuItem(
       text: "Crypto",
-      leftIcon: _getIconData(context, CryptoFontIcons.TRIG),
+      leading: _getIconData(context, CryptoFontIcons.TRIG),
       depthLevel: 1,
+      disableSplash: true,
       subItems: [
-        DrawerMenuItem(
+        MenuItem(
           text: "Bitcoin",
-          leftIcon: _getIconData(context, CryptoFontIcons.BTC),
+          leading: _getIconData(context, CryptoFontIcons.BTC),
           depthLevel: 2,
           onTap: () => {
             _navigateTo(
@@ -516,9 +517,9 @@ class DrawerMenuBody extends StatelessWidget {
             )
           },
         ),
-        DrawerMenuItem(
+        MenuItem(
           text: "Bitcoin Cash",
-          leftIcon: _getIconData(context, CryptoFontIcons.BTC_ALT),
+          leading: _getIconData(context, CryptoFontIcons.BTC_ALT),
           depthLevel: 2,
           onTap: () => {
             _navigateTo(
@@ -528,9 +529,9 @@ class DrawerMenuBody extends StatelessWidget {
             )
           },
         ),
-        DrawerMenuItem(
+        MenuItem(
           text: "DASH",
-          leftIcon: _getIconData(context, CryptoFontIcons.DASH),
+          leading: _getIconData(context, CryptoFontIcons.DASH),
           depthLevel: 2,
           onTap: () => {
             _navigateTo(
@@ -540,9 +541,9 @@ class DrawerMenuBody extends StatelessWidget {
             )
           },
         ),
-        DrawerMenuItem(
+        MenuItem(
           text: "Ethereum",
-          leftIcon: _getIconData(context, FontAwesomeIcons.ethereum),
+          leading: _getIconData(context, FontAwesomeIcons.ethereum),
           depthLevel: 2,
           onTap: () => {
             _navigateTo(
@@ -552,9 +553,9 @@ class DrawerMenuBody extends StatelessWidget {
             )
           },
         ),
-        DrawerMenuItem(
+        MenuItem(
           text: "Litecoin",
-          leftIcon: _getIconData(context, CryptoFontIcons.LTC),
+          leading: _getIconData(context, CryptoFontIcons.LTC),
           depthLevel: 2,
           onTap: () => {
             _navigateTo(
@@ -564,9 +565,9 @@ class DrawerMenuBody extends StatelessWidget {
             )
           },
         ),
-        DrawerMenuItem(
+        MenuItem(
           text: "Monero",
-          leftIcon: _getIconData(context, CryptoFontIcons.XMR),
+          leading: _getIconData(context, CryptoFontIcons.XMR),
           depthLevel: 2,
           onTap: () => {
             _navigateTo(
@@ -576,9 +577,9 @@ class DrawerMenuBody extends StatelessWidget {
             )
           },
         ),
-        DrawerMenuItem(
+        MenuItem(
           text: "Ripple",
-          leftIcon: _getIconData(context, CryptoFontIcons.XRP),
+          leading: _getIconData(context, CryptoFontIcons.XRP),
           depthLevel: 2,
           onTap: () => {
             _navigateTo(
@@ -589,19 +590,19 @@ class DrawerMenuBody extends StatelessWidget {
           },
         ),
       ],
-      onTap: null,
     );
   }
 
-  DrawerMenuItem _getMetalsRootMenu(BuildContext context) {
-    return DrawerMenuItem(
+  MenuItem _getMetalsRootMenu(BuildContext context) {
+    return MenuItem(
       text: "Metales",
-      leftIcon: _getIconData(context, FontAwesomeIcons.sketch),
+      leading: _getIconData(context, FontAwesomeIcons.sketch),
       depthLevel: 1,
+      disableSplash: true,
       subItems: [
-        DrawerMenuItem(
+        MenuItem(
           text: "Oro",
-          leftIcon: _getIconAsset(context, DolarBotIcons.metals.gold),
+          leading: _getIconAsset(context, DolarBotIcons.metals.gold),
           depthLevel: 2,
           onTap: () => {
             _navigateTo(
@@ -611,9 +612,9 @@ class DrawerMenuBody extends StatelessWidget {
             )
           },
         ),
-        DrawerMenuItem(
+        MenuItem(
           text: "Plata",
-          leftIcon: _getIconAsset(context, DolarBotIcons.metals.silver),
+          leading: _getIconAsset(context, DolarBotIcons.metals.silver),
           depthLevel: 2,
           onTap: () => {
             _navigateTo(
@@ -623,9 +624,9 @@ class DrawerMenuBody extends StatelessWidget {
             )
           },
         ),
-        DrawerMenuItem(
+        MenuItem(
           text: "Cobre",
-          leftIcon: _getIconAsset(context, DolarBotIcons.metals.copper),
+          leading: _getIconAsset(context, DolarBotIcons.metals.copper),
           depthLevel: 2,
           onTap: () => {
             _navigateTo(
@@ -636,19 +637,19 @@ class DrawerMenuBody extends StatelessWidget {
           },
         ),
       ],
-      onTap: null,
     );
   }
 
-  DrawerMenuItem _getBcraRootMenu(BuildContext context) {
-    return DrawerMenuItem(
+  MenuItem _getBcraRootMenu(BuildContext context) {
+    return MenuItem(
       text: "Indicadores BCRA",
-      leftIcon: _getIconData(context, FontAwesomeIcons.chartLine),
+      leading: _getIconData(context, FontAwesomeIcons.chartLine),
       depthLevel: 1,
+      disableSplash: true,
       subItems: [
-        DrawerMenuItem(
+        MenuItem(
           text: "Riesgo País",
-          leftIcon: _getIconData(context, FontAwesomeIcons.exclamationTriangle),
+          leading: _getIconData(context, FontAwesomeIcons.exclamationTriangle),
           depthLevel: 2,
           onTap: () => {
             _navigateTo(
@@ -658,9 +659,9 @@ class DrawerMenuBody extends StatelessWidget {
             )
           },
         ),
-        DrawerMenuItem(
+        MenuItem(
           text: "Reservas",
-          leftIcon: _getIconData(context, FontAwesomeIcons.handHoldingUsd),
+          leading: _getIconData(context, FontAwesomeIcons.handHoldingUsd),
           depthLevel: 2,
           onTap: () => {
             _navigateTo(
@@ -670,9 +671,9 @@ class DrawerMenuBody extends StatelessWidget {
             )
           },
         ),
-        DrawerMenuItem(
+        MenuItem(
           text: "Circulante",
-          leftIcon: _getIconData(context, FontAwesomeIcons.moneyBillWave),
+          leading: _getIconData(context, FontAwesomeIcons.moneyBillWave),
           depthLevel: 2,
           onTap: () => {
             _navigateTo(
@@ -683,19 +684,19 @@ class DrawerMenuBody extends StatelessWidget {
           },
         ),
       ],
-      onTap: null,
     );
   }
 
-  DrawerMenuItem _getVenezuelaRootMenu(BuildContext context) {
-    return DrawerMenuItem(
+  MenuItem _getVenezuelaRootMenu(BuildContext context) {
+    return MenuItem(
       text: "Venezuela",
-      leftIcon: _getIconAsset(context, DolarBotIcons.general.venezuela),
+      leading: _getIconAsset(context, DolarBotIcons.general.venezuela),
       depthLevel: 1,
+      disableSplash: true,
       subItems: [
-        DrawerMenuItem(
+        MenuItem(
           text: "Dólar",
-          leftIcon: _getIconData(context, FontAwesomeIcons.dollarSign),
+          leading: _getIconData(context, FontAwesomeIcons.dollarSign),
           depthLevel: 2,
           onTap: () => {
             _navigateTo(
@@ -705,9 +706,9 @@ class DrawerMenuBody extends StatelessWidget {
             )
           },
         ),
-        DrawerMenuItem(
+        MenuItem(
           text: "Euro",
-          leftIcon: _getIconData(context, FontAwesomeIcons.euroSign),
+          leading: _getIconData(context, FontAwesomeIcons.euroSign),
           depthLevel: 2,
           onTap: () => {
             _navigateTo(
@@ -718,7 +719,6 @@ class DrawerMenuBody extends StatelessWidget {
           },
         ),
       ],
-      onTap: null,
     );
   }
 }

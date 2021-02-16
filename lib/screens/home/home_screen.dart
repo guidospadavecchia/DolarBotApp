@@ -1,6 +1,6 @@
-import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:dolarbot_app/screens/home/widgets/drawer/drawer_menu.dart';
 import 'package:dolarbot_app/screens/home/widgets/floating_action_button/home_floating_action_button.dart';
+import 'package:dolarbot_app/widgets/common/appBar.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -27,21 +27,8 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        excludeHeaderSemantics: true,
-        toolbarHeight: 70,
-        leadingWidth: 80,
-        backgroundColor: Colors.transparent,
-        centerTitle: true,
-        title: Text(
-          widget.title,
-          style: TextStyle(
-            fontFamily: 'Raleway',
-            fontWeight: FontWeight.bold,
-            color: ThemeManager.getPrimaryTextColor(context),
-          ),
-        ),
-        elevation: 0,
+      appBar: CommonAppBar(
+        title: widget.title,
       ),
       drawer: Drawer(
         child: DrawerMenu(),

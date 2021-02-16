@@ -4,6 +4,7 @@ import 'package:flutter/scheduler.dart';
 
 class ThemeManager {
   static Color primaryColor = Color.fromRGBO(50, 177, 40, 1);
+  static Color accentColor = Color.fromRGBO(140, 216, 18, 1);
 
   static AdaptiveThemeMode getDefaultTheme(BuildContext context) {
     Brightness brightness = SchedulerBinding.instance.window.platformBrightness;
@@ -17,9 +18,13 @@ class ThemeManager {
     return primaryColor;
   }
 
+  static Color getAccentColor() {
+    return accentColor;
+  }
+
   static Color getPrimaryTextColor(BuildContext context) {
     return AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
-        ? Colors.grey[800]
+        ? Colors.grey[700]
         : Colors.grey[200];
   }
 
@@ -41,19 +46,24 @@ class ThemeManager {
         : Color.fromRGBO(48, 48, 48, 1);
   }
 
-  static Color getFloatingActionButtonColor(BuildContext context) {
+  static Color getGlobalAccentColor(BuildContext context) {
     return AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
-        ? Colors.green[500]
-        : primaryColor;
+        ? primaryColor
+        : accentColor;
   }
 
-  static ThemeData getThemeForDrawerMenu(BuildContext context) {
+  static ThemeData getThemeForDrawerMenu(
+      BuildContext context, bool disableSplash) {
     return Theme.of(context).copyWith(
+      splashColor:
+          disableSplash ? Colors.transparent : Theme.of(context).splashColor,
+      highlightColor:
+          disableSplash ? Colors.transparent : Theme.of(context).highlightColor,
       unselectedWidgetColor: ThemeManager.getDrawerMenuItemIconColor(context),
       textTheme: TextTheme(
         bodyText1: TextStyle(
           color: ThemeManager.getSecondaryTextColor(context),
-          fontWeight: FontWeight.w600,
+          // fontWeight: FontWeight.w600,
         ),
       ),
       dividerColor: Colors.transparent,

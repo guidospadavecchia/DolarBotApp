@@ -23,7 +23,7 @@ class HomeFloatingActionButton extends StatelessWidget {
           onPressed: () {
             AdaptiveTheme.of(context).toggleThemeMode();
           },
-          backgroundColor: ThemeManager.getFloatingActionButtonColor(context),
+          backgroundColor: ThemeManager.getGlobalAccentColor(context),
           foregroundColor: ThemeManager.getGlobalBackgroundColor(context),
           tooltip: 'Opciones',
           elevation: 0,
