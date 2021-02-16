@@ -59,16 +59,18 @@ class DrawerMenuBody extends StatelessWidget {
     );
   }
 
-  _navigateTo(BuildContext context, String title, Widget bodyContent) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => HomeScreen(
-          title: title,
-          bodyContent: bodyContent,
-        ),
-      ),
-    );
+  _navigateTo(BuildContext context, String title, Widget bodyContent) async {
+    Navigator.pop(context, true);
+    await Future.delayed(Duration(milliseconds: 200))
+        .then((value) => Navigator.pushReplacement(
+              context,
+              PageRouteBuilder(
+                pageBuilder: (context, animation1, animation2) => HomeScreen(
+                  title: title,
+                  bodyContent: bodyContent,
+                ),
+              ),
+            ));
   }
 
   DrawerMenuItem _getDollarRootMenu(BuildContext context) {

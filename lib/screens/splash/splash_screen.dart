@@ -11,12 +11,18 @@ class SplashScreen extends StatelessWidget {
     new Future.delayed(const Duration(seconds: 6), () {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(
-          builder: (context) => HomeScreen(
+        PageRouteBuilder(
+          pageBuilder: (context, animation1, animation2) => HomeScreen(
             title: 'Dólar Oficial',
             bodyContent: CurrencyInfoScreen<DollarResponse>(
               dollarEndpoint: DollarEndpoints.oficial,
             ),
+          ),
+          transitionDuration: Duration(milliseconds: 1200),
+          transitionsBuilder: (context, animation1, animation2, child) =>
+              FadeTransition(
+            opacity: animation1,
+            child: child,
           ),
         ),
       );
