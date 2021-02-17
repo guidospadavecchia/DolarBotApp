@@ -1,6 +1,5 @@
 import 'package:dolarbot_app/api/api_endpoints.dart';
 import 'package:dolarbot_app/api/responses/dollarResponse.dart';
-import 'package:dolarbot_app/api/responses/realResponse.dart';
 import 'package:dolarbot_app/classes/dolarbot_icons.dart';
 import 'package:dolarbot_app/screens/currency_info/currency_info_screen.dart';
 import 'package:dolarbot_app/screens/home/widgets/drawer/drawer_menu_body.dart';
