@@ -1,0 +1,13 @@
+export 'package:dolarbot_app/screens/bcra_info/bcra_info_screen.dart';
+export 'package:dolarbot_app/screens/crypto_info/crypto_info_screen.dart';
+export 'package:dolarbot_app/screens/currency_info/currency_info_screen.dart';
+export 'package:dolarbot_app/screens/home/home_screen.dart';
+export 'package:dolarbot_app/screens/home/widgets/drawer/root_menus/root_menu_bcra.dart';
+export 'package:dolarbot_app/screens/home/widgets/drawer/root_menus/root_menu_crypto.dart';
+export 'package:dolarbot_app/screens/home/widgets/drawer/root_menus/root_menu_dollar.dart';
+export 'package:dolarbot_app/screens/home/widgets/drawer/root_menus/root_menu_euro.dart';
+export 'package:dolarbot_app/screens/home/widgets/drawer/root_menus/root_menu_metals.dart';
+export 'package:dolarbot_app/screens/home/widgets/drawer/root_menus/root_menu_real.dart';
+export 'package:dolarbot_app/screens/home/widgets/drawer/root_menus/root_menu_venezuela.dart';
+export 'package:dolarbot_app/screens/metal_info/metal_info_screen.dart';
+export 'package:dolarbot_app/screens/venezuela_info/venezuela_info_screen.dart';

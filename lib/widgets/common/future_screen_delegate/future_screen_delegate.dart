@@ -1,5 +1,6 @@
+import 'package:dolarbot_app/widgets/common/future_screen_delegate/error_future.dart';
+import 'package:dolarbot_app/widgets/common/future_screen_delegate/loading_future.dart';
 import 'package:flutter/material.dart';
-import 'package:loading_indicator/loading_indicator.dart';
 
 typedef ScreenDataBuildFunction<T> = Widget Function(T data);
 
@@ -18,23 +19,11 @@ class FutureScreenDelegate<T> extends StatelessWidget {
       future: response,
       builder: (context, snapshot) {
         if (snapshot.connectionState != ConnectionState.done) {
-          return Padding(
-            child: Center(
-              child: SizedBox(
-                width: 64,
-                height: 64,
-                child: LoadingIndicator(
-                  indicatorType: Indicator.ballScale,
-                  color: Theme.of(context).primaryColor,
-                ),
-              ),
-            ),
-            padding: EdgeInsets.only(top: 30, bottom: 10),
-          );
+          return LoadingFuture();
         }
 
         if (snapshot.hasError) {
-          return Text('Error: ${snapshot.error}');
+          return ErrorFuture();
         }
 
         return screen(snapshot.data);

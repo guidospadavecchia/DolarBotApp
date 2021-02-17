@@ -1,7 +1,7 @@
 import 'package:dolarbot_app/api/api.dart';
 import 'package:dolarbot_app/api/responses/base/apiResponse.dart';
 import 'package:dolarbot_app/widgets/common/currency_info_container.dart';
-import 'package:dolarbot_app/widgets/common/future_screen_delegate.dart';
+import 'package:dolarbot_app/widgets/common/future_screen_delegate/future_screen_delegate.dart';
 import 'package:flutter/material.dart';
 
 class BcraInfoScreen extends StatefulWidget {
