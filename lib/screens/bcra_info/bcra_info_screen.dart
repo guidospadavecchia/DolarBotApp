@@ -4,13 +4,20 @@ import 'package:dolarbot_app/widgets/common/currency_info_container.dart';
 import 'package:dolarbot_app/widgets/common/future_screen_delegate.dart';
 import 'package:flutter/material.dart';
 
-class BcraInfoScreen extends StatelessWidget {
+class BcraInfoScreen extends StatefulWidget {
   final BcraEndpoints bcraEndpoint;
 
   const BcraInfoScreen({
     Key key,
     @required this.bcraEndpoint,
   }) : super(key: key);
+
+  @override
+  BcraInfoScreenState createState() => BcraInfoScreenState();
+}
+
+class BcraInfoScreenState extends State<BcraInfoScreen> {
+  bool _forceRefresh = false;
 
   @override
   Widget build(BuildContext context) {
@@ -26,10 +33,10 @@ class BcraInfoScreen extends StatelessWidget {
   }
 
   Widget _getChildScreen() {
-    switch (bcraEndpoint) {
+    switch (widget.bcraEndpoint) {
       case BcraEndpoints.riesgoPais:
         return FutureScreenDelegate<CountryRiskResponse>(
-          response: API.getCountryRisk(),
+          response: API.getCountryRisk(forceRefresh: _forceRefresh),
           screen: (data) {
             return CurrencyInfo(
               title: 'VALOR',
@@ -40,7 +47,7 @@ class BcraInfoScreen extends StatelessWidget {
         );
       case BcraEndpoints.reservas:
         return FutureScreenDelegate<BcraResponse>(
-          response: API.getBcraReserves(),
+          response: API.getBcraReserves(forceRefresh: _forceRefresh),
           screen: (data) {
             return CurrencyInfo(
               title: "DÓLARES ESTADOUNIDENSES",
@@ -51,7 +58,7 @@ class BcraInfoScreen extends StatelessWidget {
         );
       case BcraEndpoints.circulante:
         return FutureScreenDelegate<BcraResponse>(
-          response: API.getCirculatingCurrency(),
+          response: API.getCirculatingCurrency(forceRefresh: _forceRefresh),
           screen: (data) {
             return CurrencyInfo(
               title: "PESOS ARGENTINOS",
@@ -61,7 +68,13 @@ class BcraInfoScreen extends StatelessWidget {
           },
         );
       default:
-        throw ('$bcraEndpoint not implemented.');
+        throw ('${widget.bcraEndpoint} not implemented.');
     }
+  }
+
+  refresh() async {
+    setState(() {
+      _forceRefresh = true;
+    });
   }
 }

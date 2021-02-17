@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:show_up_animation/show_up_animation.dart';
 
 class SplashScreen extends StatelessWidget {
+  final GlobalKey<CurrencyInfoScreenState> _key = GlobalKey();
+
   @override
   Widget build(BuildContext context) {
     new Future.delayed(const Duration(seconds: 6), () {
@@ -16,7 +18,9 @@ class SplashScreen extends StatelessWidget {
             title: 'Dólar Oficial',
             bodyContent: CurrencyInfoScreen<DollarResponse>(
               dollarEndpoint: DollarEndpoints.oficial,
+              key: _key,
             ),
+            onAppBarRefresh: () => _key.currentState.refresh(),
           ),
           transitionDuration: Duration(milliseconds: 600),
           transitionsBuilder: (context, animation1, animation2, child) =>
@@ -27,6 +31,7 @@ class SplashScreen extends StatelessWidget {
         ),
       );
     });
+
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(

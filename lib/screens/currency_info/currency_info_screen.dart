@@ -5,17 +5,14 @@ import 'package:dolarbot_app/widgets/common/future_screen_delegate.dart';
 import 'package:flutter/material.dart';
 
 class CurrencyInfoScreen<T extends GenericCurrencyResponse>
-    extends StatelessWidget {
+    extends StatefulWidget {
   final DollarEndpoints dollarEndpoint;
   final EuroEndpoints euroEndpoint;
   final RealEndpoints realEndpoint;
 
-  const CurrencyInfoScreen({
-    Key key,
-    this.dollarEndpoint,
-    this.euroEndpoint,
-    this.realEndpoint,
-  })  : assert((dollarEndpoint != null &&
+  const CurrencyInfoScreen(
+      {Key key, this.dollarEndpoint, this.euroEndpoint, this.realEndpoint})
+      : assert((dollarEndpoint != null &&
                 euroEndpoint == null &&
                 realEndpoint == null) ||
             (euroEndpoint != null &&
@@ -25,6 +22,14 @@ class CurrencyInfoScreen<T extends GenericCurrencyResponse>
                 dollarEndpoint == null &&
                 euroEndpoint == null)),
         super(key: key);
+
+  @override
+  CurrencyInfoScreenState<T> createState() => CurrencyInfoScreenState<T>();
+}
+
+class CurrencyInfoScreenState<T extends GenericCurrencyResponse>
+    extends State<CurrencyInfoScreen<T>> {
+  bool _forceRefresh = false;
 
   @override
   Widget build(BuildContext context) {
@@ -57,13 +62,20 @@ class CurrencyInfoScreen<T extends GenericCurrencyResponse>
     );
   }
 
+  refresh() async {
+    setState(() {
+      _forceRefresh = true;
+    });
+  }
+
   _getResponse<T extends GenericCurrencyResponse>() {
-    if (dollarEndpoint != null) {
-      return API.getDollarRate(dollarEndpoint);
-    } else if (euroEndpoint != null) {
-      return API.getEuroRate(euroEndpoint);
-    } else if (realEndpoint != null) {
-      return API.getRealRate(realEndpoint);
+    if (widget.dollarEndpoint != null) {
+      return API.getDollarRate(widget.dollarEndpoint,
+          forceRefresh: _forceRefresh);
+    } else if (widget.euroEndpoint != null) {
+      return API.getEuroRate(widget.euroEndpoint, forceRefresh: _forceRefresh);
+    } else if (widget.realEndpoint != null) {
+      return API.getRealRate(widget.realEndpoint, forceRefresh: _forceRefresh);
     }
   }
 }

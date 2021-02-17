@@ -4,13 +4,20 @@ import 'package:dolarbot_app/widgets/common/currency_info_container.dart';
 import 'package:dolarbot_app/widgets/common/future_screen_delegate.dart';
 import 'package:flutter/material.dart';
 
-class CryptoInfoScreen extends StatelessWidget {
+class CryptoInfoScreen extends StatefulWidget {
   final CryptoEndpoints cryptoEndpoint;
 
   const CryptoInfoScreen({
     Key key,
     @required this.cryptoEndpoint,
   }) : super(key: key);
+
+  @override
+  CryptoInfoScreenState createState() => CryptoInfoScreenState();
+}
+
+class CryptoInfoScreenState extends State<CryptoInfoScreen> {
+  bool _forceRefresh = false;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +28,8 @@ class CryptoInfoScreen extends StatelessWidget {
         scrollDirection: Axis.vertical,
         physics: BouncingScrollPhysics(),
         child: FutureScreenDelegate<CryptoResponse>(
-          response: API.getCryptoRate(cryptoEndpoint),
+          response: API.getCryptoRate(widget.cryptoEndpoint,
+              forceRefresh: _forceRefresh),
           screen: (data) {
             return CurrencyInfoContainer(
               items: [
@@ -41,5 +49,11 @@ class CryptoInfoScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  refresh() async {
+    setState(() {
+      _forceRefresh = true;
+    });
   }
 }

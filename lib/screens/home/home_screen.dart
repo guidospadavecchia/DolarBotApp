@@ -6,11 +6,13 @@ import 'package:flutter/material.dart';
 class HomeScreen extends StatefulWidget {
   final Widget bodyContent;
   final String title;
+  final Function onAppBarRefresh;
 
   HomeScreen({
     Key key,
     @required this.bodyContent,
     this.title,
+    @required this.onAppBarRefresh,
   })  : assert(bodyContent != null),
         super(key: key);
 
@@ -20,15 +22,11 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CommonAppBar(
         title: widget.title,
+        onRefresh: widget.onAppBarRefresh,
       ),
       drawer: Drawer(
         child: DrawerMenu(),
