@@ -1,6 +1,7 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 
 class FormatCurrencyDialog extends StatefulWidget {
   @override
@@ -8,12 +9,13 @@ class FormatCurrencyDialog extends StatefulWidget {
 }
 
 class _FormatCurrencyDialogState extends State<FormatCurrencyDialog> {
-  // var options = Hive.box('options');
-  // String _currencyFormat = options.get('currencyFormat');
-  String _currencyFormat = "es_AR";
+  final settings = Hive.box('settings');
+  String _currencyFormat;
 
   @override
   Widget build(BuildContext context) {
+    _currencyFormat = settings.get('currencyFormat') ?? "es_AR";
+
     return Dialog(
       insetPadding: EdgeInsets.all(25),
       child: Container(
@@ -48,8 +50,7 @@ class _FormatCurrencyDialogState extends State<FormatCurrencyDialog> {
               activeColor: ThemeManager.getGlobalAccentColor(context),
               onChanged: (value) {
                 setState(() {
-                  _currencyFormat = value;
-                  Navigator.of(context).pop();
+                  saveValueAndPop(value);
                 });
               },
             ),
@@ -67,14 +68,21 @@ class _FormatCurrencyDialogState extends State<FormatCurrencyDialog> {
               activeColor: ThemeManager.getGlobalAccentColor(context),
               onChanged: (value) {
                 setState(() {
-                  _currencyFormat = value;
-                  Navigator.of(context).pop();
+                  saveValueAndPop(value);
                 });
               },
             ),
           ],
         ),
       ),
+    );
+  }
+
+  void saveValueAndPop(String value) async {
+    settings.put('currencyFormat', value);
+    _currencyFormat = value;
+    await Future.delayed(Duration(milliseconds: 50)).then(
+      (value) => Navigator.of(context).pop(),
     );
   }
 }

@@ -44,4 +44,5 @@ void initializeHive() async {
   await Hive.initFlutter();
   Hive.registerAdapter(CacheEntryAdapter());
   await Hive.openBox('cache');
+  await Hive.openBox('settings');
 }

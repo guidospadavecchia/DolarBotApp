@@ -1,5 +1,6 @@
 import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 
 class CurrencyInfo extends StatelessWidget {
@@ -41,7 +42,10 @@ class CurrencyInfo extends StatelessWidget {
   }
 
   Padding _getCurrencyValue(BuildContext context) {
-    final currencyFormat = new NumberFormat("#,###,###", "es_AR");
+    var settings = Hive.box('settings');
+    final locale = settings.get('currencyFormat') ?? "es_AR";
+    final numberFormat = new NumberFormat("#,###,###", locale);
+    final decimalSeparator = locale == "es_AR" ? "," : ".";
 
     return Padding(
       padding: const EdgeInsets.only(left: 30, right: 30),
@@ -65,7 +69,7 @@ class CurrencyInfo extends StatelessWidget {
               ),
             Text(
               isNumeric(value)
-                  ? currencyFormat.format(int.parse(value.split('.')[0]))
+                  ? numberFormat.format(int.parse(value.split('.')[0]))
                   : 'N/A',
               style: TextStyle(
                 fontSize: 92,
@@ -77,7 +81,7 @@ class CurrencyInfo extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(left: 5, bottom: 38),
                 child: Text(
-                  ',${value.split('.')[1].substring(0, 2)}',
+                  '$decimalSeparator${value.split('.')[1].substring(0, 2)}',
                   style: TextStyle(
                     fontSize: 32,
                     color: ThemeManager.getSecondaryTextColor(context),
