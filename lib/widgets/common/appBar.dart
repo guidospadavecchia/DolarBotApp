@@ -38,15 +38,19 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
         },
       ),
       actions: [
-        Padding(
-          padding: EdgeInsets.only(right: 15),
-          child: IconButton(
-            icon: Icon(FontAwesomeIcons.redo),
-            iconSize: 18,
-            splashRadius: 25,
-            tooltip: 'Refrescar cotización',
-            onPressed: () => onRefresh(),
-          ),
+        Container(
+          child: (ModalRoute.of(context)?.settings?.name != "/o")
+              ? Padding(
+                  padding: EdgeInsets.only(right: 15),
+                  child: IconButton(
+                    icon: Icon(FontAwesomeIcons.redo),
+                    iconSize: 18,
+                    splashRadius: 25,
+                    tooltip: 'Refrescar cotización',
+                    onPressed: () => onRefresh(),
+                  ),
+                )
+              : null,
         )
       ],
       backgroundColor: Colors.transparent,
