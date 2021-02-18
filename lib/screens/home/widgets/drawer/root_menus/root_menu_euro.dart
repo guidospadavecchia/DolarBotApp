@@ -23,7 +23,7 @@ class RootMenuEuro extends StatelessWidget {
           leading: getIconAsset(context, DolarBotIcons.banks.bbva),
           depthLevel: 2,
           onTap: () => {
-            navigateTo(
+            buildContentAndPush(
               context: context,
               title: 'Euro - Banco BBVA',
               bodyContent: CurrencyInfoScreen<EuroResponse>(
@@ -39,7 +39,7 @@ class RootMenuEuro extends StatelessWidget {
           leading: getIconAsset(context, DolarBotIcons.banks.chaco),
           depthLevel: 2,
           onTap: () => {
-            navigateTo(
+            buildContentAndPush(
               context: context,
               title: 'Euro - Nuevo Banco del Chaco',
               bodyContent: CurrencyInfoScreen<EuroResponse>(
@@ -55,7 +55,7 @@ class RootMenuEuro extends StatelessWidget {
           leading: getIconAsset(context, DolarBotIcons.banks.galicia),
           depthLevel: 2,
           onTap: () => {
-            navigateTo(
+            buildContentAndPush(
               context: context,
               title: 'Euro - Banco Galicia',
               bodyContent: CurrencyInfoScreen<EuroResponse>(
@@ -71,7 +71,7 @@ class RootMenuEuro extends StatelessWidget {
           leading: getIconAsset(context, DolarBotIcons.banks.hipotecario),
           depthLevel: 2,
           onTap: () => {
-            navigateTo(
+            buildContentAndPush(
               context: context,
               title: 'Euro - Banco Hipotecario',
               bodyContent: CurrencyInfoScreen<EuroResponse>(
@@ -87,7 +87,7 @@ class RootMenuEuro extends StatelessWidget {
           leading: getIconAsset(context, DolarBotIcons.banks.pampa),
           depthLevel: 2,
           onTap: () => {
-            navigateTo(
+            buildContentAndPush(
               context: context,
               title: 'Euro - Banco de La Pampa',
               bodyContent: CurrencyInfoScreen<EuroResponse>(
@@ -103,7 +103,7 @@ class RootMenuEuro extends StatelessWidget {
           leading: getIconAsset(context, DolarBotIcons.banks.nacion),
           depthLevel: 2,
           onTap: () => {
-            navigateTo(
+            buildContentAndPush(
               context: context,
               title: 'Euro - Banco Nación',
               bodyContent: CurrencyInfoScreen<EuroResponse>(
