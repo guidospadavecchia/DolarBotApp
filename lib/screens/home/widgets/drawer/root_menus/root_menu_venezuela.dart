@@ -10,6 +10,7 @@ class RootMenuVenezuela extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final GlobalKey<VenezuelaInfoScreenState> _key = GlobalKey();
+
     return MenuItem(
       text: "Venezuela",
       leading: getIconAsset(context, DolarBotIcons.general.venezuela),

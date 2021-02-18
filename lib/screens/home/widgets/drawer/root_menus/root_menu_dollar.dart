@@ -11,6 +11,7 @@ class RootMenuDollar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final GlobalKey<CurrencyInfoScreenState> _key = GlobalKey();
+
     return MenuItem(
       text: "Dólar",
       leading: getIconData(context, FontAwesomeIcons.dollarSign),

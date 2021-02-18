@@ -9,6 +9,7 @@ class RootMenuBCRA extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final GlobalKey<BcraInfoScreenState> _key = GlobalKey();
+
     return MenuItem(
       text: "Indicadores BCRA",
       leading: getIconData(context, FontAwesomeIcons.chartLine),

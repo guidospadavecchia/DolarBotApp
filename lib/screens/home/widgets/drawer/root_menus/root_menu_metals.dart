@@ -10,6 +10,7 @@ class RootMenuMetals extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     GlobalKey<MetalInfoScreenState> _key = GlobalKey();
+
     return MenuItem(
       text: "Metales",
       leading: getIconData(context, FontAwesomeIcons.sketch),

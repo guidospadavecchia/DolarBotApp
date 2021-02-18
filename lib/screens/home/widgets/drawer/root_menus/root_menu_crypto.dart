@@ -10,6 +10,7 @@ class RootMenuCrypto extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final GlobalKey<CryptoInfoScreenState> _key = GlobalKey();
+
     return MenuItem(
       text: "Crypto",
       leading: getIconData(context, CryptoFontIcons.TRIG),
