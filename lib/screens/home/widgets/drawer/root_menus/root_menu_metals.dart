@@ -22,13 +22,14 @@ class RootMenuMetals extends StatelessWidget {
           leading: getIconAsset(context, DolarBotIcons.metals.gold),
           depthLevel: 2,
           onTap: () {
-            navigateTo(
-                context: context,
-                title: 'Oro',
-                bodyContent: MetalInfoScreen(
-                  metalEndpoint: MetalEndpoints.oro,
-                ),
-                onRefresh: () => _key.currentState.refresh());
+            buildContentAndPush(
+              context: context,
+              title: 'Oro',
+              bodyContent: MetalInfoScreen(
+                metalEndpoint: MetalEndpoints.oro,
+              ),
+              onRefresh: () => _key.currentState.refresh(),
+            );
           },
         ),
         MenuItem(
@@ -36,13 +37,14 @@ class RootMenuMetals extends StatelessWidget {
           leading: getIconAsset(context, DolarBotIcons.metals.silver),
           depthLevel: 2,
           onTap: () => {
-            navigateTo(
-                context: context,
-                title: 'Plata',
-                bodyContent: MetalInfoScreen(
-                  metalEndpoint: MetalEndpoints.plata,
-                ),
-                onRefresh: () => _key.currentState.refresh())
+            buildContentAndPush(
+              context: context,
+              title: 'Plata',
+              bodyContent: MetalInfoScreen(
+                metalEndpoint: MetalEndpoints.plata,
+              ),
+              onRefresh: () => _key.currentState.refresh(),
+            )
           },
         ),
         MenuItem(
@@ -50,13 +52,14 @@ class RootMenuMetals extends StatelessWidget {
           leading: getIconAsset(context, DolarBotIcons.metals.copper),
           depthLevel: 2,
           onTap: () => {
-            navigateTo(
-                context: context,
-                title: 'Cobre',
-                bodyContent: MetalInfoScreen(
-                  metalEndpoint: MetalEndpoints.cobre,
-                ),
-                onRefresh: () => _key.currentState.refresh())
+            buildContentAndPush(
+              context: context,
+              title: 'Cobre',
+              bodyContent: MetalInfoScreen(
+                metalEndpoint: MetalEndpoints.cobre,
+              ),
+              onRefresh: () => _key.currentState.refresh(),
+            )
           },
         ),
       ],
