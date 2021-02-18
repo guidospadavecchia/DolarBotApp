@@ -9,7 +9,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 class RootMenuMetals extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    GlobalKey<MetalInfoScreenState> _key = GlobalKey();
+    final GlobalKey<MetalInfoScreenState> _key = GlobalKey();
 
     return MenuItem(
       text: "Metales",
