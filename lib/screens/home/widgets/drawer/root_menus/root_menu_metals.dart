@@ -27,6 +27,7 @@ class RootMenuMetals extends StatelessWidget {
               title: 'Oro',
               bodyContent: MetalInfoScreen(
                 metalEndpoint: MetalEndpoints.oro,
+                key: _key,
               ),
               onRefresh: () => _key.currentState.refresh(),
             );
@@ -42,6 +43,7 @@ class RootMenuMetals extends StatelessWidget {
               title: 'Plata',
               bodyContent: MetalInfoScreen(
                 metalEndpoint: MetalEndpoints.plata,
+                key: _key,
               ),
               onRefresh: () => _key.currentState.refresh(),
             )
@@ -57,6 +59,7 @@ class RootMenuMetals extends StatelessWidget {
               title: 'Cobre',
               bodyContent: MetalInfoScreen(
                 metalEndpoint: MetalEndpoints.cobre,
+                key: _key,
               ),
               onRefresh: () => _key.currentState.refresh(),
             )
