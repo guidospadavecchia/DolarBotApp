@@ -45,7 +45,7 @@ getIconData(BuildContext context, IconData iconData) {
   );
 }
 
-navigateTo({
+buildContentAndPush({
   BuildContext context,
   String title,
   Widget bodyContent,

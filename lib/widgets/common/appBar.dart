@@ -20,12 +20,21 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
       leadingWidth: 80,
       leading: Builder(
         builder: (BuildContext context) {
-          return IconButton(
-            icon: Icon(Icons.menu),
-            splashRadius: 25,
-            onPressed: () => Scaffold.of(context).openDrawer(),
-            tooltip: 'Abrir menú',
-          );
+          if (ModalRoute.of(context)?.settings?.name == "/o") {
+            return IconButton(
+              icon: Icon(Icons.arrow_back),
+              splashRadius: 25,
+              onPressed: () => Navigator.of(context).pop(),
+              tooltip: 'Volver',
+            );
+          } else {
+            return IconButton(
+              icon: Icon(Icons.menu),
+              splashRadius: 25,
+              onPressed: () => Scaffold.of(context).openDrawer(),
+              tooltip: 'Abrir menú',
+            );
+          }
         },
       ),
       actions: [
