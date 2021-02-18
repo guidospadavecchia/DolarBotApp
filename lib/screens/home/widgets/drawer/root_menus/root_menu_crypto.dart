@@ -10,7 +10,6 @@ class RootMenuCrypto extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final GlobalKey<CryptoInfoScreenState> _key = GlobalKey();
-
     return MenuItem(
       text: "Crypto",
       leading: getIconData(context, CryptoFontIcons.TRIG),
@@ -22,7 +21,7 @@ class RootMenuCrypto extends StatelessWidget {
           leading: getIconData(context, CryptoFontIcons.BTC),
           depthLevel: 2,
           onTap: () => {
-            navigateTo(
+            buildContentAndPush(
               context: context,
               title: 'Bitcoin (BTC)',
               bodyContent: CryptoInfoScreen(
@@ -38,7 +37,7 @@ class RootMenuCrypto extends StatelessWidget {
           leading: getIconData(context, CryptoFontIcons.BTC_ALT),
           depthLevel: 2,
           onTap: () => {
-            navigateTo(
+            buildContentAndPush(
               context: context,
               title: 'Bitcoin Cash (BCH)',
               bodyContent: CryptoInfoScreen(
@@ -54,7 +53,7 @@ class RootMenuCrypto extends StatelessWidget {
           leading: getIconData(context, CryptoFontIcons.DASH),
           depthLevel: 2,
           onTap: () => {
-            navigateTo(
+            buildContentAndPush(
               context: context,
               title: 'DASH',
               bodyContent: CryptoInfoScreen(
@@ -70,7 +69,7 @@ class RootMenuCrypto extends StatelessWidget {
           leading: getIconData(context, FontAwesomeIcons.ethereum),
           depthLevel: 2,
           onTap: () => {
-            navigateTo(
+            buildContentAndPush(
               context: context,
               title: 'Ethereum (ETH)',
               bodyContent: CryptoInfoScreen(
@@ -86,7 +85,7 @@ class RootMenuCrypto extends StatelessWidget {
           leading: getIconData(context, CryptoFontIcons.LTC),
           depthLevel: 2,
           onTap: () => {
-            navigateTo(
+            buildContentAndPush(
               context: context,
               title: 'Litecoin (LTC)',
               bodyContent: CryptoInfoScreen(
@@ -102,7 +101,7 @@ class RootMenuCrypto extends StatelessWidget {
           leading: getIconData(context, CryptoFontIcons.XMR),
           depthLevel: 2,
           onTap: () => {
-            navigateTo(
+            buildContentAndPush(
               context: context,
               title: 'Monero (XMR)',
               bodyContent: CryptoInfoScreen(
@@ -118,7 +117,7 @@ class RootMenuCrypto extends StatelessWidget {
           leading: getIconData(context, CryptoFontIcons.XRP),
           depthLevel: 2,
           onTap: () => {
-            navigateTo(
+            buildContentAndPush(
               context: context,
               title: 'Ripple (XRP)',
               bodyContent: CryptoInfoScreen(

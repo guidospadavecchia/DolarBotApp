@@ -9,7 +9,6 @@ class RootMenuBCRA extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final GlobalKey<BcraInfoScreenState> _key = GlobalKey();
-
     return MenuItem(
       text: "Indicadores BCRA",
       leading: getIconData(context, FontAwesomeIcons.chartLine),
@@ -21,7 +20,7 @@ class RootMenuBCRA extends StatelessWidget {
           leading: getIconData(context, FontAwesomeIcons.exclamationTriangle),
           depthLevel: 2,
           onTap: () => {
-            navigateTo(
+            buildContentAndPush(
               context: context,
               title: 'Riesgo País',
               bodyContent: BcraInfoScreen(
@@ -37,7 +36,7 @@ class RootMenuBCRA extends StatelessWidget {
           leading: getIconData(context, FontAwesomeIcons.handHoldingUsd),
           depthLevel: 2,
           onTap: () => {
-            navigateTo(
+            buildContentAndPush(
               context: context,
               title: 'Reservas del BCRA',
               bodyContent: BcraInfoScreen(
@@ -53,7 +52,7 @@ class RootMenuBCRA extends StatelessWidget {
           leading: getIconData(context, FontAwesomeIcons.moneyBillWave),
           depthLevel: 2,
           onTap: () => {
-            navigateTo(
+            buildContentAndPush(
               context: context,
               title: 'Dinero en circulación',
               bodyContent: BcraInfoScreen(

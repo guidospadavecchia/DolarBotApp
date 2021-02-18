@@ -11,7 +11,6 @@ class RootMenuDollar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final GlobalKey<CurrencyInfoScreenState> _key = GlobalKey();
-
     return MenuItem(
       text: "Dólar",
       leading: getIconData(context, FontAwesomeIcons.dollarSign),
@@ -23,7 +22,7 @@ class RootMenuDollar extends StatelessWidget {
           leading: getIconData(context, FontAwesomeIcons.solidCheckCircle),
           depthLevel: 2,
           onTap: () => {
-            navigateTo(
+            buildContentAndPush(
               context: context,
               title: 'Dólar Oficial',
               bodyContent: CurrencyInfoScreen<DollarResponse>(
@@ -39,7 +38,7 @@ class RootMenuDollar extends StatelessWidget {
           leading: getIconData(context, FontAwesomeIcons.commentDollar),
           depthLevel: 2,
           onTap: () => {
-            navigateTo(
+            buildContentAndPush(
               context: context,
               title: 'Dólar Blue',
               bodyContent: CurrencyInfoScreen<DollarResponse>(
@@ -55,7 +54,7 @@ class RootMenuDollar extends StatelessWidget {
           leading: getIconData(context, FontAwesomeIcons.poll),
           depthLevel: 2,
           onTap: () => {
-            navigateTo(
+            buildContentAndPush(
               context: context,
               title: 'Dólar Bolsa (MEP)',
               bodyContent: CurrencyInfoScreen<DollarResponse>(
@@ -71,7 +70,7 @@ class RootMenuDollar extends StatelessWidget {
           leading: getIconData(context, FontAwesomeIcons.coins),
           depthLevel: 2,
           onTap: () => {
-            navigateTo(
+            buildContentAndPush(
               context: context,
               title: 'Dólar Contado con Liquidación',
               bodyContent: CurrencyInfoScreen<DollarResponse>(
@@ -87,7 +86,7 @@ class RootMenuDollar extends StatelessWidget {
           leading: getIconData(context, FontAwesomeIcons.percentage),
           depthLevel: 2,
           onTap: () => {
-            navigateTo(
+            buildContentAndPush(
               context: context,
               title: 'Dólar Promedio',
               bodyContent: CurrencyInfoScreen<DollarResponse>(
@@ -108,7 +107,7 @@ class RootMenuDollar extends StatelessWidget {
               leading: getIconAsset(context, DolarBotIcons.banks.bbva),
               depthLevel: 3,
               onTap: () => {
-                navigateTo(
+                buildContentAndPush(
                   context: context,
                   title: 'Dólar - BBVA',
                   bodyContent: CurrencyInfoScreen<DollarResponse>(
@@ -124,7 +123,7 @@ class RootMenuDollar extends StatelessWidget {
               leading: getIconAsset(context, DolarBotIcons.banks.chaco),
               depthLevel: 3,
               onTap: () => {
-                navigateTo(
+                buildContentAndPush(
                   context: context,
                   title: 'Dólar - Nuevo Banco del Chaco',
                   bodyContent: CurrencyInfoScreen<DollarResponse>(
@@ -140,7 +139,7 @@ class RootMenuDollar extends StatelessWidget {
               leading: getIconAsset(context, DolarBotIcons.banks.ciudad),
               depthLevel: 3,
               onTap: () => {
-                navigateTo(
+                buildContentAndPush(
                   context: context,
                   title: 'Dólar - Banco Ciudad',
                   bodyContent: CurrencyInfoScreen<DollarResponse>(
@@ -156,7 +155,7 @@ class RootMenuDollar extends StatelessWidget {
               leading: getIconAsset(context, DolarBotIcons.banks.comafi),
               depthLevel: 3,
               onTap: () => {
-                navigateTo(
+                buildContentAndPush(
                   context: context,
                   title: 'Dólar - Banco Comafi',
                   bodyContent: CurrencyInfoScreen<DollarResponse>(
@@ -172,7 +171,7 @@ class RootMenuDollar extends StatelessWidget {
               leading: getIconAsset(context, DolarBotIcons.banks.cordoba),
               depthLevel: 3,
               onTap: () => {
-                navigateTo(
+                buildContentAndPush(
                   context: context,
                   title: 'Dólar - Banco de Córdoba',
                   bodyContent: CurrencyInfoScreen<DollarResponse>(
@@ -188,7 +187,7 @@ class RootMenuDollar extends StatelessWidget {
               leading: getIconAsset(context, DolarBotIcons.banks.galicia),
               depthLevel: 3,
               onTap: () => {
-                navigateTo(
+                buildContentAndPush(
                   context: context,
                   title: 'Dólar - Banco Galicia',
                   bodyContent: CurrencyInfoScreen<DollarResponse>(
@@ -204,7 +203,7 @@ class RootMenuDollar extends StatelessWidget {
               leading: getIconAsset(context, DolarBotIcons.banks.hipotecario),
               depthLevel: 3,
               onTap: () => {
-                navigateTo(
+                buildContentAndPush(
                   context: context,
                   title: 'Dólar - Banco Hipotecario',
                   bodyContent: CurrencyInfoScreen<DollarResponse>(
@@ -220,7 +219,7 @@ class RootMenuDollar extends StatelessWidget {
               leading: getIconAsset(context, DolarBotIcons.banks.bind),
               depthLevel: 3,
               onTap: () => {
-                navigateTo(
+                buildContentAndPush(
                   context: context,
                   title: 'Dólar - Banco Industrial (BIND)',
                   bodyContent: CurrencyInfoScreen<DollarResponse>(
@@ -236,7 +235,7 @@ class RootMenuDollar extends StatelessWidget {
               leading: getIconAsset(context, DolarBotIcons.banks.pampa),
               depthLevel: 3,
               onTap: () => {
-                navigateTo(
+                buildContentAndPush(
                   context: context,
                   title: 'Dólar - Banco de La Pampa',
                   bodyContent: CurrencyInfoScreen<DollarResponse>(
@@ -252,7 +251,7 @@ class RootMenuDollar extends StatelessWidget {
               leading: getIconAsset(context, DolarBotIcons.banks.nacion),
               depthLevel: 3,
               onTap: () => {
-                navigateTo(
+                buildContentAndPush(
                   context: context,
                   title: 'Dólar - Banco Nación',
                   bodyContent: CurrencyInfoScreen<DollarResponse>(
@@ -268,7 +267,7 @@ class RootMenuDollar extends StatelessWidget {
               leading: getIconAsset(context, DolarBotIcons.banks.patagonia),
               depthLevel: 3,
               onTap: () => {
-                navigateTo(
+                buildContentAndPush(
                   context: context,
                   title: 'Dólar - Banco Patagonia',
                   bodyContent: CurrencyInfoScreen<DollarResponse>(
@@ -284,7 +283,7 @@ class RootMenuDollar extends StatelessWidget {
               leading: getIconAsset(context, DolarBotIcons.banks.piano),
               depthLevel: 3,
               onTap: () => {
-                navigateTo(
+                buildContentAndPush(
                   context: context,
                   title: 'Dólar - Banco Piano',
                   bodyContent: CurrencyInfoScreen<DollarResponse>(
@@ -300,7 +299,7 @@ class RootMenuDollar extends StatelessWidget {
               leading: getIconAsset(context, DolarBotIcons.banks.santander),
               depthLevel: 3,
               onTap: () => {
-                navigateTo(
+                buildContentAndPush(
                   context: context,
                   title: 'Dólar - Banco Santander',
                   bodyContent: CurrencyInfoScreen<DollarResponse>(
@@ -316,7 +315,7 @@ class RootMenuDollar extends StatelessWidget {
               leading: getIconAsset(context, DolarBotIcons.banks.supervielle),
               depthLevel: 3,
               onTap: () => {
-                navigateTo(
+                buildContentAndPush(
                   context: context,
                   title: 'Dólar - Banco Supervielle',
                   bodyContent: CurrencyInfoScreen<DollarResponse>(

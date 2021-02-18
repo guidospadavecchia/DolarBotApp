@@ -11,7 +11,6 @@ class RootMenuEuro extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final GlobalKey<CurrencyInfoScreenState> _key = GlobalKey();
-
     return MenuItem(
       text: "Euro",
       leading: getIconData(context, FontAwesomeIcons.euroSign),

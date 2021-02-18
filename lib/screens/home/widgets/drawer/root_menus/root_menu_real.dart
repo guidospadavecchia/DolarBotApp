@@ -10,7 +10,6 @@ class RootMenuReal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final GlobalKey<CurrencyInfoScreenState> _key = GlobalKey();
-
     return MenuItem(
       text: "Real",
       leading: getIconAsset(context, DolarBotIcons.general.real),
@@ -22,7 +21,7 @@ class RootMenuReal extends StatelessWidget {
           leading: getIconAsset(context, DolarBotIcons.banks.bbva),
           depthLevel: 2,
           onTap: () => {
-            navigateTo(
+            buildContentAndPush(
               context: context,
               title: 'Real - Banco BBVA',
               bodyContent: CurrencyInfoScreen<RealResponse>(
@@ -38,7 +37,7 @@ class RootMenuReal extends StatelessWidget {
           leading: getIconAsset(context, DolarBotIcons.banks.chaco),
           depthLevel: 2,
           onTap: () => {
-            navigateTo(
+            buildContentAndPush(
               context: context,
               title: 'Real - Nuevo Banco del Chaco',
               bodyContent: CurrencyInfoScreen<RealResponse>(
@@ -54,7 +53,7 @@ class RootMenuReal extends StatelessWidget {
           leading: getIconAsset(context, DolarBotIcons.banks.nacion),
           depthLevel: 2,
           onTap: () => {
-            navigateTo(
+            buildContentAndPush(
               context: context,
               title: 'Real - Banco Nación',
               bodyContent: CurrencyInfoScreen<RealResponse>(

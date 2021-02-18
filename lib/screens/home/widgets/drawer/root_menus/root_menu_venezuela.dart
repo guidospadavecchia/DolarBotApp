@@ -10,7 +10,6 @@ class RootMenuVenezuela extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final GlobalKey<VenezuelaInfoScreenState> _key = GlobalKey();
-
     return MenuItem(
       text: "Venezuela",
       leading: getIconAsset(context, DolarBotIcons.general.venezuela),
@@ -22,7 +21,7 @@ class RootMenuVenezuela extends StatelessWidget {
           leading: getIconData(context, FontAwesomeIcons.dollarSign),
           depthLevel: 2,
           onTap: () => {
-            navigateTo(
+            buildContentAndPush(
               context: context,
               title: 'Dólar (Venezuela)',
               bodyContent: VenezuelaInfoScreen(
@@ -38,7 +37,7 @@ class RootMenuVenezuela extends StatelessWidget {
           leading: getIconData(context, FontAwesomeIcons.euroSign),
           depthLevel: 2,
           onTap: () => {
-            navigateTo(
+            buildContentAndPush(
               context: context,
               title: 'Euro (Venezuela)',
               bodyContent: VenezuelaInfoScreen(
