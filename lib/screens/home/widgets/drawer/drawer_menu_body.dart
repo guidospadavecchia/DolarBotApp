@@ -3,28 +3,8 @@ import 'package:dolarbot_app/screens/home/widgets/drawer/root_menus/exports/root
 import 'package:flutter/material.dart';
 
 class DrawerMenuBody extends StatelessWidget {
-  final GlobalKey<CurrencyInfoScreenState> _keyCurrencyDollar = GlobalKey();
-  final GlobalKey<CurrencyInfoScreenState> _keyCurrencyEuro = GlobalKey();
-  final GlobalKey<CurrencyInfoScreenState> _keyCurrencyReal = GlobalKey();
-  final GlobalKey<CryptoInfoScreenState> _keyCrypto = GlobalKey();
-  final GlobalKey<MetalInfoScreenState> _keyMetal = GlobalKey();
-  final GlobalKey<BcraInfoScreenState> _keyBCRA = GlobalKey();
-  final GlobalKey<VenezuelaInfoScreenState> _keyVenezuela = GlobalKey();
-
   @override
   Widget build(BuildContext context) {
-    Function _refreshCurrencyDollar =
-        () => _keyCurrencyDollar.currentState.refresh();
-    Function _refreshCurrencyEuro =
-        () => _keyCurrencyEuro.currentState.refresh();
-    Function _refreshCurrencyReal =
-        () => _keyCurrencyReal.currentState.refresh();
-
-    Function _refreshCrypto = () => _keyCrypto.currentState.refresh();
-    Function _refreshMetal = () => _keyMetal.currentState.refresh();
-    Function _refreshBCRA = () => _keyBCRA.currentState.refresh();
-    Function _refreshVenezuela = () => _keyVenezuela.currentState.refresh();
-
     return Expanded(
       child: NotificationListener<OverscrollIndicatorNotification>(
         onNotification: (OverscrollIndicatorNotification overScroll) {
@@ -34,16 +14,13 @@ class DrawerMenuBody extends StatelessWidget {
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
-            RootMenuDollar(
-                key: _keyCurrencyDollar, onRefresh: _refreshCurrencyDollar),
-            RootMenuEuro(
-                key: _keyCurrencyEuro, onRefresh: _refreshCurrencyEuro),
-            RootMenuReal(
-                key: _keyCurrencyReal, onRefresh: _refreshCurrencyReal),
-            RootMenuCrypto(key: _keyCrypto, onRefresh: _refreshCrypto),
-            RootMenuMetals(key: _keyMetal, onRefresh: _refreshMetal),
-            RootMenuBCRA(key: _keyBCRA, onRefresh: _refreshBCRA),
-            RootMenuVenezuela(key: _keyVenezuela, onRefresh: _refreshVenezuela)
+            RootMenuDollar(),
+            RootMenuEuro(),
+            RootMenuReal(),
+            RootMenuCrypto(),
+            RootMenuMetals(),
+            RootMenuBCRA(),
+            RootMenuVenezuela()
           ],
         ),
       ),

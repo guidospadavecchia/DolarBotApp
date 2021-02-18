@@ -7,15 +7,10 @@ import 'package:dolarbot_app/widgets/common/menu_item.dart';
 import 'package:flutter/material.dart';
 
 class RootMenuReal extends StatelessWidget {
-  final Function onRefresh;
-
-  const RootMenuReal({
-    Key key,
-    this.onRefresh,
-  }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
+    final GlobalKey<CurrencyInfoScreenState> _key = GlobalKey();
+
     return MenuItem(
       text: "Real",
       leading: getIconAsset(context, DolarBotIcons.general.real),
@@ -28,13 +23,14 @@ class RootMenuReal extends StatelessWidget {
           depthLevel: 2,
           onTap: () => {
             navigateTo(
-                context: context,
-                title: 'Real - Banco BBVA',
-                bodyContent: CurrencyInfoScreen<RealResponse>(
-                  realEndpoint: RealEndpoints.bbva,
-                  key: key,
-                ),
-                onRefresh: onRefresh)
+              context: context,
+              title: 'Real - Banco BBVA',
+              bodyContent: CurrencyInfoScreen<RealResponse>(
+                realEndpoint: RealEndpoints.bbva,
+                key: _key,
+              ),
+              onRefresh: () => _key.currentState.refresh(),
+            )
           },
         ),
         MenuItem(
@@ -43,13 +39,14 @@ class RootMenuReal extends StatelessWidget {
           depthLevel: 2,
           onTap: () => {
             navigateTo(
-                context: context,
-                title: 'Real - Nuevo Banco del Chaco',
-                bodyContent: CurrencyInfoScreen<RealResponse>(
-                  realEndpoint: RealEndpoints.chaco,
-                  key: key,
-                ),
-                onRefresh: onRefresh)
+              context: context,
+              title: 'Real - Nuevo Banco del Chaco',
+              bodyContent: CurrencyInfoScreen<RealResponse>(
+                realEndpoint: RealEndpoints.chaco,
+                key: _key,
+              ),
+              onRefresh: () => _key.currentState.refresh(),
+            )
           },
         ),
         MenuItem(
@@ -58,13 +55,14 @@ class RootMenuReal extends StatelessWidget {
           depthLevel: 2,
           onTap: () => {
             navigateTo(
-                context: context,
-                title: 'Real - Banco Nación',
-                bodyContent: CurrencyInfoScreen<RealResponse>(
-                  realEndpoint: RealEndpoints.nacion,
-                  key: key,
-                ),
-                onRefresh: onRefresh)
+              context: context,
+              title: 'Real - Banco Nación',
+              bodyContent: CurrencyInfoScreen<RealResponse>(
+                realEndpoint: RealEndpoints.nacion,
+                key: _key,
+              ),
+              onRefresh: () => _key.currentState.refresh(),
+            )
           },
         ),
       ],

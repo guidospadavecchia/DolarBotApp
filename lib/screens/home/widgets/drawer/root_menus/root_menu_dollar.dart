@@ -8,15 +8,10 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class RootMenuDollar extends StatelessWidget {
-  final Function onRefresh;
-
-  const RootMenuDollar({
-    Key key,
-    this.onRefresh,
-  }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
+    final GlobalKey<CurrencyInfoScreenState> _key = GlobalKey();
+
     return MenuItem(
       text: "Dólar",
       leading: getIconData(context, FontAwesomeIcons.dollarSign),
@@ -33,9 +28,9 @@ class RootMenuDollar extends StatelessWidget {
               title: 'Dólar Oficial',
               bodyContent: CurrencyInfoScreen<DollarResponse>(
                 dollarEndpoint: DollarEndpoints.oficial,
-                key: key,
+                key: _key,
               ),
-              onRefresh: onRefresh,
+              onRefresh: () => _key.currentState.refresh(),
             ),
           },
         ),
@@ -49,9 +44,9 @@ class RootMenuDollar extends StatelessWidget {
               title: 'Dólar Blue',
               bodyContent: CurrencyInfoScreen<DollarResponse>(
                 dollarEndpoint: DollarEndpoints.blue,
-                key: key,
+                key: _key,
               ),
-              onRefresh: onRefresh,
+              onRefresh: () => _key.currentState.refresh(),
             )
           },
         ),
@@ -65,9 +60,9 @@ class RootMenuDollar extends StatelessWidget {
               title: 'Dólar Bolsa (MEP)',
               bodyContent: CurrencyInfoScreen<DollarResponse>(
                 dollarEndpoint: DollarEndpoints.bolsa,
-                key: key,
+                key: _key,
               ),
-              onRefresh: onRefresh,
+              onRefresh: () => _key.currentState.refresh(),
             )
           },
         ),
@@ -81,9 +76,9 @@ class RootMenuDollar extends StatelessWidget {
               title: 'Dólar Contado con Liquidación',
               bodyContent: CurrencyInfoScreen<DollarResponse>(
                 dollarEndpoint: DollarEndpoints.contadoLiqui,
-                key: key,
+                key: _key,
               ),
-              onRefresh: onRefresh,
+              onRefresh: () => _key.currentState.refresh(),
             )
           },
         ),
@@ -97,9 +92,9 @@ class RootMenuDollar extends StatelessWidget {
               title: 'Dólar Promedio',
               bodyContent: CurrencyInfoScreen<DollarResponse>(
                 dollarEndpoint: DollarEndpoints.promedio,
-                key: key,
+                key: _key,
               ),
-              onRefresh: onRefresh,
+              onRefresh: () => _key.currentState.refresh(),
             )
           },
         ),
@@ -118,9 +113,9 @@ class RootMenuDollar extends StatelessWidget {
                   title: 'Dólar - BBVA',
                   bodyContent: CurrencyInfoScreen<DollarResponse>(
                     dollarEndpoint: DollarEndpoints.bbva,
-                    key: key,
+                    key: _key,
                   ),
-                  onRefresh: onRefresh,
+                  onRefresh: () => _key.currentState.refresh(),
                 )
               },
             ),
@@ -134,9 +129,9 @@ class RootMenuDollar extends StatelessWidget {
                   title: 'Dólar - Nuevo Banco del Chaco',
                   bodyContent: CurrencyInfoScreen<DollarResponse>(
                     dollarEndpoint: DollarEndpoints.chaco,
-                    key: key,
+                    key: _key,
                   ),
-                  onRefresh: onRefresh,
+                  onRefresh: () => _key.currentState.refresh(),
                 )
               },
             ),
@@ -150,9 +145,9 @@ class RootMenuDollar extends StatelessWidget {
                   title: 'Dólar - Banco Ciudad',
                   bodyContent: CurrencyInfoScreen<DollarResponse>(
                     dollarEndpoint: DollarEndpoints.ciudad,
-                    key: key,
+                    key: _key,
                   ),
-                  onRefresh: onRefresh,
+                  onRefresh: () => _key.currentState.refresh(),
                 )
               },
             ),
@@ -166,9 +161,9 @@ class RootMenuDollar extends StatelessWidget {
                   title: 'Dólar - Banco Comafi',
                   bodyContent: CurrencyInfoScreen<DollarResponse>(
                     dollarEndpoint: DollarEndpoints.comafi,
-                    key: key,
+                    key: _key,
                   ),
-                  onRefresh: onRefresh,
+                  onRefresh: () => _key.currentState.refresh(),
                 )
               },
             ),
@@ -182,9 +177,9 @@ class RootMenuDollar extends StatelessWidget {
                   title: 'Dólar - Banco de Córdoba',
                   bodyContent: CurrencyInfoScreen<DollarResponse>(
                     dollarEndpoint: DollarEndpoints.bancor,
-                    key: key,
+                    key: _key,
                   ),
-                  onRefresh: onRefresh,
+                  onRefresh: () => _key.currentState.refresh(),
                 )
               },
             ),
@@ -198,9 +193,9 @@ class RootMenuDollar extends StatelessWidget {
                   title: 'Dólar - Banco Galicia',
                   bodyContent: CurrencyInfoScreen<DollarResponse>(
                     dollarEndpoint: DollarEndpoints.galicia,
-                    key: key,
+                    key: _key,
                   ),
-                  onRefresh: onRefresh,
+                  onRefresh: () => _key.currentState.refresh(),
                 )
               },
             ),
@@ -214,9 +209,9 @@ class RootMenuDollar extends StatelessWidget {
                   title: 'Dólar - Banco Hipotecario',
                   bodyContent: CurrencyInfoScreen<DollarResponse>(
                     dollarEndpoint: DollarEndpoints.hipotecario,
-                    key: key,
+                    key: _key,
                   ),
-                  onRefresh: onRefresh,
+                  onRefresh: () => _key.currentState.refresh(),
                 )
               },
             ),
@@ -230,9 +225,9 @@ class RootMenuDollar extends StatelessWidget {
                   title: 'Dólar - Banco Industrial (BIND)',
                   bodyContent: CurrencyInfoScreen<DollarResponse>(
                     dollarEndpoint: DollarEndpoints.bind,
-                    key: key,
+                    key: _key,
                   ),
-                  onRefresh: onRefresh,
+                  onRefresh: () => _key.currentState.refresh(),
                 )
               },
             ),
@@ -246,9 +241,9 @@ class RootMenuDollar extends StatelessWidget {
                   title: 'Dólar - Banco de La Pampa',
                   bodyContent: CurrencyInfoScreen<DollarResponse>(
                     dollarEndpoint: DollarEndpoints.pampa,
-                    key: key,
+                    key: _key,
                   ),
-                  onRefresh: onRefresh,
+                  onRefresh: () => _key.currentState.refresh(),
                 )
               },
             ),
@@ -262,9 +257,9 @@ class RootMenuDollar extends StatelessWidget {
                   title: 'Dólar - Banco Nación',
                   bodyContent: CurrencyInfoScreen<DollarResponse>(
                     dollarEndpoint: DollarEndpoints.nacion,
-                    key: key,
+                    key: _key,
                   ),
-                  onRefresh: onRefresh,
+                  onRefresh: () => _key.currentState.refresh(),
                 )
               },
             ),
@@ -278,9 +273,9 @@ class RootMenuDollar extends StatelessWidget {
                   title: 'Dólar - Banco Patagonia',
                   bodyContent: CurrencyInfoScreen<DollarResponse>(
                     dollarEndpoint: DollarEndpoints.patagonia,
-                    key: key,
+                    key: _key,
                   ),
-                  onRefresh: onRefresh,
+                  onRefresh: () => _key.currentState.refresh(),
                 )
               },
             ),
@@ -294,9 +289,9 @@ class RootMenuDollar extends StatelessWidget {
                   title: 'Dólar - Banco Piano',
                   bodyContent: CurrencyInfoScreen<DollarResponse>(
                     dollarEndpoint: DollarEndpoints.piano,
-                    key: key,
+                    key: _key,
                   ),
-                  onRefresh: onRefresh,
+                  onRefresh: () => _key.currentState.refresh(),
                 )
               },
             ),
@@ -310,9 +305,9 @@ class RootMenuDollar extends StatelessWidget {
                   title: 'Dólar - Banco Santander',
                   bodyContent: CurrencyInfoScreen<DollarResponse>(
                     dollarEndpoint: DollarEndpoints.santander,
-                    key: key,
+                    key: _key,
                   ),
-                  onRefresh: onRefresh,
+                  onRefresh: () => _key.currentState.refresh(),
                 )
               },
             ),
@@ -326,9 +321,9 @@ class RootMenuDollar extends StatelessWidget {
                   title: 'Dólar - Banco Supervielle',
                   bodyContent: CurrencyInfoScreen<DollarResponse>(
                     dollarEndpoint: DollarEndpoints.supervielle,
-                    key: key,
+                    key: _key,
                   ),
-                  onRefresh: onRefresh,
+                  onRefresh: () => _key.currentState.refresh(),
                 )
               },
             ),

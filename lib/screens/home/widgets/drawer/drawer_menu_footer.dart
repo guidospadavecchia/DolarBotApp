@@ -6,10 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class DrawerMenuFooter extends StatelessWidget {
-  const DrawerMenuFooter({
-    Key key,
-  }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -26,7 +22,7 @@ class DrawerMenuFooter extends StatelessWidget {
                   color: ThemeManager.getDrawerMenuItemIconColor(context)),
               depthLevel: 1,
               onTap: () => {
-                Navigator.of(context).pushNamed("/o"),
+                Navigator.of(context).popAndPushNamed("/o"),
               },
             ),
             MenuItem(

@@ -6,15 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class RootMenuBCRA extends StatelessWidget {
-  final Function onRefresh;
-
-  const RootMenuBCRA({
-    Key key,
-    this.onRefresh,
-  }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
+    final GlobalKey<BcraInfoScreenState> _key = GlobalKey();
+
     return MenuItem(
       text: "Indicadores BCRA",
       leading: getIconData(context, FontAwesomeIcons.chartLine),
@@ -27,13 +22,14 @@ class RootMenuBCRA extends StatelessWidget {
           depthLevel: 2,
           onTap: () => {
             navigateTo(
-                context: context,
-                title: 'Riesgo País',
-                bodyContent: BcraInfoScreen(
-                  bcraEndpoint: BcraEndpoints.riesgoPais,
-                  key: key,
-                ),
-                onRefresh: onRefresh)
+              context: context,
+              title: 'Riesgo País',
+              bodyContent: BcraInfoScreen(
+                bcraEndpoint: BcraEndpoints.riesgoPais,
+                key: _key,
+              ),
+              onRefresh: () => _key.currentState.refresh(),
+            )
           },
         ),
         MenuItem(
@@ -42,13 +38,14 @@ class RootMenuBCRA extends StatelessWidget {
           depthLevel: 2,
           onTap: () => {
             navigateTo(
-                context: context,
-                title: 'Reservas del BCRA',
-                bodyContent: BcraInfoScreen(
-                  bcraEndpoint: BcraEndpoints.reservas,
-                  key: key,
-                ),
-                onRefresh: onRefresh)
+              context: context,
+              title: 'Reservas del BCRA',
+              bodyContent: BcraInfoScreen(
+                bcraEndpoint: BcraEndpoints.reservas,
+                key: _key,
+              ),
+              onRefresh: () => _key.currentState.refresh(),
+            )
           },
         ),
         MenuItem(
@@ -57,13 +54,14 @@ class RootMenuBCRA extends StatelessWidget {
           depthLevel: 2,
           onTap: () => {
             navigateTo(
-                context: context,
-                title: 'Dinero en circulación',
-                bodyContent: BcraInfoScreen(
-                  bcraEndpoint: BcraEndpoints.circulante,
-                  key: key,
-                ),
-                onRefresh: onRefresh)
+              context: context,
+              title: 'Dinero en circulación',
+              bodyContent: BcraInfoScreen(
+                bcraEndpoint: BcraEndpoints.circulante,
+                key: _key,
+              ),
+              onRefresh: () => _key.currentState.refresh(),
+            )
           },
         ),
       ],

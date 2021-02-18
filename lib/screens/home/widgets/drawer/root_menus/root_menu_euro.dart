@@ -8,15 +8,10 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class RootMenuEuro extends StatelessWidget {
-  final Function onRefresh;
-
-  const RootMenuEuro({
-    Key key,
-    this.onRefresh,
-  }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
+    final GlobalKey<CurrencyInfoScreenState> _key = GlobalKey();
+
     return MenuItem(
       text: "Euro",
       leading: getIconData(context, FontAwesomeIcons.euroSign),
@@ -29,13 +24,14 @@ class RootMenuEuro extends StatelessWidget {
           depthLevel: 2,
           onTap: () => {
             navigateTo(
-                context: context,
-                title: 'Euro - Banco BBVA',
-                bodyContent: CurrencyInfoScreen<EuroResponse>(
-                  euroEndpoint: EuroEndpoints.bbva,
-                  key: key,
-                ),
-                onRefresh: onRefresh)
+              context: context,
+              title: 'Euro - Banco BBVA',
+              bodyContent: CurrencyInfoScreen<EuroResponse>(
+                euroEndpoint: EuroEndpoints.bbva,
+                key: _key,
+              ),
+              onRefresh: () => _key.currentState.refresh(),
+            )
           },
         ),
         MenuItem(
@@ -44,13 +40,14 @@ class RootMenuEuro extends StatelessWidget {
           depthLevel: 2,
           onTap: () => {
             navigateTo(
-                context: context,
-                title: 'Euro - Nuevo Banco del Chaco',
-                bodyContent: CurrencyInfoScreen<EuroResponse>(
-                  euroEndpoint: EuroEndpoints.chaco,
-                  key: key,
-                ),
-                onRefresh: onRefresh)
+              context: context,
+              title: 'Euro - Nuevo Banco del Chaco',
+              bodyContent: CurrencyInfoScreen<EuroResponse>(
+                euroEndpoint: EuroEndpoints.chaco,
+                key: _key,
+              ),
+              onRefresh: () => _key.currentState.refresh(),
+            )
           },
         ),
         MenuItem(
@@ -59,13 +56,14 @@ class RootMenuEuro extends StatelessWidget {
           depthLevel: 2,
           onTap: () => {
             navigateTo(
-                context: context,
-                title: 'Euro - Banco Galicia',
-                bodyContent: CurrencyInfoScreen<EuroResponse>(
-                  euroEndpoint: EuroEndpoints.galicia,
-                  key: key,
-                ),
-                onRefresh: onRefresh)
+              context: context,
+              title: 'Euro - Banco Galicia',
+              bodyContent: CurrencyInfoScreen<EuroResponse>(
+                euroEndpoint: EuroEndpoints.galicia,
+                key: _key,
+              ),
+              onRefresh: () => _key.currentState.refresh(),
+            )
           },
         ),
         MenuItem(
@@ -74,13 +72,14 @@ class RootMenuEuro extends StatelessWidget {
           depthLevel: 2,
           onTap: () => {
             navigateTo(
-                context: context,
-                title: 'Euro - Banco Hipotecario',
-                bodyContent: CurrencyInfoScreen<EuroResponse>(
-                  euroEndpoint: EuroEndpoints.hipotecario,
-                  key: key,
-                ),
-                onRefresh: onRefresh)
+              context: context,
+              title: 'Euro - Banco Hipotecario',
+              bodyContent: CurrencyInfoScreen<EuroResponse>(
+                euroEndpoint: EuroEndpoints.hipotecario,
+                key: _key,
+              ),
+              onRefresh: () => _key.currentState.refresh(),
+            )
           },
         ),
         MenuItem(
@@ -89,13 +88,14 @@ class RootMenuEuro extends StatelessWidget {
           depthLevel: 2,
           onTap: () => {
             navigateTo(
-                context: context,
-                title: 'Euro - Banco de La Pampa',
-                bodyContent: CurrencyInfoScreen<EuroResponse>(
-                  euroEndpoint: EuroEndpoints.pampa,
-                  key: key,
-                ),
-                onRefresh: onRefresh)
+              context: context,
+              title: 'Euro - Banco de La Pampa',
+              bodyContent: CurrencyInfoScreen<EuroResponse>(
+                euroEndpoint: EuroEndpoints.pampa,
+                key: _key,
+              ),
+              onRefresh: () => _key.currentState.refresh(),
+            )
           },
         ),
         MenuItem(
@@ -104,13 +104,14 @@ class RootMenuEuro extends StatelessWidget {
           depthLevel: 2,
           onTap: () => {
             navigateTo(
-                context: context,
-                title: 'Euro - Banco Nación',
-                bodyContent: CurrencyInfoScreen<EuroResponse>(
-                  euroEndpoint: EuroEndpoints.nacion,
-                  key: key,
-                ),
-                onRefresh: onRefresh)
+              context: context,
+              title: 'Euro - Banco Nación',
+              bodyContent: CurrencyInfoScreen<EuroResponse>(
+                euroEndpoint: EuroEndpoints.nacion,
+                key: _key,
+              ),
+              onRefresh: () => _key.currentState.refresh(),
+            )
           },
         ),
       ],

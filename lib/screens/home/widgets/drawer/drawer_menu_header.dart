@@ -2,10 +2,6 @@ import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:flutter/material.dart';
 
 class DrawerMenuHeader extends StatelessWidget {
-  const DrawerMenuHeader({
-    Key key,
-  }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     final paddingTop = MediaQuery.of(context).padding.top + 15;

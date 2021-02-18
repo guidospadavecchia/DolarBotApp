@@ -7,15 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class RootMenuVenezuela extends StatelessWidget {
-  final Function onRefresh;
-
-  const RootMenuVenezuela({
-    Key key,
-    this.onRefresh,
-  }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
+    final GlobalKey<VenezuelaInfoScreenState> _key = GlobalKey();
+
     return MenuItem(
       text: "Venezuela",
       leading: getIconAsset(context, DolarBotIcons.general.venezuela),
@@ -28,13 +23,14 @@ class RootMenuVenezuela extends StatelessWidget {
           depthLevel: 2,
           onTap: () => {
             navigateTo(
-                context: context,
-                title: 'Dólar (Venezuela)',
-                bodyContent: VenezuelaInfoScreen(
-                  vzlaEndpoint: VenezuelaEndpoints.dolar,
-                  key: key,
-                ),
-                onRefresh: onRefresh)
+              context: context,
+              title: 'Dólar (Venezuela)',
+              bodyContent: VenezuelaInfoScreen(
+                vzlaEndpoint: VenezuelaEndpoints.dolar,
+                key: _key,
+              ),
+              onRefresh: () => _key.currentState.refresh(),
+            )
           },
         ),
         MenuItem(
@@ -43,13 +39,14 @@ class RootMenuVenezuela extends StatelessWidget {
           depthLevel: 2,
           onTap: () => {
             navigateTo(
-                context: context,
-                title: 'Euro (Venezuela)',
-                bodyContent: VenezuelaInfoScreen(
-                  vzlaEndpoint: VenezuelaEndpoints.euro,
-                  key: key,
-                ),
-                onRefresh: onRefresh)
+              context: context,
+              title: 'Euro (Venezuela)',
+              bodyContent: VenezuelaInfoScreen(
+                vzlaEndpoint: VenezuelaEndpoints.euro,
+                key: _key,
+              ),
+              onRefresh: () => _key.currentState.refresh(),
+            )
           },
         ),
       ],

@@ -7,15 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class RootMenuCrypto extends StatelessWidget {
-  final Function onRefresh;
-
-  const RootMenuCrypto({
-    Key key,
-    this.onRefresh,
-  }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
+    final GlobalKey<CryptoInfoScreenState> _key = GlobalKey();
+
     return MenuItem(
       text: "Crypto",
       leading: getIconData(context, CryptoFontIcons.TRIG),
@@ -28,13 +23,14 @@ class RootMenuCrypto extends StatelessWidget {
           depthLevel: 2,
           onTap: () => {
             navigateTo(
-                context: context,
-                title: 'Bitcoin (BTC)',
-                bodyContent: CryptoInfoScreen(
-                  cryptoEndpoint: CryptoEndpoints.bitcoin,
-                  key: key,
-                ),
-                onRefresh: onRefresh)
+              context: context,
+              title: 'Bitcoin (BTC)',
+              bodyContent: CryptoInfoScreen(
+                cryptoEndpoint: CryptoEndpoints.bitcoin,
+                key: _key,
+              ),
+              onRefresh: () => _key.currentState.refresh(),
+            )
           },
         ),
         MenuItem(
@@ -43,13 +39,14 @@ class RootMenuCrypto extends StatelessWidget {
           depthLevel: 2,
           onTap: () => {
             navigateTo(
-                context: context,
-                title: 'Bitcoin Cash (BCH)',
-                bodyContent: CryptoInfoScreen(
-                  cryptoEndpoint: CryptoEndpoints.bitcoincash,
-                  key: key,
-                ),
-                onRefresh: onRefresh)
+              context: context,
+              title: 'Bitcoin Cash (BCH)',
+              bodyContent: CryptoInfoScreen(
+                cryptoEndpoint: CryptoEndpoints.bitcoincash,
+                key: _key,
+              ),
+              onRefresh: () => _key.currentState.refresh(),
+            )
           },
         ),
         MenuItem(
@@ -58,13 +55,14 @@ class RootMenuCrypto extends StatelessWidget {
           depthLevel: 2,
           onTap: () => {
             navigateTo(
-                context: context,
-                title: 'DASH',
-                bodyContent: CryptoInfoScreen(
-                  cryptoEndpoint: CryptoEndpoints.dash,
-                  key: key,
-                ),
-                onRefresh: onRefresh)
+              context: context,
+              title: 'DASH',
+              bodyContent: CryptoInfoScreen(
+                cryptoEndpoint: CryptoEndpoints.dash,
+                key: _key,
+              ),
+              onRefresh: () => _key.currentState.refresh(),
+            )
           },
         ),
         MenuItem(
@@ -73,13 +71,14 @@ class RootMenuCrypto extends StatelessWidget {
           depthLevel: 2,
           onTap: () => {
             navigateTo(
-                context: context,
-                title: 'Ethereum (ETH)',
-                bodyContent: CryptoInfoScreen(
-                  cryptoEndpoint: CryptoEndpoints.ethereum,
-                  key: key,
-                ),
-                onRefresh: onRefresh)
+              context: context,
+              title: 'Ethereum (ETH)',
+              bodyContent: CryptoInfoScreen(
+                cryptoEndpoint: CryptoEndpoints.ethereum,
+                key: _key,
+              ),
+              onRefresh: () => _key.currentState.refresh(),
+            )
           },
         ),
         MenuItem(
@@ -88,13 +87,14 @@ class RootMenuCrypto extends StatelessWidget {
           depthLevel: 2,
           onTap: () => {
             navigateTo(
-                context: context,
-                title: 'Litecoin (LTC)',
-                bodyContent: CryptoInfoScreen(
-                  cryptoEndpoint: CryptoEndpoints.litecoin,
-                  key: key,
-                ),
-                onRefresh: onRefresh)
+              context: context,
+              title: 'Litecoin (LTC)',
+              bodyContent: CryptoInfoScreen(
+                cryptoEndpoint: CryptoEndpoints.litecoin,
+                key: _key,
+              ),
+              onRefresh: () => _key.currentState.refresh(),
+            )
           },
         ),
         MenuItem(
@@ -103,13 +103,14 @@ class RootMenuCrypto extends StatelessWidget {
           depthLevel: 2,
           onTap: () => {
             navigateTo(
-                context: context,
-                title: 'Monero (XMR)',
-                bodyContent: CryptoInfoScreen(
-                  cryptoEndpoint: CryptoEndpoints.monero,
-                  key: key,
-                ),
-                onRefresh: onRefresh)
+              context: context,
+              title: 'Monero (XMR)',
+              bodyContent: CryptoInfoScreen(
+                cryptoEndpoint: CryptoEndpoints.monero,
+                key: _key,
+              ),
+              onRefresh: () => _key.currentState.refresh(),
+            )
           },
         ),
         MenuItem(
@@ -118,13 +119,14 @@ class RootMenuCrypto extends StatelessWidget {
           depthLevel: 2,
           onTap: () => {
             navigateTo(
-                context: context,
-                title: 'Ripple (XRP)',
-                bodyContent: CryptoInfoScreen(
-                  cryptoEndpoint: CryptoEndpoints.ripple,
-                  key: key,
-                ),
-                onRefresh: onRefresh)
+              context: context,
+              title: 'Ripple (XRP)',
+              bodyContent: CryptoInfoScreen(
+                cryptoEndpoint: CryptoEndpoints.ripple,
+                key: _key,
+              ),
+              onRefresh: () => _key.currentState.refresh(),
+            )
           },
         ),
       ],

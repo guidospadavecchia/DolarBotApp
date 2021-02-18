@@ -7,15 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class RootMenuMetals extends StatelessWidget {
-  final Function onRefresh;
-
-  const RootMenuMetals({
-    Key key,
-    this.onRefresh,
-  }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
+    GlobalKey<MetalInfoScreenState> _key = GlobalKey();
+
     return MenuItem(
       text: "Metales",
       leading: getIconData(context, FontAwesomeIcons.sketch),
@@ -26,15 +21,14 @@ class RootMenuMetals extends StatelessWidget {
           text: "Oro",
           leading: getIconAsset(context, DolarBotIcons.metals.gold),
           depthLevel: 2,
-          onTap: () => {
+          onTap: () {
             navigateTo(
                 context: context,
                 title: 'Oro',
                 bodyContent: MetalInfoScreen(
                   metalEndpoint: MetalEndpoints.oro,
-                  key: key,
                 ),
-                onRefresh: onRefresh)
+                onRefresh: () => _key.currentState.refresh());
           },
         ),
         MenuItem(
@@ -47,9 +41,8 @@ class RootMenuMetals extends StatelessWidget {
                 title: 'Plata',
                 bodyContent: MetalInfoScreen(
                   metalEndpoint: MetalEndpoints.plata,
-                  key: key,
                 ),
-                onRefresh: onRefresh)
+                onRefresh: () => _key.currentState.refresh())
           },
         ),
         MenuItem(
@@ -62,9 +55,8 @@ class RootMenuMetals extends StatelessWidget {
                 title: 'Cobre',
                 bodyContent: MetalInfoScreen(
                   metalEndpoint: MetalEndpoints.cobre,
-                  key: key,
                 ),
-                onRefresh: onRefresh)
+                onRefresh: () => _key.currentState.refresh())
           },
         ),
       ],
