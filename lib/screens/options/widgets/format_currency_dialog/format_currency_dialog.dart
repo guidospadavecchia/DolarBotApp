@@ -1,7 +1,8 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
+import 'package:dolarbot_app/models/settings.dart';
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
+import 'package:provider/provider.dart';
 
 class FormatCurrencyDialog extends StatefulWidget {
   @override
@@ -9,12 +10,12 @@ class FormatCurrencyDialog extends StatefulWidget {
 }
 
 class _FormatCurrencyDialogState extends State<FormatCurrencyDialog> {
-  final settings = Hive.box('settings');
   String _currencyFormat;
 
   @override
   Widget build(BuildContext context) {
-    _currencyFormat = settings.get('currencyFormat') ?? "es_AR";
+    _currencyFormat =
+        Provider.of<Settings>(context, listen: false).getCurrencyFormat();
 
     return Dialog(
       insetPadding: EdgeInsets.all(25),
@@ -79,8 +80,8 @@ class _FormatCurrencyDialogState extends State<FormatCurrencyDialog> {
   }
 
   void saveValueAndPop(String value) async {
-    settings.put('currencyFormat', value);
     _currencyFormat = value;
+    Provider.of<Settings>(context, listen: false).saveCurrencyFormat(value);
     await Future.delayed(Duration(milliseconds: 50)).then(
       (value) => Navigator.of(context).pop(),
     );

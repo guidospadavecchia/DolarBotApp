@@ -1,7 +1,8 @@
 import 'package:dolarbot_app/classes/theme_manager.dart';
+import 'package:dolarbot_app/models/settings.dart';
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class CurrencyInfo extends StatelessWidget {
   final String title;
@@ -19,14 +20,18 @@ class CurrencyInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          _getTitle(context),
-          _getCurrencyValue(context),
-        ],
-      ),
+    return Consumer<Settings>(
+      builder: (context, settings, child) {
+        return Container(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              _getTitle(context),
+              _getCurrencyValue(context, settings.getCurrencyFormat()),
+            ],
+          ),
+        );
+      },
     );
   }
 
@@ -41,11 +46,9 @@ class CurrencyInfo extends StatelessWidget {
     );
   }
 
-  Padding _getCurrencyValue(BuildContext context) {
-    var settings = Hive.box('settings');
-    final locale = settings.get('currencyFormat') ?? "es_AR";
-    final numberFormat = new NumberFormat("#,###,###", locale);
-    final decimalSeparator = locale == "es_AR" ? "," : ".";
+  Padding _getCurrencyValue(BuildContext context, String currencyFormat) {
+    final numberFormat = new NumberFormat("#,###,###", currencyFormat);
+    final decimalSeparator = currencyFormat == "es_AR" ? "," : ".";
 
     return Padding(
       padding: const EdgeInsets.only(left: 30, right: 30),
