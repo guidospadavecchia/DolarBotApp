@@ -12,4 +12,8 @@ class Settings extends ChangeNotifier {
   String getCurrencyFormat() {
     return settings.get('currencyFormat') ?? "es_AR";
   }
+
+  void notifyThemeChange() {
+    notifyListeners();
+  }
 }

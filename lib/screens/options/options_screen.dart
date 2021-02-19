@@ -1,10 +1,12 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
+import 'package:dolarbot_app/models/settings.dart';
 import 'package:dolarbot_app/screens/options/widgets/format_currency_dialog/format_currency_dialog.dart';
 import 'package:dolarbot_app/widgets/common/common_app_bar.dart';
 import 'package:dolarbot_app/widgets/common/menu_item.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 
 class OptionsScreen extends StatefulWidget {
   @override
@@ -32,6 +34,8 @@ class _OptionsScreenState extends State<OptionsScreen> {
                 value: AdaptiveTheme.of(context).mode == AdaptiveThemeMode.dark,
                 onChanged: (bool value) {
                   AdaptiveTheme.of(context).toggleThemeMode();
+                  Provider.of<Settings>(context, listen: false)
+                      .notifyThemeChange();
                 },
               ),
               depthLevel: 1,

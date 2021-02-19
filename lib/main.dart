@@ -29,8 +29,10 @@ class DolarBotApp extends StatelessWidget {
       light: ThemeManager.getLightThemeData(),
       dark: ThemeManager.getDarkThemeData(),
       initial: savedThemeMode ?? ThemeManager.getDefaultTheme(context),
-      builder: (lightTheme, darkTheme) => ChangeNotifierProvider(
-        create: (context) => Settings(),
+      builder: (lightTheme, darkTheme) => MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (context) => Settings()),
+        ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'DolarBot',

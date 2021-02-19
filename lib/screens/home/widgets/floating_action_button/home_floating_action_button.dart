@@ -1,6 +1,8 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
+import 'package:dolarbot_app/models/settings.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HomeFloatingActionButton extends StatelessWidget {
   const HomeFloatingActionButton({
@@ -22,6 +24,7 @@ class HomeFloatingActionButton extends StatelessWidget {
         child: FloatingActionButton(
           onPressed: () {
             AdaptiveTheme.of(context).toggleThemeMode();
+            Provider.of<Settings>(context, listen: false).notifyThemeChange();
           },
           backgroundColor: ThemeManager.getGlobalAccentColor(context),
           foregroundColor: ThemeManager.getGlobalBackgroundColor(context),
