@@ -1,6 +1,6 @@
 import 'package:dolarbot_app/screens/home/widgets/drawer/drawer_menu.dart';
 import 'package:dolarbot_app/screens/home/widgets/floating_action_button/home_floating_action_button.dart';
-import 'package:dolarbot_app/widgets/common/appBar.dart';
+import 'package:dolarbot_app/widgets/common/common_app_bar.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
