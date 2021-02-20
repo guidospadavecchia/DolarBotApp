@@ -4,11 +4,15 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
+  final bool isMainMenu;
+  final bool showRefreshButton;
   final Function onRefresh;
 
   const CommonAppBar({
     Key key,
     @required this.title,
+    this.isMainMenu = true,
+    this.showRefreshButton = false,
     this.onRefresh,
   }) : super(key: key);
 
@@ -20,26 +24,26 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
       leadingWidth: 80,
       leading: Builder(
         builder: (BuildContext context) {
-          if (ModalRoute.of(context)?.settings?.name == "/o") {
-            return IconButton(
-              icon: Icon(Icons.arrow_back),
-              splashRadius: 25,
-              onPressed: () => Navigator.of(context).pop(),
-              tooltip: 'Volver',
-            );
-          } else {
+          if (isMainMenu) {
             return IconButton(
               icon: Icon(Icons.menu),
               splashRadius: 25,
               onPressed: () => Scaffold.of(context).openDrawer(),
               tooltip: 'Abrir menú',
             );
+          } else {
+            return IconButton(
+              icon: Icon(Icons.arrow_back),
+              splashRadius: 25,
+              onPressed: () => Navigator.of(context).pop(),
+              tooltip: 'Volver',
+            );
           }
         },
       ),
       actions: [
         Container(
-          child: (ModalRoute.of(context)?.settings?.name != "/o")
+          child: showRefreshButton
               ? Padding(
                   padding: EdgeInsets.only(right: 15),
                   child: IconButton(
@@ -68,6 +72,5 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  // TODO: implement preferredSize
   Size get preferredSize => new Size.fromHeight(70);
 }

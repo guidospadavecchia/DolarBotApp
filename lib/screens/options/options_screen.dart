@@ -19,6 +19,7 @@ class _OptionsScreenState extends State<OptionsScreen> {
     return Scaffold(
       appBar: CommonAppBar(
         title: "Opciones",
+        isMainMenu: false,
       ),
       body: Container(
         child: Column(

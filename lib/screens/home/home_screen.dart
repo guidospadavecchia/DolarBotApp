@@ -26,6 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: CommonAppBar(
         title: widget.title,
+        showRefreshButton: true,
         onRefresh: widget.onAppBarRefresh,
       ),
       drawer: Drawer(
