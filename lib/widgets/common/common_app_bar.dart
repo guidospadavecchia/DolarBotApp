@@ -60,12 +60,16 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
       ],
       backgroundColor: Colors.transparent,
       centerTitle: true,
-      title: Text(
-        title,
-        style: TextStyle(
-          fontFamily: 'Raleway',
-          fontWeight: FontWeight.bold,
-          color: ThemeManager.getPrimaryTextColor(context),
+      title: FittedBox(
+        alignment: Alignment.center,
+        fit: BoxFit.fitWidth,
+        child: Text(
+          title,
+          style: TextStyle(
+            fontFamily: 'Raleway',
+            fontWeight: FontWeight.bold,
+            color: ThemeManager.getPrimaryTextColor(context),
+          ),
         ),
       ),
       elevation: 0,

@@ -73,7 +73,7 @@ class RootMenuDollar extends StatelessWidget {
           onTap: () => {
             buildContentAndPush(
               context: context,
-              title: 'Dólar Contado con Liquidación',
+              title: 'Dólar Contado con Liqui',
               bodyContent: CurrencyInfoScreen<DollarResponse>(
                 dollarEndpoint: DollarEndpoints.contadoLiqui,
                 key: _key,

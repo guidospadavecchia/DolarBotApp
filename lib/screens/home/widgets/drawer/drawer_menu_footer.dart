@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dolarbot_app/classes/theme_manager.dart';
+import 'package:dolarbot_app/screens/options/options_screen.dart';
 import 'package:dolarbot_app/widgets/common/menu_item.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -22,7 +23,7 @@ class DrawerMenuFooter extends StatelessWidget {
                   color: ThemeManager.getDrawerMenuItemIconColor(context)),
               depthLevel: 1,
               onTap: () => {
-                Navigator.of(context).popAndPushNamed("/o"),
+                Navigator.of(context).popAndPushNamed(OptionsScreen.routeName),
               },
             ),
             MenuItem(

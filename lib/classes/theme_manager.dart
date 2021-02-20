@@ -4,6 +4,7 @@ import 'package:flutter/scheduler.dart';
 
 class ThemeManager {
   static Color primaryColor = Color.fromRGBO(50, 177, 40, 1);
+  static Color secondaryColor = Color.fromRGBO(51, 148, 34, 1);
   static Color accentColor = Color.fromRGBO(140, 216, 18, 1);
 
   static AdaptiveThemeMode getDefaultTheme(BuildContext context) {
@@ -57,9 +58,9 @@ class ThemeManager {
     return Theme.of(context).copyWith(
       accentColor: ThemeManager.getDrawerMenuItemIconColor(context),
       splashColor: Colors.transparent,
-      highlightColor: AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
-          ? Colors.green[100]
-          : Colors.lightGreen[900],
+      highlightColor: AdaptiveTheme.of(context).mode == AdaptiveThemeMode.dark
+          ? Color.fromRGBO(51, 148, 34, 1)
+          : Theme.of(context).highlightColor,
       unselectedWidgetColor: ThemeManager.getDrawerMenuItemIconColor(context),
       textTheme: TextTheme(
         bodyText1: TextStyle(
