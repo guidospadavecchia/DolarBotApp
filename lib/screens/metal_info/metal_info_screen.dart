@@ -33,7 +33,7 @@ class MetalInfoScreenState extends State<MetalInfoScreen> {
           screen: (data) {
             return CurrencyInfo(
               title: '/ ${data.unit}',
-              symbol: data.currency,
+              symbol: data.currency == 'USD' ? 'US\$' : '\$',
               value: data.value,
             );
           },

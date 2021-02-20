@@ -29,14 +29,14 @@ class _OptionsScreenState extends State<OptionsScreen> {
               subtitle: "Habilita o deshabilita el modo oscuro",
               leading: Icon(FontAwesomeIcons.solidMoon),
               trailing: Switch(
-                inactiveTrackColor: ThemeManager.getAccentColor(),
-                inactiveThumbColor: ThemeManager.getGlobalAccentColor(context),
                 activeColor: ThemeManager.getGlobalAccentColor(context),
                 value: AdaptiveTheme.of(context).mode == AdaptiveThemeMode.dark,
                 onChanged: (bool value) {
-                  AdaptiveTheme.of(context).toggleThemeMode();
-                  Provider.of<Settings>(context, listen: false)
-                      .notifyThemeChange();
+                  setState(() {
+                    AdaptiveTheme.of(context).toggleThemeMode();
+                    Provider.of<Settings>(context, listen: false)
+                        .notifyThemeChange();
+                  });
                 },
               ),
               depthLevel: 1,

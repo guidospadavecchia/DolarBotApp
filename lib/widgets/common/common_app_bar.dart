@@ -14,7 +14,8 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.isMainMenu = true,
     this.showRefreshButton = false,
     this.onRefresh,
-  }) : super(key: key);
+  })  : assert(!showRefreshButton || onRefresh != null),
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {

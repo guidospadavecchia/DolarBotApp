@@ -55,10 +55,11 @@ class ThemeManager {
   static ThemeData getThemeForDrawerMenu(
       BuildContext context, bool disableSplash) {
     return Theme.of(context).copyWith(
-      splashColor:
-          disableSplash ? Colors.transparent : Theme.of(context).splashColor,
-      highlightColor:
-          disableSplash ? Colors.transparent : Theme.of(context).highlightColor,
+      accentColor: ThemeManager.getDrawerMenuItemIconColor(context),
+      splashColor: Colors.transparent,
+      highlightColor: AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
+          ? Colors.green[100]
+          : Colors.lightGreen[900],
       unselectedWidgetColor: ThemeManager.getDrawerMenuItemIconColor(context),
       textTheme: TextTheme(
         bodyText1: TextStyle(
@@ -73,7 +74,7 @@ class ThemeManager {
   static ThemeData getLightThemeData() {
     return ThemeData(
         primaryColor: getPrimaryColor(),
-        accentColor: Colors.green[500],
+        accentColor: getAccentColor(),
         brightness: Brightness.light,
         fontFamily: 'Montserrat',
         appBarTheme: AppBarTheme(
@@ -102,7 +103,7 @@ class ThemeManager {
   static ThemeData getDarkThemeData() {
     return ThemeData(
         primaryColor: getPrimaryColor(),
-        accentColor: Colors.green[500],
+        accentColor: getAccentColor(),
         brightness: Brightness.dark,
         fontFamily: 'Montserrat',
         appBarTheme: AppBarTheme(
