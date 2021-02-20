@@ -1,7 +1,9 @@
+import 'package:dolarbot_app/models/active_screen_data.dart';
 import 'package:dolarbot_app/screens/home/widgets/drawer/drawer_menu.dart';
 import 'package:dolarbot_app/screens/home/widgets/floating_action_button/home_floating_action_button.dart';
 import 'package:dolarbot_app/widgets/common/common_app_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   final Widget bodyContent;
@@ -21,6 +23,14 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<ActiveScreenData>(context, listen: false)
+          .setActiveTitle(widget.title);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

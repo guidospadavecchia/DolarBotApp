@@ -1,6 +1,7 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:dolarbot_app/classes/hive/adapters/cache_entry_adapter.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
+import 'package:dolarbot_app/models/active_screen_data.dart';
 import 'package:dolarbot_app/models/settings.dart';
 import 'package:dolarbot_app/screens/options/options_screen.dart';
 import 'package:global_configuration/global_configuration.dart';
@@ -33,6 +34,7 @@ class DolarBotApp extends StatelessWidget {
       builder: (lightTheme, darkTheme) => MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (context) => Settings()),
+          ChangeNotifierProvider(create: (context) => ActiveScreenData()),
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,

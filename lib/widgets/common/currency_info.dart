@@ -1,5 +1,6 @@
 import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:dolarbot_app/models/settings.dart';
+import 'package:dolarbot_app/util/util.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -27,7 +28,7 @@ class CurrencyInfo extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               _getTitle(context),
-              _getCurrencyValue(context, settings.getCurrencyFormat()),
+              _getCurrencyValue(context),
             ],
           ),
         );
@@ -46,9 +47,11 @@ class CurrencyInfo extends StatelessWidget {
     );
   }
 
-  Padding _getCurrencyValue(BuildContext context, String currencyFormat) {
-    final numberFormat = new NumberFormat("#,###,###", currencyFormat);
-    final decimalSeparator = currencyFormat == "es_AR" ? "," : ".";
+  Padding _getCurrencyValue(BuildContext context) {
+    final settings = Provider.of<Settings>(context, listen: false);
+    final numberFormat =
+        new NumberFormat("#,###,###", settings.getCurrencyFormat());
+    final decimalSeparator = settings.getDecimalSeparator();
 
     return Padding(
       padding: const EdgeInsets.only(left: 30, right: 30),
@@ -58,7 +61,7 @@ class CurrencyInfo extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            if (symbol != null && isNumeric(value))
+            if (symbol != null && Util.isNumeric(value))
               Padding(
                 padding: const EdgeInsets.only(right: 7),
                 child: Text(
@@ -71,7 +74,7 @@ class CurrencyInfo extends StatelessWidget {
                 ),
               ),
             Text(
-              isNumeric(value)
+              Util.isNumeric(value)
                   ? numberFormat.format(int.parse(value.split('.')[0]))
                   : 'N/A',
               style: TextStyle(
@@ -95,12 +98,5 @@ class CurrencyInfo extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  bool isNumeric(String s) {
-    if (s == null) {
-      return false;
-    }
-    return double.tryParse(s) != null;
   }
 }

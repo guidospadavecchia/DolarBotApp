@@ -1,8 +1,14 @@
 import 'package:dolarbot_app/api/api.dart';
 import 'package:dolarbot_app/api/responses/base/genericCurrencyResponse.dart';
+import 'package:dolarbot_app/interfaces/share_info.dart';
+import 'package:dolarbot_app/models/active_screen_data.dart';
+import 'package:dolarbot_app/models/settings.dart';
+import 'package:dolarbot_app/util/util.dart';
 import 'package:dolarbot_app/widgets/common/currency_info_container.dart';
 import 'package:dolarbot_app/widgets/common/future_screen_delegate/future_screen_delegate.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
 
 class CurrencyInfoScreen<T extends GenericCurrencyResponse>
     extends StatefulWidget {
@@ -28,7 +34,7 @@ class CurrencyInfoScreen<T extends GenericCurrencyResponse>
 }
 
 class CurrencyInfoScreenState<T extends GenericCurrencyResponse>
-    extends State<CurrencyInfoScreen<T>> {
+    extends State<CurrencyInfoScreen<T>> implements IShareable<T> {
   bool _forceRefresh = false;
 
   @override
@@ -42,6 +48,8 @@ class CurrencyInfoScreenState<T extends GenericCurrencyResponse>
         child: FutureScreenDelegate<T>(
           response: _getResponse<T>(),
           screen: (data) {
+            WidgetsBinding.instance
+                .addPostFrameCallback((_) => setShareInfo(data));
             return CurrencyInfoContainer(
               items: [
                 CurrencyInfo(
@@ -76,6 +84,32 @@ class CurrencyInfoScreenState<T extends GenericCurrencyResponse>
       return API.getEuroRate(widget.euroEndpoint, forceRefresh: _forceRefresh);
     } else if (widget.realEndpoint != null) {
       return API.getRealRate(widget.realEndpoint, forceRefresh: _forceRefresh);
+    }
+  }
+
+  @override
+  void setShareInfo(T data) {
+    Settings settings = Provider.of<Settings>(context, listen: false);
+    ActiveScreenData activeScreenData =
+        Provider.of<ActiveScreenData>(context, listen: false);
+    final currencyFormat = settings.getCurrencyFormat();
+    final numberFormat = new NumberFormat("#,###,###.00", currencyFormat);
+
+    if (data != null) {
+      final buyPrice = Util.isNumeric(data.buyPrice)
+          ? numberFormat.format(double.parse(data.buyPrice))
+          : 'N/A';
+      final sellPrice = Util.isNumeric(data.sellPrice)
+          ? numberFormat.format(double.parse(data.sellPrice))
+          : 'N/A';
+      DateTime date = DateTime.parse(data.timestamp.replaceAll('/', '-'));
+      String formattedTime = DateFormat(Util.isSameDay(DateTime.now(), date)
+              ? 'HH:mm'
+              : 'HH:mm - dd-MM-yyyy')
+          .format(date);
+
+      activeScreenData.setShareData(
+          'Compra:\t\$ $buyPrice\nVenta:\t\$ $sellPrice\nHora:\t$formattedTime');
     }
   }
 }

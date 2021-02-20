@@ -1,8 +1,14 @@
 import 'package:dolarbot_app/api/api.dart';
 import 'package:dolarbot_app/api/responses/metalResponse.dart';
+import 'package:dolarbot_app/interfaces/share_info.dart';
+import 'package:dolarbot_app/models/active_screen_data.dart';
+import 'package:dolarbot_app/models/settings.dart';
+import 'package:dolarbot_app/util/util.dart';
 import 'package:dolarbot_app/widgets/common/currency_info_container.dart';
 import 'package:dolarbot_app/widgets/common/future_screen_delegate/future_screen_delegate.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
 
 class MetalInfoScreen extends StatefulWidget {
   final MetalEndpoints metalEndpoint;
@@ -16,7 +22,8 @@ class MetalInfoScreen extends StatefulWidget {
   MetalInfoScreenState createState() => MetalInfoScreenState();
 }
 
-class MetalInfoScreenState extends State<MetalInfoScreen> {
+class MetalInfoScreenState extends State<MetalInfoScreen>
+    implements IShareable<MetalResponse> {
   bool _forceRefresh = false;
 
   @override
@@ -31,6 +38,8 @@ class MetalInfoScreenState extends State<MetalInfoScreen> {
           response: API.getMetalRate(widget.metalEndpoint,
               forceRefresh: _forceRefresh),
           screen: (data) {
+            WidgetsBinding.instance
+                .addPostFrameCallback((_) => setShareInfo(data));
             return CurrencyInfo(
               title: '/ ${data.unit}',
               symbol: data.currency == 'USD' ? 'US\$' : '\$',
@@ -46,5 +55,29 @@ class MetalInfoScreenState extends State<MetalInfoScreen> {
     setState(() {
       _forceRefresh = true;
     });
+  }
+
+  @override
+  void setShareInfo(MetalResponse data) {
+    Settings settings = Provider.of<Settings>(context, listen: false);
+    ActiveScreenData activeScreenData =
+        Provider.of<ActiveScreenData>(context, listen: false);
+    final currencyFormat = settings.getCurrencyFormat();
+    final numberFormat = new NumberFormat("#,###,###.00", currencyFormat);
+
+    if (data != null) {
+      final value = Util.isNumeric(data.value)
+          ? numberFormat.format(double.parse(data.value))
+          : 'N/A';
+      final symbol = data.currency == 'USD' ? 'US\$' : '\$';
+      DateTime date = DateTime.parse(data.timestamp.replaceAll('/', '-'));
+      String formattedTime = DateFormat(Util.isSameDay(DateTime.now(), date)
+              ? 'HH:mm'
+              : 'HH:mm - dd-MM-yyyy')
+          .format(date);
+
+      activeScreenData
+          .setShareData('$symbol $value / ${data.unit}\nHora: $formattedTime');
+    }
   }
 }

@@ -1,8 +1,14 @@
 import 'package:dolarbot_app/api/api.dart';
 import 'package:dolarbot_app/api/responses/base/apiResponse.dart';
+import 'package:dolarbot_app/interfaces/share_info.dart';
+import 'package:dolarbot_app/models/active_screen_data.dart';
+import 'package:dolarbot_app/models/settings.dart';
+import 'package:dolarbot_app/util/util.dart';
 import 'package:dolarbot_app/widgets/common/currency_info_container.dart';
 import 'package:dolarbot_app/widgets/common/future_screen_delegate/future_screen_delegate.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
 
 class VenezuelaInfoScreen extends StatefulWidget {
   final VenezuelaEndpoints vzlaEndpoint;
@@ -16,7 +22,8 @@ class VenezuelaInfoScreen extends StatefulWidget {
   VenezuelaInfoScreenState createState() => VenezuelaInfoScreenState();
 }
 
-class VenezuelaInfoScreenState extends State<VenezuelaInfoScreen> {
+class VenezuelaInfoScreenState extends State<VenezuelaInfoScreen>
+    implements IShareable<VenezuelaResponse> {
   bool _forceRefresh = false;
 
   @override
@@ -31,6 +38,8 @@ class VenezuelaInfoScreenState extends State<VenezuelaInfoScreen> {
           response:
               API.getVzlaRate(widget.vzlaEndpoint, forceRefresh: _forceRefresh),
           screen: (data) {
+            WidgetsBinding.instance
+                .addPostFrameCallback((_) => setShareInfo(data));
             return CurrencyInfoContainer(
               items: [
                 CurrencyInfo(
@@ -55,5 +64,31 @@ class VenezuelaInfoScreenState extends State<VenezuelaInfoScreen> {
     setState(() {
       _forceRefresh = true;
     });
+  }
+
+  @override
+  void setShareInfo(VenezuelaResponse data) {
+    Settings settings = Provider.of<Settings>(context, listen: false);
+    ActiveScreenData activeScreenData =
+        Provider.of<ActiveScreenData>(context, listen: false);
+    final currencyFormat = settings.getCurrencyFormat();
+    final numberFormat = new NumberFormat("#,###,###.00", currencyFormat);
+
+    if (data != null) {
+      final blackMarketValue = Util.isNumeric(data.blackMarketPrice)
+          ? numberFormat.format(double.parse(data.blackMarketPrice))
+          : 'N/A';
+      final banksValue = Util.isNumeric(data.bankPrice)
+          ? numberFormat.format(double.parse(data.bankPrice))
+          : 'N/A';
+      DateTime date = DateTime.parse(data.timestamp.replaceAll('/', '-'));
+      String formattedTime = DateFormat(Util.isSameDay(DateTime.now(), date)
+              ? 'HH:mm'
+              : 'HH:mm - dd-MM-yyyy')
+          .format(date);
+
+      activeScreenData.setShareData(
+          'Bancos:\tBs. $banksValue\nParalelo:\tBs. $blackMarketValue\nHora:\t$formattedTime');
+    }
   }
 }
