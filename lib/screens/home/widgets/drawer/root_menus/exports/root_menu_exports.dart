@@ -1,6 +1,6 @@
 export 'package:dolarbot_app/screens/bcra_info/bcra_info_screen.dart';
 export 'package:dolarbot_app/screens/crypto_info/crypto_info_screen.dart';
-export 'package:dolarbot_app/screens/currency_info/currency_info_screen.dart';
+export 'package:dolarbot_app/screens/fiat_currency_info/fiat_currency_info_screen.dart';
 export 'package:dolarbot_app/screens/home/home_screen.dart';
 export 'package:dolarbot_app/screens/home/widgets/drawer/root_menus/root_menu_bcra.dart';
 export 'package:dolarbot_app/screens/home/widgets/drawer/root_menus/root_menu_crypto.dart';

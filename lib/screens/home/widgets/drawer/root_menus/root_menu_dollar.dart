@@ -1,7 +1,7 @@
 import 'package:dolarbot_app/api/api_endpoints.dart';
 import 'package:dolarbot_app/api/responses/dollarResponse.dart';
 import 'package:dolarbot_app/classes/dolarbot_icons.dart';
-import 'package:dolarbot_app/screens/currency_info/currency_info_screen.dart';
+import 'package:dolarbot_app/screens/fiat_currency_info/fiat_currency_info_screen.dart';
 import 'package:dolarbot_app/screens/home/widgets/drawer/drawer_menu_body.dart';
 import 'package:dolarbot_app/widgets/common/menu_item.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +10,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 class RootMenuDollar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<CurrencyInfoScreenState> _key = GlobalKey();
+    final GlobalKey<FiatCurrencyInfoScreenState> _key = GlobalKey();
 
     return MenuItem(
       text: "Dólar",
@@ -26,7 +26,7 @@ class RootMenuDollar extends StatelessWidget {
             buildContentAndPush(
               context: context,
               title: 'Dólar Oficial',
-              bodyContent: CurrencyInfoScreen<DollarResponse>(
+              bodyContent: FiatCurrencyInfoScreen<DollarResponse>(
                 dollarEndpoint: DollarEndpoints.oficial,
                 key: _key,
               ),
@@ -42,7 +42,7 @@ class RootMenuDollar extends StatelessWidget {
             buildContentAndPush(
               context: context,
               title: 'Dólar Ahorro',
-              bodyContent: CurrencyInfoScreen<DollarResponse>(
+              bodyContent: FiatCurrencyInfoScreen<DollarResponse>(
                 dollarEndpoint: DollarEndpoints.ahorro,
                 key: _key,
               ),
@@ -58,7 +58,7 @@ class RootMenuDollar extends StatelessWidget {
             buildContentAndPush(
               context: context,
               title: 'Dólar Blue',
-              bodyContent: CurrencyInfoScreen<DollarResponse>(
+              bodyContent: FiatCurrencyInfoScreen<DollarResponse>(
                 dollarEndpoint: DollarEndpoints.blue,
                 key: _key,
               ),
@@ -74,7 +74,7 @@ class RootMenuDollar extends StatelessWidget {
             buildContentAndPush(
               context: context,
               title: 'Dólar Bolsa (MEP)',
-              bodyContent: CurrencyInfoScreen<DollarResponse>(
+              bodyContent: FiatCurrencyInfoScreen<DollarResponse>(
                 dollarEndpoint: DollarEndpoints.bolsa,
                 key: _key,
               ),
@@ -90,7 +90,7 @@ class RootMenuDollar extends StatelessWidget {
             buildContentAndPush(
               context: context,
               title: 'Dólar Contado con Liqui',
-              bodyContent: CurrencyInfoScreen<DollarResponse>(
+              bodyContent: FiatCurrencyInfoScreen<DollarResponse>(
                 dollarEndpoint: DollarEndpoints.contadoLiqui,
                 key: _key,
               ),
@@ -106,7 +106,7 @@ class RootMenuDollar extends StatelessWidget {
             buildContentAndPush(
               context: context,
               title: 'Dólar Promedio',
-              bodyContent: CurrencyInfoScreen<DollarResponse>(
+              bodyContent: FiatCurrencyInfoScreen<DollarResponse>(
                 dollarEndpoint: DollarEndpoints.promedio,
                 key: _key,
               ),
@@ -127,7 +127,7 @@ class RootMenuDollar extends StatelessWidget {
                 buildContentAndPush(
                   context: context,
                   title: 'Dólar - BBVA',
-                  bodyContent: CurrencyInfoScreen<DollarResponse>(
+                  bodyContent: FiatCurrencyInfoScreen<DollarResponse>(
                     dollarEndpoint: DollarEndpoints.bbva,
                     key: _key,
                   ),
@@ -143,7 +143,7 @@ class RootMenuDollar extends StatelessWidget {
                 buildContentAndPush(
                   context: context,
                   title: 'Dólar - Nuevo Banco del Chaco',
-                  bodyContent: CurrencyInfoScreen<DollarResponse>(
+                  bodyContent: FiatCurrencyInfoScreen<DollarResponse>(
                     dollarEndpoint: DollarEndpoints.chaco,
                     key: _key,
                   ),
@@ -159,7 +159,7 @@ class RootMenuDollar extends StatelessWidget {
                 buildContentAndPush(
                   context: context,
                   title: 'Dólar - Banco Ciudad',
-                  bodyContent: CurrencyInfoScreen<DollarResponse>(
+                  bodyContent: FiatCurrencyInfoScreen<DollarResponse>(
                     dollarEndpoint: DollarEndpoints.ciudad,
                     key: _key,
                   ),
@@ -175,7 +175,7 @@ class RootMenuDollar extends StatelessWidget {
                 buildContentAndPush(
                   context: context,
                   title: 'Dólar - Banco Comafi',
-                  bodyContent: CurrencyInfoScreen<DollarResponse>(
+                  bodyContent: FiatCurrencyInfoScreen<DollarResponse>(
                     dollarEndpoint: DollarEndpoints.comafi,
                     key: _key,
                   ),
@@ -191,7 +191,7 @@ class RootMenuDollar extends StatelessWidget {
                 buildContentAndPush(
                   context: context,
                   title: 'Dólar - Banco de Córdoba',
-                  bodyContent: CurrencyInfoScreen<DollarResponse>(
+                  bodyContent: FiatCurrencyInfoScreen<DollarResponse>(
                     dollarEndpoint: DollarEndpoints.bancor,
                     key: _key,
                   ),
@@ -207,7 +207,7 @@ class RootMenuDollar extends StatelessWidget {
                 buildContentAndPush(
                   context: context,
                   title: 'Dólar - Banco Galicia',
-                  bodyContent: CurrencyInfoScreen<DollarResponse>(
+                  bodyContent: FiatCurrencyInfoScreen<DollarResponse>(
                     dollarEndpoint: DollarEndpoints.galicia,
                     key: _key,
                   ),
@@ -223,7 +223,7 @@ class RootMenuDollar extends StatelessWidget {
                 buildContentAndPush(
                   context: context,
                   title: 'Dólar - Banco Hipotecario',
-                  bodyContent: CurrencyInfoScreen<DollarResponse>(
+                  bodyContent: FiatCurrencyInfoScreen<DollarResponse>(
                     dollarEndpoint: DollarEndpoints.hipotecario,
                     key: _key,
                   ),
@@ -239,7 +239,7 @@ class RootMenuDollar extends StatelessWidget {
                 buildContentAndPush(
                   context: context,
                   title: 'Dólar - Banco Industrial (BIND)',
-                  bodyContent: CurrencyInfoScreen<DollarResponse>(
+                  bodyContent: FiatCurrencyInfoScreen<DollarResponse>(
                     dollarEndpoint: DollarEndpoints.bind,
                     key: _key,
                   ),
@@ -255,7 +255,7 @@ class RootMenuDollar extends StatelessWidget {
                 buildContentAndPush(
                   context: context,
                   title: 'Dólar - Banco de La Pampa',
-                  bodyContent: CurrencyInfoScreen<DollarResponse>(
+                  bodyContent: FiatCurrencyInfoScreen<DollarResponse>(
                     dollarEndpoint: DollarEndpoints.pampa,
                     key: _key,
                   ),
@@ -271,7 +271,7 @@ class RootMenuDollar extends StatelessWidget {
                 buildContentAndPush(
                   context: context,
                   title: 'Dólar - Banco Nación',
-                  bodyContent: CurrencyInfoScreen<DollarResponse>(
+                  bodyContent: FiatCurrencyInfoScreen<DollarResponse>(
                     dollarEndpoint: DollarEndpoints.nacion,
                     key: _key,
                   ),
@@ -287,7 +287,7 @@ class RootMenuDollar extends StatelessWidget {
                 buildContentAndPush(
                   context: context,
                   title: 'Dólar - Banco Patagonia',
-                  bodyContent: CurrencyInfoScreen<DollarResponse>(
+                  bodyContent: FiatCurrencyInfoScreen<DollarResponse>(
                     dollarEndpoint: DollarEndpoints.patagonia,
                     key: _key,
                   ),
@@ -303,7 +303,7 @@ class RootMenuDollar extends StatelessWidget {
                 buildContentAndPush(
                   context: context,
                   title: 'Dólar - Banco Piano',
-                  bodyContent: CurrencyInfoScreen<DollarResponse>(
+                  bodyContent: FiatCurrencyInfoScreen<DollarResponse>(
                     dollarEndpoint: DollarEndpoints.piano,
                     key: _key,
                   ),
@@ -319,7 +319,7 @@ class RootMenuDollar extends StatelessWidget {
                 buildContentAndPush(
                   context: context,
                   title: 'Dólar - Banco Santander',
-                  bodyContent: CurrencyInfoScreen<DollarResponse>(
+                  bodyContent: FiatCurrencyInfoScreen<DollarResponse>(
                     dollarEndpoint: DollarEndpoints.santander,
                     key: _key,
                   ),
@@ -335,7 +335,7 @@ class RootMenuDollar extends StatelessWidget {
                 buildContentAndPush(
                   context: context,
                   title: 'Dólar - Banco Supervielle',
-                  bodyContent: CurrencyInfoScreen<DollarResponse>(
+                  bodyContent: FiatCurrencyInfoScreen<DollarResponse>(
                     dollarEndpoint: DollarEndpoints.supervielle,
                     key: _key,
                   ),

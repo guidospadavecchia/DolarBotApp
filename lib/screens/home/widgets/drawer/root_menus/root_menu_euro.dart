@@ -1,7 +1,7 @@
 import 'package:dolarbot_app/api/api_endpoints.dart';
 import 'package:dolarbot_app/api/responses/euroResponse.dart';
 import 'package:dolarbot_app/classes/dolarbot_icons.dart';
-import 'package:dolarbot_app/screens/currency_info/currency_info_screen.dart';
+import 'package:dolarbot_app/screens/fiat_currency_info/fiat_currency_info_screen.dart';
 import 'package:dolarbot_app/screens/home/widgets/drawer/drawer_menu_body.dart';
 import 'package:dolarbot_app/widgets/common/menu_item.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +10,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 class RootMenuEuro extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<CurrencyInfoScreenState> _key = GlobalKey();
+    final GlobalKey<FiatCurrencyInfoScreenState> _key = GlobalKey();
 
     return MenuItem(
       text: "Euro",
@@ -26,7 +26,7 @@ class RootMenuEuro extends StatelessWidget {
             buildContentAndPush(
               context: context,
               title: 'Euro - Banco BBVA',
-              bodyContent: CurrencyInfoScreen<EuroResponse>(
+              bodyContent: FiatCurrencyInfoScreen<EuroResponse>(
                 euroEndpoint: EuroEndpoints.bbva,
                 key: _key,
               ),
@@ -42,7 +42,7 @@ class RootMenuEuro extends StatelessWidget {
             buildContentAndPush(
               context: context,
               title: 'Euro - Nuevo Banco del Chaco',
-              bodyContent: CurrencyInfoScreen<EuroResponse>(
+              bodyContent: FiatCurrencyInfoScreen<EuroResponse>(
                 euroEndpoint: EuroEndpoints.chaco,
                 key: _key,
               ),
@@ -58,7 +58,7 @@ class RootMenuEuro extends StatelessWidget {
             buildContentAndPush(
               context: context,
               title: 'Euro - Banco Galicia',
-              bodyContent: CurrencyInfoScreen<EuroResponse>(
+              bodyContent: FiatCurrencyInfoScreen<EuroResponse>(
                 euroEndpoint: EuroEndpoints.galicia,
                 key: _key,
               ),
@@ -74,7 +74,7 @@ class RootMenuEuro extends StatelessWidget {
             buildContentAndPush(
               context: context,
               title: 'Euro - Banco Hipotecario',
-              bodyContent: CurrencyInfoScreen<EuroResponse>(
+              bodyContent: FiatCurrencyInfoScreen<EuroResponse>(
                 euroEndpoint: EuroEndpoints.hipotecario,
                 key: _key,
               ),
@@ -90,7 +90,7 @@ class RootMenuEuro extends StatelessWidget {
             buildContentAndPush(
               context: context,
               title: 'Euro - Banco de La Pampa',
-              bodyContent: CurrencyInfoScreen<EuroResponse>(
+              bodyContent: FiatCurrencyInfoScreen<EuroResponse>(
                 euroEndpoint: EuroEndpoints.pampa,
                 key: _key,
               ),
@@ -106,7 +106,7 @@ class RootMenuEuro extends StatelessWidget {
             buildContentAndPush(
               context: context,
               title: 'Euro - Banco Nación',
-              bodyContent: CurrencyInfoScreen<EuroResponse>(
+              bodyContent: FiatCurrencyInfoScreen<EuroResponse>(
                 euroEndpoint: EuroEndpoints.nacion,
                 key: _key,
               ),

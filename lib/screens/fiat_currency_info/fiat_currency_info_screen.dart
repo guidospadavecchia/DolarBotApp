@@ -10,13 +10,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 
-class CurrencyInfoScreen<T extends GenericCurrencyResponse>
+class FiatCurrencyInfoScreen<T extends GenericCurrencyResponse>
     extends StatefulWidget {
   final DollarEndpoints dollarEndpoint;
   final EuroEndpoints euroEndpoint;
   final RealEndpoints realEndpoint;
 
-  const CurrencyInfoScreen(
+  const FiatCurrencyInfoScreen(
       {Key key, this.dollarEndpoint, this.euroEndpoint, this.realEndpoint})
       : assert((dollarEndpoint != null &&
                 euroEndpoint == null &&
@@ -30,11 +30,12 @@ class CurrencyInfoScreen<T extends GenericCurrencyResponse>
         super(key: key);
 
   @override
-  CurrencyInfoScreenState<T> createState() => CurrencyInfoScreenState<T>();
+  FiatCurrencyInfoScreenState<T> createState() =>
+      FiatCurrencyInfoScreenState<T>();
 }
 
-class CurrencyInfoScreenState<T extends GenericCurrencyResponse>
-    extends State<CurrencyInfoScreen<T>> implements IShareable<T> {
+class FiatCurrencyInfoScreenState<T extends GenericCurrencyResponse>
+    extends State<FiatCurrencyInfoScreen<T>> implements IShareable<T> {
   bool _forceRefresh = false;
 
   @override
