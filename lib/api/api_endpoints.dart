@@ -1,6 +1,7 @@
 enum DollarEndpoints {
   oficial,
   blue,
+  ahorro,
   contadoLiqui,
   promedio,
   bolsa,
@@ -73,6 +74,7 @@ extension DollarEndpointsExtension on DollarEndpoints {
   static const endpoints = {
     DollarEndpoints.oficial: '/api/dolar/oficial',
     DollarEndpoints.blue: '/api/dolar/blue',
+    DollarEndpoints.ahorro: '/api/dolar/ahorro',
     DollarEndpoints.contadoLiqui: '/api/dolar/contadoliqui',
     DollarEndpoints.promedio: '/api/dolar/promedio',
     DollarEndpoints.bolsa: '/api/dolar/bolsa',

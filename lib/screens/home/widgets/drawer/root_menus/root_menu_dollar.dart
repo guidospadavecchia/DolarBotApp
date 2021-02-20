@@ -35,6 +35,22 @@ class RootMenuDollar extends StatelessWidget {
           },
         ),
         MenuItem(
+          text: "Ahorro",
+          leading: getIconData(context, FontAwesomeIcons.piggyBank),
+          depthLevel: 2,
+          onTap: () => {
+            buildContentAndPush(
+              context: context,
+              title: 'Dólar Ahorro',
+              bodyContent: CurrencyInfoScreen<DollarResponse>(
+                dollarEndpoint: DollarEndpoints.ahorro,
+                key: _key,
+              ),
+              onRefresh: () => _key.currentState.refresh(),
+            )
+          },
+        ),
+        MenuItem(
           text: "Blue",
           leading: getIconData(context, FontAwesomeIcons.commentDollar),
           depthLevel: 2,
