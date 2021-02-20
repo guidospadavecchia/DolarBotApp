@@ -82,6 +82,7 @@ class HomeFloatingActionButton extends StatelessWidget {
                         color: ThemeManager.getGlobalBackgroundColor(context))),
                 onTap: () {
                   //TODO Implementar calculadora de valores
+                  closeDrawer();
                 },
               ),
             ),
