@@ -30,15 +30,15 @@ dependencies:
   http: ^0.12.2
   global_configuration: ^1.6.0
   show_up_animation: ^1.0.2
+  cupertino_icons: ^1.0.0
   crypto_font_icons: ^0.1.0
   hive: ^1.4.4+1
   hive_flutter: ^0.3.1
   provider: ^4.0.0
   page_transition: ^1.1.7+6
-
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.0
+  fab_circular_menu: ^1.0.0
+  oktoast: ^2.3.2
+  share: '>=0.6.5+4 <2.0.0'
 
 flutter_icons:
   android: true

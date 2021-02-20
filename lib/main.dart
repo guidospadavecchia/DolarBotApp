@@ -9,6 +9,7 @@ import 'package:dolarbot_app/screens/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:oktoast/oktoast.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
@@ -36,26 +37,28 @@ class DolarBotApp extends StatelessWidget {
           ChangeNotifierProvider(create: (context) => Settings()),
           ChangeNotifierProvider(create: (context) => ActiveScreenData()),
         ],
-        child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'DolarBot',
-          theme: lightTheme,
-          darkTheme: darkTheme,
-          home: SplashScreen(),
-          onGenerateRoute: (settings) {
-            switch (settings.name) {
-              case OptionsScreen.routeName:
-                return PageTransition(
-                  child: OptionsScreen(),
-                  type: PageTransitionType.rightToLeft,
-                  duration: Duration(milliseconds: 200),
-                  reverseDuration: Duration(milliseconds: 200),
-                );
-                break;
-              default:
-                return null;
-            }
-          },
+        child: OKToast(
+          child: MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'DolarBot',
+            theme: lightTheme,
+            darkTheme: darkTheme,
+            home: SplashScreen(),
+            onGenerateRoute: (settings) {
+              switch (settings.name) {
+                case OptionsScreen.routeName:
+                  return PageTransition(
+                    child: OptionsScreen(),
+                    type: PageTransitionType.rightToLeft,
+                    duration: Duration(milliseconds: 200),
+                    reverseDuration: Duration(milliseconds: 200),
+                  );
+                  break;
+                default:
+                  return null;
+              }
+            },
+          ),
         ),
       ),
     );
