@@ -1,5 +1,6 @@
 import 'package:dolarbot_app/widgets/common/future_screen_delegate/error_future.dart';
 import 'package:dolarbot_app/widgets/common/future_screen_delegate/loading_future.dart';
+import 'package:dolarbot_app/classes/globals.dart';
 import 'package:flutter/material.dart';
 
 typedef ScreenDataBuildFunction<T> = Widget Function(T data);
@@ -18,6 +19,7 @@ class FutureScreenDelegate<T> extends StatelessWidget {
     return FutureBuilder<T>(
       future: response,
       builder: (context, snapshot) {
+        Globals.dataIsLoading = true;
         if (snapshot.connectionState != ConnectionState.done) {
           return LoadingFuture();
         }
@@ -26,6 +28,7 @@ class FutureScreenDelegate<T> extends StatelessWidget {
           return ErrorFuture();
         }
 
+        Globals.dataIsLoading = false;
         return screen(snapshot.data);
       },
     );
