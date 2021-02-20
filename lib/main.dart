@@ -42,7 +42,7 @@ class DolarBotApp extends StatelessWidget {
           home: SplashScreen(),
           onGenerateRoute: (settings) {
             switch (settings.name) {
-              case '/o':
+              case OptionsScreen.routeName:
                 return PageTransition(
                   child: OptionsScreen(),
                   type: PageTransitionType.rightToLeft,

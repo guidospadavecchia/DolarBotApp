@@ -9,6 +9,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 class OptionsScreen extends StatefulWidget {
+  static const routeName = '/options';
+
   @override
   _OptionsScreenState createState() => _OptionsScreenState();
 }
