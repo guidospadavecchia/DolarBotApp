@@ -4,7 +4,7 @@ import 'package:dolarbot_app/interfaces/share_info.dart';
 import 'package:dolarbot_app/models/active_screen_data.dart';
 import 'package:dolarbot_app/models/settings.dart';
 import 'package:dolarbot_app/util/util.dart';
-import 'package:dolarbot_app/widgets/common/currency_info_container.dart';
+import 'package:dolarbot_app/widgets/common/currency_info/currency_info_container.dart';
 import 'package:dolarbot_app/widgets/common/future_screen_delegate/future_screen_delegate.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
