@@ -1,6 +1,7 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:dolarbot_app/models/settings.dart';
+import 'package:dolarbot_app/widgets/common/dialog_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -20,7 +21,8 @@ class _FormatCurrencyDialogState extends State<FormatCurrencyDialog> {
     return Dialog(
       insetPadding: EdgeInsets.all(25),
       child: Container(
-        width: 300,
+        width: MediaQuery.of(context).size.width * 0.8,
+        height: 310,
         decoration: BoxDecoration(
           border: Border.all(color: Colors.white10, width: 2),
           gradient: AdaptiveTheme.of(context).brightness == Brightness.dark
@@ -36,7 +38,16 @@ class _FormatCurrencyDialogState extends State<FormatCurrencyDialog> {
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Padding(
+              padding: EdgeInsets.only(right: 7),
+              child: Text(
+                  "Elegí el formato de moneda que\naparecerá en todas las cotizaciones."),
+            ),
+            SizedBox(
+              height: 10,
+            ),
             RadioListTile<String>(
               title: Text(
                 'Argentina',
@@ -73,6 +84,14 @@ class _FormatCurrencyDialogState extends State<FormatCurrencyDialog> {
                 });
               },
             ),
+            SizedBox(
+              height: 20,
+            ),
+            DialogButton(
+              text: 'Aceptar',
+              icon: Icons.check_outlined,
+              onPressed: () => Navigator.of(context).pop(),
+            )
           ],
         ),
       ),
@@ -82,8 +101,5 @@ class _FormatCurrencyDialogState extends State<FormatCurrencyDialog> {
   void saveValueAndPop(String value) async {
     _currencyFormat = value;
     Provider.of<Settings>(context, listen: false).saveCurrencyFormat(value);
-    await Future.delayed(Duration(milliseconds: 50)).then(
-      (value) => Navigator.of(context).pop(),
-    );
   }
 }

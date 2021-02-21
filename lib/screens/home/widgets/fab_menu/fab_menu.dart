@@ -1,15 +1,16 @@
+import 'package:dolarbot_app/classes/globals.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:dolarbot_app/models/active_screen_data.dart';
-import 'package:dolarbot_app/classes/globals.dart';
+import 'package:dolarbot_app/models/settings.dart';
+import 'package:dolarbot_app/screens/home/widgets/fab_menu/calculator/fab_option_calculator.dart';
 import 'package:dolarbot_app/screens/home/widgets/fab_menu/fab_menu_option.dart';
-import 'package:dolarbot_app/screens/home/widgets/fab_menu/share/fab_option_share.dart';
 import 'package:dolarbot_app/widgets/toasts/toast_ok.dart';
 import 'package:fab_circular_menu/fab_circular_menu.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter/services.dart';
 import 'package:share/share.dart';
 
 class FabMenu extends StatelessWidget {
@@ -38,21 +39,18 @@ class FabMenu extends StatelessWidget {
             fabMargin: EdgeInsets.only(bottom: 20, right: 20),
             fabSize: 64,
             ringColor: Colors.transparent,
-            ringDiameter: MediaQuery.of(context).size.width * 0.6,
+            ringDiameter: MediaQuery.of(context).size.width * 0.7,
             fabElevation: 10,
             animationDuration: Duration(milliseconds: 600),
             animationCurve: Curves.easeInOutCirc,
             children: [
-              FabOptionShare(
-                activeData: activeData,
+              FabMenuOption(
+                icon: Icons.share,
+                onTap: () => share(
+                  activeData.getShareData(),
+                  title: activeData.getActiveTitle(),
+                ),
               ),
-              // FabMenuOption(
-              //   icon: Icons.share,
-              //   onTap: () => share(
-              //     activeData.getShareData(),
-              //     title: activeData.getActiveTitle(),
-              //   ),
-              // ),
               FabMenuOption(
                 icon: Icons.copy,
                 onTap: () async => await copyToClipboard(
@@ -63,7 +61,7 @@ class FabMenu extends StatelessWidget {
               FabMenuOption(
                 icon: FontAwesomeIcons.calculator,
                 onTap: () {
-                  //TODO Implementar calculadora de valores
+                  openCalculator(context);
                   closeDrawer();
                 },
               ),
@@ -100,6 +98,24 @@ class FabMenu extends StatelessWidget {
             ),
           },
         );
+  }
+
+  void openCalculator(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        String _currencyFormat =
+            Provider.of<Settings>(context, listen: false).getCurrencyFormat();
+
+        Globals.decimalSeparator = _currencyFormat == "es_AR" ? "," : ".";
+        Globals.thousandSeparator = _currencyFormat == "es_AR" ? "." : ",";
+
+        return FabOptionCalculator(
+          buyValue: 88.40,
+          sellValue: 94.40,
+        );
+      },
+    );
   }
 
   void closeDrawer() {
