@@ -62,7 +62,7 @@ class FabMenu extends StatelessWidget {
                 icon: FontAwesomeIcons.calculator,
                 onTap: () {
                   openCalculator(context);
-                  closeDrawer();
+                  closeFabMenu();
                 },
               ),
             ],
@@ -76,7 +76,7 @@ class FabMenu extends StatelessWidget {
 
   void share(String text, {String title}) {
     Share.share(text, subject: title != null ? 'Cotización $title' : '');
-    closeDrawer();
+    closeFabMenu();
   }
 
   Future<void> copyToClipboard(BuildContext context, String text) async {
@@ -86,7 +86,7 @@ class FabMenu extends StatelessWidget {
       ),
     )
         .then(
-          (_) => closeDrawer(),
+          (_) => closeFabMenu(),
         )
         .then(
           (_) async => {
@@ -118,7 +118,7 @@ class FabMenu extends StatelessWidget {
     );
   }
 
-  void closeDrawer() {
+  void closeFabMenu() {
     if (fabKey.currentState.isOpen) {
       fabKey.currentState.close();
     }
