@@ -1,6 +1,9 @@
 import 'package:dolarbot_app/classes/theme_manager.dart';
+import 'package:dolarbot_app/screens/base/prueba.dart';
 import 'package:dolarbot_app/screens/home/widgets/drawer/root_menus/exports/root_menu_exports.dart';
+import 'package:dolarbot_app/widgets/common/menu_item.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class DrawerMenuBody extends StatelessWidget {
   @override
@@ -14,6 +17,13 @@ class DrawerMenuBody extends StatelessWidget {
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
+            MenuItem(
+              text: "Inicio",
+              depthLevel: 1,
+              leading: getIconData(context, FontAwesomeIcons.home),
+              onTap: () =>
+                  Navigator.of(context).pushNamed(PruebaScreen.routeName),
+            ),
             RootMenuDollar(),
             RootMenuEuro(),
             RootMenuReal(),
