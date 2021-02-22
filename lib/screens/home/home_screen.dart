@@ -44,7 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       drawer: Drawer(
         child: DrawerMenu(
-          onDrawerDisplayChanged: (isOpen) => onDrawerOpen(isOpen),
+          onDrawerDisplayChanged: (isOpen) => onDrawerDisplayChange(isOpen),
         ),
       ),
       drawerEdgeDragWidth: 200,
@@ -54,7 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  void onDrawerOpen(bool isOpen) {
+  void onDrawerDisplayChange(bool isOpen) {
     if (isOpen && fabKey.currentState.isOpen) {
       fabKey.currentState.close();
     }

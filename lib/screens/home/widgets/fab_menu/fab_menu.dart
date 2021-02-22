@@ -62,7 +62,6 @@ class FabMenu extends StatelessWidget {
                 icon: FontAwesomeIcons.calculator,
                 onTap: () {
                   openCalculator(context);
-                  closeFabMenu();
                 },
               ),
             ],
@@ -72,6 +71,12 @@ class FabMenu extends StatelessWidget {
         return Container();
       }
     });
+  }
+
+  void closeFabMenu() {
+    if (fabKey.currentState.isOpen) {
+      fabKey.currentState.close();
+    }
   }
 
   void share(String text, {String title}) {
@@ -115,12 +120,8 @@ class FabMenu extends StatelessWidget {
           sellValue: 94.40,
         );
       },
+    ).then(
+      (_) => closeFabMenu(),
     );
-  }
-
-  void closeFabMenu() {
-    if (fabKey.currentState.isOpen) {
-      fabKey.currentState.close();
-    }
   }
 }
