@@ -38,8 +38,8 @@ class VenezuelaInfoScreenState extends State<VenezuelaInfoScreen>
           response:
               API.getVzlaRate(widget.vzlaEndpoint, forceRefresh: _forceRefresh),
           screen: (data) {
-            WidgetsBinding.instance
-                .addPostFrameCallback((_) => setShareInfo(data));
+            WidgetsBinding.instance.addPostFrameCallback(
+                (_) => setActiveData(data, getShareInfo(data)));
             return CurrencyInfoContainer(
               items: [
                 CurrencyInfo(
@@ -66,13 +66,18 @@ class VenezuelaInfoScreenState extends State<VenezuelaInfoScreen>
     });
   }
 
-  @override
-  void setShareInfo(VenezuelaResponse data) {
-    Settings settings = Provider.of<Settings>(context, listen: false);
+  void setActiveData(ApiResponse data, String shareText) {
     ActiveScreenData activeScreenData =
         Provider.of<ActiveScreenData>(context, listen: false);
+    activeScreenData.setActiveData(data, shareText);
+  }
+
+  @override
+  String getShareInfo(VenezuelaResponse data) {
+    Settings settings = Provider.of<Settings>(context, listen: false);
     final currencyFormat = settings.getCurrencyFormat();
     final numberFormat = new NumberFormat("#,###,###.00", currencyFormat);
+    String shareText = '';
 
     if (data != null) {
       final blackMarketValue = Util.isNumeric(data.blackMarketPrice)
@@ -87,8 +92,10 @@ class VenezuelaInfoScreenState extends State<VenezuelaInfoScreen>
               : 'HH:mm - dd-MM-yyyy')
           .format(date);
 
-      activeScreenData.setShareData(
-          'Bancos:\tBs. $banksValue\nParalelo:\tBs. $blackMarketValue\nHora:\t$formattedTime');
+      shareText =
+          'Bancos:\tBs. $banksValue\nParalelo:\tBs. $blackMarketValue\nHora:\t$formattedTime';
     }
+
+    return shareText;
   }
 }

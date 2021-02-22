@@ -49,8 +49,8 @@ class FiatCurrencyInfoScreenState<T extends GenericCurrencyResponse>
         child: FutureScreenDelegate<T>(
           response: _getResponse<T>(),
           screen: (data) {
-            WidgetsBinding.instance
-                .addPostFrameCallback((_) => setShareInfo(data));
+            WidgetsBinding.instance.addPostFrameCallback(
+                (_) => setActiveData(data, getShareInfo(data)));
             return CurrencyInfoContainer(
               items: [
                 CurrencyInfo(
@@ -77,6 +77,12 @@ class FiatCurrencyInfoScreenState<T extends GenericCurrencyResponse>
     });
   }
 
+  void setActiveData(ApiResponse data, String shareText) {
+    ActiveScreenData activeScreenData =
+        Provider.of<ActiveScreenData>(context, listen: false);
+    activeScreenData.setActiveData(data, shareText);
+  }
+
   _getResponse<T extends GenericCurrencyResponse>() {
     if (widget.dollarEndpoint != null) {
       return API.getDollarRate(widget.dollarEndpoint,
@@ -89,13 +95,11 @@ class FiatCurrencyInfoScreenState<T extends GenericCurrencyResponse>
   }
 
   @override
-  void setShareInfo(T data) {
+  String getShareInfo(T data) {
     Settings settings = Provider.of<Settings>(context, listen: false);
-    ActiveScreenData activeScreenData =
-        Provider.of<ActiveScreenData>(context, listen: false);
     final currencyFormat = settings.getCurrencyFormat();
     final numberFormat = new NumberFormat("#,###,###.00", currencyFormat);
-
+    String shareText = '';
     if (data != null) {
       final buyPrice = Util.isNumeric(data.buyPrice)
           ? numberFormat.format(double.parse(data.buyPrice))
@@ -109,8 +113,10 @@ class FiatCurrencyInfoScreenState<T extends GenericCurrencyResponse>
               : 'HH:mm - dd-MM-yyyy')
           .format(date);
 
-      activeScreenData.setShareData(
-          'Compra:\t\$ $buyPrice\nVenta:\t\$ $sellPrice\nHora:\t$formattedTime');
+      shareText =
+          'Compra:\t\$ $buyPrice\nVenta:\t\$ $sellPrice\nHora:\t$formattedTime';
     }
+
+    return shareText;
   }
 }

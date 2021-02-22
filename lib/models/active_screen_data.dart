@@ -1,21 +1,35 @@
+import 'package:dolarbot_app/api/responses/base/apiResponse.dart';
 import 'package:flutter/foundation.dart';
 
-class ActiveScreenData extends ChangeNotifier {
-  String _shareData;
-  String _activeTitle;
+export 'package:dolarbot_app/api/responses/base/apiResponse.dart';
 
-  void setShareData(String shareData) {
-    _shareData = shareData;
-    notifyListeners();
+class ActiveScreenData extends ChangeNotifier {
+  String _shareText;
+  String _activeTitle;
+  ApiResponse _activeData;
+
+  void setActiveData(ApiResponse data, String shareText,
+      {bool updateListeners = true}) {
+    _activeData = data;
+    _shareText = shareText;
+    if (updateListeners) {
+      notifyListeners();
+    }
   }
 
-  void setActiveTitle(String title) {
+  void setActiveTitle(String title, {bool updateListeners = true}) {
     _activeTitle = title;
-    notifyListeners();
+    if (updateListeners) {
+      notifyListeners();
+    }
+  }
+
+  ApiResponse getActiveData() {
+    return _activeData;
   }
 
   String getShareData() {
-    return "${_activeTitle.toUpperCase()}\n\n$_shareData\n\nPowered by DolarBot";
+    return "${_activeTitle.toUpperCase()}\n\n$_shareText\n\nPowered by DolarBot";
   }
 
   String getActiveTitle() {

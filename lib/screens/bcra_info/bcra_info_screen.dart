@@ -45,8 +45,9 @@ class BcraInfoScreenState extends State<BcraInfoScreen>
         return FutureScreenDelegate<CountryRiskResponse>(
           response: API.getCountryRisk(forceRefresh: _forceRefresh),
           screen: (data) {
-            WidgetsBinding.instance
-                .addPostFrameCallback((_) => setShareInfoCountryRisk(data));
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              setActiveData(data, getShareInfoCountryRisk(data));
+            });
             return CurrencyInfo(
               title: 'VALOR',
               value: data.value,
@@ -58,8 +59,9 @@ class BcraInfoScreenState extends State<BcraInfoScreen>
         return FutureScreenDelegate<BcraResponse>(
           response: API.getBcraReserves(forceRefresh: _forceRefresh),
           screen: (data) {
-            WidgetsBinding.instance
-                .addPostFrameCallback((_) => setShareInfo(data));
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              setActiveData(data, getShareInfo(data));
+            });
             return CurrencyInfo(
               title: "DÓLARES ESTADOUNIDENSES",
               symbol: 'US\$',
@@ -71,8 +73,9 @@ class BcraInfoScreenState extends State<BcraInfoScreen>
         return FutureScreenDelegate<BcraResponse>(
           response: API.getCirculatingCurrency(forceRefresh: _forceRefresh),
           screen: (data) {
-            WidgetsBinding.instance
-                .addPostFrameCallback((_) => setShareInfo(data));
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              setActiveData(data, getShareInfo(data));
+            });
             return CurrencyInfo(
               title: "PESOS ARGENTINOS",
               symbol: '\$',
@@ -91,13 +94,18 @@ class BcraInfoScreenState extends State<BcraInfoScreen>
     });
   }
 
-  @override
-  void setShareInfo(BcraResponse data) {
-    Settings settings = Provider.of<Settings>(context, listen: false);
+  void setActiveData(ApiResponse data, String shareText) {
     ActiveScreenData activeScreenData =
         Provider.of<ActiveScreenData>(context, listen: false);
+    activeScreenData.setActiveData(data, shareText);
+  }
+
+  @override
+  String getShareInfo(BcraResponse data) {
+    Settings settings = Provider.of<Settings>(context, listen: false);
     final currencyFormat = settings.getCurrencyFormat();
     final numberFormat = new NumberFormat("#,###,###", currencyFormat);
+    String shareText = '';
 
     if (data != null) {
       final value = Util.isNumeric(data.value)
@@ -110,16 +118,17 @@ class BcraInfoScreenState extends State<BcraInfoScreen>
               : 'HH:mm - dd-MM-yyyy')
           .format(date);
 
-      activeScreenData.setShareData('$symbol $value\nHora: $formattedTime.');
+      shareText = '$symbol $value\nHora: $formattedTime.';
     }
+
+    return shareText;
   }
 
-  void setShareInfoCountryRisk(CountryRiskResponse data) {
+  String getShareInfoCountryRisk(CountryRiskResponse data) {
     Settings settings = Provider.of<Settings>(context, listen: false);
-    ActiveScreenData activeScreenData =
-        Provider.of<ActiveScreenData>(context, listen: false);
     final currencyFormat = settings.getCurrencyFormat();
     final numberFormat = new NumberFormat("#,###,###", currencyFormat);
+    String shareText = '';
 
     if (data != null) {
       final value = Util.isNumeric(data.value.split('.')[0])
@@ -131,7 +140,9 @@ class BcraInfoScreenState extends State<BcraInfoScreen>
               : 'HH:mm - dd-MM-yyyy')
           .format(date);
 
-      activeScreenData.setShareData('$value puntos\nHora: $formattedTime');
+      shareText = '$value puntos\nHora: $formattedTime';
     }
+
+    return shareText;
   }
 }

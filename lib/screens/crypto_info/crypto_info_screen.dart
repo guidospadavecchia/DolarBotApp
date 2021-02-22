@@ -38,8 +38,12 @@ class CryptoInfoScreenState extends State<CryptoInfoScreen>
           response: API.getCryptoRate(widget.cryptoEndpoint,
               forceRefresh: _forceRefresh),
           screen: (data) {
-            WidgetsBinding.instance
-                .addPostFrameCallback((_) => setShareInfo(data));
+            WidgetsBinding.instance.addPostFrameCallback(
+              (_) => setActiveData(
+                data,
+                getShareInfo(data),
+              ),
+            );
             return CurrencyInfoContainer(
               items: [
                 CurrencyInfo(
@@ -66,13 +70,18 @@ class CryptoInfoScreenState extends State<CryptoInfoScreen>
     });
   }
 
-  @override
-  void setShareInfo(CryptoResponse data) {
-    Settings settings = Provider.of<Settings>(context, listen: false);
+  void setActiveData(ApiResponse data, String shareText) {
     ActiveScreenData activeScreenData =
         Provider.of<ActiveScreenData>(context, listen: false);
+    activeScreenData.setActiveData(data, shareText);
+  }
+
+  @override
+  String getShareInfo(CryptoResponse data) {
+    Settings settings = Provider.of<Settings>(context, listen: false);
     final currencyFormat = settings.getCurrencyFormat();
     final numberFormat = new NumberFormat("#,###,###.00", currencyFormat);
+    String shareText = '';
 
     if (data != null) {
       final arsPrice = Util.isNumeric(data.arsPrice)
@@ -87,8 +96,9 @@ class CryptoInfoScreenState extends State<CryptoInfoScreen>
               : 'HH:mm - dd-MM-yyyy')
           .format(date);
 
-      activeScreenData
-          .setShareData('US\$ $usdPrice\n\$ $arsPrice\nHora: $formattedTime');
+      shareText = 'US\$ $usdPrice\n\$ $arsPrice\nHora: $formattedTime';
     }
+
+    return shareText;
   }
 }

@@ -15,7 +15,7 @@ class FabMenuOption extends StatelessWidget {
   Widget build(BuildContext context) {
     return ClipOval(
       child: Material(
-        color: ThemeManager.getGlobalAccentColor(context),
+        color: ThemeManager.getPrimaryAccentColor(context),
         child: InkWell(
           splashColor: Colors.lightGreen[400],
           child: SizedBox(

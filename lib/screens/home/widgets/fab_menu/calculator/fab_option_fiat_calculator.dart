@@ -9,16 +9,19 @@ import 'package:flutter_masked_text/flutter_masked_text.dart';
 class FabOptionFiatCalculator extends StatefulWidget {
   final double buyValue;
   final double sellValue;
+  final String symbol;
   final String decimalSeparator;
   final String thousandSeparator;
 
   const FabOptionFiatCalculator({
     Key key,
-    @required this.buyValue,
-    @required this.sellValue,
+    this.buyValue,
+    this.sellValue,
+    @required this.symbol,
     @required this.decimalSeparator,
     @required this.thousandSeparator,
-  }) : super(key: key);
+  })  : assert(buyValue != null || sellValue != null),
+        super(key: key);
 
   @override
   _FabOptionFiatCalculatorState createState() =>
@@ -26,14 +29,14 @@ class FabOptionFiatCalculator extends StatefulWidget {
 }
 
 class _FabOptionFiatCalculatorState extends State<FabOptionFiatCalculator> {
-  MoneyMaskedTextController _textControllerUSD;
+  MoneyMaskedTextController _textControllerInput;
   MoneyMaskedTextController _textControllerBuyValue;
   MoneyMaskedTextController _textControllerSellValue;
 
   @override
   void initState() {
     createControllers();
-    _textControllerUSD.addListener(() {
+    _textControllerInput.addListener(() {
       setState(() {
         _setConversion();
       });
@@ -43,14 +46,18 @@ class _FabOptionFiatCalculatorState extends State<FabOptionFiatCalculator> {
 
   @override
   void dispose() {
-    _textControllerUSD.dispose();
-    _textControllerBuyValue.dispose();
-    _textControllerSellValue.dispose();
+    _textControllerInput.dispose();
+    if (widget.buyValue != null) _textControllerBuyValue.dispose();
+    if (widget.sellValue != null) _textControllerSellValue.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    double containerHeight = MediaQuery.of(context).size.height *
+        (widget.buyValue == null || widget.sellValue == null ? 0.35 : 0.45);
+    double containerWidth = MediaQuery.of(context).size.width * 0.85;
+
     return Dialog(
       child: Container(
         decoration: BoxDecoration(
@@ -66,23 +73,25 @@ class _FabOptionFiatCalculatorState extends State<FabOptionFiatCalculator> {
                 )
               : null,
         ),
-        height: MediaQuery.of(context).size.height * 0.45,
-        width: MediaQuery.of(context).size.width * 0.85,
+        height: containerHeight,
+        width: containerWidth,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             InputDollar(
-              textController: _textControllerUSD,
+              textController: _textControllerInput,
             ),
-            InputConverted(
-              title: "Comprás a",
-              textController: _textControllerBuyValue,
-            ),
-            InputConverted(
-              title: "Vendés a",
-              textController: _textControllerSellValue,
-            ),
+            if (widget.sellValue != null)
+              InputConverted(
+                title: "Comprás a",
+                textController: _textControllerSellValue,
+              ),
+            if (widget.buyValue != null)
+              InputConverted(
+                title: "Vendés a",
+                textController: _textControllerBuyValue,
+              ),
             DialogButton(
               text: 'Cerrar',
               icon: Icons.close,
@@ -95,27 +104,35 @@ class _FabOptionFiatCalculatorState extends State<FabOptionFiatCalculator> {
   }
 
   void createControllers() {
-    _textControllerUSD = MoneyMaskedTextController(
+    _textControllerInput = MoneyMaskedTextController(
         precision: 2,
         decimalSeparator: widget.decimalSeparator,
         thousandSeparator: widget.thousandSeparator,
-        leftSymbol: "US\$ ");
-    _textControllerBuyValue = MoneyMaskedTextController(
-        precision: 2,
-        decimalSeparator: widget.decimalSeparator,
-        thousandSeparator: widget.thousandSeparator,
-        leftSymbol: "\$ ");
-    _textControllerSellValue = MoneyMaskedTextController(
-        precision: 2,
-        decimalSeparator: widget.decimalSeparator,
-        thousandSeparator: widget.thousandSeparator,
-        leftSymbol: "\$ ");
+        leftSymbol: "${widget.symbol} ");
+    if (widget.buyValue != null) {
+      _textControllerBuyValue = MoneyMaskedTextController(
+          precision: 2,
+          decimalSeparator: widget.decimalSeparator,
+          thousandSeparator: widget.thousandSeparator,
+          leftSymbol: "\$ ");
+    }
+    if (widget.sellValue != null) {
+      _textControllerSellValue = MoneyMaskedTextController(
+          precision: 2,
+          decimalSeparator: widget.decimalSeparator,
+          thousandSeparator: widget.thousandSeparator,
+          leftSymbol: "\$ ");
+    }
   }
 
   void _setConversion() {
-    _textControllerBuyValue
-        .updateValue(_textControllerUSD.numberValue * widget.buyValue);
-    _textControllerSellValue
-        .updateValue(_textControllerUSD.numberValue * widget.sellValue);
+    if (widget.buyValue != null) {
+      _textControllerBuyValue
+          .updateValue(_textControllerInput.numberValue * widget.buyValue);
+    }
+    if (widget.sellValue != null) {
+      _textControllerSellValue
+          .updateValue(_textControllerInput.numberValue * widget.sellValue);
+    }
   }
 }

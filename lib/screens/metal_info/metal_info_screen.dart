@@ -38,8 +38,8 @@ class MetalInfoScreenState extends State<MetalInfoScreen>
           response: API.getMetalRate(widget.metalEndpoint,
               forceRefresh: _forceRefresh),
           screen: (data) {
-            WidgetsBinding.instance
-                .addPostFrameCallback((_) => setShareInfo(data));
+            WidgetsBinding.instance.addPostFrameCallback(
+                (_) => setActiveData(data, getShareInfo(data)));
             return CurrencyInfo(
               title: '/ ${data.unit}',
               symbol: data.currency == 'USD' ? 'US\$' : '\$',
@@ -57,13 +57,18 @@ class MetalInfoScreenState extends State<MetalInfoScreen>
     });
   }
 
-  @override
-  void setShareInfo(MetalResponse data) {
-    Settings settings = Provider.of<Settings>(context, listen: false);
+  void setActiveData(ApiResponse data, String shareText) {
     ActiveScreenData activeScreenData =
         Provider.of<ActiveScreenData>(context, listen: false);
+    activeScreenData.setActiveData(data, shareText);
+  }
+
+  @override
+  String getShareInfo(MetalResponse data) {
+    Settings settings = Provider.of<Settings>(context, listen: false);
     final currencyFormat = settings.getCurrencyFormat();
     final numberFormat = new NumberFormat("#,###,###.00", currencyFormat);
+    String shareText = '';
 
     if (data != null) {
       final value = Util.isNumeric(data.value)
@@ -76,8 +81,9 @@ class MetalInfoScreenState extends State<MetalInfoScreen>
               : 'HH:mm - dd-MM-yyyy')
           .format(date);
 
-      activeScreenData
-          .setShareData('$symbol $value / ${data.unit}\nHora: $formattedTime');
+      shareText = '$symbol $value / ${data.unit}\nHora: $formattedTime';
     }
+
+    return shareText;
   }
 }
