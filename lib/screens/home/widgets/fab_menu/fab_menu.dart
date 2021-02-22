@@ -6,6 +6,7 @@ import 'package:dolarbot_app/models/settings.dart';
 import 'package:dolarbot_app/screens/home/widgets/fab_menu/calculator/fab_option_fiat_calculator.dart';
 import 'package:dolarbot_app/screens/home/widgets/fab_menu/fab_menu_option.dart';
 import 'package:dolarbot_app/util/util.dart';
+import 'package:dolarbot_app/widgets/common/dialog_button.dart';
 import 'package:dolarbot_app/widgets/toasts/toast_ok.dart';
 import 'package:fab_circular_menu/fab_circular_menu.dart';
 import 'package:flutter/material.dart';
@@ -135,10 +136,24 @@ class FabMenu extends StatelessWidget {
         return Dialog(
           child: Container(
             width: 300,
-            height: 50,
+            height: 150,
             alignment: Alignment.center,
-            child: Text(
-              'Opción no soportada',
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Text(
+                  'Opción no soportada',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                DialogButton(
+                  icon: Icons.close,
+                  text: "Cerrar",
+                  onPressed: () => Navigator.of(context).pop(),
+                )
+              ],
             ),
           ),
         );

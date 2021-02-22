@@ -1,23 +1,20 @@
-import 'package:dolarbot_app/api/api.dart';
 import 'package:dolarbot_app/api/responses/base/genericCurrencyResponse.dart';
 import 'package:dolarbot_app/interfaces/share_info.dart';
-import 'package:dolarbot_app/models/active_screen_data.dart';
-import 'package:dolarbot_app/models/settings.dart';
-import 'package:dolarbot_app/util/util.dart';
-import 'package:dolarbot_app/widgets/currency_info/currency_info_container.dart';
-import 'package:dolarbot_app/widgets/common/future_screen_delegate/future_screen_delegate.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:intl/intl.dart';
+import 'package:dolarbot_app/screens/base/base_info_screen.dart';
 
 class FiatCurrencyInfoScreen<T extends GenericCurrencyResponse>
-    extends StatefulWidget {
+    extends BaseInfoScreen {
+  final String title;
   final DollarEndpoints dollarEndpoint;
   final EuroEndpoints euroEndpoint;
   final RealEndpoints realEndpoint;
 
-  const FiatCurrencyInfoScreen(
-      {Key key, this.dollarEndpoint, this.euroEndpoint, this.realEndpoint})
+  FiatCurrencyInfoScreen(
+      {Key key,
+      this.title,
+      this.dollarEndpoint,
+      this.euroEndpoint,
+      this.realEndpoint})
       : assert((dollarEndpoint != null &&
                 euroEndpoint == null &&
                 realEndpoint == null) ||
@@ -27,19 +24,30 @@ class FiatCurrencyInfoScreen<T extends GenericCurrencyResponse>
             (realEndpoint != null &&
                 dollarEndpoint == null &&
                 euroEndpoint == null)),
-        super(key: key);
+        super(title: title);
 
   @override
-  FiatCurrencyInfoScreenState<T> createState() =>
-      FiatCurrencyInfoScreenState<T>();
+  _FiatCurrencyInfoScreenState<T> createState() =>
+      _FiatCurrencyInfoScreenState<T>(
+          dollarEndpoint, euroEndpoint, realEndpoint);
 }
 
-class FiatCurrencyInfoScreenState<T extends GenericCurrencyResponse>
-    extends State<FiatCurrencyInfoScreen<T>> implements IShareable<T> {
-  bool _forceRefresh = false;
+class _FiatCurrencyInfoScreenState<T extends GenericCurrencyResponse>
+    extends BaseInfoScreenState<FiatCurrencyInfoScreen<T>>
+    with BaseScreen
+    implements IShareable<T> {
+  final DollarEndpoints dollarEndpoint;
+  final EuroEndpoints euroEndpoint;
+  final RealEndpoints realEndpoint;
+
+  _FiatCurrencyInfoScreenState(
+    this.dollarEndpoint,
+    this.euroEndpoint,
+    this.realEndpoint,
+  );
 
   @override
-  Widget build(BuildContext context) {
+  Widget body() {
     return Container(
       alignment: Alignment.center,
       padding: EdgeInsets.only(bottom: 80),
@@ -71,29 +79,6 @@ class FiatCurrencyInfoScreenState<T extends GenericCurrencyResponse>
     );
   }
 
-  refresh() async {
-    setState(() {
-      _forceRefresh = true;
-    });
-  }
-
-  void setActiveData(ApiResponse data, String shareText) {
-    ActiveScreenData activeScreenData =
-        Provider.of<ActiveScreenData>(context, listen: false);
-    activeScreenData.setActiveData(data, shareText);
-  }
-
-  _getResponse<T extends GenericCurrencyResponse>() {
-    if (widget.dollarEndpoint != null) {
-      return API.getDollarRate(widget.dollarEndpoint,
-          forceRefresh: _forceRefresh);
-    } else if (widget.euroEndpoint != null) {
-      return API.getEuroRate(widget.euroEndpoint, forceRefresh: _forceRefresh);
-    } else if (widget.realEndpoint != null) {
-      return API.getRealRate(widget.realEndpoint, forceRefresh: _forceRefresh);
-    }
-  }
-
   @override
   String getShareInfo(T data) {
     Settings settings = Provider.of<Settings>(context, listen: false);
@@ -118,5 +103,16 @@ class FiatCurrencyInfoScreenState<T extends GenericCurrencyResponse>
     }
 
     return shareText;
+  }
+
+  _getResponse<T extends GenericCurrencyResponse>() {
+    if (dollarEndpoint != null) {
+      return API.getDollarRate(dollarEndpoint,
+          forceRefresh: shouldForceRefresh);
+    } else if (euroEndpoint != null) {
+      return API.getEuroRate(euroEndpoint, forceRefresh: shouldForceRefresh);
+    } else if (realEndpoint != null) {
+      return API.getRealRate(realEndpoint, forceRefresh: shouldForceRefresh);
+    }
   }
 }

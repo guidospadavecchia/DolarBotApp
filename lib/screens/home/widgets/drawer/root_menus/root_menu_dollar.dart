@@ -10,8 +10,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 class RootMenuDollar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<FiatCurrencyInfoScreenState> _key = GlobalKey();
-
     return MenuItem(
       text: "Dólar",
       leading: getIconData(context, FontAwesomeIcons.dollarSign),
@@ -22,15 +20,13 @@ class RootMenuDollar extends StatelessWidget {
           leading: getIconData(context, FontAwesomeIcons.solidCheckCircle),
           depthLevel: 2,
           onTap: () => {
-            buildContentAndPush(
-              context: context,
-              title: 'Dólar Oficial',
-              bodyContent: FiatCurrencyInfoScreen<DollarResponse>(
+            navigateTo(
+              context,
+              FiatCurrencyInfoScreen<DollarResponse>(
+                title: "Dolar Oficial",
                 dollarEndpoint: DollarEndpoints.oficial,
-                key: _key,
               ),
-              onRefresh: () => _key.currentState.refresh(),
-            ),
+            )
           },
         ),
         MenuItem(
@@ -38,14 +34,12 @@ class RootMenuDollar extends StatelessWidget {
           leading: getIconData(context, FontAwesomeIcons.piggyBank),
           depthLevel: 2,
           onTap: () => {
-            buildContentAndPush(
-              context: context,
-              title: 'Dólar Ahorro',
-              bodyContent: FiatCurrencyInfoScreen<DollarResponse>(
+            navigateTo(
+              context,
+              FiatCurrencyInfoScreen<DollarResponse>(
+                title: "Dolar Ahorro",
                 dollarEndpoint: DollarEndpoints.ahorro,
-                key: _key,
               ),
-              onRefresh: () => _key.currentState.refresh(),
             )
           },
         ),
@@ -54,14 +48,12 @@ class RootMenuDollar extends StatelessWidget {
           leading: getIconData(context, FontAwesomeIcons.commentDollar),
           depthLevel: 2,
           onTap: () => {
-            buildContentAndPush(
-              context: context,
-              title: 'Dólar Blue',
-              bodyContent: FiatCurrencyInfoScreen<DollarResponse>(
+            navigateTo(
+              context,
+              FiatCurrencyInfoScreen<DollarResponse>(
+                title: "Dolar Blue",
                 dollarEndpoint: DollarEndpoints.blue,
-                key: _key,
               ),
-              onRefresh: () => _key.currentState.refresh(),
             )
           },
         ),
@@ -70,14 +62,12 @@ class RootMenuDollar extends StatelessWidget {
           leading: getIconData(context, FontAwesomeIcons.poll),
           depthLevel: 2,
           onTap: () => {
-            buildContentAndPush(
-              context: context,
-              title: 'Dólar Bolsa (MEP)',
-              bodyContent: FiatCurrencyInfoScreen<DollarResponse>(
+            navigateTo(
+              context,
+              FiatCurrencyInfoScreen<DollarResponse>(
+                title: "Dolar Bolsa (MEP)",
                 dollarEndpoint: DollarEndpoints.bolsa,
-                key: _key,
               ),
-              onRefresh: () => _key.currentState.refresh(),
             )
           },
         ),
@@ -86,14 +76,12 @@ class RootMenuDollar extends StatelessWidget {
           leading: getIconData(context, FontAwesomeIcons.coins),
           depthLevel: 2,
           onTap: () => {
-            buildContentAndPush(
-              context: context,
-              title: 'Dólar Contado con Liqui',
-              bodyContent: FiatCurrencyInfoScreen<DollarResponse>(
+            navigateTo(
+              context,
+              FiatCurrencyInfoScreen<DollarResponse>(
+                title: 'Dólar Contado con Liqui',
                 dollarEndpoint: DollarEndpoints.contadoLiqui,
-                key: _key,
               ),
-              onRefresh: () => _key.currentState.refresh(),
             )
           },
         ),
@@ -102,14 +90,12 @@ class RootMenuDollar extends StatelessWidget {
           leading: getIconData(context, FontAwesomeIcons.percentage),
           depthLevel: 2,
           onTap: () => {
-            buildContentAndPush(
-              context: context,
-              title: 'Dólar Promedio',
-              bodyContent: FiatCurrencyInfoScreen<DollarResponse>(
+            navigateTo(
+              context,
+              FiatCurrencyInfoScreen<DollarResponse>(
+                title: 'Dólar Promedio',
                 dollarEndpoint: DollarEndpoints.promedio,
-                key: _key,
               ),
-              onRefresh: () => _key.currentState.refresh(),
             )
           },
         ),
@@ -123,14 +109,12 @@ class RootMenuDollar extends StatelessWidget {
               leading: getIconAsset(context, DolarBotIcons.banks.bbva),
               depthLevel: 3,
               onTap: () => {
-                buildContentAndPush(
-                  context: context,
-                  title: 'Dólar - BBVA',
-                  bodyContent: FiatCurrencyInfoScreen<DollarResponse>(
+                navigateTo(
+                  context,
+                  FiatCurrencyInfoScreen<DollarResponse>(
+                    title: 'Dólar - BBVA',
                     dollarEndpoint: DollarEndpoints.bbva,
-                    key: _key,
                   ),
-                  onRefresh: () => _key.currentState.refresh(),
                 )
               },
             ),
@@ -139,14 +123,12 @@ class RootMenuDollar extends StatelessWidget {
               leading: getIconAsset(context, DolarBotIcons.banks.chaco),
               depthLevel: 3,
               onTap: () => {
-                buildContentAndPush(
-                  context: context,
-                  title: 'Dólar - Nuevo Banco del Chaco',
-                  bodyContent: FiatCurrencyInfoScreen<DollarResponse>(
+                navigateTo(
+                  context,
+                  FiatCurrencyInfoScreen<DollarResponse>(
+                    title: 'Dólar - Nuevo Banco del Chaco',
                     dollarEndpoint: DollarEndpoints.chaco,
-                    key: _key,
                   ),
-                  onRefresh: () => _key.currentState.refresh(),
                 )
               },
             ),
@@ -155,14 +137,12 @@ class RootMenuDollar extends StatelessWidget {
               leading: getIconAsset(context, DolarBotIcons.banks.ciudad),
               depthLevel: 3,
               onTap: () => {
-                buildContentAndPush(
-                  context: context,
-                  title: 'Dólar - Banco Ciudad',
-                  bodyContent: FiatCurrencyInfoScreen<DollarResponse>(
+                navigateTo(
+                  context,
+                  FiatCurrencyInfoScreen<DollarResponse>(
+                    title: 'Dólar - Banco Ciudad',
                     dollarEndpoint: DollarEndpoints.ciudad,
-                    key: _key,
                   ),
-                  onRefresh: () => _key.currentState.refresh(),
                 )
               },
             ),
@@ -171,14 +151,12 @@ class RootMenuDollar extends StatelessWidget {
               leading: getIconAsset(context, DolarBotIcons.banks.comafi),
               depthLevel: 3,
               onTap: () => {
-                buildContentAndPush(
-                  context: context,
-                  title: 'Dólar - Banco Comafi',
-                  bodyContent: FiatCurrencyInfoScreen<DollarResponse>(
+                navigateTo(
+                  context,
+                  FiatCurrencyInfoScreen<DollarResponse>(
+                    title: 'Dólar - Banco Comafi',
                     dollarEndpoint: DollarEndpoints.comafi,
-                    key: _key,
                   ),
-                  onRefresh: () => _key.currentState.refresh(),
                 )
               },
             ),
@@ -187,14 +165,12 @@ class RootMenuDollar extends StatelessWidget {
               leading: getIconAsset(context, DolarBotIcons.banks.cordoba),
               depthLevel: 3,
               onTap: () => {
-                buildContentAndPush(
-                  context: context,
-                  title: 'Dólar - Banco de Córdoba',
-                  bodyContent: FiatCurrencyInfoScreen<DollarResponse>(
+                navigateTo(
+                  context,
+                  FiatCurrencyInfoScreen<DollarResponse>(
+                    title: 'Dólar - Banco de Córdoba',
                     dollarEndpoint: DollarEndpoints.bancor,
-                    key: _key,
                   ),
-                  onRefresh: () => _key.currentState.refresh(),
                 )
               },
             ),
@@ -203,14 +179,12 @@ class RootMenuDollar extends StatelessWidget {
               leading: getIconAsset(context, DolarBotIcons.banks.galicia),
               depthLevel: 3,
               onTap: () => {
-                buildContentAndPush(
-                  context: context,
-                  title: 'Dólar - Banco Galicia',
-                  bodyContent: FiatCurrencyInfoScreen<DollarResponse>(
+                navigateTo(
+                  context,
+                  FiatCurrencyInfoScreen<DollarResponse>(
+                    title: 'Dólar - Banco Galicia',
                     dollarEndpoint: DollarEndpoints.galicia,
-                    key: _key,
                   ),
-                  onRefresh: () => _key.currentState.refresh(),
                 )
               },
             ),
@@ -219,14 +193,12 @@ class RootMenuDollar extends StatelessWidget {
               leading: getIconAsset(context, DolarBotIcons.banks.hipotecario),
               depthLevel: 3,
               onTap: () => {
-                buildContentAndPush(
-                  context: context,
-                  title: 'Dólar - Banco Hipotecario',
-                  bodyContent: FiatCurrencyInfoScreen<DollarResponse>(
+                navigateTo(
+                  context,
+                  FiatCurrencyInfoScreen<DollarResponse>(
+                    title: 'Dólar - Hipotecario',
                     dollarEndpoint: DollarEndpoints.hipotecario,
-                    key: _key,
                   ),
-                  onRefresh: () => _key.currentState.refresh(),
                 )
               },
             ),
@@ -235,14 +207,12 @@ class RootMenuDollar extends StatelessWidget {
               leading: getIconAsset(context, DolarBotIcons.banks.bind),
               depthLevel: 3,
               onTap: () => {
-                buildContentAndPush(
-                  context: context,
-                  title: 'Dólar - Banco Industrial (BIND)',
-                  bodyContent: FiatCurrencyInfoScreen<DollarResponse>(
+                navigateTo(
+                  context,
+                  FiatCurrencyInfoScreen<DollarResponse>(
+                    title: 'Dólar - Banco Industrial (BIND)',
                     dollarEndpoint: DollarEndpoints.bind,
-                    key: _key,
                   ),
-                  onRefresh: () => _key.currentState.refresh(),
                 )
               },
             ),
@@ -251,14 +221,12 @@ class RootMenuDollar extends StatelessWidget {
               leading: getIconAsset(context, DolarBotIcons.banks.pampa),
               depthLevel: 3,
               onTap: () => {
-                buildContentAndPush(
-                  context: context,
-                  title: 'Dólar - Banco de La Pampa',
-                  bodyContent: FiatCurrencyInfoScreen<DollarResponse>(
+                navigateTo(
+                  context,
+                  FiatCurrencyInfoScreen<DollarResponse>(
+                    title: 'Dólar - Banco de La Pampa',
                     dollarEndpoint: DollarEndpoints.pampa,
-                    key: _key,
                   ),
-                  onRefresh: () => _key.currentState.refresh(),
                 )
               },
             ),
@@ -267,14 +235,12 @@ class RootMenuDollar extends StatelessWidget {
               leading: getIconAsset(context, DolarBotIcons.banks.nacion),
               depthLevel: 3,
               onTap: () => {
-                buildContentAndPush(
-                  context: context,
-                  title: 'Dólar - Banco Nación',
-                  bodyContent: FiatCurrencyInfoScreen<DollarResponse>(
+                navigateTo(
+                  context,
+                  FiatCurrencyInfoScreen<DollarResponse>(
+                    title: 'Dólar - Banco Nación',
                     dollarEndpoint: DollarEndpoints.nacion,
-                    key: _key,
                   ),
-                  onRefresh: () => _key.currentState.refresh(),
                 )
               },
             ),
@@ -283,14 +249,12 @@ class RootMenuDollar extends StatelessWidget {
               leading: getIconAsset(context, DolarBotIcons.banks.patagonia),
               depthLevel: 3,
               onTap: () => {
-                buildContentAndPush(
-                  context: context,
-                  title: 'Dólar - Banco Patagonia',
-                  bodyContent: FiatCurrencyInfoScreen<DollarResponse>(
+                navigateTo(
+                  context,
+                  FiatCurrencyInfoScreen<DollarResponse>(
+                    title: 'Dólar - Banco Patagonia',
                     dollarEndpoint: DollarEndpoints.patagonia,
-                    key: _key,
                   ),
-                  onRefresh: () => _key.currentState.refresh(),
                 )
               },
             ),
@@ -299,14 +263,12 @@ class RootMenuDollar extends StatelessWidget {
               leading: getIconAsset(context, DolarBotIcons.banks.piano),
               depthLevel: 3,
               onTap: () => {
-                buildContentAndPush(
-                  context: context,
-                  title: 'Dólar - Banco Piano',
-                  bodyContent: FiatCurrencyInfoScreen<DollarResponse>(
+                navigateTo(
+                  context,
+                  FiatCurrencyInfoScreen<DollarResponse>(
+                    title: 'Dólar - Banco Piano',
                     dollarEndpoint: DollarEndpoints.piano,
-                    key: _key,
                   ),
-                  onRefresh: () => _key.currentState.refresh(),
                 )
               },
             ),
@@ -315,14 +277,12 @@ class RootMenuDollar extends StatelessWidget {
               leading: getIconAsset(context, DolarBotIcons.banks.santander),
               depthLevel: 3,
               onTap: () => {
-                buildContentAndPush(
-                  context: context,
-                  title: 'Dólar - Banco Santander',
-                  bodyContent: FiatCurrencyInfoScreen<DollarResponse>(
+                navigateTo(
+                  context,
+                  FiatCurrencyInfoScreen<DollarResponse>(
+                    title: 'Dólar - Banco Santander',
                     dollarEndpoint: DollarEndpoints.santander,
-                    key: _key,
                   ),
-                  onRefresh: () => _key.currentState.refresh(),
                 )
               },
             ),
@@ -331,14 +291,12 @@ class RootMenuDollar extends StatelessWidget {
               leading: getIconAsset(context, DolarBotIcons.banks.supervielle),
               depthLevel: 3,
               onTap: () => {
-                buildContentAndPush(
-                  context: context,
-                  title: 'Dólar - Banco Supervielle',
-                  bodyContent: FiatCurrencyInfoScreen<DollarResponse>(
+                navigateTo(
+                  context,
+                  FiatCurrencyInfoScreen<DollarResponse>(
+                    title: 'Dólar - Banco Supervielle',
                     dollarEndpoint: DollarEndpoints.supervielle,
-                    key: _key,
                   ),
-                  onRefresh: () => _key.currentState.refresh(),
                 )
               },
             ),

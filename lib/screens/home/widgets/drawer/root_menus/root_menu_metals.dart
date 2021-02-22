@@ -9,8 +9,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 class RootMenuMetals extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<MetalInfoScreenState> _key = GlobalKey();
-
     return MenuItem(
       text: "Metales",
       leading: getIconData(context, FontAwesomeIcons.sketch),
@@ -20,16 +18,14 @@ class RootMenuMetals extends StatelessWidget {
           text: "Oro",
           leading: getIconAsset(context, DolarBotIcons.metals.gold),
           depthLevel: 2,
-          onTap: () {
-            buildContentAndPush(
-              context: context,
-              title: 'Oro',
-              bodyContent: MetalInfoScreen(
+          onTap: () => {
+            navigateTo(
+              context,
+              MetalInfoScreen(
+                title: "Oro",
                 metalEndpoint: MetalEndpoints.oro,
-                key: _key,
               ),
-              onRefresh: () => _key.currentState.refresh(),
-            );
+            )
           },
         ),
         MenuItem(
@@ -37,14 +33,12 @@ class RootMenuMetals extends StatelessWidget {
           leading: getIconAsset(context, DolarBotIcons.metals.silver),
           depthLevel: 2,
           onTap: () => {
-            buildContentAndPush(
-              context: context,
-              title: 'Plata',
-              bodyContent: MetalInfoScreen(
+            navigateTo(
+              context,
+              MetalInfoScreen(
+                title: "Plata",
                 metalEndpoint: MetalEndpoints.plata,
-                key: _key,
               ),
-              onRefresh: () => _key.currentState.refresh(),
             )
           },
         ),
@@ -53,14 +47,12 @@ class RootMenuMetals extends StatelessWidget {
           leading: getIconAsset(context, DolarBotIcons.metals.copper),
           depthLevel: 2,
           onTap: () => {
-            buildContentAndPush(
-              context: context,
-              title: 'Cobre',
-              bodyContent: MetalInfoScreen(
+            navigateTo(
+              context,
+              MetalInfoScreen(
+                title: "Cobre",
                 metalEndpoint: MetalEndpoints.cobre,
-                key: _key,
               ),
-              onRefresh: () => _key.currentState.refresh(),
             )
           },
         ),

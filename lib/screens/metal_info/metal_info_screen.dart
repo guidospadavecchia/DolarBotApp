@@ -1,33 +1,29 @@
-import 'package:dolarbot_app/api/api.dart';
 import 'package:dolarbot_app/api/responses/metalResponse.dart';
 import 'package:dolarbot_app/interfaces/share_info.dart';
-import 'package:dolarbot_app/models/active_screen_data.dart';
-import 'package:dolarbot_app/models/settings.dart';
-import 'package:dolarbot_app/util/util.dart';
-import 'package:dolarbot_app/widgets/currency_info/currency_info_container.dart';
-import 'package:dolarbot_app/widgets/common/future_screen_delegate/future_screen_delegate.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:intl/intl.dart';
+import 'package:dolarbot_app/screens/base/base_info_screen.dart';
 
-class MetalInfoScreen extends StatefulWidget {
+class MetalInfoScreen extends BaseInfoScreen {
+  final String title;
   final MetalEndpoints metalEndpoint;
 
-  const MetalInfoScreen({
-    Key key,
+  MetalInfoScreen({
+    this.title,
     @required this.metalEndpoint,
-  }) : super(key: key);
+  }) : super(title: title);
 
   @override
-  MetalInfoScreenState createState() => MetalInfoScreenState();
+  _MetalInfoScreenState createState() => _MetalInfoScreenState(metalEndpoint);
 }
 
-class MetalInfoScreenState extends State<MetalInfoScreen>
+class _MetalInfoScreenState extends BaseInfoScreenState<MetalInfoScreen>
+    with BaseScreen
     implements IShareable<MetalResponse> {
-  bool _forceRefresh = false;
+  final MetalEndpoints metalEndpoint;
+
+  _MetalInfoScreenState(this.metalEndpoint);
 
   @override
-  Widget build(BuildContext context) {
+  Widget body() {
     return Container(
       alignment: Alignment.center,
       padding: EdgeInsets.only(bottom: 80),
@@ -35,8 +31,8 @@ class MetalInfoScreenState extends State<MetalInfoScreen>
         scrollDirection: Axis.vertical,
         physics: BouncingScrollPhysics(),
         child: FutureScreenDelegate<MetalResponse>(
-          response: API.getMetalRate(widget.metalEndpoint,
-              forceRefresh: _forceRefresh),
+          response:
+              API.getMetalRate(metalEndpoint, forceRefresh: shouldForceRefresh),
           screen: (data) {
             WidgetsBinding.instance.addPostFrameCallback(
                 (_) => setActiveData(data, getShareInfo(data)));
@@ -49,18 +45,6 @@ class MetalInfoScreenState extends State<MetalInfoScreen>
         ),
       ),
     );
-  }
-
-  refresh() async {
-    setState(() {
-      _forceRefresh = true;
-    });
-  }
-
-  void setActiveData(ApiResponse data, String shareText) {
-    ActiveScreenData activeScreenData =
-        Provider.of<ActiveScreenData>(context, listen: false);
-    activeScreenData.setActiveData(data, shareText);
   }
 
   @override

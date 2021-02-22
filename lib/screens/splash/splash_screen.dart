@@ -1,26 +1,19 @@
 import 'package:dolarbot_app/api/api_endpoints.dart';
-import 'package:dolarbot_app/api/responses/base/apiResponse.dart';
 import 'package:dolarbot_app/screens/fiat_currency_info/fiat_currency_info_screen.dart';
-import 'package:dolarbot_app/screens/home/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:show_up_animation/show_up_animation.dart';
 
 class SplashScreen extends StatelessWidget {
-  final GlobalKey<FiatCurrencyInfoScreenState> _key = GlobalKey();
-
   @override
   Widget build(BuildContext context) {
     new Future.delayed(const Duration(seconds: 6), () {
       Navigator.pushReplacement(
         context,
         PageRouteBuilder(
-          pageBuilder: (context, animation1, animation2) => HomeScreen(
+          pageBuilder: (context, animation1, animation2) =>
+              FiatCurrencyInfoScreen(
             title: 'Dólar Oficial',
-            bodyContent: FiatCurrencyInfoScreen<DollarResponse>(
-              dollarEndpoint: DollarEndpoints.oficial,
-              key: _key,
-            ),
-            onAppBarRefresh: () => _key.currentState.refresh(),
+            dollarEndpoint: DollarEndpoints.oficial,
           ),
           transitionDuration: Duration(milliseconds: 600),
           transitionsBuilder: (context, animation1, animation2, child) =>

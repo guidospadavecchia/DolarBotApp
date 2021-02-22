@@ -1,33 +1,29 @@
-import 'package:dolarbot_app/api/api.dart';
-import 'package:dolarbot_app/api/responses/base/apiResponse.dart';
 import 'package:dolarbot_app/interfaces/share_info.dart';
-import 'package:dolarbot_app/models/active_screen_data.dart';
-import 'package:dolarbot_app/models/settings.dart';
-import 'package:dolarbot_app/util/util.dart';
-import 'package:dolarbot_app/widgets/currency_info/currency_info_container.dart';
-import 'package:dolarbot_app/widgets/common/future_screen_delegate/future_screen_delegate.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:intl/intl.dart';
+import 'package:dolarbot_app/screens/base/base_info_screen.dart';
 
-class VenezuelaInfoScreen extends StatefulWidget {
-  final VenezuelaEndpoints vzlaEndpoint;
+class VenezuelaInfoScreen extends BaseInfoScreen {
+  final String title;
+  final VenezuelaEndpoints venezuelaEndpoint;
 
-  const VenezuelaInfoScreen({
-    Key key,
-    @required this.vzlaEndpoint,
-  }) : super(key: key);
+  VenezuelaInfoScreen({
+    this.title,
+    @required this.venezuelaEndpoint,
+  }) : super(title: title);
 
   @override
-  VenezuelaInfoScreenState createState() => VenezuelaInfoScreenState();
+  _VenezuelaInfoScreenState createState() =>
+      _VenezuelaInfoScreenState(venezuelaEndpoint);
 }
 
-class VenezuelaInfoScreenState extends State<VenezuelaInfoScreen>
+class _VenezuelaInfoScreenState extends BaseInfoScreenState<VenezuelaInfoScreen>
+    with BaseScreen
     implements IShareable<VenezuelaResponse> {
-  bool _forceRefresh = false;
+  final VenezuelaEndpoints venezuelaEndpoint;
+
+  _VenezuelaInfoScreenState(this.venezuelaEndpoint);
 
   @override
-  Widget build(BuildContext context) {
+  Widget body() {
     return Container(
       alignment: Alignment.center,
       padding: EdgeInsets.only(bottom: 80),
@@ -35,8 +31,8 @@ class VenezuelaInfoScreenState extends State<VenezuelaInfoScreen>
         scrollDirection: Axis.vertical,
         physics: BouncingScrollPhysics(),
         child: FutureScreenDelegate<VenezuelaResponse>(
-          response:
-              API.getVzlaRate(widget.vzlaEndpoint, forceRefresh: _forceRefresh),
+          response: API.getVzlaRate(venezuelaEndpoint,
+              forceRefresh: shouldForceRefresh),
           screen: (data) {
             WidgetsBinding.instance.addPostFrameCallback(
                 (_) => setActiveData(data, getShareInfo(data)));
@@ -58,18 +54,6 @@ class VenezuelaInfoScreenState extends State<VenezuelaInfoScreen>
         ),
       ),
     );
-  }
-
-  refresh() async {
-    setState(() {
-      _forceRefresh = true;
-    });
-  }
-
-  void setActiveData(ApiResponse data, String shareText) {
-    ActiveScreenData activeScreenData =
-        Provider.of<ActiveScreenData>(context, listen: false);
-    activeScreenData.setActiveData(data, shareText);
   }
 
   @override

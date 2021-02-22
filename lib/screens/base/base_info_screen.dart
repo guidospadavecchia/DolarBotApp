@@ -1,39 +1,85 @@
+import 'package:dolarbot_app/api/responses/base/apiResponse.dart';
+import 'package:dolarbot_app/models/active_screen_data.dart';
+import 'package:dolarbot_app/screens/home/widgets/drawer/drawer_menu.dart';
+import 'package:dolarbot_app/screens/home/widgets/fab_menu/fab_menu.dart';
+import 'package:dolarbot_app/widgets/common/common_app_bar.dart';
+import 'package:fab_circular_menu/fab_circular_menu.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+export 'package:flutter/material.dart';
+export 'package:provider/provider.dart';
+export 'package:dolarbot_app/api/api.dart';
+export 'package:dolarbot_app/api/responses/base/apiResponse.dart';
+export 'package:dolarbot_app/widgets/currency_info/currency_info_container.dart';
+export 'package:dolarbot_app/widgets/common/future_screen_delegate/future_screen_delegate.dart';
 
 abstract class BaseInfoScreen extends StatefulWidget {
+  final String title;
+
   BaseInfoScreen({
     Key key,
+    this.title,
   }) : super(key: key);
 }
 
 abstract class BaseInfoScreenState<Page extends BaseInfoScreen>
     extends State<BaseInfoScreen> {
-  String appBarTitle();
+  final GlobalKey<FabCircularMenuState> fabKey = GlobalKey();
+
+  bool showRefreshButton() => true;
 }
 
 mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
+  bool shouldForceRefresh = false;
+
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<ActiveScreenData>(context, listen: false)
+          .setActiveTitle(widget.title);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        flexibleSpace: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Colors.blue.shade200, Colors.pink.shade300],
-            ),
+      appBar: CommonAppBar(
+        title: widget.title,
+        showRefreshButton: showRefreshButton(),
+        onRefresh: () => _refresh(),
+      ),
+      drawer: Container(
+        width: 290,
+        child: Drawer(
+          child: DrawerMenu(
+            onDrawerDisplayChanged: (isOpen) => _onDrawerDisplayChange(isOpen),
           ),
         ),
-        title: Text(
-          appBarTitle(),
-          style: TextStyle(
-              color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),
-        ),
       ),
-      body: Container(
-        child: body(),
-        color: Colors.white,
-      ),
+      drawerEdgeDragWidth: 200,
+      drawerEnableOpenDragGesture: true,
+      body: body(),
+      floatingActionButton: FabMenu(fabKey: fabKey),
     );
+  }
+
+  void _onDrawerDisplayChange(bool isOpen) {
+    if (isOpen && (fabKey?.currentState?.isOpen ?? false)) {
+      fabKey.currentState.close();
+    }
+  }
+
+  void _refresh() {
+    setState(() {
+      shouldForceRefresh = true;
+    });
+  }
+
+  void setActiveData(ApiResponse data, String shareText) {
+    ActiveScreenData activeScreenData =
+        Provider.of<ActiveScreenData>(context, listen: false);
+    activeScreenData.setActiveData(data, shareText);
   }
 
   Widget body();

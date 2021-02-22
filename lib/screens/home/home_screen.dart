@@ -1,62 +1,29 @@
-import 'package:dolarbot_app/models/active_screen_data.dart';
-import 'package:dolarbot_app/screens/home/widgets/drawer/drawer_menu.dart';
-import 'package:dolarbot_app/screens/home/widgets/fab_menu/fab_menu.dart';
-import 'package:dolarbot_app/widgets/common/common_app_bar.dart';
-import 'package:fab_circular_menu/fab_circular_menu.dart';
+import 'package:dolarbot_app/screens/base/base_info_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-class HomeScreen extends StatefulWidget {
-  final Widget bodyContent;
+class HomeScreen extends BaseInfoScreen {
   final String title;
-  final Function onAppBarRefresh;
 
   HomeScreen({
     Key key,
-    @required this.bodyContent,
     this.title,
-    @required this.onAppBarRefresh,
-  })  : assert(bodyContent != null),
-        super(key: key);
+  }) : super(key: key, title: title);
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
-  final GlobalKey<FabCircularMenuState> fabKey = GlobalKey();
-
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      Provider.of<ActiveScreenData>(context, listen: false)
-          .setActiveTitle(widget.title);
-    });
-  }
+class _HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
+  @override
+  showRefreshButton() => false;
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CommonAppBar(
-        title: widget.title,
-        showRefreshButton: true,
-        onRefresh: widget.onAppBarRefresh,
+  Widget body() {
+    return Center(
+      child: Text(
+        '🚀',
+        style: TextStyle(fontSize: 60),
       ),
-      drawer: Drawer(
-        child: DrawerMenu(
-          onDrawerDisplayChanged: (isOpen) => onDrawerDisplayChange(isOpen),
-        ),
-      ),
-      drawerEdgeDragWidth: 200,
-      drawerEnableOpenDragGesture: true,
-      body: widget.bodyContent,
-      floatingActionButton: FabMenu(fabKey: fabKey),
     );
-  }
-
-  void onDrawerDisplayChange(bool isOpen) {
-    if (isOpen && (fabKey?.currentState?.isOpen ?? false)) {
-      fabKey.currentState.close();
-    }
   }
 }

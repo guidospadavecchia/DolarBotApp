@@ -8,8 +8,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 class RootMenuBCRA extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<BcraInfoScreenState> _key = GlobalKey();
-
     return MenuItem(
       text: "Indicadores BCRA",
       leading: getIconData(context, FontAwesomeIcons.chartLine),
@@ -20,14 +18,12 @@ class RootMenuBCRA extends StatelessWidget {
           leading: getIconData(context, FontAwesomeIcons.exclamationTriangle),
           depthLevel: 2,
           onTap: () => {
-            buildContentAndPush(
-              context: context,
-              title: 'Riesgo País',
-              bodyContent: BcraInfoScreen(
+            navigateTo(
+              context,
+              BcraInfoScreen(
+                title: 'Riesgo País',
                 bcraEndpoint: BcraEndpoints.riesgoPais,
-                key: _key,
               ),
-              onRefresh: () => _key.currentState.refresh(),
             )
           },
         ),
@@ -36,14 +32,12 @@ class RootMenuBCRA extends StatelessWidget {
           leading: getIconData(context, FontAwesomeIcons.handHoldingUsd),
           depthLevel: 2,
           onTap: () => {
-            buildContentAndPush(
-              context: context,
-              title: 'Reservas del BCRA',
-              bodyContent: BcraInfoScreen(
+            navigateTo(
+              context,
+              BcraInfoScreen(
+                title: 'Reservas del BCRA',
                 bcraEndpoint: BcraEndpoints.reservas,
-                key: _key,
               ),
-              onRefresh: () => _key.currentState.refresh(),
             )
           },
         ),
@@ -52,15 +46,13 @@ class RootMenuBCRA extends StatelessWidget {
           leading: getIconData(context, FontAwesomeIcons.moneyBillWave),
           depthLevel: 2,
           onTap: () => {
-            buildContentAndPush(
-              context: context,
-              title: 'Dinero en circulación',
-              bodyContent: BcraInfoScreen(
+            navigateTo(
+              context,
+              BcraInfoScreen(
+                title: 'Dinero en circulación',
                 bcraEndpoint: BcraEndpoints.circulante,
-                key: _key,
               ),
-              onRefresh: () => _key.currentState.refresh(),
-            )
+            ),
           },
         ),
       ],

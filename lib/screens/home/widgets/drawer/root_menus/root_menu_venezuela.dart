@@ -9,8 +9,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 class RootMenuVenezuela extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<VenezuelaInfoScreenState> _key = GlobalKey();
-
     return MenuItem(
       text: "Venezuela",
       leading: getIconAsset(context, DolarBotIcons.general.venezuela),
@@ -21,14 +19,12 @@ class RootMenuVenezuela extends StatelessWidget {
           leading: getIconData(context, FontAwesomeIcons.dollarSign),
           depthLevel: 2,
           onTap: () => {
-            buildContentAndPush(
-              context: context,
-              title: 'Dólar (Venezuela)',
-              bodyContent: VenezuelaInfoScreen(
-                vzlaEndpoint: VenezuelaEndpoints.dolar,
-                key: _key,
+            navigateTo(
+              context,
+              VenezuelaInfoScreen(
+                title: 'Dolar (Venezuela)',
+                venezuelaEndpoint: VenezuelaEndpoints.dolar,
               ),
-              onRefresh: () => _key.currentState.refresh(),
             )
           },
         ),
@@ -37,14 +33,12 @@ class RootMenuVenezuela extends StatelessWidget {
           leading: getIconData(context, FontAwesomeIcons.euroSign),
           depthLevel: 2,
           onTap: () => {
-            buildContentAndPush(
-              context: context,
-              title: 'Euro (Venezuela)',
-              bodyContent: VenezuelaInfoScreen(
-                vzlaEndpoint: VenezuelaEndpoints.euro,
-                key: _key,
+            navigateTo(
+              context,
+              VenezuelaInfoScreen(
+                title: 'Euro (Venezuela)',
+                venezuelaEndpoint: VenezuelaEndpoints.euro,
               ),
-              onRefresh: () => _key.currentState.refresh(),
             )
           },
         ),

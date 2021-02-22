@@ -1,49 +1,36 @@
-import 'package:dolarbot_app/api/api.dart';
-import 'package:dolarbot_app/api/responses/base/apiResponse.dart';
 import 'package:dolarbot_app/interfaces/share_info.dart';
-import 'package:dolarbot_app/models/active_screen_data.dart';
-import 'package:dolarbot_app/models/settings.dart';
-import 'package:dolarbot_app/util/util.dart';
-import 'package:dolarbot_app/widgets/currency_info/currency_info_container.dart';
-import 'package:dolarbot_app/widgets/common/future_screen_delegate/future_screen_delegate.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:intl/intl.dart';
+import 'package:dolarbot_app/screens/base/base_info_screen.dart';
 
-class BcraInfoScreen extends StatefulWidget {
+class BcraInfoScreen extends BaseInfoScreen {
+  final String title;
   final BcraEndpoints bcraEndpoint;
 
-  const BcraInfoScreen({
-    Key key,
+  BcraInfoScreen({
+    this.title,
     @required this.bcraEndpoint,
-  }) : super(key: key);
+  }) : super(title: title);
 
   @override
-  BcraInfoScreenState createState() => BcraInfoScreenState();
+  _BcraInfoScreenState createState() => _BcraInfoScreenState(bcraEndpoint);
 }
 
-class BcraInfoScreenState extends State<BcraInfoScreen>
+class _BcraInfoScreenState extends BaseInfoScreenState<BcraInfoScreen>
+    with BaseScreen
     implements IShareable<BcraResponse> {
-  bool _forceRefresh = false;
+  final BcraEndpoints bcraEndpoint;
+
+  _BcraInfoScreenState(this.bcraEndpoint);
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      padding: EdgeInsets.only(bottom: 80),
-      child: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        physics: BouncingScrollPhysics(),
-        child: _getChildScreen(),
-      ),
-    );
+  Widget body() {
+    return _getChildScreen();
   }
 
   Widget _getChildScreen() {
-    switch (widget.bcraEndpoint) {
+    switch (bcraEndpoint) {
       case BcraEndpoints.riesgoPais:
         return FutureScreenDelegate<CountryRiskResponse>(
-          response: API.getCountryRisk(forceRefresh: _forceRefresh),
+          response: API.getCountryRisk(forceRefresh: shouldForceRefresh),
           screen: (data) {
             WidgetsBinding.instance.addPostFrameCallback((_) {
               setActiveData(data, getShareInfoCountryRisk(data));
@@ -57,7 +44,7 @@ class BcraInfoScreenState extends State<BcraInfoScreen>
         );
       case BcraEndpoints.reservas:
         return FutureScreenDelegate<BcraResponse>(
-          response: API.getBcraReserves(forceRefresh: _forceRefresh),
+          response: API.getBcraReserves(forceRefresh: shouldForceRefresh),
           screen: (data) {
             WidgetsBinding.instance.addPostFrameCallback((_) {
               setActiveData(data, getShareInfo(data));
@@ -71,7 +58,8 @@ class BcraInfoScreenState extends State<BcraInfoScreen>
         );
       case BcraEndpoints.circulante:
         return FutureScreenDelegate<BcraResponse>(
-          response: API.getCirculatingCurrency(forceRefresh: _forceRefresh),
+          response:
+              API.getCirculatingCurrency(forceRefresh: shouldForceRefresh),
           screen: (data) {
             WidgetsBinding.instance.addPostFrameCallback((_) {
               setActiveData(data, getShareInfo(data));
@@ -84,20 +72,8 @@ class BcraInfoScreenState extends State<BcraInfoScreen>
           },
         );
       default:
-        throw ('${widget.bcraEndpoint} not implemented.');
+        throw ('$bcraEndpoint not implemented.');
     }
-  }
-
-  refresh() async {
-    setState(() {
-      _forceRefresh = true;
-    });
-  }
-
-  void setActiveData(ApiResponse data, String shareText) {
-    ActiveScreenData activeScreenData =
-        Provider.of<ActiveScreenData>(context, listen: false);
-    activeScreenData.setActiveData(data, shareText);
   }
 
   @override

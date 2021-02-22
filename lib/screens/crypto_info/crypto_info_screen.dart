@@ -1,33 +1,29 @@
-import 'package:dolarbot_app/api/api.dart';
-import 'package:dolarbot_app/api/responses/base/apiResponse.dart';
 import 'package:dolarbot_app/interfaces/share_info.dart';
-import 'package:dolarbot_app/models/active_screen_data.dart';
-import 'package:dolarbot_app/models/settings.dart';
-import 'package:dolarbot_app/util/util.dart';
-import 'package:dolarbot_app/widgets/currency_info/currency_info_container.dart';
-import 'package:dolarbot_app/widgets/common/future_screen_delegate/future_screen_delegate.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:intl/intl.dart';
+import 'package:dolarbot_app/screens/base/base_info_screen.dart';
 
-class CryptoInfoScreen extends StatefulWidget {
+class CryptoInfoScreen extends BaseInfoScreen {
+  final String title;
   final CryptoEndpoints cryptoEndpoint;
 
-  const CryptoInfoScreen({
-    Key key,
+  CryptoInfoScreen({
+    this.title,
     @required this.cryptoEndpoint,
-  }) : super(key: key);
+  }) : super(title: title);
 
   @override
-  CryptoInfoScreenState createState() => CryptoInfoScreenState();
+  _CryptoInfoScreenState createState() =>
+      _CryptoInfoScreenState(cryptoEndpoint);
 }
 
-class CryptoInfoScreenState extends State<CryptoInfoScreen>
+class _CryptoInfoScreenState extends BaseInfoScreenState<CryptoInfoScreen>
+    with BaseScreen
     implements IShareable<CryptoResponse> {
-  bool _forceRefresh = false;
+  final CryptoEndpoints cryptoEndpoint;
+
+  _CryptoInfoScreenState(this.cryptoEndpoint);
 
   @override
-  Widget build(BuildContext context) {
+  Widget body() {
     return Container(
       alignment: Alignment.center,
       padding: EdgeInsets.only(bottom: 80),
@@ -35,8 +31,8 @@ class CryptoInfoScreenState extends State<CryptoInfoScreen>
         scrollDirection: Axis.vertical,
         physics: BouncingScrollPhysics(),
         child: FutureScreenDelegate<CryptoResponse>(
-          response: API.getCryptoRate(widget.cryptoEndpoint,
-              forceRefresh: _forceRefresh),
+          response: API.getCryptoRate(cryptoEndpoint,
+              forceRefresh: shouldForceRefresh),
           screen: (data) {
             WidgetsBinding.instance.addPostFrameCallback(
               (_) => setActiveData(
@@ -62,18 +58,6 @@ class CryptoInfoScreenState extends State<CryptoInfoScreen>
         ),
       ),
     );
-  }
-
-  refresh() async {
-    setState(() {
-      _forceRefresh = true;
-    });
-  }
-
-  void setActiveData(ApiResponse data, String shareText) {
-    ActiveScreenData activeScreenData =
-        Provider.of<ActiveScreenData>(context, listen: false);
-    activeScreenData.setActiveData(data, shareText);
   }
 
   @override

@@ -10,8 +10,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 class RootMenuEuro extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<FiatCurrencyInfoScreenState> _key = GlobalKey();
-
     return MenuItem(
       text: "Euro",
       leading: getIconData(context, FontAwesomeIcons.euroSign),
@@ -22,14 +20,12 @@ class RootMenuEuro extends StatelessWidget {
           leading: getIconAsset(context, DolarBotIcons.banks.bbva),
           depthLevel: 2,
           onTap: () => {
-            buildContentAndPush(
-              context: context,
-              title: 'Euro - Banco BBVA',
-              bodyContent: FiatCurrencyInfoScreen<EuroResponse>(
+            navigateTo(
+              context,
+              FiatCurrencyInfoScreen<EuroResponse>(
+                title: 'Euro - Banco BBVA',
                 euroEndpoint: EuroEndpoints.bbva,
-                key: _key,
               ),
-              onRefresh: () => _key.currentState.refresh(),
             )
           },
         ),
@@ -38,14 +34,12 @@ class RootMenuEuro extends StatelessWidget {
           leading: getIconAsset(context, DolarBotIcons.banks.chaco),
           depthLevel: 2,
           onTap: () => {
-            buildContentAndPush(
-              context: context,
-              title: 'Euro - Nuevo Banco del Chaco',
-              bodyContent: FiatCurrencyInfoScreen<EuroResponse>(
+            navigateTo(
+              context,
+              FiatCurrencyInfoScreen<EuroResponse>(
+                title: 'Euro - Nuevo Banco del Chaco',
                 euroEndpoint: EuroEndpoints.chaco,
-                key: _key,
               ),
-              onRefresh: () => _key.currentState.refresh(),
             )
           },
         ),
@@ -54,14 +48,12 @@ class RootMenuEuro extends StatelessWidget {
           leading: getIconAsset(context, DolarBotIcons.banks.galicia),
           depthLevel: 2,
           onTap: () => {
-            buildContentAndPush(
-              context: context,
-              title: 'Euro - Banco Galicia',
-              bodyContent: FiatCurrencyInfoScreen<EuroResponse>(
+            navigateTo(
+              context,
+              FiatCurrencyInfoScreen<EuroResponse>(
+                title: 'Euro - Banco Galicia',
                 euroEndpoint: EuroEndpoints.galicia,
-                key: _key,
               ),
-              onRefresh: () => _key.currentState.refresh(),
             )
           },
         ),
@@ -70,14 +62,12 @@ class RootMenuEuro extends StatelessWidget {
           leading: getIconAsset(context, DolarBotIcons.banks.hipotecario),
           depthLevel: 2,
           onTap: () => {
-            buildContentAndPush(
-              context: context,
-              title: 'Euro - Banco Hipotecario',
-              bodyContent: FiatCurrencyInfoScreen<EuroResponse>(
+            navigateTo(
+              context,
+              FiatCurrencyInfoScreen<EuroResponse>(
+                title: 'Euro - Banco Hipotecario',
                 euroEndpoint: EuroEndpoints.hipotecario,
-                key: _key,
               ),
-              onRefresh: () => _key.currentState.refresh(),
             )
           },
         ),
@@ -86,14 +76,12 @@ class RootMenuEuro extends StatelessWidget {
           leading: getIconAsset(context, DolarBotIcons.banks.pampa),
           depthLevel: 2,
           onTap: () => {
-            buildContentAndPush(
-              context: context,
-              title: 'Euro - Banco de La Pampa',
-              bodyContent: FiatCurrencyInfoScreen<EuroResponse>(
+            navigateTo(
+              context,
+              FiatCurrencyInfoScreen<EuroResponse>(
+                title: 'Euro - Banco de La Pampa',
                 euroEndpoint: EuroEndpoints.pampa,
-                key: _key,
               ),
-              onRefresh: () => _key.currentState.refresh(),
             )
           },
         ),
@@ -102,14 +90,12 @@ class RootMenuEuro extends StatelessWidget {
           leading: getIconAsset(context, DolarBotIcons.banks.nacion),
           depthLevel: 2,
           onTap: () => {
-            buildContentAndPush(
-              context: context,
-              title: 'Euro - Banco Nación',
-              bodyContent: FiatCurrencyInfoScreen<EuroResponse>(
+            navigateTo(
+              context,
+              FiatCurrencyInfoScreen<EuroResponse>(
+                title: 'Euro - Banco Nación',
                 euroEndpoint: EuroEndpoints.nacion,
-                key: _key,
               ),
-              onRefresh: () => _key.currentState.refresh(),
             )
           },
         ),

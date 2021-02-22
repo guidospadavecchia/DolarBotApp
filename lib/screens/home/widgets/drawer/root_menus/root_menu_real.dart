@@ -9,8 +9,6 @@ import 'package:flutter/material.dart';
 class RootMenuReal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<FiatCurrencyInfoScreenState> _key = GlobalKey();
-
     return MenuItem(
       text: "Real",
       leading: getIconAsset(context, DolarBotIcons.general.real),
@@ -21,14 +19,12 @@ class RootMenuReal extends StatelessWidget {
           leading: getIconAsset(context, DolarBotIcons.banks.bbva),
           depthLevel: 2,
           onTap: () => {
-            buildContentAndPush(
-              context: context,
-              title: 'Real - Banco BBVA',
-              bodyContent: FiatCurrencyInfoScreen<RealResponse>(
+            navigateTo(
+              context,
+              FiatCurrencyInfoScreen<RealResponse>(
+                title: 'Real - Banco BBVA',
                 realEndpoint: RealEndpoints.bbva,
-                key: _key,
               ),
-              onRefresh: () => _key.currentState.refresh(),
             )
           },
         ),
@@ -37,14 +33,12 @@ class RootMenuReal extends StatelessWidget {
           leading: getIconAsset(context, DolarBotIcons.banks.chaco),
           depthLevel: 2,
           onTap: () => {
-            buildContentAndPush(
-              context: context,
-              title: 'Real - Nuevo Banco del Chaco',
-              bodyContent: FiatCurrencyInfoScreen<RealResponse>(
+            navigateTo(
+              context,
+              FiatCurrencyInfoScreen<RealResponse>(
+                title: 'Real - Nuevo Banco del Chaco',
                 realEndpoint: RealEndpoints.chaco,
-                key: _key,
               ),
-              onRefresh: () => _key.currentState.refresh(),
             )
           },
         ),
@@ -53,14 +47,12 @@ class RootMenuReal extends StatelessWidget {
           leading: getIconAsset(context, DolarBotIcons.banks.nacion),
           depthLevel: 2,
           onTap: () => {
-            buildContentAndPush(
-              context: context,
-              title: 'Real - Banco Nación',
-              bodyContent: FiatCurrencyInfoScreen<RealResponse>(
+            navigateTo(
+              context,
+              FiatCurrencyInfoScreen<RealResponse>(
+                title: 'Real - Banco Nación',
                 realEndpoint: RealEndpoints.nacion,
-                key: _key,
               ),
-              onRefresh: () => _key.currentState.refresh(),
             )
           },
         ),
