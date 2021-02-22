@@ -15,7 +15,6 @@ class RootMenuReal extends StatelessWidget {
       text: "Real",
       leading: getIconAsset(context, DolarBotIcons.general.real),
       depthLevel: 1,
-      disableSplash: true,
       subItems: [
         MenuItem(
           text: "BBVA",

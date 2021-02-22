@@ -16,7 +16,7 @@ class DialogButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FlatButton(
-      padding: EdgeInsets.only(top: 10, right: 30, left: 20, bottom: 10),
+      padding: EdgeInsets.only(top: 7, right: 27, left: 17, bottom: 7),
       color: ThemeManager.getButtonColor(context),
       onPressed: () => onPressed(),
       child: Row(

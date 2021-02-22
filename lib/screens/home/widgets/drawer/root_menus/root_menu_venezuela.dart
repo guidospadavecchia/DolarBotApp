@@ -15,7 +15,6 @@ class RootMenuVenezuela extends StatelessWidget {
       text: "Venezuela",
       leading: getIconAsset(context, DolarBotIcons.general.venezuela),
       depthLevel: 1,
-      disableSplash: true,
       subItems: [
         MenuItem(
           text: "Dólar",

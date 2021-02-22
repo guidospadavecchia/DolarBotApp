@@ -16,7 +16,6 @@ class RootMenuDollar extends StatelessWidget {
       text: "Dólar",
       leading: getIconData(context, FontAwesomeIcons.dollarSign),
       depthLevel: 1,
-      disableSplash: true,
       subItems: [
         MenuItem(
           text: "Oficial",

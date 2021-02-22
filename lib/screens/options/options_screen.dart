@@ -42,13 +42,14 @@ class _OptionsScreenState extends State<OptionsScreen> {
                 },
               ),
               depthLevel: 1,
-              disableSplash: true,
+              disableHighlight: true,
             ),
             MenuItem(
               text: "Formato de moneda",
               subtitle: "Cambia el formato de moneda entre AR y US",
               leading: Icon(FontAwesomeIcons.globeAmericas),
               depthLevel: 1,
+              disableHighlight: true,
               onTap: () => {
                 _showFormatCurrencyDialog(context),
               },

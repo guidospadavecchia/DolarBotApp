@@ -55,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void onDrawerDisplayChange(bool isOpen) {
-    if (isOpen && fabKey.currentState.isOpen) {
+    if (isOpen && (fabKey?.currentState?.isOpen ?? false)) {
       fabKey.currentState.close();
     }
   }

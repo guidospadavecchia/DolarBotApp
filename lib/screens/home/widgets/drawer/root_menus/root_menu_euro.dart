@@ -16,7 +16,6 @@ class RootMenuEuro extends StatelessWidget {
       text: "Euro",
       leading: getIconData(context, FontAwesomeIcons.euroSign),
       depthLevel: 1,
-      disableSplash: true,
       subItems: [
         MenuItem(
           text: "BBVA",

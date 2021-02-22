@@ -14,7 +14,6 @@ class RootMenuBCRA extends StatelessWidget {
       text: "Indicadores BCRA",
       leading: getIconData(context, FontAwesomeIcons.chartLine),
       depthLevel: 1,
-      disableSplash: true,
       subItems: [
         MenuItem(
           text: "Riesgo País",

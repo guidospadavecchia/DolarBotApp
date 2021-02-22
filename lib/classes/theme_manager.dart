@@ -47,7 +47,7 @@ class ThemeManager {
 
   static Color getButtonColor(BuildContext context) {
     return AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
-        ? Color.fromRGBO(240, 240, 240, 1)
+        ? Color.fromRGBO(230, 230, 230, 1)
         : Color.fromRGBO(50, 50, 50, 1);
   }
 
@@ -63,14 +63,16 @@ class ThemeManager {
         : _accentColor;
   }
 
-  static ThemeData getThemeForDrawerMenu(
-      BuildContext context, bool disableSplash) {
+  static ThemeData getThemeForDrawerMenu(BuildContext context,
+      {bool disableHighlight = false}) {
     return Theme.of(context).copyWith(
       accentColor: ThemeManager.getDrawerMenuItemIconColor(context),
       splashColor: Colors.transparent,
-      highlightColor: AdaptiveTheme.of(context).mode == AdaptiveThemeMode.dark
-          ? Color.fromRGBO(51, 148, 34, 1)
-          : Theme.of(context).highlightColor,
+      highlightColor: disableHighlight
+          ? Colors.transparent
+          : AdaptiveTheme.of(context).mode == AdaptiveThemeMode.dark
+              ? Color.fromRGBO(51, 148, 34, 1)
+              : Theme.of(context).highlightColor,
       unselectedWidgetColor: ThemeManager.getDrawerMenuItemIconColor(context),
       textTheme: TextTheme(
         bodyText1: TextStyle(

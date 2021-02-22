@@ -15,7 +15,6 @@ class RootMenuMetals extends StatelessWidget {
       text: "Metales",
       leading: getIconData(context, FontAwesomeIcons.sketch),
       depthLevel: 1,
-      disableSplash: true,
       subItems: [
         MenuItem(
           text: "Oro",

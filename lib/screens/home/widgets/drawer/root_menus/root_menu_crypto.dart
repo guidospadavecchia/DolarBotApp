@@ -15,7 +15,6 @@ class RootMenuCrypto extends StatelessWidget {
       text: "Crypto",
       leading: getIconData(context, CryptoFontIcons.TRIG),
       depthLevel: 1,
-      disableSplash: true,
       subItems: [
         MenuItem(
           text: "Bitcoin",

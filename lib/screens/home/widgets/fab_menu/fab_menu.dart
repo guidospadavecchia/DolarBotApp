@@ -109,6 +109,7 @@ class FabMenu extends StatelessWidget {
 
   void openCalculator(BuildContext context, ApiResponse activeData) {
     showDialog(
+      barrierDismissible: false,
       context: context,
       builder: (BuildContext context) {
         if (activeData != null) {
