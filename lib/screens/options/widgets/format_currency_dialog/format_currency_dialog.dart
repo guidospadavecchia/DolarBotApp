@@ -12,11 +12,16 @@ class FormatCurrencyDialog extends StatefulWidget {
 
 class _FormatCurrencyDialogState extends State<FormatCurrencyDialog> {
   String _currencyFormat;
+  String _actualCurrencyFormat;
 
   @override
   Widget build(BuildContext context) {
     _currencyFormat =
         Provider.of<Settings>(context, listen: false).getCurrencyFormat();
+
+    if (_actualCurrencyFormat == null) {
+      _actualCurrencyFormat = _currencyFormat;
+    }
 
     return Dialog(
       insetPadding: EdgeInsets.all(25),
@@ -58,11 +63,11 @@ class _FormatCurrencyDialogState extends State<FormatCurrencyDialog> {
               ),
               subtitle: Text('Ejemplo: \$1.234,56'),
               value: "es_AR",
-              groupValue: _currencyFormat,
+              groupValue: _actualCurrencyFormat,
               activeColor: ThemeManager.getGlobalAccentColor(context),
               onChanged: (value) {
                 setState(() {
-                  saveValueAndPop(value);
+                  _actualCurrencyFormat = value;
                 });
               },
             ),
@@ -76,11 +81,11 @@ class _FormatCurrencyDialogState extends State<FormatCurrencyDialog> {
               ),
               subtitle: Text('Ejemplo: \$1,234.56'),
               value: "en_US",
-              groupValue: _currencyFormat,
+              groupValue: _actualCurrencyFormat,
               activeColor: ThemeManager.getGlobalAccentColor(context),
               onChanged: (value) {
                 setState(() {
-                  saveValueAndPop(value);
+                  _actualCurrencyFormat = value;
                 });
               },
             ),
@@ -88,9 +93,9 @@ class _FormatCurrencyDialogState extends State<FormatCurrencyDialog> {
               height: 20,
             ),
             DialogButton(
-              text: 'Aceptar',
+              text: 'Aplicar',
               icon: Icons.check_outlined,
-              onPressed: () => Navigator.of(context).pop(),
+              onPressed: () => saveValueAndPop(_actualCurrencyFormat),
             )
           ],
         ),
@@ -99,7 +104,9 @@ class _FormatCurrencyDialogState extends State<FormatCurrencyDialog> {
   }
 
   void saveValueAndPop(String value) async {
-    _currencyFormat = value;
     Provider.of<Settings>(context, listen: false).saveCurrencyFormat(value);
+    await Future.delayed(Duration(milliseconds: 50)).then(
+      (value) => Navigator.of(context).pop(),
+    );
   }
 }
