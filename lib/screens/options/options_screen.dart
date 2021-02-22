@@ -46,7 +46,7 @@ class _OptionsScreenState extends State<OptionsScreen> {
             ),
             MenuItem(
               text: "Formato de moneda",
-              subtitle: "Cambia el formato de monda entre AR y US",
+              subtitle: "Cambia el formato de moneda entre AR y US",
               leading: Icon(FontAwesomeIcons.globeAmericas),
               depthLevel: 1,
               onTap: () => {
