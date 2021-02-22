@@ -1,6 +1,4 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
-import 'package:dolarbot_app/classes/globals.dart';
-import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:dolarbot_app/screens/home/widgets/fab_menu/calculator/input_converted.dart';
 import 'package:dolarbot_app/screens/home/widgets/fab_menu/calculator/input_dollar.dart';
 import 'package:dolarbot_app/widgets/common/dialog_button.dart';
@@ -11,11 +9,15 @@ import 'package:flutter_masked_text/flutter_masked_text.dart';
 class FabOptionCalculator extends StatefulWidget {
   final double buyValue;
   final double sellValue;
+  final String decimalSeparator;
+  final String thousandSeparator;
 
   const FabOptionCalculator({
     Key key,
-    this.buyValue,
-    this.sellValue,
+    @required this.buyValue,
+    @required this.sellValue,
+    @required this.decimalSeparator,
+    @required this.thousandSeparator,
   }) : super(key: key);
 
   @override
@@ -23,8 +25,13 @@ class FabOptionCalculator extends StatefulWidget {
 }
 
 class _FabOptionCalculatorState extends State<FabOptionCalculator> {
+  MoneyMaskedTextController _textControllerUSD;
+  MoneyMaskedTextController _textControllerBuyValue;
+  MoneyMaskedTextController _textControllerSellValue;
+
   @override
   void initState() {
+    createControllers();
     _textControllerUSD.addListener(() {
       setState(() {
         _setConversion();
@@ -68,9 +75,13 @@ class _FabOptionCalculatorState extends State<FabOptionCalculator> {
               textController: _textControllerUSD,
             ),
             InputConverted(
-                title: "Comprás a", textController: _textControllerBuyValue),
+              title: "Comprás a",
+              textController: _textControllerBuyValue,
+            ),
             InputConverted(
-                title: "Vendés a", textController: _textControllerSellValue),
+              title: "Vendés a",
+              textController: _textControllerSellValue,
+            ),
             DialogButton(
               text: 'Cerrar',
               icon: Icons.close,
@@ -82,22 +93,23 @@ class _FabOptionCalculatorState extends State<FabOptionCalculator> {
     );
   }
 
-  MoneyMaskedTextController _textControllerUSD = MoneyMaskedTextController(
-      precision: 2,
-      decimalSeparator: Globals.decimalSeparator,
-      thousandSeparator: Globals.thousandSeparator,
-      leftSymbol: "US\$ ");
-  MoneyMaskedTextController _textControllerBuyValue = MoneyMaskedTextController(
-      precision: 2,
-      decimalSeparator: Globals.decimalSeparator,
-      thousandSeparator: Globals.thousandSeparator,
-      leftSymbol: "\$ ");
-  MoneyMaskedTextController _textControllerSellValue =
-      MoneyMaskedTextController(
-          precision: 2,
-          decimalSeparator: Globals.decimalSeparator,
-          thousandSeparator: Globals.thousandSeparator,
-          leftSymbol: "\$ ");
+  void createControllers() {
+    _textControllerUSD = MoneyMaskedTextController(
+        precision: 2,
+        decimalSeparator: widget.decimalSeparator,
+        thousandSeparator: widget.thousandSeparator,
+        leftSymbol: "US\$ ");
+    _textControllerBuyValue = MoneyMaskedTextController(
+        precision: 2,
+        decimalSeparator: widget.decimalSeparator,
+        thousandSeparator: widget.thousandSeparator,
+        leftSymbol: "\$ ");
+    _textControllerSellValue = MoneyMaskedTextController(
+        precision: 2,
+        decimalSeparator: widget.decimalSeparator,
+        thousandSeparator: widget.thousandSeparator,
+        leftSymbol: "\$ ");
+  }
 
   void _setConversion() {
     _textControllerBuyValue

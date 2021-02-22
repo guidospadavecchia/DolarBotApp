@@ -112,12 +112,11 @@ class FabMenu extends StatelessWidget {
         String _currencyFormat =
             Provider.of<Settings>(context, listen: false).getCurrencyFormat();
 
-        Globals.decimalSeparator = _currencyFormat == "es_AR" ? "," : ".";
-        Globals.thousandSeparator = _currencyFormat == "es_AR" ? "." : ",";
-
         return FabOptionCalculator(
           buyValue: 88.40,
           sellValue: 94.40,
+          decimalSeparator: _currencyFormat == "es_AR" ? "," : ".",
+          thousandSeparator: _currencyFormat == "es_AR" ? "." : ",",
         );
       },
     );
