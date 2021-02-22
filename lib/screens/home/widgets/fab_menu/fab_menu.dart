@@ -120,8 +120,7 @@ class FabMenu extends StatelessWidget {
           sellValue: 94.40,
         );
       },
-    ).then(
-      (_) => closeFabMenu(),
     );
+    closeFabMenu();
   }
 }

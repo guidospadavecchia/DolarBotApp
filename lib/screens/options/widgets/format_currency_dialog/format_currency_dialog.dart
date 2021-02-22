@@ -2,7 +2,9 @@ import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:dolarbot_app/models/settings.dart';
 import 'package:dolarbot_app/widgets/common/dialog_button.dart';
+import 'package:dolarbot_app/widgets/toasts/toast_ok.dart';
 import 'package:flutter/material.dart';
+import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';
 
 class FormatCurrencyDialog extends StatefulWidget {
@@ -105,8 +107,19 @@ class _FormatCurrencyDialogState extends State<FormatCurrencyDialog> {
 
   void saveValueAndPop(String value) async {
     Provider.of<Settings>(context, listen: false).saveCurrencyFormat(value);
-    await Future.delayed(Duration(milliseconds: 50)).then(
-      (value) => Navigator.of(context).pop(),
-    );
+    await Future.delayed(Duration(milliseconds: 50))
+        .then(
+          (value) => Navigator.of(context).pop(),
+        )
+        .then(
+          (_) async => {
+            Future.delayed(
+              Duration(milliseconds: 100),
+              () => showToastWidget(
+                ToastOk(),
+              ),
+            ),
+          },
+        );
   }
 }
