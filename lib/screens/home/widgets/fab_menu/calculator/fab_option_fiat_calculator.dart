@@ -6,13 +6,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
 
-class FabOptionCalculator extends StatefulWidget {
+class FabOptionFiatCalculator extends StatefulWidget {
   final double buyValue;
   final double sellValue;
   final String decimalSeparator;
   final String thousandSeparator;
 
-  const FabOptionCalculator({
+  const FabOptionFiatCalculator({
     Key key,
     @required this.buyValue,
     @required this.sellValue,
@@ -21,10 +21,11 @@ class FabOptionCalculator extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _FabOptionCalculatorState createState() => _FabOptionCalculatorState();
+  _FabOptionFiatCalculatorState createState() =>
+      _FabOptionFiatCalculatorState();
 }
 
-class _FabOptionCalculatorState extends State<FabOptionCalculator> {
+class _FabOptionFiatCalculatorState extends State<FabOptionFiatCalculator> {
   MoneyMaskedTextController _textControllerUSD;
   MoneyMaskedTextController _textControllerBuyValue;
   MoneyMaskedTextController _textControllerSellValue;
