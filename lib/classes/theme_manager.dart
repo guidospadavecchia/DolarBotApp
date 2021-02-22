@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
 class ThemeManager {
-  static Color primaryColor = Color.fromRGBO(50, 177, 40, 1);
-  static Color secondaryColor = Color.fromRGBO(51, 148, 34, 1);
-  static Color accentColor = Color.fromRGBO(140, 216, 18, 1);
+  static Color _primaryColor = Color.fromRGBO(50, 177, 40, 1);
+  static Color _secondaryColor = Color.fromRGBO(51, 148, 34, 1);
+  static Color _accentColor = Color.fromRGBO(140, 216, 18, 1);
 
   static AdaptiveThemeMode getDefaultTheme(BuildContext context) {
     Brightness brightness = SchedulerBinding.instance.window.platformBrightness;
@@ -16,11 +16,15 @@ class ThemeManager {
   }
 
   static Color getPrimaryColor() {
-    return primaryColor;
+    return _primaryColor;
+  }
+
+  static Color getSecondaryColor() {
+    return _secondaryColor;
   }
 
   static Color getAccentColor() {
-    return accentColor;
+    return _accentColor;
   }
 
   static Color getPrimaryTextColor(BuildContext context) {
@@ -41,16 +45,22 @@ class ThemeManager {
         : Colors.white;
   }
 
+  static Color getButtonColor(BuildContext context) {
+    return AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
+        ? Color.fromRGBO(240, 240, 240, 1)
+        : Color.fromRGBO(50, 50, 50, 1);
+  }
+
   static Color getGlobalBackgroundColor(BuildContext context) {
     return AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
         ? Color.fromRGBO(250, 250, 250, 1)
         : Color.fromRGBO(48, 48, 48, 1);
   }
 
-  static Color getGlobalAccentColor(BuildContext context) {
+  static Color getPrimaryAccentColor(BuildContext context) {
     return AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
-        ? primaryColor
-        : accentColor;
+        ? _primaryColor
+        : _accentColor;
   }
 
   static ThemeData getThemeForDrawerMenu(

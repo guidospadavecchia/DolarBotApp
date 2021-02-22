@@ -44,11 +44,12 @@ class _FormatCurrencyDialogState extends State<FormatCurrencyDialog> {
               : null,
         ),
         child: Column(
-          mainAxisSize: MainAxisSize.min,
+          mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: EdgeInsets.only(right: 7),
+              padding: EdgeInsets.only(left: 25, right: 7),
               child: Text(
                   "Elegí el formato de moneda que\naparecerá en todas las cotizaciones."),
             ),
@@ -66,7 +67,7 @@ class _FormatCurrencyDialogState extends State<FormatCurrencyDialog> {
               subtitle: Text('Ejemplo: \$1.234,56'),
               value: "es_AR",
               groupValue: _actualCurrencyFormat,
-              activeColor: ThemeManager.getGlobalAccentColor(context),
+              activeColor: ThemeManager.getPrimaryAccentColor(context),
               onChanged: (value) {
                 setState(() {
                   _actualCurrencyFormat = value;
@@ -84,7 +85,7 @@ class _FormatCurrencyDialogState extends State<FormatCurrencyDialog> {
               subtitle: Text('Ejemplo: \$1,234.56'),
               value: "en_US",
               groupValue: _actualCurrencyFormat,
-              activeColor: ThemeManager.getGlobalAccentColor(context),
+              activeColor: ThemeManager.getPrimaryAccentColor(context),
               onChanged: (value) {
                 setState(() {
                   _actualCurrencyFormat = value;
@@ -94,10 +95,12 @@ class _FormatCurrencyDialogState extends State<FormatCurrencyDialog> {
             SizedBox(
               height: 20,
             ),
-            DialogButton(
-              text: 'Aplicar',
-              icon: Icons.check_outlined,
-              onPressed: () => saveValueAndPop(_actualCurrencyFormat),
+            Center(
+              child: DialogButton(
+                text: 'Aplicar',
+                icon: Icons.check_outlined,
+                onPressed: () => saveValueAndPop(_actualCurrencyFormat),
+              ),
             )
           ],
         ),

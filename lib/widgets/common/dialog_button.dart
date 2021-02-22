@@ -17,7 +17,7 @@ class DialogButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return FlatButton(
       padding: EdgeInsets.only(top: 10, right: 30, left: 20, bottom: 10),
-      color: ThemeManager.getGlobalBackgroundColor(context),
+      color: ThemeManager.getButtonColor(context),
       onPressed: () => onPressed(),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -27,7 +27,7 @@ class DialogButton extends StatelessWidget {
           Icon(
             icon,
             size: 32,
-            color: ThemeManager.getGlobalAccentColor(context),
+            color: ThemeManager.getPrimaryAccentColor(context),
           ),
           SizedBox(
             width: 10,
