@@ -2,17 +2,17 @@ import 'package:dolarbot_app/api/responses/base/apiResponse.dart';
 import 'package:dolarbot_app/models/active_screen_data.dart';
 import 'package:dolarbot_app/screens/home/widgets/drawer/drawer_menu.dart';
 import 'package:dolarbot_app/screens/home/widgets/fab_menu/fab_menu.dart';
-import 'package:dolarbot_app/widgets/common/common_app_bar.dart';
+import 'package:dolarbot_app/widgets/common/cool_app_bar.dart';
 import 'package:fab_circular_menu/fab_circular_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-export 'package:flutter/material.dart';
-export 'package:provider/provider.dart';
 export 'package:dolarbot_app/api/api.dart';
 export 'package:dolarbot_app/api/responses/base/apiResponse.dart';
-export 'package:dolarbot_app/widgets/currency_info/currency_info_container.dart';
 export 'package:dolarbot_app/widgets/common/future_screen_delegate/future_screen_delegate.dart';
+export 'package:dolarbot_app/widgets/currency_info/currency_info_container.dart';
+export 'package:flutter/material.dart';
+export 'package:provider/provider.dart';
 
 abstract class BaseInfoScreen extends StatefulWidget {
   final String title;
@@ -27,7 +27,9 @@ abstract class BaseInfoScreenState<Page extends BaseInfoScreen>
     extends State<BaseInfoScreen> {
   final GlobalKey<FabCircularMenuState> fabKey = GlobalKey();
 
+  bool isMainMenu() => true;
   bool showRefreshButton() => true;
+  bool showFabMenu() => true;
 }
 
 mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
@@ -44,8 +46,9 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CommonAppBar(
+      appBar: CoolAppBar(
         title: widget.title,
+        isMainMenu: isMainMenu(),
         showRefreshButton: showRefreshButton(),
         onRefresh: () => _refresh(),
       ),
@@ -60,7 +63,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
       drawerEdgeDragWidth: 200,
       drawerEnableOpenDragGesture: true,
       body: body(),
-      floatingActionButton: FabMenu(fabKey: fabKey),
+      floatingActionButton: showFabMenu() ? FabMenu(fabKey: fabKey) : null,
     );
   }
 

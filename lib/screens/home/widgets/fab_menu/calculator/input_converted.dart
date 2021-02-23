@@ -24,6 +24,7 @@ class InputConverted extends StatelessWidget {
             fontSize: 18,
             fontFamily: 'Raleway',
             fontWeight: FontWeight.normal,
+            color: ThemeManager.getPrimaryTextColor(context),
           ),
         ),
         SizedBox(
@@ -44,6 +45,7 @@ class InputConverted extends StatelessWidget {
             style: TextStyle(
               fontSize: 22,
               fontWeight: FontWeight.bold,
+              fontFamily: 'Montserrat',
               color: ThemeManager.getPrimaryTextColor(context),
             ),
           ),

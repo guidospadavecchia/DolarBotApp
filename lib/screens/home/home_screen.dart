@@ -21,8 +21,10 @@ class _HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
   Widget body() {
     return Center(
       child: Text(
-        '🚀',
-        style: TextStyle(fontSize: 60),
+        '🏡',
+        style: TextStyle(
+          fontSize: 80,
+        ),
       ),
     );
   }

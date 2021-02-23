@@ -64,7 +64,10 @@ class FabMenu extends StatelessWidget {
               FabMenuOption(
                 icon: FontAwesomeIcons.calculator,
                 onTap: () {
-                  openCalculator(context, activeData.getActiveData());
+                  openCalculator(
+                    context,
+                    activeData.getActiveData(),
+                  );
                 },
               ),
             ],
@@ -145,6 +148,7 @@ class FabMenu extends StatelessWidget {
                   'Opción no soportada',
                   style: TextStyle(
                     fontSize: 18,
+                    fontFamily: 'Raleway',
                     fontWeight: FontWeight.w600,
                   ),
                 ),

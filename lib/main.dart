@@ -4,9 +4,9 @@ import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:dolarbot_app/models/active_screen_data.dart';
 import 'package:dolarbot_app/models/settings.dart';
 import 'package:dolarbot_app/screens/options/options_screen.dart';
-import 'package:global_configuration/global_configuration.dart';
 import 'package:dolarbot_app/screens/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:global_configuration/global_configuration.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:oktoast/oktoast.dart';
@@ -48,7 +48,9 @@ class DolarBotApp extends StatelessWidget {
               switch (settings.name) {
                 case OptionsScreen.routeName:
                   return PageTransition(
-                    child: OptionsScreen(),
+                    child: OptionsScreen(
+                      title: "Opciones",
+                    ),
                     type: PageTransitionType.rightToLeft,
                     duration: Duration(milliseconds: 200),
                     reverseDuration: Duration(milliseconds: 200),

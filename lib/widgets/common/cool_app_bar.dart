@@ -1,14 +1,16 @@
 import 'package:dolarbot_app/classes/theme_manager.dart';
+import 'package:dolarbot_app/models/settings.dart';
+import 'package:dolarbot_app/screens/base/base_info_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
+class CoolAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final bool isMainMenu;
   final bool showRefreshButton;
   final Function onRefresh;
 
-  const CommonAppBar({
+  const CoolAppBar({
     Key key,
     @required this.title,
     this.isMainMenu = true,
@@ -60,17 +62,21 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
       ],
       backgroundColor: Colors.transparent,
       centerTitle: true,
-      title: FittedBox(
-        alignment: Alignment.center,
-        fit: BoxFit.fitWidth,
-        child: Text(
-          title,
-          style: TextStyle(
-            fontFamily: 'Raleway',
-            fontWeight: FontWeight.bold,
-            color: ThemeManager.getPrimaryTextColor(context),
-          ),
-        ),
+      title: Consumer<Settings>(
+        builder: (context, settings, child) {
+          return FittedBox(
+            alignment: Alignment.center,
+            fit: BoxFit.fitWidth,
+            child: Text(
+              title,
+              style: TextStyle(
+                fontFamily: 'Raleway',
+                fontWeight: FontWeight.bold,
+                color: ThemeManager.getPrimaryTextColor(context),
+              ),
+            ),
+          );
+        },
       ),
       elevation: 0,
     );

@@ -1,30 +1,11 @@
-import 'package:dolarbot_app/api/api_endpoints.dart';
-import 'package:dolarbot_app/screens/fiat_currency_info/fiat_currency_info_screen.dart';
+import 'package:dolarbot_app/screens/home/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:show_up_animation/show_up_animation.dart';
 
 class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    new Future.delayed(const Duration(seconds: 6), () {
-      Navigator.pushReplacement(
-        context,
-        PageRouteBuilder(
-          pageBuilder: (context, animation1, animation2) =>
-              FiatCurrencyInfoScreen(
-            title: 'Dólar Oficial',
-            dollarEndpoint: DollarEndpoints.oficial,
-          ),
-          transitionDuration: Duration(milliseconds: 600),
-          transitionsBuilder: (context, animation1, animation2, child) =>
-              FadeTransition(
-            opacity: animation1,
-            child: child,
-          ),
-        ),
-      );
-    });
-
+    _waitAndGoHome(context, 6);
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
@@ -104,6 +85,28 @@ class SplashScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+_waitAndGoHome(BuildContext context, int secondsToWait) {
+  return Future.delayed(
+    Duration(seconds: secondsToWait),
+    () {
+      Navigator.pushReplacement(
+        context,
+        PageRouteBuilder(
+          pageBuilder: (context, animation1, animation2) => HomeScreen(
+            title: 'Home',
+          ),
+          transitionDuration: Duration(milliseconds: 600),
+          transitionsBuilder: (context, animation1, animation2, child) =>
+              FadeTransition(
+            opacity: animation1,
+            child: child,
+          ),
+        ),
+      );
+    },
+  );
 }
 
 class Footer extends StatelessWidget {
