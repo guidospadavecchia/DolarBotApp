@@ -69,7 +69,7 @@ class _OptionsScreenState extends BaseInfoScreenState<OptionsScreen>
           ),
           MenuItem(
             text: "Información de la aplicación",
-            subtitle: "Versión del producto, enlaces, etc.",
+            subtitle: "Versión del producto y enlaces",
             leading: Icon(FontAwesomeIcons.infoCircle),
             depthLevel: 1,
             disableHighlight: true,
