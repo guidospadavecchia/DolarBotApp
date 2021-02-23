@@ -1,5 +1,4 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
-import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:dolarbot_app/screens/home/widgets/fab_menu/calculator/input_converted.dart';
 import 'package:dolarbot_app/screens/home/widgets/fab_menu/calculator/input_dollar.dart';
 import 'package:dolarbot_app/widgets/common/dialog_button.dart';

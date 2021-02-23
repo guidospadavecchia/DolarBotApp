@@ -35,10 +35,14 @@ class FabMenu extends StatelessWidget {
             key: fabKey,
             alignment: Alignment.bottomRight,
             fabColor: ThemeManager.getPrimaryAccentColor(context),
-            fabOpenIcon: Icon(Icons.more_horiz,
-                color: ThemeManager.getGlobalBackgroundColor(context)),
-            fabCloseIcon: Icon(Icons.close,
-                color: ThemeManager.getGlobalBackgroundColor(context)),
+            fabOpenIcon: Icon(
+              Icons.more_horiz,
+              color: ThemeManager.getGlobalBackgroundColor(context),
+            ),
+            fabCloseIcon: Icon(
+              Icons.close,
+              color: ThemeManager.getGlobalBackgroundColor(context),
+            ),
             fabMargin: EdgeInsets.only(bottom: 20, right: 20),
             fabSize: 64,
             ringColor: Colors.transparent,

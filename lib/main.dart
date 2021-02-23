@@ -3,6 +3,7 @@ import 'package:dolarbot_app/classes/hive/adapters/cache_entry_adapter.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:dolarbot_app/models/active_screen_data.dart';
 import 'package:dolarbot_app/models/settings.dart';
+import 'package:dolarbot_app/screens/about/about_screen.dart';
 import 'package:dolarbot_app/screens/options/options_screen.dart';
 import 'package:dolarbot_app/screens/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
@@ -46,6 +47,13 @@ class DolarBotApp extends StatelessWidget {
             home: SplashScreen(),
             onGenerateRoute: (settings) {
               switch (settings.name) {
+                case AboutScreen.routeName:
+                  return PageTransition(
+                    child: AboutScreen(),
+                    type: PageTransitionType.rightToLeft,
+                    duration: Duration(milliseconds: 200),
+                    reverseDuration: Duration(milliseconds: 200),
+                  );
                 case OptionsScreen.routeName:
                   return PageTransition(
                     child: OptionsScreen(

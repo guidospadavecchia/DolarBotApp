@@ -63,6 +63,18 @@ class _OptionsScreenState extends BaseInfoScreenState<OptionsScreen>
               _showFormatCurrencyDialog(context),
             },
           ),
+          Divider(
+            endIndent: 25,
+            indent: 25,
+          ),
+          MenuItem(
+            text: "Información de la aplicación",
+            subtitle: "Versión del producto, enlaces, etc.",
+            leading: Icon(FontAwesomeIcons.infoCircle),
+            depthLevel: 1,
+            disableHighlight: true,
+            onTap: () => Navigator.of(context).pushNamed("/about"),
+          ),
         ],
       ),
     );
