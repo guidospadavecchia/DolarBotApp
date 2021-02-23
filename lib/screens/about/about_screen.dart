@@ -32,38 +32,20 @@ class _AboutScreenState extends State<AboutScreen> {
               image: AssetImage("assets/images/general/about.png"),
               fit: BoxFit.cover),
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            _buildAppInfo(),
-            _buildDevelopedBy(),
-            _buildSocialMedia(),
-          ],
+        child: Padding(
+          padding: const EdgeInsets.only(top: 70),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              _buildAppInfo(),
+              _buildDevelopedBy(),
+              _buildSocialMedia(),
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: _getSloganFlutter(context),
-    );
-  }
-
-  _buildSocialMedia() {
-    return Padding(
-      padding: const EdgeInsets.only(top: 30),
-      child: Column(
-        children: [
-          Text("Unite a nuestro Discord, o visitanos en GitHub.",
-              style: _getTextStyle()),
-          SizedBox(height: 10),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Discord(imageSize: 32, fontSize: 18),
-              SizedBox(width: 30),
-              GitHub(imageSize: 32, fontSize: 18, color: Colors.white70),
-            ],
-          ),
-        ],
-      ),
     );
   }
 
@@ -138,62 +120,68 @@ class _AboutScreenState extends State<AboutScreen> {
           style: _getTextStyle(),
           textAlign: TextAlign.center,
         ),
-        SizedBox(height: 20),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              "Desarrollado por ",
-              style: _getTextStyle(),
-            ),
-            Tooltip(
-              message: "Visitar GitHub de Guido Spadavecchia",
-              child: RichText(
-                text: TextSpan(
-                  text: "Guido Spadavecchia",
-                  style: _getTextStyle(isLink: true),
-                  recognizer: TapGestureRecognizer()
-                    ..onTap = () =>
-                        Util.launchURL(cfg.getDeepValue("github:authors")[0]),
-                ),
-              ),
-            ),
-          ],
+        SizedBox(height: 30),
+        Text(
+          "Desarrollado por",
+          style: _getTextStyle(),
         ),
-        SizedBox(height: 3),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              " y ",
-              style: _getTextStyle(),
+        SizedBox(height: 15),
+        Tooltip(
+          message: "Visitar GitHub de Guido Spadavecchia",
+          child: RichText(
+            text: TextSpan(
+              text: "Guido Spadavecchia",
+              style: _getTextStyle(isLink: true),
+              recognizer: TapGestureRecognizer()
+                ..onTap =
+                    () => Util.launchURL(cfg.getDeepValue("github:authors")[0]),
             ),
-            Tooltip(
-              message: "Visitar GitHub de Juan Manuel Flecha",
-              child: RichText(
-                text: TextSpan(
-                  text: "Juan Manuel Flecha",
-                  style: _getTextStyle(isLink: true),
-                  recognizer: TapGestureRecognizer()
-                    ..onTap = () =>
-                        Util.launchURL(cfg.getDeepValue("github:authors")[1]),
-                ),
-              ),
+          ),
+        ),
+        SizedBox(height: 5),
+        Tooltip(
+          message: "Visitar GitHub de Juan Manuel Flecha",
+          child: RichText(
+            text: TextSpan(
+              text: "Juan Manuel Flecha",
+              style: _getTextStyle(isLink: true),
+              recognizer: TapGestureRecognizer()
+                ..onTap =
+                    () => Util.launchURL(cfg.getDeepValue("github:authors")[1]),
             ),
-            Text(
-              ".",
-              style: _getTextStyle(),
-            ),
-          ],
+          ),
         ),
         SizedBox(height: 25),
       ],
     );
   }
 
+  _buildSocialMedia() {
+    return Padding(
+      padding: const EdgeInsets.only(top: 40),
+      child: Column(
+        children: [
+          Text(
+            "Unite a nuestro Discord, o visitanos en GitHub.",
+            style: _getTextStyle(),
+          ),
+          SizedBox(height: 10),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Discord(imageSize: 32, fontSize: 18),
+              SizedBox(width: 30),
+              GitHub(imageSize: 32, fontSize: 18, color: Colors.white70),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
   _getSloganFlutter(BuildContext context) {
     return Container(
-      height: 30,
+      height: 40,
       decoration: BoxDecoration(
         color: Colors.blueGrey[900],
         border: Border.all(color: Colors.blueGrey[800], width: 0),
@@ -205,7 +193,7 @@ class _AboutScreenState extends State<AboutScreen> {
           Text(
             "BUILT WITH 💙 IN ",
             style: TextStyle(
-              fontSize: 12,
+              fontSize: 14,
               fontFamily: 'Montserrat',
               color: Colors.white,
               fontWeight: FontWeight.bold,

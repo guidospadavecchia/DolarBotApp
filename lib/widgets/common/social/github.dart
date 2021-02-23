@@ -19,27 +19,27 @@ class GitHub extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Image.asset(
-          'assets/images/general/github.png',
-          width: imageSize,
-          height: imageSize,
-          filterQuality: FilterQuality.high,
-          color: color == null
-              ? (AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
-                  ? Colors.black87
-                  : Colors.white70)
-              : color,
-        ),
-        SizedBox(
-          width: 10,
-        ),
-        Tooltip(
-          message: "Visitanos en GitHub",
-          child: RichText(
-            text: TextSpan(
-              text: "GitHub",
+    return Tooltip(
+      message: "Visitanos en GitHub",
+      child: GestureDetector(
+        child: Row(
+          children: [
+            Image.asset(
+              'assets/images/general/github.png',
+              width: imageSize,
+              height: imageSize,
+              filterQuality: FilterQuality.high,
+              color: color == null
+                  ? (AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
+                      ? Colors.black87
+                      : Colors.white70)
+                  : color,
+            ),
+            SizedBox(
+              width: 10,
+            ),
+            Text(
+              "GitHub",
               style: TextStyle(
                 fontSize: fontSize,
                 fontFamily: 'Raleway',
@@ -50,12 +50,11 @@ class GitHub extends StatelessWidget {
                     : color,
                 fontWeight: FontWeight.w600,
               ),
-              recognizer: TapGestureRecognizer()
-                ..onTap = () => Util.launchURL(cfg.getDeepValue("github:app")),
             ),
-          ),
+          ],
         ),
-      ],
+        onTap: () => Util.launchURL(cfg.getDeepValue("github:app")),
+      ),
     );
   }
 }

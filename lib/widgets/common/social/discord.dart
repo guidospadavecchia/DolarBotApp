@@ -1,5 +1,4 @@
 import 'package:dolarbot_app/util/util.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:global_configuration/global_configuration.dart';
 
@@ -17,34 +16,33 @@ class Discord extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Image.asset(
-          'assets/images/general/discord.png',
-          width: imageSize,
-          height: imageSize,
-          filterQuality: FilterQuality.high,
-        ),
-        SizedBox(
-          width: 10,
-        ),
-        Tooltip(
-          message: "¡Unite a nuestro Discord!",
-          child: RichText(
-            text: TextSpan(
-              text: "Discord",
+    return Tooltip(
+      message: "¡Unite a nuestro Discord!",
+      child: GestureDetector(
+        child: Row(
+          children: [
+            Image.asset(
+              'assets/images/general/discord.png',
+              width: imageSize,
+              height: imageSize,
+              filterQuality: FilterQuality.high,
+            ),
+            SizedBox(
+              width: 10,
+            ),
+            Text(
+              "Discord",
               style: TextStyle(
                 fontSize: fontSize,
                 fontFamily: 'Raleway',
                 color: Color.fromRGBO(114, 137, 218, 1),
                 fontWeight: FontWeight.w600,
               ),
-              recognizer: TapGestureRecognizer()
-                ..onTap = () => Util.launchURL(cfg.get("discordUrl")),
             ),
-          ),
+          ],
         ),
-      ],
+        onTap: () => Util.launchURL(cfg.get("discordUrl")),
+      ),
     );
   }
 }

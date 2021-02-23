@@ -26,7 +26,15 @@ class _BcraInfoScreenState extends BaseInfoScreenState<BcraInfoScreen>
 
   @override
   Widget body() {
-    return _getChildScreen();
+    return Container(
+      alignment: Alignment.center,
+      padding: EdgeInsets.only(bottom: 80),
+      child: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        physics: BouncingScrollPhysics(),
+        child: _getChildScreen(),
+      ),
+    );
   }
 
   Widget _getChildScreen() {
