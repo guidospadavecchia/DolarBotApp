@@ -1,6 +1,7 @@
-import 'package:dolarbot_app/screens/home/widgets/drawer/drawer_menu_body.dart';
-import 'package:dolarbot_app/screens/home/widgets/drawer/drawer_menu_footer.dart';
-import 'package:dolarbot_app/screens/home/widgets/drawer/drawer_menu_header.dart';
+import 'package:dolarbot_app/screens/base/widgets/drawer/drawer_menu_body.dart';
+import 'package:dolarbot_app/screens/base/widgets/drawer/drawer_menu_footer.dart';
+import 'package:dolarbot_app/screens/base/widgets/drawer/drawer_menu_header.dart';
+
 import 'package:flutter/material.dart';
 
 class DrawerMenu extends StatefulWidget {

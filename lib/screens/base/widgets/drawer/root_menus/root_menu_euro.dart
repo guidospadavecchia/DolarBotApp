@@ -1,8 +1,8 @@
 import 'package:dolarbot_app/api/api_endpoints.dart';
 import 'package:dolarbot_app/api/responses/euroResponse.dart';
 import 'package:dolarbot_app/classes/dolarbot_icons.dart';
+import 'package:dolarbot_app/screens/base/widgets/drawer/drawer_menu_body.dart';
 import 'package:dolarbot_app/screens/fiat_currency_info/fiat_currency_info_screen.dart';
-import 'package:dolarbot_app/screens/home/widgets/drawer/drawer_menu_body.dart';
 import 'package:dolarbot_app/widgets/common/menu_item.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
