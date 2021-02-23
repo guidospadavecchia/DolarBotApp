@@ -1,7 +1,13 @@
 import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
-import 'package:dolarbot_app/screens/home/widgets/drawer/root_menus/exports/root_menu_exports.dart';
-import 'package:dolarbot_app/screens/home/widgets/drawer/root_menus/root_menu_home.dart';
+import 'package:dolarbot_app/screens/base/widgets/drawer/root_menus/root_menu_bcra.dart';
+import 'package:dolarbot_app/screens/base/widgets/drawer/root_menus/root_menu_crypto.dart';
+import 'package:dolarbot_app/screens/base/widgets/drawer/root_menus/root_menu_dollar.dart';
+import 'package:dolarbot_app/screens/base/widgets/drawer/root_menus/root_menu_euro.dart';
+import 'package:dolarbot_app/screens/base/widgets/drawer/root_menus/root_menu_home.dart';
+import 'package:dolarbot_app/screens/base/widgets/drawer/root_menus/root_menu_metals.dart';
+import 'package:dolarbot_app/screens/base/widgets/drawer/root_menus/root_menu_real.dart';
+import 'package:dolarbot_app/screens/base/widgets/drawer/root_menus/root_menu_venezuela.dart';
 import 'package:flutter/material.dart';
 
 class DrawerMenuBody extends StatelessWidget {
