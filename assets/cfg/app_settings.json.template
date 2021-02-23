@@ -4,5 +4,7 @@
     "apiRequestCacheMinutes": 30,
     "taxPercent": 65,
     "githubUrl": "",
-    "discordUrl": ""
+    "discordUrl": "",
+    "githubGS": "",
+    "githubJMF": ""
 }
