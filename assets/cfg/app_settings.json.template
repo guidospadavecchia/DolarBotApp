@@ -3,8 +3,9 @@
     "apiKey": "",
     "apiRequestCacheMinutes": 30,
     "taxPercent": 65,
-    "githubUrl": "",
-    "discordUrl": "",
-    "githubGS": "",
-    "githubJMF": ""
+    "github": {
+        "app": "",
+        "authors": []
+    },
+    "discordUrl": ""
 }
