@@ -5,9 +5,16 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:global_configuration/global_configuration.dart';
 
-class AboutScreen extends StatelessWidget {
+class AboutScreen extends StatefulWidget {
   static const String routeName = '/about';
+
+  @override
+  _AboutScreenState createState() => _AboutScreenState();
+}
+
+class _AboutScreenState extends State<AboutScreen> {
   final cfg = GlobalConfiguration();
+  int cantTap = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -82,18 +89,45 @@ class AboutScreen extends StatelessWidget {
         SizedBox(
           height: 20,
         ),
-        Image.asset(
-          'assets/images/logos/border/logo.png',
-          scale: 3.0,
-          height: 164,
-          width: 164,
-          filterQuality: FilterQuality.high,
+        InkWell(
+          child: Image.asset(
+            'assets/images/logos/border/logo.png',
+            scale: 3.0,
+            height: 164,
+            width: 164,
+            filterQuality: FilterQuality.high,
+          ),
+          onTap: () {
+            _onTapLogo();
+          },
         ),
         SizedBox(
           height: 20,
         ),
       ],
     );
+  }
+
+  _onTapLogo() {
+    setState(() {
+      cantTap += 1;
+      if (cantTap == 5) {
+        cantTap = 0;
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return Dialog(
+              child: Container(
+                child: Image.asset(
+                  "assets/images/general/authors.jpg",
+                  filterQuality: FilterQuality.high,
+                ),
+              ),
+            );
+          },
+        );
+      }
+    });
   }
 
   _buildDevelopedBy() {
@@ -119,8 +153,8 @@ class AboutScreen extends StatelessWidget {
                   text: "Guido Spadavecchia",
                   style: _getTextStyle(isLink: true),
                   recognizer: TapGestureRecognizer()
-                    ..onTap =
-                        () => Util.launchURL(cfg.getDeepValue("github:gs")),
+                    ..onTap = () =>
+                        Util.launchURL(cfg.getDeepValue("github:authors")[0]),
                 ),
               ),
             ),
@@ -141,8 +175,8 @@ class AboutScreen extends StatelessWidget {
                   text: "Juan Manuel Flecha",
                   style: _getTextStyle(isLink: true),
                   recognizer: TapGestureRecognizer()
-                    ..onTap =
-                        () => Util.launchURL(cfg.getDeepValue("github:jmf")),
+                    ..onTap = () =>
+                        Util.launchURL(cfg.getDeepValue("github:authors")[1]),
                 ),
               ),
             ),
