@@ -42,12 +42,19 @@ class AboutScreen extends StatelessWidget {
   _buildSocialMedia() {
     return Padding(
       padding: const EdgeInsets.only(top: 30),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+      child: Column(
         children: [
-          Discord(),
-          SizedBox(width: 30),
-          GitHub(color: Colors.white70),
+          Text("Unite a nuestro Discord, o visitanos en GitHub.",
+              style: _getTextStyle()),
+          SizedBox(height: 10),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Discord(imageSize: 32, fontSize: 18),
+              SizedBox(width: 30),
+              GitHub(imageSize: 32, fontSize: 18, color: Colors.white70),
+            ],
+          ),
         ],
       ),
     );
@@ -93,7 +100,7 @@ class AboutScreen extends StatelessWidget {
     return Column(
       children: [
         Text(
-          "© 2021\nHecho en 🇦🇷 Argentina",
+          "© 2021\nHecho en 🇦🇷 Argentina.",
           style: _getTextStyle(),
           textAlign: TextAlign.center,
         ),
@@ -112,7 +119,8 @@ class AboutScreen extends StatelessWidget {
                   text: "Guido Spadavecchia",
                   style: _getTextStyle(isLink: true),
                   recognizer: TapGestureRecognizer()
-                    ..onTap = () => Util.launchURL(cfg.get("githubGS")),
+                    ..onTap =
+                        () => Util.launchURL(cfg.getDeepValue("github:gs")),
                 ),
               ),
             ),
@@ -133,7 +141,8 @@ class AboutScreen extends StatelessWidget {
                   text: "Juan Manuel Flecha",
                   style: _getTextStyle(isLink: true),
                   recognizer: TapGestureRecognizer()
-                    ..onTap = () => Util.launchURL(cfg.get("githubJMF")),
+                    ..onTap =
+                        () => Util.launchURL(cfg.getDeepValue("github:jmf")),
                 ),
               ),
             ),
@@ -143,7 +152,7 @@ class AboutScreen extends StatelessWidget {
             ),
           ],
         ),
-        SizedBox(height: 20),
+        SizedBox(height: 25),
       ],
     );
   }

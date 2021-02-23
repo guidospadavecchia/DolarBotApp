@@ -8,11 +8,8 @@ import 'package:dolarbot_app/widgets/common/social/discord.dart';
 import 'package:dolarbot_app/widgets/common/social/github.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:global_configuration/global_configuration.dart';
 
 class DrawerMenuFooter extends StatelessWidget {
-  final cfg = GlobalConfiguration();
-
   @override
   Widget build(BuildContext context) {
     return Padding(

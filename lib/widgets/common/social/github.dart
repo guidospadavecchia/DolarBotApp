@@ -7,10 +7,14 @@ import 'package:global_configuration/global_configuration.dart';
 class GitHub extends StatelessWidget {
   final cfg = GlobalConfiguration();
   final Color color;
+  final double imageSize;
+  final double fontSize;
 
   GitHub({
     Key key,
     this.color,
+    this.imageSize = 24,
+    this.fontSize = 14,
   }) : super(key: key);
 
   @override
@@ -19,8 +23,8 @@ class GitHub extends StatelessWidget {
       children: [
         Image.asset(
           'assets/images/general/github.png',
-          width: 24,
-          height: 24,
+          width: imageSize,
+          height: imageSize,
           filterQuality: FilterQuality.high,
           color: color == null
               ? (AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
@@ -37,7 +41,7 @@ class GitHub extends StatelessWidget {
             text: TextSpan(
               text: "GitHub",
               style: TextStyle(
-                fontSize: 14,
+                fontSize: fontSize,
                 fontFamily: 'Raleway',
                 color: color == null
                     ? (AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
@@ -47,7 +51,7 @@ class GitHub extends StatelessWidget {
                 fontWeight: FontWeight.w600,
               ),
               recognizer: TapGestureRecognizer()
-                ..onTap = () => Util.launchURL(cfg.get("githubUrl")),
+                ..onTap = () => Util.launchURL(cfg.getDeepValue("github:app")),
             ),
           ),
         ),
