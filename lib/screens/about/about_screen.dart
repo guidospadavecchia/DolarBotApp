@@ -14,7 +14,7 @@ class AboutScreen extends StatefulWidget {
 
 class _AboutScreenState extends State<AboutScreen> {
   final cfg = GlobalConfiguration();
-  int cantTap = 0;
+  int tapCount = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -92,9 +92,9 @@ class _AboutScreenState extends State<AboutScreen> {
 
   _onTapLogo() {
     setState(() {
-      cantTap += 1;
-      if (cantTap == 5) {
-        cantTap = 0;
+      tapCount += 1;
+      if (tapCount == 5) {
+        tapCount = 0;
         showDialog(
           context: context,
           builder: (BuildContext context) {
