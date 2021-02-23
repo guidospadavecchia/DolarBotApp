@@ -25,66 +25,68 @@ class FabMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<ActiveScreenData>(builder: (context, activeData, child) {
-      if (!Globals.dataIsLoading) {
-        return Theme(
-          data: ThemeData(
-              splashColor: Colors.transparent,
-              highlightColor: Colors.transparent),
-          child: FabCircularMenu(
-            key: fabKey,
-            alignment: Alignment.bottomRight,
-            fabColor: ThemeManager.getPrimaryAccentColor(context),
-            fabOpenIcon: Icon(
-              Icons.more_horiz,
-              color: ThemeManager.getGlobalBackgroundColor(context),
-            ),
-            fabCloseIcon: Icon(
-              Icons.close,
-              color: ThemeManager.getGlobalBackgroundColor(context),
-            ),
-            fabMargin: EdgeInsets.only(bottom: 20, right: 20),
-            fabSize: 64,
-            ringColor: Colors.transparent,
-            ringDiameter: MediaQuery.of(context).size.width * 0.7,
-            fabElevation: 10,
-            animationDuration: Duration(milliseconds: 600),
-            animationCurve: Curves.easeInOutCirc,
-            children: [
-              FabMenuOption(
-                icon: Icons.share,
-                onTap: () => share(
-                  activeData.getShareData(),
-                  title: activeData.getActiveTitle(),
-                ),
+    return Consumer<Settings>(builder: (context, settings, child) {
+      return Consumer<ActiveScreenData>(builder: (context, activeData, child) {
+        if (!Globals.dataIsLoading) {
+          return Theme(
+            data: ThemeData(
+                splashColor: Colors.transparent,
+                highlightColor: Colors.transparent),
+            child: FabCircularMenu(
+              key: fabKey,
+              alignment: Alignment.bottomRight,
+              fabColor: ThemeManager.getPrimaryAccentColor(context),
+              fabOpenIcon: Icon(
+                Icons.more_horiz,
+                color: ThemeManager.getGlobalBackgroundColor(context),
               ),
-              FabMenuOption(
-                icon: Icons.copy,
-                onTap: () async => await copyToClipboard(
-                  context,
-                  activeData.getShareData(),
-                ),
+              fabCloseIcon: Icon(
+                Icons.close,
+                color: ThemeManager.getGlobalBackgroundColor(context),
               ),
-              FabMenuOption(
-                icon: FontAwesomeIcons.calculator,
-                onTap: () {
-                  openCalculator(
+              fabMargin: EdgeInsets.only(bottom: 20, right: 20),
+              fabSize: 64,
+              ringColor: Colors.transparent,
+              ringDiameter: MediaQuery.of(context).size.width * 0.7,
+              fabElevation: 10,
+              animationDuration: Duration(milliseconds: 600),
+              animationCurve: Curves.easeInOutCirc,
+              children: [
+                FabMenuOption(
+                  icon: Icons.share,
+                  onTap: () => share(
+                    activeData.getShareData(),
+                    title: activeData.getActiveTitle(),
+                  ),
+                ),
+                FabMenuOption(
+                  icon: Icons.copy,
+                  onTap: () async => await copyToClipboard(
                     context,
-                    activeData.getActiveData(),
-                  );
-                },
-              ),
-            ],
-          ),
-        );
-      } else {
-        return Container();
-      }
+                    activeData.getShareData(),
+                  ),
+                ),
+                FabMenuOption(
+                  icon: FontAwesomeIcons.calculator,
+                  onTap: () {
+                    openCalculator(
+                      context,
+                      activeData.getActiveData(),
+                    );
+                  },
+                ),
+              ],
+            ),
+          );
+        } else {
+          return Container();
+        }
+      });
     });
   }
 
   void closeFabMenu() {
-    if (fabKey.currentState.isOpen) {
+    if (fabKey?.currentState?.isOpen ?? false) {
       fabKey.currentState.close();
     }
   }
