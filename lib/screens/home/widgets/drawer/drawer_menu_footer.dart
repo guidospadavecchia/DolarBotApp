@@ -6,7 +6,6 @@ import 'package:dolarbot_app/screens/options/options_screen.dart';
 import 'package:dolarbot_app/widgets/common/menu_item.dart';
 import 'package:dolarbot_app/widgets/common/social/discord.dart';
 import 'package:dolarbot_app/widgets/common/social/github.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:global_configuration/global_configuration.dart';
@@ -42,9 +41,7 @@ class DrawerMenuFooter extends StatelessWidget {
                 exit(0),
               },
             ),
-            Divider(
-              height: 1,
-            ),
+            Divider(height: 1),
             Container(
               color: AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
                   ? Colors.blueGrey[50]
@@ -61,40 +58,8 @@ class DrawerMenuFooter extends StatelessWidget {
                 ],
               ),
             ),
-            _getSloganFlutter(context),
           ],
         ),
-      ),
-    );
-  }
-
-  Container _getSloganFlutter(BuildContext context) {
-    return Container(
-      height: 30,
-      color: ThemeManager.getDrawerMenuFooterSloganBackgroundColor(context),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            "BUILT WITH 💙 IN ",
-            style: TextStyle(
-              fontSize: 12,
-              fontFamily: 'Montserrat',
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              shadows: [
-                Shadow(
-                  blurRadius: 5,
-                  color: Colors.black87,
-                  offset: Offset(0, 0),
-                ),
-              ],
-            ),
-          ),
-          Image.asset('assets/images/general/flutter.png',
-              width: 16, height: 16, filterQuality: FilterQuality.high),
-        ],
       ),
     );
   }

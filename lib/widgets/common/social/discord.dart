@@ -1,4 +1,3 @@
-import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:dolarbot_app/util/util.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
