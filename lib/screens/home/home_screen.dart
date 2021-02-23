@@ -18,6 +18,9 @@ class _HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
   showRefreshButton() => false;
 
   @override
+  bool showCalculatorButton() => false;
+
+  @override
   Widget body() {
     return Center(
       child: Text(

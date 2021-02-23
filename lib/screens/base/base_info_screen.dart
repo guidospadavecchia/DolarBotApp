@@ -30,6 +30,9 @@ abstract class BaseInfoScreenState<Page extends BaseInfoScreen>
   bool isMainMenu() => true;
   bool showRefreshButton() => true;
   bool showFabMenu() => true;
+  bool showShareButton() => true;
+  bool showClipboardButton() => true;
+  bool showCalculatorButton() => true;
 }
 
 mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
@@ -63,7 +66,14 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
       drawerEdgeDragWidth: 200,
       drawerEnableOpenDragGesture: true,
       body: body(),
-      floatingActionButton: showFabMenu() ? FabMenu(fabKey: fabKey) : null,
+      floatingActionButton: showFabMenu()
+          ? FabMenu(
+              fabKey: fabKey,
+              showShareButton: showShareButton(),
+              showClipboardButton: showClipboardButton(),
+              showCalculatorButton: showCalculatorButton(),
+            )
+          : null,
     );
   }
 

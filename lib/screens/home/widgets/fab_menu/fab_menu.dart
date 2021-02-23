@@ -18,9 +18,16 @@ import 'package:share/share.dart';
 
 class FabMenu extends StatelessWidget {
   final GlobalKey<FabCircularMenuState> fabKey;
+  final bool showShareButton;
+  final bool showClipboardButton;
+  final bool showCalculatorButton;
+
   const FabMenu({
     Key key,
     this.fabKey,
+    this.showShareButton = true,
+    this.showClipboardButton = true,
+    this.showCalculatorButton = true,
   }) : super(key: key);
 
   @override
@@ -59,22 +66,24 @@ class FabMenu extends StatelessWidget {
                     title: activeData.getActiveTitle(),
                   ),
                 ),
-                FabMenuOption(
-                  icon: Icons.copy,
-                  onTap: () async => await copyToClipboard(
-                    context,
-                    activeData.getShareData(),
-                  ),
-                ),
-                FabMenuOption(
-                  icon: FontAwesomeIcons.calculator,
-                  onTap: () {
-                    openCalculator(
+                if (showClipboardButton)
+                  FabMenuOption(
+                    icon: Icons.copy,
+                    onTap: () async => await copyToClipboard(
                       context,
-                      activeData.getActiveData(),
-                    );
-                  },
-                ),
+                      activeData.getShareData(),
+                    ),
+                  ),
+                if (showCalculatorButton)
+                  FabMenuOption(
+                    icon: FontAwesomeIcons.calculator,
+                    onTap: () {
+                      openCalculator(
+                        context,
+                        activeData.getActiveData(),
+                      );
+                    },
+                  ),
               ],
             ),
           );

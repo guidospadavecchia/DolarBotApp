@@ -4,12 +4,17 @@ import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:dolarbot_app/screens/options/options_screen.dart';
 import 'package:dolarbot_app/widgets/common/menu_item.dart';
+import 'package:dolarbot_app/widgets/toasts/toast_error.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:global_configuration/global_configuration.dart';
+import 'package:oktoast/oktoast.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DrawerMenuFooter extends StatelessWidget {
+  final cfg = GlobalConfiguration();
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -45,7 +50,7 @@ class DrawerMenuFooter extends StatelessWidget {
               color: AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
                   ? Colors.blueGrey[50]
                   : Colors.grey[900],
-              height: 40,
+              height: 50,
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -93,8 +98,7 @@ class DrawerMenuFooter extends StatelessWidget {
                 fontWeight: FontWeight.w600,
               ),
               recognizer: TapGestureRecognizer()
-                ..onTap =
-                    () => _launchURL("https://github.com/guidospadavecchia/"),
+                ..onTap = () => _launchURL(cfg.get("githubUrl")),
             ),
           ),
         ),
@@ -125,7 +129,7 @@ class DrawerMenuFooter extends StatelessWidget {
                   color: Colors.deepPurple[300],
                   fontWeight: FontWeight.w600),
               recognizer: TapGestureRecognizer()
-                ..onTap = () => _launchURL("https://discord.gg/rUGVcMbK"),
+                ..onTap = () => _launchURL(cfg.get("discordUrl")),
             ),
           ),
         ),
@@ -135,10 +139,8 @@ class DrawerMenuFooter extends StatelessWidget {
 
   Container _getSloganFlutter(BuildContext context) {
     return Container(
-      height: 25,
-      color: AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
-          ? Colors.blueGrey[900]
-          : Colors.black54,
+      height: 30,
+      color: ThemeManager.getDrawerMenuFooterSloganBackgroundColor(context),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -167,11 +169,17 @@ class DrawerMenuFooter extends StatelessWidget {
   }
 
   _launchURL(url) async {
-    var _url = url;
-    if (await canLaunch(_url)) {
-      await launch(_url);
+    if (await canLaunch(url)) {
+      await launch(url);
     } else {
-      throw 'Could not launch $_url';
+      Future.delayed(
+        Duration(milliseconds: 100),
+        () => showToastWidget(
+          ToastError(
+            padding: EdgeInsets.only(bottom: 100),
+          ),
+        ),
+      );
     }
   }
 }

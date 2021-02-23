@@ -2,5 +2,7 @@
     "apiBaseUrl": "",
     "apiKey": "",
     "apiRequestCacheMinutes": 30,
-    "taxPercent": 65
+    "taxPercent": 65,
+    "githubUrl": "",
+    "discordUrl": ""
 }

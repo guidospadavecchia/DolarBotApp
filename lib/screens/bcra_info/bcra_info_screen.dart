@@ -22,6 +22,9 @@ class _BcraInfoScreenState extends BaseInfoScreenState<BcraInfoScreen>
   _BcraInfoScreenState(this.bcraEndpoint);
 
   @override
+  bool showCalculatorButton() => false;
+
+  @override
   Widget body() {
     return _getChildScreen();
   }

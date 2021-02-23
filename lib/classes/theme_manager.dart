@@ -45,6 +45,12 @@ class ThemeManager {
         : Colors.white;
   }
 
+  static Color getDrawerMenuFooterSloganBackgroundColor(BuildContext context) {
+    return AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
+        ? Colors.blueGrey[900]
+        : Colors.black54;
+  }
+
   static Color getButtonColor(BuildContext context) {
     return AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
         ? Color.fromRGBO(230, 230, 230, 1)
