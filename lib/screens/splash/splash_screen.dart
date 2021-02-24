@@ -1,5 +1,7 @@
+import 'package:dolarbot_app/classes/globals.dart';
 import 'package:dolarbot_app/screens/home/home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:package_info/package_info.dart';
 import 'package:show_up_animation/show_up_animation.dart';
 
 class SplashScreen extends StatelessWidget {
@@ -90,7 +92,8 @@ class SplashScreen extends StatelessWidget {
 _waitAndGoHome(BuildContext context, int secondsToWait) {
   return Future.delayed(
     Duration(seconds: secondsToWait),
-    () {
+    () async {
+      Globals.packageInfo = await PackageInfo.fromPlatform();
       Navigator.pushReplacement(
         context,
         PageRouteBuilder(

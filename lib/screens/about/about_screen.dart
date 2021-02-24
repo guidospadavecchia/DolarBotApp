@@ -1,4 +1,6 @@
+import 'package:dolarbot_app/classes/globals.dart';
 import 'package:dolarbot_app/util/util.dart';
+import 'package:dolarbot_app/widgets/common/cool_app_bar.dart';
 import 'package:dolarbot_app/widgets/common/social/discord.dart';
 import 'package:dolarbot_app/widgets/common/social/github.dart';
 import 'package:flutter/gestures.dart';
@@ -19,6 +21,11 @@ class _AboutScreenState extends State<AboutScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: CoolAppBar(
+        isMainMenu: false,
+        showRefreshButton: false,
+      ),
+      extendBodyBehindAppBar: true,
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -49,11 +56,11 @@ class _AboutScreenState extends State<AboutScreen> {
     );
   }
 
-  _buildAppInfo() {
+  Widget _buildAppInfo() {
     return Column(
       children: [
         Text(
-          "DolarBot",
+          Globals.packageInfo.appName,
           style: TextStyle(
             fontSize: 36,
             fontWeight: FontWeight.bold,
@@ -65,11 +72,11 @@ class _AboutScreenState extends State<AboutScreen> {
           height: 5,
         ),
         Text(
-          "Versión 1.0.0",
+          "Versión ${Globals.packageInfo.version}",
           style: _getTextStyle(),
         ),
         SizedBox(
-          height: 20,
+          height: 30,
         ),
         InkWell(
           child: Image.asset(
@@ -79,9 +86,7 @@ class _AboutScreenState extends State<AboutScreen> {
             width: 164,
             filterQuality: FilterQuality.high,
           ),
-          onTap: () {
-            _onTapLogo();
-          },
+          onTap: () => _onTapLogo(),
         ),
         SizedBox(
           height: 20,
@@ -90,7 +95,7 @@ class _AboutScreenState extends State<AboutScreen> {
     );
   }
 
-  _onTapLogo() {
+  void _onTapLogo() {
     setState(() {
       tapCount += 1;
       if (tapCount == 5) {
@@ -112,11 +117,17 @@ class _AboutScreenState extends State<AboutScreen> {
     });
   }
 
-  _buildDevelopedBy() {
+  Widget _buildDevelopedBy() {
     return Column(
       children: [
         Text(
-          "© 2021\nHecho en 🇦🇷 Argentina.",
+          "© ${DateTime.now().year}",
+          style: _getTextStyle(),
+          textAlign: TextAlign.center,
+        ),
+        SizedBox(height: 10),
+        Text(
+          "Hecho en 🇦🇷 Argentina",
           style: _getTextStyle(),
           textAlign: TextAlign.center,
         ),
@@ -126,46 +137,49 @@ class _AboutScreenState extends State<AboutScreen> {
           style: _getTextStyle(),
         ),
         SizedBox(height: 15),
-        Tooltip(
-          message: "Visitar GitHub de Guido Spadavecchia",
-          child: RichText(
-            text: TextSpan(
-              text: "Guido Spadavecchia",
-              style: _getTextStyle(isLink: true),
-              recognizer: TapGestureRecognizer()
-                ..onTap =
-                    () => Util.launchURL(cfg.getDeepValue("github:authors")[0]),
-            ),
-          ),
-        ),
-        SizedBox(height: 5),
-        Tooltip(
-          message: "Visitar GitHub de Juan Manuel Flecha",
-          child: RichText(
-            text: TextSpan(
-              text: "Juan Manuel Flecha",
-              style: _getTextStyle(isLink: true),
-              recognizer: TapGestureRecognizer()
-                ..onTap =
-                    () => Util.launchURL(cfg.getDeepValue("github:authors")[1]),
-            ),
-          ),
-        ),
-        SizedBox(height: 25),
+        _buildAuthors(),
+        SizedBox(height: 20),
       ],
     );
   }
 
-  _buildSocialMedia() {
+  Widget _buildAuthors() {
+    List<Widget> authorWidgets = new List<Widget>();
+    final authors = cfg.getDeepValue("github:authors");
+    for (final author in authors) {
+      String name = author["name"];
+      String link = author["link"];
+      authorWidgets.add(Tooltip(
+        message: "Visitar GitHub de $name",
+        child: RichText(
+          text: TextSpan(
+            text: name,
+            style: _getTextStyle(isLink: true),
+            recognizer: TapGestureRecognizer()
+              ..onTap = () => Util.launchURL(link),
+          ),
+        ),
+      ));
+      authorWidgets.add(
+        SizedBox(height: 5),
+      );
+    }
+
+    return Column(
+      children: authorWidgets,
+    );
+  }
+
+  Widget _buildSocialMedia() {
     return Padding(
-      padding: const EdgeInsets.only(top: 40),
+      padding: const EdgeInsets.only(top: 30),
       child: Column(
         children: [
           Text(
-            "Unite a nuestro Discord, o visitanos en GitHub.",
+            "Unite a nuestro Discord, o visitanos en GitHub",
             style: _getTextStyle(),
           ),
-          SizedBox(height: 10),
+          SizedBox(height: 15),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -179,7 +193,7 @@ class _AboutScreenState extends State<AboutScreen> {
     );
   }
 
-  _getSloganFlutter(BuildContext context) {
+  Widget _getSloganFlutter(BuildContext context) {
     return Container(
       height: 40,
       decoration: BoxDecoration(
@@ -191,7 +205,7 @@ class _AboutScreenState extends State<AboutScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            "BUILT WITH 💙 IN ",
+            "HECHO CON 💙 EN ",
             style: TextStyle(
               fontSize: 14,
               fontFamily: 'Montserrat',
@@ -213,10 +227,10 @@ class _AboutScreenState extends State<AboutScreen> {
     );
   }
 
-  _getTextStyle({bool isLink = false}) {
+  TextStyle _getTextStyle({bool isLink = false}) {
     if (isLink) {
       return TextStyle(
-        fontSize: 14,
+        fontSize: 15,
         fontWeight: FontWeight.w600,
         fontFamily: 'Raleway',
         color: Colors.teal[200],
