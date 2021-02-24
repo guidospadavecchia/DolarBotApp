@@ -24,6 +24,7 @@ class _AboutScreenState extends State<AboutScreen> {
       appBar: CoolAppBar(
         isMainMenu: false,
         showRefreshButton: false,
+        leadingButtonColor: Colors.white,
       ),
       extendBodyBehindAppBar: true,
       body: Container(

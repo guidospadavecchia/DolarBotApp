@@ -9,6 +9,7 @@ class CoolAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool isMainMenu;
   final bool showRefreshButton;
   final Function onRefresh;
+  final Color leadingButtonColor;
 
   const CoolAppBar({
     Key key,
@@ -16,6 +17,7 @@ class CoolAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.isMainMenu = true,
     this.showRefreshButton = false,
     this.onRefresh,
+    this.leadingButtonColor,
   })  : assert(!showRefreshButton || onRefresh != null),
         super(key: key);
 
@@ -31,6 +33,7 @@ class CoolAppBar extends StatelessWidget implements PreferredSizeWidget {
             return IconButton(
               icon: Icon(Icons.menu),
               splashRadius: 25,
+              color: leadingButtonColor,
               onPressed: () => Scaffold.of(context).openDrawer(),
               tooltip: 'Abrir menú',
             );
@@ -38,6 +41,7 @@ class CoolAppBar extends StatelessWidget implements PreferredSizeWidget {
             return IconButton(
               icon: Icon(Icons.arrow_back),
               splashRadius: 25,
+              color: leadingButtonColor,
               onPressed: () => Navigator.of(context).pop(),
               tooltip: 'Volver',
             );
