@@ -61,7 +61,7 @@ class _OptionsScreenState extends BaseInfoScreenState<OptionsScreen>
             onTap: () => {
               _showFormatCurrencyDialog(context),
             },
-            isDrawerMenu: false,
+            disableHighlight: false,
           ),
           Divider(
             endIndent: 25,
@@ -72,7 +72,7 @@ class _OptionsScreenState extends BaseInfoScreenState<OptionsScreen>
             subtitle: "Versión del producto y enlaces",
             leading: Icon(FontAwesomeIcons.infoCircle),
             depthLevel: 1,
-            isDrawerMenu: false,
+            disableHighlight: false,
             onTap: () => Navigator.of(context).pushNamed("/about"),
           ),
         ],
