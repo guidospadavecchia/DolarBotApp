@@ -201,6 +201,7 @@ class FabMenu extends StatelessWidget {
           decimalSeparator: decimalSeparator,
           thousandSeparator: thousandSeparator,
         ));
+    //TODO FiatCurrencyCalculatorReversed
   }
 
   double _getCalculatorHeight(BuildContext context, List<String> values) {
