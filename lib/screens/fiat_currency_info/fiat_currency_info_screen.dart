@@ -71,6 +71,12 @@ class _FiatCurrencyInfoScreenState<T extends GenericCurrencyResponse>
                   symbol: '\$',
                   value: data.sellPrice,
                 ),
+                if (data.sellPriceWithTaxes != null)
+                  CurrencyInfo(
+                    title: "VENTA + IMPUESTOS",
+                    symbol: '\$',
+                    value: data.sellPriceWithTaxes,
+                  ),
               ],
             );
           },
@@ -98,8 +104,16 @@ class _FiatCurrencyInfoScreenState<T extends GenericCurrencyResponse>
               : 'HH:mm - dd-MM-yyyy')
           .format(date);
 
-      shareText =
-          'Compra:\t\$ $buyPrice\nVenta:\t\$ $sellPrice\nHora:\t$formattedTime';
+      if (data.sellPriceWithTaxes != null) {
+        final sellPriceWithTaxes = Util.isNumeric(data.sellPriceWithTaxes)
+            ? numberFormat.format(double.parse(data.sellPriceWithTaxes))
+            : 'N/A';
+        shareText =
+            'Compra:\t\$ $buyPrice\nVenta:\t\$ $sellPrice\nVenta Ahorro:\t\$ $sellPriceWithTaxes\nHora:\t$formattedTime';
+      } else {
+        shareText =
+            'Compra:\t\$ $buyPrice\nVenta:\t\$ $sellPrice\nHora:\t$formattedTime';
+      }
     }
 
     return shareText;

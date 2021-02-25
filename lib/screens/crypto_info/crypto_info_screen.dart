@@ -48,6 +48,11 @@ class _CryptoInfoScreenState extends BaseInfoScreenState<CryptoInfoScreen>
                   value: data.arsPrice,
                 ),
                 CurrencyInfo(
+                  title: "PESOS ARGENTINOS + IMPUESTOS",
+                  symbol: '\$',
+                  value: data.arsPriceWithTaxes,
+                ),
+                CurrencyInfo(
                   title: "DÓLARES ESTADOUNIDENSES",
                   symbol: 'US\$',
                   value: data.usdPrice,
@@ -71,6 +76,9 @@ class _CryptoInfoScreenState extends BaseInfoScreenState<CryptoInfoScreen>
       final arsPrice = Util.isNumeric(data.arsPrice)
           ? numberFormat.format(double.parse(data.arsPrice))
           : 'N/A';
+      final arsPriceWithTaxes = Util.isNumeric(data.arsPrice)
+          ? numberFormat.format(double.parse(data.arsPriceWithTaxes))
+          : 'N/A';
       final usdPrice = Util.isNumeric(data.usdPrice)
           ? numberFormat.format(double.parse(data.usdPrice))
           : 'N/A';
@@ -80,7 +88,8 @@ class _CryptoInfoScreenState extends BaseInfoScreenState<CryptoInfoScreen>
               : 'HH:mm - dd-MM-yyyy')
           .format(date);
 
-      shareText = 'US\$ $usdPrice\n\$ $arsPrice\nHora: $formattedTime';
+      shareText =
+          'Dólares:\tUS\$ $usdPrice\nPesos:\t\$ $arsPrice\nPesos + Imp%:\t\$ $arsPriceWithTaxes\nHora: $formattedTime';
     }
 
     return shareText;

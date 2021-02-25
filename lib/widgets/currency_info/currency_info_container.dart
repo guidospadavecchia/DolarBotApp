@@ -20,10 +20,20 @@ class CurrencyInfoContainer extends StatelessWidget {
             children: [
               items[i],
               if (i != items.length - 1)
-                Divider(endIndent: 100, indent: 100, height: 100)
+                Divider(
+                    endIndent: 100,
+                    indent: 100,
+                    height: getHeight(items.length))
             ],
           ),
       ],
     );
+  }
+
+  double getHeight(int itemsLength) {
+    if (itemsLength == 2) return 100;
+    if (items.length >= 5) return 30;
+
+    return (100 - (items.length * 20)).toDouble();
   }
 }

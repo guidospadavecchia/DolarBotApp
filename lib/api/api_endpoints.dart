@@ -65,9 +65,12 @@ enum BcraEndpoints {
 
 enum HistoricalRateEndpoints {
   dolarOficial,
+  dolarAhorro,
   dolarBlue,
   euroOficial,
+  euroAhorro,
   realOficial,
+  realAhorro,
 }
 
 extension DollarEndpointsExtension on DollarEndpoints {
@@ -166,9 +169,12 @@ extension BcraEndpointsExtension on BcraEndpoints {
 extension HistoricalRateEndpointExtension on HistoricalRateEndpoints {
   static const endpoints = {
     HistoricalRateEndpoints.dolarOficial: '/api/evolucion/dolar/oficial',
+    HistoricalRateEndpoints.dolarAhorro: '/api/evolucion/dolar/oficial',
     HistoricalRateEndpoints.dolarBlue: '/api/evolucion/dolar/blue',
     HistoricalRateEndpoints.euroOficial: '/api/evolucion/euro/oficial',
+    HistoricalRateEndpoints.euroAhorro: '/api/evolucion/euro/ahorro',
     HistoricalRateEndpoints.realOficial: '/api/evolucion/real/oficial',
+    HistoricalRateEndpoints.realAhorro: '/api/evolucion/real/ahorro',
   };
 
   String get value => endpoints[this];

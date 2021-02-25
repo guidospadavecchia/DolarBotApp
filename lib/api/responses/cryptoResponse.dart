@@ -3,6 +3,7 @@ import 'package:dolarbot_app/api/responses/base/apiResponse.dart';
 class CryptoResponse extends ApiResponse {
   String timestamp;
   String arsPrice;
+  String arsPriceWithTaxes;
   String usdPrice;
 
   CryptoResponse(Map json) : super(json);
@@ -11,6 +12,7 @@ class CryptoResponse extends ApiResponse {
   void map(Map json) {
     timestamp = json["fecha"];
     arsPrice = json["ars"];
+    arsPriceWithTaxes = json["arsTaxed"];
     usdPrice = json["usd"];
   }
 }

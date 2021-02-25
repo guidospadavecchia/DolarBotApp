@@ -4,6 +4,7 @@ abstract class GenericCurrencyResponse extends ApiResponse {
   String timestamp;
   String buyPrice;
   String sellPrice;
+  String sellPriceWithTaxes;
 
   GenericCurrencyResponse(Map json) : super(json) {
     map(json);
@@ -14,5 +15,6 @@ abstract class GenericCurrencyResponse extends ApiResponse {
     timestamp = json["fecha"];
     buyPrice = json["compra"];
     sellPrice = json["venta"];
+    sellPriceWithTaxes = json["ventaAhorro"];
   }
 }
