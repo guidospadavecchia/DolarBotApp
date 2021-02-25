@@ -13,20 +13,27 @@ class CurrencyInfoContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        for (var i = 0; i < items.length; i++)
-          Column(
-            children: [
-              items[i],
-              if (i != items.length - 1)
-                Divider(
-                    endIndent: 100,
-                    indent: 100,
-                    height: _getHeight(items.length))
-            ],
-          ),
-      ],
+    return Container(
+      alignment: Alignment.center,
+      height: MediaQuery.of(context).size.height * 0.7,
+      child: Wrap(
+        children: [
+          for (var i = 0; i < items.length; i++)
+            Container(
+              child: Wrap(
+                children: [
+                  items[i],
+                  if (i != items.length - 1)
+                    Divider(
+                        endIndent: 100,
+                        indent: 100,
+                        color: Colors.white38,
+                        height: _getHeight(items.length))
+                ],
+              ),
+            ),
+        ],
+      ),
     );
   }
 

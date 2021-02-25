@@ -31,6 +31,9 @@ class _OptionsScreenState extends BaseInfoScreenState<OptionsScreen>
   bool showFabMenu() => false;
 
   @override
+  bool extendBodyBehindAppBar() => false;
+
+  @override
   Widget body() {
     return Container(
       child: Column(

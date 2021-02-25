@@ -24,8 +24,10 @@ class CurrencyInfo extends StatelessWidget {
     return Consumer<Settings>(
       builder: (context, settings, child) {
         return Container(
+          width: double.infinity,
           child: Column(
-            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               _getTitle(context),
               _getCurrencyValue(context),
@@ -42,7 +44,7 @@ class CurrencyInfo extends StatelessWidget {
       style: TextStyle(
           fontSize: 18,
           fontFamily: 'Raleway',
-          color: ThemeManager.getSecondaryTextColor(context),
+          color: Colors.grey[200],
           fontWeight: FontWeight.normal),
     );
   }
@@ -68,7 +70,7 @@ class CurrencyInfo extends StatelessWidget {
                   symbol,
                   style: TextStyle(
                     fontSize: 32,
-                    color: ThemeManager.getPrimaryTextColor(context),
+                    color: Colors.grey[200],
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -79,7 +81,7 @@ class CurrencyInfo extends StatelessWidget {
                   : 'N/A',
               style: TextStyle(
                 fontSize: 92,
-                color: ThemeManager.getPrimaryTextColor(context),
+                color: Colors.grey[200],
                 fontWeight: FontWeight.w600,
               ),
             ),
@@ -90,7 +92,7 @@ class CurrencyInfo extends StatelessWidget {
                   '$decimalSeparator${value.split('.')[1].substring(0, 2)}',
                   style: TextStyle(
                     fontSize: 32,
-                    color: ThemeManager.getSecondaryTextColor(context),
+                    color: Colors.grey[300],
                   ),
                 ),
               ),

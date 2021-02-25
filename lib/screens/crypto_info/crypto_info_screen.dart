@@ -1,66 +1,74 @@
+import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:dolarbot_app/interfaces/share_info.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
 
 class CryptoInfoScreen extends BaseInfoScreen {
   final String title;
+  final String headerTitle;
+  final IconData headerIconData;
+  final List<Color> gradiantColors;
   final CryptoEndpoints cryptoEndpoint;
 
   CryptoInfoScreen({
     this.title,
+    this.headerTitle,
+    this.headerIconData,
+    this.gradiantColors,
     @required this.cryptoEndpoint,
-  }) : super(title: title);
+  }) : super(
+          title: title,
+          headerTitle: headerTitle,
+          headerIconData: headerIconData,
+        );
 
   @override
   _CryptoInfoScreenState createState() =>
-      _CryptoInfoScreenState(cryptoEndpoint);
+      _CryptoInfoScreenState(cryptoEndpoint, gradiantColors);
 }
 
 class _CryptoInfoScreenState extends BaseInfoScreenState<CryptoInfoScreen>
     with BaseScreen
     implements IShareable<CryptoResponse> {
   final CryptoEndpoints cryptoEndpoint;
+  final List<Color> gradiantColors;
 
-  _CryptoInfoScreenState(this.cryptoEndpoint);
+  _CryptoInfoScreenState(this.cryptoEndpoint, this.gradiantColors);
 
   @override
   Widget body() {
-    return Container(
-      alignment: Alignment.center,
-      padding: EdgeInsets.only(bottom: 80),
-      child: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        physics: BouncingScrollPhysics(),
-        child: FutureScreenDelegate<CryptoResponse>(
-          response: API.getCryptoRate(cryptoEndpoint,
-              forceRefresh: shouldForceRefresh),
-          screen: (data) {
-            WidgetsBinding.instance.addPostFrameCallback(
-              (_) => setActiveData(
-                data,
-                getShareInfo(data),
+    return SingleChildScrollView(
+      scrollDirection: Axis.vertical,
+      physics: BouncingScrollPhysics(),
+      child: FutureScreenDelegate<CryptoResponse>(
+        response:
+            API.getCryptoRate(cryptoEndpoint, forceRefresh: shouldForceRefresh),
+        screen: (data) {
+          WidgetsBinding.instance.addPostFrameCallback(
+            (_) => setActiveData(
+              data,
+              getShareInfo(data),
+            ),
+          );
+          return CurrencyInfoContainer(
+            items: [
+              CurrencyInfo(
+                title: "PESOS ARGENTINOS",
+                symbol: '\$',
+                value: data.arsPrice,
               ),
-            );
-            return CurrencyInfoContainer(
-              items: [
-                CurrencyInfo(
-                  title: "PESOS ARGENTINOS",
-                  symbol: '\$',
-                  value: data.arsPrice,
-                ),
-                CurrencyInfo(
-                  title: "PESOS ARGENTINOS + IMPUESTOS",
-                  symbol: '\$',
-                  value: data.arsPriceWithTaxes,
-                ),
-                CurrencyInfo(
-                  title: "DÓLARES ESTADOUNIDENSES",
-                  symbol: 'US\$',
-                  value: data.usdPrice,
-                ),
-              ],
-            );
-          },
-        ),
+              CurrencyInfo(
+                title: "PESOS ARGENTINOS + IMPUESTOS",
+                symbol: '\$',
+                value: data.arsPriceWithTaxes,
+              ),
+              CurrencyInfo(
+                title: "DÓLARES ESTADOUNIDENSES",
+                symbol: 'US\$',
+                value: data.usdPrice,
+              ),
+            ],
+          );
+        },
       ),
     );
   }

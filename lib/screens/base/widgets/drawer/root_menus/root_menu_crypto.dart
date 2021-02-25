@@ -1,5 +1,6 @@
 import 'package:crypto_font_icons/crypto_font_icons.dart';
 import 'package:dolarbot_app/api/api_endpoints.dart';
+import 'package:dolarbot_app/classes/constants.dart';
 import 'package:dolarbot_app/screens/base/widgets/drawer/drawer_menu_body.dart';
 import 'package:dolarbot_app/screens/crypto_info/crypto_info_screen.dart';
 import 'package:dolarbot_app/widgets/common/menu_item.dart';
@@ -9,6 +10,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 class RootMenuCrypto extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    const String _title = 'Crypto';
+
     return MenuItem(
       text: "Crypto",
       leading: getIconData(context, CryptoFontIcons.TRIG),
@@ -22,7 +25,10 @@ class RootMenuCrypto extends StatelessWidget {
             navigateTo(
               context,
               CryptoInfoScreen(
-                title: "Bitcoin (BTC)",
+                title: _title,
+                headerIconData: CryptoFontIcons.BTC,
+                headerTitle: "Bitcoin (BTC)",
+                gradiantColors: DolarBotConstants.kGradiantBitcoin,
                 cryptoEndpoint: CryptoEndpoints.bitcoin,
               ),
             )
@@ -36,7 +42,10 @@ class RootMenuCrypto extends StatelessWidget {
             navigateTo(
               context,
               CryptoInfoScreen(
-                title: 'Bitcoin Cash (BCH)',
+                title: 'Crypto',
+                headerIconData: CryptoFontIcons.BTC_ALT,
+                headerTitle: "Bitcoin Cash (BCH)",
+                gradiantColors: DolarBotConstants.kGradiantBitcoinCash,
                 cryptoEndpoint: CryptoEndpoints.bitcoincash,
               ),
             )
@@ -50,7 +59,10 @@ class RootMenuCrypto extends StatelessWidget {
             navigateTo(
               context,
               CryptoInfoScreen(
-                title: 'DASH',
+                title: 'Crypto',
+                headerIconData: CryptoFontIcons.DASH,
+                headerTitle: 'DASH',
+                gradiantColors: DolarBotConstants.kGradiantDASH,
                 cryptoEndpoint: CryptoEndpoints.dash,
               ),
             )
@@ -64,7 +76,10 @@ class RootMenuCrypto extends StatelessWidget {
             navigateTo(
               context,
               CryptoInfoScreen(
-                title: 'Ethereum (ETH)',
+                title: 'Crypto',
+                headerIconData: CryptoFontIcons.ETH,
+                headerTitle: 'Ethereum (ETH)',
+                gradiantColors: DolarBotConstants.kGradiantEthereum,
                 cryptoEndpoint: CryptoEndpoints.ethereum,
               ),
             )
@@ -78,7 +93,10 @@ class RootMenuCrypto extends StatelessWidget {
             navigateTo(
               context,
               CryptoInfoScreen(
-                  title: 'Litecoin (LTC)',
+                  title: 'Crypto',
+                  headerIconData: CryptoFontIcons.LTC,
+                  headerTitle: 'Litecoin (LTC)',
+                  gradiantColors: DolarBotConstants.kGradiantLitecoin,
                   cryptoEndpoint: CryptoEndpoints.litecoin),
             )
           },
@@ -91,7 +109,10 @@ class RootMenuCrypto extends StatelessWidget {
             navigateTo(
               context,
               CryptoInfoScreen(
-                title: 'Monero (XMR)',
+                title: 'Crypto',
+                headerIconData: CryptoFontIcons.XMR,
+                headerTitle: 'Monero (XMR)',
+                gradiantColors: DolarBotConstants.kGradiantMonero,
                 cryptoEndpoint: CryptoEndpoints.monero,
               ),
             )
@@ -105,7 +126,10 @@ class RootMenuCrypto extends StatelessWidget {
             navigateTo(
               context,
               CryptoInfoScreen(
-                title: 'Ripple (XRP)',
+                title: 'Crypto',
+                headerIconData: CryptoFontIcons.XRP,
+                headerTitle: 'Ripple (XRP)',
+                gradiantColors: DolarBotConstants.kGradiantRipple,
                 cryptoEndpoint: CryptoEndpoints.ripple,
               ),
             )

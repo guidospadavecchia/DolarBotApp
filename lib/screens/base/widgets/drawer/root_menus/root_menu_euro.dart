@@ -1,5 +1,6 @@
 import 'package:dolarbot_app/api/api_endpoints.dart';
 import 'package:dolarbot_app/api/responses/euroResponse.dart';
+import 'package:dolarbot_app/classes/constants.dart';
 import 'package:dolarbot_app/classes/dolarbot_icons.dart';
 import 'package:dolarbot_app/screens/base/widgets/drawer/drawer_menu_body.dart';
 import 'package:dolarbot_app/screens/fiat_currency_info/fiat_currency_info_screen.dart';
@@ -10,6 +11,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 class RootMenuEuro extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    const String _title = 'Euro';
+
     return MenuItem(
       text: "Euro",
       leading: getIconData(context, FontAwesomeIcons.euroSign),
@@ -23,7 +26,10 @@ class RootMenuEuro extends StatelessWidget {
             navigateTo(
               context,
               FiatCurrencyInfoScreen<EuroResponse>(
-                title: 'Euro - Banco BBVA',
+                title: _title,
+                headerIconAsset: DolarBotIcons.banks.bbva,
+                headerTitle: "Banco BBVA",
+                gradiantColors: DolarBotConstants.kGradiantBBVA,
                 euroEndpoint: EuroEndpoints.bbva,
               ),
             )
@@ -37,7 +43,10 @@ class RootMenuEuro extends StatelessWidget {
             navigateTo(
               context,
               FiatCurrencyInfoScreen<EuroResponse>(
-                title: 'Euro - Nuevo Banco del Chaco',
+                title: _title,
+                headerIconAsset: DolarBotIcons.banks.chaco,
+                headerTitle: "Nuevo Banco del Chaco",
+                gradiantColors: DolarBotConstants.kGradiantChaco,
                 euroEndpoint: EuroEndpoints.chaco,
               ),
             )
@@ -51,7 +60,10 @@ class RootMenuEuro extends StatelessWidget {
             navigateTo(
               context,
               FiatCurrencyInfoScreen<EuroResponse>(
-                title: 'Euro - Banco Galicia',
+                title: _title,
+                headerIconAsset: DolarBotIcons.banks.galicia,
+                headerTitle: "Banco Galicia",
+                gradiantColors: DolarBotConstants.kGradiantGalicia,
                 euroEndpoint: EuroEndpoints.galicia,
               ),
             )
@@ -65,7 +77,10 @@ class RootMenuEuro extends StatelessWidget {
             navigateTo(
               context,
               FiatCurrencyInfoScreen<EuroResponse>(
-                title: 'Euro - Banco Hipotecario',
+                title: _title,
+                headerIconAsset: DolarBotIcons.banks.hipotecario,
+                headerTitle: "Banco Hipotecario",
+                gradiantColors: DolarBotConstants.kGradiantHipotecario,
                 euroEndpoint: EuroEndpoints.hipotecario,
               ),
             )
@@ -79,7 +94,10 @@ class RootMenuEuro extends StatelessWidget {
             navigateTo(
               context,
               FiatCurrencyInfoScreen<EuroResponse>(
-                title: 'Euro - Banco de La Pampa',
+                title: _title,
+                headerIconAsset: DolarBotIcons.banks.pampa,
+                headerTitle: "Banco de La Pampa",
+                gradiantColors: DolarBotConstants.kGradiantPampa,
                 euroEndpoint: EuroEndpoints.pampa,
               ),
             )
@@ -93,7 +111,10 @@ class RootMenuEuro extends StatelessWidget {
             navigateTo(
               context,
               FiatCurrencyInfoScreen<EuroResponse>(
-                title: 'Euro - Banco Nación',
+                title: _title,
+                headerIconAsset: DolarBotIcons.banks.nacion,
+                headerTitle: "Banco Nación",
+                gradiantColors: DolarBotConstants.kGradiantNacion,
                 euroEndpoint: EuroEndpoints.nacion,
               ),
             )

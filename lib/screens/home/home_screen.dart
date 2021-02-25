@@ -1,3 +1,4 @@
+import 'package:dolarbot_app/classes/constants.dart';
 import 'package:dolarbot_app/classes/dolarbot_icons.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +23,9 @@ class _HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
   bool showFabMenu() => false;
 
   @override
+  bool extendBodyBehindAppBar() => false;
+
+  @override
   Widget body() {
     return NotificationListener<OverscrollIndicatorNotification>(
       onNotification: (OverscrollIndicatorNotification overScroll) {
@@ -33,31 +37,22 @@ class _HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
         child: Column(
           children: [
             CardBank(
-              bank: "Banco Supervielle",
-              icon: DolarBotIcons.banks.supervielle,
+              bank: "Banco Hipotecario",
+              icon: DolarBotIcons.banks.hipotecario,
               moneyType: "DOLAR",
-              gradiantColors: [
-                Color.fromRGBO(230, 46, 46, 1),
-                Color.fromRGBO(128, 13, 70, 1),
-              ],
+              gradiantColors: DolarBotConstants.kGradiantHipotecario,
             ),
             CardBank(
               bank: "Banco Galicia",
               icon: DolarBotIcons.banks.galicia,
               moneyType: "DOLAR",
-              gradiantColors: [
-                Color.fromRGBO(254, 106, 10, 1),
-                Color.fromRGBO(196, 0, 34, 1),
-              ],
+              gradiantColors: DolarBotConstants.kGradiantGalicia,
             ),
             CardBank(
-              bank: "Banco Santander",
-              icon: DolarBotIcons.banks.santander,
-              moneyType: "EURO",
-              gradiantColors: [
-                Color.fromRGBO(239, 0, 0, 1),
-                Color.fromRGBO(140, 0, 0, 1),
-              ],
+              bank: "Banco de Córdoba",
+              icon: DolarBotIcons.banks.cordoba,
+              moneyType: "DOLAR",
+              gradiantColors: DolarBotConstants.kGradiantCordoba,
             ),
             CardBank(
               bank: "Banco BBVA",
@@ -75,6 +70,24 @@ class _HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
               gradiantColors: [
                 Color.fromRGBO(106, 134, 48, 1),
                 Color.fromRGBO(67, 91, 45, 1),
+              ],
+            ),
+            CardBank(
+              bank: "Banco Supervielle",
+              icon: DolarBotIcons.banks.supervielle,
+              moneyType: "DOLAR",
+              gradiantColors: [
+                Color.fromRGBO(230, 46, 46, 1),
+                Color.fromRGBO(128, 13, 70, 1),
+              ],
+            ),
+            CardBank(
+              bank: "Banco Santander",
+              icon: DolarBotIcons.banks.santander,
+              moneyType: "EURO",
+              gradiantColors: [
+                Color.fromRGBO(239, 0, 0, 1),
+                Color.fromRGBO(140, 0, 0, 1),
               ],
             ),
           ],
@@ -119,7 +132,7 @@ class CardBank extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: EdgeInsets.only(left: 15, top: 20),
+              padding: EdgeInsets.only(left: 12, top: 17),
               child: Column(
                 children: [
                   Container(
@@ -130,17 +143,26 @@ class CardBank extends StatelessWidget {
                       filterQuality: FilterQuality.high,
                     ),
                   ),
-                  Container(
-                    padding: EdgeInsets.only(top: 5),
-                    child: Text(
-                      moneyType.toUpperCase(),
-                      style: TextStyle(
-                        fontSize: 10,
-                        fontFamily: 'Raleway',
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
+                  Padding(
+                    padding: EdgeInsets.only(top: 10),
+                    child: Container(
+                      width: 40,
+                      padding:
+                          EdgeInsets.only(left: 5, right: 5, top: 3, bottom: 4),
+                      decoration: BoxDecoration(
+                        color: Colors.black54,
+                        borderRadius: BorderRadius.circular(5),
                       ),
-                      textAlign: TextAlign.center,
+                      child: Text(
+                        moneyType.toUpperCase(),
+                        style: TextStyle(
+                          fontSize: 8,
+                          fontFamily: 'Raleway',
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
                     ),
                   ),
                 ],
@@ -149,7 +171,7 @@ class CardBank extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 15),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
@@ -157,7 +179,7 @@ class CardBank extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 22,
                       fontFamily: 'Raleway',
-                      fontWeight: FontWeight.w600,
+                      fontWeight: FontWeight.bold,
                       color: Colors.white,
                     ),
                   ),
@@ -168,7 +190,7 @@ class CardBank extends StatelessWidget {
             ),
             Expanded(
               child: Container(
-                alignment: Alignment.topCenter,
+                alignment: Alignment.topRight,
                 padding: EdgeInsets.only(right: 20, top: 15),
                 child: Icon(
                   Icons.share,
@@ -190,16 +212,13 @@ class LastUpdate extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 15),
-      child: Text(
-        "🕑 Última actualización: 24/02/2021 - 23:08 hs.",
-        style: TextStyle(
-            fontSize: 12,
-            fontFamily: 'Raleway',
-            fontWeight: FontWeight.normal,
-            color: Colors.white54),
-      ),
+    return Text(
+      "🕑 Última actualización: 24/02/2021 - 23:08 hs.",
+      style: TextStyle(
+          fontSize: 12,
+          fontFamily: 'Raleway',
+          fontWeight: FontWeight.normal,
+          color: Colors.white54),
     );
   }
 }
@@ -211,66 +230,76 @@ class BankPrices extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
+    return Wrap(
+      verticalDirection: VerticalDirection.down,
+      direction: Axis.horizontal,
+      spacing: 30,
       children: [
-        Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
+        Wrap(
+          direction: Axis.vertical,
           children: [
-            Container(
-              padding: EdgeInsets.only(top: 2),
-              child: Text(
-                "Compra",
-                style: TextStyle(
-                  fontSize: 14,
-                  fontFamily: 'Raleway',
-                  fontWeight: FontWeight.normal,
-                  color: Colors.white,
-                ),
+            Text(
+              "Compra",
+              style: TextStyle(
+                fontSize: 14,
+                fontFamily: 'Raleway',
+                fontWeight: FontWeight.normal,
+                color: Colors.white,
               ),
             ),
-            Container(
-              padding: EdgeInsets.only(top: 2),
-              child: Text(
-                "💵 \$89,02",
-                style: TextStyle(
-                  fontSize: 18,
-                  fontFamily: 'Montserrat',
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
+            Text(
+              "\$189,00",
+              style: TextStyle(
+                fontSize: 18,
+                fontFamily: 'Montserrat',
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
               ),
             ),
           ],
         ),
-        Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
+        Wrap(
+          direction: Axis.vertical,
           children: [
-            Container(
-              padding: EdgeInsets.only(top: 2, left: 70),
-              child: Text(
-                "Venta",
-                style: TextStyle(
-                  fontSize: 14,
-                  fontFamily: 'Raleway',
-                  fontWeight: FontWeight.normal,
-                  color: Colors.white,
-                ),
+            Text(
+              "Venta",
+              style: TextStyle(
+                fontSize: 14,
+                fontFamily: 'Raleway',
+                fontWeight: FontWeight.normal,
+                color: Colors.white,
               ),
             ),
-            Container(
-              padding: EdgeInsets.only(top: 2, left: 70),
-              child: Text(
-                "💵 \$156,78",
-                style: TextStyle(
-                  fontSize: 18,
-                  fontFamily: 'Montserrat',
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
+            Text(
+              "\$95,00",
+              style: TextStyle(
+                fontSize: 18,
+                fontFamily: 'Montserrat',
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
+          ],
+        ),
+        Wrap(
+          direction: Axis.vertical,
+          children: [
+            Text(
+              "Ahorro",
+              style: TextStyle(
+                fontSize: 14,
+                fontFamily: 'Raleway',
+                fontWeight: FontWeight.normal,
+                color: Colors.white,
+              ),
+            ),
+            Text(
+              "\$156,75",
+              style: TextStyle(
+                fontSize: 18,
+                fontFamily: 'Montserrat',
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
               ),
             ),
           ],

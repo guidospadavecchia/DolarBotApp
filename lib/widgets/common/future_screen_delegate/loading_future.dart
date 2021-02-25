@@ -9,18 +9,18 @@ class LoadingFuture extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      child: Center(
-        child: SizedBox(
-          width: 64,
-          height: 64,
-          child: LoadingIndicator(
-            indicatorType: Indicator.ballScale,
-            color: ThemeManager.getPrimaryAccentColor(context),
-          ),
+    return Container(
+      alignment: Alignment.center,
+      color: Colors.red,
+      //height: MediaQuery.of(context).size.height - 210,
+      child: SizedBox(
+        width: 64,
+        height: 64,
+        child: LoadingIndicator(
+          indicatorType: Indicator.ballScale,
+          color: ThemeManager.getForegroundColor(),
         ),
       ),
-      padding: EdgeInsets.only(top: 30, bottom: 10),
     );
   }
 }

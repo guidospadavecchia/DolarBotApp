@@ -43,14 +43,14 @@ class FabMenu extends StatelessWidget {
             child: FabCircularMenu(
               key: fabKey,
               alignment: Alignment.bottomRight,
-              fabColor: ThemeManager.getPrimaryAccentColor(context),
+              fabColor: ThemeManager.getForegroundColor(),
               fabOpenIcon: Icon(
                 Icons.more_horiz,
-                color: ThemeManager.getGlobalBackgroundColor(context),
+                color: Colors.black87,
               ),
               fabCloseIcon: Icon(
                 Icons.close,
-                color: ThemeManager.getGlobalBackgroundColor(context),
+                color: Colors.black87,
               ),
               fabMargin: EdgeInsets.only(bottom: 20, right: 20),
               fabSize: 64,

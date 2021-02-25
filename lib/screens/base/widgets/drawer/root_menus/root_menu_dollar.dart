@@ -1,5 +1,6 @@
 import 'package:dolarbot_app/api/api_endpoints.dart';
 import 'package:dolarbot_app/api/responses/dollarResponse.dart';
+import 'package:dolarbot_app/classes/constants.dart';
 import 'package:dolarbot_app/classes/dolarbot_icons.dart';
 import 'package:dolarbot_app/screens/base/widgets/drawer/drawer_menu_body.dart';
 import 'package:dolarbot_app/screens/fiat_currency_info/fiat_currency_info_screen.dart';
@@ -10,6 +11,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 class RootMenuDollar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    const String _title = 'Dólar';
+
     return MenuItem(
       text: "Dólar",
       leading: getIconData(context, FontAwesomeIcons.dollarSign),
@@ -24,6 +27,7 @@ class RootMenuDollar extends StatelessWidget {
               context,
               FiatCurrencyInfoScreen<DollarResponse>(
                 title: "Dolar Oficial",
+                gradiantColors: DolarBotConstants.kGradiantDefault,
                 dollarEndpoint: DollarEndpoints.oficial,
               ),
             )
@@ -38,6 +42,7 @@ class RootMenuDollar extends StatelessWidget {
               context,
               FiatCurrencyInfoScreen<DollarResponse>(
                 title: "Dolar Ahorro",
+                gradiantColors: DolarBotConstants.kGradiantDefault,
                 dollarEndpoint: DollarEndpoints.ahorro,
               ),
             )
@@ -52,6 +57,7 @@ class RootMenuDollar extends StatelessWidget {
               context,
               FiatCurrencyInfoScreen<DollarResponse>(
                 title: "Dolar Blue",
+                gradiantColors: DolarBotConstants.kGradiantDefault,
                 dollarEndpoint: DollarEndpoints.blue,
               ),
             )
@@ -66,6 +72,7 @@ class RootMenuDollar extends StatelessWidget {
               context,
               FiatCurrencyInfoScreen<DollarResponse>(
                 title: "Dolar Bolsa (MEP)",
+                gradiantColors: DolarBotConstants.kGradiantDefault,
                 dollarEndpoint: DollarEndpoints.bolsa,
               ),
             )
@@ -80,6 +87,7 @@ class RootMenuDollar extends StatelessWidget {
               context,
               FiatCurrencyInfoScreen<DollarResponse>(
                 title: 'Dólar Contado con Liqui',
+                gradiantColors: DolarBotConstants.kGradiantDefault,
                 dollarEndpoint: DollarEndpoints.contadoLiqui,
               ),
             )
@@ -94,6 +102,7 @@ class RootMenuDollar extends StatelessWidget {
               context,
               FiatCurrencyInfoScreen<DollarResponse>(
                 title: 'Dólar Promedio',
+                gradiantColors: DolarBotConstants.kGradiantDefault,
                 dollarEndpoint: DollarEndpoints.promedio,
               ),
             )
@@ -112,7 +121,10 @@ class RootMenuDollar extends StatelessWidget {
                 navigateTo(
                   context,
                   FiatCurrencyInfoScreen<DollarResponse>(
-                    title: 'Dólar - BBVA',
+                    title: _title,
+                    headerIconAsset: DolarBotIcons.banks.bbva,
+                    headerTitle: "Banco BBVA",
+                    gradiantColors: DolarBotConstants.kGradiantBBVA,
                     dollarEndpoint: DollarEndpoints.bbva,
                   ),
                 )
@@ -126,7 +138,10 @@ class RootMenuDollar extends StatelessWidget {
                 navigateTo(
                   context,
                   FiatCurrencyInfoScreen<DollarResponse>(
-                    title: 'Dólar - Nuevo Banco del Chaco',
+                    title: _title,
+                    headerIconAsset: DolarBotIcons.banks.chaco,
+                    headerTitle: "Nuevo Banco del Chaco",
+                    gradiantColors: DolarBotConstants.kGradiantChaco,
                     dollarEndpoint: DollarEndpoints.chaco,
                   ),
                 )
@@ -140,7 +155,10 @@ class RootMenuDollar extends StatelessWidget {
                 navigateTo(
                   context,
                   FiatCurrencyInfoScreen<DollarResponse>(
-                    title: 'Dólar - Banco Ciudad',
+                    title: _title,
+                    headerIconAsset: DolarBotIcons.banks.ciudad,
+                    headerTitle: "Banco Ciudad",
+                    gradiantColors: DolarBotConstants.kGradiantCiudad,
                     dollarEndpoint: DollarEndpoints.ciudad,
                   ),
                 )
@@ -154,7 +172,10 @@ class RootMenuDollar extends StatelessWidget {
                 navigateTo(
                   context,
                   FiatCurrencyInfoScreen<DollarResponse>(
-                    title: 'Dólar - Banco Comafi',
+                    title: _title,
+                    headerIconAsset: DolarBotIcons.banks.comafi,
+                    headerTitle: "Banco Comafi",
+                    gradiantColors: DolarBotConstants.kGradiantComafi,
                     dollarEndpoint: DollarEndpoints.comafi,
                   ),
                 )
@@ -168,7 +189,10 @@ class RootMenuDollar extends StatelessWidget {
                 navigateTo(
                   context,
                   FiatCurrencyInfoScreen<DollarResponse>(
-                    title: 'Dólar - Banco de Córdoba',
+                    title: _title,
+                    headerIconAsset: DolarBotIcons.banks.cordoba,
+                    headerTitle: "Banco de Córdoba",
+                    gradiantColors: DolarBotConstants.kGradiantCordoba,
                     dollarEndpoint: DollarEndpoints.bancor,
                   ),
                 )
@@ -182,7 +206,10 @@ class RootMenuDollar extends StatelessWidget {
                 navigateTo(
                   context,
                   FiatCurrencyInfoScreen<DollarResponse>(
-                    title: 'Dólar - Banco Galicia',
+                    title: _title,
+                    headerIconAsset: DolarBotIcons.banks.galicia,
+                    headerTitle: "Banco Galicia",
+                    gradiantColors: DolarBotConstants.kGradiantGalicia,
                     dollarEndpoint: DollarEndpoints.galicia,
                   ),
                 )
@@ -196,7 +223,10 @@ class RootMenuDollar extends StatelessWidget {
                 navigateTo(
                   context,
                   FiatCurrencyInfoScreen<DollarResponse>(
-                    title: 'Dólar - Hipotecario',
+                    title: _title,
+                    headerIconAsset: DolarBotIcons.banks.hipotecario,
+                    headerTitle: "Banco Hipotecario",
+                    gradiantColors: DolarBotConstants.kGradiantHipotecario,
                     dollarEndpoint: DollarEndpoints.hipotecario,
                   ),
                 )
@@ -210,7 +240,10 @@ class RootMenuDollar extends StatelessWidget {
                 navigateTo(
                   context,
                   FiatCurrencyInfoScreen<DollarResponse>(
-                    title: 'Dólar - Banco Industrial (BIND)',
+                    title: _title,
+                    headerIconAsset: DolarBotIcons.banks.bind,
+                    headerTitle: "Banco Industrial",
+                    gradiantColors: DolarBotConstants.kGradiantIndustrial,
                     dollarEndpoint: DollarEndpoints.bind,
                   ),
                 )
@@ -224,7 +257,10 @@ class RootMenuDollar extends StatelessWidget {
                 navigateTo(
                   context,
                   FiatCurrencyInfoScreen<DollarResponse>(
-                    title: 'Dólar - Banco de La Pampa',
+                    title: _title,
+                    headerIconAsset: DolarBotIcons.banks.pampa,
+                    headerTitle: "Banco de La Pampa",
+                    gradiantColors: DolarBotConstants.kGradiantPampa,
                     dollarEndpoint: DollarEndpoints.pampa,
                   ),
                 )
@@ -238,7 +274,10 @@ class RootMenuDollar extends StatelessWidget {
                 navigateTo(
                   context,
                   FiatCurrencyInfoScreen<DollarResponse>(
-                    title: 'Dólar - Banco Nación',
+                    title: _title,
+                    headerIconAsset: DolarBotIcons.banks.nacion,
+                    headerTitle: "Banco Nación",
+                    gradiantColors: DolarBotConstants.kGradiantNacion,
                     dollarEndpoint: DollarEndpoints.nacion,
                   ),
                 )
@@ -252,7 +291,10 @@ class RootMenuDollar extends StatelessWidget {
                 navigateTo(
                   context,
                   FiatCurrencyInfoScreen<DollarResponse>(
-                    title: 'Dólar - Banco Patagonia',
+                    title: _title,
+                    headerIconAsset: DolarBotIcons.banks.patagonia,
+                    headerTitle: "Banco Patagonia",
+                    gradiantColors: DolarBotConstants.kGradiantPatagonia,
                     dollarEndpoint: DollarEndpoints.patagonia,
                   ),
                 )
@@ -266,7 +308,10 @@ class RootMenuDollar extends StatelessWidget {
                 navigateTo(
                   context,
                   FiatCurrencyInfoScreen<DollarResponse>(
-                    title: 'Dólar - Banco Piano',
+                    title: _title,
+                    headerIconAsset: DolarBotIcons.banks.piano,
+                    headerTitle: "Banco Piano",
+                    gradiantColors: DolarBotConstants.kGradiantPiano,
                     dollarEndpoint: DollarEndpoints.piano,
                   ),
                 )
@@ -280,7 +325,10 @@ class RootMenuDollar extends StatelessWidget {
                 navigateTo(
                   context,
                   FiatCurrencyInfoScreen<DollarResponse>(
-                    title: 'Dólar - Banco Santander',
+                    title: _title,
+                    headerIconAsset: DolarBotIcons.banks.santander,
+                    headerTitle: "Banco Santander",
+                    gradiantColors: DolarBotConstants.kGradiantSantander,
                     dollarEndpoint: DollarEndpoints.santander,
                   ),
                 )
@@ -294,7 +342,10 @@ class RootMenuDollar extends StatelessWidget {
                 navigateTo(
                   context,
                   FiatCurrencyInfoScreen<DollarResponse>(
-                    title: 'Dólar - Banco Supervielle',
+                    title: _title,
+                    headerIconAsset: DolarBotIcons.banks.supervielle,
+                    headerTitle: "Banco Supervielle",
+                    gradiantColors: DolarBotConstants.kGradiantSupervielle,
                     dollarEndpoint: DollarEndpoints.supervielle,
                   ),
                 )

@@ -1,10 +1,14 @@
 import 'package:dolarbot_app/api/responses/base/genericCurrencyResponse.dart';
+import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:dolarbot_app/interfaces/share_info.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
 
 class FiatCurrencyInfoScreen<T extends GenericCurrencyResponse>
     extends BaseInfoScreen {
   final String title;
+  final String headerTitle;
+  final String headerIconAsset;
+  final List<Color> gradiantColors;
   final DollarEndpoints dollarEndpoint;
   final EuroEndpoints euroEndpoint;
   final RealEndpoints realEndpoint;
@@ -12,6 +16,9 @@ class FiatCurrencyInfoScreen<T extends GenericCurrencyResponse>
   FiatCurrencyInfoScreen(
       {Key key,
       this.title,
+      this.headerTitle,
+      this.headerIconAsset,
+      this.gradiantColors,
       this.dollarEndpoint,
       this.euroEndpoint,
       this.realEndpoint})
@@ -47,40 +54,39 @@ class _FiatCurrencyInfoScreenState<T extends GenericCurrencyResponse>
   );
 
   @override
+  Color setColorAppbar() => ThemeManager.getForegroundColor();
+
+  @override
   Widget body() {
-    return Container(
-      alignment: Alignment.center,
-      padding: EdgeInsets.only(bottom: 80),
-      child: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        physics: BouncingScrollPhysics(),
-        child: FutureScreenDelegate<T>(
-          response: _getResponse<T>(),
-          screen: (data) {
-            WidgetsBinding.instance.addPostFrameCallback(
-                (_) => setActiveData(data, getShareInfo(data)));
-            return CurrencyInfoContainer(
-              items: [
+    return SingleChildScrollView(
+      scrollDirection: Axis.vertical,
+      physics: BouncingScrollPhysics(),
+      child: FutureScreenDelegate<T>(
+        response: _getResponse<T>(),
+        screen: (data) {
+          WidgetsBinding.instance.addPostFrameCallback(
+              (_) => setActiveData(data, getShareInfo(data)));
+          return CurrencyInfoContainer(
+            items: [
+              CurrencyInfo(
+                title: "COMPRA",
+                symbol: '\$',
+                value: data.buyPrice,
+              ),
+              CurrencyInfo(
+                title: "VENTA",
+                symbol: '\$',
+                value: data.sellPrice,
+              ),
+              if (data.sellPriceWithTaxes != null)
                 CurrencyInfo(
-                  title: "COMPRA",
+                  title: "VENTA + IMPUESTOS",
                   symbol: '\$',
-                  value: data.buyPrice,
+                  value: data.sellPriceWithTaxes,
                 ),
-                CurrencyInfo(
-                  title: "VENTA",
-                  symbol: '\$',
-                  value: data.sellPrice,
-                ),
-                if (data.sellPriceWithTaxes != null)
-                  CurrencyInfo(
-                    title: "VENTA + IMPUESTOS",
-                    symbol: '\$',
-                    value: data.sellPriceWithTaxes,
-                  ),
-              ],
-            );
-          },
-        ),
+            ],
+          );
+        },
       ),
     );
   }

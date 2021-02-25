@@ -1,5 +1,6 @@
 import 'package:dolarbot_app/api/api_endpoints.dart';
 import 'package:dolarbot_app/api/responses/realResponse.dart';
+import 'package:dolarbot_app/classes/constants.dart';
 import 'package:dolarbot_app/classes/dolarbot_icons.dart';
 import 'package:dolarbot_app/screens/base/widgets/drawer/drawer_menu_body.dart';
 import 'package:dolarbot_app/screens/fiat_currency_info/fiat_currency_info_screen.dart';
@@ -9,6 +10,8 @@ import 'package:flutter/material.dart';
 class RootMenuReal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    const String _title = 'Real';
+
     return MenuItem(
       text: "Real",
       leading: getIconAsset(context, DolarBotIcons.general.real),
@@ -22,7 +25,10 @@ class RootMenuReal extends StatelessWidget {
             navigateTo(
               context,
               FiatCurrencyInfoScreen<RealResponse>(
-                title: 'Real - Banco BBVA',
+                title: _title,
+                headerIconAsset: DolarBotIcons.banks.bbva,
+                headerTitle: "Banco BBVA",
+                gradiantColors: DolarBotConstants.kGradiantBBVA,
                 realEndpoint: RealEndpoints.bbva,
               ),
             )
@@ -36,7 +42,10 @@ class RootMenuReal extends StatelessWidget {
             navigateTo(
               context,
               FiatCurrencyInfoScreen<RealResponse>(
-                title: 'Real - Nuevo Banco del Chaco',
+                title: _title,
+                headerIconAsset: DolarBotIcons.banks.chaco,
+                headerTitle: "Nuevo Banco del Chaco",
+                gradiantColors: DolarBotConstants.kGradiantChaco,
                 realEndpoint: RealEndpoints.chaco,
               ),
             )
@@ -50,7 +59,10 @@ class RootMenuReal extends StatelessWidget {
             navigateTo(
               context,
               FiatCurrencyInfoScreen<RealResponse>(
-                title: 'Real - Banco Nación',
+                title: _title,
+                headerIconAsset: DolarBotIcons.banks.nacion,
+                headerTitle: "Banco Nación",
+                gradiantColors: DolarBotConstants.kGradiantNacion,
                 realEndpoint: RealEndpoints.nacion,
               ),
             )

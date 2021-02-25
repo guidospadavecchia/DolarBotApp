@@ -1,4 +1,5 @@
 import 'package:dolarbot_app/api/api_endpoints.dart';
+import 'package:dolarbot_app/classes/constants.dart';
 import 'package:dolarbot_app/classes/dolarbot_icons.dart';
 import 'package:dolarbot_app/screens/base/widgets/drawer/drawer_menu_body.dart';
 import 'package:dolarbot_app/screens/metal_info/metal_info_screen.dart';
@@ -9,6 +10,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 class RootMenuMetals extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    const String _title = 'Metales';
+
     return MenuItem(
       text: "Metales",
       leading: getIconData(context, FontAwesomeIcons.sketch),
@@ -22,7 +25,10 @@ class RootMenuMetals extends StatelessWidget {
             navigateTo(
               context,
               MetalInfoScreen(
-                title: "Oro",
+                title: _title,
+                headerIconAsset: DolarBotIcons.metals.gold,
+                headerTitle: "Oro",
+                gradiantColors: DolarBotConstants.kGradiantGold,
                 metalEndpoint: MetalEndpoints.oro,
               ),
             )
@@ -36,7 +42,10 @@ class RootMenuMetals extends StatelessWidget {
             navigateTo(
               context,
               MetalInfoScreen(
-                title: "Plata",
+                title: _title,
+                headerIconAsset: DolarBotIcons.metals.silver,
+                headerTitle: "Plata",
+                gradiantColors: DolarBotConstants.kGradiantSilver,
                 metalEndpoint: MetalEndpoints.plata,
               ),
             )
@@ -50,7 +59,10 @@ class RootMenuMetals extends StatelessWidget {
             navigateTo(
               context,
               MetalInfoScreen(
-                title: "Cobre",
+                title: _title,
+                headerIconAsset: DolarBotIcons.metals.copper,
+                headerTitle: "Cobre",
+                gradiantColors: DolarBotConstants.kGradiantCopper,
                 metalEndpoint: MetalEndpoints.cobre,
               ),
             )

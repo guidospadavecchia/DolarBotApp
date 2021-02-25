@@ -1,4 +1,5 @@
 import 'package:dolarbot_app/api/responses/base/apiResponse.dart';
+import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:dolarbot_app/models/active_screen_data.dart';
 import 'package:dolarbot_app/screens/base/widgets/drawer/drawer_menu.dart';
 import 'package:dolarbot_app/screens/base/widgets/fab_menu/fab_menu.dart';
@@ -16,11 +17,20 @@ export 'package:provider/provider.dart';
 
 abstract class BaseInfoScreen extends StatefulWidget {
   final String title;
+  final String headerTitle;
+  final String headerIconAsset;
+  final IconData headerIconData;
+  final List<Color> gradiantColors;
 
   BaseInfoScreen({
     Key key,
     this.title,
-  }) : super(key: key);
+    this.headerTitle,
+    this.headerIconAsset,
+    this.headerIconData,
+    this.gradiantColors,
+  })  : assert(headerIconAsset == null || headerIconData == null),
+        super(key: key);
 }
 
 abstract class BaseInfoScreenState<Page extends BaseInfoScreen>
@@ -33,6 +43,8 @@ abstract class BaseInfoScreenState<Page extends BaseInfoScreen>
   bool showShareButton() => true;
   bool showClipboardButton() => true;
   bool showCalculatorButton() => true;
+  bool extendBodyBehindAppBar() => true;
+  Color setColorAppbar() => ThemeManager.getPrimaryTextColor(context);
 }
 
 mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
@@ -49,9 +61,11 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: extendBodyBehindAppBar(),
       appBar: CoolAppBar(
         title: widget.title,
         isMainMenu: isMainMenu(),
+        foregroundColor: setColorAppbar(),
         showRefreshButton: showRefreshButton(),
         onRefresh: () => _refresh(),
       ),
@@ -65,7 +79,36 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
       ),
       drawerEdgeDragWidth: 200,
       drawerEnableOpenDragGesture: true,
-      body: body(),
+      body: (widget.headerTitle != null || isMainMenu())
+          ? Container(
+              padding: widget.headerTitle != null
+                  ? EdgeInsets.only(top: 105)
+                  : EdgeInsets.only(top: 0),
+              height: double.infinity,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: widget.gradiantColors == null
+                      ? [
+                          ThemeManager.getGlobalBackgroundColor(context),
+                          ThemeManager.getGlobalBackgroundColor(context),
+                        ]
+                      : widget.gradiantColors,
+                ),
+              ),
+              child: Wrap(
+                runAlignment: widget.headerTitle != null
+                    ? WrapAlignment.start
+                    : WrapAlignment.center,
+                runSpacing: 0,
+                children: [
+                  header(),
+                  body(),
+                ],
+              ),
+            )
+          : body(),
       floatingActionButton: showFabMenu()
           ? FabMenu(
               fabKey: fabKey,
@@ -96,4 +139,58 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
   }
 
   Widget body();
+
+  Widget header() {
+    if (widget.headerTitle != null) {
+      return Container(
+        color: Colors.black12,
+        padding: const EdgeInsets.all(20),
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            widget.headerIconAsset != null
+                ? Container(
+                    child: Image.asset(
+                      widget.headerIconAsset,
+                      width: 36,
+                      height: 36,
+                      filterQuality: FilterQuality.high,
+                      color: Colors.white,
+                    ),
+                  )
+                : Container(
+                    child: Icon(
+                      widget.headerIconData,
+                      size: 36,
+                      color: Colors.white,
+                    ),
+                  ),
+            SizedBox(width: 20),
+            Container(
+              constraints: BoxConstraints(
+                  maxWidth: MediaQuery.of(context).size.width * 0.7),
+              child: FittedBox(
+                fit: widget.headerTitle.length > 10
+                    ? BoxFit.fitWidth
+                    : BoxFit.none,
+                child: Text(
+                  widget.headerTitle,
+                  style: TextStyle(
+                    fontSize: 28,
+                    fontFamily: 'Raleway',
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+    } else {
+      return SizedBox.shrink();
+    }
+  }
 }

@@ -27,6 +27,10 @@ class ThemeManager {
     return _accentColor;
   }
 
+  static Color getForegroundColor() {
+    return Colors.grey[200];
+  }
+
   static Color getPrimaryTextColor(BuildContext context) {
     return AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
         ? Colors.grey[700]

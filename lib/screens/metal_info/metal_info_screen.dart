@@ -4,11 +4,17 @@ import 'package:dolarbot_app/screens/base/base_info_screen.dart';
 
 class MetalInfoScreen extends BaseInfoScreen {
   final String title;
+  final String headerTitle;
+  final String headerIconAsset;
+  final List<Color> gradiantColors;
   final MetalEndpoints metalEndpoint;
 
   MetalInfoScreen({
     this.title,
     @required this.metalEndpoint,
+    this.headerTitle,
+    this.headerIconAsset,
+    this.gradiantColors,
   }) : super(title: title);
 
   @override
@@ -24,25 +30,25 @@ class _MetalInfoScreenState extends BaseInfoScreenState<MetalInfoScreen>
 
   @override
   Widget body() {
-    return Container(
-      alignment: Alignment.center,
-      padding: EdgeInsets.only(bottom: 80),
-      child: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        physics: BouncingScrollPhysics(),
-        child: FutureScreenDelegate<MetalResponse>(
-          response:
-              API.getMetalRate(metalEndpoint, forceRefresh: shouldForceRefresh),
-          screen: (data) {
-            WidgetsBinding.instance.addPostFrameCallback(
-                (_) => setActiveData(data, getShareInfo(data)));
-            return CurrencyInfo(
-              title: '/ ${data.unit}',
-              symbol: data.currency == 'USD' ? 'US\$' : '\$',
-              value: data.value,
-            );
-          },
-        ),
+    return SingleChildScrollView(
+      scrollDirection: Axis.vertical,
+      physics: BouncingScrollPhysics(),
+      child: FutureScreenDelegate<MetalResponse>(
+        response:
+            API.getMetalRate(metalEndpoint, forceRefresh: shouldForceRefresh),
+        screen: (data) {
+          WidgetsBinding.instance.addPostFrameCallback(
+              (_) => setActiveData(data, getShareInfo(data)));
+          return CurrencyInfoContainer(
+            items: [
+              CurrencyInfo(
+                title: '/ ${data.unit}',
+                symbol: data.currency == 'USD' ? 'US\$' : '\$',
+                value: data.value,
+              ),
+            ],
+          );
+        },
       ),
     );
   }
