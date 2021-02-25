@@ -3,7 +3,8 @@ import 'package:dolarbot_app/classes/globals.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:dolarbot_app/models/active_screen_data.dart';
 import 'package:dolarbot_app/models/settings.dart';
-import 'package:dolarbot_app/screens/base/widgets/fab_menu/calculator/fab_option_fiat_calculator.dart';
+import 'package:dolarbot_app/screens/base/widgets/fab_menu/calculator/dialog/fab_option_calculator_dialog.dart';
+import 'package:dolarbot_app/screens/base/widgets/fab_menu/calculator/fiat_currency_calculator.dart';
 import 'package:dolarbot_app/screens/base/widgets/fab_menu/fab_menu_option.dart';
 import 'package:dolarbot_app/util/util.dart';
 import 'package:dolarbot_app/widgets/common/dialog_button.dart';
@@ -139,47 +140,72 @@ class FabMenu extends StatelessWidget {
 
           if (activeData is GenericCurrencyResponse) {
             GenericCurrencyResponse data = activeData;
-            return FabOptionFiatCalculator(
-              buyValue: double.tryParse(data?.buyPrice ?? ''),
-              sellValue: double.tryParse(data?.sellPrice ?? ''),
-              sellValueWithTaxes:
-                  double.tryParse(data?.sellPriceWithTaxes ?? ''),
-              symbol: Util.getFiatCurrencySymbol(data),
-              decimalSeparator: decimalSeparator,
-              thousandSeparator: thousandSeparator,
+            return _getFiatCurrencyCalculatorDialog(
+              context,
+              data,
+              decimalSeparator,
+              thousandSeparator,
             );
           }
         }
 
         //TODO Crypto, Metals & Venezuela calculator
 
-        return Dialog(
-          child: Container(
-            width: 300,
-            height: 150,
-            alignment: Alignment.center,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Text(
-                  'Opción no soportada',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontFamily: 'Raleway',
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                DialogButton(
-                  icon: Icons.close,
-                  text: "Cerrar",
-                  onPressed: () => Navigator.of(context).pop(),
-                )
-              ],
-            ),
-          ),
-        );
+        return _getNotSupportedDialog(context);
       },
     );
     closeFabMenu();
+  }
+
+  Dialog _getNotSupportedDialog(BuildContext context) {
+    return Dialog(
+      child: Container(
+        width: 300,
+        height: 150,
+        alignment: Alignment.center,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Text(
+              'Opción no soportada',
+              style: TextStyle(
+                fontSize: 18,
+                fontFamily: 'Raleway',
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            DialogButton(
+              icon: Icons.close,
+              text: "Cerrar",
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  FabOptionCalculatorDialog _getFiatCurrencyCalculatorDialog(
+      BuildContext context,
+      GenericCurrencyResponse data,
+      String decimalSeparator,
+      String thousandSeparator) {
+    return FabOptionCalculatorDialog(
+        dialogHeight: _getCalculatorHeight(context,
+            [data?.buyPrice, data?.sellPrice, data?.sellPriceWithTaxes]),
+        calculator: FiatCurrencyCalculator(
+          buyValue: double.tryParse(data?.buyPrice ?? ''),
+          sellValue: double.tryParse(data?.sellPrice ?? ''),
+          sellValueWithTaxes: double.tryParse(data?.sellPriceWithTaxes ?? ''),
+          symbol: Util.getFiatCurrencySymbol(data),
+          decimalSeparator: decimalSeparator,
+          thousandSeparator: thousandSeparator,
+        ));
+  }
+
+  double _getCalculatorHeight(BuildContext context, List<String> values) {
+    final int valueCount =
+        values.where((x) => double.tryParse(x ?? '') != null).length;
+    return MediaQuery.of(context).size.height * (0.40 + (0.06 * valueCount));
   }
 }

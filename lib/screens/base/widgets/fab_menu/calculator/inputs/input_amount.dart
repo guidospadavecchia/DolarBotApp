@@ -2,10 +2,10 @@ import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
 
-class InputDollar extends StatelessWidget {
+class InputAmount extends StatelessWidget {
   final MoneyMaskedTextController textController;
 
-  const InputDollar({
+  const InputAmount({
     Key key,
     this.textController,
   }) : super(key: key);
