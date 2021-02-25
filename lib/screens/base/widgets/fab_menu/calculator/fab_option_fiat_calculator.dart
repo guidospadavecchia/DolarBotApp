@@ -9,6 +9,7 @@ import 'package:flutter_masked_text/flutter_masked_text.dart';
 class FabOptionFiatCalculator extends StatefulWidget {
   final double buyValue;
   final double sellValue;
+  final double sellValueWithTaxes;
   final String symbol;
   final String decimalSeparator;
   final String thousandSeparator;
@@ -17,6 +18,7 @@ class FabOptionFiatCalculator extends StatefulWidget {
     Key key,
     this.buyValue,
     this.sellValue,
+    this.sellValueWithTaxes,
     @required this.symbol,
     @required this.decimalSeparator,
     @required this.thousandSeparator,
@@ -32,6 +34,7 @@ class _FabOptionFiatCalculatorState extends State<FabOptionFiatCalculator> {
   MoneyMaskedTextController _textControllerInput;
   MoneyMaskedTextController _textControllerBuyValue;
   MoneyMaskedTextController _textControllerSellValue;
+  MoneyMaskedTextController _textControllerSellValueWithTaxes;
 
   @override
   void initState() {
@@ -49,13 +52,14 @@ class _FabOptionFiatCalculatorState extends State<FabOptionFiatCalculator> {
     _textControllerInput.dispose();
     if (widget.buyValue != null) _textControllerBuyValue.dispose();
     if (widget.sellValue != null) _textControllerSellValue.dispose();
+    if (widget.sellValueWithTaxes != null)
+      _textControllerSellValueWithTaxes.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    double containerHeight = MediaQuery.of(context).size.height *
-        (widget.buyValue == null || widget.sellValue == null ? 0.35 : 0.45);
+    double containerHeight = _getHeight(context);
     double containerWidth = MediaQuery.of(context).size.width * 0.85;
 
     return Dialog(
@@ -87,6 +91,11 @@ class _FabOptionFiatCalculatorState extends State<FabOptionFiatCalculator> {
                 title: "Comprás a",
                 textController: _textControllerSellValue,
               ),
+            if (widget.sellValueWithTaxes != null)
+              InputConverted(
+                title: "Comprás con impuestos a",
+                textController: _textControllerSellValueWithTaxes,
+              ),
             if (widget.buyValue != null)
               InputConverted(
                 title: "Vendés a",
@@ -101,6 +110,16 @@ class _FabOptionFiatCalculatorState extends State<FabOptionFiatCalculator> {
         ),
       ),
     );
+  }
+
+  double _getHeight(BuildContext context) {
+    List<double> values = [
+      widget.buyValue,
+      widget.sellValue,
+      widget.sellValueWithTaxes
+    ];
+    final int valueCount = values.where((x) => x != null).length;
+    return MediaQuery.of(context).size.height * (0.40 + (0.05 * valueCount));
   }
 
   void createControllers() {
@@ -123,6 +142,13 @@ class _FabOptionFiatCalculatorState extends State<FabOptionFiatCalculator> {
           thousandSeparator: widget.thousandSeparator,
           leftSymbol: "\$ ");
     }
+    if (widget.sellValueWithTaxes != null) {
+      _textControllerSellValueWithTaxes = MoneyMaskedTextController(
+          precision: 2,
+          decimalSeparator: widget.decimalSeparator,
+          thousandSeparator: widget.thousandSeparator,
+          leftSymbol: "\$ ");
+    }
   }
 
   void _setConversion() {
@@ -133,6 +159,10 @@ class _FabOptionFiatCalculatorState extends State<FabOptionFiatCalculator> {
     if (widget.sellValue != null) {
       _textControllerSellValue
           .updateValue(_textControllerInput.numberValue * widget.sellValue);
+    }
+    if (widget.sellValueWithTaxes != null) {
+      _textControllerSellValueWithTaxes.updateValue(
+          _textControllerInput.numberValue * widget.sellValueWithTaxes);
     }
   }
 }

@@ -140,8 +140,10 @@ class FabMenu extends StatelessWidget {
           if (activeData is GenericCurrencyResponse) {
             GenericCurrencyResponse data = activeData;
             return FabOptionFiatCalculator(
-              buyValue: double.tryParse(data.buyPrice),
-              sellValue: double.tryParse(data.sellPrice),
+              buyValue: double.tryParse(data?.buyPrice ?? ''),
+              sellValue: double.tryParse(data?.sellPrice ?? ''),
+              sellValueWithTaxes:
+                  double.tryParse(data?.sellPriceWithTaxes ?? ''),
               symbol: Util.getFiatCurrencySymbol(data),
               decimalSeparator: decimalSeparator,
               thousandSeparator: thousandSeparator,
