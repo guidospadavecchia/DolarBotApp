@@ -18,7 +18,7 @@ class _HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
   showRefreshButton() => false;
 
   @override
-  bool showCalculatorButton() => false;
+  bool showFabMenu() => false;
 
   @override
   Widget body() {
