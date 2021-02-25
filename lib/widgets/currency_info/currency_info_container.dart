@@ -23,14 +23,14 @@ class CurrencyInfoContainer extends StatelessWidget {
                 Divider(
                     endIndent: 100,
                     indent: 100,
-                    height: getHeight(items.length))
+                    height: _getHeight(items.length))
             ],
           ),
       ],
     );
   }
 
-  double getHeight(int itemsLength) {
+  double _getHeight(int itemsLength) {
     if (itemsLength == 2) return 100;
     if (items.length >= 5) return 30;
 
