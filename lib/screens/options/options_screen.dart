@@ -58,10 +58,10 @@ class _OptionsScreenState extends BaseInfoScreenState<OptionsScreen>
             subtitle: "Cambia el formato de moneda entre AR y US",
             leading: Icon(FontAwesomeIcons.globeAmericas),
             depthLevel: 1,
-            disableHighlight: true,
             onTap: () => {
               _showFormatCurrencyDialog(context),
             },
+            isDrawerMenu: false,
           ),
           Divider(
             endIndent: 25,
@@ -72,7 +72,7 @@ class _OptionsScreenState extends BaseInfoScreenState<OptionsScreen>
             subtitle: "Versión del producto y enlaces",
             leading: Icon(FontAwesomeIcons.infoCircle),
             depthLevel: 1,
-            disableHighlight: true,
+            isDrawerMenu: false,
             onTap: () => Navigator.of(context).pushNamed("/about"),
           ),
         ],

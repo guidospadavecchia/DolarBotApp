@@ -69,16 +69,28 @@ class ThemeManager {
         : _accentColor;
   }
 
+  static Color getHighlightDrawerMenuItem(BuildContext context) {
+    return AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
+        ? Theme.of(context).highlightColor
+        : Color.fromRGBO(51, 148, 34, 1);
+  }
+
+  static Color getHighlightOptionMenuItem(BuildContext context) {
+    return AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
+        ? Theme.of(context).highlightColor
+        : Colors.grey[800];
+  }
+
   static ThemeData getThemeForDrawerMenu(BuildContext context,
-      {bool disableHighlight = false}) {
+      {bool disableHighlight = false, bool isDrawerMenu}) {
     return Theme.of(context).copyWith(
       accentColor: ThemeManager.getDrawerMenuItemIconColor(context),
       splashColor: Colors.transparent,
       highlightColor: disableHighlight
           ? Colors.transparent
-          : AdaptiveTheme.of(context).mode == AdaptiveThemeMode.dark
-              ? Color.fromRGBO(51, 148, 34, 1)
-              : Theme.of(context).highlightColor,
+          : isDrawerMenu
+              ? getHighlightDrawerMenuItem(context)
+              : getHighlightOptionMenuItem(context),
       unselectedWidgetColor: ThemeManager.getDrawerMenuItemIconColor(context),
       textTheme: TextTheme(
         bodyText1: TextStyle(

@@ -10,6 +10,7 @@ class MenuItem extends StatelessWidget {
   final int depthLevel;
   final List<MenuItem> subItems;
   final bool disableHighlight;
+  final bool isDrawerMenu;
 
   const MenuItem({
     @required this.text,
@@ -20,6 +21,7 @@ class MenuItem extends StatelessWidget {
     this.subItems,
     @required this.depthLevel,
     this.disableHighlight = false,
+    this.isDrawerMenu = true,
   });
 
   @override
@@ -33,7 +35,7 @@ class MenuItem extends StatelessWidget {
     return (subItems != null)
         ? Theme(
             data: ThemeManager.getThemeForDrawerMenu(context,
-                disableHighlight: disableHighlight),
+                disableHighlight: disableHighlight, isDrawerMenu: isDrawerMenu),
             child: (ExpansionTile(
               tilePadding: _calculatePaddingOffset(),
               title: Text(
@@ -64,7 +66,7 @@ class MenuItem extends StatelessWidget {
           )
         : Theme(
             data: ThemeManager.getThemeForDrawerMenu(context,
-                disableHighlight: disableHighlight),
+                disableHighlight: disableHighlight, isDrawerMenu: isDrawerMenu),
             child: (ListTile(
               contentPadding: _calculatePaddingOffset(),
               title: Text(
