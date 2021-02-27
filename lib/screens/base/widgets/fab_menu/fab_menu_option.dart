@@ -17,13 +17,13 @@ class FabMenuOption extends StatelessWidget {
       child: Material(
         color: ThemeManager.getForegroundColor(),
         child: InkWell(
-          splashColor: Colors.lightGreen[400],
+          splashColor: Colors.grey[400],
           child: SizedBox(
             width: 50,
             height: 50,
             child: Icon(
               icon,
-              color: ThemeManager.getGlobalBackgroundColor(context),
+              color: Colors.black87,
             ),
           ),
           onTap: () => onTap(),
