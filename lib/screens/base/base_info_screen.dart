@@ -138,51 +138,54 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
   @nonVirtual
   Widget banner() {
     if (widget.bannerTitle != null) {
-      return Container(
-        color: Colors.black12,
-        padding: const EdgeInsets.all(20),
-        child: Row(
-          mainAxisSize: MainAxisSize.max,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            widget.bannerIconAsset != null
-                ? Container(
-                    child: Image.asset(
-                      widget.bannerIconAsset,
-                      width: 36,
-                      height: 36,
-                      filterQuality: FilterQuality.high,
+      return Padding(
+        padding: const EdgeInsets.only(top: 30),
+        child: Container(
+          color: Colors.black12,
+          padding: const EdgeInsets.all(20),
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              widget.bannerIconAsset != null
+                  ? Container(
+                      child: Image.asset(
+                        widget.bannerIconAsset,
+                        width: 36,
+                        height: 36,
+                        filterQuality: FilterQuality.high,
+                        color: Colors.white,
+                      ),
+                    )
+                  : Container(
+                      child: Icon(
+                        widget.bannerIconData,
+                        size: 36,
+                        color: Colors.white,
+                      ),
+                    ),
+              SizedBox(width: 20),
+              Container(
+                constraints: BoxConstraints(
+                    maxWidth: MediaQuery.of(context).size.width * 0.7),
+                child: FittedBox(
+                  fit: widget.bannerTitle.length > 10
+                      ? BoxFit.fitWidth
+                      : BoxFit.none,
+                  child: Text(
+                    widget.bannerTitle,
+                    style: TextStyle(
+                      fontSize: 28,
+                      fontFamily: 'Raleway',
+                      fontWeight: FontWeight.bold,
                       color: Colors.white,
                     ),
-                  )
-                : Container(
-                    child: Icon(
-                      widget.bannerIconData,
-                      size: 36,
-                      color: Colors.white,
-                    ),
-                  ),
-            SizedBox(width: 20),
-            Container(
-              constraints: BoxConstraints(
-                  maxWidth: MediaQuery.of(context).size.width * 0.7),
-              child: FittedBox(
-                fit: widget.bannerTitle.length > 10
-                    ? BoxFit.fitWidth
-                    : BoxFit.none,
-                child: Text(
-                  widget.bannerTitle,
-                  style: TextStyle(
-                    fontSize: 28,
-                    fontFamily: 'Raleway',
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       );
     } else {

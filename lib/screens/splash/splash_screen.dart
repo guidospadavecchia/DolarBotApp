@@ -97,9 +97,7 @@ _waitAndGoHome(BuildContext context, int secondsToWait) {
       Navigator.pushReplacement(
         context,
         PageRouteBuilder(
-          pageBuilder: (context, animation1, animation2) => HomeScreen(
-            title: 'Home',
-          ),
+          pageBuilder: (context, animation1, animation2) => HomeScreen(),
           transitionDuration: Duration(milliseconds: 600),
           transitionsBuilder: (context, animation1, animation2, child) =>
               FadeTransition(

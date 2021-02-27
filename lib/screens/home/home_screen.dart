@@ -6,12 +6,9 @@ import 'package:dolarbot_app/screens/home/widgets/cards/banks/card_bank.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends BaseInfoScreen {
-  final String title;
-
   HomeScreen({
     Key key,
-    this.title,
-  }) : super(key: key, title: title);
+  }) : super(key: key, title: "Inicio");
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -39,7 +36,7 @@ class _HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
         child: Container(
           child: SingleChildScrollView(
             padding: EdgeInsets.only(
-                bottom: MediaQuery.of(context).viewInsets.bottom + 100),
+                bottom: MediaQuery.of(context).viewInsets.bottom + 110),
             scrollDirection: Axis.vertical,
             physics: BouncingScrollPhysics(),
             child: Column(

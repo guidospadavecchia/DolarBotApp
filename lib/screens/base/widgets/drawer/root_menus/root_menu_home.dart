@@ -13,9 +13,7 @@ class RootMenuHome extends StatelessWidget {
       leading: getIconData(context, FontAwesomeIcons.home),
       onTap: () => navigateTo(
         context,
-        HomeScreen(
-          title: "Home",
-        ),
+        HomeScreen(),
       ),
     );
   }
