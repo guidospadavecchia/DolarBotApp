@@ -26,7 +26,7 @@ class RootMenuDollar extends StatelessWidget {
             navigateTo(
               context,
               FiatCurrencyInfoScreen<DollarResponse>(
-                title: "Dolar Oficial",
+                title: "Dólar Oficial",
                 gradiantColors: DolarBotConstants.kGradiantDefault,
                 dollarEndpoint: DollarEndpoints.oficial,
               ),
@@ -41,7 +41,7 @@ class RootMenuDollar extends StatelessWidget {
             navigateTo(
               context,
               FiatCurrencyInfoScreen<DollarResponse>(
-                title: "Dolar Ahorro",
+                title: "Dólar Ahorro",
                 gradiantColors: DolarBotConstants.kGradiantDefault,
                 dollarEndpoint: DollarEndpoints.ahorro,
               ),
@@ -56,7 +56,7 @@ class RootMenuDollar extends StatelessWidget {
             navigateTo(
               context,
               FiatCurrencyInfoScreen<DollarResponse>(
-                title: "Dolar Blue",
+                title: "Dólar Blue",
                 gradiantColors: DolarBotConstants.kGradiantDefault,
                 dollarEndpoint: DollarEndpoints.blue,
               ),
@@ -71,7 +71,7 @@ class RootMenuDollar extends StatelessWidget {
             navigateTo(
               context,
               FiatCurrencyInfoScreen<DollarResponse>(
-                title: "Dolar Bolsa (MEP)",
+                title: "Dólar Bolsa (MEP)",
                 gradiantColors: DolarBotConstants.kGradiantDefault,
                 dollarEndpoint: DollarEndpoints.bolsa,
               ),
