@@ -89,7 +89,6 @@ class _FiatCurrencyCalculatorState
       children: [
         InputAmount(
           textController: _textControllerInput,
-          symbol: symbol,
         ),
         SizedBox(
           height: 30,

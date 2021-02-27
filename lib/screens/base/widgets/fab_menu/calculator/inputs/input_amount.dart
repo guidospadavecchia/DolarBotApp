@@ -5,13 +5,13 @@ import 'package:flutter_masked_text/flutter_masked_text.dart';
 
 class InputAmount extends StatelessWidget {
   final MoneyMaskedTextController textController;
-  final String symbol;
+  final String title;
   final int maxDigits;
 
   const InputAmount({
     Key key,
     @required this.textController,
-    this.symbol,
+    this.title,
     this.maxDigits = 10,
   }) : super(key: key);
 
@@ -23,7 +23,7 @@ class InputAmount extends StatelessWidget {
         autofocus: true,
         controller: textController,
         decoration: InputDecoration(
-          labelText: "Ingresá un monto:",
+          labelText: title ?? "Ingresá un monto:",
           labelStyle: TextStyle(
             fontSize: 18,
             height: 0.5,

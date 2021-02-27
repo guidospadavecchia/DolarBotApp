@@ -3,6 +3,8 @@ import 'package:dolarbot_app/classes/globals.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:dolarbot_app/models/active_screen_data.dart';
 import 'package:dolarbot_app/models/settings.dart';
+import 'package:dolarbot_app/screens/base/widgets/fab_menu/calculator/crypto_calculator.dart';
+import 'package:dolarbot_app/screens/base/widgets/fab_menu/calculator/crypto_calculator_reversed.dart';
 import 'package:dolarbot_app/screens/base/widgets/fab_menu/calculator/dialog/fab_option_calculator_dialog.dart';
 import 'package:dolarbot_app/screens/base/widgets/fab_menu/calculator/fiat_currency_calculator.dart';
 import 'package:dolarbot_app/screens/base/widgets/fab_menu/calculator/fiat_currency_calculator_reversed.dart';
@@ -148,9 +150,19 @@ class FabMenu extends StatelessWidget {
               thousandSeparator,
             );
           }
+
+          if (activeData is CryptoResponse) {
+            CryptoResponse data = activeData;
+            return _getCryptoCalculatorDialog(
+              context,
+              data,
+              decimalSeparator,
+              thousandSeparator,
+            );
+          }
         }
 
-        //TODO Crypto, Metals & Venezuela calculator
+        //TODO Metals & Venezuela calculator
 
         return _getNotSupportedDialog(context);
       },
@@ -206,6 +218,28 @@ class FabMenu extends StatelessWidget {
             : null,
         sellValueWithTaxes: double.tryParse(data?.sellPriceWithTaxes ?? ''),
         symbol: Util.getFiatCurrencySymbol(data),
+        decimalSeparator: decimalSeparator,
+        thousandSeparator: thousandSeparator,
+      ),
+    );
+  }
+
+  FabOptionCalculatorDialog _getCryptoCalculatorDialog(BuildContext context,
+      CryptoResponse data, String decimalSeparator, String thousandSeparator) {
+    return FabOptionCalculatorDialog(
+      calculator: CryptoCalculator(
+        arsValue: double.tryParse(data?.arsPrice ?? ''),
+        arsValueWithTaxes: double.tryParse(data?.arsPriceWithTaxes ?? ''),
+        usdValue: double.tryParse(data?.usdPrice ?? ''),
+        cryptoCode: "BTC",
+        //TODO Traer código de la cryptomoneda de la API
+        decimalSeparator: decimalSeparator,
+        thousandSeparator: thousandSeparator,
+      ),
+      calculatorReversed: CryptoCalculatorReversed(
+        usdValue: double.tryParse(data?.usdPrice ?? ''),
+        //TODO Traer código de la cryptomoneda de la API
+        cryptoCode: "BTC",
         decimalSeparator: decimalSeparator,
         thousandSeparator: thousandSeparator,
       ),
