@@ -4,20 +4,20 @@ import 'package:dolarbot_app/screens/base/base_info_screen.dart';
 class VenezuelaInfoScreen extends BaseInfoScreen {
   final String title;
   final String bannerTitle;
-  final String bannerIconAsset;
+  final IconData bannerIconData;
   final List<Color> gradiantColors;
   final VenezuelaEndpoints venezuelaEndpoint;
 
   VenezuelaInfoScreen({
     this.title,
-    this.bannerTitle,
-    this.bannerIconAsset,
+    @required this.bannerTitle,
+    @required this.bannerIconData,
     this.gradiantColors,
     @required this.venezuelaEndpoint,
   }) : super(
             title: title,
             bannerTitle: bannerTitle,
-            bannerIconAsset: bannerIconAsset);
+            bannerIconData: bannerIconData);
 
   @override
   _VenezuelaInfoScreenState createState() =>

@@ -6,6 +6,7 @@ import 'package:dolarbot_app/screens/base/widgets/fab_menu/fab_menu.dart';
 import 'package:dolarbot_app/widgets/common/cool_app_bar.dart';
 import 'package:fab_circular_menu/fab_circular_menu.dart';
 import 'package:flutter/material.dart';
+import 'package:meta/meta.dart';
 import 'package:provider/provider.dart';
 
 export 'package:dolarbot_app/api/api.dart';
@@ -134,6 +135,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
 
   Widget body();
 
+  @nonVirtual
   Widget banner() {
     if (widget.bannerTitle != null) {
       return Container(

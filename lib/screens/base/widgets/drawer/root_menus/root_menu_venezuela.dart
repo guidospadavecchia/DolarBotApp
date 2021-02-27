@@ -1,4 +1,5 @@
 import 'package:dolarbot_app/api/api_endpoints.dart';
+import 'package:dolarbot_app/classes/constants.dart';
 import 'package:dolarbot_app/classes/dolarbot_icons.dart';
 import 'package:dolarbot_app/screens/base/widgets/drawer/drawer_menu_body.dart';
 import 'package:dolarbot_app/screens/venezuela_info/venezuela_info_screen.dart';
@@ -9,6 +10,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 class RootMenuVenezuela extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    const String _title = 'Venezuela';
+
     return MenuItem(
       text: "Venezuela",
       leading: getIconAsset(context, DolarBotIcons.general.venezuela),
@@ -22,7 +25,10 @@ class RootMenuVenezuela extends StatelessWidget {
             navigateTo(
               context,
               VenezuelaInfoScreen(
-                title: 'Dolar (Venezuela)',
+                title: _title,
+                bannerTitle: 'Dólar',
+                gradiantColors: DolarBotConstants.kGradiantVenezuela,
+                bannerIconData: FontAwesomeIcons.dollarSign,
                 venezuelaEndpoint: VenezuelaEndpoints.dolar,
               ),
             )
@@ -36,7 +42,10 @@ class RootMenuVenezuela extends StatelessWidget {
             navigateTo(
               context,
               VenezuelaInfoScreen(
-                title: 'Euro (Venezuela)',
+                title: _title,
+                bannerTitle: 'Euro',
+                gradiantColors: DolarBotConstants.kGradiantVenezuela,
+                bannerIconData: FontAwesomeIcons.euroSign,
                 venezuelaEndpoint: VenezuelaEndpoints.euro,
               ),
             )

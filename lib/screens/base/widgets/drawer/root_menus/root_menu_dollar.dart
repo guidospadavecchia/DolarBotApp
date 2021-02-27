@@ -232,23 +232,23 @@ class RootMenuDollar extends StatelessWidget {
                 )
               },
             ),
-            MenuItem(
-              text: "BIND",
-              leading: getIconAsset(context, DolarBotIcons.banks.bind),
-              depthLevel: 3,
-              onTap: () => {
-                navigateTo(
-                  context,
-                  FiatCurrencyInfoScreen<DollarResponse>(
-                    title: _title,
-                    bannerIconAsset: DolarBotIcons.banks.bind,
-                    bannerTitle: "Banco Industrial",
-                    gradiantColors: DolarBotConstants.kGradiantIndustrial,
-                    dollarEndpoint: DollarEndpoints.bind,
-                  ),
-                )
-              },
-            ),
+            // MenuItem(
+            //   text: "BIND",
+            //   leading: getIconAsset(context, DolarBotIcons.banks.bind),
+            //   depthLevel: 3,
+            //   onTap: () => {
+            //     navigateTo(
+            //       context,
+            //       FiatCurrencyInfoScreen<DollarResponse>(
+            //         title: _title,
+            //         bannerIconAsset: DolarBotIcons.banks.bind,
+            //         bannerTitle: "Banco Industrial",
+            //         gradiantColors: DolarBotConstants.kGradiantIndustrial,
+            //         dollarEndpoint: DollarEndpoints.bind,
+            //       ),
+            //     )
+            //   },
+            // ),
             MenuItem(
               text: "La Pampa",
               leading: getIconAsset(context, DolarBotIcons.banks.pampa),

@@ -11,7 +11,7 @@ class DolarBotConstants {
   ];
   static const List<Color> kGradiantChaco = [
     Color.fromRGBO(10, 69, 149, 1),
-    Color.fromRGBO(120, 120, 120, 1),
+    Color.fromRGBO(22, 39, 80, 1),
   ];
   static const List<Color> kGradiantCiudad = [
     Color.fromRGBO(0, 173, 239, 1),
@@ -58,7 +58,7 @@ class DolarBotConstants {
     Color.fromRGBO(140, 0, 0, 1),
   ];
   static const List<Color> kGradiantSupervielle = [
-    Color.fromRGBO(230, 46, 46, 1),
+    Color.fromRGBO(240, 46, 46, 1),
     Color.fromRGBO(128, 13, 70, 1),
   ];
 
@@ -101,5 +101,9 @@ class DolarBotConstants {
   static const List<Color> kGradiantCopper = [
     Color.fromRGBO(165, 80, 0, 1),
     Color.fromRGBO(65, 30, 50, 1),
+  ];
+  static const List<Color> kGradiantVenezuela = [
+    Color.fromRGBO(95, 0, 30, 1),
+    Color.fromRGBO(50, 0, 17, 1),
   ];
 }
