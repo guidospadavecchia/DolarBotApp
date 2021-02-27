@@ -63,8 +63,8 @@ class DolarBotConstants {
   ];
 
   static const List<Color> kGradiantBitcoin = [
-    Color.fromRGBO(247, 147, 26, 1),
-    Color.fromRGBO(150, 85, 5, 1),
+    Color.fromRGBO(199, 118, 21, 1),
+    Color.fromRGBO(140, 80, 0, 1),
   ];
   static const List<Color> kGradiantBitcoinCash = [
     Color.fromRGBO(75, 201, 70, 1),
@@ -84,15 +84,15 @@ class DolarBotConstants {
   ];
   static const List<Color> kGradiantMonero = [
     Color.fromRGBO(255, 102, 0, 1),
-    Color.fromRGBO(41, 41, 41, 1),
+    Color.fromRGBO(99, 72, 48, 1),
   ];
   static const List<Color> kGradiantRipple = [
     Color.fromRGBO(0, 165, 223, 1),
     Color.fromRGBO(0, 70, 90, 1),
   ];
   static const List<Color> kGradiantGold = [
-    Color.fromRGBO(250, 190, 0, 1),
-    Color.fromRGBO(130, 100, 90, 1),
+    Color.fromRGBO(222, 168, 0, 1),
+    Color.fromRGBO(191, 117, 0, 1),
   ];
   static const List<Color> kGradiantSilver = [
     Color.fromRGBO(110, 110, 110, 1),
@@ -100,7 +100,7 @@ class DolarBotConstants {
   ];
   static const List<Color> kGradiantCopper = [
     Color.fromRGBO(165, 80, 0, 1),
-    Color.fromRGBO(65, 30, 50, 1),
+    Color.fromRGBO(100, 50, 0, 1),
   ];
   static const List<Color> kGradiantVenezuela = [
     Color.fromRGBO(95, 0, 30, 1),
