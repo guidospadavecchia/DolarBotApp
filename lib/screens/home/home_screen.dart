@@ -112,6 +112,40 @@ class _HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
                   ),
                   gradiantColors: DolarBotConstants.kGradiantCiudad,
                 ),
+                CardBank(
+                  header: CardHeader(title: "Banco Galicia"),
+                  rates: CardBankRates(
+                    buyValue: 89.02,
+                    sellValue: 96.05,
+                    sellValueWithTaxes: 158.03,
+                  ),
+                  logo: CardLogo(
+                    iconAsset: DolarBotIcons.banks.galicia,
+                    tag: "Dolar",
+                  ),
+                  lastUpdated: CardLastUpdated(
+                    timestamp:
+                        DateFormat("dd/MM/yyyy - HH:mm").format(DateTime.now()),
+                  ),
+                  gradiantColors: DolarBotConstants.kGradiantGalicia,
+                ),
+                CardBank(
+                  header: CardHeader(title: "Banco de Córdoba"),
+                  rates: CardBankRates(
+                    buyValue: 89.02,
+                    sellValue: 96.05,
+                    sellValueWithTaxes: 158.03,
+                  ),
+                  logo: CardLogo(
+                    iconAsset: DolarBotIcons.banks.cordoba,
+                    tag: "Dolar",
+                  ),
+                  lastUpdated: CardLastUpdated(
+                    timestamp:
+                        DateFormat("dd/MM/yyyy - HH:mm").format(DateTime.now()),
+                  ),
+                  gradiantColors: DolarBotConstants.kGradiantCordoba,
+                ),
               ],
             ),
           ),
