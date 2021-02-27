@@ -7,6 +7,7 @@ import 'package:dolarbot_app/screens/about/about_screen.dart';
 import 'package:dolarbot_app/screens/options/options_screen.dart';
 import 'package:dolarbot_app/screens/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:global_configuration/global_configuration.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -19,7 +20,11 @@ void main() async {
   final savedThemeMode = await AdaptiveTheme.getThemeMode();
   await GlobalConfiguration().loadFromAsset("app_settings");
   initializeHive();
-  runApp(DolarBotApp(savedThemeMode: savedThemeMode));
+
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+      .then((_) {
+    runApp(DolarBotApp(savedThemeMode: savedThemeMode));
+  });
 }
 
 class DolarBotApp extends StatelessWidget {
