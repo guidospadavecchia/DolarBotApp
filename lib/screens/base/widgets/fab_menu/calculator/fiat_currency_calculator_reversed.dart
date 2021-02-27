@@ -4,25 +4,21 @@ import 'package:flutter_masked_text/flutter_masked_text.dart';
 import 'package:dolarbot_app/screens/base/widgets/fab_menu/calculator/inputs/input_converted.dart';
 import 'package:dolarbot_app/screens/base/widgets/fab_menu/calculator/inputs/input_amount.dart';
 
-class FiatCurrencyCalculator extends BaseCalculatorScreen {
-  final double buyValue;
+class FiatCurrencyCalculatorReversed extends BaseCalculatorScreen {
   final double sellValue;
   final double sellValueWithTaxes;
   final String symbol;
   final String decimalSeparator;
   final String thousandSeparator;
 
-  FiatCurrencyCalculator({
+  FiatCurrencyCalculatorReversed({
     Key key,
-    this.buyValue,
     this.sellValue,
     this.sellValueWithTaxes,
     @required this.symbol,
     @required this.decimalSeparator,
     @required this.thousandSeparator,
-  })  : assert(buyValue != null ||
-            sellValue != null ||
-            sellValueWithTaxes != null),
+  })  : assert((sellValue != null) ^ (sellValueWithTaxes != null)),
         super(
             key: key,
             symbol: symbol,
@@ -30,8 +26,8 @@ class FiatCurrencyCalculator extends BaseCalculatorScreen {
             thousandSeparator: thousandSeparator);
 
   @override
-  _FiatCurrencyCalculatorState createState() => _FiatCurrencyCalculatorState(
-        buyValue,
+  _FiatCurrencyCalculatorReversedState createState() =>
+      _FiatCurrencyCalculatorReversedState(
         sellValue,
         sellValueWithTaxes,
         symbol,
@@ -40,21 +36,19 @@ class FiatCurrencyCalculator extends BaseCalculatorScreen {
       );
 }
 
-class _FiatCurrencyCalculatorState
-    extends BaseCalculatorState<FiatCurrencyCalculator> with BaseCalculator {
-  final double buyValue;
+class _FiatCurrencyCalculatorReversedState
+    extends BaseCalculatorState<FiatCurrencyCalculatorReversed>
+    with BaseCalculator {
   final double sellValue;
   final double sellValueWithTaxes;
   final String symbol;
   final String decimalSeparator;
   final String thousandSeparator;
   MoneyMaskedTextController _textControllerInput;
-  MoneyMaskedTextController _textControllerBuyValue;
   MoneyMaskedTextController _textControllerSellValue;
   MoneyMaskedTextController _textControllerSellValueWithTaxes;
 
-  _FiatCurrencyCalculatorState(
-    this.buyValue,
+  _FiatCurrencyCalculatorReversedState(
     this.sellValue,
     this.sellValueWithTaxes,
     this.symbol,
@@ -76,7 +70,6 @@ class _FiatCurrencyCalculatorState
   @override
   void dispose() {
     _textControllerInput.dispose();
-    if (buyValue != null) _textControllerBuyValue.dispose();
     if (sellValue != null) _textControllerSellValue.dispose();
     if (sellValueWithTaxes != null) _textControllerSellValueWithTaxes.dispose();
     super.dispose();
@@ -95,50 +88,18 @@ class _FiatCurrencyCalculatorState
           height: 30,
         ),
         if (sellValue != null)
-          Column(
-            children: [
-              InputConverted(
-                title: "Comprás a",
-                textController: _textControllerSellValue,
-              ),
-              SizedBox(
-                height: 20,
-              ),
-            ],
+          InputConverted(
+            title: "Comprás",
+            textController: _textControllerSellValue,
           ),
         if (sellValueWithTaxes != null)
-          Column(
-            children: [
-              InputConverted(
-                title: "(Con impuestos)",
-                textController: _textControllerSellValueWithTaxes,
-              ),
-              SizedBox(
-                height: buyValue != null ? 20 : 30,
-              ),
-            ],
+          InputConverted(
+            title: "Comprás con impuestos",
+            textController: _textControllerSellValueWithTaxes,
           ),
-        if (buyValue != null)
-          Column(
-            children: [
-              Divider(
-                color: Colors.black,
-                indent: 80,
-                endIndent: 50,
-                height: 0,
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              InputConverted(
-                title: "Vendés a",
-                textController: _textControllerBuyValue,
-              ),
-              SizedBox(
-                height: 30,
-              ),
-            ],
-          ),
+        SizedBox(
+          height: 30,
+        ),
       ],
     );
   }
@@ -148,42 +109,32 @@ class _FiatCurrencyCalculatorState
         precision: 2,
         decimalSeparator: decimalSeparator,
         thousandSeparator: thousandSeparator,
-        leftSymbol: "$symbol ");
-    if (buyValue != null) {
-      _textControllerBuyValue = MoneyMaskedTextController(
-          precision: 2,
-          decimalSeparator: decimalSeparator,
-          thousandSeparator: thousandSeparator,
-          leftSymbol: "\$ ");
-    }
+        leftSymbol: "\$ ");
     if (sellValue != null) {
       _textControllerSellValue = MoneyMaskedTextController(
           precision: 2,
           decimalSeparator: decimalSeparator,
           thousandSeparator: thousandSeparator,
-          leftSymbol: "\$ ");
+          leftSymbol: "$symbol ");
     }
     if (sellValueWithTaxes != null) {
       _textControllerSellValueWithTaxes = MoneyMaskedTextController(
           precision: 2,
           decimalSeparator: decimalSeparator,
           thousandSeparator: thousandSeparator,
-          leftSymbol: "\$ ");
+          leftSymbol: "$symbol ");
     }
   }
 
   void _setConversion() {
-    if (buyValue != null) {
-      _textControllerBuyValue
-          .updateValue(_textControllerInput.numberValue * buyValue);
-    }
     if (sellValue != null) {
-      _textControllerSellValue
-          .updateValue(_textControllerInput.numberValue * sellValue);
+      _textControllerSellValue.updateValue(
+          sellValue > 0 ? _textControllerInput.numberValue / sellValue : 0);
     }
     if (sellValueWithTaxes != null) {
-      _textControllerSellValueWithTaxes
-          .updateValue(_textControllerInput.numberValue * sellValueWithTaxes);
+      _textControllerSellValueWithTaxes.updateValue(sellValueWithTaxes > 0
+          ? _textControllerInput.numberValue / sellValueWithTaxes
+          : 0);
     }
   }
 }

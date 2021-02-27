@@ -5,6 +5,7 @@ import 'package:dolarbot_app/models/active_screen_data.dart';
 import 'package:dolarbot_app/models/settings.dart';
 import 'package:dolarbot_app/screens/base/widgets/fab_menu/calculator/dialog/fab_option_calculator_dialog.dart';
 import 'package:dolarbot_app/screens/base/widgets/fab_menu/calculator/fiat_currency_calculator.dart';
+import 'package:dolarbot_app/screens/base/widgets/fab_menu/calculator/fiat_currency_calculator_reversed.dart';
 import 'package:dolarbot_app/screens/base/widgets/fab_menu/fab_menu_option.dart';
 import 'package:dolarbot_app/util/util.dart';
 import 'package:dolarbot_app/widgets/common/dialog_button.dart';
@@ -191,22 +192,23 @@ class FabMenu extends StatelessWidget {
       String decimalSeparator,
       String thousandSeparator) {
     return FabOptionCalculatorDialog(
-        dialogHeight: _getCalculatorHeight(context,
-            [data?.buyPrice, data?.sellPrice, data?.sellPriceWithTaxes]),
-        calculator: FiatCurrencyCalculator(
-          buyValue: double.tryParse(data?.buyPrice ?? ''),
-          sellValue: double.tryParse(data?.sellPrice ?? ''),
-          sellValueWithTaxes: double.tryParse(data?.sellPriceWithTaxes ?? ''),
-          symbol: Util.getFiatCurrencySymbol(data),
-          decimalSeparator: decimalSeparator,
-          thousandSeparator: thousandSeparator,
-        ));
-    //TODO FiatCurrencyCalculatorReversed
-  }
-
-  double _getCalculatorHeight(BuildContext context, List<String> values) {
-    final int valueCount =
-        values.where((x) => double.tryParse(x ?? '') != null).length;
-    return MediaQuery.of(context).size.height * (0.40 + (0.06 * valueCount));
+      calculator: FiatCurrencyCalculator(
+        buyValue: double.tryParse(data?.buyPrice ?? ''),
+        sellValue: double.tryParse(data?.sellPrice ?? ''),
+        sellValueWithTaxes: double.tryParse(data?.sellPriceWithTaxes ?? ''),
+        symbol: Util.getFiatCurrencySymbol(data),
+        decimalSeparator: decimalSeparator,
+        thousandSeparator: thousandSeparator,
+      ),
+      calculatorReversed: FiatCurrencyCalculatorReversed(
+        sellValue: data?.sellPriceWithTaxes == null
+            ? double.tryParse(data?.sellPrice ?? '')
+            : null,
+        sellValueWithTaxes: double.tryParse(data?.sellPriceWithTaxes ?? ''),
+        symbol: Util.getFiatCurrencySymbol(data),
+        decimalSeparator: decimalSeparator,
+        thousandSeparator: thousandSeparator,
+      ),
+    );
   }
 }

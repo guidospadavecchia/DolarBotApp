@@ -5,13 +5,11 @@ import 'package:dolarbot_app/widgets/common/dialog_button.dart';
 import 'package:flutter/material.dart';
 
 class FabOptionCalculatorDialog extends StatefulWidget {
-  final double dialogHeight;
   final BaseCalculatorScreen calculator;
   final BaseCalculatorScreen calculatorReversed;
 
   const FabOptionCalculatorDialog({
     Key key,
-    @required this.dialogHeight,
     @required this.calculator,
     this.calculatorReversed,
   }) : super(key: key);
@@ -26,9 +24,6 @@ class _FabOptionCalculatorDialogState extends State<FabOptionCalculatorDialog> {
 
   @override
   Widget build(BuildContext context) {
-    double containerHeight = widget.dialogHeight;
-    double containerWidth = MediaQuery.of(context).size.width * 0.85;
-
     return Dialog(
       child: Container(
         decoration: BoxDecoration(
@@ -44,41 +39,35 @@ class _FabOptionCalculatorDialogState extends State<FabOptionCalculatorDialog> {
                 )
               : null,
         ),
-        height: containerHeight,
-        width: containerWidth,
-        padding: EdgeInsets.only(bottom: 15),
-        child: Container(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              !isReversed ? widget.calculator : widget.calculatorReversed,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  if (widget.calculatorReversed != null)
-                    DialogButton(
-                        onPressed: () => {
-                              setState(() {
-                                if (widget.calculatorReversed == null) {
-                                  isReversed = false;
-                                } else {
-                                  isReversed = !isReversed;
-                                }
-                              })
-                            },
-                        icon: Icons.compare_arrows,
-                        text: "Invertir"),
+        padding: EdgeInsets.only(top: 30, bottom: 20),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            !isReversed ? widget.calculator : widget.calculatorReversed,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                if (widget.calculatorReversed != null)
                   DialogButton(
-                    text: 'Cerrar',
-                    icon: Icons.close,
-                    onPressed: () => Navigator.of(context).pop(),
-                  ),
-                ],
-              ),
-            ],
-          ),
+                      onPressed: () => {
+                            setState(() {
+                              isReversed = widget.calculatorReversed != null &&
+                                  !isReversed;
+                            })
+                          },
+                      icon: Icons.compare_arrows,
+                      text: "Invertir"),
+                DialogButton(
+                  text: 'Cerrar',
+                  icon: Icons.close,
+                  onPressed: () => Navigator.of(context).pop(),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );
