@@ -90,6 +90,7 @@ class _FiatCurrencyCalculatorState
         children: [
           InputAmount(
             textController: _textControllerInput,
+            symbol: symbol,
           ),
           if (sellValue != null)
             InputConverted(
@@ -102,8 +103,9 @@ class _FiatCurrencyCalculatorState
               textController: _textControllerSellValueWithTaxes,
             ),
           Divider(
-            indent: 40,
-            endIndent: 40,
+            color: Colors.black,
+            indent: 80,
+            endIndent: 50,
             height: 0,
           ),
           if (buyValue != null)

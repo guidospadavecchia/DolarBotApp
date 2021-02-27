@@ -1,13 +1,16 @@
 import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
 
 class InputAmount extends StatelessWidget {
+  final String symbol;
   final MoneyMaskedTextController textController;
 
   const InputAmount({
     Key key,
-    this.textController,
+    @required this.textController,
+    this.symbol,
   }) : super(key: key);
 
   @override
@@ -28,6 +31,9 @@ class InputAmount extends StatelessWidget {
           contentPadding: EdgeInsets.only(left: 0, bottom: 10, right: 0),
           isDense: true,
         ),
+        inputFormatters: [
+          LengthLimitingTextInputFormatter(20 - (symbol?.length ?? 0))
+        ],
         textAlign: TextAlign.left,
         keyboardType: TextInputType.number,
         style: TextStyle(
