@@ -1,4 +1,3 @@
-import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:dolarbot_app/models/settings.dart';
 import 'package:dolarbot_app/util/util.dart';
 import 'package:flutter/material.dart';

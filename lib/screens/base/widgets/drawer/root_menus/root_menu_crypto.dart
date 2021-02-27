@@ -26,8 +26,8 @@ class RootMenuCrypto extends StatelessWidget {
               context,
               CryptoInfoScreen(
                 title: _title,
-                headerIconData: CryptoFontIcons.BTC,
-                headerTitle: "Bitcoin (BTC)",
+                bannerIconData: CryptoFontIcons.BTC,
+                bannerTitle: "Bitcoin (BTC)",
                 gradiantColors: DolarBotConstants.kGradiantBitcoin,
                 cryptoEndpoint: CryptoEndpoints.bitcoin,
               ),
@@ -43,8 +43,8 @@ class RootMenuCrypto extends StatelessWidget {
               context,
               CryptoInfoScreen(
                 title: 'Crypto',
-                headerIconData: CryptoFontIcons.BTC_ALT,
-                headerTitle: "Bitcoin Cash (BCH)",
+                bannerIconData: CryptoFontIcons.BTC_ALT,
+                bannerTitle: "Bitcoin Cash (BCH)",
                 gradiantColors: DolarBotConstants.kGradiantBitcoinCash,
                 cryptoEndpoint: CryptoEndpoints.bitcoincash,
               ),
@@ -60,8 +60,8 @@ class RootMenuCrypto extends StatelessWidget {
               context,
               CryptoInfoScreen(
                 title: 'Crypto',
-                headerIconData: CryptoFontIcons.DASH,
-                headerTitle: 'DASH',
+                bannerIconData: CryptoFontIcons.DASH,
+                bannerTitle: 'DASH',
                 gradiantColors: DolarBotConstants.kGradiantDASH,
                 cryptoEndpoint: CryptoEndpoints.dash,
               ),
@@ -77,8 +77,8 @@ class RootMenuCrypto extends StatelessWidget {
               context,
               CryptoInfoScreen(
                 title: 'Crypto',
-                headerIconData: CryptoFontIcons.ETH,
-                headerTitle: 'Ethereum (ETH)',
+                bannerIconData: CryptoFontIcons.ETH,
+                bannerTitle: 'Ethereum (ETH)',
                 gradiantColors: DolarBotConstants.kGradiantEthereum,
                 cryptoEndpoint: CryptoEndpoints.ethereum,
               ),
@@ -94,8 +94,8 @@ class RootMenuCrypto extends StatelessWidget {
               context,
               CryptoInfoScreen(
                   title: 'Crypto',
-                  headerIconData: CryptoFontIcons.LTC,
-                  headerTitle: 'Litecoin (LTC)',
+                  bannerIconData: CryptoFontIcons.LTC,
+                  bannerTitle: 'Litecoin (LTC)',
                   gradiantColors: DolarBotConstants.kGradiantLitecoin,
                   cryptoEndpoint: CryptoEndpoints.litecoin),
             )
@@ -110,8 +110,8 @@ class RootMenuCrypto extends StatelessWidget {
               context,
               CryptoInfoScreen(
                 title: 'Crypto',
-                headerIconData: CryptoFontIcons.XMR,
-                headerTitle: 'Monero (XMR)',
+                bannerIconData: CryptoFontIcons.XMR,
+                bannerTitle: 'Monero (XMR)',
                 gradiantColors: DolarBotConstants.kGradiantMonero,
                 cryptoEndpoint: CryptoEndpoints.monero,
               ),
@@ -127,8 +127,8 @@ class RootMenuCrypto extends StatelessWidget {
               context,
               CryptoInfoScreen(
                 title: 'Crypto',
-                headerIconData: CryptoFontIcons.XRP,
-                headerTitle: 'Ripple (XRP)',
+                bannerIconData: CryptoFontIcons.XRP,
+                bannerTitle: 'Ripple (XRP)',
                 gradiantColors: DolarBotConstants.kGradiantRipple,
                 cryptoEndpoint: CryptoEndpoints.ripple,
               ),

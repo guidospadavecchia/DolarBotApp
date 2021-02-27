@@ -17,19 +17,19 @@ export 'package:provider/provider.dart';
 
 abstract class BaseInfoScreen extends StatefulWidget {
   final String title;
-  final String headerTitle;
-  final String headerIconAsset;
-  final IconData headerIconData;
+  final String bannerTitle;
+  final String bannerIconAsset;
+  final IconData bannerIconData;
   final List<Color> gradiantColors;
 
   BaseInfoScreen({
     Key key,
     this.title,
-    this.headerTitle,
-    this.headerIconAsset,
-    this.headerIconData,
+    this.bannerTitle,
+    this.bannerIconAsset,
+    this.bannerIconData,
     this.gradiantColors,
-  })  : assert(headerIconAsset == null || headerIconData == null),
+  })  : assert(bannerIconAsset == null || bannerIconData == null),
         super(key: key);
 }
 
@@ -79,11 +79,8 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
       ),
       drawerEdgeDragWidth: 200,
       drawerEnableOpenDragGesture: true,
-      body: (widget.headerTitle != null || isMainMenu())
+      body: (widget.bannerTitle != null || isMainMenu())
           ? Container(
-              padding: widget.headerTitle != null
-                  ? EdgeInsets.only(top: 105)
-                  : EdgeInsets.only(top: 0),
               height: double.infinity,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
@@ -98,12 +95,9 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
                 ),
               ),
               child: Wrap(
-                runAlignment: widget.headerTitle != null
-                    ? WrapAlignment.start
-                    : WrapAlignment.center,
+                runAlignment: WrapAlignment.center,
                 runSpacing: 0,
                 children: [
-                  header(),
                   body(),
                 ],
               ),
@@ -140,8 +134,8 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
 
   Widget body();
 
-  Widget header() {
-    if (widget.headerTitle != null) {
+  Widget banner() {
+    if (widget.bannerTitle != null) {
       return Container(
         color: Colors.black12,
         padding: const EdgeInsets.all(20),
@@ -150,10 +144,10 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            widget.headerIconAsset != null
+            widget.bannerIconAsset != null
                 ? Container(
                     child: Image.asset(
-                      widget.headerIconAsset,
+                      widget.bannerIconAsset,
                       width: 36,
                       height: 36,
                       filterQuality: FilterQuality.high,
@@ -162,7 +156,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
                   )
                 : Container(
                     child: Icon(
-                      widget.headerIconData,
+                      widget.bannerIconData,
                       size: 36,
                       color: Colors.white,
                     ),
@@ -172,11 +166,11 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
               constraints: BoxConstraints(
                   maxWidth: MediaQuery.of(context).size.width * 0.7),
               child: FittedBox(
-                fit: widget.headerTitle.length > 10
+                fit: widget.bannerTitle.length > 10
                     ? BoxFit.fitWidth
                     : BoxFit.none,
                 child: Text(
-                  widget.headerTitle,
+                  widget.bannerTitle,
                   style: TextStyle(
                     fontSize: 28,
                     fontFamily: 'Raleway',

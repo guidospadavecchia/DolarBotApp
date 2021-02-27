@@ -4,16 +4,16 @@ import 'package:dolarbot_app/screens/base/base_info_screen.dart';
 
 class MetalInfoScreen extends BaseInfoScreen {
   final String title;
-  final String headerTitle;
-  final String headerIconAsset;
+  final String bannerTitle;
+  final String bannerIconAsset;
   final List<Color> gradiantColors;
   final MetalEndpoints metalEndpoint;
 
   MetalInfoScreen({
     this.title,
     @required this.metalEndpoint,
-    this.headerTitle,
-    this.headerIconAsset,
+    this.bannerTitle,
+    this.bannerIconAsset,
     this.gradiantColors,
   }) : super(title: title);
 
@@ -39,12 +39,17 @@ class _MetalInfoScreenState extends BaseInfoScreenState<MetalInfoScreen>
         screen: (data) {
           WidgetsBinding.instance.addPostFrameCallback(
               (_) => setActiveData(data, getShareInfo(data)));
-          return CurrencyInfoContainer(
-            items: [
-              CurrencyInfo(
-                title: '/ ${data.unit}',
-                symbol: data.currency == 'USD' ? 'US\$' : '\$',
-                value: data.value,
+          return Column(
+            children: [
+              banner(),
+              CurrencyInfoContainer(
+                items: [
+                  CurrencyInfo(
+                    title: '/ ${data.unit}',
+                    symbol: data.currency == 'USD' ? 'US\$' : '\$',
+                    value: data.value,
+                  ),
+                ],
               ),
             ],
           );

@@ -26,8 +26,8 @@ class RootMenuMetals extends StatelessWidget {
               context,
               MetalInfoScreen(
                 title: _title,
-                headerIconAsset: DolarBotIcons.metals.gold,
-                headerTitle: "Oro",
+                bannerIconAsset: DolarBotIcons.metals.gold,
+                bannerTitle: "Oro",
                 gradiantColors: DolarBotConstants.kGradiantGold,
                 metalEndpoint: MetalEndpoints.oro,
               ),
@@ -43,8 +43,8 @@ class RootMenuMetals extends StatelessWidget {
               context,
               MetalInfoScreen(
                 title: _title,
-                headerIconAsset: DolarBotIcons.metals.silver,
-                headerTitle: "Plata",
+                bannerIconAsset: DolarBotIcons.metals.silver,
+                bannerTitle: "Plata",
                 gradiantColors: DolarBotConstants.kGradiantSilver,
                 metalEndpoint: MetalEndpoints.plata,
               ),
@@ -60,8 +60,8 @@ class RootMenuMetals extends StatelessWidget {
               context,
               MetalInfoScreen(
                 title: _title,
-                headerIconAsset: DolarBotIcons.metals.copper,
-                headerTitle: "Cobre",
+                bannerIconAsset: DolarBotIcons.metals.copper,
+                bannerTitle: "Cobre",
                 gradiantColors: DolarBotConstants.kGradiantCopper,
                 metalEndpoint: MetalEndpoints.cobre,
               ),

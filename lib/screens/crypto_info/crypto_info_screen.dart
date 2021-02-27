@@ -1,24 +1,23 @@
-import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:dolarbot_app/interfaces/share_info.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
 
 class CryptoInfoScreen extends BaseInfoScreen {
   final String title;
-  final String headerTitle;
-  final IconData headerIconData;
+  final String bannerTitle;
+  final IconData bannerIconData;
   final List<Color> gradiantColors;
   final CryptoEndpoints cryptoEndpoint;
 
   CryptoInfoScreen({
     this.title,
-    this.headerTitle,
-    this.headerIconData,
+    this.bannerTitle,
+    this.bannerIconData,
     this.gradiantColors,
     @required this.cryptoEndpoint,
   }) : super(
           title: title,
-          headerTitle: headerTitle,
-          headerIconData: headerIconData,
+          bannerTitle: bannerTitle,
+          bannerIconData: bannerIconData,
         );
 
   @override
@@ -49,22 +48,27 @@ class _CryptoInfoScreenState extends BaseInfoScreenState<CryptoInfoScreen>
               getShareInfo(data),
             ),
           );
-          return CurrencyInfoContainer(
-            items: [
-              CurrencyInfo(
-                title: "PESOS ARGENTINOS",
-                symbol: '\$',
-                value: data.arsPrice,
-              ),
-              CurrencyInfo(
-                title: "PESOS ARGENTINOS + IMPUESTOS",
-                symbol: '\$',
-                value: data.arsPriceWithTaxes,
-              ),
-              CurrencyInfo(
-                title: "DÓLARES ESTADOUNIDENSES",
-                symbol: 'US\$',
-                value: data.usdPrice,
+          return Column(
+            children: [
+              banner(),
+              CurrencyInfoContainer(
+                items: [
+                  CurrencyInfo(
+                    title: "PESOS ARGENTINOS",
+                    symbol: '\$',
+                    value: data.arsPrice,
+                  ),
+                  CurrencyInfo(
+                    title: "PESOS ARGENTINOS + IMPUESTOS",
+                    symbol: '\$',
+                    value: data.arsPriceWithTaxes,
+                  ),
+                  CurrencyInfo(
+                    title: "DÓLARES ESTADOUNIDENSES",
+                    symbol: 'US\$',
+                    value: data.usdPrice,
+                  ),
+                ],
               ),
             ],
           );

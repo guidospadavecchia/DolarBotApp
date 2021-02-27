@@ -31,7 +31,7 @@ class DolarBotConstants {
   ];
   static const List<Color> kGradiantHipotecario = [
     Color.fromRGBO(253, 92, 15, 1),
-    Color.fromRGBO(200, 66, 2, 1),
+    Color.fromRGBO(180, 66, 2, 1),
   ];
   static const List<Color> kGradiantIndustrial = [
     Color.fromRGBO(48, 88, 139, 1),

@@ -3,12 +3,21 @@ import 'package:dolarbot_app/screens/base/base_info_screen.dart';
 
 class VenezuelaInfoScreen extends BaseInfoScreen {
   final String title;
+  final String bannerTitle;
+  final String bannerIconAsset;
+  final List<Color> gradiantColors;
   final VenezuelaEndpoints venezuelaEndpoint;
 
   VenezuelaInfoScreen({
     this.title,
+    this.bannerTitle,
+    this.bannerIconAsset,
+    this.gradiantColors,
     @required this.venezuelaEndpoint,
-  }) : super(title: title);
+  }) : super(
+            title: title,
+            bannerTitle: bannerTitle,
+            bannerIconAsset: bannerIconAsset);
 
   @override
   _VenezuelaInfoScreenState createState() =>
@@ -24,34 +33,35 @@ class _VenezuelaInfoScreenState extends BaseInfoScreenState<VenezuelaInfoScreen>
 
   @override
   Widget body() {
-    return Container(
-      alignment: Alignment.center,
-      padding: EdgeInsets.only(bottom: 80),
-      child: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        physics: BouncingScrollPhysics(),
-        child: FutureScreenDelegate<VenezuelaResponse>(
-          response: API.getVzlaRate(venezuelaEndpoint,
-              forceRefresh: shouldForceRefresh),
-          screen: (data) {
-            WidgetsBinding.instance.addPostFrameCallback(
-                (_) => setActiveData(data, getShareInfo(data)));
-            return CurrencyInfoContainer(
-              items: [
-                CurrencyInfo(
-                  title: 'PROMEDIO BANCOS',
-                  symbol: 'Bs.',
-                  value: data.bankPrice,
-                ),
-                CurrencyInfo(
-                  title: "PARALELO",
-                  symbol: 'Bs.',
-                  value: data.blackMarketPrice,
-                ),
-              ],
-            );
-          },
-        ),
+    return SingleChildScrollView(
+      scrollDirection: Axis.vertical,
+      physics: BouncingScrollPhysics(),
+      child: FutureScreenDelegate<VenezuelaResponse>(
+        response: API.getVzlaRate(venezuelaEndpoint,
+            forceRefresh: shouldForceRefresh),
+        screen: (data) {
+          WidgetsBinding.instance.addPostFrameCallback(
+              (_) => setActiveData(data, getShareInfo(data)));
+          return Column(
+            children: [
+              banner(),
+              CurrencyInfoContainer(
+                items: [
+                  CurrencyInfo(
+                    title: 'PROMEDIO BANCOS',
+                    symbol: 'Bs.',
+                    value: data.bankPrice,
+                  ),
+                  CurrencyInfo(
+                    title: "PARALELO",
+                    symbol: 'Bs.',
+                    value: data.blackMarketPrice,
+                  ),
+                ],
+              ),
+            ],
+          );
+        },
       ),
     );
   }

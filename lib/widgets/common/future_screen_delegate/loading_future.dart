@@ -11,8 +11,6 @@ class LoadingFuture extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
-      color: Colors.red,
-      //height: MediaQuery.of(context).size.height - 210,
       child: SizedBox(
         width: 64,
         height: 64,

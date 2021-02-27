@@ -26,8 +26,8 @@ class RootMenuReal extends StatelessWidget {
               context,
               FiatCurrencyInfoScreen<RealResponse>(
                 title: _title,
-                headerIconAsset: DolarBotIcons.banks.bbva,
-                headerTitle: "Banco BBVA",
+                bannerIconAsset: DolarBotIcons.banks.bbva,
+                bannerTitle: "Banco BBVA",
                 gradiantColors: DolarBotConstants.kGradiantBBVA,
                 realEndpoint: RealEndpoints.bbva,
               ),
@@ -43,8 +43,8 @@ class RootMenuReal extends StatelessWidget {
               context,
               FiatCurrencyInfoScreen<RealResponse>(
                 title: _title,
-                headerIconAsset: DolarBotIcons.banks.chaco,
-                headerTitle: "Nuevo Banco del Chaco",
+                bannerIconAsset: DolarBotIcons.banks.chaco,
+                bannerTitle: "Nuevo Banco del Chaco",
                 gradiantColors: DolarBotConstants.kGradiantChaco,
                 realEndpoint: RealEndpoints.chaco,
               ),
@@ -60,8 +60,8 @@ class RootMenuReal extends StatelessWidget {
               context,
               FiatCurrencyInfoScreen<RealResponse>(
                 title: _title,
-                headerIconAsset: DolarBotIcons.banks.nacion,
-                headerTitle: "Banco Nación",
+                bannerIconAsset: DolarBotIcons.banks.nacion,
+                bannerTitle: "Banco Nación",
                 gradiantColors: DolarBotConstants.kGradiantNacion,
                 realEndpoint: RealEndpoints.nacion,
               ),

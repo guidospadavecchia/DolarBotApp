@@ -6,8 +6,8 @@ import 'package:dolarbot_app/screens/base/base_info_screen.dart';
 class FiatCurrencyInfoScreen<T extends GenericCurrencyResponse>
     extends BaseInfoScreen {
   final String title;
-  final String headerTitle;
-  final String headerIconAsset;
+  final String bannerTitle;
+  final String bannerIconAsset;
   final List<Color> gradiantColors;
   final DollarEndpoints dollarEndpoint;
   final EuroEndpoints euroEndpoint;
@@ -16,8 +16,8 @@ class FiatCurrencyInfoScreen<T extends GenericCurrencyResponse>
   FiatCurrencyInfoScreen(
       {Key key,
       this.title,
-      this.headerTitle,
-      this.headerIconAsset,
+      this.bannerTitle,
+      this.bannerIconAsset,
       this.gradiantColors,
       this.dollarEndpoint,
       this.euroEndpoint,
@@ -31,7 +31,10 @@ class FiatCurrencyInfoScreen<T extends GenericCurrencyResponse>
             (realEndpoint != null &&
                 dollarEndpoint == null &&
                 euroEndpoint == null)),
-        super(title: title);
+        super(
+            title: title,
+            bannerTitle: bannerTitle,
+            bannerIconAsset: bannerIconAsset);
 
   @override
   _FiatCurrencyInfoScreenState<T> createState() =>
@@ -66,24 +69,29 @@ class _FiatCurrencyInfoScreenState<T extends GenericCurrencyResponse>
         screen: (data) {
           WidgetsBinding.instance.addPostFrameCallback(
               (_) => setActiveData(data, getShareInfo(data)));
-          return CurrencyInfoContainer(
-            items: [
-              CurrencyInfo(
-                title: "COMPRA",
-                symbol: '\$',
-                value: data.buyPrice,
+          return Column(
+            children: [
+              banner(),
+              CurrencyInfoContainer(
+                items: [
+                  CurrencyInfo(
+                    title: "COMPRA",
+                    symbol: '\$',
+                    value: data.buyPrice,
+                  ),
+                  CurrencyInfo(
+                    title: "VENTA",
+                    symbol: '\$',
+                    value: data.sellPrice,
+                  ),
+                  if (data.sellPriceWithTaxes != null)
+                    CurrencyInfo(
+                      title: "VENTA + IMPUESTOS",
+                      symbol: '\$',
+                      value: data.sellPriceWithTaxes,
+                    ),
+                ],
               ),
-              CurrencyInfo(
-                title: "VENTA",
-                symbol: '\$',
-                value: data.sellPrice,
-              ),
-              if (data.sellPriceWithTaxes != null)
-                CurrencyInfo(
-                  title: "VENTA + IMPUESTOS",
-                  symbol: '\$',
-                  value: data.sellPriceWithTaxes,
-                ),
             ],
           );
         },
