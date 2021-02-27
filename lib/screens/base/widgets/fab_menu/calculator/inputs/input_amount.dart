@@ -4,13 +4,15 @@ import 'package:flutter/services.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
 
 class InputAmount extends StatelessWidget {
-  final String symbol;
   final MoneyMaskedTextController textController;
+  final String symbol;
+  final int maxDigits;
 
   const InputAmount({
     Key key,
     @required this.textController,
     this.symbol,
+    this.maxDigits = 10,
   }) : super(key: key);
 
   @override
@@ -32,7 +34,8 @@ class InputAmount extends StatelessWidget {
           isDense: true,
         ),
         inputFormatters: [
-          LengthLimitingTextInputFormatter(20 - (symbol?.length ?? 0))
+          FilteringTextInputFormatter.digitsOnly,
+          LengthLimitingTextInputFormatter(maxDigits)
         ],
         textAlign: TextAlign.left,
         keyboardType: TextInputType.number,
