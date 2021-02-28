@@ -13,8 +13,16 @@ class Settings extends ChangeNotifier {
     return settings.get('currencyFormat') ?? "es_AR";
   }
 
+  String getThousandSeparator() {
+    return getDecimalSeparator() == "." ? "," : ".";
+  }
+
   String getDecimalSeparator() {
     return (settings.get('currencyFormat') ?? "es_AR") == "es_AR" ? "," : ".";
+  }
+
+  String getCurrencyFullFormatted() {
+    return "#,###,###.00";
   }
 
   void notifyThemeChange() {

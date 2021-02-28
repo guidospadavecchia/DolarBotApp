@@ -1,23 +1,23 @@
-import 'package:dolarbot_app/screens/home/widgets/cards/banks/card_bank_rates.dart';
 import 'package:dolarbot_app/screens/home/widgets/cards/card_header.dart';
 import 'package:dolarbot_app/screens/home/widgets/cards/card_last_updated.dart';
 import 'package:dolarbot_app/screens/home/widgets/cards/card_logo.dart';
+import 'package:dolarbot_app/screens/home/widgets/cards/card_value.dart';
 import 'package:flutter/material.dart';
 
-export 'package:dolarbot_app/screens/home/widgets/cards/banks/card_bank_rates.dart';
 export 'package:dolarbot_app/screens/home/widgets/cards/card_header.dart';
 export 'package:dolarbot_app/screens/home/widgets/cards/card_last_updated.dart';
 export 'package:dolarbot_app/screens/home/widgets/cards/card_logo.dart';
 
-class CardBank extends StatelessWidget {
+class CardFavorite extends StatelessWidget {
   final CardHeader header;
-  final CardBankRates rates;
+  final List<CardValue> rates;
   final CardLogo logo;
   final CardLastUpdated lastUpdated;
   final List<Color> gradiantColors;
   final double height;
+  final Spacing spaceBetweenHeader;
 
-  const CardBank({
+  const CardFavorite({
     Key key,
     @required this.header,
     @required this.rates,
@@ -25,6 +25,7 @@ class CardBank extends StatelessWidget {
     @required this.lastUpdated,
     @required this.gradiantColors,
     this.height = 150,
+    this.spaceBetweenHeader = Spacing.large,
   }) : super(key: key);
 
   @override
@@ -58,7 +59,26 @@ class CardBank extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          rates,
+                          //BEGIN - CARD VALUE
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Padding(
+                                  padding: EdgeInsets.only(
+                                    top: _getSpaceBetweenHeader(),
+                                  ),
+                                  child: Wrap(
+                                    verticalDirection: VerticalDirection.down,
+                                    direction: Axis.horizontal,
+                                    children: [
+                                      ...rates,
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          //END - CARD VALUE
                           lastUpdated,
                         ],
                       ),
@@ -71,5 +91,26 @@ class CardBank extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  double _getSpaceBetweenHeader() {
+    double spaceSize;
+
+    switch (spaceBetweenHeader) {
+      case Spacing.none:
+        spaceSize = 6;
+        break;
+      case Spacing.small:
+        spaceSize = 11;
+        break;
+      case Spacing.medium:
+        spaceSize = 16;
+        break;
+      case Spacing.large:
+        spaceSize = 21;
+        break;
+    }
+
+    return spaceSize;
   }
 }

@@ -1,5 +1,6 @@
 import 'package:dolarbot_app/interfaces/share_info.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
+import 'package:intl/intl.dart';
 
 class CryptoInfoScreen extends BaseInfoScreen {
   final String title;

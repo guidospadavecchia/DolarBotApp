@@ -1,6 +1,7 @@
 import 'package:dolarbot_app/api/responses/metalResponse.dart';
 import 'package:dolarbot_app/interfaces/share_info.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
+import 'package:intl/intl.dart';
 
 class MetalInfoScreen extends BaseInfoScreen {
   final String title;

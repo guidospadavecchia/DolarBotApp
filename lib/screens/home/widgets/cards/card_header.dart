@@ -23,6 +23,13 @@ class CardHeader extends StatelessWidget {
                 fontFamily: 'Raleway',
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
+                shadows: [
+                  Shadow(
+                    blurRadius: 7,
+                    color: Colors.black54,
+                    offset: Offset(2, 2),
+                  ),
+                ],
               ),
             ),
           ),
