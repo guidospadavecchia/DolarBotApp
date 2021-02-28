@@ -5,6 +5,7 @@ class CryptoResponse extends ApiResponse {
   String arsPrice;
   String arsPriceWithTaxes;
   String usdPrice;
+  String code;
 
   CryptoResponse(Map json) : super(json);
 
@@ -14,5 +15,6 @@ class CryptoResponse extends ApiResponse {
     arsPrice = json["ars"];
     arsPriceWithTaxes = json["arsTaxed"];
     usdPrice = json["usd"];
+    code = json["code"];
   }
 }

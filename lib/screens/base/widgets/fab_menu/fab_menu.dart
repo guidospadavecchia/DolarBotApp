@@ -231,15 +231,13 @@ class FabMenu extends StatelessWidget {
         arsValue: double.tryParse(data?.arsPrice ?? ''),
         arsValueWithTaxes: double.tryParse(data?.arsPriceWithTaxes ?? ''),
         usdValue: double.tryParse(data?.usdPrice ?? ''),
-        cryptoCode: "BTC",
-        //TODO Traer código de la cryptomoneda de la API
+        cryptoCode: data.code,
         decimalSeparator: decimalSeparator,
         thousandSeparator: thousandSeparator,
       ),
       calculatorReversed: CryptoCalculatorReversed(
         usdValue: double.tryParse(data?.usdPrice ?? ''),
-        //TODO Traer código de la cryptomoneda de la API
-        cryptoCode: "BTC",
+        cryptoCode: data.code,
         decimalSeparator: decimalSeparator,
         thousandSeparator: thousandSeparator,
       ),
