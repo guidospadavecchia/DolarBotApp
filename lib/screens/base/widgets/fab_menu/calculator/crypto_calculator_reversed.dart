@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
 import 'package:dolarbot_app/screens/base/widgets/fab_menu/calculator/inputs/input_converted.dart';
 import 'package:dolarbot_app/screens/base/widgets/fab_menu/calculator/inputs/input_amount.dart';
+import 'package:intl/intl.dart';
 
 class CryptoCalculatorReversed extends BaseCalculatorScreen {
   final double usdValue;
@@ -39,7 +40,7 @@ class _CryptoCalculatorReversedState
   final String decimalSeparator;
   final String thousandSeparator;
   MoneyMaskedTextController _textControllerInput;
-  MoneyMaskedTextController _textControllerCryptoValue;
+  TextEditingController _textControllerCryptoValue;
 
   _CryptoCalculatorReversedState(
     this.usdValue,
@@ -94,19 +95,15 @@ class _CryptoCalculatorReversedState
         decimalSeparator: decimalSeparator,
         thousandSeparator: thousandSeparator,
         leftSymbol: "US\$ ");
-    _textControllerCryptoValue = MoneyMaskedTextController(
-      precision: 2,
-      decimalSeparator: decimalSeparator,
-      thousandSeparator: thousandSeparator,
-      rightSymbol: " $cryptoCode",
-    );
+    _textControllerCryptoValue = TextEditingController(text: "$cryptoCode 0");
   }
 
   void _setConversion() {
-    _textControllerCryptoValue.updateValue(usdValue > 0
-        ? ((_textControllerInput.numberValue / usdValue) * 100)
-                .truncateToDouble() /
-            100
-        : 0);
+    NumberFormat numberFormat = getNumberFormat(context);
+    double value = ((_textControllerInput.numberValue / usdValue) * 100)
+            .truncateToDouble() /
+        100;
+    String formattedValue = numberFormat.format(usdValue > 0 ? value : 0);
+    _textControllerCryptoValue.text = ("$formattedValue $cryptoCode");
   }
 }

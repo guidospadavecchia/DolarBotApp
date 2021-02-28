@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
 import 'package:dolarbot_app/screens/base/widgets/fab_menu/calculator/inputs/input_converted.dart';
 import 'package:dolarbot_app/screens/base/widgets/fab_menu/calculator/inputs/input_amount.dart';
+import 'package:intl/intl.dart';
 
 class CryptoCalculator extends BaseCalculatorScreen {
   final double arsValue;
@@ -46,9 +47,9 @@ class _CryptoCalculatorState extends BaseCalculatorState<CryptoCalculator>
   final String decimalSeparator;
   final String thousandSeparator;
   MoneyMaskedTextController _textControllerInput;
-  MoneyMaskedTextController _textControllerArsValue;
-  MoneyMaskedTextController _textControllerArsValueWithTaxes;
-  MoneyMaskedTextController _textControllerUsdValue;
+  TextEditingController _textControllerArsValue;
+  TextEditingController _textControllerArsValueWithTaxes;
+  TextEditingController _textControllerUsdValue;
 
   _CryptoCalculatorState(
     this.arsValue,
@@ -87,7 +88,6 @@ class _CryptoCalculatorState extends BaseCalculatorState<CryptoCalculator>
         InputAmount(
           title: "Ingresá la cantidad:",
           textController: _textControllerInput,
-          maxDigits: getMaxDigits([arsValue, arsValueWithTaxes, usdValue]),
         ),
         SizedBox(
           height: 30,
@@ -123,29 +123,21 @@ class _CryptoCalculatorState extends BaseCalculatorState<CryptoCalculator>
         decimalSeparator: decimalSeparator,
         thousandSeparator: thousandSeparator,
         rightSymbol: " $cryptoCode");
-    _textControllerArsValue = MoneyMaskedTextController(
-        precision: 2,
-        decimalSeparator: decimalSeparator,
-        thousandSeparator: thousandSeparator,
-        leftSymbol: "\$ ");
-    _textControllerArsValueWithTaxes = MoneyMaskedTextController(
-        precision: 2,
-        decimalSeparator: decimalSeparator,
-        thousandSeparator: thousandSeparator,
-        leftSymbol: "\$ ");
-    _textControllerUsdValue = MoneyMaskedTextController(
-        precision: 2,
-        decimalSeparator: decimalSeparator,
-        thousandSeparator: thousandSeparator,
-        leftSymbol: "US\$ ");
+    _textControllerArsValue = TextEditingController(text: "\$ 0");
+    _textControllerArsValueWithTaxes = TextEditingController(text: "\$ 0");
+    _textControllerUsdValue = TextEditingController(text: "US\$ 0");
   }
 
   void _setConversion() {
-    _textControllerArsValue
-        .updateValue(_textControllerInput.numberValue * arsValue);
-    _textControllerArsValueWithTaxes
-        .updateValue(_textControllerInput.numberValue * arsValueWithTaxes);
-    _textControllerUsdValue
-        .updateValue(_textControllerInput.numberValue * usdValue);
+    NumberFormat numberFormat = getNumberFormat(context);
+    String formattedArsValue =
+        numberFormat.format(_textControllerInput.numberValue * arsValue);
+    String formattedArsValueWithTaxes = numberFormat
+        .format(_textControllerInput.numberValue * arsValueWithTaxes);
+    String formattedUsdValue =
+        numberFormat.format(_textControllerInput.numberValue * usdValue);
+    _textControllerArsValue.text = "\$ $formattedArsValue";
+    _textControllerArsValueWithTaxes.text = "\$ $formattedArsValueWithTaxes";
+    _textControllerUsdValue.text = "US\$ $formattedUsdValue";
   }
 }

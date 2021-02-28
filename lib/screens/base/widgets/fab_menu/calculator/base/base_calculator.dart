@@ -1,6 +1,9 @@
+import 'package:dolarbot_app/models/settings.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 abstract class BaseCalculatorScreen extends StatefulWidget {
   final double containerHeight;
@@ -28,14 +31,10 @@ mixin BaseCalculator<Page extends BaseCalculatorScreen>
 
   Widget body();
 
-  int getMaxDigits(List<double> values) {
-    double maxValue = values.where((n) => n != null).reduce(max);
-    int digits = maxValue.toString().length - 1;
-    if (digits >= inputFactor) {
-      return kMinDigits;
-    } else {
-      return kMaxDigits - kMinDigits + digits;
-    }
+  NumberFormat getNumberFormat(BuildContext context) {
+    Settings settings = Provider.of<Settings>(context, listen: false);
+    final currencyFormat = settings.getCurrencyFormat();
+    return new NumberFormat("###,###,##0.00", currencyFormat);
   }
 
   @override

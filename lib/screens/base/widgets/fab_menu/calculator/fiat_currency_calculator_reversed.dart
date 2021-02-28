@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
 import 'package:dolarbot_app/screens/base/widgets/fab_menu/calculator/inputs/input_converted.dart';
 import 'package:dolarbot_app/screens/base/widgets/fab_menu/calculator/inputs/input_amount.dart';
+import 'package:intl/intl.dart';
 
 class FiatCurrencyCalculatorReversed extends BaseCalculatorScreen {
   final double sellValue;
@@ -45,8 +46,8 @@ class _FiatCurrencyCalculatorReversedState
   final String decimalSeparator;
   final String thousandSeparator;
   MoneyMaskedTextController _textControllerInput;
-  MoneyMaskedTextController _textControllerSellValue;
-  MoneyMaskedTextController _textControllerSellValueWithTaxes;
+  TextEditingController _textControllerSellValue;
+  TextEditingController _textControllerSellValueWithTaxes;
 
   _FiatCurrencyCalculatorReversedState(
     this.sellValue,
@@ -110,30 +111,27 @@ class _FiatCurrencyCalculatorReversedState
         thousandSeparator: thousandSeparator,
         leftSymbol: "\$ ");
     if (sellValue != null) {
-      _textControllerSellValue = MoneyMaskedTextController(
-          precision: 2,
-          decimalSeparator: decimalSeparator,
-          thousandSeparator: thousandSeparator,
-          leftSymbol: "$symbol ");
+      _textControllerSellValue = TextEditingController(text: "\$ 0");
     }
     if (sellValueWithTaxes != null) {
-      _textControllerSellValueWithTaxes = MoneyMaskedTextController(
-          precision: 2,
-          decimalSeparator: decimalSeparator,
-          thousandSeparator: thousandSeparator,
-          leftSymbol: "$symbol ");
+      _textControllerSellValueWithTaxes = TextEditingController(text: "\$ 0");
     }
   }
 
   void _setConversion() {
+    NumberFormat numberFormat = getNumberFormat(context);
     if (sellValue != null) {
-      _textControllerSellValue.updateValue(
+      String formattedSellValue = numberFormat.format(
           sellValue > 0 ? _textControllerInput.numberValue / sellValue : 0);
+      _textControllerSellValue.text = "$symbol $formattedSellValue";
     }
     if (sellValueWithTaxes != null) {
-      _textControllerSellValueWithTaxes.updateValue(sellValueWithTaxes > 0
-          ? _textControllerInput.numberValue / sellValueWithTaxes
-          : 0);
+      String formattedSellValueWithTaxes = numberFormat.format(
+          sellValueWithTaxes > 0
+              ? _textControllerInput.numberValue / sellValueWithTaxes
+              : 0);
+      _textControllerSellValueWithTaxes.text =
+          "$symbol $formattedSellValueWithTaxes";
     }
   }
 }

@@ -12,7 +12,7 @@ class InputAmount extends StatelessWidget {
     Key key,
     @required this.textController,
     this.title,
-    this.maxDigits = 10,
+    this.maxDigits = 12,
   }) : super(key: key);
 
   @override

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
 import 'package:dolarbot_app/screens/base/widgets/fab_menu/calculator/inputs/input_converted.dart';
 import 'package:dolarbot_app/screens/base/widgets/fab_menu/calculator/inputs/input_amount.dart';
+import 'package:intl/intl.dart';
 
 class FiatCurrencyCalculator extends BaseCalculatorScreen {
   final double buyValue;
@@ -49,9 +50,9 @@ class _FiatCurrencyCalculatorState
   final String decimalSeparator;
   final String thousandSeparator;
   MoneyMaskedTextController _textControllerInput;
-  MoneyMaskedTextController _textControllerBuyValue;
-  MoneyMaskedTextController _textControllerSellValue;
-  MoneyMaskedTextController _textControllerSellValueWithTaxes;
+  TextEditingController _textControllerBuyValue;
+  TextEditingController _textControllerSellValue;
+  TextEditingController _textControllerSellValueWithTaxes;
 
   _FiatCurrencyCalculatorState(
     this.buyValue,
@@ -149,40 +150,33 @@ class _FiatCurrencyCalculatorState
         thousandSeparator: thousandSeparator,
         leftSymbol: "$symbol ");
     if (buyValue != null) {
-      _textControllerBuyValue = MoneyMaskedTextController(
-          precision: 2,
-          decimalSeparator: decimalSeparator,
-          thousandSeparator: thousandSeparator,
-          leftSymbol: "\$ ");
+      _textControllerBuyValue = TextEditingController(text: "\$ 0");
     }
     if (sellValue != null) {
-      _textControllerSellValue = MoneyMaskedTextController(
-          precision: 2,
-          decimalSeparator: decimalSeparator,
-          thousandSeparator: thousandSeparator,
-          leftSymbol: "\$ ");
+      _textControllerSellValue = TextEditingController(text: "\$ 0");
     }
     if (sellValueWithTaxes != null) {
-      _textControllerSellValueWithTaxes = MoneyMaskedTextController(
-          precision: 2,
-          decimalSeparator: decimalSeparator,
-          thousandSeparator: thousandSeparator,
-          leftSymbol: "\$ ");
+      _textControllerSellValueWithTaxes = TextEditingController(text: "\$ 0");
     }
   }
 
   void _setConversion() {
+    NumberFormat numberFormat = getNumberFormat(context);
     if (buyValue != null) {
-      _textControllerBuyValue
-          .updateValue(_textControllerInput.numberValue * buyValue);
+      String formattedBuyValue =
+          numberFormat.format(_textControllerInput.numberValue * buyValue);
+      _textControllerBuyValue.text = "\$ $formattedBuyValue";
     }
     if (sellValue != null) {
-      _textControllerSellValue
-          .updateValue(_textControllerInput.numberValue * sellValue);
+      String formattedSellValue =
+          numberFormat.format(_textControllerInput.numberValue * sellValue);
+      _textControllerSellValue.text = "\$ $formattedSellValue";
     }
     if (sellValueWithTaxes != null) {
-      _textControllerSellValueWithTaxes
-          .updateValue(_textControllerInput.numberValue * sellValueWithTaxes);
+      String formattedSellValueWithTaxes = numberFormat
+          .format(_textControllerInput.numberValue * sellValueWithTaxes);
+      _textControllerSellValueWithTaxes.text =
+          "\$ $formattedSellValueWithTaxes";
     }
   }
 }

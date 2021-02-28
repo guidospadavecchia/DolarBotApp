@@ -1,10 +1,9 @@
 import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_masked_text/flutter_masked_text.dart';
 
 class InputConverted extends StatelessWidget {
   final String title;
-  final MoneyMaskedTextController textController;
+  final TextEditingController textController;
 
   const InputConverted({
     Key key,
