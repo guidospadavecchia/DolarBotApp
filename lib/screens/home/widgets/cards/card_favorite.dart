@@ -16,6 +16,8 @@ class CardFavorite extends StatelessWidget {
   final List<Color> gradiantColors;
   final double height;
   final Spacing spaceBetweenHeader;
+  final Spacing spaceBetweenItems;
+  final Axis direction;
 
   const CardFavorite({
     Key key,
@@ -26,6 +28,8 @@ class CardFavorite extends StatelessWidget {
     @required this.gradiantColors,
     this.height = 150,
     this.spaceBetweenHeader = Spacing.large,
+    this.spaceBetweenItems = Spacing.none,
+    this.direction = Axis.horizontal,
   }) : super(key: key);
 
   @override
@@ -69,7 +73,9 @@ class CardFavorite extends StatelessWidget {
                                   ),
                                   child: Wrap(
                                     verticalDirection: VerticalDirection.down,
-                                    direction: Axis.horizontal,
+                                    direction: direction,
+                                    runSpacing: _getSpaceBetweenItems(),
+                                    spacing: _getSpaceBetweenItems(),
                                     children: [
                                       ...rates,
                                     ],
@@ -108,6 +114,27 @@ class CardFavorite extends StatelessWidget {
         break;
       case Spacing.large:
         spaceSize = 21;
+        break;
+    }
+
+    return spaceSize;
+  }
+
+  double _getSpaceBetweenItems() {
+    double spaceSize;
+
+    switch (spaceBetweenItems) {
+      case Spacing.none:
+        spaceSize = 5;
+        break;
+      case Spacing.small:
+        spaceSize = 10;
+        break;
+      case Spacing.medium:
+        spaceSize = 15;
+        break;
+      case Spacing.large:
+        spaceSize = 20;
         break;
     }
 

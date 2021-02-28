@@ -54,16 +54,16 @@ class _HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
                         value: "89.12",
                         symbol: "\$",
                         spaceMainAxisEnd: Spacing.large,
-                        valueSize: 24,
-                        titleSize: 18,
+                        valueSize: 28,
+                        titleSize: 16,
                       ),
                       CardValue(
                         title: "Venta",
                         value: "95.12",
                         symbol: "\$",
                         spaceMainAxisEnd: Spacing.large,
-                        valueSize: 24,
-                        titleSize: 18,
+                        valueSize: 28,
+                        titleSize: 16,
                       ),
                     ],
                     logo: CardLogo(
@@ -77,18 +77,17 @@ class _HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
                   ),
                   CardFavorite(
                     header: CardHeader(title: "Banco Patagonia"),
+                    spaceBetweenItems: Spacing.medium,
                     rates: [
                       CardValue(
                         title: "Compra",
-                        value: "90.50",
+                        value: "190.50",
                         symbol: "\$",
-                        spaceMainAxisEnd: Spacing.large,
                       ),
                       CardValue(
                         title: "Venta",
-                        value: "95.50",
+                        value: "195.50",
                         symbol: "\$",
-                        spaceMainAxisEnd: Spacing.large,
                       ),
                       CardValue(
                         title: "Ahorro",
@@ -107,18 +106,17 @@ class _HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
                   ),
                   CardFavorite(
                     header: CardHeader(title: "Banco BBVA"),
+                    spaceBetweenItems: Spacing.small,
                     rates: [
                       CardValue(
                         title: "Compra",
                         value: "107.85",
                         symbol: "\$",
-                        spaceMainAxisEnd: Spacing.large,
                       ),
                       CardValue(
                         title: "Venta",
                         value: "114.85",
                         symbol: "\$",
-                        spaceMainAxisEnd: Spacing.large,
                       ),
                       CardValue(
                         title: "Ahorro",
@@ -137,18 +135,17 @@ class _HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
                   ),
                   CardFavorite(
                     header: CardHeader(title: "Banco Nación"),
+                    spaceBetweenItems: Spacing.large,
                     rates: [
                       CardValue(
                         title: "Compra",
                         value: "15.70",
                         symbol: "\$",
-                        spaceMainAxisEnd: Spacing.large,
                       ),
                       CardValue(
                         title: "Venta",
                         value: "17.70",
                         symbol: "\$",
-                        spaceMainAxisEnd: Spacing.large,
                       ),
                       CardValue(
                         title: "Ahorro",
@@ -166,20 +163,20 @@ class _HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
                     gradiantColors: DolarBotConstants.kGradiantNacion,
                   ),
                   CardFavorite(
-                    height: 200,
+                    height: 270,
                     header: CardHeader(title: "Ethereum"),
+                    spaceBetweenItems: Spacing.large,
+                    direction: Axis.vertical,
                     rates: [
                       CardValue(
                         title: "Pesos Args.",
                         value: "131461.00",
                         symbol: "\$",
-                        spaceMainAxisEnd: Spacing.large,
                       ),
                       CardValue(
                         title: "Pesos Args. + Imp.",
                         value: "216910.65",
                         symbol: "\$",
-                        spaceMainAxisEnd: Spacing.large,
                       ),
                       CardValue(
                         title: "Dólares Estadounidenses",
@@ -197,8 +194,39 @@ class _HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
                     gradiantColors: DolarBotConstants.kGradiantEthereum,
                   ),
                   CardFavorite(
+                    height: 270,
+                    header: CardHeader(title: "Bitcoin"),
+                    spaceBetweenItems: Spacing.large,
+                    rates: [
+                      CardValue(
+                        title: "Pesos Args.",
+                        value: "4042042.00",
+                        symbol: "\$",
+                      ),
+                      CardValue(
+                        title: "Pesos Args. + Imp.",
+                        value: "6669374.65",
+                        symbol: "\$",
+                      ),
+                      CardValue(
+                        title: "Dólares Estadounidenses",
+                        value: "44985.00",
+                        symbol: "US\$",
+                      ),
+                    ],
+                    logo: CardLogo(
+                      iconData: CryptoFontIcons.BTC,
+                      tag: "Crypto",
+                    ),
+                    lastUpdated: CardLastUpdated(
+                      timestamp: "27/02/2021 - 19:36",
+                    ),
+                    gradiantColors: DolarBotConstants.kGradiantBitcoin,
+                  ),
+                  CardFavorite(
+                    height: 100,
                     header: CardHeader(title: "Oro"),
-                    spaceBetweenHeader: Spacing.medium,
+                    spaceBetweenHeader: Spacing.small,
                     rates: [
                       CardValue(
                         title: "/ Onza",
@@ -221,7 +249,9 @@ class _HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
                     gradiantColors: DolarBotConstants.kGradiantGold,
                   ),
                   // CardFavorite(
+                  //   height: 100,
                   //   header: CardHeader(title: "Plata"),
+                  //   spaceBetweenHeader: Spacing.small,
                   //   rates: [
                   //     CardValue(
                   //       title: "/ Onza",
@@ -244,7 +274,9 @@ class _HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
                   //   gradiantColors: DolarBotConstants.kGradiantSilver,
                   // ),
                   // CardFavorite(
+                  //   height: 100,
                   //   header: CardHeader(title: "Cobre"),
+                  //   spaceBetweenHeader: Spacing.small,
                   //   rates: [
                   //     CardValue(
                   //       title: "/ Onza",
@@ -267,19 +299,24 @@ class _HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
                   //   gradiantColors: DolarBotConstants.kGradiantCopper,
                   // ),
                   CardFavorite(
+                    height: 210,
                     header: CardHeader(title: "Venezuela"),
                     rates: [
                       CardValue(
                         title: "Promedio Bancos",
                         value: "1871361.13",
                         symbol: "\Bs.",
-                        spaceMainAxisEnd: Spacing.small,
+                        spaceMainAxisEnd: Spacing.large,
+                        titleSize: 16,
+                        valueSize: 20,
                       ),
                       CardValue(
                         title: "Paralelo",
                         value: "1899023.81",
                         symbol: "\Bs.",
                         spaceMainAxisEnd: Spacing.none,
+                        titleSize: 16,
+                        valueSize: 20,
                       ),
                     ],
                     logo: CardLogo(
