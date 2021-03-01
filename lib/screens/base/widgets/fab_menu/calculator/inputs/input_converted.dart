@@ -29,6 +29,7 @@ class InputConverted extends StatelessWidget {
         SizedBox(
           height: 10,
         ),
+        //TODO: Hacer que se ajuste dependiendo del contenido
         Container(
           width: MediaQuery.of(context).size.width * 0.7,
           child: TextField(
