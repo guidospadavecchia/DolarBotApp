@@ -1,3 +1,4 @@
+import 'package:dolarbot_app/classes/decimal_adapter.dart';
 import 'package:dolarbot_app/screens/base/widgets/fab_menu/calculator/base/base_calculator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
@@ -99,11 +100,15 @@ class _CryptoCalculatorReversedState
   }
 
   void _setConversion() {
-    NumberFormat numberFormat = getNumberFormat(context);
-    double value = ((_textControllerInput.numberValue / usdValue) * 100)
-            .truncateToDouble() /
-        100;
-    String formattedValue = numberFormat.format(usdValue > 0 ? value : 0);
-    _textControllerCryptoValue.text = ("$formattedValue $cryptoCode");
+    if (usdValue > 0) {
+      NumberFormat numberFormat = getNumberFormat(context);
+      Decimal input =
+          Decimal.parse(_textControllerInput.numberValue.toString());
+      Decimal dUsdValue = Decimal.parse(usdValue.toString());
+      Decimal d100 = Decimal.parse("100.00");
+      Decimal value = ((input / dUsdValue) * d100).truncate() / d100;
+      String formattedValue = numberFormat.format(DecimalAdapter(value));
+      _textControllerCryptoValue.text = ("$formattedValue $cryptoCode");
+    }
   }
 }

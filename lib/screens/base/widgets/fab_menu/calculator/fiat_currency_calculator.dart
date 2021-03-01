@@ -1,3 +1,4 @@
+import 'package:dolarbot_app/classes/decimal_adapter.dart';
 import 'package:dolarbot_app/screens/base/widgets/fab_menu/calculator/base/base_calculator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
@@ -162,19 +163,25 @@ class _FiatCurrencyCalculatorState
 
   void _setConversion() {
     NumberFormat numberFormat = getNumberFormat(context);
+    Decimal input = Decimal.parse(_textControllerInput.numberValue.toString());
     if (buyValue != null) {
+      Decimal dBuyValue = Decimal.parse(buyValue.toString());
       String formattedBuyValue =
-          numberFormat.format(_textControllerInput.numberValue * buyValue);
+          numberFormat.format(DecimalAdapter(input * dBuyValue));
       _textControllerBuyValue.text = "\$ $formattedBuyValue";
     }
     if (sellValue != null) {
+      Decimal dSellValue = Decimal.parse(sellValue.toString());
       String formattedSellValue =
-          numberFormat.format(_textControllerInput.numberValue * sellValue);
+          numberFormat.format(DecimalAdapter(input * dSellValue));
       _textControllerSellValue.text = "\$ $formattedSellValue";
     }
     if (sellValueWithTaxes != null) {
-      String formattedSellValueWithTaxes = numberFormat
-          .format(_textControllerInput.numberValue * sellValueWithTaxes);
+      Decimal dSellValueWithTaxes =
+          Decimal.parse(sellValueWithTaxes.toString());
+      String formattedSellValueWithTaxes = numberFormat.format(
+        DecimalAdapter(input * dSellValueWithTaxes),
+      );
       _textControllerSellValueWithTaxes.text =
           "\$ $formattedSellValueWithTaxes";
     }

@@ -1,3 +1,4 @@
+import 'package:dolarbot_app/classes/decimal_adapter.dart';
 import 'package:dolarbot_app/screens/base/widgets/fab_menu/calculator/base/base_calculator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
@@ -111,25 +112,29 @@ class _FiatCurrencyCalculatorReversedState
         thousandSeparator: thousandSeparator,
         leftSymbol: "\$ ");
     if (sellValue != null) {
-      _textControllerSellValue = TextEditingController(text: "\$ 0");
+      _textControllerSellValue = TextEditingController(text: "US\$ 0");
     }
     if (sellValueWithTaxes != null) {
-      _textControllerSellValueWithTaxes = TextEditingController(text: "\$ 0");
+      _textControllerSellValueWithTaxes = TextEditingController(text: "US\$ 0");
     }
   }
 
   void _setConversion() {
     NumberFormat numberFormat = getNumberFormat(context);
-    if (sellValue != null) {
+    Decimal input = Decimal.parse(_textControllerInput.numberValue.toString());
+    if (sellValue != null && sellValue > 0) {
+      Decimal dSellValue = Decimal.parse(sellValue.toString());
       String formattedSellValue = numberFormat.format(
-          sellValue > 0 ? _textControllerInput.numberValue / sellValue : 0);
+        DecimalAdapter(input / dSellValue),
+      );
       _textControllerSellValue.text = "$symbol $formattedSellValue";
     }
-    if (sellValueWithTaxes != null) {
+    if (sellValueWithTaxes != null && sellValueWithTaxes > 0) {
+      Decimal dSellValueWithTaxes =
+          Decimal.parse(sellValueWithTaxes.toString());
       String formattedSellValueWithTaxes = numberFormat.format(
-          sellValueWithTaxes > 0
-              ? _textControllerInput.numberValue / sellValueWithTaxes
-              : 0);
+        DecimalAdapter(input / dSellValueWithTaxes),
+      );
       _textControllerSellValueWithTaxes.text =
           "$symbol $formattedSellValueWithTaxes";
     }

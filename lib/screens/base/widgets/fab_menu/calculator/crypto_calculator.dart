@@ -1,3 +1,4 @@
+import 'package:dolarbot_app/classes/decimal_adapter.dart';
 import 'package:dolarbot_app/screens/base/widgets/fab_menu/calculator/base/base_calculator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
@@ -130,12 +131,19 @@ class _CryptoCalculatorState extends BaseCalculatorState<CryptoCalculator>
 
   void _setConversion() {
     NumberFormat numberFormat = getNumberFormat(context);
-    String formattedArsValue =
-        numberFormat.format(_textControllerInput.numberValue * arsValue);
-    String formattedArsValueWithTaxes = numberFormat
-        .format(_textControllerInput.numberValue * arsValueWithTaxes);
-    String formattedUsdValue =
-        numberFormat.format(_textControllerInput.numberValue * usdValue);
+    Decimal input = Decimal.parse(_textControllerInput.numberValue.toString());
+    Decimal dArsValue = Decimal.parse(arsValue.toString());
+    Decimal dArsValueWithTaxes = Decimal.parse(arsValueWithTaxes.toString());
+    Decimal dUsdValue = Decimal.parse(usdValue.toString());
+    String formattedArsValue = numberFormat.format(
+      DecimalAdapter(input * dArsValue),
+    );
+    String formattedArsValueWithTaxes = numberFormat.format(
+      DecimalAdapter(input * dArsValueWithTaxes),
+    );
+    String formattedUsdValue = numberFormat.format(
+      DecimalAdapter(input * dUsdValue),
+    );
     _textControllerArsValue.text = "\$ $formattedArsValue";
     _textControllerArsValueWithTaxes.text = "\$ $formattedArsValueWithTaxes";
     _textControllerUsdValue.text = "US\$ $formattedUsdValue";
