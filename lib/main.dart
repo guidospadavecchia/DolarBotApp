@@ -27,7 +27,6 @@ void main() async {
   });
 }
 
-//TODO: https://github.com/a14n/dart-decimal
 class DolarBotApp extends StatelessWidget {
   final AdaptiveThemeMode savedThemeMode;
 
