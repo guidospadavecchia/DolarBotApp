@@ -2,11 +2,11 @@ import 'package:dolarbot_app/api/responses/base/apiResponse.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:dolarbot_app/models/active_screen_data.dart';
 import 'package:dolarbot_app/screens/base/widgets/drawer/drawer_menu.dart';
+import 'package:dolarbot_app/screens/base/widgets/fab_menu/fab_menu.dart';
 import 'package:dolarbot_app/widgets/common/cool_app_bar.dart';
 import 'package:dolarbot_app/widgets/common/simple_fab_menu.dart';
 import 'package:fab_circular_menu/fab_circular_menu.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:meta/meta.dart';
 import 'package:provider/provider.dart';
 
@@ -37,8 +37,7 @@ abstract class BaseInfoScreen extends StatefulWidget {
 
 abstract class BaseInfoScreenState<Page extends BaseInfoScreen>
     extends State<BaseInfoScreen> with SingleTickerProviderStateMixin {
-  final GlobalKey<FabCircularMenuState> fabKey = GlobalKey();
-  final GlobalKey<SimpleFabMenuState> simpleFab = GlobalKey();
+  final GlobalKey<SimpleFabMenuState> simpleFabKey = GlobalKey();
 
   bool isMainMenu() => true;
   bool showRefreshButton() => true;
@@ -46,6 +45,7 @@ abstract class BaseInfoScreenState<Page extends BaseInfoScreen>
   bool showShareButton() => true;
   bool showClipboardButton() => true;
   bool showCalculatorButton() => true;
+  bool showFavoriteButton() => true;
   bool extendBodyBehindAppBar() => true;
   Color setColorAppbar() => ThemeManager.getPrimaryTextColor(context);
 }
@@ -108,58 +108,20 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
           : body(),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       floatingActionButton: showFabMenu()
-          ? SimpleFabMenu(
-              key: simpleFab,
-              direction: Axis.horizontal,
-              icon: Icons.more_horiz,
-              iconColor: Colors.black87,
-              backGroundColor: Colors.white,
-              items: <SimpleFabOption>[
-                SimpleFabOption(
-                  tooltip: "Agregar tarjeta",
-                  iconColor: Colors.black87,
-                  backgroundColor: Colors.white,
-                  icon: Icons.favorite_rounded,
-                  onPressed: () {
-                    simpleFab.currentState.closeMenu();
-                  },
-                ),
-                SimpleFabOption(
-                  tooltip: "Compartir",
-                  iconColor: Colors.black87,
-                  backgroundColor: Colors.white,
-                  icon: Icons.share,
-                  onPressed: () {
-                    simpleFab.currentState.closeMenu();
-                  },
-                ),
-                SimpleFabOption(
-                  tooltip: "Copiar",
-                  iconColor: Colors.black87,
-                  backgroundColor: Colors.white,
-                  icon: Icons.copy,
-                  onPressed: () {
-                    simpleFab.currentState.closeMenu();
-                  },
-                ),
-                SimpleFabOption(
-                  tooltip: "Calculadora",
-                  iconColor: Colors.black87,
-                  backgroundColor: Colors.white,
-                  icon: FontAwesomeIcons.calculator,
-                  onPressed: () {
-                    simpleFab.currentState.closeMenu();
-                  },
-                ),
-              ],
+          ? FabMenu(
+              simpleFabKey: simpleFabKey,
+              showFavoriteButton: showFavoriteButton(),
+              showShareButton: showShareButton(),
+              showClipboardButton: showClipboardButton(),
+              showCalculatorButton: showCalculatorButton(),
             )
           : null,
     );
   }
 
   void _onDrawerDisplayChange(bool isOpen) {
-    if (isOpen && (simpleFab?.currentState?.isOpen ?? false)) {
-      simpleFab.currentState.closeMenu();
+    if (isOpen && (simpleFabKey?.currentState?.isOpen ?? false)) {
+      simpleFabKey.currentState.closeMenu();
     }
   }
 
