@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 export 'package:dolarbot_app/screens/home/widgets/cards/card_header.dart';
 export 'package:dolarbot_app/screens/home/widgets/cards/card_last_updated.dart';
 export 'package:dolarbot_app/screens/home/widgets/cards/card_logo.dart';
+export 'package:dolarbot_app/screens/home/widgets/cards/card_value.dart';
 
 class CardFavorite extends StatelessWidget {
   final CardHeader header;

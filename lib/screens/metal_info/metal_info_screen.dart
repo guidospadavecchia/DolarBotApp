@@ -1,7 +1,9 @@
 import 'package:dolarbot_app/api/responses/metalResponse.dart';
 import 'package:dolarbot_app/interfaces/share_info.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
-import 'package:intl/intl.dart';
+import 'package:dolarbot_app/screens/home/widgets/cards/card_favorite.dart';
+import 'package:dolarbot_app/screens/home/widgets/cards/card_value.dart';
+import 'package:intl/intl.dart' as intl;
 
 class MetalInfoScreen extends BaseInfoScreen {
   final String title;
@@ -40,6 +42,33 @@ class _MetalInfoScreenState extends BaseInfoScreenState<MetalInfoScreen>
         screen: (data) {
           WidgetsBinding.instance.addPostFrameCallback(
               (_) => setActiveData(data, getShareInfo(data)));
+
+          cardFavorite = CardFavorite(
+            height: 100,
+            header: CardHeader(title: widget.bannerTitle),
+            spaceBetweenHeader: Spacing.small,
+            rates: [
+              CardValue(
+                title: "/ Onza",
+                value: data.value,
+                symbol: data.currency == 'USD' ? 'US\$' : '\$',
+                direction: Axis.horizontal,
+                textDirection: TextDirection.rtl,
+                spaceBetweenTitle: Spacing.small,
+                crossAlignment: WrapCrossAlignment.center,
+                valueSize: 32,
+              ),
+            ],
+            logo: CardLogo(
+              iconAsset: widget.bannerIconAsset,
+              tag: "METAL",
+            ),
+            lastUpdated: CardLastUpdated(
+              timestamp: data.timestamp,
+            ),
+            gradiantColors: widget.gradiantColors,
+          );
+
           return Column(
             children: [
               banner(),
@@ -63,7 +92,7 @@ class _MetalInfoScreenState extends BaseInfoScreenState<MetalInfoScreen>
   String getShareInfo(MetalResponse data) {
     Settings settings = Provider.of<Settings>(context, listen: false);
     final currencyFormat = settings.getCurrencyFormat();
-    final numberFormat = new NumberFormat("#,###,###.00", currencyFormat);
+    final numberFormat = new intl.NumberFormat("#,###,###.00", currencyFormat);
     String shareText = '';
 
     if (data != null) {
@@ -72,9 +101,10 @@ class _MetalInfoScreenState extends BaseInfoScreenState<MetalInfoScreen>
           : 'N/A';
       final symbol = data.currency == 'USD' ? 'US\$' : '\$';
       DateTime date = DateTime.parse(data.timestamp.replaceAll('/', '-'));
-      String formattedTime = DateFormat(Util.isSameDay(DateTime.now(), date)
-              ? 'HH:mm'
-              : 'HH:mm - dd-MM-yyyy')
+      String formattedTime = intl.DateFormat(
+              Util.isSameDay(DateTime.now(), date)
+                  ? 'HH:mm'
+                  : 'HH:mm - dd-MM-yyyy')
           .format(date);
 
       shareText = '$symbol $value / ${data.unit}\nHora: $formattedTime';

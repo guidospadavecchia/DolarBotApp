@@ -2,6 +2,7 @@ import 'package:dolarbot_app/api/responses/base/genericCurrencyResponse.dart';
 import 'package:dolarbot_app/classes/globals.dart';
 import 'package:dolarbot_app/models/active_screen_data.dart';
 import 'package:dolarbot_app/models/settings.dart';
+import 'package:dolarbot_app/screens/base/base_info_screen.dart';
 import 'package:dolarbot_app/screens/base/widgets/fab_menu/calculator/crypto_calculator.dart';
 import 'package:dolarbot_app/screens/base/widgets/fab_menu/calculator/crypto_calculator_reversed.dart';
 import 'package:dolarbot_app/screens/base/widgets/fab_menu/calculator/dialog/fab_option_calculator_dialog.dart';
@@ -11,15 +12,17 @@ import 'package:dolarbot_app/util/util.dart';
 import 'package:dolarbot_app/widgets/common/dialog_button.dart';
 import 'package:dolarbot_app/widgets/common/simple_fab_menu.dart';
 import 'package:dolarbot_app/widgets/toasts/toast_ok.dart';
+import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';
-import 'package:share/share.dart';
+import 'package:share/share.dart' as share2;
 
 class FabMenu extends StatelessWidget {
   final GlobalKey<SimpleFabMenuState> simpleFabKey;
+  final GlobalKey<BaseInfoScreenState> baseInfoKey;
   final bool showFavoriteButton;
   final bool showShareButton;
   final bool showClipboardButton;
@@ -32,6 +35,7 @@ class FabMenu extends StatelessWidget {
     this.showShareButton = true,
     this.showClipboardButton = true,
     this.showCalculatorButton = true,
+    this.baseInfoKey,
   }) : super(key: key);
 
   @override
@@ -65,10 +69,11 @@ class FabMenu extends StatelessWidget {
                   iconColor: Colors.black87,
                   backgroundColor: Colors.white,
                   icon: Icons.share,
-                  onPressed: () => share(
-                    activeData.getShareData(),
-                    title: activeData.getActiveTitle(),
-                  ),
+                  onPressed: () {
+                    Share.file('DolarBot', 'share.png',
+                        activeData.getImageCard(), 'image/png',
+                        text: 'powered by DolarBot');
+                  },
                 ),
               if (showClipboardButton)
                 SimpleFabOption(
@@ -110,7 +115,7 @@ class FabMenu extends StatelessWidget {
   }
 
   void share(String text, {String title}) {
-    Share.share(text, subject: title != null ? 'Cotización $title' : '');
+    share2.Share.share(text, subject: title != null ? 'Cotización $title' : '');
     closeFabMenu();
   }
 

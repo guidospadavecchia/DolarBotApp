@@ -204,6 +204,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.3.5"
+  esys_flutter_share:
+    dependency: "direct main"
+    description:
+      name: esys_flutter_share
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.2"
   fab_circular_menu:
     dependency: "direct main"
     description:
@@ -576,6 +583,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.3.8"
+  screenshot:
+    dependency: "direct main"
+    description:
+      name: screenshot
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.3.0"
   share:
     dependency: "direct main"
     description:

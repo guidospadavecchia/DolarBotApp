@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:dolarbot_app/api/responses/base/apiResponse.dart';
 import 'package:flutter/foundation.dart';
 
@@ -7,6 +9,7 @@ class ActiveScreenData extends ChangeNotifier {
   String _shareText;
   String _activeTitle;
   ApiResponse _activeData;
+  Uint8List _imageCard;
 
   void setActiveData(ApiResponse data, String shareText,
       {bool updateListeners = true}) {
@@ -24,8 +27,19 @@ class ActiveScreenData extends ChangeNotifier {
     }
   }
 
+  void setActiveCard(Uint8List imageCard, {bool updateListeners = true}) {
+    _imageCard = imageCard;
+    if (updateListeners) {
+      notifyListeners();
+    }
+  }
+
   ApiResponse getActiveData() {
     return _activeData;
+  }
+
+  Uint8List getImageCard() {
+    return _imageCard;
   }
 
   String getShareData() {

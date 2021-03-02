@@ -1,14 +1,18 @@
+import 'dart:typed_data';
+
 import 'package:dolarbot_app/api/responses/base/apiResponse.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:dolarbot_app/models/active_screen_data.dart';
 import 'package:dolarbot_app/screens/base/widgets/drawer/drawer_menu.dart';
 import 'package:dolarbot_app/screens/base/widgets/fab_menu/fab_menu.dart';
+import 'package:dolarbot_app/screens/home/widgets/cards/card_favorite.dart';
 import 'package:dolarbot_app/widgets/common/cool_app_bar.dart';
 import 'package:dolarbot_app/widgets/common/simple_fab_menu.dart';
-import 'package:fab_circular_menu/fab_circular_menu.dart';
+import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 import 'package:provider/provider.dart';
+import 'package:screenshot/screenshot.dart';
 
 export 'package:dolarbot_app/api/api.dart';
 export 'package:dolarbot_app/api/responses/base/apiResponse.dart';
@@ -52,6 +56,10 @@ abstract class BaseInfoScreenState<Page extends BaseInfoScreen>
 
 mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
   bool shouldForceRefresh = false;
+  CardFavorite cardFavorite;
+
+  Uint8List _imageFile;
+  ScreenshotController screenshotController = ScreenshotController();
 
   void initState() {
     super.initState();
@@ -83,28 +91,36 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
       drawerEdgeDragWidth: 150,
       drawerEnableOpenDragGesture: true,
       body: (widget.bannerTitle != null || isMainMenu())
-          ? Container(
-              height: double.infinity,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: widget.gradiantColors == null
-                      ? [
-                          ThemeManager.getGlobalBackgroundColor(context),
-                          ThemeManager.getGlobalBackgroundColor(context),
-                        ]
-                      : widget.gradiantColors,
+          ? Stack(children: [
+              cardFavorite != null
+                  ? Screenshot(
+                      child: cardFavorite,
+                      controller: screenshotController,
+                    )
+                  : SizedBox.shrink(),
+              Container(
+                height: double.infinity,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: widget.gradiantColors == null
+                        ? [
+                            ThemeManager.getGlobalBackgroundColor(context),
+                            ThemeManager.getGlobalBackgroundColor(context),
+                          ]
+                        : widget.gradiantColors,
+                  ),
+                ),
+                child: Wrap(
+                  runAlignment: WrapAlignment.center,
+                  runSpacing: 0,
+                  children: [
+                    body(),
+                  ],
                 ),
               ),
-              child: Wrap(
-                runAlignment: WrapAlignment.center,
-                runSpacing: 0,
-                children: [
-                  body(),
-                ],
-              ),
-            )
+            ])
           : body(),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       floatingActionButton: showFabMenu()
@@ -125,7 +141,8 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
     }
   }
 
-  void _refresh() {
+  void _refresh() async {
+    getShareAsImage();
     setState(() {
       shouldForceRefresh = true;
     });
@@ -135,6 +152,24 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
     ActiveScreenData activeScreenData =
         Provider.of<ActiveScreenData>(context, listen: false);
     activeScreenData.setActiveData(data, shareText);
+  }
+
+  @nonVirtual
+  void getShareAsImage() {
+    setState(() {
+      _imageFile = null;
+      screenshotController
+          .capture(delay: Duration(seconds: 1))
+          .then((Uint8List image) async {
+        setState(() {
+          ActiveScreenData activeScreenData =
+              Provider.of<ActiveScreenData>(context, listen: false);
+          activeScreenData.setActiveCard(image);
+        });
+      }).catchError((onError) {
+        print(onError);
+      });
+    });
   }
 
   Widget body();
