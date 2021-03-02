@@ -112,29 +112,30 @@ class _FiatCurrencyCalculatorReversedState
         thousandSeparator: thousandSeparator,
         leftSymbol: "\$ ");
     if (sellValue != null) {
-      _textControllerSellValue = TextEditingController(text: "US\$ 0");
+      _textControllerSellValue = TextEditingController(text: "US\$ 0.00");
     }
     if (sellValueWithTaxes != null) {
-      _textControllerSellValueWithTaxes = TextEditingController(text: "US\$ 0");
+      _textControllerSellValueWithTaxes =
+          TextEditingController(text: "US\$ 0.00");
     }
   }
 
   void _setConversion() {
     NumberFormat numberFormat = getNumberFormat(context);
     Decimal input = Decimal.parse(_textControllerInput.numberValue.toString());
+    Decimal d100 = Decimal.parse("100.00");
     if (sellValue != null && sellValue > 0) {
       Decimal dSellValue = Decimal.parse(sellValue.toString());
-      String formattedSellValue = numberFormat.format(
-        DecimalAdapter(input / dSellValue),
-      );
+      Decimal value = ((input / dSellValue) * d100).truncate() / d100;
+      String formattedSellValue = numberFormat.format(DecimalAdapter(value));
       _textControllerSellValue.text = "$symbol $formattedSellValue";
     }
     if (sellValueWithTaxes != null && sellValueWithTaxes > 0) {
       Decimal dSellValueWithTaxes =
           Decimal.parse(sellValueWithTaxes.toString());
-      String formattedSellValueWithTaxes = numberFormat.format(
-        DecimalAdapter(input / dSellValueWithTaxes),
-      );
+      Decimal value = ((input / dSellValueWithTaxes) * d100).truncate() / d100;
+      String formattedSellValueWithTaxes =
+          numberFormat.format(DecimalAdapter(value));
       _textControllerSellValueWithTaxes.text =
           "$symbol $formattedSellValueWithTaxes";
     }

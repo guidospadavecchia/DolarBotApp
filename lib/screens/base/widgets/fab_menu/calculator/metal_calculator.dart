@@ -98,7 +98,7 @@ class _MetalCalculatorState extends BaseCalculatorState<MetalCalculator>
       thousandSeparator: thousandSeparator,
       leftSymbol: "US\$ ",
     );
-    _textControllerValue = TextEditingController(text: "0 $pluralUnit");
+    _textControllerValue = TextEditingController(text: "0.00 $pluralUnit");
   }
 
   void _setConversion() {

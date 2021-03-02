@@ -10,6 +10,8 @@ import 'package:dolarbot_app/screens/base/widgets/fab_menu/calculator/fiat_curre
 import 'package:dolarbot_app/screens/base/widgets/fab_menu/calculator/fiat_currency_calculator_reversed.dart';
 import 'package:dolarbot_app/screens/base/widgets/fab_menu/calculator/metal_calculator.dart';
 import 'package:dolarbot_app/screens/base/widgets/fab_menu/calculator/metal_calculator_reversed.dart';
+import 'package:dolarbot_app/screens/base/widgets/fab_menu/calculator/venezuela_calculator.dart';
+import 'package:dolarbot_app/screens/base/widgets/fab_menu/calculator/venezuela_calculator_reversed.dart';
 import 'package:dolarbot_app/util/util.dart';
 import 'package:dolarbot_app/widgets/common/dialog_button.dart';
 import 'package:dolarbot_app/widgets/common/simple_fab_menu.dart';
@@ -59,6 +61,7 @@ class FabMenu extends StatelessWidget {
                     Scaffold.of(context).showSnackBar(SnackBar(
                       duration: Duration(seconds: 3),
                       content: Text("Falta agregar funcionalidad 🪁"),
+                      //TODO: Agregar a favoritos
                     ))
                   },
                 ),
@@ -178,7 +181,16 @@ class FabMenu extends StatelessWidget {
               thousandSeparator,
             );
           }
-          //TODO Venezuela calculator
+
+          if (activeData is VenezuelaResponse) {
+            VenezuelaResponse data = activeData;
+            return _getVenezuelaCalculatorDialog(
+              context,
+              data,
+              decimalSeparator,
+              thousandSeparator,
+            );
+          }
         }
 
         return _getNotSupportedDialog(context);
@@ -245,9 +257,9 @@ class FabMenu extends StatelessWidget {
       CryptoResponse data, String decimalSeparator, String thousandSeparator) {
     return FabOptionCalculatorDialog(
       calculator: CryptoCalculator(
-        arsValue: double.tryParse(data?.arsPrice ?? ''),
-        arsValueWithTaxes: double.tryParse(data?.arsPriceWithTaxes ?? ''),
-        usdValue: double.tryParse(data?.usdPrice ?? ''),
+        arsValue: double.tryParse(data?.arsPrice),
+        arsValueWithTaxes: double.tryParse(data?.arsPriceWithTaxes),
+        usdValue: double.tryParse(data?.usdPrice),
         cryptoCode: data.code,
         decimalSeparator: decimalSeparator,
         thousandSeparator: thousandSeparator,
@@ -265,14 +277,39 @@ class FabMenu extends StatelessWidget {
       MetalResponse data, String decimalSeparator, String thousandSeparator) {
     return FabOptionCalculatorDialog(
       calculator: MetalCalculator(
-        usdValue: double.tryParse(data?.value ?? ''),
+        usdValue: double.tryParse(data?.value),
         unit: data?.unit,
         decimalSeparator: decimalSeparator,
         thousandSeparator: thousandSeparator,
       ),
       calculatorReversed: MetalCalculatorReversed(
-        usdValue: double.tryParse(data?.value ?? ''),
+        usdValue: double.tryParse(data?.value),
         unit: data?.unit,
+        decimalSeparator: decimalSeparator,
+        thousandSeparator: thousandSeparator,
+      ),
+    );
+  }
+
+  FabOptionCalculatorDialog _getVenezuelaCalculatorDialog(
+      BuildContext context,
+      VenezuelaResponse data,
+      String decimalSeparator,
+      String thousandSeparator) {
+    return FabOptionCalculatorDialog(
+      calculator: VenezuelaCalculator(
+        bankValue: double.tryParse(data?.bankPrice),
+        blackMarketValue: double.tryParse(data?.blackMarketPrice),
+        symbol: Util.getFiatCurrencySymbol(data),
+        currencyCode: data?.currencyCode,
+        decimalSeparator: decimalSeparator,
+        thousandSeparator: thousandSeparator,
+      ),
+      calculatorReversed: VenezuelaCalculatorReversed(
+        bankValue: double.tryParse(data?.bankPrice),
+        blackMarketValue: double.tryParse(data?.blackMarketPrice),
+        symbol: Util.getFiatCurrencySymbol(data),
+        currencyCode: data?.currencyCode,
         decimalSeparator: decimalSeparator,
         thousandSeparator: thousandSeparator,
       ),

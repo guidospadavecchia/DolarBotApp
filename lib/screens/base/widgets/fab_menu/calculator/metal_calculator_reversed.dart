@@ -99,7 +99,7 @@ class _MetalCalculatorReversedState
       thousandSeparator: thousandSeparator,
       rightSymbol: " $pluralUnit",
     );
-    _textControllerValue = TextEditingController(text: "US\$ 0");
+    _textControllerValue = TextEditingController(text: "US\$ 0.00");
   }
 
   void _setConversion() {

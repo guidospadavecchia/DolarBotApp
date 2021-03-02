@@ -96,7 +96,8 @@ class _CryptoCalculatorReversedState
         decimalSeparator: decimalSeparator,
         thousandSeparator: thousandSeparator,
         leftSymbol: "US\$ ");
-    _textControllerCryptoValue = TextEditingController(text: "$cryptoCode 0");
+    _textControllerCryptoValue =
+        TextEditingController(text: "0.00 $cryptoCode");
   }
 
   void _setConversion() {

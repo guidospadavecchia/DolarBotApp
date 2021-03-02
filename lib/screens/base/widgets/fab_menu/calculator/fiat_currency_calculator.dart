@@ -124,7 +124,7 @@ class _FiatCurrencyCalculatorState
             children: [
               Divider(
                 color: Colors.black,
-                indent: 80,
+                indent: 50,
                 endIndent: 50,
                 height: 0,
               ),
@@ -151,13 +151,14 @@ class _FiatCurrencyCalculatorState
         thousandSeparator: thousandSeparator,
         leftSymbol: "$symbol ");
     if (buyValue != null) {
-      _textControllerBuyValue = TextEditingController(text: "\$ 0");
+      _textControllerBuyValue = TextEditingController(text: "\$ 0.00");
     }
     if (sellValue != null) {
-      _textControllerSellValue = TextEditingController(text: "\$ 0");
+      _textControllerSellValue = TextEditingController(text: "\$ 0.00");
     }
     if (sellValueWithTaxes != null) {
-      _textControllerSellValueWithTaxes = TextEditingController(text: "\$ 0");
+      _textControllerSellValueWithTaxes =
+          TextEditingController(text: "\$ 0.00");
     }
   }
 
