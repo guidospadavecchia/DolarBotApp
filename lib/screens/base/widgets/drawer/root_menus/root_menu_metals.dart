@@ -10,7 +10,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 class RootMenuMetals extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    const String _title = 'Metales';
+    const String _title = 'Metal';
 
     return MenuItem(
       text: "Metales",

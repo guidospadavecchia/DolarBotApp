@@ -27,8 +27,8 @@ class RootMenuVenezuela extends StatelessWidget {
               VenezuelaInfoScreen(
                 title: _title,
                 bannerTitle: 'Dólar',
-                gradiantColors: DolarBotConstants.kGradiantVenezuela,
                 bannerIconData: FontAwesomeIcons.dollarSign,
+                gradiantColors: DolarBotConstants.kGradiantVenezuela,
                 venezuelaEndpoint: VenezuelaEndpoints.dolar,
               ),
             )
@@ -44,8 +44,8 @@ class RootMenuVenezuela extends StatelessWidget {
               VenezuelaInfoScreen(
                 title: _title,
                 bannerTitle: 'Euro',
-                gradiantColors: DolarBotConstants.kGradiantVenezuela,
                 bannerIconData: FontAwesomeIcons.euroSign,
+                gradiantColors: DolarBotConstants.kGradiantVenezuela,
                 venezuelaEndpoint: VenezuelaEndpoints.euro,
               ),
             )

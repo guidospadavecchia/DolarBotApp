@@ -1,6 +1,3 @@
-import 'dart:typed_data';
-
-import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'package:crypto_font_icons/crypto_font_icons.dart';
 import 'package:dolarbot_app/classes/constants.dart';
 import 'package:dolarbot_app/classes/dolarbot_icons.dart';
@@ -9,7 +6,6 @@ import 'package:dolarbot_app/screens/base/base_info_screen.dart';
 import 'package:dolarbot_app/screens/home/widgets/cards/card_favorite.dart';
 import 'package:dolarbot_app/screens/home/widgets/cards/card_value.dart';
 import 'package:flutter/material.dart';
-import 'package:screenshot/screenshot.dart';
 
 class HomeScreen extends BaseInfoScreen {
   HomeScreen({
@@ -21,10 +17,6 @@ class HomeScreen extends BaseInfoScreen {
 }
 
 class _HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
-  Uint8List _imageFile;
-
-  ScreenshotController screenshotController = ScreenshotController();
-
   @override
   showRefreshButton() => false;
 
@@ -33,6 +25,9 @@ class _HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
 
   @override
   bool extendBodyBehindAppBar() => false;
+
+  @override
+  CardFavorite card() => null;
 
   @override
   Widget body() {
@@ -52,27 +47,8 @@ class _HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
               physics: BouncingScrollPhysics(),
               child: Column(
                 children: [
-                  FlatButton(
-                    onPressed: () async {
-                      _imageFile = null;
-                      screenshotController
-                          .capture(delay: Duration(seconds: 2))
-                          .then((Uint8List image) async {
-                        //print("Capture Done");
-
-                        setState(() async {
-                          _imageFile = image;
-                          await Share.file('esys image', 'dolar_oficial.png',
-                              _imageFile, 'image/png',
-                              text: 'powered by DolarBot');
-                        });
-                      }).catchError((onError) {
-                        print(onError);
-                      });
-                    },
-                    child: Text("Capturar"),
-                  ),
                   CardFavorite(
+                    showPoweredBy: false,
                     header: CardHeader(title: "Banco Patagonia"),
                     spaceBetweenItems: Spacing.medium,
                     rates: [
@@ -221,7 +197,7 @@ class _HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
                     gradiantColors: DolarBotConstants.kGradiantBitcoin,
                   ),
                   CardFavorite(
-                    height: 100,
+                    height: 150,
                     header: CardHeader(title: "Oro"),
                     spaceBetweenHeader: Spacing.small,
                     rates: [

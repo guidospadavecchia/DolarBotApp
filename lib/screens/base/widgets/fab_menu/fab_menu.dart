@@ -12,7 +12,6 @@ import 'package:dolarbot_app/util/util.dart';
 import 'package:dolarbot_app/widgets/common/dialog_button.dart';
 import 'package:dolarbot_app/widgets/common/simple_fab_menu.dart';
 import 'package:dolarbot_app/widgets/toasts/toast_ok.dart';
-import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -22,9 +21,9 @@ import 'package:share/share.dart' as share2;
 
 class FabMenu extends StatelessWidget {
   final GlobalKey<SimpleFabMenuState> simpleFabKey;
-  final GlobalKey<BaseInfoScreenState> baseInfoKey;
   final bool showFavoriteButton;
   final bool showShareButton;
+  final Function onShareButtonTap;
   final bool showClipboardButton;
   final bool showCalculatorButton;
 
@@ -33,9 +32,9 @@ class FabMenu extends StatelessWidget {
     this.simpleFabKey,
     this.showFavoriteButton = true,
     this.showShareButton = true,
+    this.onShareButtonTap,
     this.showClipboardButton = true,
     this.showCalculatorButton = true,
-    this.baseInfoKey,
   }) : super(key: key);
 
   @override
@@ -50,31 +49,6 @@ class FabMenu extends StatelessWidget {
             iconColor: Colors.black87,
             backGroundColor: Colors.white,
             items: <SimpleFabOption>[
-              if (showFavoriteButton)
-                SimpleFabOption(
-                  tooltip: "¡Agregar a Favoritos!",
-                  iconColor: Colors.black87,
-                  backgroundColor: Colors.white,
-                  icon: Icons.favorite_rounded,
-                  onPressed: () => {
-                    Scaffold.of(context).showSnackBar(SnackBar(
-                      duration: Duration(seconds: 3),
-                      content: Text("Falta agregar funcionalidad 🪁"),
-                    ))
-                  },
-                ),
-              if (showShareButton)
-                SimpleFabOption(
-                  tooltip: "Compartir",
-                  iconColor: Colors.black87,
-                  backgroundColor: Colors.white,
-                  icon: Icons.share,
-                  onPressed: () {
-                    Share.file('DolarBot', 'share.png',
-                        activeData.getImageCard(), 'image/png',
-                        text: 'powered by DolarBot');
-                  },
-                ),
               if (showClipboardButton)
                 SimpleFabOption(
                   tooltip: "Copiar al portapapeles",
@@ -97,6 +71,29 @@ class FabMenu extends StatelessWidget {
                       context,
                       activeData.getActiveData(),
                     );
+                  },
+                ),
+              if (showShareButton)
+                SimpleFabOption(
+                    tooltip: "Compartir",
+                    iconColor: Colors.black87,
+                    backgroundColor: Colors.white,
+                    icon: Icons.share,
+                    onPressed: () {
+                      closeFabMenu();
+                      onShareButtonTap();
+                    }),
+              if (showFavoriteButton)
+                SimpleFabOption(
+                  tooltip: "¡Agregar a Favoritos!",
+                  iconColor: Colors.black87,
+                  backgroundColor: Colors.white,
+                  icon: Icons.favorite_rounded,
+                  onPressed: () => {
+                    Scaffold.of(context).showSnackBar(SnackBar(
+                      duration: Duration(seconds: 3),
+                      content: Text("Falta agregar funcionalidad 🪁"),
+                    ))
                   },
                 ),
             ],

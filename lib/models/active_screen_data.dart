@@ -27,13 +27,6 @@ class ActiveScreenData extends ChangeNotifier {
     }
   }
 
-  void setActiveCard(Uint8List imageCard, {bool updateListeners = true}) {
-    _imageCard = imageCard;
-    if (updateListeners) {
-      notifyListeners();
-    }
-  }
-
   ApiResponse getActiveData() {
     return _activeData;
   }

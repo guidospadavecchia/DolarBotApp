@@ -1,4 +1,5 @@
 import 'package:dolarbot_app/api/api_endpoints.dart';
+import 'package:dolarbot_app/classes/constants.dart';
 import 'package:dolarbot_app/screens/base/widgets/drawer/drawer_menu_body.dart';
 import 'package:dolarbot_app/screens/bcra_info/bcra_info_screen.dart';
 import 'package:dolarbot_app/widgets/common/menu_item.dart';
@@ -8,6 +9,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 class RootMenuBCRA extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    const String _title = 'BCRA';
+
     return MenuItem(
       text: "Indicadores BCRA",
       leading: getIconData(context, FontAwesomeIcons.chartLine),
@@ -21,8 +24,11 @@ class RootMenuBCRA extends StatelessWidget {
             navigateTo(
               context,
               BcraInfoScreen(
-                title: 'Riesgo País',
+                title: _title,
+                bannerTitle: "Riesgo País",
+                bannerIconData: FontAwesomeIcons.chartLine,
                 bcraEndpoint: BcraEndpoints.riesgoPais,
+                gradiantColors: DolarBotConstants.kGradiantDark,
               ),
             )
           },
@@ -35,7 +41,10 @@ class RootMenuBCRA extends StatelessWidget {
             navigateTo(
               context,
               BcraInfoScreen(
-                title: 'Reservas del BCRA',
+                title: _title,
+                bannerTitle: 'Reservas',
+                bannerIconData: FontAwesomeIcons.handHoldingUsd,
+                gradiantColors: DolarBotConstants.kGradiantDark,
                 bcraEndpoint: BcraEndpoints.reservas,
               ),
             )
@@ -49,7 +58,10 @@ class RootMenuBCRA extends StatelessWidget {
             navigateTo(
               context,
               BcraInfoScreen(
-                title: 'Dinero en circulación',
+                title: _title,
+                bannerTitle: 'Dinero en Circulación',
+                bannerIconData: FontAwesomeIcons.handHoldingUsd,
+                gradiantColors: DolarBotConstants.kGradiantDark,
                 bcraEndpoint: BcraEndpoints.circulante,
               ),
             ),

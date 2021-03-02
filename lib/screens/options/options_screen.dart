@@ -2,6 +2,7 @@ import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:dolarbot_app/models/settings.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
+import 'package:dolarbot_app/screens/home/widgets/cards/card_favorite.dart';
 import 'package:dolarbot_app/screens/options/widgets/format_currency_dialog/format_currency_dialog.dart';
 import 'package:dolarbot_app/widgets/common/menu_item.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -32,6 +33,12 @@ class _OptionsScreenState extends BaseInfoScreenState<OptionsScreen>
 
   @override
   bool extendBodyBehindAppBar() => false;
+
+  @override
+  Color setColorAppbar() => ThemeManager.getPrimaryTextColor(context);
+
+  @override
+  CardFavorite card() => null;
 
   @override
   Widget body() {

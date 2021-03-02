@@ -1,4 +1,3 @@
-import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:dolarbot_app/models/settings.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
 import 'package:flutter/material.dart';
@@ -33,9 +32,7 @@ class CoolAppBar extends StatelessWidget implements PreferredSizeWidget {
             return IconButton(
               icon: Icon(Icons.menu),
               splashRadius: 25,
-              color: foregroundColor != null
-                  ? foregroundColor
-                  : ThemeManager.getPrimaryTextColor(context),
+              color: foregroundColor,
               onPressed: () => Scaffold.of(context).openDrawer(),
               tooltip: 'Abrir menú',
             );
@@ -43,9 +40,7 @@ class CoolAppBar extends StatelessWidget implements PreferredSizeWidget {
             return IconButton(
               icon: Icon(Icons.arrow_back),
               splashRadius: 25,
-              color: foregroundColor != null
-                  ? foregroundColor
-                  : ThemeManager.getPrimaryTextColor(context),
+              color: foregroundColor,
               onPressed: () => Navigator.of(context).pop(),
               tooltip: 'Volver',
             );
@@ -59,9 +54,7 @@ class CoolAppBar extends StatelessWidget implements PreferredSizeWidget {
                   padding: EdgeInsets.only(right: 15),
                   child: IconButton(
                     icon: Icon(FontAwesomeIcons.redo),
-                    color: foregroundColor != null
-                        ? foregroundColor
-                        : ThemeManager.getPrimaryTextColor(context),
+                    color: foregroundColor,
                     iconSize: 18,
                     splashRadius: 25,
                     tooltip: 'Refrescar cotización',
@@ -83,9 +76,7 @@ class CoolAppBar extends StatelessWidget implements PreferredSizeWidget {
               style: TextStyle(
                 fontFamily: 'Raleway',
                 fontWeight: FontWeight.bold,
-                color: foregroundColor != null
-                    ? foregroundColor
-                    : ThemeManager.getPrimaryTextColor(context),
+                color: foregroundColor,
               ),
             ),
           );

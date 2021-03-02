@@ -13,29 +13,26 @@ class CardLastUpdated extends StatelessWidget {
     return Row(
       children: [
         Expanded(
-          child: Padding(
-            padding: const EdgeInsets.only(bottom: 12),
-            child: Row(
-              children: [
-                Icon(
-                  Icons.alarm,
-                  size: 16,
-                  color: Colors.white54,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 5, top: 2),
-                  child: Text(
-                    "Última actualización: $timestamp",
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontFamily: 'Raleway',
-                      fontWeight: FontWeight.normal,
-                      color: Colors.white54,
-                    ),
+          child: Row(
+            children: [
+              Icon(
+                Icons.alarm,
+                size: 16,
+                color: Colors.white54,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 5, top: 2),
+                child: Text(
+                  "Última actualización: $timestamp",
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontFamily: 'Raleway',
+                    fontWeight: FontWeight.normal,
+                    color: Colors.white54,
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ],

@@ -26,7 +26,9 @@ class RootMenuDollar extends StatelessWidget {
             navigateTo(
               context,
               FiatCurrencyInfoScreen<DollarResponse>(
-                title: "Dólar Oficial",
+                title: "Dólar",
+                bannerIconData: FontAwesomeIcons.dollarSign,
+                bannerTitle: "Oficial",
                 gradiantColors: DolarBotConstants.kGradiantDefault,
                 dollarEndpoint: DollarEndpoints.oficial,
               ),
@@ -41,7 +43,9 @@ class RootMenuDollar extends StatelessWidget {
             navigateTo(
               context,
               FiatCurrencyInfoScreen<DollarResponse>(
-                title: "Dólar Ahorro",
+                title: "Dólar",
+                bannerIconData: FontAwesomeIcons.piggyBank,
+                bannerTitle: "Ahorro",
                 gradiantColors: DolarBotConstants.kGradiantDefault,
                 dollarEndpoint: DollarEndpoints.ahorro,
               ),
@@ -56,7 +60,9 @@ class RootMenuDollar extends StatelessWidget {
             navigateTo(
               context,
               FiatCurrencyInfoScreen<DollarResponse>(
-                title: "Dólar Blue",
+                title: "Dólar",
+                bannerIconData: FontAwesomeIcons.commentDollar,
+                bannerTitle: "Blue",
                 gradiantColors: DolarBotConstants.kGradiantDefault,
                 dollarEndpoint: DollarEndpoints.blue,
               ),
@@ -71,7 +77,9 @@ class RootMenuDollar extends StatelessWidget {
             navigateTo(
               context,
               FiatCurrencyInfoScreen<DollarResponse>(
-                title: "Dólar Bolsa (MEP)",
+                title: "Dólar",
+                bannerIconData: FontAwesomeIcons.poll,
+                bannerTitle: "Bolsa (MEP)",
                 gradiantColors: DolarBotConstants.kGradiantDefault,
                 dollarEndpoint: DollarEndpoints.bolsa,
               ),
@@ -86,7 +94,9 @@ class RootMenuDollar extends StatelessWidget {
             navigateTo(
               context,
               FiatCurrencyInfoScreen<DollarResponse>(
-                title: 'Dólar Contado con Liqui',
+                title: 'Dólar',
+                bannerIconData: FontAwesomeIcons.coins,
+                bannerTitle: "Contado con Liqui",
                 gradiantColors: DolarBotConstants.kGradiantDefault,
                 dollarEndpoint: DollarEndpoints.contadoLiqui,
               ),
@@ -101,7 +111,9 @@ class RootMenuDollar extends StatelessWidget {
             navigateTo(
               context,
               FiatCurrencyInfoScreen<DollarResponse>(
-                title: 'Dólar Promedio',
+                title: 'Dólar',
+                bannerIconData: FontAwesomeIcons.percentage,
+                bannerTitle: "Promedio",
                 gradiantColors: DolarBotConstants.kGradiantDefault,
                 dollarEndpoint: DollarEndpoints.promedio,
               ),

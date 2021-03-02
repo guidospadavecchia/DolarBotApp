@@ -1,5 +1,7 @@
 import 'package:dolarbot_app/interfaces/share_info.dart';
+import 'package:dolarbot_app/models/active_screen_data.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
+import 'package:dolarbot_app/screens/home/widgets/cards/card_favorite.dart';
 import 'package:intl/intl.dart';
 
 class CryptoInfoScreen extends BaseInfoScreen {
@@ -23,16 +25,15 @@ class CryptoInfoScreen extends BaseInfoScreen {
 
   @override
   _CryptoInfoScreenState createState() =>
-      _CryptoInfoScreenState(cryptoEndpoint, gradiantColors);
+      _CryptoInfoScreenState(cryptoEndpoint);
 }
 
 class _CryptoInfoScreenState extends BaseInfoScreenState<CryptoInfoScreen>
     with BaseScreen
     implements IShareable<CryptoResponse> {
   final CryptoEndpoints cryptoEndpoint;
-  final List<Color> gradiantColors;
 
-  _CryptoInfoScreenState(this.cryptoEndpoint, this.gradiantColors);
+  _CryptoInfoScreenState(this.cryptoEndpoint);
 
   @override
   Widget body() {
@@ -44,11 +45,8 @@ class _CryptoInfoScreenState extends BaseInfoScreenState<CryptoInfoScreen>
             API.getCryptoRate(cryptoEndpoint, forceRefresh: shouldForceRefresh),
         screen: (data) {
           WidgetsBinding.instance.addPostFrameCallback(
-            (_) => setActiveData(
-              data,
-              getShareInfo(data),
-            ),
-          );
+              (_) => setActiveData(data, getShareInfo(data)));
+
           return Column(
             children: [
               banner(),
@@ -76,6 +74,57 @@ class _CryptoInfoScreenState extends BaseInfoScreenState<CryptoInfoScreen>
         },
       ),
     );
+  }
+
+  @override
+  Widget card() {
+    return Consumer<ActiveScreenData>(builder: (context, activeData, child) {
+      ApiResponse data = activeData.getActiveData();
+
+      if (data != null && data is CryptoResponse) {
+        return CardFavorite(
+          showPoweredBy: true,
+          height: 290,
+          header: CardHeader(
+            title: widget.bannerTitle,
+            showButtons: false,
+          ),
+          spaceBetweenItems: Spacing.large,
+          direction: Axis.vertical,
+          rates: [
+            CardValue(
+              title: "Pesos Argentinos",
+              value: data.arsPrice,
+              symbol: "\$",
+              valueSize: 22,
+            ),
+            CardValue(
+              title: "Pesos Argentinos + Impuestos",
+              value: data.arsPriceWithTaxes,
+              symbol: "\$",
+              valueSize: 22,
+            ),
+            CardValue(
+              title: "Dólares Estadounidenses",
+              value: data.usdPrice,
+              symbol: "US\$",
+              valueSize: 22,
+            ),
+          ],
+          logo: CardLogo(
+            iconData: widget.bannerIconData,
+            iconAsset: widget.bannerIconAsset,
+            tag: widget.title,
+          ),
+          lastUpdated: CardLastUpdated(
+            timestamp: data.timestamp,
+          ),
+          gradiantColors: widget.gradiantColors,
+        );
+      } else {
+        return SizedBox.shrink();
+      }
+    });
   }
 
   @override

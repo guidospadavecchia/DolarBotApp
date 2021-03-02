@@ -1,6 +1,7 @@
 import 'package:dolarbot_app/screens/home/widgets/cards/card_header.dart';
 import 'package:dolarbot_app/screens/home/widgets/cards/card_last_updated.dart';
 import 'package:dolarbot_app/screens/home/widgets/cards/card_logo.dart';
+import 'package:dolarbot_app/screens/home/widgets/cards/card_powered_by.dart';
 import 'package:dolarbot_app/screens/home/widgets/cards/card_value.dart';
 import 'package:flutter/material.dart';
 
@@ -19,6 +20,7 @@ class CardFavorite extends StatelessWidget {
   final Spacing spaceBetweenHeader;
   final Spacing spaceBetweenItems;
   final Axis direction;
+  final bool showPoweredBy;
 
   const CardFavorite({
     Key key,
@@ -31,6 +33,7 @@ class CardFavorite extends StatelessWidget {
     this.spaceBetweenHeader = Spacing.large,
     this.spaceBetweenItems = Spacing.none,
     this.direction = Axis.horizontal,
+    this.showPoweredBy = false,
   }) : super(key: key);
 
   @override
@@ -48,8 +51,8 @@ class CardFavorite extends StatelessWidget {
             colors: gradiantColors,
           ),
         ),
-        height: height,
-        constraints: BoxConstraints(minHeight: 130),
+        height: showPoweredBy ? height + 15 : height,
+        constraints: BoxConstraints(minHeight: showPoweredBy ? 150 : height),
         child: Row(
           children: [
             logo,
@@ -86,7 +89,12 @@ class CardFavorite extends StatelessWidget {
                             ],
                           ),
                           //END - CARD VALUE
-                          lastUpdated,
+                          Padding(
+                            padding:
+                                EdgeInsets.only(bottom: showPoweredBy ? 0 : 12),
+                            child: lastUpdated,
+                          ),
+                          if (showPoweredBy) CardPoweredBy(),
                         ],
                       ),
                     )

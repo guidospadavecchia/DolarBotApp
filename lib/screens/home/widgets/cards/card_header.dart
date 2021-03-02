@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 
 class CardHeader extends StatelessWidget {
   final String title;
+  final bool showButtons;
 
   const CardHeader({
     Key key,
     this.title,
+    this.showButtons = true,
   }) : super(key: key);
 
   @override
@@ -34,20 +36,22 @@ class CardHeader extends StatelessWidget {
             ),
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.only(left: 30, right: 15),
-          child: Icon(
-            Icons.share,
-            color: Colors.white,
+        if (showButtons)
+          Padding(
+            padding: const EdgeInsets.only(left: 30, right: 15),
+            child: Icon(
+              Icons.share,
+              color: Colors.white,
+            ),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(right: 12),
-          child: Icon(
-            Icons.favorite_rounded,
-            color: Colors.white,
+        if (showButtons)
+          Padding(
+            padding: const EdgeInsets.only(right: 12),
+            child: Icon(
+              Icons.favorite_rounded,
+              color: Colors.white,
+            ),
           ),
-        ),
       ],
     );
   }

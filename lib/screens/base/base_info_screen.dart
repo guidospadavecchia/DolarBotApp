@@ -5,7 +5,6 @@ import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:dolarbot_app/models/active_screen_data.dart';
 import 'package:dolarbot_app/screens/base/widgets/drawer/drawer_menu.dart';
 import 'package:dolarbot_app/screens/base/widgets/fab_menu/fab_menu.dart';
-import 'package:dolarbot_app/screens/home/widgets/cards/card_favorite.dart';
 import 'package:dolarbot_app/widgets/common/cool_app_bar.dart';
 import 'package:dolarbot_app/widgets/common/simple_fab_menu.dart';
 import 'package:esys_flutter_share/esys_flutter_share.dart';
@@ -51,14 +50,12 @@ abstract class BaseInfoScreenState<Page extends BaseInfoScreen>
   bool showCalculatorButton() => true;
   bool showFavoriteButton() => true;
   bool extendBodyBehindAppBar() => true;
-  Color setColorAppbar() => ThemeManager.getPrimaryTextColor(context);
+  Color setColorAppbar() => Colors.white;
 }
 
 mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
   bool shouldForceRefresh = false;
-  CardFavorite cardFavorite;
 
-  Uint8List _imageFile;
   ScreenshotController screenshotController = ScreenshotController();
 
   void initState() {
@@ -92,9 +89,9 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
       drawerEnableOpenDragGesture: true,
       body: (widget.bannerTitle != null || isMainMenu())
           ? Stack(children: [
-              cardFavorite != null
+              card() != null
                   ? Screenshot(
-                      child: cardFavorite,
+                      child: card(),
                       controller: screenshotController,
                     )
                   : SizedBox.shrink(),
@@ -128,12 +125,16 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
               simpleFabKey: simpleFabKey,
               showFavoriteButton: showFavoriteButton(),
               showShareButton: showShareButton(),
+              onShareButtonTap: shareCardImage,
               showClipboardButton: showClipboardButton(),
               showCalculatorButton: showCalculatorButton(),
             )
           : null,
     );
   }
+
+  Widget card();
+  Widget body();
 
   void _onDrawerDisplayChange(bool isOpen) {
     if (isOpen && (simpleFabKey?.currentState?.isOpen ?? false)) {
@@ -142,7 +143,6 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
   }
 
   void _refresh() async {
-    getShareAsImage();
     setState(() {
       shouldForceRefresh = true;
     });
@@ -155,24 +155,18 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
   }
 
   @nonVirtual
-  void getShareAsImage() {
-    setState(() {
-      _imageFile = null;
-      screenshotController
-          .capture(delay: Duration(seconds: 1))
-          .then((Uint8List image) async {
-        setState(() {
-          ActiveScreenData activeScreenData =
-              Provider.of<ActiveScreenData>(context, listen: false);
-          activeScreenData.setActiveCard(image);
-        });
-      }).catchError((onError) {
-        print(onError);
-      });
+  void shareCardImage() {
+    screenshotController.capture().then((Uint8List image) async {
+      Share.file(
+          'DolarBot',
+          'dolarbot_${DateTime.now().microsecondsSinceEpoch}.png',
+          image,
+          'image/png',
+          text: 'Descargá la app en: https://www.dolarbot.com.ar');
+    }).catchError((onError) {
+      print(onError);
     });
   }
-
-  Widget body();
 
   @nonVirtual
   Widget banner() {

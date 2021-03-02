@@ -1,13 +1,21 @@
 import 'package:dolarbot_app/interfaces/share_info.dart';
+import 'package:dolarbot_app/models/active_screen_data.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
+import 'package:dolarbot_app/screens/home/widgets/cards/card_favorite.dart';
 import 'package:intl/intl.dart';
 
 class BcraInfoScreen extends BaseInfoScreen {
   final String title;
+  final String bannerTitle;
+  final IconData bannerIconData;
+  final List<Color> gradiantColors;
   final BcraEndpoints bcraEndpoint;
 
   BcraInfoScreen({
     this.title,
+    this.bannerTitle,
+    this.bannerIconData,
+    this.gradiantColors,
     @required this.bcraEndpoint,
   }) : super(title: title);
 
@@ -27,18 +35,14 @@ class _BcraInfoScreenState extends BaseInfoScreenState<BcraInfoScreen>
 
   @override
   Widget body() {
-    return Container(
-      alignment: Alignment.center,
-      padding: EdgeInsets.only(bottom: 80),
-      child: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        physics: BouncingScrollPhysics(),
-        child: _getChildScreen(),
-      ),
+    return SingleChildScrollView(
+      scrollDirection: Axis.vertical,
+      physics: BouncingScrollPhysics(),
+      child: _buildChildScreen(),
     );
   }
 
-  Widget _getChildScreen() {
+  Widget _buildChildScreen() {
     switch (bcraEndpoint) {
       case BcraEndpoints.riesgoPais:
         return FutureScreenDelegate<CountryRiskResponse>(
@@ -47,10 +51,19 @@ class _BcraInfoScreenState extends BaseInfoScreenState<BcraInfoScreen>
             WidgetsBinding.instance.addPostFrameCallback((_) {
               setActiveData(data, getShareInfoCountryRisk(data));
             });
-            return CurrencyInfo(
-              title: 'VALOR',
-              value: data.value,
-              hideDecimals: true,
+            return Column(
+              children: [
+                banner(),
+                CurrencyInfoContainer(
+                  items: [
+                    CurrencyInfo(
+                      title: 'VALOR',
+                      value: data.value,
+                      hideDecimals: true,
+                    ),
+                  ],
+                ),
+              ],
             );
           },
         );
@@ -61,10 +74,19 @@ class _BcraInfoScreenState extends BaseInfoScreenState<BcraInfoScreen>
             WidgetsBinding.instance.addPostFrameCallback((_) {
               setActiveData(data, getShareInfo(data));
             });
-            return CurrencyInfo(
-              title: "DÓLARES ESTADOUNIDENSES",
-              symbol: 'US\$',
-              value: data.value,
+            return Column(
+              children: [
+                banner(),
+                CurrencyInfoContainer(
+                  items: [
+                    CurrencyInfo(
+                      title: "DÓLARES ESTADOUNIDENSES",
+                      symbol: 'US\$',
+                      value: data.value,
+                    ),
+                  ],
+                ),
+              ],
             );
           },
         );
@@ -76,16 +98,102 @@ class _BcraInfoScreenState extends BaseInfoScreenState<BcraInfoScreen>
             WidgetsBinding.instance.addPostFrameCallback((_) {
               setActiveData(data, getShareInfo(data));
             });
-            return CurrencyInfo(
-              title: "PESOS ARGENTINOS",
-              symbol: '\$',
-              value: data.value,
+            return Column(
+              children: [
+                banner(),
+                CurrencyInfoContainer(
+                  items: [
+                    CurrencyInfo(
+                      title: "PESOS ARGENTINOS",
+                      symbol: '\$',
+                      value: data.value,
+                    ),
+                  ],
+                ),
+              ],
             );
           },
         );
       default:
         throw ('$bcraEndpoint not implemented.');
     }
+  }
+
+  @override
+  Widget card() {
+    return Consumer<ActiveScreenData>(
+      builder: (context, activeData, child) {
+        ApiResponse data = activeData.getActiveData();
+
+        if (data != null && data is CountryRiskResponse) {
+          return CardFavorite(
+            showPoweredBy: true,
+            height: 150,
+            header: CardHeader(
+              title: widget.bannerTitle,
+              showButtons: false,
+            ),
+            spaceBetweenHeader: Spacing.medium,
+            spaceBetweenItems: Spacing.large,
+            direction: Axis.vertical,
+            rates: [
+              CardValue(
+                title: "Valor",
+                value: data.value,
+                symbol: "\$",
+                valueSize: 22,
+              ),
+            ],
+            logo: CardLogo(
+              iconData: widget.bannerIconData,
+              iconAsset: widget.bannerIconAsset,
+              tag: widget.title,
+            ),
+            lastUpdated: CardLastUpdated(timestamp: data.timestamp),
+            gradiantColors: widget.gradiantColors,
+          );
+        }
+
+        if (data != null && data is BcraResponse) {
+          return CardFavorite(
+            showPoweredBy: true,
+            height: 150,
+            header: CardHeader(
+              title: widget.bannerTitle,
+              showButtons: false,
+            ),
+            spaceBetweenHeader: Spacing.medium,
+            spaceBetweenItems: Spacing.large,
+            direction: Axis.vertical,
+            rates: [
+              if (bcraEndpoint == BcraEndpoints.circulante)
+                CardValue(
+                  title: "Dinero en Circulación",
+                  value: data.value,
+                  symbol: "\$",
+                  valueSize: 22,
+                ),
+              if (bcraEndpoint == BcraEndpoints.reservas)
+                CardValue(
+                  title: "Dólares Estadounidenses",
+                  value: data.value,
+                  symbol: "US\$",
+                  valueSize: 22,
+                ),
+            ],
+            logo: CardLogo(
+              iconData: widget.bannerIconData,
+              iconAsset: widget.bannerIconAsset,
+              tag: widget.title,
+            ),
+            lastUpdated: CardLastUpdated(timestamp: data.timestamp),
+            gradiantColors: widget.gradiantColors,
+          );
+        }
+
+        return SizedBox.shrink();
+      },
+    );
   }
 
   @override

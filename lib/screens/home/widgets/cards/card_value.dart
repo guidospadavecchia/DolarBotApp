@@ -39,8 +39,15 @@ class CardValue extends StatelessWidget {
       settings.getCurrencyFormat(),
     );
 
+    String _getTrimZeroValue(String formattedValue) {
+      List<String> values =
+          formattedValue.split(settings.getDecimalSeparator());
+      return int.parse(values[1]) == 0 ? values[0] : formattedValue;
+    }
+
     String _getFormatedValue() {
-      return numberFormat.format(double.parse(value));
+      String formatted = numberFormat.format(double.parse(value));
+      return _getTrimZeroValue(formatted);
     }
 
     return Wrap(
