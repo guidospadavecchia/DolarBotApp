@@ -48,7 +48,7 @@ class FabMenu extends StatelessWidget {
             items: <SimpleFabOption>[
               if (showFavoriteButton)
                 SimpleFabOption(
-                  tooltip: "¡Agregar a Favoritos!",
+                  tooltip: "Agregar a Favoritos ❤",
                   iconColor: Colors.black87,
                   backgroundColor: Colors.white,
                   icon: Icons.favorite_rounded,
@@ -61,7 +61,7 @@ class FabMenu extends StatelessWidget {
                 ),
               if (showShareButton)
                 SimpleFabOption(
-                  tooltip: "Compartir",
+                  tooltip: "Compartir 📲",
                   iconColor: Colors.black87,
                   backgroundColor: Colors.white,
                   icon: Icons.share,
@@ -72,7 +72,7 @@ class FabMenu extends StatelessWidget {
                 ),
               if (showClipboardButton)
                 SimpleFabOption(
-                  tooltip: "Copiar al portapapeles",
+                  tooltip: "Copiar al portapapeles 📝",
                   iconColor: Colors.black87,
                   backgroundColor: Colors.white,
                   icon: Icons.copy,
@@ -83,7 +83,7 @@ class FabMenu extends StatelessWidget {
                 ),
               if (showCalculatorButton)
                 SimpleFabOption(
-                  tooltip: "Calculadora",
+                  tooltip: "Calculadora 💸",
                   iconColor: Colors.black87,
                   backgroundColor: Colors.white,
                   icon: FontAwesomeIcons.calculator,
