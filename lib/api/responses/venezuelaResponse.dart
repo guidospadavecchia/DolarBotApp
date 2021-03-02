@@ -5,6 +5,7 @@ class VenezuelaResponse extends ApiResponse {
   String blackMarketPrice;
   String bankPrice;
   String cucutaPrice;
+  String currencyCode;
 
   VenezuelaResponse(Map json) : super(json);
 
@@ -14,5 +15,6 @@ class VenezuelaResponse extends ApiResponse {
     blackMarketPrice = json["paralelo"];
     bankPrice = json["bancos"];
     cucutaPrice = json["cucuta"];
+    currencyCode = json["moneda"];
   }
 }

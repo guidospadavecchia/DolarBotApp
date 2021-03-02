@@ -6,46 +6,45 @@ import 'package:dolarbot_app/screens/base/widgets/fab_menu/calculator/inputs/inp
 import 'package:dolarbot_app/screens/base/widgets/fab_menu/calculator/inputs/input_amount.dart';
 import 'package:intl/intl.dart';
 
-class CryptoCalculatorReversed extends BaseCalculatorScreen {
+class MetalCalculator extends BaseCalculatorScreen {
   final double usdValue;
-  final String cryptoCode;
+  final String unit;
   final String decimalSeparator;
   final String thousandSeparator;
 
-  CryptoCalculatorReversed({
+  MetalCalculator({
     Key key,
     @required this.usdValue,
-    @required this.cryptoCode,
+    @required this.unit,
     @required this.decimalSeparator,
     @required this.thousandSeparator,
   }) : super(
             key: key,
-            symbol: cryptoCode,
+            symbol: unit,
             decimalSeparator: decimalSeparator,
             thousandSeparator: thousandSeparator);
 
   @override
-  _CryptoCalculatorReversedState createState() =>
-      _CryptoCalculatorReversedState(
+  _MetalCalculatorState createState() => _MetalCalculatorState(
         usdValue,
-        cryptoCode,
+        unit,
         decimalSeparator,
         thousandSeparator,
       );
 }
 
-class _CryptoCalculatorReversedState
-    extends BaseCalculatorState<CryptoCalculatorReversed> with BaseCalculator {
+class _MetalCalculatorState extends BaseCalculatorState<MetalCalculator>
+    with BaseCalculator {
   final double usdValue;
-  final String cryptoCode;
+  final String unit;
   final String decimalSeparator;
   final String thousandSeparator;
   MoneyMaskedTextController _textControllerInput;
-  TextEditingController _textControllerCryptoValue;
+  TextEditingController _textControllerValue;
 
-  _CryptoCalculatorReversedState(
+  _MetalCalculatorState(
     this.usdValue,
-    this.cryptoCode,
+    this.unit,
     this.decimalSeparator,
     this.thousandSeparator,
   );
@@ -64,7 +63,7 @@ class _CryptoCalculatorReversedState
   @override
   void dispose() {
     _textControllerInput.dispose();
-    _textControllerCryptoValue.dispose();
+    _textControllerValue.dispose();
     super.dispose();
   }
 
@@ -74,6 +73,7 @@ class _CryptoCalculatorReversedState
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         InputAmount(
+          title: "Ingresá la cantidad:",
           textController: _textControllerInput,
         ),
         SizedBox(
@@ -81,7 +81,7 @@ class _CryptoCalculatorReversedState
         ),
         InputConverted(
           title: "Comprás",
-          textController: _textControllerCryptoValue,
+          textController: _textControllerValue,
         ),
         SizedBox(
           height: 30,
@@ -91,13 +91,14 @@ class _CryptoCalculatorReversedState
   }
 
   void _createControllers() {
+    String pluralUnit = "${unit.toLowerCase()}s";
     _textControllerInput = MoneyMaskedTextController(
-        precision: 2,
-        decimalSeparator: decimalSeparator,
-        thousandSeparator: thousandSeparator,
-        leftSymbol: "US\$ ");
-    _textControllerCryptoValue =
-        TextEditingController(text: "0.00 $cryptoCode");
+      precision: 2,
+      decimalSeparator: decimalSeparator,
+      thousandSeparator: thousandSeparator,
+      leftSymbol: "US\$ ",
+    );
+    _textControllerValue = TextEditingController(text: "0.00 $pluralUnit");
   }
 
   void _setConversion() {
@@ -107,9 +108,14 @@ class _CryptoCalculatorReversedState
           Decimal.parse(_textControllerInput.numberValue.toString());
       Decimal dUsdValue = Decimal.parse(usdValue.toString());
       Decimal d100 = Decimal.parse("100.00");
+      Decimal d1 = Decimal.parse("1.00");
       Decimal value = ((input / dUsdValue) * d100).truncate() / d100;
-      String formattedValue = numberFormat.format(DecimalAdapter(value));
-      _textControllerCryptoValue.text = ("$formattedValue $cryptoCode");
+      String formattedValue = numberFormat.format(
+        DecimalAdapter(value),
+      );
+      String formattedUnit =
+          value == d1 ? unit.toLowerCase() : "${unit.toLowerCase()}s";
+      _textControllerValue.text = "$formattedValue $formattedUnit";
     }
   }
 }

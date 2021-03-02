@@ -104,8 +104,11 @@ class _CryptoCalculatorState extends BaseCalculatorState<CryptoCalculator>
           title: "Pesos con impuestos",
           textController: _textControllerArsValueWithTaxes,
         ),
-        SizedBox(
-          height: 15,
+        Divider(
+          color: Colors.black,
+          indent: 50,
+          endIndent: 50,
+          height: 30,
         ),
         InputConverted(
           title: "Dólares",
@@ -124,9 +127,9 @@ class _CryptoCalculatorState extends BaseCalculatorState<CryptoCalculator>
         decimalSeparator: decimalSeparator,
         thousandSeparator: thousandSeparator,
         rightSymbol: " $cryptoCode");
-    _textControllerArsValue = TextEditingController(text: "\$ 0");
-    _textControllerArsValueWithTaxes = TextEditingController(text: "\$ 0");
-    _textControllerUsdValue = TextEditingController(text: "US\$ 0");
+    _textControllerArsValue = TextEditingController(text: "\$ 0.00");
+    _textControllerArsValueWithTaxes = TextEditingController(text: "\$ 0.00");
+    _textControllerUsdValue = TextEditingController(text: "US\$ 0.00");
   }
 
   void _setConversion() {
