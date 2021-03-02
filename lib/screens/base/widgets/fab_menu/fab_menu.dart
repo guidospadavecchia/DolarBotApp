@@ -1,4 +1,5 @@
 import 'package:dolarbot_app/api/responses/base/genericCurrencyResponse.dart';
+import 'package:dolarbot_app/api/responses/metalResponse.dart';
 import 'package:dolarbot_app/classes/globals.dart';
 import 'package:dolarbot_app/models/active_screen_data.dart';
 import 'package:dolarbot_app/models/settings.dart';
@@ -7,6 +8,8 @@ import 'package:dolarbot_app/screens/base/widgets/fab_menu/calculator/crypto_cal
 import 'package:dolarbot_app/screens/base/widgets/fab_menu/calculator/dialog/fab_option_calculator_dialog.dart';
 import 'package:dolarbot_app/screens/base/widgets/fab_menu/calculator/fiat_currency_calculator.dart';
 import 'package:dolarbot_app/screens/base/widgets/fab_menu/calculator/fiat_currency_calculator_reversed.dart';
+import 'package:dolarbot_app/screens/base/widgets/fab_menu/calculator/metal_calculator.dart';
+import 'package:dolarbot_app/screens/base/widgets/fab_menu/calculator/metal_calculator_reversed.dart';
 import 'package:dolarbot_app/util/util.dart';
 import 'package:dolarbot_app/widgets/common/dialog_button.dart';
 import 'package:dolarbot_app/widgets/common/simple_fab_menu.dart';
@@ -165,9 +168,18 @@ class FabMenu extends StatelessWidget {
               thousandSeparator,
             );
           }
-        }
 
-        //TODO Metals & Venezuela calculator
+          if (activeData is MetalResponse) {
+            MetalResponse data = activeData;
+            return _getMetalCalculatorDialog(
+              context,
+              data,
+              decimalSeparator,
+              thousandSeparator,
+            );
+          }
+          //TODO Venezuela calculator
+        }
 
         return _getNotSupportedDialog(context);
       },
@@ -243,6 +255,24 @@ class FabMenu extends StatelessWidget {
       calculatorReversed: CryptoCalculatorReversed(
         usdValue: double.tryParse(data?.usdPrice ?? ''),
         cryptoCode: data.code,
+        decimalSeparator: decimalSeparator,
+        thousandSeparator: thousandSeparator,
+      ),
+    );
+  }
+
+  FabOptionCalculatorDialog _getMetalCalculatorDialog(BuildContext context,
+      MetalResponse data, String decimalSeparator, String thousandSeparator) {
+    return FabOptionCalculatorDialog(
+      calculator: MetalCalculator(
+        usdValue: double.tryParse(data?.value ?? ''),
+        unit: data?.unit,
+        decimalSeparator: decimalSeparator,
+        thousandSeparator: thousandSeparator,
+      ),
+      calculatorReversed: MetalCalculatorReversed(
+        usdValue: double.tryParse(data?.value ?? ''),
+        unit: data?.unit,
         decimalSeparator: decimalSeparator,
         thousandSeparator: thousandSeparator,
       ),
