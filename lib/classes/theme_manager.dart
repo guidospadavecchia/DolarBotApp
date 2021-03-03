@@ -124,6 +124,9 @@ class ThemeManager {
         bottomNavigationBarTheme: BottomNavigationBarThemeData(
           backgroundColor: Colors.green[200],
         ),
+        textSelectionColor: getPrimaryColor(),
+        textSelectionHandleColor: getPrimaryColor(),
+        cursorColor: getPrimaryColor(),
         visualDensity: VisualDensity.adaptivePlatformDensity);
   }
 
@@ -153,6 +156,9 @@ class ThemeManager {
         bottomNavigationBarTheme: BottomNavigationBarThemeData(
           backgroundColor: Colors.green[700],
         ),
+        textSelectionColor: getSecondaryColor(),
+        textSelectionHandleColor: getSecondaryColor(),
+        cursorColor: getSecondaryColor(),
         visualDensity: VisualDensity.adaptivePlatformDensity);
   }
 }
