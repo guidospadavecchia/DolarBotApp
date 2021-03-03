@@ -91,9 +91,9 @@ class FabMenu extends StatelessWidget {
               if (showFavoriteButton)
                 SimpleFabOption(
                   tooltip: "Agregar a Favoritos ❤",
-                  iconColor: Colors.red[800],
+                  iconColor: Colors.red[300],
                   backgroundColor: Colors.white,
-                  icon: Icons.favorite_rounded,
+                  icon: Icons.favorite_outline_rounded,
                   onPressed: () => {
                     Scaffold.of(context).showSnackBar(SnackBar(
                       duration: Duration(seconds: 3),
