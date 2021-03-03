@@ -64,7 +64,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Provider.of<ActiveScreenData>(context, listen: false)
-          .setActiveTitle(widget.title);
+          .setActiveTitle("${widget.title} - ${widget.bannerTitle}");
     });
   }
 

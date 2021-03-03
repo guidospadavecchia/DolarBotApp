@@ -150,7 +150,7 @@ class _CryptoInfoScreenState extends BaseInfoScreenState<CryptoInfoScreen>
           .format(date);
 
       shareText =
-          'Dólares:\tUS\$ $usdPrice\nPesos:\t\$ $arsPrice\nPesos + Imp%:\t\$ $arsPriceWithTaxes\nHora: $formattedTime';
+          'Dólares: \t\tUS\$ $usdPrice\nPesos: \t\t\$ $arsPrice\nPesos + Imp.: \t\$ $arsPriceWithTaxes\nHora: \t\t$formattedTime';
     }
 
     return shareText;

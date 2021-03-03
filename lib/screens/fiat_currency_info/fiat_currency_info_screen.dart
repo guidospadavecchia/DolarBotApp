@@ -182,10 +182,10 @@ class _FiatCurrencyInfoScreenState<T extends GenericCurrencyResponse>
             ? numberFormat.format(double.parse(data.sellPriceWithTaxes))
             : 'N/A';
         shareText =
-            'Compra:\t\$ $buyPrice\nVenta:\t\$ $sellPrice\nVenta Ahorro:\t\$ $sellPriceWithTaxes\nHora:\t$formattedTime';
+            'Compra: \t\t\$ $buyPrice\nVenta: \t\t\$ $sellPrice\nVenta Ahorro: \t\$ $sellPriceWithTaxes\nHora: \t\t$formattedTime';
       } else {
         shareText =
-            'Compra:\t\$ $buyPrice\nVenta:\t\$ $sellPrice\nHora:\t$formattedTime';
+            'Compra: \t\t\$ $buyPrice\nVenta: \t\t\$ $sellPrice\nHora: \t\t$formattedTime';
       }
     }
 
