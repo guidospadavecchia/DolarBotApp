@@ -114,15 +114,13 @@ class _MetalInfoScreenState extends BaseInfoScreenState<MetalInfoScreen>
     String shareText = '';
 
     if (data != null) {
-      final value = Util.isNumeric(data.value)
+      final value = data.value.isNumeric()
           ? numberFormat.format(double.parse(data.value))
           : 'N/A';
       final symbol = data.currency == 'USD' ? 'US\$' : '\$';
       DateTime date = DateTime.parse(data.timestamp.replaceAll('/', '-'));
       String formattedTime = intl.DateFormat(
-              Util.isSameDay(DateTime.now(), date)
-                  ? 'HH:mm'
-                  : 'HH:mm - dd-MM-yyyy')
+              DateTime.now().isSameDayAs(date) ? 'HH:mm' : 'HH:mm - dd-MM-yyyy')
           .format(date);
 
       shareText = '$symbol $value / ${data.unit}\nHora: $formattedTime';

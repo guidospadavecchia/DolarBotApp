@@ -125,16 +125,15 @@ class _VenezuelaInfoScreenState extends BaseInfoScreenState<VenezuelaInfoScreen>
     String shareText = '';
 
     if (data != null) {
-      final blackMarketValue = Util.isNumeric(data.blackMarketPrice)
+      final blackMarketValue = data.blackMarketPrice.isNumeric()
           ? numberFormat.format(double.parse(data.blackMarketPrice))
           : 'N/A';
-      final banksValue = Util.isNumeric(data.bankPrice)
+      final banksValue = data.bankPrice.isNumeric()
           ? numberFormat.format(double.parse(data.bankPrice))
           : 'N/A';
       DateTime date = DateTime.parse(data.timestamp.replaceAll('/', '-'));
-      String formattedTime = DateFormat(Util.isSameDay(DateTime.now(), date)
-              ? 'HH:mm'
-              : 'HH:mm - dd-MM-yyyy')
+      String formattedTime = DateFormat(
+              DateTime.now().isSameDayAs(date) ? 'HH:mm' : 'HH:mm - dd-MM-yyyy')
           .format(date);
 
       shareText =

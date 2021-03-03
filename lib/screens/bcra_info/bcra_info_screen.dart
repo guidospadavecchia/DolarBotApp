@@ -204,17 +204,16 @@ class _BcraInfoScreenState extends BaseInfoScreenState<BcraInfoScreen>
     String shareText = '';
 
     if (data != null) {
-      final value = Util.isNumeric(data.value)
+      final value = data.value.isNumeric()
           ? numberFormat.format(int.parse(data.value))
           : 'N/A';
       final symbol = data.currency == 'USD' ? 'US\$' : '\$';
       DateTime date = DateTime.parse(data.timestamp.replaceAll('/', '-'));
-      String formattedTime = DateFormat(Util.isSameDay(DateTime.now(), date)
-              ? 'HH:mm'
-              : 'HH:mm - dd-MM-yyyy')
+      String formattedTime = DateFormat(
+              DateTime.now().isSameDayAs(date) ? 'HH:mm' : 'HH:mm - dd-MM-yyyy')
           .format(date);
 
-      shareText = '$symbol $value\nHora: $formattedTime.';
+      shareText = '$symbol $value\nHora: $formattedTime';
     }
 
     return shareText;
@@ -227,13 +226,12 @@ class _BcraInfoScreenState extends BaseInfoScreenState<BcraInfoScreen>
     String shareText = '';
 
     if (data != null) {
-      final value = Util.isNumeric(data.value.split('.')[0])
+      final value = data.value.split('.')[0].isNumeric()
           ? numberFormat.format(int.parse(data.value.split('.')[0]))
           : 'N/A';
       DateTime date = DateTime.parse(data.timestamp.replaceAll('/', '-'));
-      String formattedTime = DateFormat(Util.isSameDay(DateTime.now(), date)
-              ? 'HH:mm'
-              : 'HH:mm - dd-MM-yyyy')
+      String formattedTime = DateFormat(
+              DateTime.now().isSameDayAs(date) ? 'HH:mm' : 'HH:mm - dd-MM-yyyy')
           .format(date);
 
       shareText = '$value puntos\nHora: $formattedTime';

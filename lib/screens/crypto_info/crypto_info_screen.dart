@@ -135,19 +135,18 @@ class _CryptoInfoScreenState extends BaseInfoScreenState<CryptoInfoScreen>
     String shareText = '';
 
     if (data != null) {
-      final arsPrice = Util.isNumeric(data.arsPrice)
+      final arsPrice = data.arsPrice.isNumeric()
           ? numberFormat.format(double.parse(data.arsPrice))
           : 'N/A';
-      final arsPriceWithTaxes = Util.isNumeric(data.arsPrice)
+      final arsPriceWithTaxes = data.arsPriceWithTaxes.isNumeric()
           ? numberFormat.format(double.parse(data.arsPriceWithTaxes))
           : 'N/A';
-      final usdPrice = Util.isNumeric(data.usdPrice)
+      final usdPrice = data.usdPrice.isNumeric()
           ? numberFormat.format(double.parse(data.usdPrice))
           : 'N/A';
       DateTime date = DateTime.parse(data.timestamp.replaceAll('/', '-'));
-      String formattedTime = DateFormat(Util.isSameDay(DateTime.now(), date)
-              ? 'HH:mm'
-              : 'HH:mm - dd-MM-yyyy')
+      String formattedTime = DateFormat(
+              DateTime.now().isSameDayAs(date) ? 'HH:mm' : 'HH:mm - dd-MM-yyyy')
           .format(date);
 
       shareText =

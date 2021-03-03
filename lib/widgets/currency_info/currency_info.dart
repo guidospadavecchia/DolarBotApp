@@ -1,5 +1,6 @@
 import 'package:dolarbot_app/models/settings.dart';
 import 'package:dolarbot_app/util/util.dart';
+import 'package:dolarbot_app/util/extensions/string_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -62,7 +63,7 @@ class CurrencyInfo extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            if (symbol != null && Util.isNumeric(value))
+            if (symbol != null && value.isNumeric())
               Padding(
                 padding: const EdgeInsets.only(right: 7),
                 child: Text(
@@ -75,7 +76,7 @@ class CurrencyInfo extends StatelessWidget {
                 ),
               ),
             Text(
-              Util.isNumeric(value)
+              value.isNumeric()
                   ? numberFormat.format(int.parse(value.split('.')[0]))
                   : 'N/A',
               style: TextStyle(

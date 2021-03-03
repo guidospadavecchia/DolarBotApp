@@ -19,6 +19,8 @@ export 'package:dolarbot_app/widgets/common/future_screen_delegate/future_screen
 export 'package:dolarbot_app/widgets/currency_info/currency_info_container.dart';
 export 'package:flutter/material.dart';
 export 'package:provider/provider.dart';
+export 'package:dolarbot_app/util/extensions/datetime_extensions.dart';
+export 'package:dolarbot_app/util/extensions/string_extensions.dart';
 
 abstract class BaseInfoScreen extends StatefulWidget {
   final String title;

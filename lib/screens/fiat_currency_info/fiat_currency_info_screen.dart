@@ -166,20 +166,19 @@ class _FiatCurrencyInfoScreenState<T extends GenericCurrencyResponse>
     final numberFormat = new NumberFormat("#,###,###.00", currencyFormat);
     String shareText = '';
     if (data != null) {
-      final buyPrice = Util.isNumeric(data.buyPrice)
+      final buyPrice = data.buyPrice.isNumeric()
           ? numberFormat.format(double.parse(data.buyPrice))
           : 'N/A';
-      final sellPrice = Util.isNumeric(data.sellPrice)
+      final sellPrice = data.sellPrice.isNumeric()
           ? numberFormat.format(double.parse(data.sellPrice))
           : 'N/A';
       DateTime date = DateTime.parse(data.timestamp.replaceAll('/', '-'));
-      String formattedTime = DateFormat(Util.isSameDay(DateTime.now(), date)
-              ? 'HH:mm'
-              : 'HH:mm - dd-MM-yyyy')
+      String formattedTime = DateFormat(
+              DateTime.now().isSameDayAs(date) ? 'HH:mm' : 'HH:mm - dd-MM-yyyy')
           .format(date);
 
       if (data.sellPriceWithTaxes != null) {
-        final sellPriceWithTaxes = Util.isNumeric(data.sellPriceWithTaxes)
+        final sellPriceWithTaxes = data.sellPriceWithTaxes.isNumeric()
             ? numberFormat.format(double.parse(data.sellPriceWithTaxes))
             : 'N/A';
         shareText =
