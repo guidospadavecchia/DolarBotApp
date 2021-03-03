@@ -81,7 +81,7 @@ class FabMenu extends StatelessWidget {
               if (showShareButton)
                 SimpleFabOption(
                     tooltip: "Compartir cotización 📲",
-                    iconColor: Colors.black87,
+                    iconColor: Colors.green[700],
                     backgroundColor: Colors.white,
                     icon: Icons.share,
                     onPressed: () {
