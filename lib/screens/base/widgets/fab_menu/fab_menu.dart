@@ -67,7 +67,7 @@ class FabMenu extends StatelessWidget {
                 ),
               if (showCalculatorButton)
                 SimpleFabOption(
-                  tooltip: "Calculadora 💸",
+                  tooltip: "Calculadora 💱",
                   iconColor: Colors.black87,
                   backgroundColor: Colors.white,
                   icon: FontAwesomeIcons.calculator,
@@ -80,7 +80,7 @@ class FabMenu extends StatelessWidget {
                 ),
               if (showShareButton)
                 SimpleFabOption(
-                    tooltip: "Compartir cotización",
+                    tooltip: "Compartir cotización 📲",
                     iconColor: Colors.black87,
                     backgroundColor: Colors.white,
                     icon: Icons.share,
@@ -90,7 +90,7 @@ class FabMenu extends StatelessWidget {
                     }),
               if (showFavoriteButton)
                 SimpleFabOption(
-                  tooltip: "¡Agregar a Favoritos!",
+                  tooltip: "Agregar a Favoritos ❤",
                   iconColor: Colors.red[800],
                   backgroundColor: Colors.white,
                   icon: Icons.favorite_rounded,
