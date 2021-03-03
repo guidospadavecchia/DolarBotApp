@@ -1,3 +1,4 @@
+import 'package:auto_size_text_field/auto_size_text_field.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:flutter/material.dart';
 
@@ -29,10 +30,9 @@ class InputConverted extends StatelessWidget {
         SizedBox(
           height: 10,
         ),
-        //TODO: Hacer que se ajuste dependiendo del contenido
         Container(
           width: MediaQuery.of(context).size.width * 0.7,
-          child: TextField(
+          child: AutoSizeTextField(
             enabled: true,
             readOnly: true,
             controller: textController,
