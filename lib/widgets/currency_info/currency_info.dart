@@ -1,5 +1,4 @@
 import 'package:dolarbot_app/models/settings.dart';
-import 'package:dolarbot_app/util/util.dart';
 import 'package:dolarbot_app/util/extensions/string_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';

@@ -2,7 +2,7 @@ import 'package:dolarbot_app/interfaces/share_info.dart';
 import 'package:dolarbot_app/models/active_screen_data.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
 import 'package:dolarbot_app/screens/home/widgets/cards/card_favorite.dart';
-import 'package:intl/intl.dart';
+import 'package:intl/intl.dart' as intl;
 
 class BcraInfoScreen extends BaseInfoScreen {
   final String title;
@@ -138,10 +138,14 @@ class _BcraInfoScreenState extends BaseInfoScreenState<BcraInfoScreen>
             direction: Axis.vertical,
             rates: [
               CardValue(
-                title: "Valor",
+                title: "puntos",
                 value: data.value,
-                symbol: "\$",
-                valueSize: 22,
+                symbol: "",
+                direction: Axis.horizontal,
+                textDirection: TextDirection.rtl,
+                spaceBetweenTitle: Spacing.small,
+                crossAlignment: WrapCrossAlignment.center,
+                valueSize: 32,
               ),
             ],
             logo: CardLogo(
@@ -200,7 +204,7 @@ class _BcraInfoScreenState extends BaseInfoScreenState<BcraInfoScreen>
   String getShareInfo(BcraResponse data) {
     Settings settings = Provider.of<Settings>(context, listen: false);
     final currencyFormat = settings.getCurrencyFormat();
-    final numberFormat = new NumberFormat("#,###,###", currencyFormat);
+    final numberFormat = new intl.NumberFormat("#,###,###", currencyFormat);
     String shareText = '';
 
     if (data != null) {
@@ -209,7 +213,7 @@ class _BcraInfoScreenState extends BaseInfoScreenState<BcraInfoScreen>
           : 'N/A';
       final symbol = data.currency == 'USD' ? 'US\$' : '\$';
       DateTime date = DateTime.parse(data.timestamp.replaceAll('/', '-'));
-      String formattedTime = DateFormat(
+      String formattedTime = intl.DateFormat(
               DateTime.now().isSameDayAs(date) ? 'HH:mm' : 'HH:mm - dd-MM-yyyy')
           .format(date);
 
@@ -222,7 +226,7 @@ class _BcraInfoScreenState extends BaseInfoScreenState<BcraInfoScreen>
   String getShareInfoCountryRisk(CountryRiskResponse data) {
     Settings settings = Provider.of<Settings>(context, listen: false);
     final currencyFormat = settings.getCurrencyFormat();
-    final numberFormat = new NumberFormat("#,###,###", currencyFormat);
+    final numberFormat = new intl.NumberFormat("#,###,###", currencyFormat);
     String shareText = '';
 
     if (data != null) {
@@ -230,7 +234,7 @@ class _BcraInfoScreenState extends BaseInfoScreenState<BcraInfoScreen>
           ? numberFormat.format(int.parse(data.value.split('.')[0]))
           : 'N/A';
       DateTime date = DateTime.parse(data.timestamp.replaceAll('/', '-'));
-      String formattedTime = DateFormat(
+      String formattedTime = intl.DateFormat(
               DateTime.now().isSameDayAs(date) ? 'HH:mm' : 'HH:mm - dd-MM-yyyy')
           .format(date);
 

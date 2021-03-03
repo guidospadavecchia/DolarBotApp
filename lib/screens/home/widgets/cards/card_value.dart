@@ -76,7 +76,7 @@ class CardValue extends StatelessWidget {
               ),
             ),
             Text(
-              "$symbol ${_getFormatedValue()}",
+              "$symbol ${_getFormatedValue()}".trimLeft(),
               style: TextStyle(
                 fontSize: valueSize,
                 fontFamily: 'Montserrat',
