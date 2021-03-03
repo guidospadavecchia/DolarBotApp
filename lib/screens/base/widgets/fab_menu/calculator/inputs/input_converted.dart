@@ -33,7 +33,8 @@ class InputConverted extends StatelessWidget {
         Container(
           width: MediaQuery.of(context).size.width * 0.7,
           child: TextField(
-            enabled: false,
+            enabled: true,
+            readOnly: true,
             controller: textController,
             decoration: InputDecoration(
               border: InputBorder.none,
