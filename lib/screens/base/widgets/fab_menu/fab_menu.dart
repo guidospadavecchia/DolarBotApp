@@ -80,7 +80,7 @@ class FabMenu extends StatelessWidget {
                 ),
               if (showShareButton)
                 SimpleFabOption(
-                    tooltip: "Compartir",
+                    tooltip: "Compartir cotización",
                     iconColor: Colors.black87,
                     backgroundColor: Colors.white,
                     icon: Icons.share,
@@ -91,7 +91,7 @@ class FabMenu extends StatelessWidget {
               if (showFavoriteButton)
                 SimpleFabOption(
                   tooltip: "¡Agregar a Favoritos!",
-                  iconColor: Colors.black87,
+                  iconColor: Colors.red[800],
                   backgroundColor: Colors.white,
                   icon: Icons.favorite_rounded,
                   onPressed: () => {
@@ -154,40 +154,36 @@ class FabMenu extends StatelessWidget {
           String thousandSeparator = _currencyFormat == "es_AR" ? "." : ",";
 
           if (activeData is GenericCurrencyResponse) {
-            GenericCurrencyResponse data = activeData;
             return _getFiatCurrencyCalculatorDialog(
               context,
-              data,
+              activeData,
               decimalSeparator,
               thousandSeparator,
             );
           }
 
           if (activeData is CryptoResponse) {
-            CryptoResponse data = activeData;
             return _getCryptoCalculatorDialog(
               context,
-              data,
+              activeData,
               decimalSeparator,
               thousandSeparator,
             );
           }
 
           if (activeData is MetalResponse) {
-            MetalResponse data = activeData;
             return _getMetalCalculatorDialog(
               context,
-              data,
+              activeData,
               decimalSeparator,
               thousandSeparator,
             );
           }
 
           if (activeData is VenezuelaResponse) {
-            VenezuelaResponse data = activeData;
             return _getVenezuelaCalculatorDialog(
               context,
-              data,
+              activeData,
               decimalSeparator,
               thousandSeparator,
             );
