@@ -1,5 +1,5 @@
 import 'package:dolarbot_app/api/api_endpoints.dart';
-import 'package:dolarbot_app/classes/constants.dart';
+import 'package:dolarbot_app/util/constants.dart';
 import 'package:dolarbot_app/screens/base/widgets/drawer/drawer_menu_body.dart';
 import 'package:dolarbot_app/screens/bcra_info/bcra_info_screen.dart';
 import 'package:dolarbot_app/widgets/common/menu_item.dart';
