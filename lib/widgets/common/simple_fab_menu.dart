@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class SimpleFabOption {
   final IconData icon;
@@ -54,10 +55,13 @@ class SimpleFabMenuState extends State<SimpleFabMenu>
   AnimationController _animationController;
   bool _isOpen = false;
   bool _isAnimating = false;
+  IconData _iconFab;
 
   bool get isOpen => _isOpen;
 
   void initState() {
+    _iconFab = widget.icon;
+
     super.initState();
     _animationController = AnimationController(
       vsync: this,
@@ -79,6 +83,9 @@ class SimpleFabMenuState extends State<SimpleFabMenu>
     _animationController.reverse().then((_) {
       _isAnimating = false;
       _isOpen = false;
+      setState(() {
+        _iconFab = widget.icon;
+      });
     });
   }
 
@@ -87,6 +94,9 @@ class SimpleFabMenuState extends State<SimpleFabMenu>
     _animationController.forward().then((_) {
       _isAnimating = false;
       _isOpen = true;
+      setState(() {
+        _iconFab = Icons.close;
+      });
     });
   }
 
@@ -127,7 +137,7 @@ class SimpleFabMenuState extends State<SimpleFabMenu>
               size: widget.iconSize,
               item: SimpleFabOption(
                 backgroundColor: widget.backGroundColor,
-                icon: widget.icon,
+                icon: _iconFab,
                 iconColor: widget.iconColor,
                 onPressed: () {
                   if (_isAnimating) return;
