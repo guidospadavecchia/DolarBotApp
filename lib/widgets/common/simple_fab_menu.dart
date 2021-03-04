@@ -12,14 +12,15 @@ class SimpleFabOption {
     @required this.icon,
     @required this.iconColor,
     @required this.backgroundColor,
-    @required this.onPressed,
-    this.tooltip,
     this.splashColor,
+    this.tooltip,
+    @required this.onPressed,
   });
 }
 
 class SimpleFabMenu extends StatefulWidget {
   final IconData icon;
+  final IconData iconClose;
   final Color iconColor;
   final double iconSize;
   final Axis direction;
@@ -32,6 +33,7 @@ class SimpleFabMenu extends StatefulWidget {
   const SimpleFabMenu({
     Key key,
     @required this.icon,
+    this.iconClose = Icons.close,
     @required this.iconColor,
     this.iconSize = 64,
     @required this.direction,
@@ -94,7 +96,7 @@ class SimpleFabMenuState extends State<SimpleFabMenu>
       _isAnimating = false;
       _isOpen = true;
       setState(() {
-        _iconFab = Icons.close;
+        _iconFab = widget.iconClose;
       });
     });
   }
