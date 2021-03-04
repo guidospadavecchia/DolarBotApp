@@ -2,8 +2,7 @@ import 'package:dolarbot_app/api/responses/metalResponse.dart';
 import 'package:dolarbot_app/interfaces/share_info.dart';
 import 'package:dolarbot_app/models/active_screen_data.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
-import 'package:dolarbot_app/screens/home/widgets/cards/card_favorite.dart';
-import 'package:dolarbot_app/screens/home/widgets/cards/card_value.dart';
+import 'package:dolarbot_app/screens/home/widgets/cards/templates/metal_card.dart';
 import 'package:intl/intl.dart' as intl;
 
 class MetalInfoScreen extends BaseInfoScreen {
@@ -70,33 +69,12 @@ class _MetalInfoScreenState extends BaseInfoScreenState<MetalInfoScreen>
         ApiResponse data = activeData.getActiveData();
 
         if (data != null && data is MetalResponse) {
-          return CardFavorite(
-            showPoweredBy: true,
-            height: 110,
-            header: CardHeader(
-              title: widget.bannerTitle,
-              showButtons: false,
-            ),
-            spaceBetweenHeader: Spacing.small,
-            rates: [
-              CardValue(
-                title: "/ Onza",
-                value: data.value,
-                symbol: data.currency == 'USD' ? 'US\$' : '\$',
-                direction: Axis.horizontal,
-                textDirection: TextDirection.rtl,
-                spaceBetweenTitle: Spacing.small,
-                crossAlignment: WrapCrossAlignment.center,
-                valueSize: 32,
-              ),
-            ],
-            logo: CardLogo(
-              iconAsset: widget.bannerIconAsset,
-              tag: widget.title,
-            ),
-            lastUpdated: CardLastUpdated(
-              timestamp: data.timestamp,
-            ),
+          return MetalCard(
+            title: widget.bannerTitle,
+            data: data,
+            tag: widget.title,
+            iconAsset: widget.bannerIconAsset,
+            iconData: widget.bannerIconData,
             gradiantColors: widget.gradiantColors,
           );
         } else {

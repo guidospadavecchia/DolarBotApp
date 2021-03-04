@@ -1,7 +1,8 @@
 import 'package:dolarbot_app/interfaces/share_info.dart';
 import 'package:dolarbot_app/models/active_screen_data.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
-import 'package:dolarbot_app/screens/home/widgets/cards/card_favorite.dart';
+import 'package:dolarbot_app/screens/home/widgets/cards/templates/bcra_card.dart';
+import 'package:dolarbot_app/screens/home/widgets/cards/templates/country_risk_card.dart';
 import 'package:intl/intl.dart' as intl;
 
 class BcraInfoScreen extends BaseInfoScreen {
@@ -126,71 +127,31 @@ class _BcraInfoScreenState extends BaseInfoScreenState<BcraInfoScreen>
         ApiResponse data = activeData.getActiveData();
 
         if (data != null && data is CountryRiskResponse) {
-          return CardFavorite(
-            showPoweredBy: true,
-            height: 150,
-            header: CardHeader(
-              title: widget.bannerTitle,
-              showButtons: false,
-            ),
-            spaceBetweenHeader: Spacing.medium,
-            spaceBetweenItems: Spacing.large,
-            direction: Axis.vertical,
-            rates: [
-              CardValue(
-                title: "puntos",
-                value: data.value,
-                symbol: "",
-                direction: Axis.horizontal,
-                textDirection: TextDirection.rtl,
-                spaceBetweenTitle: Spacing.small,
-                crossAlignment: WrapCrossAlignment.center,
-                valueSize: 32,
-              ),
-            ],
-            logo: CardLogo(
-              iconData: widget.bannerIconData,
-              iconAsset: widget.bannerIconAsset,
-              tag: widget.title,
-            ),
-            lastUpdated: CardLastUpdated(timestamp: data.timestamp),
+          return CountryRiskCard(
+            title: widget.bannerTitle,
+            tag: widget.title,
             gradiantColors: widget.gradiantColors,
+            iconAsset: widget.bannerIconAsset,
+            iconData: widget.bannerIconData,
+            data: data,
           );
         }
 
         if (data != null && data is BcraResponse) {
-          return CardFavorite(
-            showPoweredBy: true,
-            height: 150,
-            header: CardHeader(
-              title: widget.bannerTitle,
-              showButtons: false,
-            ),
-            spaceBetweenHeader: Spacing.medium,
-            spaceBetweenItems: Spacing.large,
-            direction: Axis.vertical,
-            rates: [
-              if (bcraEndpoint == BcraEndpoints.circulante)
-                CardValue(
-                  title: "Dinero en Circulación",
-                  value: data.value,
-                  symbol: "\$",
-                  valueSize: 22,
-                ),
-              if (bcraEndpoint == BcraEndpoints.reservas)
-                CardValue(
-                  title: "Dólares Estadounidenses",
-                  value: data.value,
-                  symbol: "US\$",
-                  valueSize: 22,
-                ),
-            ],
-            logo: CardLogo(
-              iconData: widget.bannerIconData,
-              iconAsset: widget.bannerIconAsset,
-              tag: widget.title,
-            ),
-            lastUpdated: CardLastUpdated(timestamp: data.timestamp),
+          String subtitle = bcraEndpoint == BcraEndpoints.circulante
+              ? "Dinero en Circulación"
+              : "Dólares Estadounidenses";
+          String symbol =
+              bcraEndpoint == BcraEndpoints.circulante ? "\$" : "US\$";
+
+          return BcraCard(
+            data: data,
+            title: widget.bannerTitle,
+            subtitle: subtitle,
+            tag: widget.title,
+            symbol: symbol,
+            iconData: widget.bannerIconData,
+            iconAsset: widget.bannerIconAsset,
             gradiantColors: widget.gradiantColors,
           );
         }

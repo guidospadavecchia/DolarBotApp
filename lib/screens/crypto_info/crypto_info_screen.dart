@@ -1,7 +1,7 @@
 import 'package:dolarbot_app/interfaces/share_info.dart';
 import 'package:dolarbot_app/models/active_screen_data.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
-import 'package:dolarbot_app/screens/home/widgets/cards/card_favorite.dart';
+import 'package:dolarbot_app/screens/home/widgets/cards/templates/crypto_card.dart';
 import 'package:intl/intl.dart';
 
 class CryptoInfoScreen extends BaseInfoScreen {
@@ -82,43 +82,12 @@ class _CryptoInfoScreenState extends BaseInfoScreenState<CryptoInfoScreen>
       ApiResponse data = activeData.getActiveData();
 
       if (data != null && data is CryptoResponse) {
-        return CardFavorite(
-          showPoweredBy: true,
-          height: 290,
-          header: CardHeader(
-            title: widget.bannerTitle,
-            showButtons: false,
-          ),
-          spaceBetweenItems: Spacing.large,
-          direction: Axis.vertical,
-          rates: [
-            CardValue(
-              title: "Pesos Argentinos",
-              value: data.arsPrice,
-              symbol: "\$",
-              valueSize: 22,
-            ),
-            CardValue(
-              title: "Pesos Argentinos + Impuestos",
-              value: data.arsPriceWithTaxes,
-              symbol: "\$",
-              valueSize: 22,
-            ),
-            CardValue(
-              title: "Dólares Estadounidenses",
-              value: data.usdPrice,
-              symbol: "US\$",
-              valueSize: 22,
-            ),
-          ],
-          logo: CardLogo(
-            iconData: widget.bannerIconData,
-            iconAsset: widget.bannerIconAsset,
-            tag: widget.title,
-          ),
-          lastUpdated: CardLastUpdated(
-            timestamp: data.timestamp,
-          ),
+        return CryptoCard(
+          title: widget.bannerTitle,
+          data: data,
+          tag: widget.title,
+          iconAsset: widget.bannerIconAsset,
+          iconData: widget.bannerIconData,
           gradiantColors: widget.gradiantColors,
         );
       } else {

@@ -1,7 +1,7 @@
 import 'package:dolarbot_app/interfaces/share_info.dart';
 import 'package:dolarbot_app/models/active_screen_data.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
-import 'package:dolarbot_app/screens/home/widgets/cards/card_favorite.dart';
+import 'package:dolarbot_app/screens/home/widgets/cards/templates/venezuela_card.dart';
 import 'package:intl/intl.dart';
 
 class VenezuelaInfoScreen extends BaseInfoScreen {
@@ -72,49 +72,24 @@ class _VenezuelaInfoScreenState extends BaseInfoScreenState<VenezuelaInfoScreen>
 
   @override
   Widget card() {
-    return Consumer<ActiveScreenData>(builder: (context, activeData, child) {
-      ApiResponse data = activeData.getActiveData();
+    return Consumer<ActiveScreenData>(
+      builder: (context, activeData, child) {
+        ApiResponse data = activeData.getActiveData();
 
-      if (data != null && data is VenezuelaResponse) {
-        return CardFavorite(
-          showPoweredBy: true,
-          height: 210,
-          header: CardHeader(
+        if (data != null && data is VenezuelaResponse) {
+          return VenezuelaCard(
             title: widget.title,
-            showButtons: false,
-          ),
-          rates: [
-            CardValue(
-              title: "Promedio Bancos",
-              value: data.bankPrice,
-              symbol: "\Bs.",
-              spaceMainAxisEnd: Spacing.large,
-              titleSize: 16,
-              valueSize: 20,
-            ),
-            CardValue(
-              title: "Paralelo",
-              value: data.blackMarketPrice,
-              symbol: "\Bs.",
-              spaceMainAxisEnd: Spacing.none,
-              titleSize: 16,
-              valueSize: 20,
-            ),
-          ],
-          logo: CardLogo(
+            data: data,
+            tag: widget.bannerTitle,
             iconAsset: widget.bannerIconAsset,
             iconData: widget.bannerIconData,
-            tag: widget.bannerTitle,
-          ),
-          lastUpdated: CardLastUpdated(
-            timestamp: data.timestamp,
-          ),
-          gradiantColors: widget.gradiantColors,
-        );
-      } else {
-        return SizedBox.shrink();
-      }
-    });
+            gradiantColors: widget.gradiantColors,
+          );
+        } else {
+          return SizedBox.shrink();
+        }
+      },
+    );
   }
 
   @override

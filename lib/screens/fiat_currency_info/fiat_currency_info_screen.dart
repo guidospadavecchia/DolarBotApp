@@ -3,7 +3,7 @@ import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:dolarbot_app/interfaces/share_info.dart';
 import 'package:dolarbot_app/models/active_screen_data.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
-import 'package:dolarbot_app/screens/home/widgets/cards/card_favorite.dart';
+import 'package:dolarbot_app/screens/home/widgets/cards/templates/fiat_currency_card.dart';
 import 'package:intl/intl.dart';
 
 class FiatCurrencyInfoScreen<T extends GenericCurrencyResponse>
@@ -113,45 +113,13 @@ class _FiatCurrencyInfoScreenState<T extends GenericCurrencyResponse>
       ApiResponse data = activeData.getActiveData();
 
       if (data != null && data is GenericCurrencyResponse) {
-        return CardFavorite(
-          showPoweredBy: true,
-          header: CardHeader(
-            title: widget.bannerTitle,
-            showButtons: false,
-          ),
-          spaceBetweenItems: Spacing.medium,
-          spaceBetweenHeader: Spacing.small,
-          rates: [
-            CardValue(
-              title: "Compra",
-              value: data.buyPrice,
-              symbol: "\$",
-              titleSize: data.sellPriceWithTaxes == null ? 16 : 14,
-              valueSize: data.sellPriceWithTaxes == null ? 24 : 18,
-            ),
-            CardValue(
-              title: "Venta",
-              value: data.sellPrice,
-              symbol: "\$",
-              titleSize: data.sellPriceWithTaxes == null ? 16 : 14,
-              valueSize: data.sellPriceWithTaxes == null ? 24 : 18,
-            ),
-            if (data.sellPriceWithTaxes != null)
-              CardValue(
-                title: "Ahorro",
-                value: data.sellPriceWithTaxes,
-                symbol: "\$",
-              ),
-          ],
-          logo: CardLogo(
-            iconAsset: widget.bannerIconAsset,
-            iconData: widget.bannerIconData,
-            tag: widget.title,
-          ),
-          lastUpdated: CardLastUpdated(
-            timestamp: data.timestamp,
-          ),
+        return FiatCurrencyCard(
+          title: widget.bannerTitle,
+          data: data,
+          tag: widget.title,
           gradiantColors: widget.gradiantColors,
+          iconAsset: widget.bannerIconAsset,
+          iconData: widget.bannerIconData,
         );
       } else {
         return SizedBox.shrink();
