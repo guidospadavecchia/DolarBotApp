@@ -1,6 +1,6 @@
 import 'package:dolarbot_app/api/responses/base/apiResponse.dart';
 
-abstract class GenericCurrencyResponse extends ApiResponse {
+class GenericCurrencyResponse extends ApiResponse {
   String timestamp;
   String buyPrice;
   String sellPrice;

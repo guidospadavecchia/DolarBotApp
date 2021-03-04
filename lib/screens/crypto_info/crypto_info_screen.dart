@@ -124,4 +124,21 @@ class _CryptoInfoScreenState extends BaseInfoScreenState<CryptoInfoScreen>
 
     return shareText;
   }
+
+  @override
+  FavoriteRate createFavorite() {
+    return FavoriteRate(
+        endpoint: cryptoEndpoint.value,
+        cardResponseType: getResponseType().toString(),
+        cardTitle: widget.bannerTitle,
+        cardSubtitle: null,
+        cardSymbol: null,
+        cardTag: widget.title,
+        cardColors: widget.gradiantColors.map((color) => color.value),
+        cardIconData: widget.bannerIconData,
+        cardIconAsset: widget.bannerIconAsset);
+  }
+
+  @override
+  Type getResponseType() => CryptoResponse;
 }

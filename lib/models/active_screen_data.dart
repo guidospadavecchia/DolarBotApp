@@ -20,13 +20,6 @@ class ActiveScreenData extends ChangeNotifier {
     }
   }
 
-  void setActiveTitle(String title, {bool updateListeners = true}) {
-    _activeTitle = title;
-    if (updateListeners) {
-      notifyListeners();
-    }
-  }
-
   ApiResponse getActiveData() {
     return _activeData;
   }
@@ -37,9 +30,5 @@ class ActiveScreenData extends ChangeNotifier {
 
   String getShareData() {
     return "${_activeTitle.toUpperCase()}\n\n$_shareText\n\nPowered by DolarBot";
-  }
-
-  String getActiveTitle() {
-    return _activeTitle;
   }
 }

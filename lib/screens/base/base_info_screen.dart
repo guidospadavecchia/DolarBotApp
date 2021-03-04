@@ -1,15 +1,20 @@
 import 'dart:typed_data';
 
 import 'package:dolarbot_app/api/responses/base/apiResponse.dart';
+import 'package:dolarbot_app/classes/hive/favorite_rate.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:dolarbot_app/models/active_screen_data.dart';
 import 'package:dolarbot_app/screens/base/widgets/drawer/drawer_menu.dart';
 import 'package:dolarbot_app/screens/base/widgets/fab_menu/fab_menu.dart';
 import 'package:dolarbot_app/widgets/common/cool_app_bar.dart';
 import 'package:dolarbot_app/widgets/common/simple_fab_menu.dart';
+import 'package:dolarbot_app/widgets/toasts/toast_error.dart';
+import 'package:dolarbot_app/widgets/toasts/toast_ok.dart';
 import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:meta/meta.dart';
+import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
 
@@ -17,10 +22,11 @@ export 'package:dolarbot_app/api/api.dart';
 export 'package:dolarbot_app/api/responses/base/apiResponse.dart';
 export 'package:dolarbot_app/widgets/common/future_screen_delegate/future_screen_delegate.dart';
 export 'package:dolarbot_app/widgets/currency_info/currency_info_container.dart';
-export 'package:flutter/material.dart';
-export 'package:provider/provider.dart';
 export 'package:dolarbot_app/util/extensions/datetime_extensions.dart';
 export 'package:dolarbot_app/util/extensions/string_extensions.dart';
+export 'package:dolarbot_app/classes/hive/favorite_rate.dart';
+export 'package:provider/provider.dart';
+export 'package:flutter/material.dart';
 
 abstract class BaseInfoScreen extends StatefulWidget {
   final String title;
@@ -60,13 +66,10 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
 
   ScreenshotController screenshotController = ScreenshotController();
 
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      Provider.of<ActiveScreenData>(context, listen: false)
-          .setActiveTitle("${widget.title} - ${widget.bannerTitle}");
-    });
-  }
+  Widget body();
+  Widget card();
+  FavoriteRate createFavorite();
+  Type getResponseType();
 
   @override
   Widget build(BuildContext context) {
@@ -126,8 +129,9 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
           ? FabMenu(
               simpleFabKey: simpleFabKey,
               showFavoriteButton: showFavoriteButton(),
+              onFavoriteButtonTap: _onFavoriteStatusChange,
               showShareButton: showShareButton(),
-              onShareButtonTap: shareCardImage,
+              onShareButtonTap: _shareCardImage,
               showClipboardButton: showClipboardButton(),
               showCalculatorButton: showCalculatorButton(),
             )
@@ -135,39 +139,11 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
     );
   }
 
-  Widget card();
-  Widget body();
-
-  void _onDrawerDisplayChange(bool isOpen) {
-    if (isOpen && (simpleFabKey?.currentState?.isOpen ?? false)) {
-      simpleFabKey.currentState.closeMenu();
-    }
-  }
-
-  void _refresh() async {
-    setState(() {
-      shouldForceRefresh = true;
-    });
-  }
-
+  @nonVirtual
   void setActiveData(ApiResponse data, String shareText) {
     ActiveScreenData activeScreenData =
         Provider.of<ActiveScreenData>(context, listen: false);
     activeScreenData.setActiveData(data, shareText);
-  }
-
-  @nonVirtual
-  void shareCardImage() {
-    screenshotController.capture().then((Uint8List image) async {
-      Share.file(
-          'DolarBot',
-          'dolarbot_${DateTime.now().microsecondsSinceEpoch}.png',
-          image,
-          'image/png',
-          text: 'Descargá la app en: https://www.dolarbot.com.ar');
-    }).catchError((onError) {
-      print(onError);
-    });
   }
 
   @nonVirtual
@@ -226,5 +202,72 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
     } else {
       return SizedBox.shrink();
     }
+  }
+
+  void _onDrawerDisplayChange(bool isOpen) {
+    if (isOpen && (simpleFabKey?.currentState?.isOpen ?? false)) {
+      simpleFabKey.currentState.closeMenu();
+    }
+  }
+
+  void _onFavoriteStatusChange() async {
+    try {
+      Box favoritesBox = Hive.box('favorites');
+      List<FavoriteRate> favoriteCards = favoritesBox
+          .get('favoriteCards', defaultValue: List<FavoriteRate>())
+          .cast<FavoriteRate>();
+
+      FavoriteRate favoriteCard = favoriteCards.firstWhere(
+          (fav) => fav.cardResponseType == getResponseType(),
+          orElse: () => null);
+      if (favoriteCard == null) {
+        //Add favorite
+        favoriteCards.add(createFavorite());
+      } else {
+        //Remove favorite
+        favoriteCards.remove(favoriteCard);
+      }
+
+      //Save favorite list
+      await favoritesBox.put('favoriteCards', favoriteCards);
+
+      Future.delayed(
+        Duration(milliseconds: 100),
+        () => showToastWidget(
+          ToastOk(),
+        ),
+      );
+    } catch (error) {
+      //TODO Ver como convertir el IconData en un String
+      Future.delayed(
+        Duration(milliseconds: 100),
+        () => showToastWidget(
+          ToastError(),
+        ),
+      );
+    }
+
+    if (simpleFabKey?.currentState?.isOpen ?? false) {
+      simpleFabKey.currentState.closeMenu();
+    }
+  }
+
+  void _refresh() async {
+    setState(() {
+      shouldForceRefresh = true;
+    });
+  }
+
+  void _shareCardImage() {
+    screenshotController.capture().then((Uint8List image) async {
+      Share.file(
+          'DolarBot',
+          'dolarbot_${DateTime.now().microsecondsSinceEpoch}.png',
+          image,
+          'image/png',
+          text: 'Descargá la app en: https://www.dolarbot.com.ar');
+    }).catchError((onError) {
+      print(onError);
+    });
   }
 }

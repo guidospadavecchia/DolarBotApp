@@ -160,6 +160,37 @@ class _FiatCurrencyInfoScreenState<T extends GenericCurrencyResponse>
     return shareText;
   }
 
+  @override
+  FavoriteRate createFavorite() {
+    String endpoint;
+
+    if (dollarEndpoint != null)
+      endpoint = dollarEndpoint.value;
+    else if (euroEndpoint != null)
+      endpoint = euroEndpoint.value;
+    else if (realEndpoint != null) endpoint = realEndpoint.value;
+
+    return FavoriteRate(
+        endpoint: endpoint,
+        cardResponseType: getResponseType().toString(),
+        cardTitle: widget.bannerTitle,
+        cardSubtitle: null,
+        cardSymbol: null,
+        cardTag: widget.title,
+        cardColors: widget.gradiantColors.map((color) => color.value).toList(),
+        cardIconData: widget.bannerIconData,
+        cardIconAsset: widget.bannerIconAsset);
+  }
+
+  @override
+  Type getResponseType() {
+    Type responseType;
+    if (dollarEndpoint != null) responseType = DollarResponse;
+    if (euroEndpoint != null) responseType = EuroResponse;
+    if (realEndpoint != null) responseType = RealResponse;
+    return responseType;
+  }
+
   _getResponse<T extends GenericCurrencyResponse>() {
     if (dollarEndpoint != null) {
       return API.getDollarRate(dollarEndpoint,

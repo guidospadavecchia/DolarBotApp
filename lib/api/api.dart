@@ -16,7 +16,7 @@ class API {
 
   static Future<DollarResponse> getDollarRate(DollarEndpoints endpoint,
       {bool forceRefresh = false}) async {
-    return _getData(
+    return getData(
       endpoint.value,
       (json) => new DollarResponse(json),
       forceRefresh,
@@ -25,7 +25,7 @@ class API {
 
   static Future<EuroResponse> getEuroRate(EuroEndpoints endpoint,
       {bool forceRefresh = false}) async {
-    return _getData(
+    return getData(
       endpoint.value,
       (json) => new EuroResponse(json),
       forceRefresh,
@@ -34,7 +34,7 @@ class API {
 
   static Future<RealResponse> getRealRate(RealEndpoints endpoint,
       {bool forceRefresh = false}) async {
-    return _getData(
+    return getData(
       endpoint.value,
       (json) => new RealResponse(json),
       forceRefresh,
@@ -43,7 +43,7 @@ class API {
 
   static Future<MetalResponse> getMetalRate(MetalEndpoints endpoint,
       {bool forceRefresh = false}) async {
-    return _getData(
+    return getData(
       endpoint.value,
       (json) => new MetalResponse(json),
       forceRefresh,
@@ -52,7 +52,7 @@ class API {
 
   static Future<CryptoResponse> getCryptoRate(CryptoEndpoints endpoint,
       {bool forceRefresh = false}) async {
-    return _getData(
+    return getData(
       endpoint.value,
       (json) => new CryptoResponse(json),
       forceRefresh,
@@ -61,7 +61,7 @@ class API {
 
   static Future<VenezuelaResponse> getVzlaRate(VenezuelaEndpoints endpoint,
       {bool forceRefresh = false}) async {
-    return _getData(
+    return getData(
       endpoint.value,
       (json) => new VenezuelaResponse(json),
       forceRefresh,
@@ -70,7 +70,7 @@ class API {
 
   static Future<CountryRiskResponse> getCountryRisk(
       {bool forceRefresh = false}) async {
-    return _getData(
+    return getData(
       BcraEndpoints.riesgoPais.value,
       (json) => new CountryRiskResponse(json),
       forceRefresh,
@@ -79,7 +79,7 @@ class API {
 
   static Future<BcraResponse> getBcraReserves(
       {bool forceRefresh = false}) async {
-    return _getData(
+    return getData(
       BcraEndpoints.reservas.value,
       (json) => new BcraResponse(json),
       forceRefresh,
@@ -88,7 +88,7 @@ class API {
 
   static Future<BcraResponse> getCirculatingCurrency(
       {bool forceRefresh = false}) async {
-    return _getData(
+    return getData(
       BcraEndpoints.circulante.value,
       (json) => new BcraResponse(json),
       forceRefresh,
@@ -98,7 +98,7 @@ class API {
   static Future<HistoricalRateResponse> getHistoricalRates(
       HistoricalRateEndpoints endpoint,
       {bool forceRefresh = false}) async {
-    return _getData(
+    return getData(
       endpoint.value,
       (json) => new HistoricalRateResponse(json),
       forceRefresh,
@@ -122,7 +122,7 @@ class API {
     return data;
   }
 
-  static Future<T> _getData<T extends ApiResponse>(
+  static Future<T> getData<T extends ApiResponse>(
       String endpoint, T Function(Map json) creator, bool forceRefresh) async {
     Map jsonMap;
     CacheEntry cachedValue = CacheManager.read(endpoint);

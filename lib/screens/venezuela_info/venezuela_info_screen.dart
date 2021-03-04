@@ -117,4 +117,21 @@ class _VenezuelaInfoScreenState extends BaseInfoScreenState<VenezuelaInfoScreen>
 
     return shareText;
   }
+
+  @override
+  FavoriteRate createFavorite() {
+    return FavoriteRate(
+        endpoint: venezuelaEndpoint.value,
+        cardResponseType: getResponseType().toString(),
+        cardTitle: widget.title,
+        cardSubtitle: null,
+        cardSymbol: null,
+        cardTag: widget.bannerTitle,
+        cardColors: widget.gradiantColors.map((color) => color.value),
+        cardIconData: widget.bannerIconData,
+        cardIconAsset: widget.bannerIconAsset);
+  }
+
+  @override
+  Type getResponseType() => VenezuelaResponse;
 }

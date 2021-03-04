@@ -128,12 +128,12 @@ class _BcraInfoScreenState extends BaseInfoScreenState<BcraInfoScreen>
 
         if (data != null && data is CountryRiskResponse) {
           return CountryRiskCard(
+            data: data,
             title: widget.bannerTitle,
             tag: widget.title,
             gradiantColors: widget.gradiantColors,
             iconAsset: widget.bannerIconAsset,
             iconData: widget.bannerIconData,
-            data: data,
           );
         }
 
@@ -203,5 +203,38 @@ class _BcraInfoScreenState extends BaseInfoScreenState<BcraInfoScreen>
     }
 
     return shareText;
+  }
+
+  @override
+  FavoriteRate createFavorite() {
+    String subtitle;
+    String symbol;
+
+    if (bcraEndpoint == BcraEndpoints.circulante) {
+      subtitle = "Dinero en Circulación";
+      symbol = "\$";
+    }
+    if (bcraEndpoint == BcraEndpoints.reservas) {
+      subtitle = "Dólares Estadounidenses";
+      symbol = "US\$";
+    }
+
+    return FavoriteRate(
+        endpoint: bcraEndpoint.value,
+        cardResponseType: getResponseType().toString(),
+        cardTitle: widget.bannerTitle,
+        cardSubtitle: subtitle,
+        cardSymbol: symbol,
+        cardTag: widget.title,
+        cardColors: widget.gradiantColors.map((color) => color.value),
+        cardIconData: widget.bannerIconData,
+        cardIconAsset: widget.bannerIconAsset);
+  }
+
+  @override
+  Type getResponseType() {
+    return bcraEndpoint == BcraEndpoints.riesgoPais
+        ? CountryRiskResponse
+        : BcraResponse;
   }
 }

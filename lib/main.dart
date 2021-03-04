@@ -1,5 +1,6 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:dolarbot_app/classes/hive/adapters/cache_entry_adapter.dart';
+import 'package:dolarbot_app/classes/hive/adapters/favorite_rate_adapter.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:dolarbot_app/models/active_screen_data.dart';
 import 'package:dolarbot_app/models/settings.dart';
@@ -82,7 +83,13 @@ class DolarBotApp extends StatelessWidget {
 
 void initializeHive() async {
   await Hive.initFlutter();
+
   Hive.registerAdapter(CacheEntryAdapter());
-  await Hive.openBox('cache');
-  await Hive.openBox('settings');
+  Hive.registerAdapter(FavoriteRateAdapter());
+
+  await Future.wait([
+    Hive.openBox('cache'),
+    Hive.openBox('favorites'),
+    Hive.openBox('settings'),
+  ]);
 }

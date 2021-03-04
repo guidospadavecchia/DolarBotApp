@@ -27,6 +27,7 @@ import 'package:share/share.dart' as share2;
 class FabMenu extends StatelessWidget {
   final GlobalKey<SimpleFabMenuState> simpleFabKey;
   final bool showFavoriteButton;
+  final Function onFavoriteButtonTap;
   final bool showShareButton;
   final Function onShareButtonTap;
   final bool showClipboardButton;
@@ -36,6 +37,7 @@ class FabMenu extends StatelessWidget {
     Key key,
     this.simpleFabKey,
     this.showFavoriteButton = true,
+    this.onFavoriteButtonTap,
     this.showShareButton = true,
     this.onShareButtonTap,
     this.showClipboardButton = true,
@@ -94,12 +96,7 @@ class FabMenu extends StatelessWidget {
                   iconColor: Colors.red[300],
                   backgroundColor: Colors.white,
                   icon: Icons.favorite_outline_rounded,
-                  onPressed: () => {
-                    Scaffold.of(context).showSnackBar(SnackBar(
-                      duration: Duration(seconds: 3),
-                      content: Text("Falta agregar funcionalidad 🪁"),
-                    ))
-                  },
+                  onPressed: onFavoriteButtonTap,
                 ),
             ],
           );
