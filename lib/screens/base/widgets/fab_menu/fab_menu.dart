@@ -24,25 +24,46 @@ import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';
 import 'package:share/share.dart' as share2;
 
-class FabMenu extends StatelessWidget {
+typedef FavoriteFunction = Future<bool> Function();
+
+class FabMenu extends StatefulWidget {
   final GlobalKey<SimpleFabMenuState> simpleFabKey;
   final bool showFavoriteButton;
-  final Function onFavoriteButtonTap;
+  final FavoriteFunction onFavoriteButtonTap;
+  final bool isFavorite;
   final bool showShareButton;
   final Function onShareButtonTap;
   final bool showClipboardButton;
   final bool showCalculatorButton;
+  final Function onOpened;
+  final Function onClosed;
 
   const FabMenu({
     Key key,
     this.simpleFabKey,
     this.showFavoriteButton = true,
     this.onFavoriteButtonTap,
+    this.isFavorite = false,
     this.showShareButton = true,
     this.onShareButtonTap,
     this.showClipboardButton = true,
     this.showCalculatorButton = true,
+    this.onOpened,
+    this.onClosed,
   }) : super(key: key);
+
+  @override
+  _FabMenuState createState() => _FabMenuState();
+}
+
+class _FabMenuState extends State<FabMenu> {
+  bool isFavorite;
+
+  @override
+  void initState() {
+    super.initState();
+    isFavorite = widget.isFavorite;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,13 +71,15 @@ class FabMenu extends StatelessWidget {
       return Consumer<ActiveScreenData>(builder: (context, activeData, child) {
         if (!Globals.dataIsLoading) {
           return SimpleFabMenu(
-            key: simpleFabKey,
+            key: widget.simpleFabKey,
             direction: Axis.horizontal,
             icon: Icons.more_horiz,
             iconColor: Colors.black87,
             backGroundColor: Colors.white,
+            onOpened: widget.onOpened,
+            onClosed: widget.onClosed,
             items: <SimpleFabOption>[
-              if (showClipboardButton)
+              if (widget.showClipboardButton)
                 SimpleFabOption(
                   tooltip: "Copiar al portapapeles 📝",
                   iconColor: Colors.black87,
@@ -67,7 +90,7 @@ class FabMenu extends StatelessWidget {
                     activeData.getShareData(),
                   ),
                 ),
-              if (showCalculatorButton)
+              if (widget.showCalculatorButton)
                 SimpleFabOption(
                   tooltip: "Calculadora 💱",
                   iconColor: Colors.black87,
@@ -80,7 +103,7 @@ class FabMenu extends StatelessWidget {
                     );
                   },
                 ),
-              if (showShareButton)
+              if (widget.showShareButton)
                 SimpleFabOption(
                     tooltip: "Compartir cotización 📲",
                     iconColor: Colors.green[700],
@@ -88,15 +111,22 @@ class FabMenu extends StatelessWidget {
                     icon: Icons.share,
                     onPressed: () {
                       closeFabMenu();
-                      onShareButtonTap();
+                      widget.onShareButtonTap();
                     }),
-              if (showFavoriteButton)
+              if (widget.showFavoriteButton)
                 SimpleFabOption(
                   tooltip: "Agregar a Favoritos ❤",
-                  iconColor: Colors.red[300],
+                  iconColor: Colors.red[400],
                   backgroundColor: Colors.white,
-                  icon: Icons.favorite_outline_rounded,
-                  onPressed: onFavoriteButtonTap,
+                  icon: isFavorite
+                      ? Icons.favorite_rounded
+                      : Icons.favorite_outline_rounded,
+                  onPressed: () async {
+                    bool result = await widget.onFavoriteButtonTap();
+                    setState(() => isFavorite = result);
+                    Future.delayed(
+                        Duration(milliseconds: 200), () => closeFabMenu());
+                  },
                 ),
             ],
           );
@@ -108,8 +138,8 @@ class FabMenu extends StatelessWidget {
   }
 
   void closeFabMenu() {
-    if (simpleFabKey?.currentState?.isOpen ?? false) {
-      simpleFabKey.currentState.closeMenu();
+    if (widget.simpleFabKey?.currentState?.isOpen ?? false) {
+      widget.simpleFabKey.currentState.closeMenu();
     }
   }
 

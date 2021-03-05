@@ -130,10 +130,12 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
               simpleFabKey: simpleFabKey,
               showFavoriteButton: showFavoriteButton(),
               onFavoriteButtonTap: _onFavoriteStatusChange,
+              isFavorite: _getIsFavorite(),
               showShareButton: showShareButton(),
               onShareButtonTap: _shareCardImage,
               showClipboardButton: showClipboardButton(),
               showCalculatorButton: showCalculatorButton(),
+              onOpened: () => dismissAllToast(),
             )
           : null,
     );
@@ -210,7 +212,20 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
     }
   }
 
-  void _onFavoriteStatusChange() async {
+  bool _getIsFavorite() {
+    Box favoritesBox = Hive.box('favorites');
+    List<FavoriteRate> favoriteCards = favoritesBox
+        .get('favoriteCards', defaultValue: List<FavoriteRate>())
+        .cast<FavoriteRate>();
+
+    return favoriteCards.any(
+      (fav) => fav.cardResponseType == getResponseType().toString(),
+    );
+  }
+
+  Future<bool> _onFavoriteStatusChange() async {
+    bool isFavorite;
+
     try {
       Box favoritesBox = Hive.box('favorites');
       List<FavoriteRate> favoriteCards = favoritesBox
@@ -223,31 +238,27 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
       if (favoriteCard == null) {
         //Add favorite
         favoriteCards.add(createFavorite());
+        isFavorite = true;
       } else {
         //Remove favorite
         favoriteCards.remove(favoriteCard);
+        isFavorite = false;
       }
 
       //Save favorite list
       await favoritesBox.put('favoriteCards', favoriteCards);
 
       Future.delayed(
-        Duration(milliseconds: 100),
-        () => showToastWidget(
-          ToastOk(),
-        ),
+        Duration(milliseconds: 500),
+        () => showToastWidget(ToastOk()),
       );
     } catch (error) {
       Future.delayed(
-        Duration(milliseconds: 100),
-        () => showToastWidget(
-          ToastError(),
-        ),
+        Duration(milliseconds: 500),
+        () => showToastWidget(ToastError()),
       );
-    }
-
-    if (simpleFabKey?.currentState?.isOpen ?? false) {
-      simpleFabKey.currentState.closeMenu();
+    } finally {
+      return isFavorite;
     }
   }
 

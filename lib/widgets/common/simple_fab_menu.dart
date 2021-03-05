@@ -29,6 +29,8 @@ class SimpleFabMenu extends StatefulWidget {
   final Color backGroundColor;
   final EdgeInsets padding;
   final double animationForce;
+  final Function onOpened;
+  final Function onClosed;
 
   const SimpleFabMenu({
     Key key,
@@ -42,6 +44,8 @@ class SimpleFabMenu extends StatefulWidget {
     @required this.backGroundColor,
     this.padding = EdgeInsets.zero,
     this.animationForce = 100,
+    this.onOpened,
+    this.onClosed,
   })  : assert(iconSize >= 60 && iconSize <= 90),
         assert(childrenItemSize >= 32 && childrenItemSize <= 60),
         super(key: key);
@@ -88,6 +92,10 @@ class SimpleFabMenuState extends State<SimpleFabMenu>
         _iconFab = widget.icon;
       });
     });
+
+    if (widget.onClosed != null) {
+      widget.onClosed();
+    }
   }
 
   void openMenu() {
@@ -99,6 +107,10 @@ class SimpleFabMenuState extends State<SimpleFabMenu>
         _iconFab = widget.iconClose;
       });
     });
+
+    if (widget.onOpened != null) {
+      widget.onOpened();
+    }
   }
 
   @override

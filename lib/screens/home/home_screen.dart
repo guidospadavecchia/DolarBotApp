@@ -110,24 +110,26 @@ class _HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
     return futureCards;
   }
 
-  FutureScreenDelegate
-      _buildFutureFiatCurrencyCard<T extends GenericCurrencyResponse>(
-          FavoriteRate favoriteRate) {
-    return FutureScreenDelegate<GenericCurrencyResponse>(
-      response: API.getData(
-        favoriteRate.endpoint,
-        (json) => new GenericCurrencyResponse(json),
-        true,
-      ),
-      screen: (data) => FiatCurrencyCard(
-        title: favoriteRate.cardTitle,
-        data: data,
-        tag: favoriteRate.cardTag,
-        gradiantColors: favoriteRate.cardColors.map((n) => Color(n)).toList(),
-        iconAsset: favoriteRate.cardIconAsset,
-        iconData: IconData(favoriteRate.cardIconData,
-            fontFamily: "FontAwesomeSolid",
-            fontPackage: "font_awesome_flutter"),
+  Widget _buildFutureFiatCurrencyCard<T extends GenericCurrencyResponse>(
+      FavoriteRate favoriteRate) {
+    return Container(
+      height: 150,
+      child: FutureScreenDelegate<GenericCurrencyResponse>(
+        response: API.getData(
+          favoriteRate.endpoint,
+          (json) => new GenericCurrencyResponse(json),
+          true,
+        ),
+        screen: (data) => FiatCurrencyCard(
+          title: favoriteRate.cardTitle,
+          data: data,
+          tag: favoriteRate.cardTag,
+          gradiantColors: favoriteRate.cardColors.map((n) => Color(n)).toList(),
+          iconAsset: favoriteRate.cardIconAsset,
+          iconData: IconData(favoriteRate.cardIconData,
+              fontFamily: "FontAwesomeSolid",
+              fontPackage: "font_awesome_flutter"),
+        ),
       ),
     );
   }
