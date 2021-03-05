@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 export 'package:dolarbot_app/api/responses/metalResponse.dart';
 
 class MetalCard extends StatelessWidget {
+  static const double height = 130;
+
   final String title;
   final String tag;
   final MetalResponse data;
@@ -31,7 +33,7 @@ class MetalCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return CardFavorite(
       showPoweredBy: showPoweredBy,
-      height: 130,
+      height: height,
       header: CardHeader(
         title: title,
         showButtons: showButtons,

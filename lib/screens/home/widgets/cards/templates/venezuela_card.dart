@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 export 'package:dolarbot_app/api/responses/venezuelaResponse.dart';
 
 class VenezuelaCard extends StatelessWidget {
+  static const double height = 200;
+
   final String title;
   final String tag;
   final VenezuelaResponse data;
@@ -31,7 +33,7 @@ class VenezuelaCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return CardFavorite(
       showPoweredBy: showPoweredBy,
-      height: 200,
+      height: height,
       header: CardHeader(
         title: title,
         showButtons: showButtons,

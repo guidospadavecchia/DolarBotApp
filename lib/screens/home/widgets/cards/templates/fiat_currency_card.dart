@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 export 'package:dolarbot_app/api/responses/base/genericCurrencyResponse.dart';
 
 class FiatCurrencyCard extends StatelessWidget {
+  static const double height = 140;
+
   final String title;
   final String tag;
   final GenericCurrencyResponse data;
@@ -30,6 +32,7 @@ class FiatCurrencyCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CardFavorite(
+      height: height,
       showPoweredBy: showPoweredBy,
       header: CardHeader(
         title: title,

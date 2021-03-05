@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 export 'package:dolarbot_app/api/responses/bcraResponse.dart';
 
 class BcraCard extends StatelessWidget {
+  static const double height = 140;
+
   final String title;
   final String subtitle;
   final String tag;
@@ -34,6 +36,7 @@ class BcraCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CardFavorite(
+      height: BcraCard.height,
       showPoweredBy: showPoweredBy,
       header: CardHeader(
         title: title,

@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 export 'package:dolarbot_app/api/responses/cryptoResponse.dart';
 
 class CryptoCard extends StatelessWidget {
+  static const double height = 270;
+
   final String title;
   final String tag;
   final CryptoResponse data;
@@ -31,7 +33,7 @@ class CryptoCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return CardFavorite(
       showPoweredBy: showPoweredBy,
-      height: 270,
+      height: height,
       header: CardHeader(
         title: title,
         showButtons: showButtons,

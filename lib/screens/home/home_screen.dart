@@ -1,6 +1,7 @@
 import 'package:dolarbot_app/api/responses/base/genericCurrencyResponse.dart';
 import 'package:dolarbot_app/api/responses/metalResponse.dart';
 import 'package:dolarbot_app/classes/hive/favorite_rate.dart';
+import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:dolarbot_app/models/settings.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
 import 'package:dolarbot_app/screens/home/widgets/cards/card_favorite.dart';
@@ -10,6 +11,8 @@ import 'package:dolarbot_app/screens/home/widgets/cards/templates/crypto_card.da
 import 'package:dolarbot_app/screens/home/widgets/cards/templates/fiat_currency_card.dart';
 import 'package:dolarbot_app/screens/home/widgets/cards/templates/metal_card.dart';
 import 'package:dolarbot_app/screens/home/widgets/cards/templates/venezuela_card.dart';
+import 'package:dolarbot_app/widgets/common/future_screen_delegate/loading_future.dart';
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
@@ -44,6 +47,9 @@ class _HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
   Type getResponseType() => null;
 
   @override
+  Color setColorAppbar() => ThemeManager.getPrimaryTextColor(context);
+
+  @override
   void initState() {
     _loadFavorites();
     super.initState();
@@ -58,19 +64,17 @@ class _HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
           overScroll.disallowGlow();
           return false;
         },
-        child: Consumer<Settings>(builder: (context, settings, child) {
-          return Container(
-            child: SingleChildScrollView(
-              padding: EdgeInsets.only(
-                  bottom: MediaQuery.of(context).viewInsets.bottom + 110),
-              scrollDirection: Axis.vertical,
-              physics: BouncingScrollPhysics(),
-              child: Column(
-                children: _buildCards(),
-              ),
+        child: Container(
+          child: SingleChildScrollView(
+            padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom + 110),
+            scrollDirection: Axis.vertical,
+            physics: BouncingScrollPhysics(),
+            child: Column(
+              children: _buildCards(),
             ),
-          );
-        }),
+          ),
+        ),
       ),
     );
   }
@@ -112,122 +116,199 @@ class _HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
 
   Widget _buildFutureFiatCurrencyCard<T extends GenericCurrencyResponse>(
       FavoriteRate favoriteRate) {
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        _buildCardBackground(FiatCurrencyCard.height),
+        FutureScreenDelegate<GenericCurrencyResponse>(
+          loading: _buildLoadingFutureForCard(),
+          response: API.getData(
+            favoriteRate.endpoint,
+            (json) => new GenericCurrencyResponse(json),
+            false,
+          ),
+          screen: (data) => FiatCurrencyCard(
+            title: favoriteRate.cardTitle,
+            data: data,
+            tag: favoriteRate.cardTag,
+            gradiantColors:
+                favoriteRate.cardColors.map((n) => Color(n)).toList(),
+            iconAsset: favoriteRate.cardIconAsset,
+            iconData: IconData(favoriteRate.cardIconData,
+                fontFamily: "FontAwesomeSolid",
+                fontPackage: "font_awesome_flutter"),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildFutureCryptoCard(FavoriteRate favoriteRate) {
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        _buildCardBackground(CryptoCard.height),
+        FutureScreenDelegate<CryptoResponse>(
+          loading: _buildLoadingFutureForCard(),
+          response: API.getData(
+            favoriteRate.endpoint,
+            (json) => new CryptoResponse(json),
+            false,
+          ),
+          screen: (data) => CryptoCard(
+            title: favoriteRate.cardTitle,
+            data: data,
+            tag: favoriteRate.cardTag,
+            gradiantColors:
+                favoriteRate.cardColors.map((n) => Color(n)).toList(),
+            iconAsset: favoriteRate.cardIconAsset,
+            iconData: IconData(favoriteRate.cardIconData,
+                fontFamily: 'CryptoFont', fontPackage: 'crypto_font_icons'),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildFutureMetalCard(FavoriteRate favoriteRate) {
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        _buildCardBackground(MetalCard.height),
+        FutureScreenDelegate<MetalResponse>(
+          loading: _buildLoadingFutureForCard(),
+          response: API.getData(
+            favoriteRate.endpoint,
+            (json) => new MetalResponse(json),
+            false,
+          ),
+          screen: (data) => MetalCard(
+            title: favoriteRate.cardTitle,
+            data: data,
+            tag: favoriteRate.cardTag,
+            gradiantColors:
+                favoriteRate.cardColors.map((n) => Color(n)).toList(),
+            iconAsset: favoriteRate.cardIconAsset,
+            iconData: IconData(favoriteRate.cardIconData),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildFutureCountryRiskCard(FavoriteRate favoriteRate) {
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        _buildCardBackground(CountryRiskCard.height),
+        FutureScreenDelegate<CountryRiskResponse>(
+          loading: _buildLoadingFutureForCard(),
+          response: API.getData(
+            favoriteRate.endpoint,
+            (json) => new CountryRiskResponse(json),
+            false,
+          ),
+          screen: (data) => CountryRiskCard(
+            title: favoriteRate.cardTitle,
+            data: data,
+            tag: favoriteRate.cardTag,
+            gradiantColors:
+                favoriteRate.cardColors.map((n) => Color(n)).toList(),
+            iconAsset: favoriteRate.cardIconAsset,
+            iconData: IconData(favoriteRate.cardIconData,
+                fontFamily: "FontAwesomeSolid",
+                fontPackage: "font_awesome_flutter"),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildFutureBcraCard(FavoriteRate favoriteRate) {
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        _buildCardBackground(BcraCard.height),
+        FutureScreenDelegate<BcraResponse>(
+          loading: _buildLoadingFutureForCard(),
+          response: API.getData(
+            favoriteRate.endpoint,
+            (json) => new BcraResponse(json),
+            false,
+          ),
+          screen: (data) => BcraCard(
+            title: favoriteRate.cardTitle,
+            subtitle: favoriteRate.cardSubtitle,
+            symbol: favoriteRate.cardSymbol,
+            data: data,
+            tag: favoriteRate.cardTag,
+            gradiantColors:
+                favoriteRate.cardColors.map((n) => Color(n)).toList(),
+            iconAsset: favoriteRate.cardIconAsset,
+            iconData: IconData(favoriteRate.cardIconData,
+                fontFamily: "FontAwesomeSolid",
+                fontPackage: "font_awesome_flutter"),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildFutureVenezuelaCard(FavoriteRate favoriteRate) {
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        _buildCardBackground(VenezuelaCard.height),
+        FutureScreenDelegate<VenezuelaResponse>(
+          loading: _buildLoadingFutureForCard(),
+          response: API.getData(
+            favoriteRate.endpoint,
+            (json) => new VenezuelaResponse(json),
+            false,
+          ),
+          screen: (data) => VenezuelaCard(
+            title: favoriteRate.cardTitle,
+            data: data,
+            tag: favoriteRate.cardTag,
+            gradiantColors:
+                favoriteRate.cardColors.map((n) => Color(n)).toList(),
+            iconAsset: favoriteRate.cardIconAsset,
+            iconData: IconData(favoriteRate.cardIconData),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildCardBackground(double height) {
     return Container(
-      height: 150,
-      child: FutureScreenDelegate<GenericCurrencyResponse>(
-        response: API.getData(
-          favoriteRate.endpoint,
-          (json) => new GenericCurrencyResponse(json),
-          true,
+      margin: EdgeInsets.all(15),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+      ),
+      alignment: Alignment.center,
+      height: height,
+      child: Transform.scale(
+        scale: 0.98,
+        child: DottedBorder(
+          strokeWidth: 2,
+          color: ThemeManager.getDottedBorderColor(context),
+          dashPattern: [8, 6],
+          radius: Radius.circular(10),
+          borderType: BorderType.RRect,
+          child: Container(
+            height: height,
+          ),
         ),
-        screen: (data) => FiatCurrencyCard(
-          title: favoriteRate.cardTitle,
-          data: data,
-          tag: favoriteRate.cardTag,
-          gradiantColors: favoriteRate.cardColors.map((n) => Color(n)).toList(),
-          iconAsset: favoriteRate.cardIconAsset,
-          iconData: IconData(favoriteRate.cardIconData,
-              fontFamily: "FontAwesomeSolid",
-              fontPackage: "font_awesome_flutter"),
-        ),
       ),
     );
   }
 
-  FutureScreenDelegate _buildFutureCryptoCard(FavoriteRate favoriteRate) {
-    return FutureScreenDelegate<CryptoResponse>(
-      response: API.getData(
-        favoriteRate.endpoint,
-        (json) => new CryptoResponse(json),
-        true,
-      ),
-      screen: (data) => CryptoCard(
-        title: favoriteRate.cardTitle,
-        data: data,
-        tag: favoriteRate.cardTag,
-        gradiantColors: favoriteRate.cardColors.map((n) => Color(n)).toList(),
-        iconAsset: favoriteRate.cardIconAsset,
-        iconData: IconData(favoriteRate.cardIconData,
-            fontFamily: 'CryptoFont', fontPackage: 'crypto_font_icons'),
-      ),
-    );
-  }
-
-  FutureScreenDelegate _buildFutureMetalCard(FavoriteRate favoriteRate) {
-    return FutureScreenDelegate<MetalResponse>(
-      response: API.getData(
-        favoriteRate.endpoint,
-        (json) => new MetalResponse(json),
-        true,
-      ),
-      screen: (data) => MetalCard(
-        title: favoriteRate.cardTitle,
-        data: data,
-        tag: favoriteRate.cardTag,
-        gradiantColors: favoriteRate.cardColors.map((n) => Color(n)).toList(),
-        iconAsset: favoriteRate.cardIconAsset,
-        iconData: IconData(favoriteRate.cardIconData),
-      ),
-    );
-  }
-
-  FutureScreenDelegate _buildFutureCountryRiskCard(FavoriteRate favoriteRate) {
-    return FutureScreenDelegate<CountryRiskResponse>(
-      response: API.getData(
-        favoriteRate.endpoint,
-        (json) => new CountryRiskResponse(json),
-        true,
-      ),
-      screen: (data) => CountryRiskCard(
-        title: favoriteRate.cardTitle,
-        data: data,
-        tag: favoriteRate.cardTag,
-        gradiantColors: favoriteRate.cardColors.map((n) => Color(n)).toList(),
-        iconAsset: favoriteRate.cardIconAsset,
-        iconData: IconData(favoriteRate.cardIconData,
-            fontFamily: "FontAwesomeSolid",
-            fontPackage: "font_awesome_flutter"),
-      ),
-    );
-  }
-
-  FutureScreenDelegate _buildFutureBcraCard(FavoriteRate favoriteRate) {
-    return FutureScreenDelegate<BcraResponse>(
-      response: API.getData(
-        favoriteRate.endpoint,
-        (json) => new BcraResponse(json),
-        true,
-      ),
-      screen: (data) => BcraCard(
-        title: favoriteRate.cardTitle,
-        subtitle: favoriteRate.cardSubtitle,
-        symbol: favoriteRate.cardSymbol,
-        data: data,
-        tag: favoriteRate.cardTag,
-        gradiantColors: favoriteRate.cardColors.map((n) => Color(n)).toList(),
-        iconAsset: favoriteRate.cardIconAsset,
-        iconData: IconData(favoriteRate.cardIconData,
-            fontFamily: "FontAwesomeSolid",
-            fontPackage: "font_awesome_flutter"),
-      ),
-    );
-  }
-
-  FutureScreenDelegate _buildFutureVenezuelaCard(FavoriteRate favoriteRate) {
-    return FutureScreenDelegate<VenezuelaResponse>(
-      response: API.getData(
-        favoriteRate.endpoint,
-        (json) => new VenezuelaResponse(json),
-        false,
-      ),
-      screen: (data) => VenezuelaCard(
-        title: favoriteRate.cardTitle,
-        data: data,
-        tag: favoriteRate.cardTag,
-        gradiantColors: favoriteRate.cardColors.map((n) => Color(n)).toList(),
-        iconAsset: favoriteRate.cardIconAsset,
-        iconData: IconData(favoriteRate.cardIconData),
-      ),
+  LoadingFuture _buildLoadingFutureForCard() {
+    return LoadingFuture(
+      indicatorType: Indicator.ballPulseSync,
+      size: 32,
+      color: ThemeManager.getDottedBorderColor(context),
     );
   }
 }
