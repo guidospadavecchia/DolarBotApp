@@ -24,28 +24,28 @@ dependencies:
   flutter:
     sdk: flutter
   font_awesome_flutter: ^8.11.0
-  adaptive_theme: ^1.1.0
+  crypto_font_icons: ^0.1.0
+  cupertino_icons: ^1.0.0
   flutter_launcher_icons: "^0.8.1"
+  adaptive_theme: ^1.1.0
   loading_indicator: ^1.2.0
   http: ^0.12.2
   global_configuration: ^1.6.0
   show_up_animation: ^1.0.2
-  cupertino_icons: ^1.0.0
-  crypto_font_icons: ^0.1.0
   hive: ^1.4.4+1
   hive_flutter: ^0.3.1
   provider: ^4.0.0
   page_transition: ^1.1.7+6
-  fab_circular_menu: ^1.0.0
   oktoast: ^2.3.2
   share: '>=0.6.5+4 <2.0.0'
+  esys_flutter_share: ^1.0.2
   flutter_masked_text: ^0.8.0
+  auto_size_text_field: ^0.1.7
+  decimal: ^0.3.5
   url_launcher: ^5.7.10
   package_info: ^0.4.3+4
-  decimal: ^0.3.5
   screenshot: ^0.3.0
-  esys_flutter_share: ^1.0.2
-  auto_size_text_field: ^0.1.7
+  dotted_border: ^1.0.7
 
 flutter_icons:
   android: true
