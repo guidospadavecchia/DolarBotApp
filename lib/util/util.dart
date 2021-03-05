@@ -1,6 +1,5 @@
 import 'package:dolarbot_app/api/responses/base/apiResponse.dart';
 import 'package:dolarbot_app/widgets/toasts/toast_error.dart';
-import 'package:flutter/material.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:url_launcher/url_launcher.dart';
 
