@@ -4,6 +4,7 @@ import 'package:dolarbot_app/api/responses/base/apiResponse.dart';
 import 'package:dolarbot_app/classes/hive/favorite_rate.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:dolarbot_app/models/active_screen_data.dart';
+import 'package:dolarbot_app/models/settings.dart';
 import 'package:dolarbot_app/screens/base/widgets/drawer/drawer_menu.dart';
 import 'package:dolarbot_app/screens/base/widgets/fab_menu/fab_menu.dart';
 import 'package:dolarbot_app/widgets/common/cool_app_bar.dart';
@@ -34,6 +35,7 @@ abstract class BaseInfoScreen extends StatefulWidget {
   final String bannerIconAsset;
   final IconData bannerIconData;
   final List<Color> gradiantColors;
+  final String endpoint;
 
   BaseInfoScreen({
     Key key,
@@ -42,6 +44,7 @@ abstract class BaseInfoScreen extends StatefulWidget {
     this.bannerIconAsset,
     this.bannerIconData,
     this.gradiantColors,
+    this.endpoint,
   })  : assert(bannerIconAsset == null || bannerIconData == null),
         super(key: key);
 }
@@ -73,71 +76,76 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      extendBodyBehindAppBar: extendBodyBehindAppBar(),
-      appBar: CoolAppBar(
-        title: widget.title,
-        isMainMenu: isMainMenu(),
-        foregroundColor: setColorAppbar(),
-        showRefreshButton: showRefreshButton(),
-        onRefresh: () => _refresh(),
-      ),
-      drawer: Container(
-        width: 290,
-        child: Drawer(
-          child: DrawerMenu(
-            onDrawerDisplayChanged: (isOpen) => _onDrawerDisplayChange(isOpen),
+    return Consumer<Settings>(
+      builder: (context, settings, child) {
+        return Scaffold(
+          extendBodyBehindAppBar: extendBodyBehindAppBar(),
+          appBar: CoolAppBar(
+            title: widget.title,
+            isMainMenu: isMainMenu(),
+            foregroundColor: setColorAppbar(),
+            showRefreshButton: showRefreshButton(),
+            onRefresh: () => _refresh(),
           ),
-        ),
-      ),
-      drawerEdgeDragWidth: 150,
-      drawerEnableOpenDragGesture: true,
-      body: (widget.bannerTitle != null || isMainMenu())
-          ? Stack(children: [
-              card() != null
-                  ? Screenshot(
-                      child: card(),
-                      controller: screenshotController,
-                    )
-                  : SizedBox.shrink(),
-              Container(
-                height: double.infinity,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    colors: widget.gradiantColors == null
-                        ? [
-                            ThemeManager.getGlobalBackgroundColor(context),
-                            ThemeManager.getGlobalBackgroundColor(context),
-                          ]
-                        : widget.gradiantColors,
-                  ),
-                ),
-                child: Wrap(
-                  runAlignment: WrapAlignment.center,
-                  runSpacing: 0,
-                  children: [
-                    body(),
-                  ],
-                ),
+          drawer: Container(
+            width: 290,
+            child: Drawer(
+              child: DrawerMenu(
+                onDrawerDisplayChanged: (isOpen) =>
+                    _onDrawerDisplayChange(isOpen),
               ),
-            ])
-          : body(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-      floatingActionButton: showFabMenu()
-          ? FabMenu(
-              simpleFabKey: simpleFabKey,
-              showFavoriteButton: showFavoriteButton(),
-              onFavoriteButtonTap: _onFavoriteStatusChange,
-              isFavorite: _getIsFavorite(),
-              showShareButton: showShareButton(),
-              onShareButtonTap: _shareCardImage,
-              showClipboardButton: showClipboardButton(),
-              showCalculatorButton: showCalculatorButton(),
-              onOpened: () => dismissAllToast(),
-            )
-          : null,
+            ),
+          ),
+          drawerEdgeDragWidth: 150,
+          drawerEnableOpenDragGesture: true,
+          body: (widget.bannerTitle != null || isMainMenu())
+              ? Stack(children: [
+                  card() != null
+                      ? Screenshot(
+                          child: card(),
+                          controller: screenshotController,
+                        )
+                      : SizedBox.shrink(),
+                  Container(
+                    height: double.infinity,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: widget.gradiantColors == null
+                            ? [
+                                ThemeManager.getGlobalBackgroundColor(context),
+                                ThemeManager.getGlobalBackgroundColor(context),
+                              ]
+                            : widget.gradiantColors,
+                      ),
+                    ),
+                    child: Wrap(
+                      runAlignment: WrapAlignment.center,
+                      runSpacing: 0,
+                      children: [
+                        body(),
+                      ],
+                    ),
+                  ),
+                ])
+              : body(),
+          floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+          floatingActionButton: showFabMenu()
+              ? FabMenu(
+                  simpleFabKey: simpleFabKey,
+                  showFavoriteButton: showFavoriteButton(),
+                  onFavoriteButtonTap: _onFavoriteStatusChange,
+                  isFavorite: _getIsFavorite(),
+                  showShareButton: showShareButton(),
+                  onShareButtonTap: _shareCardImage,
+                  showClipboardButton: showClipboardButton(),
+                  showCalculatorButton: showCalculatorButton(),
+                  onOpened: () => dismissAllToast(),
+                )
+              : null,
+        );
+      },
     );
   }
 
@@ -219,7 +227,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
         .cast<FavoriteRate>();
 
     return favoriteCards.any(
-      (fav) => fav.cardResponseType == getResponseType().toString(),
+      (fav) => fav.endpoint == widget.endpoint,
     );
   }
 
@@ -233,7 +241,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
           .cast<FavoriteRate>();
 
       FavoriteRate favoriteCard = favoriteCards.firstWhere(
-          (fav) => fav.cardResponseType == getResponseType().toString(),
+          (fav) => fav.endpoint == widget.endpoint,
           orElse: () => null);
       if (favoriteCard == null) {
         //Add favorite

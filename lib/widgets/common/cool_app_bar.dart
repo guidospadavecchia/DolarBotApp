@@ -1,4 +1,3 @@
-import 'package:dolarbot_app/models/settings.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -66,21 +65,17 @@ class CoolAppBar extends StatelessWidget implements PreferredSizeWidget {
       ],
       backgroundColor: Colors.transparent,
       centerTitle: true,
-      title: Consumer<Settings>(
-        builder: (context, settings, child) {
-          return FittedBox(
-            alignment: Alignment.center,
-            fit: BoxFit.fitWidth,
-            child: Text(
-              title ?? ' ',
-              style: TextStyle(
-                fontFamily: 'Raleway',
-                fontWeight: FontWeight.bold,
-                color: foregroundColor,
-              ),
-            ),
-          );
-        },
+      title: FittedBox(
+        alignment: Alignment.center,
+        fit: BoxFit.fitWidth,
+        child: Text(
+          title ?? ' ',
+          style: TextStyle(
+            fontFamily: 'Raleway',
+            fontWeight: FontWeight.bold,
+            color: foregroundColor,
+          ),
+        ),
       ),
       elevation: 0,
     );

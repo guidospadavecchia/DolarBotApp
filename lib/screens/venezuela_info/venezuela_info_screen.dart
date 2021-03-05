@@ -19,9 +19,11 @@ class VenezuelaInfoScreen extends BaseInfoScreen {
     this.gradiantColors,
     @required this.venezuelaEndpoint,
   }) : super(
-            title: title,
-            bannerTitle: bannerTitle,
-            bannerIconData: bannerIconData);
+          title: title,
+          bannerTitle: bannerTitle,
+          bannerIconData: bannerIconData,
+          endpoint: venezuelaEndpoint.value,
+        );
 
   @override
   _VenezuelaInfoScreenState createState() =>

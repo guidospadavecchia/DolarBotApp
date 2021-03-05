@@ -18,7 +18,10 @@ class BcraInfoScreen extends BaseInfoScreen {
     this.bannerIconData,
     this.gradiantColors,
     @required this.bcraEndpoint,
-  }) : super(title: title);
+  }) : super(
+          title: title,
+          endpoint: bcraEndpoint.value,
+        );
 
   @override
   _BcraInfoScreenState createState() => _BcraInfoScreenState(bcraEndpoint);

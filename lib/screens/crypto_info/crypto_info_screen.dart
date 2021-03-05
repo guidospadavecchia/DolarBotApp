@@ -18,10 +18,10 @@ class CryptoInfoScreen extends BaseInfoScreen {
     this.gradiantColors,
     @required this.cryptoEndpoint,
   }) : super(
-          title: title,
-          bannerTitle: bannerTitle,
-          bannerIconData: bannerIconData,
-        );
+            title: title,
+            bannerTitle: bannerTitle,
+            bannerIconData: bannerIconData,
+            endpoint: cryptoEndpoint.value);
 
   @override
   _CryptoInfoScreenState createState() =>

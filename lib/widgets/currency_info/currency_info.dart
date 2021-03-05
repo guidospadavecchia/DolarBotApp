@@ -20,20 +20,16 @@ class CurrencyInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<Settings>(
-      builder: (context, settings, child) {
-        return Container(
-          width: double.infinity,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              _getTitle(context),
-              _getCurrencyValue(context),
-            ],
-          ),
-        );
-      },
+    return Container(
+      width: double.infinity,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          _getTitle(context),
+          _getCurrencyValue(context),
+        ],
+      ),
     );
   }
 

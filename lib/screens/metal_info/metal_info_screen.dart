@@ -18,7 +18,10 @@ class MetalInfoScreen extends BaseInfoScreen {
     this.bannerTitle,
     this.bannerIconAsset,
     this.gradiantColors,
-  }) : super(title: title);
+  }) : super(
+          title: title,
+          endpoint: metalEndpoint.value,
+        );
 
   @override
   _MetalInfoScreenState createState() => _MetalInfoScreenState(metalEndpoint);

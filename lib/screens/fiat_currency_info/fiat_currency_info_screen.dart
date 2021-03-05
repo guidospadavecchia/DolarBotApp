@@ -41,6 +41,8 @@ class FiatCurrencyInfoScreen<T extends GenericCurrencyResponse>
           bannerTitle: bannerTitle,
           bannerIconAsset: bannerIconAsset,
           bannerIconData: bannerIconData,
+          endpoint:
+              dollarEndpoint.value ?? euroEndpoint.value ?? realEndpoint.value,
         );
 
   @override
@@ -182,7 +184,6 @@ class _FiatCurrencyInfoScreenState<T extends GenericCurrencyResponse>
         cardIconAsset: widget.bannerIconAsset);
   }
 
-  @override
   Type getResponseType() {
     Type responseType;
     if (dollarEndpoint != null) responseType = DollarResponse;
