@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
 @HiveType(typeId: 1)
@@ -18,7 +17,7 @@ class FavoriteRate extends HiveObject {
   @HiveField(6)
   final List<int> cardColors;
   @HiveField(7)
-  final IconData cardIconData;
+  final int cardIconData;
   @HiveField(8)
   final String cardIconAsset;
 

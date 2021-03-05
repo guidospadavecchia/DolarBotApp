@@ -1,3 +1,4 @@
+import 'package:dolarbot_app/classes/dolarbot_icons.dart';
 import 'package:dolarbot_app/interfaces/share_info.dart';
 import 'package:dolarbot_app/models/active_screen_data.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
@@ -127,9 +128,9 @@ class _VenezuelaInfoScreenState extends BaseInfoScreenState<VenezuelaInfoScreen>
         cardSubtitle: null,
         cardSymbol: null,
         cardTag: widget.bannerTitle,
-        cardColors: widget.gradiantColors.map((color) => color.value),
-        cardIconData: widget.bannerIconData,
-        cardIconAsset: widget.bannerIconAsset);
+        cardColors: widget.gradiantColors.map((color) => color.value).toList(),
+        cardIconData: widget.bannerIconData?.codePoint,
+        cardIconAsset: DolarBotIcons.general.venezuela);
   }
 
   @override

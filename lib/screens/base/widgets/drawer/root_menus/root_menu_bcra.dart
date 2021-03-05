@@ -28,7 +28,7 @@ class RootMenuBCRA extends StatelessWidget {
                 bannerTitle: "Riesgo País",
                 bannerIconData: FontAwesomeIcons.chartLine,
                 bcraEndpoint: BcraEndpoints.riesgoPais,
-                gradiantColors: DolarBotConstants.kGradiantDark,
+                gradiantColors: DolarBotConstants.kGradiantBCRA,
               ),
             )
           },
@@ -44,7 +44,7 @@ class RootMenuBCRA extends StatelessWidget {
                 title: _title,
                 bannerTitle: 'Reservas',
                 bannerIconData: FontAwesomeIcons.handHoldingUsd,
-                gradiantColors: DolarBotConstants.kGradiantDark,
+                gradiantColors: DolarBotConstants.kGradiantBCRA,
                 bcraEndpoint: BcraEndpoints.reservas,
               ),
             )
@@ -60,8 +60,8 @@ class RootMenuBCRA extends StatelessWidget {
               BcraInfoScreen(
                 title: _title,
                 bannerTitle: 'Dinero en Circulación',
-                bannerIconData: FontAwesomeIcons.handHoldingUsd,
-                gradiantColors: DolarBotConstants.kGradiantDark,
+                bannerIconData: FontAwesomeIcons.moneyBillWave,
+                gradiantColors: DolarBotConstants.kGradiantBCRA,
                 bcraEndpoint: BcraEndpoints.circulante,
               ),
             ),

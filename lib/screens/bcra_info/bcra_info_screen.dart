@@ -226,8 +226,8 @@ class _BcraInfoScreenState extends BaseInfoScreenState<BcraInfoScreen>
         cardSubtitle: subtitle,
         cardSymbol: symbol,
         cardTag: widget.title,
-        cardColors: widget.gradiantColors.map((color) => color.value),
-        cardIconData: widget.bannerIconData,
+        cardColors: widget.gradiantColors.map((color) => color.value).toList(),
+        cardIconData: widget.bannerIconData?.codePoint,
         cardIconAsset: widget.bannerIconAsset);
   }
 

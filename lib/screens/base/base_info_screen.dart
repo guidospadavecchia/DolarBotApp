@@ -238,6 +238,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
         ),
       );
     } catch (error) {
+      print(error);
       //TODO Ver como convertir el IconData en un String
       Future.delayed(
         Duration(milliseconds: 100),

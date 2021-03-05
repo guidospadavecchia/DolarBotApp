@@ -1,5 +1,4 @@
 import 'package:dolarbot_app/classes/hive/favorite_rate.dart';
-import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
 class FavoriteRateAdapter extends TypeAdapter<FavoriteRate> {
@@ -20,7 +19,7 @@ class FavoriteRateAdapter extends TypeAdapter<FavoriteRate> {
       cardSymbol: fields[4] as String,
       cardTag: fields[5] as String,
       cardColors: (fields[6] as List)?.cast<int>(),
-      cardIconData: fields[7] as IconData,
+      cardIconData: fields[7] as int,
       cardIconAsset: fields[8] as String,
     );
   }

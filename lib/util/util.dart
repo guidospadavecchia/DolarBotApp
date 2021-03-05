@@ -21,9 +21,7 @@ class Util {
       Future.delayed(
         Duration(milliseconds: 100),
         () => showToastWidget(
-          ToastError(
-            padding: EdgeInsets.only(bottom: 100),
-          ),
+          ToastError(),
         ),
       );
     }

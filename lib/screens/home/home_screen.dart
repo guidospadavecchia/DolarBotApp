@@ -117,15 +117,17 @@ class _HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
       response: API.getData(
         favoriteRate.endpoint,
         (json) => new GenericCurrencyResponse(json),
-        false,
+        true,
       ),
       screen: (data) => FiatCurrencyCard(
         title: favoriteRate.cardTitle,
         data: data,
         tag: favoriteRate.cardTag,
-        gradiantColors: favoriteRate.cardColors.map((n) => Color(n)),
+        gradiantColors: favoriteRate.cardColors.map((n) => Color(n)).toList(),
         iconAsset: favoriteRate.cardIconAsset,
-        iconData: favoriteRate.cardIconData,
+        iconData: IconData(favoriteRate.cardIconData,
+            fontFamily: "FontAwesomeSolid",
+            fontPackage: "font_awesome_flutter"),
       ),
     );
   }
@@ -135,15 +137,16 @@ class _HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
       response: API.getData(
         favoriteRate.endpoint,
         (json) => new CryptoResponse(json),
-        false,
+        true,
       ),
       screen: (data) => CryptoCard(
         title: favoriteRate.cardTitle,
         data: data,
         tag: favoriteRate.cardTag,
-        gradiantColors: favoriteRate.cardColors.map((n) => Color(n)),
+        gradiantColors: favoriteRate.cardColors.map((n) => Color(n)).toList(),
         iconAsset: favoriteRate.cardIconAsset,
-        iconData: favoriteRate.cardIconData,
+        iconData: IconData(favoriteRate.cardIconData,
+            fontFamily: 'CryptoFont', fontPackage: 'crypto_font_icons'),
       ),
     );
   }
@@ -153,15 +156,15 @@ class _HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
       response: API.getData(
         favoriteRate.endpoint,
         (json) => new MetalResponse(json),
-        false,
+        true,
       ),
       screen: (data) => MetalCard(
         title: favoriteRate.cardTitle,
         data: data,
         tag: favoriteRate.cardTag,
-        gradiantColors: favoriteRate.cardColors.map((n) => Color(n)),
+        gradiantColors: favoriteRate.cardColors.map((n) => Color(n)).toList(),
         iconAsset: favoriteRate.cardIconAsset,
-        iconData: favoriteRate.cardIconData,
+        iconData: IconData(favoriteRate.cardIconData),
       ),
     );
   }
@@ -171,15 +174,17 @@ class _HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
       response: API.getData(
         favoriteRate.endpoint,
         (json) => new CountryRiskResponse(json),
-        false,
+        true,
       ),
       screen: (data) => CountryRiskCard(
         title: favoriteRate.cardTitle,
         data: data,
         tag: favoriteRate.cardTag,
-        gradiantColors: favoriteRate.cardColors.map((n) => Color(n)),
+        gradiantColors: favoriteRate.cardColors.map((n) => Color(n)).toList(),
         iconAsset: favoriteRate.cardIconAsset,
-        iconData: favoriteRate.cardIconData,
+        iconData: IconData(favoriteRate.cardIconData,
+            fontFamily: "FontAwesomeSolid",
+            fontPackage: "font_awesome_flutter"),
       ),
     );
   }
@@ -189,7 +194,7 @@ class _HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
       response: API.getData(
         favoriteRate.endpoint,
         (json) => new BcraResponse(json),
-        false,
+        true,
       ),
       screen: (data) => BcraCard(
         title: favoriteRate.cardTitle,
@@ -197,9 +202,11 @@ class _HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
         symbol: favoriteRate.cardSymbol,
         data: data,
         tag: favoriteRate.cardTag,
-        gradiantColors: favoriteRate.cardColors.map((n) => Color(n)),
+        gradiantColors: favoriteRate.cardColors.map((n) => Color(n)).toList(),
         iconAsset: favoriteRate.cardIconAsset,
-        iconData: favoriteRate.cardIconData,
+        iconData: IconData(favoriteRate.cardIconData,
+            fontFamily: "FontAwesomeSolid",
+            fontPackage: "font_awesome_flutter"),
       ),
     );
   }
@@ -215,9 +222,9 @@ class _HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
         title: favoriteRate.cardTitle,
         data: data,
         tag: favoriteRate.cardTag,
-        gradiantColors: favoriteRate.cardColors.map((n) => Color(n)),
+        gradiantColors: favoriteRate.cardColors.map((n) => Color(n)).toList(),
         iconAsset: favoriteRate.cardIconAsset,
-        iconData: favoriteRate.cardIconData,
+        iconData: IconData(favoriteRate.cardIconData),
       ),
     );
   }

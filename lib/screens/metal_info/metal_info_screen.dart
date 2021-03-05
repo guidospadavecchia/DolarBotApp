@@ -116,8 +116,8 @@ class _MetalInfoScreenState extends BaseInfoScreenState<MetalInfoScreen>
         cardSubtitle: null,
         cardSymbol: null,
         cardTag: widget.title,
-        cardColors: widget.gradiantColors.map((color) => color.value),
-        cardIconData: widget.bannerIconData,
+        cardColors: widget.gradiantColors.map((color) => color.value).toList(),
+        cardIconData: widget.bannerIconData?.codePoint,
         cardIconAsset: widget.bannerIconAsset);
   }
 

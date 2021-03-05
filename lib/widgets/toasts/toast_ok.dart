@@ -1,47 +1,14 @@
+import 'package:dolarbot_app/classes/theme_manager.dart';
+import 'package:dolarbot_app/widgets/toasts/toast_custom.dart';
 import 'package:flutter/material.dart';
 
 class ToastOk extends StatelessWidget {
-  final Color backgroundColor;
-  final Color iconColor;
-  final double iconSize;
-  final double size;
-  final BorderRadius borderRadius;
-  final AlignmentGeometry alignment;
-  final EdgeInsetsGeometry padding;
-
-  const ToastOk(
-      {Key key,
-      this.backgroundColor,
-      this.iconColor,
-      this.iconSize,
-      this.size,
-      this.borderRadius,
-      this.alignment,
-      this.padding})
-      : super(key: key);
-
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Align(
-        alignment: alignment ?? FractionalOffset.bottomCenter,
-        child: Padding(
-          padding: padding ?? EdgeInsets.only(bottom: 30),
-          child: ClipRRect(
-            borderRadius: borderRadius ?? BorderRadius.circular(30.0),
-            child: Container(
-              width: size ?? 50.0,
-              height: size ?? 50.0,
-              color: backgroundColor ?? Colors.grey.withOpacity(0.3),
-              child: Icon(
-                Icons.check,
-                size: iconSize ?? 30.0,
-                color: iconColor ?? Colors.green,
-              ),
-            ),
-          ),
-        ),
-      ),
+    return ToastCustom(
+      icon: Icons.check,
+      iconColor: Colors.white,
+      backgroundColor: ThemeManager.getPrimaryColor(),
     );
   }
 }

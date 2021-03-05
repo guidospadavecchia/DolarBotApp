@@ -7,30 +7,34 @@ export 'package:dolarbot_app/api/responses/metalResponse.dart';
 class MetalCard extends StatelessWidget {
   final String title;
   final String tag;
+  final MetalResponse data;
+  final List<Color> gradiantColors;
   final IconData iconData;
   final String iconAsset;
-  final List<Color> gradiantColors;
-  final MetalResponse data;
+  final bool showPoweredBy;
+  final bool showButtons;
 
   const MetalCard({
     Key key,
     @required this.title,
-    @required this.data,
     @required this.tag,
+    @required this.data,
     @required this.gradiantColors,
-    this.iconAsset,
     this.iconData,
+    this.iconAsset,
+    this.showPoweredBy = false,
+    this.showButtons = true,
   })  : assert(iconData != null || iconAsset != null),
         super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return CardFavorite(
-      showPoweredBy: true,
-      height: 110,
+      showPoweredBy: showPoweredBy,
+      height: 130,
       header: CardHeader(
         title: title,
-        showButtons: false,
+        showButtons: showButtons,
       ),
       spaceBetweenHeader: Spacing.small,
       rates: [

@@ -7,29 +7,33 @@ export 'package:dolarbot_app/api/responses/base/genericCurrencyResponse.dart';
 class FiatCurrencyCard extends StatelessWidget {
   final String title;
   final String tag;
+  final GenericCurrencyResponse data;
+  final List<Color> gradiantColors;
   final IconData iconData;
   final String iconAsset;
-  final List<Color> gradiantColors;
-  final GenericCurrencyResponse data;
+  final bool showPoweredBy;
+  final bool showButtons;
 
   const FiatCurrencyCard({
     Key key,
     @required this.title,
-    @required this.data,
     @required this.tag,
+    @required this.data,
     @required this.gradiantColors,
-    this.iconAsset,
     this.iconData,
+    this.iconAsset,
+    this.showPoweredBy = false,
+    this.showButtons = true,
   })  : assert(iconData != null || iconAsset != null),
         super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return CardFavorite(
-      showPoweredBy: true,
+      showPoweredBy: showPoweredBy,
       header: CardHeader(
         title: title,
-        showButtons: false,
+        showButtons: showButtons,
       ),
       spaceBetweenItems: Spacing.medium,
       spaceBetweenHeader: Spacing.small,

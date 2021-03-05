@@ -29,7 +29,7 @@ class CardFavorite extends StatelessWidget {
     @required this.logo,
     @required this.lastUpdated,
     @required this.gradiantColors,
-    this.height = 150,
+    this.height = 140,
     this.spaceBetweenHeader = Spacing.large,
     this.spaceBetweenItems = Spacing.none,
     this.direction = Axis.horizontal,
@@ -51,7 +51,7 @@ class CardFavorite extends StatelessWidget {
             colors: gradiantColors,
           ),
         ),
-        height: showPoweredBy ? height + 15 : height,
+        height: showPoweredBy ? height + 30 : height,
         constraints: BoxConstraints(minHeight: showPoweredBy ? 150 : height),
         child: Row(
           children: [

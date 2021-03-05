@@ -134,8 +134,8 @@ class _CryptoInfoScreenState extends BaseInfoScreenState<CryptoInfoScreen>
         cardSubtitle: null,
         cardSymbol: null,
         cardTag: widget.title,
-        cardColors: widget.gradiantColors.map((color) => color.value),
-        cardIconData: widget.bannerIconData,
+        cardColors: widget.gradiantColors.map((color) => color.value).toList(),
+        cardIconData: widget.bannerIconData?.codePoint,
         cardIconAsset: widget.bannerIconAsset);
   }
 

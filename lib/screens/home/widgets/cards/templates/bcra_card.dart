@@ -9,10 +9,12 @@ class BcraCard extends StatelessWidget {
   final String subtitle;
   final String tag;
   final String symbol;
+  final BcraResponse data;
+  final List<Color> gradiantColors;
   final IconData iconData;
   final String iconAsset;
-  final List<Color> gradiantColors;
-  final BcraResponse data;
+  final bool showPoweredBy;
+  final bool showButtons;
 
   const BcraCard({
     Key key,
@@ -24,17 +26,18 @@ class BcraCard extends StatelessWidget {
     @required this.gradiantColors,
     this.iconAsset,
     this.iconData,
+    this.showPoweredBy = false,
+    this.showButtons = true,
   })  : assert(iconData != null || iconAsset != null),
         super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return CardFavorite(
-      showPoweredBy: true,
-      height: 150,
+      showPoweredBy: showPoweredBy,
       header: CardHeader(
         title: title,
-        showButtons: false,
+        showButtons: showButtons,
       ),
       spaceBetweenHeader: Spacing.medium,
       spaceBetweenItems: Spacing.large,

@@ -5,9 +5,9 @@ class DolarBotConstants {
     Colors.green[600],
     Colors.green[900],
   ];
-  static List<Color> kGradiantDark = [
-    Colors.grey[850],
-    Colors.grey[900],
+  static List<Color> kGradiantBCRA = [
+    Color.fromRGBO(62, 82, 112, 1),
+    Color.fromRGBO(30, 38, 52, 1),
   ];
   static const List<Color> kGradiantBBVA = [
     Color.fromRGBO(0, 68, 129, 1),
