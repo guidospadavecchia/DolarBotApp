@@ -2,7 +2,6 @@ import 'package:dolarbot_app/api/responses/base/genericCurrencyResponse.dart';
 import 'package:dolarbot_app/api/responses/metalResponse.dart';
 import 'package:dolarbot_app/classes/hive/favorite_rate.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
-import 'package:dolarbot_app/models/settings.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
 import 'package:dolarbot_app/screens/home/widgets/cards/card_favorite.dart';
 import 'package:dolarbot_app/screens/home/widgets/cards/templates/bcra_card.dart';

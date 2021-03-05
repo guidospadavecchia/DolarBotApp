@@ -13,6 +13,7 @@ import 'package:dolarbot_app/widgets/toasts/toast_error.dart';
 import 'package:dolarbot_app/widgets/toasts/toast_ok.dart';
 import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hive/hive.dart';
 import 'package:meta/meta.dart';
 import 'package:oktoast/oktoast.dart';
@@ -96,7 +97,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
               ),
             ),
           ),
-          drawerEdgeDragWidth: 150,
+          drawerEdgeDragWidth: MediaQuery.of(context).size.width / 2.2,
           drawerEnableOpenDragGesture: true,
           body: (widget.bannerTitle != null || isMainMenu())
               ? Stack(children: [
