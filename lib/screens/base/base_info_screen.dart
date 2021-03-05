@@ -218,6 +218,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
     if (isOpen && (simpleFabKey?.currentState?.isOpen ?? false)) {
       simpleFabKey.currentState.closeMenu();
     }
+    dismissAllToast();
   }
 
   bool _getIsFavorite() {

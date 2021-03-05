@@ -7,7 +7,7 @@ import 'package:show_up_animation/show_up_animation.dart';
 class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    _waitAndGoHome(context, 6);
+    _waitAndGoHome(context, 3);
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
@@ -49,7 +49,7 @@ class SplashScreen extends StatelessWidget {
                         ),
                         ShowUpAnimation(
                           delayStart: Duration(milliseconds: 0),
-                          animationDuration: Duration(seconds: 2),
+                          animationDuration: Duration(seconds: 1),
                           curve: Curves.easeIn,
                           direction: Direction.vertical,
                           offset: 0,
@@ -73,7 +73,7 @@ class SplashScreen extends StatelessWidget {
                     alignment: FractionalOffset.bottomCenter,
                     child: ShowUpAnimation(
                       delayStart: Duration(milliseconds: 500),
-                      animationDuration: Duration(seconds: 3),
+                      animationDuration: Duration(milliseconds: 1500),
                       direction: Direction.vertical,
                       offset: 2,
                       child: Footer(),
@@ -98,7 +98,7 @@ _waitAndGoHome(BuildContext context, int secondsToWait) {
         context,
         PageRouteBuilder(
           pageBuilder: (context, animation1, animation2) => HomeScreen(),
-          transitionDuration: Duration(milliseconds: 600),
+          transitionDuration: Duration(milliseconds: 300),
           transitionsBuilder: (context, animation1, animation2, child) =>
               FadeTransition(
             opacity: animation1,
