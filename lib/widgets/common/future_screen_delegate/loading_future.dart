@@ -2,9 +2,18 @@ import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 
+export 'package:loading_indicator/loading_indicator.dart';
+
 class LoadingFuture extends StatelessWidget {
+  final Indicator indicatorType;
+  final double size;
+  final Color color;
+
   const LoadingFuture({
     Key key,
+    this.indicatorType = Indicator.ballScale,
+    this.size = 64,
+    this.color,
   }) : super(key: key);
 
   @override
@@ -12,11 +21,11 @@ class LoadingFuture extends StatelessWidget {
     return Container(
       alignment: Alignment.center,
       child: SizedBox(
-        width: 64,
-        height: 64,
+        width: size,
+        height: size,
         child: LoadingIndicator(
-          indicatorType: Indicator.ballScale,
-          color: ThemeManager.getForegroundColor(),
+          indicatorType: indicatorType,
+          color: color != null ? color : ThemeManager.getForegroundColor(),
         ),
       ),
     );
