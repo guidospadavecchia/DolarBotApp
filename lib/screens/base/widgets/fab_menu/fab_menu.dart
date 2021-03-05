@@ -67,73 +67,71 @@ class _FabMenuState extends State<FabMenu> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<Settings>(builder: (context, settings, child) {
-      return Consumer<ActiveScreenData>(builder: (context, activeData, child) {
-        if (!Globals.dataIsLoading) {
-          return SimpleFabMenu(
-            key: widget.simpleFabKey,
-            direction: Axis.horizontal,
-            icon: Icons.more_horiz,
-            iconColor: Colors.black87,
-            backGroundColor: Colors.white,
-            onOpened: widget.onOpened,
-            onClosed: widget.onClosed,
-            items: <SimpleFabOption>[
-              if (widget.showClipboardButton)
-                SimpleFabOption(
-                  tooltip: "Copiar al portapapeles 📝",
-                  iconColor: Colors.black87,
-                  backgroundColor: Colors.white,
-                  icon: Icons.copy,
-                  onPressed: () async => await copyToClipboard(
+    return Consumer<ActiveScreenData>(builder: (context, activeData, child) {
+      if (!Globals.dataIsLoading) {
+        return SimpleFabMenu(
+          key: widget.simpleFabKey,
+          direction: Axis.horizontal,
+          icon: Icons.more_horiz,
+          iconColor: Colors.black87,
+          backGroundColor: Colors.white,
+          onOpened: widget.onOpened,
+          onClosed: widget.onClosed,
+          items: <SimpleFabOption>[
+            if (widget.showClipboardButton)
+              SimpleFabOption(
+                tooltip: "Copiar al portapapeles 📝",
+                iconColor: Colors.black87,
+                backgroundColor: Colors.white,
+                icon: Icons.copy,
+                onPressed: () async => await copyToClipboard(
+                  context,
+                  activeData.getShareData(),
+                ),
+              ),
+            if (widget.showCalculatorButton)
+              SimpleFabOption(
+                tooltip: "Calculadora 💱",
+                iconColor: Colors.black87,
+                backgroundColor: Colors.white,
+                icon: FontAwesomeIcons.calculator,
+                onPressed: () {
+                  openCalculator(
                     context,
-                    activeData.getShareData(),
-                  ),
-                ),
-              if (widget.showCalculatorButton)
-                SimpleFabOption(
-                  tooltip: "Calculadora 💱",
-                  iconColor: Colors.black87,
+                    activeData.getActiveData(),
+                  );
+                },
+              ),
+            if (widget.showShareButton)
+              SimpleFabOption(
+                  tooltip: "Compartir cotización 📲",
+                  iconColor: Colors.green[700],
                   backgroundColor: Colors.white,
-                  icon: FontAwesomeIcons.calculator,
+                  icon: Icons.share,
                   onPressed: () {
-                    openCalculator(
-                      context,
-                      activeData.getActiveData(),
-                    );
-                  },
-                ),
-              if (widget.showShareButton)
-                SimpleFabOption(
-                    tooltip: "Compartir cotización 📲",
-                    iconColor: Colors.green[700],
-                    backgroundColor: Colors.white,
-                    icon: Icons.share,
-                    onPressed: () {
-                      closeFabMenu();
-                      widget.onShareButtonTap();
-                    }),
-              if (widget.showFavoriteButton)
-                SimpleFabOption(
-                  tooltip: "Agregar a Favoritos ❤",
-                  iconColor: Colors.red[400],
-                  backgroundColor: Colors.white,
-                  icon: isFavorite
-                      ? Icons.favorite_rounded
-                      : Icons.favorite_outline_rounded,
-                  onPressed: () async {
-                    bool result = await widget.onFavoriteButtonTap();
-                    setState(() => isFavorite = result);
-                    Future.delayed(
-                        Duration(milliseconds: 200), () => closeFabMenu());
-                  },
-                ),
-            ],
-          );
-        } else {
-          return SizedBox.shrink();
-        }
-      });
+                    closeFabMenu();
+                    widget.onShareButtonTap();
+                  }),
+            if (widget.showFavoriteButton)
+              SimpleFabOption(
+                tooltip: "Agregar a Favoritos ❤",
+                iconColor: Colors.red[400],
+                backgroundColor: Colors.white,
+                icon: isFavorite
+                    ? Icons.favorite_rounded
+                    : Icons.favorite_outline_rounded,
+                onPressed: () async {
+                  bool result = await widget.onFavoriteButtonTap();
+                  setState(() => isFavorite = result);
+                  Future.delayed(
+                      Duration(milliseconds: 200), () => closeFabMenu());
+                },
+              ),
+          ],
+        );
+      } else {
+        return SizedBox.shrink();
+      }
     });
   }
 
