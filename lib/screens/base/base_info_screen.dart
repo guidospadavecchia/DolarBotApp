@@ -238,8 +238,6 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
         ),
       );
     } catch (error) {
-      print(error);
-      //TODO Ver como convertir el IconData en un String
       Future.delayed(
         Duration(milliseconds: 100),
         () => showToastWidget(
@@ -268,7 +266,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
           'image/png',
           text: 'Descargá la app en: https://www.dolarbot.com.ar');
     }).catchError((onError) {
-      print(onError);
+      ToastError();
     });
   }
 }
