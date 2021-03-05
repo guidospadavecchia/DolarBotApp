@@ -79,6 +79,12 @@ class ThemeManager {
         : Colors.grey[800];
   }
 
+  static Color getDottedBorderColor(BuildContext context) {
+    return AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
+        ? Colors.grey[400]
+        : Colors.grey[700];
+  }
+
   static ThemeData getThemeForDrawerMenu(BuildContext context,
       {bool disableHighlight = false}) {
     return Theme.of(context).copyWith(
