@@ -218,7 +218,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
           .cast<FavoriteRate>();
 
       FavoriteRate favoriteCard = favoriteCards.firstWhere(
-          (fav) => fav.cardResponseType == getResponseType(),
+          (fav) => fav.cardResponseType == getResponseType().toString(),
           orElse: () => null);
       if (favoriteCard == null) {
         //Add favorite
