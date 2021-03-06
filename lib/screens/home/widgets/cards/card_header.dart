@@ -74,7 +74,7 @@ class CardHeader extends StatelessWidget {
                     padding: EdgeInsets.all(5),
                     onPressed: () => onFavoritePressed(),
                     child: Icon(
-                      Icons.favorite_rounded,
+                      Icons.close,
                       color: Colors.white,
                     ),
                   ),
