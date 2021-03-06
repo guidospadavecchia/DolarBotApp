@@ -7,7 +7,6 @@ class ActiveScreenData extends ChangeNotifier {
   String _shareText;
   String _shareTitle;
   ApiResponse _activeData;
-  bool _dataIsLoading;
 
   void setActiveData(ApiResponse data, String shareTitle, String shareText,
       {bool updateListeners = true}) {
@@ -25,14 +24,5 @@ class ActiveScreenData extends ChangeNotifier {
 
   String getShareData() {
     return "${_shareTitle.toUpperCase()}\n\n$_shareText\n\nPowered by DolarBot";
-  }
-
-  void setIsLoading(bool isLoading) {
-    _dataIsLoading = isLoading;
-    notifyListeners();
-  }
-
-  bool getIsLoading() {
-    return _dataIsLoading;
   }
 }
