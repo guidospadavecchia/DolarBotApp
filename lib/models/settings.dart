@@ -21,8 +21,8 @@ class Settings extends ChangeNotifier {
     return (settings.get('currencyFormat') ?? "es_AR") == "es_AR" ? "," : ".";
   }
 
-  String getCurrencyFullFormatted() {
-    return "#,###,###.00";
+  String getCurrencyPattern() {
+    return "#,###,##0.00";
   }
 
   void notifyThemeChange() {

@@ -76,8 +76,10 @@ class _FiatCurrencyInfoScreenState<T extends GenericCurrencyResponse>
       child: FutureScreenDelegate<T>(
         response: _getResponse<T>(),
         screen: (data) {
-          WidgetsBinding.instance.addPostFrameCallback(
-              (_) => setActiveData(data, getShareInfo(data)));
+          WidgetsBinding.instance.addPostFrameCallback((_) => setActiveData(
+              data,
+              "${widget.title} - ${widget.bannerTitle}",
+              getShareInfo(data)));
 
           return Column(
             children: [
@@ -135,8 +137,10 @@ class _FiatCurrencyInfoScreenState<T extends GenericCurrencyResponse>
   @override
   String getShareInfo(T data) {
     Settings settings = Provider.of<Settings>(context, listen: false);
-    final currencyFormat = settings.getCurrencyFormat();
-    final numberFormat = new NumberFormat("#,###,###.00", currencyFormat);
+    final numberFormat = new NumberFormat(
+      settings.getCurrencyPattern(),
+      settings.getCurrencyFormat(),
+    );
     String shareText = '';
     if (data != null) {
       final buyPrice = data.buyPrice.isNumeric()

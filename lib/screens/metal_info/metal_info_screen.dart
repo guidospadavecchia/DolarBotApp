@@ -43,8 +43,10 @@ class _MetalInfoScreenState extends BaseInfoScreenState<MetalInfoScreen>
         response:
             API.getMetalRate(metalEndpoint, forceRefresh: shouldForceRefresh),
         screen: (data) {
-          WidgetsBinding.instance.addPostFrameCallback(
-              (_) => setActiveData(data, getShareInfo(data)));
+          WidgetsBinding.instance.addPostFrameCallback((_) => setActiveData(
+              data,
+              "${widget.title} - ${widget.bannerTitle}",
+              getShareInfo(data)));
 
           return Column(
             children: [
@@ -93,8 +95,10 @@ class _MetalInfoScreenState extends BaseInfoScreenState<MetalInfoScreen>
   @override
   String getShareInfo(MetalResponse data) {
     Settings settings = Provider.of<Settings>(context, listen: false);
-    final currencyFormat = settings.getCurrencyFormat();
-    final numberFormat = new intl.NumberFormat("#,###,###.00", currencyFormat);
+    final numberFormat = new intl.NumberFormat(
+      settings.getCurrencyPattern(),
+      settings.getCurrencyFormat(),
+    );
     String shareText = '';
 
     if (data != null) {

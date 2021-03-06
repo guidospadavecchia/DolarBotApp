@@ -148,10 +148,10 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
   }
 
   @nonVirtual
-  void setActiveData(ApiResponse data, String shareText) {
+  void setActiveData(ApiResponse data, String shareTitle, String shareText) {
     ActiveScreenData activeScreenData =
         Provider.of<ActiveScreenData>(context, listen: false);
-    activeScreenData.setActiveData(data, shareText);
+    activeScreenData.setActiveData(data, shareTitle, shareText);
   }
 
   @nonVirtual

@@ -5,12 +5,13 @@ export 'package:dolarbot_app/api/responses/base/apiResponse.dart';
 
 class ActiveScreenData extends ChangeNotifier {
   String _shareText;
-  String _activeTitle;
+  String _shareTitle;
   ApiResponse _activeData;
 
-  void setActiveData(ApiResponse data, String shareText,
+  void setActiveData(ApiResponse data, String shareTitle, String shareText,
       {bool updateListeners = true}) {
     _activeData = data;
+    _shareTitle = shareTitle;
     _shareText = shareText;
     if (updateListeners) {
       notifyListeners();
@@ -22,6 +23,6 @@ class ActiveScreenData extends ChangeNotifier {
   }
 
   String getShareData() {
-    return "${_activeTitle.toUpperCase()}\n\n$_shareText\n\nPowered by DolarBot";
+    return "${_shareTitle.toUpperCase()}\n\n$_shareText\n\nPowered by DolarBot";
   }
 }

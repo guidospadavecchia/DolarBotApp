@@ -53,7 +53,8 @@ class _BcraInfoScreenState extends BaseInfoScreenState<BcraInfoScreen>
           response: API.getCountryRisk(forceRefresh: shouldForceRefresh),
           screen: (data) {
             WidgetsBinding.instance.addPostFrameCallback((_) {
-              setActiveData(data, getShareInfoCountryRisk(data));
+              setActiveData(data, "${widget.title} - ${widget.bannerTitle}",
+                  getShareInfoCountryRisk(data));
             });
             return Column(
               children: [
@@ -76,7 +77,8 @@ class _BcraInfoScreenState extends BaseInfoScreenState<BcraInfoScreen>
           response: API.getBcraReserves(forceRefresh: shouldForceRefresh),
           screen: (data) {
             WidgetsBinding.instance.addPostFrameCallback((_) {
-              setActiveData(data, getShareInfo(data));
+              setActiveData(data, "${widget.title} - ${widget.bannerTitle}",
+                  getShareInfo(data));
             });
             return Column(
               children: [
@@ -100,7 +102,8 @@ class _BcraInfoScreenState extends BaseInfoScreenState<BcraInfoScreen>
               API.getCirculatingCurrency(forceRefresh: shouldForceRefresh),
           screen: (data) {
             WidgetsBinding.instance.addPostFrameCallback((_) {
-              setActiveData(data, getShareInfo(data));
+              setActiveData(data, "${widget.title} - ${widget.bannerTitle}",
+                  getShareInfo(data));
             });
             return Column(
               children: [

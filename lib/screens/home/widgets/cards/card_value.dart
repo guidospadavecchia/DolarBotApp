@@ -37,12 +37,11 @@ class CardValue extends StatelessWidget {
   Widget build(BuildContext context) {
     final settings = Provider.of<Settings>(context, listen: false);
     final numberFormat = new intl.NumberFormat(
-      settings.getCurrencyFullFormatted(),
+      settings.getCurrencyPattern(),
       settings.getCurrencyFormat(),
     );
 
     String _getFormatedValue() {
-      //TODO: Corregir los valores que comienzan con "0". Se muestran sólo los decimales.
       if (value.isNumeric()) {
         String formattedNumber = numberFormat.format(double.parse(value));
         List<String> splittedFormattedNumber =
