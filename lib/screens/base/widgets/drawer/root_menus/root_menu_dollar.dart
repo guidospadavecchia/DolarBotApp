@@ -23,7 +23,7 @@ class RootMenuDollar extends StatelessWidget {
           leading: getIconData(context, FontAwesomeIcons.solidCheckCircle),
           depthLevel: 2,
           onTap: () => {
-            navigateTo(
+            Util.navigateTo(
               context,
               FiatCurrencyInfoScreen<DollarResponse>(
                 title: "Dólar",
@@ -40,7 +40,7 @@ class RootMenuDollar extends StatelessWidget {
           leading: getIconData(context, FontAwesomeIcons.piggyBank),
           depthLevel: 2,
           onTap: () => {
-            navigateTo(
+            Util.navigateTo(
               context,
               FiatCurrencyInfoScreen<DollarResponse>(
                 title: "Dólar",
@@ -57,7 +57,7 @@ class RootMenuDollar extends StatelessWidget {
           leading: getIconData(context, FontAwesomeIcons.commentDollar),
           depthLevel: 2,
           onTap: () => {
-            navigateTo(
+            Util.navigateTo(
               context,
               FiatCurrencyInfoScreen<DollarResponse>(
                 title: "Dólar",
@@ -74,7 +74,7 @@ class RootMenuDollar extends StatelessWidget {
           leading: getIconData(context, FontAwesomeIcons.poll),
           depthLevel: 2,
           onTap: () => {
-            navigateTo(
+            Util.navigateTo(
               context,
               FiatCurrencyInfoScreen<DollarResponse>(
                 title: "Dólar",
@@ -91,7 +91,7 @@ class RootMenuDollar extends StatelessWidget {
           leading: getIconData(context, FontAwesomeIcons.coins),
           depthLevel: 2,
           onTap: () => {
-            navigateTo(
+            Util.navigateTo(
               context,
               FiatCurrencyInfoScreen<DollarResponse>(
                 title: 'Dólar',
@@ -108,7 +108,7 @@ class RootMenuDollar extends StatelessWidget {
           leading: getIconData(context, FontAwesomeIcons.percentage),
           depthLevel: 2,
           onTap: () => {
-            navigateTo(
+            Util.navigateTo(
               context,
               FiatCurrencyInfoScreen<DollarResponse>(
                 title: 'Dólar',
@@ -130,7 +130,7 @@ class RootMenuDollar extends StatelessWidget {
               leading: getIconAsset(context, DolarBotIcons.banks.bbva),
               depthLevel: 3,
               onTap: () => {
-                navigateTo(
+                Util.navigateTo(
                   context,
                   FiatCurrencyInfoScreen<DollarResponse>(
                     title: _title,
@@ -147,7 +147,7 @@ class RootMenuDollar extends StatelessWidget {
               leading: getIconAsset(context, DolarBotIcons.banks.chaco),
               depthLevel: 3,
               onTap: () => {
-                navigateTo(
+                Util.navigateTo(
                   context,
                   FiatCurrencyInfoScreen<DollarResponse>(
                     title: _title,
@@ -164,7 +164,7 @@ class RootMenuDollar extends StatelessWidget {
               leading: getIconAsset(context, DolarBotIcons.banks.ciudad),
               depthLevel: 3,
               onTap: () => {
-                navigateTo(
+                Util.navigateTo(
                   context,
                   FiatCurrencyInfoScreen<DollarResponse>(
                     title: _title,
@@ -181,7 +181,7 @@ class RootMenuDollar extends StatelessWidget {
               leading: getIconAsset(context, DolarBotIcons.banks.comafi),
               depthLevel: 3,
               onTap: () => {
-                navigateTo(
+                Util.navigateTo(
                   context,
                   FiatCurrencyInfoScreen<DollarResponse>(
                     title: _title,
@@ -198,7 +198,7 @@ class RootMenuDollar extends StatelessWidget {
               leading: getIconAsset(context, DolarBotIcons.banks.cordoba),
               depthLevel: 3,
               onTap: () => {
-                navigateTo(
+                Util.navigateTo(
                   context,
                   FiatCurrencyInfoScreen<DollarResponse>(
                     title: _title,
@@ -215,7 +215,7 @@ class RootMenuDollar extends StatelessWidget {
               leading: getIconAsset(context, DolarBotIcons.banks.galicia),
               depthLevel: 3,
               onTap: () => {
-                navigateTo(
+                Util.navigateTo(
                   context,
                   FiatCurrencyInfoScreen<DollarResponse>(
                     title: _title,
@@ -232,7 +232,7 @@ class RootMenuDollar extends StatelessWidget {
               leading: getIconAsset(context, DolarBotIcons.banks.hipotecario),
               depthLevel: 3,
               onTap: () => {
-                navigateTo(
+                Util.navigateTo(
                   context,
                   FiatCurrencyInfoScreen<DollarResponse>(
                     title: _title,
@@ -249,7 +249,7 @@ class RootMenuDollar extends StatelessWidget {
             //   leading: getIconAsset(context, DolarBotIcons.banks.bind),
             //   depthLevel: 3,
             //   onTap: () => {
-            //     navigateTo(
+            //     Util.navigateTo(
             //       context,
             //       FiatCurrencyInfoScreen<DollarResponse>(
             //         title: _title,
@@ -266,7 +266,7 @@ class RootMenuDollar extends StatelessWidget {
               leading: getIconAsset(context, DolarBotIcons.banks.pampa),
               depthLevel: 3,
               onTap: () => {
-                navigateTo(
+                Util.navigateTo(
                   context,
                   FiatCurrencyInfoScreen<DollarResponse>(
                     title: _title,
@@ -283,7 +283,7 @@ class RootMenuDollar extends StatelessWidget {
               leading: getIconAsset(context, DolarBotIcons.banks.nacion),
               depthLevel: 3,
               onTap: () => {
-                navigateTo(
+                Util.navigateTo(
                   context,
                   FiatCurrencyInfoScreen<DollarResponse>(
                     title: _title,
@@ -300,7 +300,7 @@ class RootMenuDollar extends StatelessWidget {
               leading: getIconAsset(context, DolarBotIcons.banks.patagonia),
               depthLevel: 3,
               onTap: () => {
-                navigateTo(
+                Util.navigateTo(
                   context,
                   FiatCurrencyInfoScreen<DollarResponse>(
                     title: _title,
@@ -317,7 +317,7 @@ class RootMenuDollar extends StatelessWidget {
               leading: getIconAsset(context, DolarBotIcons.banks.piano),
               depthLevel: 3,
               onTap: () => {
-                navigateTo(
+                Util.navigateTo(
                   context,
                   FiatCurrencyInfoScreen<DollarResponse>(
                     title: _title,
@@ -334,7 +334,7 @@ class RootMenuDollar extends StatelessWidget {
               leading: getIconAsset(context, DolarBotIcons.banks.santander),
               depthLevel: 3,
               onTap: () => {
-                navigateTo(
+                Util.navigateTo(
                   context,
                   FiatCurrencyInfoScreen<DollarResponse>(
                     title: _title,
@@ -351,7 +351,7 @@ class RootMenuDollar extends StatelessWidget {
               leading: getIconAsset(context, DolarBotIcons.banks.supervielle),
               depthLevel: 3,
               onTap: () => {
-                navigateTo(
+                Util.navigateTo(
                   context,
                   FiatCurrencyInfoScreen<DollarResponse>(
                     title: _title,

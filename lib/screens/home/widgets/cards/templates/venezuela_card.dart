@@ -1,10 +1,11 @@
 import 'package:dolarbot_app/api/responses/venezuelaResponse.dart';
 import 'package:dolarbot_app/screens/home/widgets/cards/card_favorite.dart';
+import 'package:dolarbot_app/screens/home/widgets/cards/templates/base/base_card_template.dart';
 import 'package:flutter/material.dart';
 
 export 'package:dolarbot_app/api/responses/venezuelaResponse.dart';
 
-class VenezuelaCard extends StatelessWidget {
+class VenezuelaCard extends BaseCardTemplate {
   static const double height = 200;
 
   final String title;
@@ -15,6 +16,7 @@ class VenezuelaCard extends StatelessWidget {
   final String iconAsset;
   final bool showPoweredBy;
   final bool showButtons;
+  final String endpoint;
 
   const VenezuelaCard({
     Key key,
@@ -26,17 +28,37 @@ class VenezuelaCard extends StatelessWidget {
     this.iconAsset,
     this.showPoweredBy = false,
     this.showButtons = true,
-  })  : assert(iconData != null || iconAsset != null),
-        super(key: key);
+    @required this.endpoint,
+  }) : super(
+          title: title,
+          tag: tag,
+          gradiantColors: gradiantColors,
+          iconAsset: iconAsset,
+          iconData: iconData,
+          showPoweredBy: showPoweredBy,
+          showButtons: showButtons,
+          endpoint: endpoint,
+        );
 
   @override
-  Widget build(BuildContext context) {
+  _VenezuelaCardState createState() => _VenezuelaCardState(data);
+}
+
+class _VenezuelaCardState extends BaseCardTemplateState<VenezuelaCard> {
+  final VenezuelaResponse data;
+
+  _VenezuelaCardState(this.data);
+
+  @override
+  Widget card() {
     return CardFavorite(
       showPoweredBy: showPoweredBy,
-      height: height,
+      height: VenezuelaCard.height,
       header: CardHeader(
-        title: title,
+        title: widget.title,
         showButtons: showButtons,
+        onTapFavorite: () => onTapFavorite(),
+        onTapShare: () => onTapShare(),
       ),
       rates: [
         CardValue(
@@ -57,14 +79,14 @@ class VenezuelaCard extends StatelessWidget {
         ),
       ],
       logo: CardLogo(
-        iconAsset: iconAsset,
-        iconData: iconData,
-        tag: tag,
+        iconAsset: widget.iconAsset,
+        iconData: widget.iconData,
+        tag: widget.tag,
       ),
       lastUpdated: CardLastUpdated(
         timestamp: data.timestamp,
       ),
-      gradiantColors: gradiantColors,
+      gradiantColors: widget.gradiantColors,
     );
   }
 }

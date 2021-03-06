@@ -22,7 +22,7 @@ class RootMenuReal extends StatelessWidget {
           leading: getIconAsset(context, DolarBotIcons.banks.bbva),
           depthLevel: 2,
           onTap: () => {
-            navigateTo(
+            Util.navigateTo(
               context,
               FiatCurrencyInfoScreen<RealResponse>(
                 title: _title,
@@ -39,7 +39,7 @@ class RootMenuReal extends StatelessWidget {
           leading: getIconAsset(context, DolarBotIcons.banks.chaco),
           depthLevel: 2,
           onTap: () => {
-            navigateTo(
+            Util.navigateTo(
               context,
               FiatCurrencyInfoScreen<RealResponse>(
                 title: _title,
@@ -56,7 +56,7 @@ class RootMenuReal extends StatelessWidget {
           leading: getIconAsset(context, DolarBotIcons.banks.nacion),
           depthLevel: 2,
           onTap: () => {
-            navigateTo(
+            Util.navigateTo(
               context,
               FiatCurrencyInfoScreen<RealResponse>(
                 title: _title,

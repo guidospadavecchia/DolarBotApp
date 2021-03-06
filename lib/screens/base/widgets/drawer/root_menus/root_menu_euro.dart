@@ -23,7 +23,7 @@ class RootMenuEuro extends StatelessWidget {
           leading: getIconAsset(context, DolarBotIcons.banks.bbva),
           depthLevel: 2,
           onTap: () => {
-            navigateTo(
+            Util.navigateTo(
               context,
               FiatCurrencyInfoScreen<EuroResponse>(
                 title: _title,
@@ -40,7 +40,7 @@ class RootMenuEuro extends StatelessWidget {
           leading: getIconAsset(context, DolarBotIcons.banks.chaco),
           depthLevel: 2,
           onTap: () => {
-            navigateTo(
+            Util.navigateTo(
               context,
               FiatCurrencyInfoScreen<EuroResponse>(
                 title: _title,
@@ -57,7 +57,7 @@ class RootMenuEuro extends StatelessWidget {
           leading: getIconAsset(context, DolarBotIcons.banks.galicia),
           depthLevel: 2,
           onTap: () => {
-            navigateTo(
+            Util.navigateTo(
               context,
               FiatCurrencyInfoScreen<EuroResponse>(
                 title: _title,
@@ -74,7 +74,7 @@ class RootMenuEuro extends StatelessWidget {
           leading: getIconAsset(context, DolarBotIcons.banks.hipotecario),
           depthLevel: 2,
           onTap: () => {
-            navigateTo(
+            Util.navigateTo(
               context,
               FiatCurrencyInfoScreen<EuroResponse>(
                 title: _title,
@@ -91,7 +91,7 @@ class RootMenuEuro extends StatelessWidget {
           leading: getIconAsset(context, DolarBotIcons.banks.pampa),
           depthLevel: 2,
           onTap: () => {
-            navigateTo(
+            Util.navigateTo(
               context,
               FiatCurrencyInfoScreen<EuroResponse>(
                 title: _title,
@@ -108,7 +108,7 @@ class RootMenuEuro extends StatelessWidget {
           leading: getIconAsset(context, DolarBotIcons.banks.nacion),
           depthLevel: 2,
           onTap: () => {
-            navigateTo(
+            Util.navigateTo(
               context,
               FiatCurrencyInfoScreen<EuroResponse>(
                 title: _title,

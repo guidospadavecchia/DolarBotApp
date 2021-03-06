@@ -137,6 +137,9 @@ class _BcraInfoScreenState extends BaseInfoScreenState<BcraInfoScreen>
             gradiantColors: widget.gradiantColors,
             iconAsset: widget.bannerIconAsset,
             iconData: widget.bannerIconData,
+            showButtons: false,
+            showPoweredBy: true,
+            endpoint: widget.endpoint,
           );
         }
 
@@ -156,6 +159,9 @@ class _BcraInfoScreenState extends BaseInfoScreenState<BcraInfoScreen>
             iconData: widget.bannerIconData,
             iconAsset: widget.bannerIconAsset,
             gradiantColors: widget.gradiantColors,
+            showButtons: false,
+            showPoweredBy: true,
+            endpoint: widget.endpoint,
           );
         }
 

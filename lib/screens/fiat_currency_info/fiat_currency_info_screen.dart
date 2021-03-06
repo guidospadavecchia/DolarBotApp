@@ -122,6 +122,9 @@ class _FiatCurrencyInfoScreenState<T extends GenericCurrencyResponse>
           gradiantColors: widget.gradiantColors,
           iconAsset: widget.bannerIconAsset,
           iconData: widget.bannerIconData,
+          showButtons: false,
+          showPoweredBy: true,
+          endpoint: widget.endpoint,
         );
       } else {
         return SizedBox.shrink();

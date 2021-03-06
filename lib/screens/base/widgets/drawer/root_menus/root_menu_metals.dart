@@ -22,7 +22,7 @@ class RootMenuMetals extends StatelessWidget {
           leading: getIconAsset(context, DolarBotIcons.metals.gold),
           depthLevel: 2,
           onTap: () => {
-            navigateTo(
+            Util.navigateTo(
               context,
               MetalInfoScreen(
                 title: _title,
@@ -39,7 +39,7 @@ class RootMenuMetals extends StatelessWidget {
           leading: getIconAsset(context, DolarBotIcons.metals.silver),
           depthLevel: 2,
           onTap: () => {
-            navigateTo(
+            Util.navigateTo(
               context,
               MetalInfoScreen(
                 title: _title,
@@ -56,7 +56,7 @@ class RootMenuMetals extends StatelessWidget {
           leading: getIconAsset(context, DolarBotIcons.metals.copper),
           depthLevel: 2,
           onTap: () => {
-            navigateTo(
+            Util.navigateTo(
               context,
               MetalInfoScreen(
                 title: _title,

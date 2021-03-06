@@ -22,7 +22,7 @@ class RootMenuVenezuela extends StatelessWidget {
           leading: getIconData(context, FontAwesomeIcons.dollarSign),
           depthLevel: 2,
           onTap: () => {
-            navigateTo(
+            Util.navigateTo(
               context,
               VenezuelaInfoScreen(
                 title: _title,
@@ -39,7 +39,7 @@ class RootMenuVenezuela extends StatelessWidget {
           leading: getIconData(context, FontAwesomeIcons.euroSign),
           depthLevel: 2,
           onTap: () => {
-            navigateTo(
+            Util.navigateTo(
               context,
               VenezuelaInfoScreen(
                 title: _title,

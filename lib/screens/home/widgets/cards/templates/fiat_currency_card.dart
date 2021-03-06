@@ -1,10 +1,11 @@
 import 'package:dolarbot_app/api/responses/base/genericCurrencyResponse.dart';
 import 'package:dolarbot_app/screens/home/widgets/cards/card_favorite.dart';
+import 'package:dolarbot_app/screens/home/widgets/cards/templates/base/base_card_template.dart';
 import 'package:flutter/material.dart';
 
 export 'package:dolarbot_app/api/responses/base/genericCurrencyResponse.dart';
 
-class FiatCurrencyCard extends StatelessWidget {
+class FiatCurrencyCard extends BaseCardTemplate {
   static const double height = 140;
 
   final String title;
@@ -15,6 +16,7 @@ class FiatCurrencyCard extends StatelessWidget {
   final String iconAsset;
   final bool showPoweredBy;
   final bool showButtons;
+  final String endpoint;
 
   const FiatCurrencyCard({
     Key key,
@@ -26,20 +28,40 @@ class FiatCurrencyCard extends StatelessWidget {
     this.iconAsset,
     this.showPoweredBy = false,
     this.showButtons = true,
-  })  : assert(iconData != null || iconAsset != null),
-        super(key: key);
+    @required this.endpoint,
+  }) : super(
+          title: title,
+          tag: tag,
+          gradiantColors: gradiantColors,
+          iconAsset: iconAsset,
+          iconData: iconData,
+          showPoweredBy: showPoweredBy,
+          showButtons: showButtons,
+          endpoint: endpoint,
+        );
 
   @override
-  Widget build(BuildContext context) {
+  _FiatCurrencyCardState createState() => _FiatCurrencyCardState(data);
+}
+
+class _FiatCurrencyCardState extends BaseCardTemplateState<FiatCurrencyCard> {
+  final GenericCurrencyResponse data;
+
+  _FiatCurrencyCardState(this.data);
+
+  @override
+  Widget card() {
     return CardFavorite(
-      height: height,
+      height: FiatCurrencyCard.height,
       showPoweredBy: showPoweredBy,
       header: CardHeader(
-        title: title,
+        title: widget.title,
         showButtons: showButtons,
+        onTapFavorite: () => onTapFavorite(),
+        onTapShare: () => onTapShare(),
       ),
-      spaceBetweenItems: Spacing.medium,
-      spaceBetweenHeader: Spacing.small,
+      spaceBetweenItems: Spacing.small,
+      spaceBetweenHeader: Spacing.medium,
       rates: [
         CardValue(
           title: "Compra",
@@ -63,14 +85,14 @@ class FiatCurrencyCard extends StatelessWidget {
           ),
       ],
       logo: CardLogo(
-        iconData: iconData,
-        iconAsset: iconAsset,
-        tag: tag,
+        iconData: widget.iconData,
+        iconAsset: widget.iconAsset,
+        tag: widget.tag,
       ),
       lastUpdated: CardLastUpdated(
         timestamp: data.timestamp,
       ),
-      gradiantColors: gradiantColors,
+      gradiantColors: widget.gradiantColors,
     );
   }
 }

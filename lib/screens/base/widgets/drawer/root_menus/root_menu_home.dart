@@ -11,7 +11,7 @@ class RootMenuHome extends StatelessWidget {
       text: "Inicio",
       depthLevel: 1,
       leading: getIconData(context, FontAwesomeIcons.home),
-      onTap: () => navigateTo(
+      onTap: () => Util.navigateTo(
         context,
         HomeScreen(),
       ),

@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 import 'package:dolarbot_app/api/responses/base/apiResponse.dart';
 import 'package:dolarbot_app/classes/hive/favorite_rate.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
@@ -7,13 +5,12 @@ import 'package:dolarbot_app/models/active_screen_data.dart';
 import 'package:dolarbot_app/models/settings.dart';
 import 'package:dolarbot_app/screens/base/widgets/drawer/drawer_menu.dart';
 import 'package:dolarbot_app/screens/base/widgets/fab_menu/fab_menu.dart';
+import 'package:dolarbot_app/util/util.dart';
 import 'package:dolarbot_app/widgets/common/cool_app_bar.dart';
 import 'package:dolarbot_app/widgets/common/simple_fab_menu.dart';
 import 'package:dolarbot_app/widgets/toasts/toast_error.dart';
 import 'package:dolarbot_app/widgets/toasts/toast_ok.dart';
-import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hive/hive.dart';
 import 'package:meta/meta.dart';
 import 'package:oktoast/oktoast.dart';
@@ -139,7 +136,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
                   onFavoriteButtonTap: _onFavoriteStatusChange,
                   isFavorite: _getIsFavorite(),
                   showShareButton: showShareButton(),
-                  onShareButtonTap: _shareCardImage,
+                  onShareButtonTap: () => Util.shareCard(screenshotController),
                   showClipboardButton: showClipboardButton(),
                   showCalculatorButton: showCalculatorButton(),
                   onOpened: () => dismissAllToast(),
@@ -275,19 +272,6 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
   void _refresh() async {
     setState(() {
       shouldForceRefresh = true;
-    });
-  }
-
-  void _shareCardImage() {
-    screenshotController.capture().then((Uint8List image) async {
-      Share.file(
-          'DolarBot',
-          'dolarbot_${DateTime.now().microsecondsSinceEpoch}.png',
-          image,
-          'image/png',
-          text: 'Descargá la app en: https://www.dolarbot.com.ar');
-    }).catchError((onError) {
-      ToastError();
     });
   }
 }

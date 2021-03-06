@@ -16,6 +16,7 @@ class CardValue extends StatelessWidget {
   final double titleSize;
   final Spacing spaceBetweenTitle;
   final Spacing spaceMainAxisEnd;
+  final bool hideDecimals;
 
   const CardValue({
     Key key,
@@ -29,6 +30,7 @@ class CardValue extends StatelessWidget {
     this.titleSize = 14,
     this.spaceBetweenTitle = Spacing.none,
     this.spaceMainAxisEnd = Spacing.none,
+    this.hideDecimals = false,
   }) : super(key: key);
 
   @override
@@ -39,15 +41,20 @@ class CardValue extends StatelessWidget {
       settings.getCurrencyFormat(),
     );
 
-    String _getTrimZeroValue(String formattedValue) {
-      List<String> values =
-          formattedValue.split(settings.getDecimalSeparator());
-      return int.parse(values[1]) == 0 ? values[0] : formattedValue;
-    }
-
     String _getFormatedValue() {
-      String formatted = numberFormat.format(double.parse(value));
-      return _getTrimZeroValue(formatted);
+      //TODO: Corregir los valores que comienzan con "0". Se muestran sólo los decimales.
+      if (value.isNumeric()) {
+        String formattedNumber = numberFormat.format(double.parse(value));
+        List<String> splittedFormattedNumber =
+            formattedNumber.split(settings.getDecimalSeparator());
+
+        if (splittedFormattedNumber.length == 2 && hideDecimals) {
+          return "$symbol ${splittedFormattedNumber[0]}";
+        }
+        return "$symbol ${formattedNumber}";
+      } else {
+        return "N/A";
+      }
     }
 
     return Wrap(
@@ -76,7 +83,7 @@ class CardValue extends StatelessWidget {
               ),
             ),
             Text(
-              "$symbol ${_getFormatedValue()}".trimLeft(),
+              "${_getFormatedValue()}".trimLeft(),
               style: TextStyle(
                 fontSize: valueSize,
                 fontFamily: 'Montserrat',

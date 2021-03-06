@@ -3,11 +3,15 @@ import 'package:flutter/material.dart';
 class CardHeader extends StatelessWidget {
   final String title;
   final bool showButtons;
+  final Function onTapShare;
+  final Function onTapFavorite;
 
   const CardHeader({
     Key key,
     this.title,
     this.showButtons = true,
+    this.onTapShare,
+    this.onTapFavorite,
   }) : super(key: key);
 
   @override
@@ -37,19 +41,33 @@ class CardHeader extends StatelessWidget {
           ),
         ),
         if (showButtons)
-          Padding(
-            padding: const EdgeInsets.only(left: 30, right: 15),
-            child: Icon(
-              Icons.share,
-              color: Colors.white,
+          GestureDetector(
+            onTap: onTapShare,
+            child: Tooltip(
+              preferBelow: false,
+              message: "Compartir 📲",
+              child: Padding(
+                padding: const EdgeInsets.only(left: 30, right: 15),
+                child: Icon(
+                  Icons.share,
+                  color: Colors.white,
+                ),
+              ),
             ),
           ),
         if (showButtons)
-          Padding(
-            padding: const EdgeInsets.only(right: 12),
-            child: Icon(
-              Icons.favorite_rounded,
-              color: Colors.white,
+          GestureDetector(
+            onTap: onTapFavorite,
+            child: Tooltip(
+              preferBelow: false,
+              message: "Quitar de favoritos 💔",
+              child: Padding(
+                padding: const EdgeInsets.only(right: 12),
+                child: Icon(
+                  Icons.favorite_rounded,
+                  color: Colors.white,
+                ),
+              ),
             ),
           ),
       ],

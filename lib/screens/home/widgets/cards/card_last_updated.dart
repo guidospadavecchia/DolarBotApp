@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:dolarbot_app/util/extensions/datetime_extensions.dart';
 
 class CardLastUpdated extends StatelessWidget {
   final String timestamp;
@@ -7,6 +8,10 @@ class CardLastUpdated extends StatelessWidget {
     Key key,
     @required this.timestamp,
   }) : super(key: key);
+
+  String _getFormattedDateTime() {
+    return DateTime.parse(timestamp.replaceAll('/', '-')).toLongDateString();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +28,7 @@ class CardLastUpdated extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(left: 5, top: 2),
                 child: Text(
-                  "Última actualización: $timestamp",
+                  "Última actualización: ${_getFormattedDateTime()}",
                   style: TextStyle(
                     fontSize: 12,
                     fontFamily: 'Raleway',

@@ -1,10 +1,11 @@
 import 'package:dolarbot_app/api/responses/metalResponse.dart';
 import 'package:dolarbot_app/screens/home/widgets/cards/card_favorite.dart';
+import 'package:dolarbot_app/screens/home/widgets/cards/templates/base/base_card_template.dart';
 import 'package:flutter/material.dart';
 
 export 'package:dolarbot_app/api/responses/metalResponse.dart';
 
-class MetalCard extends StatelessWidget {
+class MetalCard extends BaseCardTemplate {
   static const double height = 130;
 
   final String title;
@@ -15,6 +16,7 @@ class MetalCard extends StatelessWidget {
   final String iconAsset;
   final bool showPoweredBy;
   final bool showButtons;
+  final String endpoint;
 
   const MetalCard({
     Key key,
@@ -26,17 +28,37 @@ class MetalCard extends StatelessWidget {
     this.iconAsset,
     this.showPoweredBy = false,
     this.showButtons = true,
-  })  : assert(iconData != null || iconAsset != null),
-        super(key: key);
+    @required this.endpoint,
+  }) : super(
+          title: title,
+          tag: tag,
+          gradiantColors: gradiantColors,
+          iconAsset: iconAsset,
+          iconData: iconData,
+          showPoweredBy: showPoweredBy,
+          showButtons: showButtons,
+          endpoint: endpoint,
+        );
 
   @override
-  Widget build(BuildContext context) {
+  _MetalCardState createState() => _MetalCardState(data);
+}
+
+class _MetalCardState extends BaseCardTemplateState<MetalCard> {
+  final MetalResponse data;
+
+  _MetalCardState(this.data);
+
+  @override
+  Widget card() {
     return CardFavorite(
       showPoweredBy: showPoweredBy,
-      height: height,
+      height: MetalCard.height,
       header: CardHeader(
-        title: title,
+        title: widget.title,
         showButtons: showButtons,
+        onTapFavorite: () => onTapFavorite(),
+        onTapShare: () => onTapShare(),
       ),
       spaceBetweenHeader: Spacing.small,
       rates: [
@@ -52,13 +74,13 @@ class MetalCard extends StatelessWidget {
         ),
       ],
       logo: CardLogo(
-        iconAsset: iconAsset,
-        tag: tag,
+        iconAsset: widget.iconAsset,
+        tag: widget.tag,
       ),
       lastUpdated: CardLastUpdated(
         timestamp: data.timestamp,
       ),
-      gradiantColors: gradiantColors,
+      gradiantColors: widget.gradiantColors,
     );
   }
 }

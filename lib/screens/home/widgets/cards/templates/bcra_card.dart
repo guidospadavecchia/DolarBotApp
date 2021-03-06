@@ -1,10 +1,11 @@
 import 'package:dolarbot_app/api/responses/bcraResponse.dart';
 import 'package:dolarbot_app/screens/home/widgets/cards/card_favorite.dart';
+import 'package:dolarbot_app/screens/home/widgets/cards/templates/base/base_card_template.dart';
 import 'package:flutter/material.dart';
 
 export 'package:dolarbot_app/api/responses/bcraResponse.dart';
 
-class BcraCard extends StatelessWidget {
+class BcraCard extends BaseCardTemplate {
   static const double height = 140;
 
   final String title;
@@ -17,6 +18,7 @@ class BcraCard extends StatelessWidget {
   final String iconAsset;
   final bool showPoweredBy;
   final bool showButtons;
+  final String endpoint;
 
   const BcraCard({
     Key key,
@@ -30,36 +32,58 @@ class BcraCard extends StatelessWidget {
     this.iconData,
     this.showPoweredBy = false,
     this.showButtons = true,
-  })  : assert(iconData != null || iconAsset != null),
-        super(key: key);
+    @required this.endpoint,
+  }) : super(
+          title: title,
+          subtitle: subtitle,
+          tag: tag,
+          symbol: symbol,
+          gradiantColors: gradiantColors,
+          iconAsset: iconAsset,
+          iconData: iconData,
+          showPoweredBy: showPoweredBy,
+          showButtons: showButtons,
+          endpoint: endpoint,
+        );
 
   @override
-  Widget build(BuildContext context) {
+  _BcraCardState createState() => _BcraCardState(data);
+}
+
+class _BcraCardState extends BaseCardTemplateState<BcraCard> {
+  final BcraResponse data;
+
+  _BcraCardState(this.data);
+
+  @override
+  Widget card() {
     return CardFavorite(
       height: BcraCard.height,
       showPoweredBy: showPoweredBy,
       header: CardHeader(
-        title: title,
+        title: widget.title,
         showButtons: showButtons,
+        onTapFavorite: () => onTapFavorite(),
+        onTapShare: () => onTapShare(),
       ),
       spaceBetweenHeader: Spacing.medium,
       spaceBetweenItems: Spacing.large,
       direction: Axis.vertical,
       rates: [
         CardValue(
-          title: subtitle,
+          title: widget.subtitle,
           value: data.value,
-          symbol: symbol,
+          symbol: widget.symbol,
           valueSize: 22,
         ),
       ],
       logo: CardLogo(
-        iconData: iconData,
-        iconAsset: iconAsset,
-        tag: tag,
+        iconData: widget.iconData,
+        iconAsset: widget.iconAsset,
+        tag: widget.tag,
       ),
       lastUpdated: CardLastUpdated(timestamp: data.timestamp),
-      gradiantColors: gradiantColors,
+      gradiantColors: widget.gradiantColors,
     );
   }
 }

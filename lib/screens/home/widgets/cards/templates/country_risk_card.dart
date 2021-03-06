@@ -1,10 +1,11 @@
 import 'package:dolarbot_app/api/responses/countryRiskResponse.dart';
 import 'package:dolarbot_app/screens/home/widgets/cards/card_favorite.dart';
+import 'package:dolarbot_app/screens/home/widgets/cards/templates/base/base_card_template.dart';
 import 'package:flutter/material.dart';
 
 export 'package:dolarbot_app/api/responses/countryRiskResponse.dart';
 
-class CountryRiskCard extends StatelessWidget {
+class CountryRiskCard extends BaseCardTemplate {
   static const double height = 130;
 
   final String title;
@@ -15,6 +16,7 @@ class CountryRiskCard extends StatelessWidget {
   final String iconAsset;
   final bool showPoweredBy;
   final bool showButtons;
+  final String endpoint;
 
   const CountryRiskCard({
     Key key,
@@ -26,19 +28,38 @@ class CountryRiskCard extends StatelessWidget {
     this.iconAsset,
     this.showPoweredBy = false,
     this.showButtons = true,
-  })  : assert(iconData != null || iconAsset != null),
-        super(key: key);
+    @required this.endpoint,
+  }) : super(
+          title: title,
+          tag: tag,
+          gradiantColors: gradiantColors,
+          iconAsset: iconAsset,
+          iconData: iconData,
+          showPoweredBy: showPoweredBy,
+          showButtons: showButtons,
+          endpoint: endpoint,
+        );
+  @override
+  _CountryRiskCardState createState() => _CountryRiskCardState(data);
+}
+
+class _CountryRiskCardState extends BaseCardTemplateState<CountryRiskCard> {
+  final CountryRiskResponse data;
+
+  _CountryRiskCardState(this.data);
 
   @override
-  Widget build(BuildContext context) {
+  Widget card() {
     return CardFavorite(
       showPoweredBy: showPoweredBy,
-      height: height,
+      height: CountryRiskCard.height,
       header: CardHeader(
-        title: title,
+        title: widget.title,
         showButtons: showButtons,
+        onTapFavorite: () => onTapFavorite(),
+        onTapShare: () async => onTapShare(),
       ),
-      spaceBetweenHeader: Spacing.medium,
+      spaceBetweenHeader: Spacing.small,
       spaceBetweenItems: Spacing.large,
       direction: Axis.vertical,
       rates: [
@@ -46,20 +67,21 @@ class CountryRiskCard extends StatelessWidget {
           title: "puntos",
           value: data.value,
           symbol: "",
+          hideDecimals: true,
           direction: Axis.horizontal,
           textDirection: TextDirection.rtl,
-          spaceBetweenTitle: Spacing.small,
+          spaceBetweenTitle: Spacing.medium,
           crossAlignment: WrapCrossAlignment.center,
           valueSize: 32,
         ),
       ],
       logo: CardLogo(
-        iconData: iconData,
-        iconAsset: iconAsset,
-        tag: tag,
+        iconData: widget.iconData,
+        iconAsset: widget.iconAsset,
+        tag: widget.tag,
       ),
       lastUpdated: CardLastUpdated(timestamp: data.timestamp),
-      gradiantColors: gradiantColors,
+      gradiantColors: widget.gradiantColors,
     );
   }
 }

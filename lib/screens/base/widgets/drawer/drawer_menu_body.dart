@@ -3,6 +3,7 @@ import 'package:dolarbot_app/screens/base/base_info_screen.dart';
 import 'package:dolarbot_app/screens/base/widgets/drawer/root_menus/exports/root_menu_exports.dart';
 
 import 'package:flutter/material.dart';
+export 'package:dolarbot_app/util/util.dart';
 
 class DrawerMenuBody extends StatelessWidget {
   @override
@@ -45,16 +46,5 @@ getIconData(BuildContext context, IconData iconData) {
   return Icon(
     iconData,
     color: ThemeManager.getDrawerMenuItemIconColor(context),
-  );
-}
-
-navigateTo(BuildContext context, BaseInfoScreen screen) async {
-  Navigator.pop(context, true);
-  await Future.delayed(Duration(milliseconds: 250)).then(
-    (value) => Navigator.pushReplacement(
-      context,
-      PageRouteBuilder(
-          pageBuilder: (context, animation1, animation2) => screen),
-    ),
   );
 }

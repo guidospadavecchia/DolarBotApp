@@ -22,7 +22,7 @@ class RootMenuCrypto extends StatelessWidget {
           leading: getIconData(context, CryptoFontIcons.BTC),
           depthLevel: 2,
           onTap: () => {
-            navigateTo(
+            Util.navigateTo(
               context,
               CryptoInfoScreen(
                 title: _title,
@@ -39,7 +39,7 @@ class RootMenuCrypto extends StatelessWidget {
           leading: getIconData(context, CryptoFontIcons.BTC_ALT),
           depthLevel: 2,
           onTap: () => {
-            navigateTo(
+            Util.navigateTo(
               context,
               CryptoInfoScreen(
                 title: 'Crypto',
@@ -56,7 +56,7 @@ class RootMenuCrypto extends StatelessWidget {
           leading: getIconData(context, CryptoFontIcons.DASH),
           depthLevel: 2,
           onTap: () => {
-            navigateTo(
+            Util.navigateTo(
               context,
               CryptoInfoScreen(
                 title: 'Crypto',
@@ -73,7 +73,7 @@ class RootMenuCrypto extends StatelessWidget {
           leading: getIconData(context, FontAwesomeIcons.ethereum),
           depthLevel: 2,
           onTap: () => {
-            navigateTo(
+            Util.navigateTo(
               context,
               CryptoInfoScreen(
                 title: 'Crypto',
@@ -90,7 +90,7 @@ class RootMenuCrypto extends StatelessWidget {
           leading: getIconData(context, CryptoFontIcons.LTC),
           depthLevel: 2,
           onTap: () => {
-            navigateTo(
+            Util.navigateTo(
               context,
               CryptoInfoScreen(
                   title: 'Crypto',
@@ -106,7 +106,7 @@ class RootMenuCrypto extends StatelessWidget {
           leading: getIconData(context, CryptoFontIcons.XMR),
           depthLevel: 2,
           onTap: () => {
-            navigateTo(
+            Util.navigateTo(
               context,
               CryptoInfoScreen(
                 title: 'Crypto',
@@ -123,7 +123,7 @@ class RootMenuCrypto extends StatelessWidget {
           leading: getIconData(context, CryptoFontIcons.XRP),
           depthLevel: 2,
           onTap: () => {
-            navigateTo(
+            Util.navigateTo(
               context,
               CryptoInfoScreen(
                 title: 'Crypto',

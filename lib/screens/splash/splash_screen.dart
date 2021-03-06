@@ -7,7 +7,7 @@ import 'package:show_up_animation/show_up_animation.dart';
 class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    _waitAndGoHome(context, 3);
+    _waitAndGoHome(context, Duration(milliseconds: 2500));
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
@@ -89,16 +89,16 @@ class SplashScreen extends StatelessWidget {
   }
 }
 
-_waitAndGoHome(BuildContext context, int secondsToWait) {
+_waitAndGoHome(BuildContext context, Duration waitToHome) {
   return Future.delayed(
-    Duration(seconds: secondsToWait),
+    waitToHome,
     () async {
       Globals.packageInfo = await PackageInfo.fromPlatform();
       Navigator.pushReplacement(
         context,
         PageRouteBuilder(
           pageBuilder: (context, animation1, animation2) => HomeScreen(),
-          transitionDuration: Duration(milliseconds: 300),
+          transitionDuration: Duration(milliseconds: 400),
           transitionsBuilder: (context, animation1, animation2, child) =>
               FadeTransition(
             opacity: animation1,

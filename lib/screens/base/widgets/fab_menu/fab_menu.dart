@@ -68,6 +68,7 @@ class _FabMenuState extends State<FabMenu> {
   @override
   Widget build(BuildContext context) {
     return Consumer<ActiveScreenData>(builder: (context, activeData, child) {
+      //TODO: No se oculta el botón de FabMenu. Globals.dataIsLoading siempre es "false".
       if (!Globals.dataIsLoading) {
         return SimpleFabMenu(
           key: widget.simpleFabKey,
@@ -104,7 +105,7 @@ class _FabMenuState extends State<FabMenu> {
               ),
             if (widget.showShareButton)
               SimpleFabOption(
-                  tooltip: "Compartir cotización 📲",
+                  tooltip: "Compartir 📲",
                   iconColor: Colors.green[700],
                   backgroundColor: Colors.white,
                   icon: Icons.share,

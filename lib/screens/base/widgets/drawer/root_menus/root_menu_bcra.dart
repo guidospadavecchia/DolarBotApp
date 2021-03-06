@@ -21,7 +21,7 @@ class RootMenuBCRA extends StatelessWidget {
           leading: getIconData(context, FontAwesomeIcons.exclamationTriangle),
           depthLevel: 2,
           onTap: () => {
-            navigateTo(
+            Util.navigateTo(
               context,
               BcraInfoScreen(
                 title: _title,
@@ -38,7 +38,7 @@ class RootMenuBCRA extends StatelessWidget {
           leading: getIconData(context, FontAwesomeIcons.handHoldingUsd),
           depthLevel: 2,
           onTap: () => {
-            navigateTo(
+            Util.navigateTo(
               context,
               BcraInfoScreen(
                 title: _title,
@@ -55,7 +55,7 @@ class RootMenuBCRA extends StatelessWidget {
           leading: getIconData(context, FontAwesomeIcons.moneyBillWave),
           depthLevel: 2,
           onTap: () => {
-            navigateTo(
+            Util.navigateTo(
               context,
               BcraInfoScreen(
                 title: _title,

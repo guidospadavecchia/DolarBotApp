@@ -87,6 +87,9 @@ class _VenezuelaInfoScreenState extends BaseInfoScreenState<VenezuelaInfoScreen>
             iconAsset: widget.bannerIconAsset,
             iconData: widget.bannerIconData,
             gradiantColors: widget.gradiantColors,
+            showButtons: false,
+            showPoweredBy: true,
+            endpoint: widget.endpoint,
           );
         } else {
           return SizedBox.shrink();
