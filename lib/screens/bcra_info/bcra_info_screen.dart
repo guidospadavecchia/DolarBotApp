@@ -51,6 +51,9 @@ class _BcraInfoScreenState extends BaseInfoScreenState<BcraInfoScreen>
       case BcraEndpoints.riesgoPais:
         return FutureScreenDelegate<CountryRiskResponse>(
           response: API.getCountryRisk(forceRefresh: shouldForceRefresh),
+          onLoading: onLoading,
+          onFailedLoad: onErrorLoad,
+          onSuccessfulLoad: onSuccessfulLoad,
           screen: (data) {
             WidgetsBinding.instance.addPostFrameCallback((_) {
               setActiveData(data, "${widget.title} - ${widget.bannerTitle}",
@@ -75,6 +78,9 @@ class _BcraInfoScreenState extends BaseInfoScreenState<BcraInfoScreen>
       case BcraEndpoints.reservas:
         return FutureScreenDelegate<BcraResponse>(
           response: API.getBcraReserves(forceRefresh: shouldForceRefresh),
+          onLoading: onLoading,
+          onFailedLoad: onErrorLoad,
+          onSuccessfulLoad: onSuccessfulLoad,
           screen: (data) {
             WidgetsBinding.instance.addPostFrameCallback((_) {
               setActiveData(data, "${widget.title} - ${widget.bannerTitle}",
@@ -100,6 +106,9 @@ class _BcraInfoScreenState extends BaseInfoScreenState<BcraInfoScreen>
         return FutureScreenDelegate<BcraResponse>(
           response:
               API.getCirculatingCurrency(forceRefresh: shouldForceRefresh),
+          onLoading: onLoading,
+          onFailedLoad: onErrorLoad,
+          onSuccessfulLoad: onSuccessfulLoad,
           screen: (data) {
             WidgetsBinding.instance.addPostFrameCallback((_) {
               setActiveData(data, "${widget.title} - ${widget.bannerTitle}",

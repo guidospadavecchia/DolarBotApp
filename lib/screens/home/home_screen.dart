@@ -120,7 +120,7 @@ class _HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
       children: [
         _buildCardBackground(FiatCurrencyCard.height),
         FutureScreenDelegate<GenericCurrencyResponse>(
-          loading: _buildLoadingFutureForCard(),
+          loadingWidget: _buildLoadingFutureForCard(),
           response: API.getData(
             favoriteRate.endpoint,
             (json) => new GenericCurrencyResponse(json),
@@ -149,7 +149,7 @@ class _HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
       children: [
         _buildCardBackground(CryptoCard.height),
         FutureScreenDelegate<CryptoResponse>(
-          loading: _buildLoadingFutureForCard(),
+          loadingWidget: _buildLoadingFutureForCard(),
           response: API.getData(
             favoriteRate.endpoint,
             (json) => new CryptoResponse(json),
@@ -177,7 +177,7 @@ class _HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
       children: [
         _buildCardBackground(MetalCard.height),
         FutureScreenDelegate<MetalResponse>(
-          loading: _buildLoadingFutureForCard(),
+          loadingWidget: _buildLoadingFutureForCard(),
           response: API.getData(
             favoriteRate.endpoint,
             (json) => new MetalResponse(json),
@@ -204,7 +204,7 @@ class _HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
       children: [
         _buildCardBackground(CountryRiskCard.height),
         FutureScreenDelegate<CountryRiskResponse>(
-          loading: _buildLoadingFutureForCard(),
+          loadingWidget: _buildLoadingFutureForCard(),
           response: API.getData(
             favoriteRate.endpoint,
             (json) => new CountryRiskResponse(json),
@@ -233,7 +233,7 @@ class _HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
       children: [
         _buildCardBackground(BcraCard.height),
         FutureScreenDelegate<BcraResponse>(
-          loading: _buildLoadingFutureForCard(),
+          loadingWidget: _buildLoadingFutureForCard(),
           response: API.getData(
             favoriteRate.endpoint,
             (json) => new BcraResponse(json),
@@ -264,7 +264,7 @@ class _HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
       children: [
         _buildCardBackground(VenezuelaCard.height),
         FutureScreenDelegate<VenezuelaResponse>(
-          loading: _buildLoadingFutureForCard(),
+          loadingWidget: _buildLoadingFutureForCard(),
           response: API.getData(
             favoriteRate.endpoint,
             (json) => new VenezuelaResponse(json),

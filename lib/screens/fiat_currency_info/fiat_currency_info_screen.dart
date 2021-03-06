@@ -75,6 +75,9 @@ class _FiatCurrencyInfoScreenState<T extends GenericCurrencyResponse>
       physics: BouncingScrollPhysics(),
       child: FutureScreenDelegate<T>(
         response: _getResponse<T>(),
+        onLoading: onLoading,
+        onFailedLoad: onErrorLoad,
+        onSuccessfulLoad: onSuccessfulLoad,
         screen: (data) {
           WidgetsBinding.instance.addPostFrameCallback((_) => setActiveData(
               data,

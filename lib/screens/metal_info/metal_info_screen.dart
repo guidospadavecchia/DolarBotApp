@@ -40,8 +40,13 @@ class _MetalInfoScreenState extends BaseInfoScreenState<MetalInfoScreen>
       scrollDirection: Axis.vertical,
       physics: BouncingScrollPhysics(),
       child: FutureScreenDelegate<MetalResponse>(
-        response:
-            API.getMetalRate(metalEndpoint, forceRefresh: shouldForceRefresh),
+        response: API.getMetalRate(
+          metalEndpoint,
+          forceRefresh: shouldForceRefresh,
+        ),
+        onLoading: onLoading,
+        onFailedLoad: onErrorLoad,
+        onSuccessfulLoad: onSuccessfulLoad,
         screen: (data) {
           WidgetsBinding.instance.addPostFrameCallback((_) => setActiveData(
               data,

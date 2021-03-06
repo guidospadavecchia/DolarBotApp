@@ -1,6 +1,5 @@
 import 'package:dolarbot_app/api/responses/base/genericCurrencyResponse.dart';
 import 'package:dolarbot_app/api/responses/metalResponse.dart';
-import 'package:dolarbot_app/classes/globals.dart';
 import 'package:dolarbot_app/models/active_screen_data.dart';
 import 'package:dolarbot_app/models/settings.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
@@ -37,6 +36,7 @@ class FabMenu extends StatefulWidget {
   final bool showCalculatorButton;
   final Function onOpened;
   final Function onClosed;
+  final bool visible;
 
   const FabMenu({
     Key key,
@@ -50,6 +50,7 @@ class FabMenu extends StatefulWidget {
     this.showCalculatorButton = true,
     this.onOpened,
     this.onClosed,
+    this.visible = true,
   }) : super(key: key);
 
   @override
@@ -68,71 +69,67 @@ class _FabMenuState extends State<FabMenu> {
   @override
   Widget build(BuildContext context) {
     return Consumer<ActiveScreenData>(builder: (context, activeData, child) {
-      //TODO: No se oculta el botón de FabMenu. Globals.dataIsLoading siempre es "false".
-      if (!Globals.dataIsLoading) {
-        return SimpleFabMenu(
-          key: widget.simpleFabKey,
-          direction: Axis.horizontal,
-          icon: Icons.more_horiz,
-          iconColor: Colors.black87,
-          backGroundColor: Colors.white,
-          onOpened: widget.onOpened,
-          onClosed: widget.onClosed,
-          items: <SimpleFabOption>[
-            if (widget.showClipboardButton)
-              SimpleFabOption(
-                tooltip: "Copiar al portapapeles 📝",
-                iconColor: Colors.black87,
-                backgroundColor: Colors.white,
-                icon: Icons.copy,
-                onPressed: () async => await copyToClipboard(
+      return SimpleFabMenu(
+        key: widget.simpleFabKey,
+        direction: Axis.horizontal,
+        icon: Icons.more_horiz,
+        iconColor: Colors.black87,
+        backGroundColor: Colors.white,
+        onOpened: widget.onOpened,
+        onClosed: widget.onClosed,
+        visible: widget.visible,
+        items: <SimpleFabOption>[
+          if (widget.showClipboardButton)
+            SimpleFabOption(
+              tooltip: "Copiar al portapapeles 📝",
+              iconColor: Colors.black87,
+              backgroundColor: Colors.white,
+              icon: Icons.copy,
+              onPressed: () async => await copyToClipboard(
+                context,
+                activeData.getShareData(),
+              ),
+            ),
+          if (widget.showCalculatorButton)
+            SimpleFabOption(
+              tooltip: "Calculadora 💱",
+              iconColor: Colors.black87,
+              backgroundColor: Colors.white,
+              icon: FontAwesomeIcons.calculator,
+              onPressed: () {
+                openCalculator(
                   context,
-                  activeData.getShareData(),
-                ),
-              ),
-            if (widget.showCalculatorButton)
-              SimpleFabOption(
-                tooltip: "Calculadora 💱",
-                iconColor: Colors.black87,
+                  activeData.getActiveData(),
+                );
+              },
+            ),
+          if (widget.showShareButton)
+            SimpleFabOption(
+                tooltip: "Compartir 📲",
+                iconColor: Colors.green[700],
                 backgroundColor: Colors.white,
-                icon: FontAwesomeIcons.calculator,
+                icon: Icons.share,
                 onPressed: () {
-                  openCalculator(
-                    context,
-                    activeData.getActiveData(),
-                  );
-                },
-              ),
-            if (widget.showShareButton)
-              SimpleFabOption(
-                  tooltip: "Compartir 📲",
-                  iconColor: Colors.green[700],
-                  backgroundColor: Colors.white,
-                  icon: Icons.share,
-                  onPressed: () {
-                    closeFabMenu();
-                    widget.onShareButtonTap();
-                  }),
-            if (widget.showFavoriteButton)
-              SimpleFabOption(
-                tooltip: "Agregar a Favoritos ❤",
-                iconColor: Colors.red[400],
-                backgroundColor: Colors.white,
-                icon: isFavorite
-                    ? Icons.favorite_rounded
-                    : Icons.favorite_outline_rounded,
-                onPressed: () async {
-                  bool result = await widget.onFavoriteButtonTap();
-                  setState(() => isFavorite = result);
-                  Future.delayed(
-                      Duration(milliseconds: 200), () => closeFabMenu());
-                },
-              ),
-          ],
-        );
-      } else {
-        return SizedBox.shrink();
-      }
+                  closeFabMenu();
+                  widget.onShareButtonTap();
+                }),
+          if (widget.showFavoriteButton)
+            SimpleFabOption(
+              tooltip: "Agregar a Favoritos ❤",
+              iconColor: Colors.red[400],
+              backgroundColor: Colors.white,
+              icon: isFavorite
+                  ? Icons.favorite_rounded
+                  : Icons.favorite_outline_rounded,
+              onPressed: () async {
+                bool result = await widget.onFavoriteButtonTap();
+                setState(() => isFavorite = result);
+                Future.delayed(
+                    Duration(milliseconds: 200), () => closeFabMenu());
+              },
+            ),
+        ],
+      );
     });
   }
 

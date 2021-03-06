@@ -41,8 +41,13 @@ class _CryptoInfoScreenState extends BaseInfoScreenState<CryptoInfoScreen>
       scrollDirection: Axis.vertical,
       physics: BouncingScrollPhysics(),
       child: FutureScreenDelegate<CryptoResponse>(
-        response:
-            API.getCryptoRate(cryptoEndpoint, forceRefresh: shouldForceRefresh),
+        response: API.getCryptoRate(
+          cryptoEndpoint,
+          forceRefresh: shouldForceRefresh,
+        ),
+        onLoading: onLoading,
+        onFailedLoad: onErrorLoad,
+        onSuccessfulLoad: onSuccessfulLoad,
         screen: (data) {
           WidgetsBinding.instance.addPostFrameCallback((_) =>
               setActiveData(data, "${widget.bannerTitle}", getShareInfo(data)));

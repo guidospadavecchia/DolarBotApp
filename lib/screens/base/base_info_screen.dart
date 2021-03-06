@@ -140,6 +140,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
                   showClipboardButton: showClipboardButton(),
                   showCalculatorButton: showCalculatorButton(),
                   onOpened: () => dismissAllToast(),
+                  visible: false,
                 )
               : null,
         );
@@ -210,6 +211,21 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
     } else {
       return SizedBox.shrink();
     }
+  }
+
+  @nonVirtual
+  void onLoading() {
+    simpleFabKey?.currentState?.hide();
+  }
+
+  @nonVirtual
+  void onSuccessfulLoad() {
+    simpleFabKey?.currentState?.show();
+  }
+
+  @nonVirtual
+  void onErrorLoad() {
+    simpleFabKey?.currentState?.hide();
   }
 
   void _onDrawerDisplayChange(bool isOpen) {

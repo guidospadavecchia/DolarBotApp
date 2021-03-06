@@ -31,6 +31,7 @@ class SimpleFabMenu extends StatefulWidget {
   final double animationForce;
   final Function onOpened;
   final Function onClosed;
+  final bool visible;
 
   const SimpleFabMenu({
     Key key,
@@ -46,6 +47,7 @@ class SimpleFabMenu extends StatefulWidget {
     this.animationForce = 100,
     this.onOpened,
     this.onClosed,
+    this.visible = true,
   })  : assert(iconSize >= 60 && iconSize <= 90),
         assert(childrenItemSize >= 32 && childrenItemSize <= 60),
         super(key: key);
@@ -60,19 +62,19 @@ class SimpleFabMenuState extends State<SimpleFabMenu>
   AnimationController _animationController;
   bool _isOpen = false;
   bool _isAnimating = false;
+  bool _visible;
   IconData _iconFab;
 
   bool get isOpen => _isOpen;
 
   void initState() {
-    _iconFab = widget.icon;
-
     super.initState();
+    _iconFab = widget.icon;
+    _visible = widget.visible;
     _animationController = AnimationController(
       vsync: this,
       duration: Duration(milliseconds: 250),
     );
-
     _listAnimation =
         Tween<double>(begin: 0, end: 1).animate(_animationController);
   }
@@ -81,6 +83,22 @@ class SimpleFabMenuState extends State<SimpleFabMenu>
   void dispose() {
     _animationController.dispose();
     super.dispose();
+  }
+
+  void show() {
+    if (_visible == false) {
+      WidgetsBinding.instance.addPostFrameCallback(
+        (_) => setState(() => _visible = true),
+      );
+    }
+  }
+
+  void hide() {
+    if (_visible == true) {
+      WidgetsBinding.instance.addPostFrameCallback(
+        (_) => setState(() => _visible = false),
+      );
+    }
   }
 
   void closeMenu() {
@@ -115,58 +133,63 @@ class SimpleFabMenuState extends State<SimpleFabMenu>
 
   @override
   Widget build(BuildContext context) {
-    EdgeInsets paddingContent = widget.direction == Axis.vertical
-        ? EdgeInsets.symmetric(
-            vertical: 15,
-            horizontal: (widget.iconSize / 2) - (widget.childrenItemSize / 2))
-        : EdgeInsets.symmetric(
-            horizontal: (widget.iconSize / 2) - (widget.childrenItemSize / 2));
-    return Padding(
-      padding: widget.padding,
-      child: Container(
-        height: widget.direction == Axis.horizontal
-            ? widget.iconSize
-            : double.infinity,
-        alignment: Alignment.bottomRight,
-        child: Wrap(
-          crossAxisAlignment: WrapCrossAlignment.end,
-          alignment: widget.direction == Axis.horizontal
-              ? WrapAlignment.center
-              : WrapAlignment.end,
-          direction: widget.direction == Axis.horizontal
-              ? Axis.vertical
-              : Axis.horizontal,
-          children: [
-            _SimpleFabMenuListAnimated(
-              items: widget.items,
-              size: widget.childrenItemSize,
-              screenInset: _getScreenInset(),
-              direction: widget.direction,
-              padding: paddingContent,
-              animation: _listAnimation,
-            ),
-            _FabCircularOption(
-              direction: widget.direction,
-              size: widget.iconSize,
-              item: SimpleFabOption(
-                backgroundColor: widget.backGroundColor,
-                icon: _iconFab,
-                iconColor: widget.iconColor,
-                onPressed: () {
-                  if (_isAnimating) return;
-
-                  if (_isOpen) {
-                    closeMenu();
-                  } else {
-                    openMenu();
-                  }
-                },
+    if (_visible) {
+      EdgeInsets paddingContent = widget.direction == Axis.vertical
+          ? EdgeInsets.symmetric(
+              vertical: 15,
+              horizontal: (widget.iconSize / 2) - (widget.childrenItemSize / 2))
+          : EdgeInsets.symmetric(
+              horizontal:
+                  (widget.iconSize / 2) - (widget.childrenItemSize / 2));
+      return Padding(
+        padding: widget.padding,
+        child: Container(
+          height: widget.direction == Axis.horizontal
+              ? widget.iconSize
+              : double.infinity,
+          alignment: Alignment.bottomRight,
+          child: Wrap(
+            crossAxisAlignment: WrapCrossAlignment.end,
+            alignment: widget.direction == Axis.horizontal
+                ? WrapAlignment.center
+                : WrapAlignment.end,
+            direction: widget.direction == Axis.horizontal
+                ? Axis.vertical
+                : Axis.horizontal,
+            children: [
+              _SimpleFabMenuListAnimated(
+                items: widget.items,
+                size: widget.childrenItemSize,
+                screenInset: _getScreenInset(),
+                direction: widget.direction,
+                padding: paddingContent,
+                animation: _listAnimation,
               ),
-            ),
-          ],
+              _FabCircularOption(
+                direction: widget.direction,
+                size: widget.iconSize,
+                item: SimpleFabOption(
+                  backgroundColor: widget.backGroundColor,
+                  icon: _iconFab,
+                  iconColor: widget.iconColor,
+                  onPressed: () {
+                    if (_isAnimating) return;
+
+                    if (_isOpen) {
+                      closeMenu();
+                    } else {
+                      openMenu();
+                    }
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
-      ),
-    );
+      );
+    } else {
+      return SizedBox.shrink();
+    }
   }
 
   _getScreenInset() {

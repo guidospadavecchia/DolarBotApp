@@ -43,8 +43,13 @@ class _VenezuelaInfoScreenState extends BaseInfoScreenState<VenezuelaInfoScreen>
       scrollDirection: Axis.vertical,
       physics: BouncingScrollPhysics(),
       child: FutureScreenDelegate<VenezuelaResponse>(
-        response: API.getVzlaRate(venezuelaEndpoint,
-            forceRefresh: shouldForceRefresh),
+        response: API.getVzlaRate(
+          venezuelaEndpoint,
+          forceRefresh: shouldForceRefresh,
+        ),
+        onLoading: onLoading,
+        onFailedLoad: onErrorLoad,
+        onSuccessfulLoad: onSuccessfulLoad,
         screen: (data) {
           WidgetsBinding.instance.addPostFrameCallback((_) => setActiveData(
               data,

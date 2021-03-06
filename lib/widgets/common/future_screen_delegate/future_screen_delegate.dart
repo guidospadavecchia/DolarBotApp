@@ -1,6 +1,6 @@
+import 'package:dolarbot_app/screens/base/base_info_screen.dart';
 import 'package:dolarbot_app/widgets/common/future_screen_delegate/error_future.dart';
 import 'package:dolarbot_app/widgets/common/future_screen_delegate/loading_future.dart';
-import 'package:dolarbot_app/classes/globals.dart';
 import 'package:flutter/material.dart';
 
 export 'package:loading_indicator/loading_indicator.dart';
@@ -10,12 +10,18 @@ typedef ScreenDataBuildFunction<T> = Widget Function(T data);
 class FutureScreenDelegate<T> extends StatelessWidget {
   final Future<T> response;
   final ScreenDataBuildFunction<T> screen;
-  final LoadingFuture loading;
+  final LoadingFuture loadingWidget;
+  final Function onLoading;
+  final Function onSuccessfulLoad;
+  final Function onFailedLoad;
 
   FutureScreenDelegate({
     @required this.response,
     @required this.screen,
-    this.loading,
+    this.loadingWidget,
+    this.onLoading,
+    this.onSuccessfulLoad,
+    this.onFailedLoad,
   }) : assert(response != null && screen != null);
 
   @override
@@ -23,17 +29,29 @@ class FutureScreenDelegate<T> extends StatelessWidget {
     return FutureBuilder<T>(
       future: response,
       builder: (context, snapshot) {
-        Globals.dataIsLoading = true;
         if (snapshot.connectionState != ConnectionState.done) {
-          return loading != null ? loading : LoadingFuture();
+          if (onLoading != null) {
+            onLoading();
+          }
+          return loadingWidget != null ? loadingWidget : LoadingFuture();
         }
 
-        if (snapshot.hasError) {
-          return ErrorFuture();
+        Widget screenWidget;
+        if (snapshot.hasError || snapshot.hasData) {
+          if (snapshot.hasError) {
+            screenWidget = ErrorFuture();
+            if (onFailedLoad != null) {
+              onFailedLoad();
+            }
+          } else {
+            screenWidget = screen(snapshot.data);
+            if (onSuccessfulLoad != null) {
+              onSuccessfulLoad();
+            }
+          }
         }
 
-        Globals.dataIsLoading = false;
-        return screen(snapshot.data);
+        return screenWidget;
       },
     );
   }
