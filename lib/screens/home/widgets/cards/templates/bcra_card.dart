@@ -63,8 +63,8 @@ class _BcraCardState extends BaseCardTemplateState<BcraCard> {
       header: CardHeader(
         title: widget.title,
         showButtons: showButtons,
-        onTapFavorite: () => onTapFavorite(),
-        onTapShare: () => onTapShare(),
+        onFavoritePressed: () => onFavoritePressed(),
+        onSharePressed: () => onSharePressed(),
       ),
       spaceBetweenHeader: Spacing.medium,
       spaceBetweenItems: Spacing.large,

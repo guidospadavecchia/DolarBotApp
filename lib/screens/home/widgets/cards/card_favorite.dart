@@ -113,7 +113,7 @@ class CardFavorite extends StatelessWidget {
 
     switch (spaceBetweenHeader) {
       case Spacing.none:
-        spaceSize = 6;
+        spaceSize = 8;
         break;
       case Spacing.small:
         spaceSize = 11;

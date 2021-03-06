@@ -57,9 +57,10 @@ class _VenezuelaCardState extends BaseCardTemplateState<VenezuelaCard> {
       header: CardHeader(
         title: widget.title,
         showButtons: showButtons,
-        onTapFavorite: () => onTapFavorite(),
-        onTapShare: () => onTapShare(),
+        onFavoritePressed: () => onFavoritePressed(),
+        onSharePressed: () => onSharePressed(),
       ),
+      spaceBetweenHeader: Spacing.medium,
       rates: [
         CardValue(
           title: "Promedio Bancos",

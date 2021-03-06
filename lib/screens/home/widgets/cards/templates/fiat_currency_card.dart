@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 export 'package:dolarbot_app/api/responses/base/genericCurrencyResponse.dart';
 
 class FiatCurrencyCard extends BaseCardTemplate {
-  static const double height = 140;
+  static const double height = 145;
 
   final String title;
   final String tag;
@@ -57,25 +57,25 @@ class _FiatCurrencyCardState extends BaseCardTemplateState<FiatCurrencyCard> {
       header: CardHeader(
         title: widget.title,
         showButtons: showButtons,
-        onTapFavorite: () => onTapFavorite(),
-        onTapShare: () => onTapShare(),
+        onFavoritePressed: () => onFavoritePressed(),
+        onSharePressed: () => onSharePressed(),
       ),
       spaceBetweenItems: Spacing.small,
-      spaceBetweenHeader: Spacing.medium,
+      spaceBetweenHeader: Spacing.none,
       rates: [
         CardValue(
           title: "Compra",
           value: data.buyPrice,
           symbol: "\$",
           titleSize: data.sellPriceWithTaxes == null ? 16 : 14,
-          valueSize: data.sellPriceWithTaxes == null ? 24 : 18,
+          valueSize: data.sellPriceWithTaxes == null ? 26 : 18,
         ),
         CardValue(
           title: "Venta",
           value: data.sellPrice,
           symbol: "\$",
           titleSize: data.sellPriceWithTaxes == null ? 16 : 14,
-          valueSize: data.sellPriceWithTaxes == null ? 24 : 18,
+          valueSize: data.sellPriceWithTaxes == null ? 26 : 18,
         ),
         if (data.sellPriceWithTaxes != null)
           CardValue(

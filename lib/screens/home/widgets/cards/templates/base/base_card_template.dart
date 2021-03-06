@@ -57,21 +57,26 @@ abstract class BaseCardTemplateState<Card extends BaseCardTemplate>
     isVisible = !isSharing;
   }
 
-  void onTapFavorite() {
+  void onFavoritePressed() {
     Box favoritesBox = Hive.box('favorites');
     List<FavoriteRate> favoriteCards = favoritesBox
         .get('favoriteCards', defaultValue: List<FavoriteRate>())
         .cast<FavoriteRate>();
 
     favoriteCards.removeWhere((fav) => fav.endpoint == widget.endpoint);
+    favoritesBox.put('favoriteCards', favoriteCards);
+
     Util.navigateTo(context, HomeScreen());
   }
 
-  void onTapShare() {
-    setState(() => _prepareCardToShare(true));
-    Future.delayed(Duration(milliseconds: 700), () async {
-      await Util.shareCard(screenshotController);
-      setState(() => _prepareCardToShare(false));
+  void onSharePressed() {
+    Future.delayed(Duration(milliseconds: 100), () async {
+      setState(() => _prepareCardToShare(true));
+    }).then((_) {
+      Future.delayed(Duration(milliseconds: 700), () async {
+        Util.shareCard(screenshotController);
+        setState(() => _prepareCardToShare(false));
+      });
     });
   }
 

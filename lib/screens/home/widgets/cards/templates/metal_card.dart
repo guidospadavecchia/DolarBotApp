@@ -57,8 +57,8 @@ class _MetalCardState extends BaseCardTemplateState<MetalCard> {
       header: CardHeader(
         title: widget.title,
         showButtons: showButtons,
-        onTapFavorite: () => onTapFavorite(),
-        onTapShare: () => onTapShare(),
+        onFavoritePressed: () => onFavoritePressed(),
+        onSharePressed: () => onSharePressed(),
       ),
       spaceBetweenHeader: Spacing.small,
       rates: [

@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 class CardHeader extends StatelessWidget {
   final String title;
   final bool showButtons;
-  final Function onTapShare;
-  final Function onTapFavorite;
+  final Function onSharePressed;
+  final Function onFavoritePressed;
 
   const CardHeader({
     Key key,
     this.title,
     this.showButtons = true,
-    this.onTapShare,
-    this.onTapFavorite,
+    this.onSharePressed,
+    this.onFavoritePressed,
   }) : super(key: key);
 
   @override
@@ -19,6 +19,7 @@ class CardHeader extends StatelessWidget {
     return Row(
       children: [
         Expanded(
+          flex: 9,
           child: FittedBox(
             alignment: Alignment.centerLeft,
             fit: BoxFit.scaleDown,
@@ -41,34 +42,45 @@ class CardHeader extends StatelessWidget {
           ),
         ),
         if (showButtons)
-          GestureDetector(
-            onTap: onTapShare,
-            child: Tooltip(
-              preferBelow: false,
-              message: "Compartir 📲",
-              child: Padding(
-                padding: const EdgeInsets.only(left: 30, right: 15),
-                child: Icon(
-                  Icons.share,
-                  color: Colors.white,
+          Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 30, right: 7),
+                child: Tooltip(
+                  preferBelow: false,
+                  message: "Compartir 📲",
+                  child: RawMaterialButton(
+                    shape: CircleBorder(),
+                    constraints: BoxConstraints(minWidth: 0, minHeight: 0),
+                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    padding: EdgeInsets.all(5),
+                    onPressed: onSharePressed,
+                    child: Icon(
+                      Icons.share,
+                      color: Colors.white,
+                    ),
+                  ),
                 ),
               ),
-            ),
-          ),
-        if (showButtons)
-          GestureDetector(
-            onTap: onTapFavorite,
-            child: Tooltip(
-              preferBelow: false,
-              message: "Quitar de favoritos 💔",
-              child: Padding(
-                padding: const EdgeInsets.only(right: 12),
-                child: Icon(
-                  Icons.favorite_rounded,
-                  color: Colors.white,
+              Padding(
+                padding: const EdgeInsets.only(right: 10),
+                child: Tooltip(
+                  preferBelow: false,
+                  message: "Quitar de favoritos 💔",
+                  child: RawMaterialButton(
+                    shape: CircleBorder(),
+                    constraints: BoxConstraints(minWidth: 0, minHeight: 0),
+                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    padding: EdgeInsets.all(5),
+                    onPressed: () => onFavoritePressed(),
+                    child: Icon(
+                      Icons.favorite_rounded,
+                      color: Colors.white,
+                    ),
+                  ),
                 ),
               ),
-            ),
+            ],
           ),
       ],
     );
