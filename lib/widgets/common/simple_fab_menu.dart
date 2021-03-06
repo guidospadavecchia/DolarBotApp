@@ -86,7 +86,7 @@ class SimpleFabMenuState extends State<SimpleFabMenu>
   }
 
   void show() {
-    if (_visible == false) {
+    if (!_visible) {
       WidgetsBinding.instance.addPostFrameCallback(
         (_) => setState(() => _visible = true),
       );
@@ -94,7 +94,7 @@ class SimpleFabMenuState extends State<SimpleFabMenu>
   }
 
   void hide() {
-    if (_visible == true) {
+    if (_visible) {
       WidgetsBinding.instance.addPostFrameCallback(
         (_) => setState(() => _visible = false),
       );
