@@ -10,10 +10,10 @@ import 'package:dolarbot_app/screens/home/widgets/cards/templates/crypto_card.da
 import 'package:dolarbot_app/screens/home/widgets/cards/templates/fiat_currency_card.dart';
 import 'package:dolarbot_app/screens/home/widgets/cards/templates/metal_card.dart';
 import 'package:dolarbot_app/screens/home/widgets/cards/templates/venezuela_card.dart';
+import 'package:dolarbot_app/screens/home/widgets/empty_favorites.dart';
 import 'package:dolarbot_app/widgets/common/future_screen_delegate/loading_future.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hive/hive.dart';
 
 class HomeScreen extends BaseInfoScreen {
@@ -77,7 +77,8 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
                   initialItemCount: _cards.length,
                   physics: BouncingScrollPhysics(),
                   padding: EdgeInsets.only(
-                      bottom: MediaQuery.of(context).viewInsets.bottom + 110),
+                    bottom: MediaQuery.of(context).viewInsets.bottom + 110,
+                  ),
                   itemBuilder: (context, index, animation) {
                     return _cards[index];
                   },
@@ -88,54 +89,7 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
         ),
       );
     else
-      return Center(
-        child: Opacity(
-          opacity: 1,
-          child: Container(
-            alignment: Alignment.topCenter,
-            width: MediaQuery.of(context).size.width * 0.8,
-            child: Column(
-              children: [
-                Text(
-                  "Acá aparecerán tus cotizaciones favoritas.",
-                  style: TextStyle(
-                      fontSize: 24,
-                      fontFamily: "Raleway",
-                      color: ThemeManager.getPrimaryTextColor(context)
-                          .withOpacity(0.7)),
-                  textAlign: TextAlign.center,
-                ),
-                SizedBox(height: 30),
-                Icon(
-                  FontAwesomeIcons.solidHandPointDown,
-                  size: 48,
-                  color: ThemeManager.getPrimaryAccentColor(context)
-                      .withOpacity(0.8),
-                ),
-                SizedBox(height: 30),
-                Opacity(
-                  opacity: 0.7,
-                  child: SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.7,
-                    child: Image.asset("assets/images/general/home_bg.png"),
-                  ),
-                ),
-                SizedBox(height: 50),
-                Text(
-                  "Ahora mismo no tenés ninguna, pero podés dirigirte a cualquier cotización y agregarla desde allí.",
-                  style: TextStyle(
-                      fontSize: 16,
-                      fontFamily: "Raleway",
-                      color: ThemeManager.getPrimaryTextColor(context)
-                          .withOpacity(0.7)),
-                  textAlign: TextAlign.center,
-                ),
-                SizedBox(height: 70),
-              ],
-            ),
-          ),
-        ),
-      );
+      return EmptyFavorites();
   }
 
   // void _addCards() {
@@ -176,24 +130,20 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
   List<Widget> _buildCards() {
     List<Widget> futureCards = List<Widget>();
     for (FavoriteRate favoriteRate in _favoriteRates) {
-      if (favoriteRate.cardResponseType == (DollarResponse).toString() ||
-          favoriteRate.cardResponseType == (EuroResponse).toString() ||
-          favoriteRate.cardResponseType == (RealResponse).toString())
+      String type = favoriteRate.cardResponseType;
+      if (type == (DollarResponse).toString() ||
+          type == (EuroResponse).toString() ||
+          type == (RealResponse).toString())
         futureCards.add(_buildFutureFiatCurrencyCard(favoriteRate));
-
-      if (favoriteRate.cardResponseType == (CryptoResponse).toString())
+      else if (type == (CryptoResponse).toString())
         futureCards.add(_buildFutureCryptoCard(favoriteRate));
-
-      if (favoriteRate.cardResponseType == (MetalResponse).toString())
+      else if (type == (MetalResponse).toString())
         futureCards.add(_buildFutureMetalCard(favoriteRate));
-
-      if (favoriteRate.cardResponseType == (CountryRiskResponse).toString())
+      else if (type == (CountryRiskResponse).toString())
         futureCards.add(_buildFutureCountryRiskCard(favoriteRate));
-
-      if (favoriteRate.cardResponseType == (BcraResponse).toString())
+      else if (type == (BcraResponse).toString())
         futureCards.add(_buildFutureBcraCard(favoriteRate));
-
-      if (favoriteRate.cardResponseType == (VenezuelaResponse).toString())
+      else if (type == (VenezuelaResponse).toString())
         futureCards.add(_buildFutureVenezuelaCard(favoriteRate));
     }
 
