@@ -160,7 +160,7 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
           response: API.getData(
             favoriteRate.endpoint,
             (json) => new GenericCurrencyResponse(json),
-            true,
+            false,
           ),
           screen: (data) => FiatCurrencyCard(
             homeKey: widget.key,
@@ -190,7 +190,7 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
           response: API.getData(
             favoriteRate.endpoint,
             (json) => new CryptoResponse(json),
-            true,
+            false,
           ),
           screen: (data) => CryptoCard(
             homeKey: widget.key,
@@ -219,7 +219,7 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
           response: API.getData(
             favoriteRate.endpoint,
             (json) => new MetalResponse(json),
-            true,
+            false,
           ),
           screen: (data) => MetalCard(
             homeKey: widget.key,
@@ -247,7 +247,7 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
           response: API.getData(
             favoriteRate.endpoint,
             (json) => new CountryRiskResponse(json),
-            true,
+            false,
           ),
           screen: (data) => CountryRiskCard(
             homeKey: widget.key,
@@ -277,7 +277,7 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
           response: API.getData(
             favoriteRate.endpoint,
             (json) => new BcraResponse(json),
-            true,
+            false,
           ),
           screen: (data) => BcraCard(
             homeKey: widget.key,
@@ -309,7 +309,7 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
           response: API.getData(
             favoriteRate.endpoint,
             (json) => new VenezuelaResponse(json),
-            true,
+            false,
           ),
           screen: (data) => VenezuelaCard(
             homeKey: widget.key,
