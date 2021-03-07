@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:dolarbot_app/classes/hive/adapters/cache_entry_adapter.dart';
 import 'package:dolarbot_app/classes/hive/adapters/favorite_rate_adapter.dart';
@@ -7,6 +9,7 @@ import 'package:dolarbot_app/models/settings.dart';
 import 'package:dolarbot_app/screens/about/about_screen.dart';
 import 'package:dolarbot_app/screens/options/options_screen.dart';
 import 'package:dolarbot_app/screens/splash/splash_screen.dart';
+import 'package:dolarbot_app/util/util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:global_configuration/global_configuration.dart';
@@ -19,6 +22,8 @@ import 'package:provider/provider.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final savedThemeMode = await AdaptiveTheme.getThemeMode();
+
+  await _preloadImages();
   await GlobalConfiguration().loadFromAsset("app_settings");
   initializeHive();
 
@@ -26,6 +31,21 @@ void main() async {
       .then((_) {
     runApp(DolarBotApp(savedThemeMode: savedThemeMode));
   });
+}
+
+void _preloadImages() async {
+  final manifestContent = await rootBundle.loadString('AssetManifest.json');
+  final Map<String, dynamic> manifestMap = json.decode(manifestContent);
+  final imagePaths =
+      manifestMap.keys.where((String key) => key.contains('images/')).toList();
+
+  List<AssetImage> providers = List<AssetImage>();
+  for (var i = 0; i < imagePaths.length; i++) {
+    providers.add(AssetImage(imagePaths[i]));
+  }
+
+  //TODO: Enviar lista de imágenes.
+  await Util.loadImage(providers);
 }
 
 class DolarBotApp extends StatelessWidget {

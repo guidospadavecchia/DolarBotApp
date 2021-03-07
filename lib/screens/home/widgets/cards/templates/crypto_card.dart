@@ -8,6 +8,7 @@ export 'package:dolarbot_app/api/responses/cryptoResponse.dart';
 class CryptoCard extends BaseCardTemplate {
   static const double height = 270;
 
+  final GlobalKey<HomeScreenState> homeKey;
   final String title;
   final String tag;
   final CryptoResponse data;
@@ -20,6 +21,7 @@ class CryptoCard extends BaseCardTemplate {
 
   const CryptoCard({
     Key key,
+    this.homeKey,
     @required this.title,
     @required this.tag,
     @required this.data,
@@ -30,6 +32,7 @@ class CryptoCard extends BaseCardTemplate {
     this.showButtons = true,
     @required this.endpoint,
   }) : super(
+          homeKey: homeKey,
           title: title,
           tag: tag,
           gradiantColors: gradiantColors,
@@ -52,7 +55,6 @@ class _CryptoCardState extends BaseCardTemplateState<CryptoCard> {
   @override
   Widget card() {
     return CardFavorite(
-      showPoweredBy: showPoweredBy,
       height: CryptoCard.height,
       header: CardHeader(
         title: widget.title,
@@ -93,6 +95,7 @@ class _CryptoCardState extends BaseCardTemplateState<CryptoCard> {
       ),
       lastUpdated: CardLastUpdated(
         timestamp: data.timestamp,
+        showPoweredBy: showPoweredBy,
       ),
       gradiantColors: widget.gradiantColors,
     );

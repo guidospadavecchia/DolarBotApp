@@ -8,6 +8,7 @@ export 'package:dolarbot_app/api/responses/countryRiskResponse.dart';
 class CountryRiskCard extends BaseCardTemplate {
   static const double height = 130;
 
+  final GlobalKey<HomeScreenState> homeKey;
   final String title;
   final String tag;
   final CountryRiskResponse data;
@@ -20,6 +21,7 @@ class CountryRiskCard extends BaseCardTemplate {
 
   const CountryRiskCard({
     Key key,
+    this.homeKey,
     @required this.title,
     @required this.tag,
     @required this.data,
@@ -30,6 +32,7 @@ class CountryRiskCard extends BaseCardTemplate {
     this.showButtons = true,
     @required this.endpoint,
   }) : super(
+          homeKey: homeKey,
           title: title,
           tag: tag,
           gradiantColors: gradiantColors,
@@ -51,7 +54,6 @@ class _CountryRiskCardState extends BaseCardTemplateState<CountryRiskCard> {
   @override
   Widget card() {
     return CardFavorite(
-      showPoweredBy: showPoweredBy,
       height: CountryRiskCard.height,
       header: CardHeader(
         title: widget.title,
@@ -80,7 +82,10 @@ class _CountryRiskCardState extends BaseCardTemplateState<CountryRiskCard> {
         iconAsset: widget.iconAsset,
         tag: widget.tag,
       ),
-      lastUpdated: CardLastUpdated(timestamp: data.timestamp),
+      lastUpdated: CardLastUpdated(
+        timestamp: data.timestamp,
+        showPoweredBy: showPoweredBy,
+      ),
       gradiantColors: widget.gradiantColors,
     );
   }

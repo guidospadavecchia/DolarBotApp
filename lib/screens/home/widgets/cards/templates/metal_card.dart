@@ -8,6 +8,7 @@ export 'package:dolarbot_app/api/responses/metalResponse.dart';
 class MetalCard extends BaseCardTemplate {
   static const double height = 130;
 
+  final GlobalKey<HomeScreenState> homeKey;
   final String title;
   final String tag;
   final MetalResponse data;
@@ -20,6 +21,7 @@ class MetalCard extends BaseCardTemplate {
 
   const MetalCard({
     Key key,
+    this.homeKey,
     @required this.title,
     @required this.tag,
     @required this.data,
@@ -30,6 +32,7 @@ class MetalCard extends BaseCardTemplate {
     this.showButtons = true,
     @required this.endpoint,
   }) : super(
+          homeKey: homeKey,
           title: title,
           tag: tag,
           gradiantColors: gradiantColors,
@@ -52,7 +55,6 @@ class _MetalCardState extends BaseCardTemplateState<MetalCard> {
   @override
   Widget card() {
     return CardFavorite(
-      showPoweredBy: showPoweredBy,
       height: MetalCard.height,
       header: CardHeader(
         title: widget.title,
@@ -70,7 +72,7 @@ class _MetalCardState extends BaseCardTemplateState<MetalCard> {
           textDirection: TextDirection.rtl,
           spaceBetweenTitle: Spacing.small,
           crossAlignment: WrapCrossAlignment.center,
-          valueSize: 32,
+          valueSize: 26,
         ),
       ],
       logo: CardLogo(
@@ -79,6 +81,7 @@ class _MetalCardState extends BaseCardTemplateState<MetalCard> {
       ),
       lastUpdated: CardLastUpdated(
         timestamp: data.timestamp,
+        showPoweredBy: showPoweredBy,
       ),
       gradiantColors: widget.gradiantColors,
     );

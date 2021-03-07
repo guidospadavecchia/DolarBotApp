@@ -41,8 +41,9 @@ class CardHeader extends StatelessWidget {
             ),
           ),
         ),
-        if (showButtons)
-          Row(
+        Opacity(
+          opacity: showButtons ? 1 : 0,
+          child: Row(
             children: [
               Padding(
                 padding: const EdgeInsets.only(left: 30, right: 7),
@@ -82,6 +83,7 @@ class CardHeader extends StatelessWidget {
               ),
             ],
           ),
+        ),
       ],
     );
   }

@@ -1,5 +1,6 @@
 import 'package:dolarbot_app/classes/hive/favorite_rate.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
+import 'package:dolarbot_app/screens/base/base_info_screen.dart';
 import 'package:dolarbot_app/screens/home/home_screen.dart';
 import 'package:dolarbot_app/util/util.dart';
 import 'package:dolarbot_app/widgets/common/future_screen_delegate/loading_future.dart';
@@ -8,6 +9,7 @@ import 'package:hive/hive.dart';
 import 'package:screenshot/screenshot.dart';
 
 export 'package:screenshot/screenshot.dart';
+export 'package:dolarbot_app/screens/home/home_screen.dart';
 
 abstract class BaseCardTemplate extends StatefulWidget {
   final String title;
@@ -20,9 +22,11 @@ abstract class BaseCardTemplate extends StatefulWidget {
   final bool showPoweredBy;
   final bool showButtons;
   final String endpoint;
+  final GlobalKey<HomeScreenState> homeKey;
 
   const BaseCardTemplate({
     Key key,
+    this.homeKey,
     this.title,
     this.subtitle,
     this.tag,
@@ -63,21 +67,19 @@ abstract class BaseCardTemplateState<Card extends BaseCardTemplate>
         .get('favoriteCards', defaultValue: List<FavoriteRate>())
         .cast<FavoriteRate>();
 
+    int index =
+        favoriteCards.indexWhere((fav) => fav.endpoint == widget.endpoint);
     favoriteCards.removeWhere((fav) => fav.endpoint == widget.endpoint);
+    widget.homeKey.currentState.removeCard(index);
     favoritesBox.put('favoriteCards', favoriteCards);
-
-    Util.navigateTo(context, HomeScreen());
   }
 
   void onSharePressed() {
-    Future.delayed(Duration(milliseconds: 100), () async {
-      setState(() => _prepareCardToShare(true));
-    }).then((_) {
-      Future.delayed(Duration(milliseconds: 700), () async {
-        Util.shareCard(screenshotController);
-        setState(() => _prepareCardToShare(false));
-      });
-    });
+    setState(() => _prepareCardToShare(true));
+
+    Future.delayed(Duration(milliseconds: 700), () async {
+      await Util.shareCard(screenshotController);
+    }).then((_) => setState(() => _prepareCardToShare(false)));
   }
 
   Widget card();
@@ -90,7 +92,7 @@ abstract class BaseCardTemplateState<Card extends BaseCardTemplate>
         Visibility(
           child: LoadingFuture(
             indicatorType: Indicator.ballClipRotatePulse,
-            size: 64,
+            size: 96,
             color: ThemeManager.getDottedBorderColor(context),
           ),
           visible: !isVisible,

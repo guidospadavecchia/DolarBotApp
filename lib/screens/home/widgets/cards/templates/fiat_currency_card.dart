@@ -1,4 +1,6 @@
 import 'package:dolarbot_app/api/responses/base/genericCurrencyResponse.dart';
+import 'package:dolarbot_app/screens/base/base_info_screen.dart';
+import 'package:dolarbot_app/screens/home/home_screen.dart';
 import 'package:dolarbot_app/screens/home/widgets/cards/card_favorite.dart';
 import 'package:dolarbot_app/screens/home/widgets/cards/templates/base/base_card_template.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +10,7 @@ export 'package:dolarbot_app/api/responses/base/genericCurrencyResponse.dart';
 class FiatCurrencyCard extends BaseCardTemplate {
   static const double height = 145;
 
+  final GlobalKey<HomeScreenState> homeKey;
   final String title;
   final String tag;
   final GenericCurrencyResponse data;
@@ -20,6 +23,7 @@ class FiatCurrencyCard extends BaseCardTemplate {
 
   const FiatCurrencyCard({
     Key key,
+    this.homeKey,
     @required this.title,
     @required this.tag,
     @required this.data,
@@ -30,6 +34,7 @@ class FiatCurrencyCard extends BaseCardTemplate {
     this.showButtons = true,
     @required this.endpoint,
   }) : super(
+          homeKey: homeKey,
           title: title,
           tag: tag,
           gradiantColors: gradiantColors,
@@ -53,7 +58,6 @@ class _FiatCurrencyCardState extends BaseCardTemplateState<FiatCurrencyCard> {
   Widget card() {
     return CardFavorite(
       height: FiatCurrencyCard.height,
-      showPoweredBy: showPoweredBy,
       header: CardHeader(
         title: widget.title,
         showButtons: showButtons,
@@ -61,7 +65,7 @@ class _FiatCurrencyCardState extends BaseCardTemplateState<FiatCurrencyCard> {
         onSharePressed: () => onSharePressed(),
       ),
       spaceBetweenItems: Spacing.small,
-      spaceBetweenHeader: Spacing.none,
+      spaceBetweenHeader: Spacing.small,
       rates: [
         CardValue(
           title: "Compra",
@@ -91,6 +95,7 @@ class _FiatCurrencyCardState extends BaseCardTemplateState<FiatCurrencyCard> {
       ),
       lastUpdated: CardLastUpdated(
         timestamp: data.timestamp,
+        showPoweredBy: showPoweredBy,
       ),
       gradiantColors: widget.gradiantColors,
     );

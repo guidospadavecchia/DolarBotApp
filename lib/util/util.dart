@@ -1,4 +1,9 @@
+import 'dart:async';
 import 'dart:typed_data';
+
+import 'package:flutter/foundation.dart';
+import 'package:flutter/painting.dart';
+import 'package:flutter/services.dart';
 
 import 'package:dolarbot_app/api/responses/base/apiResponse.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
@@ -58,5 +63,39 @@ class Util {
             pageBuilder: (context, animation1, animation2) => screen),
       ),
     );
+  }
+
+  static Future<void> loadImage(List<ImageProvider> providers) {
+    final config = ImageConfiguration(
+      bundle: rootBundle,
+      devicePixelRatio: 1,
+      platform: defaultTargetPlatform,
+    );
+    final Completer<void> completer = Completer();
+
+    for (ImageProvider provider in providers) {
+      final ImageStream stream = provider.resolve(config);
+
+      ImageStreamListener listener;
+
+      listener = ImageStreamListener((ImageInfo image, bool sync) {
+        debugPrint("Image ${image.debugLabel} finished loading");
+
+        stream.removeListener(listener);
+      }, onError: (dynamic exception, StackTrace stackTrace) {
+        stream.removeListener(listener);
+        FlutterError.reportError(FlutterErrorDetails(
+          context: ErrorDescription('image failed to load'),
+          library: 'image resource service',
+          exception: exception,
+          stack: stackTrace,
+          silent: true,
+        ));
+      });
+
+      stream.addListener(listener);
+    }
+    completer.complete();
+    return completer.future;
   }
 }

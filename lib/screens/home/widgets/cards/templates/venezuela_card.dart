@@ -8,6 +8,7 @@ export 'package:dolarbot_app/api/responses/venezuelaResponse.dart';
 class VenezuelaCard extends BaseCardTemplate {
   static const double height = 200;
 
+  final GlobalKey<HomeScreenState> homeKey;
   final String title;
   final String tag;
   final VenezuelaResponse data;
@@ -20,6 +21,7 @@ class VenezuelaCard extends BaseCardTemplate {
 
   const VenezuelaCard({
     Key key,
+    this.homeKey,
     @required this.title,
     @required this.tag,
     @required this.data,
@@ -30,6 +32,7 @@ class VenezuelaCard extends BaseCardTemplate {
     this.showButtons = true,
     @required this.endpoint,
   }) : super(
+          homeKey: homeKey,
           title: title,
           tag: tag,
           gradiantColors: gradiantColors,
@@ -52,7 +55,6 @@ class _VenezuelaCardState extends BaseCardTemplateState<VenezuelaCard> {
   @override
   Widget card() {
     return CardFavorite(
-      showPoweredBy: showPoweredBy,
       height: VenezuelaCard.height,
       header: CardHeader(
         title: widget.title,
@@ -86,6 +88,7 @@ class _VenezuelaCardState extends BaseCardTemplateState<VenezuelaCard> {
       ),
       lastUpdated: CardLastUpdated(
         timestamp: data.timestamp,
+        showPoweredBy: showPoweredBy,
       ),
       gradiantColors: widget.gradiantColors,
     );

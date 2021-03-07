@@ -8,6 +8,7 @@ export 'package:dolarbot_app/api/responses/bcraResponse.dart';
 class BcraCard extends BaseCardTemplate {
   static const double height = 140;
 
+  final GlobalKey<HomeScreenState> homeKey;
   final String title;
   final String subtitle;
   final String tag;
@@ -22,6 +23,7 @@ class BcraCard extends BaseCardTemplate {
 
   const BcraCard({
     Key key,
+    this.homeKey,
     @required this.title,
     @required this.subtitle,
     @required this.tag,
@@ -34,6 +36,7 @@ class BcraCard extends BaseCardTemplate {
     this.showButtons = true,
     @required this.endpoint,
   }) : super(
+          homeKey: homeKey,
           title: title,
           subtitle: subtitle,
           tag: tag,
@@ -59,7 +62,6 @@ class _BcraCardState extends BaseCardTemplateState<BcraCard> {
   Widget card() {
     return CardFavorite(
       height: BcraCard.height,
-      showPoweredBy: showPoweredBy,
       header: CardHeader(
         title: widget.title,
         showButtons: showButtons,
@@ -82,7 +84,10 @@ class _BcraCardState extends BaseCardTemplateState<BcraCard> {
         iconAsset: widget.iconAsset,
         tag: widget.tag,
       ),
-      lastUpdated: CardLastUpdated(timestamp: data.timestamp),
+      lastUpdated: CardLastUpdated(
+        timestamp: data.timestamp,
+        showPoweredBy: showPoweredBy,
+      ),
       gradiantColors: widget.gradiantColors,
     );
   }

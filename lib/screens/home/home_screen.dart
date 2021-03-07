@@ -21,11 +21,13 @@ class HomeScreen extends BaseInfoScreen {
   }) : super(key: key, title: "Inicio");
 
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  HomeScreenState createState() => HomeScreenState();
 }
 
-class _HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
-  List<FavoriteRate> favoriteRates = List<FavoriteRate>();
+class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
+  List<Widget> _cards;
+  List<FavoriteRate> _favoriteRates = List<FavoriteRate>();
+  final GlobalKey<AnimatedListState> listKey = GlobalKey<AnimatedListState>();
 
   @override
   showRefreshButton() => false;
@@ -50,8 +52,10 @@ class _HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
 
   @override
   void initState() {
-    _loadFavorites();
     super.initState();
+
+    _loadFavorites();
+    _cards = _buildCards();
   }
 
   @override
@@ -63,18 +67,50 @@ class _HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
           overScroll.disallowGlow();
           return false;
         },
-        child: Container(
-          child: SingleChildScrollView(
-            padding: EdgeInsets.only(
-                bottom: MediaQuery.of(context).viewInsets.bottom + 110),
-            scrollDirection: Axis.vertical,
-            physics: BouncingScrollPhysics(),
-            child: Column(
-              children: _buildCards(),
+        child: Column(
+          children: [
+            Expanded(
+              child: AnimatedList(
+                key: listKey,
+                initialItemCount: _cards.length,
+                physics: BouncingScrollPhysics(),
+                padding: EdgeInsets.only(
+                    bottom: MediaQuery.of(context).viewInsets.bottom + 110),
+                itemBuilder: (context, index, animation) {
+                  return _cards[index];
+                },
+              ),
             ),
-          ),
+          ],
         ),
       ),
+    );
+  }
+
+  // void _addCards() {
+  //   for (var i = 0; i < _cards.length; i++) {
+  //     Future.delayed(Duration(milliseconds: 50 * i), () {
+  //       listKey.currentState
+  //           .insertItem(i, duration: Duration(milliseconds: 500));
+  //     });
+  //   }
+  // }
+
+  void removeCard(int index) {
+    Widget removedItem = _cards.removeAt(index);
+    AnimatedListRemovedItemBuilder builder = (context, animation) {
+      return _buildRemoveItem(removedItem, animation);
+    };
+    listKey.currentState.removeItem(index, builder);
+  }
+
+  Widget _buildRemoveItem(Widget item, Animation animation) {
+    return SlideTransition(
+      position: Tween<Offset>(
+        begin: const Offset(1, 0),
+        end: Offset(0, 0),
+      ).animate(animation),
+      child: item,
     );
   }
 
@@ -82,13 +118,13 @@ class _HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
     Box favoritesBox = Hive.box('favorites');
     List<dynamic> cards = favoritesBox.get('favoriteCards');
     if (cards != null) {
-      favoriteRates.addAll(cards.cast<FavoriteRate>());
+      _favoriteRates.addAll(cards.cast<FavoriteRate>());
     }
   }
 
   List<Widget> _buildCards() {
     List<Widget> futureCards = List<Widget>();
-    for (FavoriteRate favoriteRate in favoriteRates) {
+    for (FavoriteRate favoriteRate in _favoriteRates) {
       if (favoriteRate.cardResponseType == (DollarResponse).toString() ||
           favoriteRate.cardResponseType == (EuroResponse).toString() ||
           favoriteRate.cardResponseType == (RealResponse).toString())
@@ -120,13 +156,14 @@ class _HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
       children: [
         _buildCardBackground(FiatCurrencyCard.height),
         FutureScreenDelegate<GenericCurrencyResponse>(
-          loadingWidget: _buildLoadingFutureForCard(),
+          loadingWidget: _buildLoadingFutureForCard(FiatCurrencyCard.height),
           response: API.getData(
             favoriteRate.endpoint,
             (json) => new GenericCurrencyResponse(json),
-            false,
+            true,
           ),
           screen: (data) => FiatCurrencyCard(
+            homeKey: widget.key,
             title: favoriteRate.cardTitle,
             data: data,
             tag: favoriteRate.cardTag,
@@ -149,13 +186,14 @@ class _HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
       children: [
         _buildCardBackground(CryptoCard.height),
         FutureScreenDelegate<CryptoResponse>(
-          loadingWidget: _buildLoadingFutureForCard(),
+          loadingWidget: _buildLoadingFutureForCard(CryptoCard.height),
           response: API.getData(
             favoriteRate.endpoint,
             (json) => new CryptoResponse(json),
-            false,
+            true,
           ),
           screen: (data) => CryptoCard(
+            homeKey: widget.key,
             title: favoriteRate.cardTitle,
             data: data,
             tag: favoriteRate.cardTag,
@@ -177,13 +215,14 @@ class _HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
       children: [
         _buildCardBackground(MetalCard.height),
         FutureScreenDelegate<MetalResponse>(
-          loadingWidget: _buildLoadingFutureForCard(),
+          loadingWidget: _buildLoadingFutureForCard(MetalCard.height),
           response: API.getData(
             favoriteRate.endpoint,
             (json) => new MetalResponse(json),
-            false,
+            true,
           ),
           screen: (data) => MetalCard(
+            homeKey: widget.key,
             title: favoriteRate.cardTitle,
             data: data,
             tag: favoriteRate.cardTag,
@@ -204,13 +243,14 @@ class _HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
       children: [
         _buildCardBackground(CountryRiskCard.height),
         FutureScreenDelegate<CountryRiskResponse>(
-          loadingWidget: _buildLoadingFutureForCard(),
+          loadingWidget: _buildLoadingFutureForCard(CountryRiskCard.height),
           response: API.getData(
             favoriteRate.endpoint,
             (json) => new CountryRiskResponse(json),
-            false,
+            true,
           ),
           screen: (data) => CountryRiskCard(
+            homeKey: widget.key,
             title: favoriteRate.cardTitle,
             data: data,
             tag: favoriteRate.cardTag,
@@ -233,13 +273,14 @@ class _HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
       children: [
         _buildCardBackground(BcraCard.height),
         FutureScreenDelegate<BcraResponse>(
-          loadingWidget: _buildLoadingFutureForCard(),
+          loadingWidget: _buildLoadingFutureForCard(BcraCard.height),
           response: API.getData(
             favoriteRate.endpoint,
             (json) => new BcraResponse(json),
-            false,
+            true,
           ),
           screen: (data) => BcraCard(
+            homeKey: widget.key,
             title: favoriteRate.cardTitle,
             subtitle: favoriteRate.cardSubtitle,
             symbol: favoriteRate.cardSymbol,
@@ -264,13 +305,14 @@ class _HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
       children: [
         _buildCardBackground(VenezuelaCard.height),
         FutureScreenDelegate<VenezuelaResponse>(
-          loadingWidget: _buildLoadingFutureForCard(),
+          loadingWidget: _buildLoadingFutureForCard(VenezuelaCard.height),
           response: API.getData(
             favoriteRate.endpoint,
             (json) => new VenezuelaResponse(json),
-            false,
+            true,
           ),
           screen: (data) => VenezuelaCard(
+            homeKey: widget.key,
             title: favoriteRate.cardTitle,
             data: data,
             tag: favoriteRate.cardTag,
@@ -309,7 +351,7 @@ class _HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
     );
   }
 
-  LoadingFuture _buildLoadingFutureForCard() {
+  LoadingFuture _buildLoadingFutureForCard(double cardHeight) {
     return LoadingFuture(
       indicatorType: Indicator.ballPulseSync,
       size: 32,
