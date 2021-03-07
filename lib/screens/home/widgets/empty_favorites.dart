@@ -30,13 +30,6 @@ class EmptyFavorites extends StatelessWidget {
                         .withOpacity(0.7)),
                 textAlign: TextAlign.center,
               ),
-              // SizedBox(height: 30),
-              // Icon(
-              //   FontAwesomeIcons.solidHandPointDown,
-              //   size: 48,
-              //   color: ThemeManager.getPrimaryAccentColor(context)
-              //       .withOpacity(0.8),
-              // ),
               SizedBox(height: 50),
               Opacity(
                 opacity: 0.4,

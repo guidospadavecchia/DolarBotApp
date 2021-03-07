@@ -46,6 +46,7 @@ dependencies:
   package_info: ^0.4.3+4
   screenshot: ^0.3.0
   dotted_border: ^1.0.7
+  simple_animations: '>=2.0.0 <3.0.0'
 
 flutter_icons:
   android: true

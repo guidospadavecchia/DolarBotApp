@@ -72,7 +72,13 @@ abstract class BaseCardTemplateState<Card extends BaseCardTemplate>
     favoriteCards.removeAt(index);
     widget.homeKey?.currentState?.removeCard(index);
     favoritesBox.put('favoriteCards', favoriteCards);
-    widget.homeKey?.currentState?.setState(() {});
+    Future.delayed(
+      widget.homeKey?.currentState?.kCardAnimationDuration ??
+          Duration(milliseconds: 0),
+      () => widget.homeKey?.currentState?.refresh(
+        showAnimations: favoriteCards.isEmpty,
+      ),
+    );
   }
 
   void onSharePressed() {

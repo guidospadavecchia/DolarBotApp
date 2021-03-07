@@ -15,6 +15,7 @@ import 'package:dolarbot_app/widgets/common/future_screen_delegate/loading_futur
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:simple_animations/simple_animations.dart';
 
 class HomeScreen extends BaseInfoScreen {
   HomeScreen({
@@ -26,9 +27,11 @@ class HomeScreen extends BaseInfoScreen {
 }
 
 class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
+  final GlobalKey<AnimatedListState> listKey = GlobalKey<AnimatedListState>();
+  final Duration kCardAnimationDuration = Duration(milliseconds: 300);
   List<Widget> _cards;
   List<FavoriteRate> _favoriteRates = List<FavoriteRate>();
-  final GlobalKey<AnimatedListState> listKey = GlobalKey<AnimatedListState>();
+  bool _animateEmptyFavorites = false;
 
   @override
   showRefreshButton() => false;
@@ -88,8 +91,22 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
           ),
         ),
       );
-    else
-      return EmptyFavorites();
+    else {
+      if (_animateEmptyFavorites) {
+        return PlayAnimation<double>(
+            tween: Tween(begin: 0, end: 1),
+            duration: kCardAnimationDuration,
+            child: EmptyFavorites(),
+            builder: (context, child, value) {
+              return Opacity(
+                opacity: value,
+                child: child,
+              );
+            });
+      } else {
+        return EmptyFavorites();
+      }
+    }
   }
 
   // void _addCards() {
@@ -101,12 +118,22 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
   //   }
   // }
 
+  void refresh({bool showAnimations = false}) {
+    setState(() {
+      _animateEmptyFavorites = showAnimations;
+    });
+  }
+
   void removeCard(int index) {
     Widget removedItem = _cards.removeAt(index);
     AnimatedListRemovedItemBuilder builder = (context, animation) {
       return _buildRemoveItem(removedItem, animation);
     };
-    listKey.currentState.removeItem(index, builder);
+    listKey.currentState.removeItem(
+      index,
+      builder,
+      duration: kCardAnimationDuration,
+    );
   }
 
   Widget _buildRemoveItem(Widget item, Animation animation) {
