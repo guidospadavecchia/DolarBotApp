@@ -44,7 +44,6 @@ void _preloadImages() async {
     providers.add(AssetImage(imagePaths[i]));
   }
 
-  //TODO: Enviar lista de imágenes.
   await Util.loadImage(providers);
 }
 
