@@ -69,9 +69,10 @@ abstract class BaseCardTemplateState<Card extends BaseCardTemplate>
 
     int index =
         favoriteCards.indexWhere((fav) => fav.endpoint == widget.endpoint);
-    favoriteCards.removeWhere((fav) => fav.endpoint == widget.endpoint);
-    widget.homeKey.currentState.removeCard(index);
+    favoriteCards.removeAt(index);
+    widget.homeKey?.currentState?.removeCard(index);
     favoritesBox.put('favoriteCards', favoriteCards);
+    widget.homeKey?.currentState?.setState(() {});
   }
 
   void onSharePressed() {

@@ -13,6 +13,7 @@ import 'package:dolarbot_app/screens/home/widgets/cards/templates/venezuela_card
 import 'package:dolarbot_app/widgets/common/future_screen_delegate/loading_future.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hive/hive.dart';
 
 class HomeScreen extends BaseInfoScreen {
@@ -60,31 +61,81 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
 
   @override
   Widget body() {
-    return Container(
-      height: MediaQuery.of(context).size.height,
-      child: NotificationListener<OverscrollIndicatorNotification>(
-        onNotification: (OverscrollIndicatorNotification overScroll) {
-          overScroll.disallowGlow();
-          return false;
-        },
-        child: Column(
-          children: [
-            Expanded(
-              child: AnimatedList(
-                key: listKey,
-                initialItemCount: _cards.length,
-                physics: BouncingScrollPhysics(),
-                padding: EdgeInsets.only(
-                    bottom: MediaQuery.of(context).viewInsets.bottom + 110),
-                itemBuilder: (context, index, animation) {
-                  return _cards[index];
-                },
+    if (_cards.length > 0)
+      return Container(
+        height: MediaQuery.of(context).size.height,
+        child: NotificationListener<OverscrollIndicatorNotification>(
+          onNotification: (OverscrollIndicatorNotification overScroll) {
+            overScroll.disallowGlow();
+            return false;
+          },
+          child: Column(
+            children: [
+              Expanded(
+                child: AnimatedList(
+                  key: listKey,
+                  initialItemCount: _cards.length,
+                  physics: BouncingScrollPhysics(),
+                  padding: EdgeInsets.only(
+                      bottom: MediaQuery.of(context).viewInsets.bottom + 110),
+                  itemBuilder: (context, index, animation) {
+                    return _cards[index];
+                  },
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
-    );
+      );
+    else
+      return Center(
+        child: Opacity(
+          opacity: 1,
+          child: Container(
+            alignment: Alignment.topCenter,
+            width: MediaQuery.of(context).size.width * 0.8,
+            child: Column(
+              children: [
+                Text(
+                  "Aquí aparecerán tus cotizaciones favoritas.",
+                  style: TextStyle(
+                      fontSize: 24,
+                      fontFamily: "Raleway",
+                      color: ThemeManager.getPrimaryTextColor(context)
+                          .withOpacity(0.7)),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: 30),
+                Icon(
+                  FontAwesomeIcons.solidHandPointDown,
+                  size: 48,
+                  color: ThemeManager.getPrimaryAccentColor(context)
+                      .withOpacity(0.8),
+                ),
+                SizedBox(height: 30),
+                Opacity(
+                  opacity: 0.7,
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.7,
+                    child: Image.asset("assets/images/general/home_bg.png"),
+                  ),
+                ),
+                SizedBox(height: 50),
+                Text(
+                  "Ahora mismo no tenés ninguna, pero podés dirigirte a cualquier cotización y agregarla desde allí.",
+                  style: TextStyle(
+                      fontSize: 16,
+                      fontFamily: "Raleway",
+                      color: ThemeManager.getPrimaryTextColor(context)
+                          .withOpacity(0.7)),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: 70),
+              ],
+            ),
+          ),
+        ),
+      );
   }
 
   // void _addCards() {
