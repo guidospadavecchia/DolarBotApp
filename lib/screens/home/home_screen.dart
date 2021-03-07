@@ -97,7 +97,7 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
             child: Column(
               children: [
                 Text(
-                  "Aquí aparecerán tus cotizaciones favoritas.",
+                  "Acá aparecerán tus cotizaciones favoritas.",
                   style: TextStyle(
                       fontSize: 24,
                       fontFamily: "Raleway",
