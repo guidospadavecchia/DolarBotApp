@@ -18,12 +18,15 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter/foundation.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final savedThemeMode = await AdaptiveTheme.getThemeMode();
 
-  await _preloadImages();
+  if (!kDebugMode) {
+    await _preloadImages();
+  }
   await GlobalConfiguration().loadFromAsset("app_settings");
   initializeHive();
 
