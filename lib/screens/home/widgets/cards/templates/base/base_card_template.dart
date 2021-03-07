@@ -61,7 +61,7 @@ abstract class BaseCardTemplateState<Card extends BaseCardTemplate>
     isVisible = !isSharing;
   }
 
-  void onFavoritePressed() {
+  void onRemovePressed() {
     Box favoritesBox = Hive.box('favorites');
     List<FavoriteRate> favoriteCards = favoritesBox
         .get('favoriteCards', defaultValue: List<FavoriteRate>())

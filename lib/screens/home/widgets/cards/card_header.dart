@@ -4,14 +4,14 @@ class CardHeader extends StatelessWidget {
   final String title;
   final bool showButtons;
   final Function onSharePressed;
-  final Function onFavoritePressed;
+  final Function onRemovePressed;
 
   const CardHeader({
     Key key,
     this.title,
     this.showButtons = true,
     this.onSharePressed,
-    this.onFavoritePressed,
+    this.onRemovePressed,
   }) : super(key: key);
 
   @override
@@ -73,7 +73,7 @@ class CardHeader extends StatelessWidget {
                     constraints: BoxConstraints(minWidth: 0, minHeight: 0),
                     materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                     padding: EdgeInsets.all(5),
-                    onPressed: () => onFavoritePressed(),
+                    onPressed: () => onRemovePressed(),
                     child: Icon(
                       Icons.close,
                       color: Colors.white,

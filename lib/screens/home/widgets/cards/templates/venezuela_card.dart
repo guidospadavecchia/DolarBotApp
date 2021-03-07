@@ -59,7 +59,7 @@ class _VenezuelaCardState extends BaseCardTemplateState<VenezuelaCard> {
       header: CardHeader(
         title: widget.title,
         showButtons: showButtons,
-        onFavoritePressed: () => onFavoritePressed(),
+        onRemovePressed: () => onRemovePressed(),
         onSharePressed: () => onSharePressed(),
       ),
       spaceBetweenHeader: Spacing.medium,
