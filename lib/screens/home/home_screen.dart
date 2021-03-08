@@ -14,6 +14,7 @@ import 'package:dolarbot_app/screens/home/widgets/empty_favorites.dart';
 import 'package:dolarbot_app/widgets/common/future_screen_delegate/loading_future.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:hive/hive.dart';
 import 'package:simple_animations/simple_animations.dart';
 
@@ -60,6 +61,15 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
 
     _loadFavorites();
     _cards = _buildCards();
+
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      if (Navigator.of(context).canPop()) Navigator.of(context).pop();
+      await showDialog(
+        context: context,
+        barrierDismissible: true,
+        child: FirstTimeDialog(),
+      );
+    });
   }
 
   @override
