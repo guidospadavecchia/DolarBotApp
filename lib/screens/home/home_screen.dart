@@ -11,6 +11,7 @@ import 'package:dolarbot_app/screens/home/widgets/cards/templates/fiat_currency_
 import 'package:dolarbot_app/screens/home/widgets/cards/templates/metal_card.dart';
 import 'package:dolarbot_app/screens/home/widgets/cards/templates/venezuela_card.dart';
 import 'package:dolarbot_app/screens/home/widgets/empty_favorites.dart';
+import 'package:dolarbot_app/util/util.dart';
 import 'package:dolarbot_app/widgets/common/future_screen_delegate/loading_future.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
@@ -30,6 +31,10 @@ class HomeScreen extends BaseInfoScreen {
 class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
   final GlobalKey<AnimatedListState> listKey = GlobalKey<AnimatedListState>();
   final Duration kCardAnimationDuration = Duration(milliseconds: 300);
+  final settings = Hive.box('settings');
+
+  HomeScreenState();
+
   List<Widget> _cards;
   List<FavoriteRate> _favoriteRates = List<FavoriteRate>();
   bool _animateEmptyFavorites = false;
@@ -62,14 +67,16 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
     _loadFavorites();
     _cards = _buildCards();
 
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
-      if (Navigator.of(context).canPop()) Navigator.of(context).pop();
-      await showDialog(
-        context: context,
-        barrierDismissible: true,
-        child: FirstTimeDialog(),
-      );
-    });
+    if (_checkIsFirstTime()) {
+      SchedulerBinding.instance.addPostFrameCallback((_) async {
+        if (Navigator.of(context).canPop()) Navigator.of(context).pop();
+        await Util.showFirstTimeDialog(context, false);
+      });
+    }
+  }
+
+  bool _checkIsFirstTime() {
+    return settings.get('isFirstTime') == null ? true : false;
   }
 
   @override

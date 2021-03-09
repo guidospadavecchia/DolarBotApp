@@ -5,6 +5,7 @@ import 'package:dolarbot_app/models/active_screen_data.dart';
 import 'package:dolarbot_app/models/settings.dart';
 import 'package:dolarbot_app/screens/base/widgets/drawer/drawer_menu.dart';
 import 'package:dolarbot_app/screens/base/widgets/fab_menu/fab_menu.dart';
+import 'package:dolarbot_app/screens/home/home_screen.dart';
 import 'package:dolarbot_app/util/util.dart';
 import 'package:dolarbot_app/widgets/common/cool_app_bar.dart';
 import 'package:dolarbot_app/widgets/common/simple_fab_menu.dart';
@@ -76,73 +77,92 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
   Widget build(BuildContext context) {
     return Consumer<Settings>(
       builder: (context, settings, child) {
-        return Scaffold(
-          extendBodyBehindAppBar: extendBodyBehindAppBar(),
-          appBar: CoolAppBar(
-            title: widget.title,
-            isMainMenu: isMainMenu(),
-            foregroundColor: setColorAppbar(),
-            showRefreshButton: showRefreshButton(),
-            onRefresh: () => _refresh(),
-          ),
-          drawer: Container(
-            width: 290,
-            child: Drawer(
-              child: DrawerMenu(
-                onDrawerDisplayChanged: (isOpen) =>
-                    _onDrawerDisplayChange(isOpen),
+        return WillPopScope(
+          onWillPop: () async {
+            bool result = isMainMenu();
+            if (result) {
+              dismissAllToast();
+              Util.navigateTo(
+                context,
+                HomeScreen(
+                  key: GlobalKey<HomeScreenState>(),
+                ),
+              );
+            }
+
+            return !result;
+          },
+          child: Scaffold(
+            extendBodyBehindAppBar: extendBodyBehindAppBar(),
+            appBar: CoolAppBar(
+              title: widget.title,
+              isMainMenu: isMainMenu(),
+              foregroundColor: setColorAppbar(),
+              showRefreshButton: showRefreshButton(),
+              onRefresh: () => _refresh(),
+            ),
+            drawer: Container(
+              width: 290,
+              child: Drawer(
+                child: DrawerMenu(
+                  onDrawerDisplayChanged: (isOpen) =>
+                      _onDrawerDisplayChange(isOpen),
+                ),
               ),
             ),
-          ),
-          drawerEdgeDragWidth: MediaQuery.of(context).size.width / 2.2,
-          drawerEnableOpenDragGesture: true,
-          body: (widget.bannerTitle != null || isMainMenu())
-              ? Stack(children: [
-                  card() != null
-                      ? Screenshot(
-                          child: card(),
-                          controller: screenshotController,
-                        )
-                      : SizedBox.shrink(),
-                  Container(
-                    height: double.infinity,
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: widget.gradiantColors == null
-                            ? [
-                                ThemeManager.getGlobalBackgroundColor(context),
-                                ThemeManager.getGlobalBackgroundColor(context),
-                              ]
-                            : widget.gradiantColors,
+            drawerEdgeDragWidth: MediaQuery.of(context).size.width / 2.2,
+            drawerEnableOpenDragGesture: true,
+            body: (widget.bannerTitle != null || isMainMenu())
+                ? Stack(children: [
+                    card() != null
+                        ? Screenshot(
+                            child: card(),
+                            controller: screenshotController,
+                          )
+                        : SizedBox.shrink(),
+                    Container(
+                      height: double.infinity,
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: widget.gradiantColors == null
+                              ? [
+                                  ThemeManager.getGlobalBackgroundColor(
+                                      context),
+                                  ThemeManager.getGlobalBackgroundColor(
+                                      context),
+                                ]
+                              : widget.gradiantColors,
+                        ),
+                      ),
+                      child: Wrap(
+                        runAlignment: WrapAlignment.center,
+                        runSpacing: 0,
+                        children: [
+                          body(),
+                        ],
                       ),
                     ),
-                    child: Wrap(
-                      runAlignment: WrapAlignment.center,
-                      runSpacing: 0,
-                      children: [
-                        body(),
-                      ],
-                    ),
-                  ),
-                ])
-              : body(),
-          floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-          floatingActionButton: showFabMenu()
-              ? FabMenu(
-                  simpleFabKey: simpleFabKey,
-                  showFavoriteButton: showFavoriteButton(),
-                  onFavoriteButtonTap: _onFavoriteStatusChange,
-                  isFavorite: _getIsFavorite(),
-                  showShareButton: showShareButton(),
-                  onShareButtonTap: () => Util.shareCard(screenshotController),
-                  showClipboardButton: showClipboardButton(),
-                  showCalculatorButton: showCalculatorButton(),
-                  onOpened: () => dismissAllToast(),
-                  visible: false,
-                )
-              : null,
+                  ])
+                : body(),
+            floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+            floatingActionButton: showFabMenu()
+                ? FabMenu(
+                    simpleFabKey: simpleFabKey,
+                    showFavoriteButton: showFavoriteButton(),
+                    onFavoriteButtonTap: _onFavoriteStatusChange,
+                    isFavorite: _getIsFavorite(),
+                    showShareButton: showShareButton(),
+                    onShareButtonTap: () =>
+                        Util.shareCard(screenshotController),
+                    showClipboardButton: showClipboardButton(),
+                    showCalculatorButton: showCalculatorButton(),
+                    onOpened: () => dismissAllToast(),
+                    visible: false,
+                  )
+                : null,
+          ),
         );
       },
     );

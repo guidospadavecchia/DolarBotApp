@@ -26,7 +26,6 @@ class SplashScreen extends StatelessWidget {
                     ]),
               ),
             ),
-            //padding: EdgeInsets.only(bottom: 300),
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

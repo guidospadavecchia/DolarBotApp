@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:typed_data';
 
+import 'package:dolarbot_app/screens/home/widgets/first_time_dialog.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
@@ -61,6 +62,16 @@ class Util {
         context,
         PageRouteBuilder(
             pageBuilder: (context, animation1, animation2) => screen),
+      ),
+    );
+  }
+
+  static showFirstTimeDialog(BuildContext context, bool isComingFromOptions) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      child: FirstTimeDialog(
+        isComingFromOptions: isComingFromOptions,
       ),
     );
   }

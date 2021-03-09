@@ -1,6 +1,7 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:dolarbot_app/classes/hive/favorite_rate.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
+import 'package:dolarbot_app/interfaces/share_info.dart';
 import 'package:dolarbot_app/models/settings.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
 import 'package:dolarbot_app/screens/home/widgets/cards/card_favorite.dart';
@@ -75,14 +76,20 @@ class _OptionsScreenState extends BaseInfoScreenState<OptionsScreen>
             subtitle: "Cambia el formato de moneda entre AR y US",
             leading: Icon(FontAwesomeIcons.globeAmericas),
             depthLevel: 1,
-            onTap: () => {
-              _showFormatCurrencyDialog(context),
-            },
+            onTap: () => _showFormatCurrencyDialog(context),
             disableHighlight: false,
           ),
           Divider(
             endIndent: 25,
             indent: 25,
+          ),
+          MenuItem(
+            text: "Ayuda",
+            subtitle: "Muestra una breve guía sobre la aplicación",
+            leading: Icon(FontAwesomeIcons.solidQuestionCircle),
+            depthLevel: 1,
+            disableHighlight: false,
+            onTap: () => Util.showFirstTimeDialog(context, true),
           ),
           MenuItem(
             text: "Información de la aplicación",
