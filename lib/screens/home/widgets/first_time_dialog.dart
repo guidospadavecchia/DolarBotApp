@@ -19,7 +19,7 @@ class FirstTimeDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: () async => false,
+      onWillPop: () async => isComingFromOptions,
       child: Dialog(
         insetPadding: const EdgeInsets.all(20),
         child: Container(
