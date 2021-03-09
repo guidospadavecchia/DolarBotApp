@@ -63,6 +63,7 @@ abstract class BaseInfoScreenState<Page extends BaseInfoScreen>
   Color setColorAppbar() => Colors.white;
 }
 
+//TODO: Hacer que levante descripciones de un JSON en cada screen
 mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
   bool shouldForceRefresh = false;
 
