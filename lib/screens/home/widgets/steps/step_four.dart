@@ -26,7 +26,6 @@ class StepFour extends StepBase {
             writeText(context,
                 "Por eso, si querés realizar conversiones, podés hacerlo con la "),
             writeText(context, "calculadora", bold: true),
-            writeNewLine(context),
             writeText(context, " integrada en cada cotización.")
           ],
         ),
@@ -51,7 +50,7 @@ class StepFour extends StepBase {
             ...writeIcon(context, Icons.more_horiz,
                 ThemeManager.getPrimaryTextColor(context)),
             writeText(context,
-                "dentro de la cotización para abrir la calculadora y realizar tus conversiones 💱. Simple, ¿No?"),
+                "dentro de la cotización para abrir la calculadora y realizar tus conversiones. Simple, ¿No?"),
           ],
         ),
       ),

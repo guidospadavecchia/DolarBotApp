@@ -30,7 +30,7 @@ class StepTwo extends StepBase {
             writeText(context,
                 "Acá van a aparecer tus cotizaciones favoritas en forma de "),
             writeText(context, "tarjetas", bold: true),
-            writeText(context, ".\n"),
+            writeText(context, ". "),
             writeText(context, "Super cool ", italic: true),
             writeText(context, "😎."),
             writeNewLine(context, lines: 2),

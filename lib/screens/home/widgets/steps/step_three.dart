@@ -22,11 +22,9 @@ class StepThree extends StepBase {
         text: TextSpan(
           children: [
             writeText(context,
-                "Podés compartir cualquier cotización de forma muy sencilla, y a través del medio"),
-            writeNewLine(context),
-            writeText(context, "que más te guste."),
+                "Podés compartir cualquier cotización de forma muy sencilla, y a través del medio que más te guste."),
             writeNewLine(context, lines: 2),
-            writeText(context, "Pueden ser tanto las que están\nen tu"),
+            writeText(context, "Pueden ser tanto las que están en tu"),
             ...writeIcon(context, FontAwesomeIcons.home,
                 ThemeManager.getPrimaryTextColor(context),
                 alignment: PlaceholderAlignment.bottom, text: " Inicio"),

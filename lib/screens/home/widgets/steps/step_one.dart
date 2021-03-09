@@ -30,6 +30,7 @@ class StepOne extends StepBase {
               alignment: PlaceholderAlignment.bottom,
               text: " Inicio",
             ),
+            writeText(context, "."),
           ],
         ),
       ),
