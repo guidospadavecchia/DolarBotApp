@@ -31,12 +31,12 @@ class EmptyFavorites extends StatelessWidget {
             Opacity(
               opacity: textOpacity,
               child: Text(
-                topText ?? "Tu inicio está vacío.",
+                topText ?? "Tu inicio está vacío",
                 style: TextStyle(
                     fontSize: 24,
                     fontFamily: "Raleway",
                     color: ThemeManager.getPrimaryTextColor(context)
-                        .withOpacity(0.7),
+                        .withOpacity(0.8),
                     fontWeight: FontWeight.w600),
                 textAlign: TextAlign.center,
               ),
@@ -58,7 +58,7 @@ class EmptyFavorites extends StatelessWidget {
                     fontSize: 20,
                     fontFamily: "Raleway",
                     color: ThemeManager.getPrimaryTextColor(context)
-                        .withOpacity(0.7)),
+                        .withOpacity(0.9)),
                 textAlign: TextAlign.center,
               ),
             ),
