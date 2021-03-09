@@ -94,6 +94,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
           },
           child: Scaffold(
             extendBodyBehindAppBar: extendBodyBehindAppBar(),
+            resizeToAvoidBottomPadding: false,
             appBar: CoolAppBar(
               title: widget.title,
               isMainMenu: isMainMenu(),
