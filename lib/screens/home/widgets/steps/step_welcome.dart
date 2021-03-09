@@ -23,20 +23,19 @@ class StepWelcome extends StepBase {
         text: TextSpan(
           style: TextStyle(height: 1.3),
           children: [
-            writeText(context, "¡Hola 👋!", fontSize: 40),
-            writeText(context, "\n\n\n\n"),
+            writeText(context, "¡Hola 👋!", fontSize: 40, bold: true),
+            writeNewLine(context, lines: 4),
             writeText(
               context,
-              "En esta breve guía vamos a darte a conocer 4 aspectos fundamentales de ",
+              "En esta breve guía vas a conocer todas las funcionalidades de ",
               fontSize: 20,
             ),
             writeText(
               context,
               "DolarBot",
-              isBold: true,
-              fontSize: 20,
+              bold: true,
+              fontSize: 24,
             ),
-            writeText(context, "."),
           ],
         ),
       ),
@@ -46,11 +45,12 @@ class StepWelcome extends StepBase {
           children: [
             writeText(
               context,
-              "Deslizá para pasar de página.\n\n",
+              "Deslizá para pasar de página\n\n",
               fontSize: 20,
+              italic: true,
             ),
             writeIcon(
-              FontAwesomeIcons.arrowCircleLeft,
+              FontAwesomeIcons.chevronLeft,
               ThemeManager.getPrimaryAccentColor(context),
               size: 40,
             )

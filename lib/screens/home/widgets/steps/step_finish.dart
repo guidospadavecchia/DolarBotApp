@@ -27,16 +27,12 @@ class StepFinish extends StepBase {
         text: TextSpan(
           style: TextStyle(height: 1.3),
           children: [
-            writeText(context, "¡Gracias 🤙!", fontSize: 40),
-            writeText(context, "\n\n\n\n"),
+            writeText(context, "¡Listo 👌!", fontSize: 40),
+            writeNewLine(context, lines: 4),
             if (!isComingFromOptions)
               ..._buildFinishText()
             else
-              writeText(
-                context,
-                "Y volvé cuando quieras.",
-                fontSize: 20,
-              ),
+              ..._buildOptionsFinishText(),
           ],
         ),
       ),
@@ -63,23 +59,43 @@ class StepFinish extends StepBase {
       writeText(
         context,
         "DolarBot",
-        isBold: true,
-        fontSize: 20,
+        bold: true,
+        fontSize: 24,
       ),
+      writeNewLine(context, lines: 3),
       writeText(context,
-          ".\n\n\nRecordá que esta ayuda está accesible desde el menú "),
+          "Recordá que esta guía siempre está accesible desde el menú [ "),
       writeIcon(
         FontAwesomeIcons.cog,
         ThemeManager.getDrawerMenuItemIconColor(context),
         alignment: PlaceholderAlignment.bottom,
       ),
-      writeText(context, " Opciones > ", isBold: true),
+      writeText(context, " Opciones > ", bold: true),
       writeIcon(
         FontAwesomeIcons.solidQuestionCircle,
         ThemeManager.getDrawerMenuItemIconColor(context),
         alignment: PlaceholderAlignment.bottom,
       ),
-      writeText(context, " Ayuda", isBold: true),
+      writeText(context, " Ayuda", bold: true),
+      writeText(context, " ]")
+    ];
+  }
+
+  List<InlineSpan> _buildOptionsFinishText() {
+    return [
+      writeText(
+        context,
+        "Podés volver a ver esta",
+        fontSize: 20,
+        italic: true,
+      ),
+      writeNewLine(context),
+      writeText(
+        context,
+        "guía cuando quieras :)",
+        fontSize: 20,
+        italic: true,
+      ),
     ];
   }
 }

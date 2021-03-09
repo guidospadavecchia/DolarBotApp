@@ -22,12 +22,12 @@ class StepOne extends StepBase {
         text: TextSpan(
           children: [
             writeText(context,
-                "Podés agregar tus cotizaciones como favoritas y que aparezcan en el "),
+                "Podés agregar tus cotizaciones a favoritos para que aparezcan en el [ "),
             writeIcon(FontAwesomeIcons.home,
                 ThemeManager.getPrimaryTextColor(context),
                 alignment: PlaceholderAlignment.bottom),
-            writeText(context, "  Inicio ", isBold: true),
-            writeText(context, "de la aplicación."),
+            writeText(context, "  Inicio", bold: true),
+            writeText(context, " ]."),
           ],
         ),
       ),
@@ -46,12 +46,12 @@ class StepOne extends StepBase {
         text: TextSpan(
           children: [
             writeText(context,
-                "Para ello, entrá a la cotización que quieras y, luego, tocá en el "),
-            writeIcon(Icons.favorite_outline_rounded, Colors.red),
-            writeText(context, " que está dentro del menú "),
+                "Para hacerlo, entrá a la cotización que quieras agregar, y tocá en el [ "),
+            writeIcon(Icons.favorite_border_rounded, Colors.red),
+            writeText(context, " ] que está dentro del menú [ "),
             writeIcon(
                 Icons.more_horiz, ThemeManager.getPrimaryTextColor(context)),
-            writeText(context, " abajo a la derecha."),
+            writeText(context, " ] en la parte inferior derecha."),
           ],
         ),
       ),

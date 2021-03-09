@@ -21,27 +21,13 @@ class StepFour extends StepBase {
         textAlign: TextAlign.center,
         text: TextSpan(
           children: [
-            writeText(context,
-                "Pensamos en todo. Por eso, si querés realizar conversiones de"),
-            writeText(context, " AR\$ ", isBold: true),
-            writeIcon(
-                Icons.compare_arrows, ThemeManager.getPrimaryTextColor(context),
-                alignment: PlaceholderAlignment.bottom),
-            writeText(context, " US\$", isBold: true),
-            writeText(context, ",\n de"),
-            writeText(context, " AR\$ ", isBold: true),
-            writeIcon(
-                Icons.compare_arrows, ThemeManager.getPrimaryTextColor(context),
-                alignment: PlaceholderAlignment.bottom),
-            writeText(context, " €", isBold: true),
-            writeText(context, ", o incluso de"),
-            writeText(context, " AR\$ ", isBold: true),
-            writeIcon(
-                Icons.compare_arrows, ThemeManager.getPrimaryTextColor(context),
-                alignment: PlaceholderAlignment.bottom),
-            writeText(context, " BTC", isBold: true),
-            writeText(context,
-                ", podés hacerlo con la calculadora integrada en cada cotización."),
+            writeText(context, "Pensamos en todo.", bold: true, italic: true),
+            writeNewLine(context),
+            writeText(context, "Por eso, si querés realizar conversiones, "),
+            writeText(context, "podés hacerlo con la "),
+            writeText(context, "calculadora", bold: true),
+            writeNewLine(context),
+            writeText(context, " integrada en cada cotización.")
           ],
         ),
       ),
@@ -57,15 +43,15 @@ class StepFour extends StepBase {
         textAlign: TextAlign.center,
         text: TextSpan(
           children: [
-            writeText(context, "Presioná "),
+            writeText(context, "Presioná [ "),
             writeIcon(FontAwesomeIcons.calculator,
                 ThemeManager.getPrimaryTextColor(context),
                 alignment: PlaceholderAlignment.bottom),
-            writeText(context, " en el menú "),
+            writeText(context, " ] en el menú [ "),
             writeIcon(
                 Icons.more_horiz, ThemeManager.getPrimaryTextColor(context)),
             writeText(context,
-                " de la cotización para abrir la calculadora y empezar a realizar tus conversiones 💱."),
+                " ] dentro de la cotización para abrir la calculadora y realizar tus conversiones 💱. Simple, ¿No?"),
           ],
         ),
       ),

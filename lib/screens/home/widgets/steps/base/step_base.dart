@@ -131,14 +131,19 @@ Widget buildStepFooter(BuildContext context, int stepIndex) {
   );
 }
 
+TextSpan writeNewLine(BuildContext context, {int lines = 1}) {
+  return writeText(context, "\n" * lines);
+}
+
 TextSpan writeText(BuildContext context, String text,
-    {bool isBold = false, double fontSize: 16}) {
+    {bool bold = false, bool italic = false, double fontSize: 16}) {
   return TextSpan(
     text: text,
     style: TextStyle(
       fontSize: fontSize,
       fontFamily: "Roboto",
-      fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
+      fontStyle: italic ? FontStyle.italic : FontStyle.normal,
+      fontWeight: bold ? FontWeight.bold : FontWeight.normal,
       color: ThemeManager.getPrimaryTextColor(context),
     ),
   );

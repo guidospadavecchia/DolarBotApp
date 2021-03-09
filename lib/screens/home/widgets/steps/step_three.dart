@@ -22,13 +22,16 @@ class StepThree extends StepBase {
         text: TextSpan(
           children: [
             writeText(context,
-                "¡Podés compartir cualquier cotización instantáneamente como una tarjeta, y por el medio que más te guste!\n\n"),
-            writeText(context, "Pueden ser tanto las que están\nen tu "),
+                "Podés compartir cualquier cotización de forma muy sencilla, y a través del medio"),
+            writeNewLine(context),
+            writeText(context, "que más te guste."),
+            writeNewLine(context, lines: 2),
+            writeText(context, "Pueden ser tanto las que están\nen tu [ "),
             writeIcon(FontAwesomeIcons.home,
                 ThemeManager.getPrimaryTextColor(context),
                 alignment: PlaceholderAlignment.bottom),
-            writeText(context, "  Inicio", isBold: true),
-            writeText(context, " como las que no.")
+            writeText(context, "  Inicio", bold: true),
+            writeText(context, " ] como las que no.")
           ],
         ),
       ),
@@ -46,12 +49,13 @@ class StepThree extends StepBase {
         textAlign: TextAlign.center,
         text: TextSpan(
           children: [
-            writeText(context, "Presioná "),
+            writeText(context, "Presioná [ "),
             writeIcon(Icons.share, ThemeManager.getPrimaryAccentColor(context)),
-            writeText(context, " ya sea desde el menú "),
+            writeText(context, " ] desde el menú [ "),
             writeIcon(
                 Icons.more_horiz, ThemeManager.getPrimaryTextColor(context)),
-            writeText(context, " de la cotización. O bien, desde la tarjeta."),
+            writeText(
+                context, " ] de la cotización. O bien, desde la tarjeta."),
           ],
         ),
       ),

@@ -84,13 +84,15 @@ class _OptionsScreenState extends BaseInfoScreenState<OptionsScreen>
             indent: 25,
           ),
           MenuItem(
-            text: "Ayuda",
-            subtitle: "Muestra una breve guía sobre la aplicación",
-            leading: Icon(FontAwesomeIcons.solidQuestionCircle),
-            depthLevel: 1,
-            disableHighlight: false,
-            onTap: () => Util.showFirstTimeDialog(context, true),
-          ),
+              text: "Ayuda",
+              subtitle: "Muestra una breve guía sobre la aplicación",
+              leading: Icon(FontAwesomeIcons.solidQuestionCircle),
+              depthLevel: 1,
+              disableHighlight: false,
+              onTap: () {
+                dismissAllToast();
+                Util.showFirstTimeDialog(context, true);
+              }),
           MenuItem(
             text: "Información de la aplicación",
             subtitle: "Versión del producto y enlaces",
