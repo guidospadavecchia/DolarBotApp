@@ -73,6 +73,7 @@ class CardHeader extends StatelessWidget {
                     constraints: BoxConstraints(minWidth: 0, minHeight: 0),
                     materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                     padding: EdgeInsets.all(5),
+                    //TODO: Ver por que parpadea al quitarla de favoritos
                     onPressed: () => onRemovePressed(),
                     child: Icon(
                       Icons.close,
