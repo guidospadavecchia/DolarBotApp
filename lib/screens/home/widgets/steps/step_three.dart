@@ -26,12 +26,11 @@ class StepThree extends StepBase {
             writeNewLine(context),
             writeText(context, "que más te guste."),
             writeNewLine(context, lines: 2),
-            writeText(context, "Pueden ser tanto las que están\nen tu [ "),
-            writeIcon(FontAwesomeIcons.home,
+            writeText(context, "Pueden ser tanto las que están\nen tu"),
+            ...writeIcon(context, FontAwesomeIcons.home,
                 ThemeManager.getPrimaryTextColor(context),
-                alignment: PlaceholderAlignment.bottom),
-            writeText(context, "  Inicio", bold: true),
-            writeText(context, " ] como las que no.")
+                alignment: PlaceholderAlignment.bottom, text: " Inicio"),
+            writeText(context, "como las que no.")
           ],
         ),
       ),
@@ -49,13 +48,13 @@ class StepThree extends StepBase {
         textAlign: TextAlign.center,
         text: TextSpan(
           children: [
-            writeText(context, "Presioná [ "),
-            writeIcon(Icons.share, ThemeManager.getPrimaryAccentColor(context)),
-            writeText(context, " ] desde el menú [ "),
-            writeIcon(
-                Icons.more_horiz, ThemeManager.getPrimaryTextColor(context)),
-            writeText(
-                context, " ] de la cotización. O bien, desde la tarjeta."),
+            writeText(context, "Presioná"),
+            ...writeIcon(context, Icons.share,
+                ThemeManager.getPrimaryAccentColor(context)),
+            writeText(context, "desde el menú"),
+            ...writeIcon(context, Icons.more_horiz,
+                ThemeManager.getPrimaryTextColor(context)),
+            writeText(context, "de la cotización. O bien, desde la tarjeta."),
           ],
         ),
       ),

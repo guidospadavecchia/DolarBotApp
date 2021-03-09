@@ -22,9 +22,9 @@ class StepFour extends StepBase {
         text: TextSpan(
           children: [
             writeText(context, "Pensamos en todo.", bold: true, italic: true),
-            writeNewLine(context),
-            writeText(context, "Por eso, si querés realizar conversiones, "),
-            writeText(context, "podés hacerlo con la "),
+            writeNewLine(context, lines: 2),
+            writeText(context,
+                "Por eso, si querés realizar conversiones, podés hacerlo con la "),
             writeText(context, "calculadora", bold: true),
             writeNewLine(context),
             writeText(context, " integrada en cada cotización.")
@@ -43,15 +43,15 @@ class StepFour extends StepBase {
         textAlign: TextAlign.center,
         text: TextSpan(
           children: [
-            writeText(context, "Presioná [ "),
-            writeIcon(FontAwesomeIcons.calculator,
+            writeText(context, "Presioná"),
+            ...writeIcon(context, FontAwesomeIcons.calculator,
                 ThemeManager.getPrimaryTextColor(context),
                 alignment: PlaceholderAlignment.bottom),
-            writeText(context, " ] en el menú [ "),
-            writeIcon(
-                Icons.more_horiz, ThemeManager.getPrimaryTextColor(context)),
+            writeText(context, "en el menú"),
+            ...writeIcon(context, Icons.more_horiz,
+                ThemeManager.getPrimaryTextColor(context)),
             writeText(context,
-                " ] dentro de la cotización para abrir la calculadora y realizar tus conversiones 💱. Simple, ¿No?"),
+                "dentro de la cotización para abrir la calculadora y realizar tus conversiones 💱. Simple, ¿No?"),
           ],
         ),
       ),

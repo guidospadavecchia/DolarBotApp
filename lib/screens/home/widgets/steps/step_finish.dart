@@ -64,20 +64,25 @@ class StepFinish extends StepBase {
       ),
       writeNewLine(context, lines: 3),
       writeText(context,
-          "Recordá que esta guía siempre está accesible desde el menú [ "),
-      writeIcon(
+          "Recordá que esta guía siempre está accesible desde el menú:"),
+      writeNewLine(context, lines: 2),
+      ...writeIcon(
+        context,
         FontAwesomeIcons.cog,
         ThemeManager.getDrawerMenuItemIconColor(context),
         alignment: PlaceholderAlignment.bottom,
+        text: "Opciones",
+        hideBrackets: true,
       ),
-      writeText(context, " Opciones > ", bold: true),
-      writeIcon(
+      writeText(context, ">", bold: true),
+      ...writeIcon(
+        context,
         FontAwesomeIcons.solidQuestionCircle,
         ThemeManager.getDrawerMenuItemIconColor(context),
         alignment: PlaceholderAlignment.bottom,
+        text: "Ayuda",
+        hideBrackets: true,
       ),
-      writeText(context, " Ayuda", bold: true),
-      writeText(context, " ]")
     ];
   }
 

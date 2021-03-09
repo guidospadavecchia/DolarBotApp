@@ -149,18 +149,30 @@ TextSpan writeText(BuildContext context, String text,
   );
 }
 
-WidgetSpan writeIcon(
+List<InlineSpan> writeIcon(
+  BuildContext context,
   IconData icon,
   Color color, {
   PlaceholderAlignment alignment = PlaceholderAlignment.middle,
   double size = 20,
+  String text,
+  bool hideBrackets = false,
 }) {
-  return WidgetSpan(
-    alignment: alignment,
-    child: Icon(
-      icon,
-      color: color,
-      size: size,
+  return [
+    hideBrackets
+        ? writeText(context, " ", bold: false)
+        : writeText(context, " [ ", bold: false),
+    WidgetSpan(
+      alignment: alignment,
+      child: Icon(
+        icon,
+        color: color,
+        size: size,
+      ),
     ),
-  );
+    if (text != null) writeText(context, " ${text}", bold: true),
+    hideBrackets
+        ? writeText(context, " ", bold: false)
+        : writeText(context, " ] ", bold: false),
+  ];
 }

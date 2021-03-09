@@ -45,14 +45,17 @@ class StepWelcome extends StepBase {
           children: [
             writeText(
               context,
-              "Deslizá para pasar de página\n\n",
+              "Deslizá para pasar de página",
               fontSize: 20,
               italic: true,
             ),
-            writeIcon(
+            writeNewLine(context, lines: 2),
+            ...writeIcon(
+              context,
               FontAwesomeIcons.chevronLeft,
               ThemeManager.getPrimaryAccentColor(context),
               size: 40,
+              hideBrackets: true,
             )
           ],
         ),
