@@ -36,7 +36,7 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
   HomeScreenState();
 
   List<Widget> _cards;
-  List<FavoriteRate> _favoriteRates = List<FavoriteRate>();
+  List<FavoriteRate> _favoriteRates = [];
   bool _animateEmptyFavorites = false;
 
   @override
@@ -172,7 +172,7 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
   }
 
   List<Widget> _buildCards() {
-    List<Widget> futureCards = List<Widget>();
+    List<Widget> futureCards = [];
     for (FavoriteRate favoriteRate in _favoriteRates) {
       String type = favoriteRate.cardResponseType;
       if (type == (DollarResponse).toString() ||

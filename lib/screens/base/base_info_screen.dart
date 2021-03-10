@@ -95,7 +95,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
           },
           child: Scaffold(
             extendBodyBehindAppBar: extendBodyBehindAppBar(),
-            resizeToAvoidBottomPadding: false,
+            resizeToAvoidBottomInset: false,
             appBar: CoolAppBar(
               title: widget.title,
               isMainMenu: isMainMenu(),
@@ -260,8 +260,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
   bool _getIsFavorite() {
     Box favoritesBox = Hive.box('favorites');
     List<FavoriteRate> favoriteCards = favoritesBox
-        .get('favoriteCards', defaultValue: List<FavoriteRate>())
-        .cast<FavoriteRate>();
+        .get('favoriteCards', defaultValue: []).cast<FavoriteRate>();
 
     return favoriteCards.any(
       (fav) => fav.endpoint == widget.endpoint,
@@ -274,8 +273,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
     try {
       Box favoritesBox = Hive.box('favorites');
       List<FavoriteRate> favoriteCards = favoritesBox
-          .get('favoriteCards', defaultValue: List<FavoriteRate>())
-          .cast<FavoriteRate>();
+          .get('favoriteCards', defaultValue: []).cast<FavoriteRate>();
 
       FavoriteRate favoriteCard = favoriteCards.firstWhere(
           (fav) => fav.endpoint == widget.endpoint,

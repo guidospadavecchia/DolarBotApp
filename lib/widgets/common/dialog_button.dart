@@ -15,9 +15,19 @@ class DialogButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FlatButton(
-      padding: EdgeInsets.only(top: 7, right: 25, left: 15, bottom: 7),
-      color: ThemeManager.getButtonColor(context),
+    return TextButton(
+      style: ButtonStyle(
+        padding: MaterialStateProperty.all<EdgeInsets>(
+          EdgeInsets.only(top: 7, right: 25, left: 15, bottom: 7),
+        ),
+        overlayColor: MaterialStateColor.resolveWith((states) =>
+            ThemeManager.getDrawerMenuItemIconColor(context).withOpacity(0.2)),
+        backgroundColor: MaterialStateProperty.resolveWith<Color>(
+          (Set<MaterialState> states) {
+            return ThemeManager.getButtonColor(context);
+          },
+        ),
+      ),
       onPressed: () => onPressed(),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -38,6 +48,7 @@ class DialogButton extends StatelessWidget {
               fontSize: 16,
               fontFamily: 'Raleway',
               fontWeight: FontWeight.normal,
+              color: ThemeManager.getPrimaryTextColor(context),
             ),
           ),
         ],

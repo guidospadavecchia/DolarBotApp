@@ -13,7 +13,7 @@ class HistoricalRateResponse extends ApiResponse {
     timestamp = json["fecha"];
     value = json["valor"];
     currency = json["moneda"];
-    monthlyRates = new List<HistoricalMonthRate>();
+    monthlyRates = [];
 
     json["meses"].forEach((key, value) =>
         {monthlyRates.add(HistoricalMonthRate.fromJson(value))});

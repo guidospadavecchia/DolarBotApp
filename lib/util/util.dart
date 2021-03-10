@@ -70,9 +70,9 @@ class Util {
     showDialog(
       context: context,
       barrierDismissible: false,
-      child: FirstTimeDialog(
-        isComingFromOptions: isComingFromOptions,
-      ),
+      builder: (BuildContext context) {
+        return FirstTimeDialog(isComingFromOptions: isComingFromOptions);
+      },
     );
   }
 

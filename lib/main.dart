@@ -42,7 +42,7 @@ void _preloadImages() async {
   final imagePaths =
       manifestMap.keys.where((String key) => key.contains('images/')).toList();
 
-  List<AssetImage> providers = List<AssetImage>();
+  List<AssetImage> providers = [];
   for (var i = 0; i < imagePaths.length; i++) {
     providers.add(AssetImage(imagePaths[i]));
   }

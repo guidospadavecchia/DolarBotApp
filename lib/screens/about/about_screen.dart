@@ -145,7 +145,7 @@ class _AboutScreenState extends State<AboutScreen> {
   }
 
   Widget _buildAuthors() {
-    List<Widget> authorWidgets = new List<Widget>();
+    List<Widget> authorWidgets = [];
     final authors = cfg.getDeepValue("github:authors");
     for (final author in authors) {
       String name = author["name"];

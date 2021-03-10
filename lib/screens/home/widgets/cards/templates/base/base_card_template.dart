@@ -64,8 +64,7 @@ abstract class BaseCardTemplateState<Card extends BaseCardTemplate>
   void onRemovePressed() {
     Box favoritesBox = Hive.box('favorites');
     List<FavoriteRate> favoriteCards = favoritesBox
-        .get('favoriteCards', defaultValue: List<FavoriteRate>())
-        .cast<FavoriteRate>();
+        .get('favoriteCards', defaultValue: []).cast<FavoriteRate>();
 
     int index =
         favoriteCards.indexWhere((fav) => fav.endpoint == widget.endpoint);
