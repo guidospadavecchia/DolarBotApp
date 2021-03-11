@@ -35,6 +35,8 @@ class FabMenu extends StatefulWidget {
   final Function onShareButtonTap;
   final bool showClipboardButton;
   final bool showCalculatorButton;
+  final bool showDescriptionButton;
+  final Function onShowDescriptionTap;
   final Function onOpened;
   final Function onClosed;
   final bool visible;
@@ -49,6 +51,8 @@ class FabMenu extends StatefulWidget {
     this.onShareButtonTap,
     this.showClipboardButton = true,
     this.showCalculatorButton = true,
+    this.showDescriptionButton = false,
+    this.onShowDescriptionTap,
     this.onOpened,
     this.onClosed,
     this.visible = true,
@@ -80,6 +84,17 @@ class _FabMenuState extends State<FabMenu> {
         onClosed: widget.onClosed,
         visible: widget.visible,
         items: <SimpleFabOption>[
+          if (widget.showDescriptionButton)
+            SimpleFabOption(
+              tooltip: "Ver descripción 📖",
+              iconColor: Colors.black87,
+              backgroundColor: Colors.white,
+              icon: FontAwesomeIcons.question,
+              onPressed: () {
+                widget.onShowDescriptionTap();
+                closeFabMenu();
+              },
+            ),
           if (widget.showClipboardButton)
             SimpleFabOption(
               tooltip: "Copiar al portapapeles 📝",

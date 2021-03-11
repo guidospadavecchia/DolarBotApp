@@ -34,6 +34,9 @@ class _OptionsScreenState extends BaseInfoScreenState<OptionsScreen>
   bool showFabMenu() => false;
 
   @override
+  bool showDescriptionButton() => false;
+
+  @override
   bool extendBodyBehindAppBar() => false;
 
   @override
@@ -47,6 +50,9 @@ class _OptionsScreenState extends BaseInfoScreenState<OptionsScreen>
 
   @override
   Type getResponseType() => null;
+
+  @override
+  String getEndpointIdentifier() => null;
 
   @override
   Widget body() {

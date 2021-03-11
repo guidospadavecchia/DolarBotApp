@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dolarbot_app/api/responses/base/apiResponse.dart';
 import 'package:dolarbot_app/classes/hive/favorite_rate.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
@@ -7,11 +9,14 @@ import 'package:dolarbot_app/screens/base/widgets/drawer/drawer_menu.dart';
 import 'package:dolarbot_app/screens/base/widgets/fab_menu/fab_menu.dart';
 import 'package:dolarbot_app/screens/home/home_screen.dart';
 import 'package:dolarbot_app/util/util.dart';
+import 'package:dolarbot_app/widgets/common/blur_dialog.dart';
 import 'package:dolarbot_app/widgets/common/cool_app_bar.dart';
+import 'package:dolarbot_app/widgets/common/dialog_button.dart';
 import 'package:dolarbot_app/widgets/common/simple_fab_menu.dart';
 import 'package:dolarbot_app/widgets/toasts/toast_error.dart';
 import 'package:dolarbot_app/widgets/toasts/toast_ok.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
 import 'package:meta/meta.dart';
 import 'package:oktoast/oktoast.dart';
@@ -63,9 +68,10 @@ abstract class BaseInfoScreenState<Page extends BaseInfoScreen>
   Color setColorAppbar() => Colors.white;
 }
 
-//TODO: Hacer que levante descripciones de un JSON en cada screen
 mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
+  final String kDescriptionsFile = 'assets/cfg/rate_descriptions.json';
   bool shouldForceRefresh = false;
+  bool _shouldShowDescriptionButton = false;
 
   ScreenshotController screenshotController = ScreenshotController();
 
@@ -73,6 +79,23 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
   Widget card();
   FavoriteRate createFavorite();
   Type getResponseType();
+  String getEndpointIdentifier();
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (this.mounted && getEndpointIdentifier() != null) {
+        _getRateDescription().then(
+          (value) => setState(
+            () {
+              _shouldShowDescriptionButton = (value ?? '') != '';
+            },
+          ),
+        );
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -160,6 +183,8 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
                         Util.shareCard(screenshotController),
                     showClipboardButton: showClipboardButton(),
                     showCalculatorButton: showCalculatorButton(),
+                    showDescriptionButton: _shouldShowDescriptionButton,
+                    onShowDescriptionTap: () => _onShowRateDescription(),
                     onOpened: () => dismissAllToast(),
                     visible: false,
                   )
@@ -248,6 +273,79 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
   @nonVirtual
   void onErrorLoad() {
     simpleFabKey?.currentState?.hide();
+  }
+
+  Future<String> _getRateDescription() async {
+    String descriptionsString = await rootBundle.loadString(kDescriptionsFile);
+    Map<String, dynamic> descriptions =
+        json.decode(descriptionsString) as Map<String, dynamic>;
+    return descriptions[getEndpointIdentifier()];
+  }
+
+  Future<void> _onShowRateDescription() async {
+    String description = await _getRateDescription();
+    if (description != null && description != '') {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return BlurDialog(
+            dialog: Dialog(
+              insetPadding: EdgeInsets.all(25),
+              child: Container(
+                width: MediaQuery.of(context).size.width * 0.8,
+                padding: EdgeInsets.only(bottom: 20),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Text(
+                        "Descripción",
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontFamily: 'Raleway',
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                    Divider(
+                      color: Colors.black,
+                      indent: 15,
+                      endIndent: 15,
+                      height: 0,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(25),
+                      child: Text(description, textAlign: TextAlign.justify),
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Center(
+                      child: DialogButton(
+                          text: 'Cerrar',
+                          icon: Icons.close,
+                          onPressed: () {
+                            if (Navigator.of(context).canPop())
+                              Navigator.of(context).pop();
+                          }),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
+      );
+    } else {
+      Future.delayed(
+        Duration(milliseconds: 500),
+        () => showToastWidget(ToastError()),
+      );
+    }
   }
 
   void _onDrawerDisplayChange(bool isOpen) {

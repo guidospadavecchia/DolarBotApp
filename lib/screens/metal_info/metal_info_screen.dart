@@ -35,6 +35,9 @@ class _MetalInfoScreenState extends BaseInfoScreenState<MetalInfoScreen>
   _MetalInfoScreenState(this.metalEndpoint);
 
   @override
+  String getEndpointIdentifier() => metalEndpoint.toString();
+
+  @override
   Widget body() {
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,

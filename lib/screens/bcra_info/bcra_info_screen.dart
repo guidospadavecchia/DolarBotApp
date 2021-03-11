@@ -35,6 +35,9 @@ class _BcraInfoScreenState extends BaseInfoScreenState<BcraInfoScreen>
   _BcraInfoScreenState(this.bcraEndpoint);
 
   @override
+  String getEndpointIdentifier() => bcraEndpoint.toString();
+
+  @override
   bool showCalculatorButton() => false;
 
   @override

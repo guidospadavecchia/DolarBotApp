@@ -40,10 +40,13 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
   bool _animateEmptyFavorites = false;
 
   @override
-  showRefreshButton() => false;
+  bool showRefreshButton() => false;
 
   @override
   bool showFabMenu() => false;
+
+  @override
+  bool showDescriptionButton() => false;
 
   @override
   bool extendBodyBehindAppBar() => false;
@@ -59,6 +62,9 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
 
   @override
   Color setColorAppbar() => ThemeManager.getPrimaryTextColor(context);
+
+  @override
+  String getEndpointIdentifier() => null;
 
   @override
   void initState() {
