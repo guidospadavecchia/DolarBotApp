@@ -36,6 +36,9 @@ class _CryptoInfoScreenState extends BaseInfoScreenState<CryptoInfoScreen>
   _CryptoInfoScreenState(this.cryptoEndpoint);
 
   @override
+  String getEndpointIdentifier() => cryptoEndpoint.toString();
+
+  @override
   Widget body() {
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,

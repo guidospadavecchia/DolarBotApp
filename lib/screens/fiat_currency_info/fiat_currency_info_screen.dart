@@ -66,6 +66,10 @@ class _FiatCurrencyInfoScreenState<T extends GenericCurrencyResponse>
   );
 
   @override
+  String getEndpointIdentifier() =>
+      (dollarEndpoint ?? euroEndpoint ?? realEndpoint).toString();
+
+  @override
   Color setColorAppbar() => ThemeManager.getForegroundColor();
 
   @override

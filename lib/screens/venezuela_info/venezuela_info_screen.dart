@@ -38,6 +38,9 @@ class _VenezuelaInfoScreenState extends BaseInfoScreenState<VenezuelaInfoScreen>
   _VenezuelaInfoScreenState(this.venezuelaEndpoint);
 
   @override
+  String getEndpointIdentifier() => venezuelaEndpoint.toString();
+
+  @override
   Widget body() {
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
