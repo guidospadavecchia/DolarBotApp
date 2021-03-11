@@ -13,6 +13,7 @@ import 'package:dolarbot_app/screens/base/widgets/fab_menu/calculator/metal_calc
 import 'package:dolarbot_app/screens/base/widgets/fab_menu/calculator/venezuela_calculator.dart';
 import 'package:dolarbot_app/screens/base/widgets/fab_menu/calculator/venezuela_calculator_reversed.dart';
 import 'package:dolarbot_app/util/util.dart';
+import 'package:dolarbot_app/widgets/common/blur_dialog.dart';
 import 'package:dolarbot_app/widgets/common/dialog_button.dart';
 import 'package:dolarbot_app/widgets/common/simple_fab_menu.dart';
 import 'package:dolarbot_app/widgets/toasts/toast_ok.dart';
@@ -219,29 +220,31 @@ class _FabMenuState extends State<FabMenu> {
     closeFabMenu();
   }
 
-  Dialog _getNotSupportedDialog(BuildContext context) {
-    return Dialog(
-      child: Container(
-        width: 300,
-        height: 150,
-        alignment: Alignment.center,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Text(
-              'Opción no soportada',
-              style: TextStyle(
-                fontSize: 18,
-                fontFamily: 'Raleway',
-                fontWeight: FontWeight.w600,
+  BlurDialog _getNotSupportedDialog(BuildContext context) {
+    return BlurDialog(
+      dialog: Dialog(
+        child: Container(
+          width: 300,
+          height: 150,
+          alignment: Alignment.center,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Text(
+                'Opción no soportada',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontFamily: 'Raleway',
+                  fontWeight: FontWeight.w600,
+                ),
               ),
-            ),
-            DialogButton(
-              icon: Icons.close,
-              text: "Cerrar",
-              onPressed: () => Navigator.of(context).pop(),
-            ),
-          ],
+              DialogButton(
+                icon: Icons.close,
+                text: "Cerrar",
+                onPressed: () => Navigator.of(context).pop(),
+              ),
+            ],
+          ),
         ),
       ),
     );

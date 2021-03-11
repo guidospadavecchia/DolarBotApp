@@ -1,5 +1,6 @@
 import 'package:dolarbot_app/classes/globals.dart';
 import 'package:dolarbot_app/util/util.dart';
+import 'package:dolarbot_app/widgets/common/blur_dialog.dart';
 import 'package:dolarbot_app/widgets/common/cool_app_bar.dart';
 import 'package:dolarbot_app/widgets/common/social/discord.dart';
 import 'package:dolarbot_app/widgets/common/social/github.dart';
@@ -104,11 +105,13 @@ class _AboutScreenState extends State<AboutScreen> {
         showDialog(
           context: context,
           builder: (BuildContext context) {
-            return Dialog(
-              child: Container(
-                child: Image.asset(
-                  "assets/images/general/authors.jpg",
-                  filterQuality: FilterQuality.high,
+            return BlurDialog(
+              dialog: Dialog(
+                child: Container(
+                  child: Image.asset(
+                    "assets/images/general/authors.jpg",
+                    filterQuality: FilterQuality.high,
+                  ),
                 ),
               ),
             );
