@@ -89,22 +89,70 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
             overScroll.disallowGlow();
             return false;
           },
-          child: Column(
-            children: [
-              Expanded(
-                child: AnimatedList(
-                  key: listKey,
-                  initialItemCount: _cards.length,
-                  physics: BouncingScrollPhysics(),
-                  padding: EdgeInsets.only(
-                    bottom: MediaQuery.of(context).viewInsets.bottom + 110,
-                  ),
-                  itemBuilder: (context, index, animation) {
-                    return _cards[index];
-                  },
-                ),
-              ),
-            ],
+          child: Container(
+            padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom + 110),
+            child: ListView.builder(
+                itemCount: _cards.length,
+                itemBuilder: (context, i) {
+                  return Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.transparent,
+                    ),
+                    margin: EdgeInsets.only(left: 15, right: 15, bottom: 15),
+                    child: Dismissible(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.transparent,
+                        ),
+                        child: _cards[i],
+                      ),
+                      direction: DismissDirection.endToStart,
+                      background: SizedBox.shrink(),
+                      secondaryBackground: Container(
+                        margin: EdgeInsets.only(
+                          top: 10,
+                          bottom: 10,
+                        ),
+                        alignment: Alignment.centerRight,
+                        padding: EdgeInsets.only(
+                          right: 40,
+                        ),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.red[800],
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.delete,
+                              size: 32,
+                              color: Colors.white,
+                            ),
+                            Text(
+                              "Quitar",
+                              style: TextStyle(
+                                fontFamily: "Roboto",
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      key: ValueKey('${_cards[i]}'),
+                      onDismissed: (direction) {
+                        setState(() {
+                          _cards.removeAt(i);
+                        });
+                      },
+                    ),
+                  );
+                }),
           ),
         ),
       );
@@ -141,27 +189,27 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
     });
   }
 
-  void removeCard(int index) {
-    Widget removedItem = _cards.removeAt(index);
-    AnimatedListRemovedItemBuilder builder = (context, animation) {
-      return _buildRemoveItem(removedItem, animation);
-    };
-    listKey.currentState.removeItem(
-      index,
-      builder,
-      duration: kCardAnimationDuration,
-    );
-  }
+  // void removeCard(int index) {
+  //   Widget removedItem = _cards.removeAt(index);
+  //   AnimatedListRemovedItemBuilder builder = (context, animation) {
+  //     return _buildRemoveItem(removedItem, animation);
+  //   };
+  //   listKey.currentState.removeItem(
+  //     index,
+  //     builder,
+  //     duration: kCardAnimationDuration,
+  //   );
+  // }
 
-  Widget _buildRemoveItem(Widget item, Animation animation) {
-    return SlideTransition(
-      position: Tween<Offset>(
-        begin: const Offset(1, 0),
-        end: Offset(0, 0),
-      ).animate(animation),
-      child: item,
-    );
-  }
+  // Widget _buildRemoveItem(Widget item, Animation animation) {
+  //   return SlideTransition(
+  //     position: Tween<Offset>(
+  //       begin: const Offset(1, 0),
+  //       end: Offset(0, 0),
+  //     ).animate(animation),
+  //     child: item,
+  //   );
+  // }
 
   void _loadFavorites() {
     Box favoritesBox = Hive.box('favorites');
@@ -196,32 +244,34 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
 
   Widget _buildFutureFiatCurrencyCard<T extends GenericCurrencyResponse>(
       FavoriteRate favoriteRate) {
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        _buildCardBackground(FiatCurrencyCard.height),
-        FutureScreenDelegate<GenericCurrencyResponse>(
-          loadingWidget: _buildLoadingFutureForCard(FiatCurrencyCard.height),
-          response: API.getData(
-            favoriteRate.endpoint,
-            (json) => new GenericCurrencyResponse(json),
-            false,
+    return Container(
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          _buildCardBackground(FiatCurrencyCard.height),
+          FutureScreenDelegate<GenericCurrencyResponse>(
+            loadingWidget: _buildLoadingFutureForCard(FiatCurrencyCard.height),
+            response: API.getData(
+              favoriteRate.endpoint,
+              (json) => new GenericCurrencyResponse(json),
+              false,
+            ),
+            screen: (data) => FiatCurrencyCard(
+              homeKey: widget.key,
+              title: favoriteRate.cardTitle,
+              data: data,
+              tag: favoriteRate.cardTag,
+              gradiantColors:
+                  favoriteRate.cardColors.map((n) => Color(n)).toList(),
+              iconAsset: favoriteRate.cardIconAsset,
+              iconData: IconData(favoriteRate.cardIconData,
+                  fontFamily: "FontAwesomeSolid",
+                  fontPackage: "font_awesome_flutter"),
+              endpoint: favoriteRate.endpoint,
+            ),
           ),
-          screen: (data) => FiatCurrencyCard(
-            homeKey: widget.key,
-            title: favoriteRate.cardTitle,
-            data: data,
-            tag: favoriteRate.cardTag,
-            gradiantColors:
-                favoriteRate.cardColors.map((n) => Color(n)).toList(),
-            iconAsset: favoriteRate.cardIconAsset,
-            iconData: IconData(favoriteRate.cardIconData,
-                fontFamily: "FontAwesomeSolid",
-                fontPackage: "font_awesome_flutter"),
-            endpoint: favoriteRate.endpoint,
-          ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
@@ -374,7 +424,6 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
 
   Widget _buildCardBackground(double height) {
     return Container(
-      margin: EdgeInsets.all(15),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
       ),

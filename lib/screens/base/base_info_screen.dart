@@ -112,7 +112,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
                 ),
               ),
             ),
-            drawerEdgeDragWidth: MediaQuery.of(context).size.width / 2.2,
+            drawerEdgeDragWidth: MediaQuery.of(context).size.width / 2.5,
             drawerEnableOpenDragGesture: true,
             body: (widget.bannerTitle != null || isMainMenu())
                 ? Stack(children: [

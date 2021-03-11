@@ -46,7 +46,7 @@ class CardHeader extends StatelessWidget {
           child: Row(
             children: [
               Padding(
-                padding: const EdgeInsets.only(left: 30, right: 7),
+                padding: const EdgeInsets.only(right: 10),
                 child: Tooltip(
                   preferBelow: false,
                   message: "Compartir 📲",
@@ -63,25 +63,25 @@ class CardHeader extends StatelessWidget {
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(right: 10),
-                child: Tooltip(
-                  preferBelow: false,
-                  message: "Quitar de favoritos 💔",
-                  child: RawMaterialButton(
-                    shape: CircleBorder(),
-                    constraints: BoxConstraints(minWidth: 0, minHeight: 0),
-                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                    padding: EdgeInsets.all(5),
-                    //TODO: Ver por que parpadea al quitarla de favoritos
-                    onPressed: () => onRemovePressed(),
-                    child: Icon(
-                      Icons.close,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.only(right: 10),
+              //   child: Tooltip(
+              //     preferBelow: false,
+              //     message: "Quitar de favoritos 💔",
+              //     child: RawMaterialButton(
+              //       shape: CircleBorder(),
+              //       constraints: BoxConstraints(minWidth: 0, minHeight: 0),
+              //       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              //       padding: EdgeInsets.all(5),
+              //       //TODO: Ver por que parpadea al quitarla de favoritos
+              //       onPressed: () => onRemovePressed(),
+              //       child: Icon(
+              //         Icons.close,
+              //         color: Colors.white,
+              //       ),
+              //     ),
+              //   ),
+              // ),
             ],
           ),
         ),

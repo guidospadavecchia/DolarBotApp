@@ -69,7 +69,7 @@ abstract class BaseCardTemplateState<Card extends BaseCardTemplate>
     int index =
         favoriteCards.indexWhere((fav) => fav.endpoint == widget.endpoint);
     favoriteCards.removeAt(index);
-    widget.homeKey?.currentState?.removeCard(index);
+    //widget.homeKey?.currentState?.removeCard(index);
     favoritesBox.put('favoriteCards', favoriteCards);
     Future.delayed(
       widget.homeKey?.currentState?.kCardAnimationDuration ??

@@ -35,70 +35,73 @@ class CardFavorite extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      margin: EdgeInsets.all(15),
-      elevation: 10,
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: gradiantColors,
-          ),
+    return Container(
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            blurRadius: 5,
+            spreadRadius: 1,
+            color: Colors.black26,
+            offset: Offset(0, 5),
+          )
+        ],
+        borderRadius: BorderRadius.circular(10),
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: gradiantColors,
         ),
-        height: height,
-        constraints: BoxConstraints(minHeight: height),
-        child: Row(
-          children: [
-            logo,
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.only(left: 15, top: 13),
-                child: Column(
-                  children: [
-                    header,
-                    Expanded(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          //BEGIN - CARD VALUE
-                          Row(
-                            children: [
-                              Expanded(
-                                child: Padding(
-                                  padding: EdgeInsets.only(
-                                    top: _getSpaceBetweenHeader(),
-                                  ),
-                                  child: Wrap(
-                                    verticalDirection: VerticalDirection.down,
-                                    direction: direction,
-                                    runSpacing: _getSpaceBetweenItems(),
-                                    spacing: _getSpaceBetweenItems(),
-                                    children: [
-                                      ...rates,
-                                    ],
-                                  ),
+      ),
+      height: height,
+      constraints: BoxConstraints(minHeight: height),
+      child: Row(
+        children: [
+          logo,
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 15, top: 13),
+              child: Column(
+                children: [
+                  header,
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        //BEGIN - CARD VALUE
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                  top: _getSpaceBetweenHeader(),
+                                ),
+                                child: Wrap(
+                                  verticalDirection: VerticalDirection.down,
+                                  direction: direction,
+                                  runSpacing: _getSpaceBetweenItems(),
+                                  spacing: _getSpaceBetweenItems(),
+                                  children: [
+                                    ...rates,
+                                  ],
                                 ),
                               ),
-                            ],
-                          ),
-                          //END - CARD VALUE
-                          Padding(
-                            padding: EdgeInsets.only(bottom: 12),
-                            child: lastUpdated,
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
+                            ),
+                          ],
+                        ),
+                        //END - CARD VALUE
+                        Padding(
+                          padding: EdgeInsets.only(bottom: 12),
+                          child: lastUpdated,
+                        ),
+                      ],
+                    ),
+                  )
+                ],
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
