@@ -52,7 +52,7 @@ class _BcraInfoScreenState extends BaseInfoScreenState<BcraInfoScreen>
   Widget _buildChildScreen() {
     switch (bcraEndpoint) {
       case BcraEndpoints.riesgoPais:
-        return FutureScreenDelegate<CountryRiskResponse>(
+        return FutureScreenDelegate(
           response: API.getCountryRisk(forceRefresh: shouldForceRefresh),
           onLoading: onLoading,
           onFailedLoad: onErrorLoad,
@@ -79,7 +79,7 @@ class _BcraInfoScreenState extends BaseInfoScreenState<BcraInfoScreen>
           },
         );
       case BcraEndpoints.reservas:
-        return FutureScreenDelegate<BcraResponse>(
+        return FutureScreenDelegate(
           response: API.getBcraReserves(forceRefresh: shouldForceRefresh),
           onLoading: onLoading,
           onFailedLoad: onErrorLoad,
@@ -106,7 +106,7 @@ class _BcraInfoScreenState extends BaseInfoScreenState<BcraInfoScreen>
           },
         );
       case BcraEndpoints.circulante:
-        return FutureScreenDelegate<BcraResponse>(
+        return FutureScreenDelegate(
           response:
               API.getCirculatingCurrency(forceRefresh: shouldForceRefresh),
           onLoading: onLoading,

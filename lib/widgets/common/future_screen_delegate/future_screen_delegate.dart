@@ -7,9 +7,9 @@ export 'package:loading_indicator/loading_indicator.dart';
 
 typedef ScreenDataBuildFunction<T> = Widget Function(T data);
 
-class FutureScreenDelegate<T> extends StatelessWidget {
-  final Future<T> response;
-  final ScreenDataBuildFunction<T> screen;
+class FutureScreenDelegate extends StatelessWidget {
+  final Future response;
+  final ScreenDataBuildFunction screen;
   final LoadingFuture loadingWidget;
   final Function onLoading;
   final Function onSuccessfulLoad;
@@ -26,7 +26,7 @@ class FutureScreenDelegate<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<T>(
+    return FutureBuilder(
       future: response,
       builder: (context, snapshot) {
         if (snapshot.connectionState != ConnectionState.done) {

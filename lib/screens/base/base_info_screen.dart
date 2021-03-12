@@ -135,7 +135,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
                 ),
               ),
             ),
-            drawerEdgeDragWidth: MediaQuery.of(context).size.width / 2.5,
+            drawerEdgeDragWidth: MediaQuery.of(context).size.width / 3,
             drawerEnableOpenDragGesture: true,
             body: (widget.bannerTitle != null || isMainMenu())
                 ? Stack(children: [
@@ -266,7 +266,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
   }
 
   @nonVirtual
-  void onSuccessfulLoad() {
+  void onSuccessfulLoad(_) {
     simpleFabKey?.currentState?.show();
   }
 

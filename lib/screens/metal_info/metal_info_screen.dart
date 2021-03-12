@@ -42,7 +42,7 @@ class _MetalInfoScreenState extends BaseInfoScreenState<MetalInfoScreen>
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       physics: BouncingScrollPhysics(),
-      child: FutureScreenDelegate<MetalResponse>(
+      child: FutureScreenDelegate(
         response: API.getMetalRate(
           metalEndpoint,
           forceRefresh: shouldForceRefresh,

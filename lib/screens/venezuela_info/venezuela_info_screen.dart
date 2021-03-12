@@ -45,7 +45,7 @@ class _VenezuelaInfoScreenState extends BaseInfoScreenState<VenezuelaInfoScreen>
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       physics: BouncingScrollPhysics(),
-      child: FutureScreenDelegate<VenezuelaResponse>(
+      child: FutureScreenDelegate(
         response: API.getVzlaRate(
           venezuelaEndpoint,
           forceRefresh: shouldForceRefresh,

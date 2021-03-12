@@ -18,6 +18,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:hive/hive.dart';
 import 'package:simple_animations/simple_animations.dart';
+import 'package:async/async.dart';
 
 class HomeScreen extends BaseInfoScreen {
   HomeScreen({
@@ -32,10 +33,9 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
   final GlobalKey<AnimatedListState> listKey = GlobalKey<AnimatedListState>();
   final Duration kCardAnimationDuration = Duration(milliseconds: 300);
   final settings = Hive.box('settings');
+  final Map<String, String> _responses = Map<String, String>();
 
-  HomeScreenState();
-
-  List<Widget> _cards;
+  final List<Widget> _cards = [];
   List<FavoriteRate> _favoriteRates = [];
   bool _animateEmptyFavorites = false;
 
@@ -44,9 +44,6 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
 
   @override
   bool showFabMenu() => false;
-
-  @override
-  bool showDescriptionButton() => false;
 
   @override
   bool extendBodyBehindAppBar() => false;
@@ -71,7 +68,7 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
     super.initState();
 
     _loadFavorites();
-    _cards = _buildCards();
+    _cards.addAll(_buildCards());
 
     if (_checkIsFirstTime()) {
       SchedulerBinding.instance.addPostFrameCallback((_) async {
@@ -108,6 +105,7 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
                     ),
                     margin: EdgeInsets.only(left: 15, right: 15, bottom: 15),
                     child: Dismissible(
+                      dismissThresholds: {DismissDirection.endToStart: 0.4},
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
@@ -118,14 +116,9 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
                       direction: DismissDirection.endToStart,
                       background: SizedBox.shrink(),
                       secondaryBackground: Container(
-                        margin: EdgeInsets.only(
-                          top: 10,
-                          bottom: 10,
-                        ),
+                        margin: EdgeInsets.only(top: 10, bottom: 10),
                         alignment: Alignment.centerRight,
-                        padding: EdgeInsets.only(
-                          right: 40,
-                        ),
+                        padding: EdgeInsets.only(right: 40),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           color: Colors.red[800],
@@ -150,11 +143,9 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
                           ],
                         ),
                       ),
-                      key: ValueKey('${_cards[i]}'),
+                      key: ValueKey(_cards[i]),
                       onDismissed: (direction) {
-                        setState(() {
-                          _cards.removeAt(i);
-                        });
+                        onDismissCard(i);
                       },
                     ),
                   );
@@ -178,6 +169,23 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
         return EmptyFavorites();
       }
     }
+  }
+
+  void onDismissCard(int cardIndex) {
+    Box favoritesBox = Hive.box('favorites');
+    List<FavoriteRate> favoriteCards = favoritesBox
+        .get('favoriteCards', defaultValue: []).cast<FavoriteRate>();
+
+    _cards.removeAt(cardIndex);
+    // favoriteCards.removeAt(cardIndex);
+    // favoritesBox.put('favoriteCards', favoriteCards);
+
+    Future.delayed(
+      kCardAnimationDuration ?? Duration(milliseconds: 0),
+      () => refresh(
+        showAnimations: favoriteCards.isEmpty,
+      ),
+    );
   }
 
   // void _addCards() {
@@ -222,6 +230,12 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
     List<dynamic> cards = favoritesBox.get('favoriteCards');
     if (cards != null) {
       _favoriteRates.addAll(cards.cast<FavoriteRate>());
+
+      Future.wait(
+        _favoriteRates.map(
+          (x) => API.getData(x.endpoint, (json) => (json), false),
+        ),
+      );
     }
   }
 
@@ -233,16 +247,16 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
           type == (EuroResponse).toString() ||
           type == (RealResponse).toString())
         futureCards.add(_buildFutureFiatCurrencyCard(favoriteRate));
-      else if (type == (CryptoResponse).toString())
-        futureCards.add(_buildFutureCryptoCard(favoriteRate));
-      else if (type == (MetalResponse).toString())
-        futureCards.add(_buildFutureMetalCard(favoriteRate));
-      else if (type == (CountryRiskResponse).toString())
-        futureCards.add(_buildFutureCountryRiskCard(favoriteRate));
-      else if (type == (BcraResponse).toString())
-        futureCards.add(_buildFutureBcraCard(favoriteRate));
-      else if (type == (VenezuelaResponse).toString())
-        futureCards.add(_buildFutureVenezuelaCard(favoriteRate));
+      // else if (type == (CryptoResponse).toString())
+      //   futureCards.add(_buildFutureCryptoCard(favoriteRate));
+      // else if (type == (MetalResponse).toString())
+      //   futureCards.add(_buildFutureMetalCard(favoriteRate));
+      // else if (type == (CountryRiskResponse).toString())
+      //   futureCards.add(_buildFutureCountryRiskCard(favoriteRate));
+      // else if (type == (BcraResponse).toString())
+      //   futureCards.add(_buildFutureBcraCard(favoriteRate));
+      // else if (type == (VenezuelaResponse).toString())
+      //   futureCards.add(_buildFutureVenezuelaCard(favoriteRate));
     }
 
     return futureCards;
@@ -250,32 +264,51 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
 
   Widget _buildFutureFiatCurrencyCard<T extends GenericCurrencyResponse>(
       FavoriteRate favoriteRate) {
+    GenericCurrencyResponse response = _responses[favoriteRate.endpoint];
+
     return Container(
       child: Stack(
         alignment: Alignment.center,
         children: [
           _buildCardBackground(FiatCurrencyCard.height),
-          FutureScreenDelegate<GenericCurrencyResponse>(
-            loadingWidget: _buildLoadingFutureForCard(FiatCurrencyCard.height),
-            response: API.getData(
-              favoriteRate.endpoint,
-              (json) => new GenericCurrencyResponse(json),
-              false,
-            ),
-            screen: (data) => FiatCurrencyCard(
-              homeKey: widget.key,
-              title: favoriteRate.cardTitle,
-              data: data,
-              tag: favoriteRate.cardTag,
-              gradiantColors:
-                  favoriteRate.cardColors.map((n) => Color(n)).toList(),
-              iconAsset: favoriteRate.cardIconAsset,
-              iconData: IconData(favoriteRate.cardIconData,
-                  fontFamily: "FontAwesomeSolid",
-                  fontPackage: "font_awesome_flutter"),
-              endpoint: favoriteRate.endpoint,
-            ),
+          FiatCurrencyCard(
+            homeKey: widget.key,
+            title: favoriteRate.cardTitle,
+            data: response,
+            tag: favoriteRate.cardTag,
+            gradiantColors:
+                favoriteRate.cardColors.map((n) => Color(n)).toList(),
+            iconAsset: favoriteRate.cardIconAsset,
+            iconData: IconData(favoriteRate.cardIconData,
+                fontFamily: "FontAwesomeSolid",
+                fontPackage: "font_awesome_flutter"),
+            endpoint: favoriteRate.endpoint,
           ),
+          // FutureScreenDelegate(
+          //   loadingWidget: _buildLoadingFutureForCard(FiatCurrencyCard.height),
+          //   response: API.getData(
+          //     favoriteRate.endpoint,
+          //     (json) => new GenericCurrencyResponse(json),
+          //     false,
+          //   ),
+          //   screen: (data) {
+          //     return FiatCurrencyCard(
+          //       homeKey: widget.key,
+          //       title: favoriteRate.cardTitle,
+          //       data: data,
+          //       tag: favoriteRate.cardTag,
+          //       gradiantColors:
+          //           favoriteRate.cardColors.map((n) => Color(n)).toList(),
+          //       iconAsset: favoriteRate.cardIconAsset,
+          //       iconData: IconData(favoriteRate.cardIconData,
+          //           fontFamily: "FontAwesomeSolid",
+          //           fontPackage: "font_awesome_flutter"),
+          //       endpoint: favoriteRate.endpoint,
+          //     );
+          //   },
+          //   onSuccessfulLoad: (data) =>
+          //       _responses[favoriteRate.endpoint] = data,
+          // )
         ],
       ),
     );
@@ -286,7 +319,7 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
       alignment: Alignment.center,
       children: [
         _buildCardBackground(CryptoCard.height),
-        FutureScreenDelegate<CryptoResponse>(
+        FutureScreenDelegate(
           loadingWidget: _buildLoadingFutureForCard(CryptoCard.height),
           response: API.getData(
             favoriteRate.endpoint,
@@ -315,7 +348,7 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
       alignment: Alignment.center,
       children: [
         _buildCardBackground(MetalCard.height),
-        FutureScreenDelegate<MetalResponse>(
+        FutureScreenDelegate(
           loadingWidget: _buildLoadingFutureForCard(MetalCard.height),
           response: API.getData(
             favoriteRate.endpoint,
@@ -343,7 +376,7 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
       alignment: Alignment.center,
       children: [
         _buildCardBackground(CountryRiskCard.height),
-        FutureScreenDelegate<CountryRiskResponse>(
+        FutureScreenDelegate(
           loadingWidget: _buildLoadingFutureForCard(CountryRiskCard.height),
           response: API.getData(
             favoriteRate.endpoint,
@@ -373,7 +406,7 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
       alignment: Alignment.center,
       children: [
         _buildCardBackground(BcraCard.height),
-        FutureScreenDelegate<BcraResponse>(
+        FutureScreenDelegate(
           loadingWidget: _buildLoadingFutureForCard(BcraCard.height),
           response: API.getData(
             favoriteRate.endpoint,
@@ -405,7 +438,7 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
       alignment: Alignment.center,
       children: [
         _buildCardBackground(VenezuelaCard.height),
-        FutureScreenDelegate<VenezuelaResponse>(
+        FutureScreenDelegate(
           loadingWidget: _buildLoadingFutureForCard(VenezuelaCard.height),
           response: API.getData(
             favoriteRate.endpoint,

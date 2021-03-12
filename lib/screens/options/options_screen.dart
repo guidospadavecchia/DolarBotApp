@@ -34,9 +34,6 @@ class _OptionsScreenState extends BaseInfoScreenState<OptionsScreen>
   bool showFabMenu() => false;
 
   @override
-  bool showDescriptionButton() => false;
-
-  @override
   bool extendBodyBehindAppBar() => false;
 
   @override

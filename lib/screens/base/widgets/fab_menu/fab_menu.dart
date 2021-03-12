@@ -135,8 +135,8 @@ class _FabMenuState extends State<FabMenu> {
               iconColor: Colors.red[400],
               backgroundColor: Colors.white,
               icon: isFavorite
-                  ? Icons.favorite_rounded
-                  : Icons.favorite_outline_rounded,
+                  ? FontAwesomeIcons.solidHeart
+                  : FontAwesomeIcons.heart,
               onPressed: () async {
                 bool result = await widget.onFavoriteButtonTap();
                 setState(() => isFavorite = result);

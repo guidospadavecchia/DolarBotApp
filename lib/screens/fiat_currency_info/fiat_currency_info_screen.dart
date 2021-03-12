@@ -77,7 +77,7 @@ class _FiatCurrencyInfoScreenState<T extends GenericCurrencyResponse>
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       physics: BouncingScrollPhysics(),
-      child: FutureScreenDelegate<T>(
+      child: FutureScreenDelegate(
         response: _getResponse<T>(),
         onLoading: onLoading,
         onFailedLoad: onErrorLoad,

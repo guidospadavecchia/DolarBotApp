@@ -43,7 +43,7 @@ class _CryptoInfoScreenState extends BaseInfoScreenState<CryptoInfoScreen>
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       physics: BouncingScrollPhysics(),
-      child: FutureScreenDelegate<CryptoResponse>(
+      child: FutureScreenDelegate(
         response: API.getCryptoRate(
           cryptoEndpoint,
           forceRefresh: shouldForceRefresh,
