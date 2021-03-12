@@ -29,13 +29,12 @@ class HomeScreen extends BaseInfoScreen {
 }
 
 class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
-  final GlobalKey<AnimatedListState> listKey = GlobalKey<AnimatedListState>();
   final Duration kAnimationDuration = Duration(milliseconds: 500);
   final settings = Hive.box('settings');
   final Map<String, Map> _responses = Map<String, Map>();
-
   final List<Widget> _cards = [];
-  List<FavoriteRate> _favoriteRates = [];
+  final List<FavoriteRate> _favoriteRates = [];
+
   bool _cardsLoaded = false;
   bool _animateEmptyFavorites = false;
 
@@ -84,10 +83,6 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
     }
   }
 
-  bool _checkIsFirstTime() {
-    return settings.get('isFirstTime') == null ? true : false;
-  }
-
   @override
   Widget body() {
     if (!_cardsLoaded)
@@ -98,83 +93,58 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
       );
 
     if (_cards.length > 0)
-      return _buildAnimation(
-        Container(
+      return _AnimationContainer(
+        duration: kAnimationDuration,
+        child: Container(
           height: MediaQuery.of(context).size.height,
+          padding: EdgeInsets.only(
+              bottom: MediaQuery.of(context).viewInsets.bottom + 110),
           child: NotificationListener<OverscrollIndicatorNotification>(
             onNotification: (OverscrollIndicatorNotification overScroll) {
               overScroll.disallowGlow();
               return false;
             },
-            child: Container(
-              padding: EdgeInsets.only(
-                  bottom: MediaQuery.of(context).viewInsets.bottom + 110),
-              child: ListView.builder(
-                  itemCount: _cards.length,
-                  itemBuilder: (context, i) {
-                    return Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Colors.transparent,
-                      ),
-                      margin: EdgeInsets.only(left: 15, right: 15, bottom: 15),
-                      child: Dismissible(
-                        dismissThresholds: {DismissDirection.endToStart: 0.4},
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: Colors.transparent,
-                          ),
-                          child: _cards[i],
-                        ),
-                        direction: DismissDirection.endToStart,
-                        background: SizedBox.shrink(),
-                        secondaryBackground: Container(
-                          margin: EdgeInsets.only(top: 10, bottom: 10),
-                          alignment: Alignment.centerRight,
-                          padding: EdgeInsets.only(right: 40),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: Colors.red[800],
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.delete,
-                                size: 32,
-                                color: Colors.white,
-                              ),
-                              Text(
-                                "Quitar",
-                                style: TextStyle(
-                                  fontFamily: "Roboto",
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        key: ValueKey(_cards[i]),
-                        onDismissed: (direction) {
-                          _onDismissCard(i);
-                        },
-                      ),
-                    );
-                  }),
-            ),
+            child: ListView.builder(
+                itemCount: _cards.length,
+                physics: BouncingScrollPhysics(),
+                itemBuilder: (context, i) {
+                  return Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.transparent,
+                    ),
+                    margin: EdgeInsets.only(left: 15, right: 15, bottom: 15),
+                    child: Dismissible(
+                      dismissThresholds: {
+                        DismissDirection.endToStart: 0.4,
+                      },
+                      child: _cards[i],
+                      direction: DismissDirection.endToStart,
+                      background: _DismissFavoriteButton(),
+                      key: ValueKey(_cards[i]),
+                      onDismissed: (direction) {
+                        _onDismissCard(i);
+                      },
+                    ),
+                  );
+                }),
           ),
         ),
       );
     else {
       if (_animateEmptyFavorites) {
-        return _buildAnimation(EmptyFavorites());
+        return _AnimationContainer(
+          duration: kAnimationDuration,
+          child: EmptyFavorites(),
+        );
       } else {
         return EmptyFavorites();
       }
     }
+  }
+
+  bool _checkIsFirstTime() {
+    return settings.get('isFirstTime') == null ? true : false;
   }
 
   void _onDismissCard(int cardIndex) {
@@ -390,12 +360,62 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
       ),
     );
   }
+}
 
-  PlayAnimation _buildAnimation(Widget widget) {
+class _DismissFavoriteButton extends StatelessWidget {
+  const _DismissFavoriteButton({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(top: 10, bottom: 10),
+      alignment: Alignment.centerRight,
+      padding: EdgeInsets.only(right: 40),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: Colors.red[800],
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Icon(
+            Icons.delete,
+            size: 32,
+            color: Colors.white,
+          ),
+          Text(
+            "Quitar",
+            style: TextStyle(
+              fontFamily: "Roboto",
+              color: Colors.white,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _AnimationContainer extends StatelessWidget {
+  final Duration duration;
+  final Widget child;
+
+  const _AnimationContainer({
+    Key key,
+    this.duration,
+    this.child,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     return PlayAnimation<double>(
       tween: Tween(begin: 0, end: 1),
-      duration: kAnimationDuration,
-      child: widget,
+      duration: duration,
+      child: child,
       builder: (context, child, value) {
         return Opacity(
           opacity: value,

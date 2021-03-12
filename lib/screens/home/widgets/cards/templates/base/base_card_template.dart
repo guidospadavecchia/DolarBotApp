@@ -1,15 +1,13 @@
-import 'package:dolarbot_app/classes/hive/favorite_rate.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
 import 'package:dolarbot_app/screens/home/home_screen.dart';
 import 'package:dolarbot_app/util/util.dart';
 import 'package:dolarbot_app/widgets/common/future_screen_delegate/loading_future.dart';
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'package:screenshot/screenshot.dart';
 
-export 'package:screenshot/screenshot.dart';
 export 'package:dolarbot_app/screens/home/home_screen.dart';
+export 'package:screenshot/screenshot.dart';
 
 abstract class BaseCardTemplate extends StatefulWidget {
   final String title;
