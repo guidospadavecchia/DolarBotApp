@@ -18,7 +18,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:hive/hive.dart';
 import 'package:simple_animations/simple_animations.dart';
-import 'package:async/async.dart';
 
 class HomeScreen extends BaseInfoScreen {
   HomeScreen({
@@ -31,12 +30,13 @@ class HomeScreen extends BaseInfoScreen {
 
 class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
   final GlobalKey<AnimatedListState> listKey = GlobalKey<AnimatedListState>();
-  final Duration kCardAnimationDuration = Duration(milliseconds: 300);
+  final Duration kAnimationDuration = Duration(milliseconds: 500);
   final settings = Hive.box('settings');
-  final Map<String, String> _responses = Map<String, String>();
+  final Map<String, Map> _responses = Map<String, Map>();
 
   final List<Widget> _cards = [];
   List<FavoriteRate> _favoriteRates = [];
+  bool _cardsLoaded = false;
   bool _animateEmptyFavorites = false;
 
   @override
@@ -67,8 +67,14 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
   void initState() {
     super.initState();
 
-    _loadFavorites();
-    _cards.addAll(_buildCards());
+    if (!_cardsLoaded) {
+      _loadFavorites().then(
+        (_) => WidgetsBinding.instance
+            .addPostFrameCallback((_) => setState(() => _buildCards())),
+      );
+    } else {
+      _buildCards();
+    }
 
     if (_checkIsFirstTime()) {
       SchedulerBinding.instance.addPostFrameCallback((_) async {
@@ -84,187 +90,151 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
 
   @override
   Widget body() {
+    if (!_cardsLoaded)
+      return LoadingFuture(
+        indicatorType: Indicator.ballPulseSync,
+        size: 64,
+        color: ThemeManager.getDottedBorderColor(context),
+      );
+
     if (_cards.length > 0)
-      return Container(
-        height: MediaQuery.of(context).size.height,
-        child: NotificationListener<OverscrollIndicatorNotification>(
-          onNotification: (OverscrollIndicatorNotification overScroll) {
-            overScroll.disallowGlow();
-            return false;
-          },
-          child: Container(
-            padding: EdgeInsets.only(
-                bottom: MediaQuery.of(context).viewInsets.bottom + 110),
-            child: ListView.builder(
-                itemCount: _cards.length,
-                itemBuilder: (context, i) {
-                  return Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.transparent,
-                    ),
-                    margin: EdgeInsets.only(left: 15, right: 15, bottom: 15),
-                    child: Dismissible(
-                      dismissThresholds: {DismissDirection.endToStart: 0.4},
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.transparent,
-                        ),
-                        child: _cards[i],
+      return _buildAnimation(
+        Container(
+          height: MediaQuery.of(context).size.height,
+          child: NotificationListener<OverscrollIndicatorNotification>(
+            onNotification: (OverscrollIndicatorNotification overScroll) {
+              overScroll.disallowGlow();
+              return false;
+            },
+            child: Container(
+              padding: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).viewInsets.bottom + 110),
+              child: ListView.builder(
+                  itemCount: _cards.length,
+                  itemBuilder: (context, i) {
+                    return Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.transparent,
                       ),
-                      direction: DismissDirection.endToStart,
-                      background: SizedBox.shrink(),
-                      secondaryBackground: Container(
-                        margin: EdgeInsets.only(top: 10, bottom: 10),
-                        alignment: Alignment.centerRight,
-                        padding: EdgeInsets.only(right: 40),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.red[800],
+                      margin: EdgeInsets.only(left: 15, right: 15, bottom: 15),
+                      child: Dismissible(
+                        dismissThresholds: {DismissDirection.endToStart: 0.4},
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.transparent,
+                          ),
+                          child: _cards[i],
                         ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.delete,
-                              size: 32,
-                              color: Colors.white,
-                            ),
-                            Text(
-                              "Quitar",
-                              style: TextStyle(
-                                fontFamily: "Roboto",
+                        direction: DismissDirection.endToStart,
+                        background: SizedBox.shrink(),
+                        secondaryBackground: Container(
+                          margin: EdgeInsets.only(top: 10, bottom: 10),
+                          alignment: Alignment.centerRight,
+                          padding: EdgeInsets.only(right: 40),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.red[800],
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.delete,
+                                size: 32,
                                 color: Colors.white,
-                                fontWeight: FontWeight.w600,
                               ),
-                            ),
-                          ],
+                              Text(
+                                "Quitar",
+                                style: TextStyle(
+                                  fontFamily: "Roboto",
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
+                        key: ValueKey(_cards[i]),
+                        onDismissed: (direction) {
+                          _onDismissCard(i);
+                        },
                       ),
-                      key: ValueKey(_cards[i]),
-                      onDismissed: (direction) {
-                        onDismissCard(i);
-                      },
-                    ),
-                  );
-                }),
+                    );
+                  }),
+            ),
           ),
         ),
       );
     else {
       if (_animateEmptyFavorites) {
-        return PlayAnimation<double>(
-            tween: Tween(begin: 0, end: 1),
-            duration: kCardAnimationDuration,
-            child: EmptyFavorites(),
-            builder: (context, child, value) {
-              return Opacity(
-                opacity: value,
-                child: child,
-              );
-            });
+        return _buildAnimation(EmptyFavorites());
       } else {
         return EmptyFavorites();
       }
     }
   }
 
-  void onDismissCard(int cardIndex) {
+  void _onDismissCard(int cardIndex) {
     Box favoritesBox = Hive.box('favorites');
     List<FavoriteRate> favoriteCards = favoritesBox
         .get('favoriteCards', defaultValue: []).cast<FavoriteRate>();
 
     _cards.removeAt(cardIndex);
-    // favoriteCards.removeAt(cardIndex);
-    // favoritesBox.put('favoriteCards', favoriteCards);
+    favoriteCards.removeAt(cardIndex);
+    favoritesBox.put('favoriteCards', favoriteCards);
 
     Future.delayed(
-      kCardAnimationDuration ?? Duration(milliseconds: 0),
-      () => refresh(
-        showAnimations: favoriteCards.isEmpty,
-      ),
+      kAnimationDuration ?? Duration(milliseconds: 0),
+      () => setState(() {
+        _animateEmptyFavorites = favoriteCards.isEmpty;
+      }),
     );
   }
 
-  // void _addCards() {
-  //   for (var i = 0; i < _cards.length; i++) {
-  //     Future.delayed(Duration(milliseconds: 50 * i), () {
-  //       listKey.currentState
-  //           .insertItem(i, duration: Duration(milliseconds: 500));
-  //     });
-  //   }
-  // }
-
-  void refresh({bool showAnimations = false}) {
-    setState(() {
-      _animateEmptyFavorites = showAnimations;
-    });
-  }
-
-  // void removeCard(int index) {
-  //   Widget removedItem = _cards.removeAt(index);
-  //   AnimatedListRemovedItemBuilder builder = (context, animation) {
-  //     return _buildRemoveItem(removedItem, animation);
-  //   };
-  //   listKey.currentState.removeItem(
-  //     index,
-  //     builder,
-  //     duration: kCardAnimationDuration,
-  //   );
-  // }
-
-  // Widget _buildRemoveItem(Widget item, Animation animation) {
-  //   return SlideTransition(
-  //     position: Tween<Offset>(
-  //       begin: const Offset(1, 0),
-  //       end: Offset(0, 0),
-  //     ).animate(animation),
-  //     child: item,
-  //   );
-  // }
-
-  void _loadFavorites() {
+  Future _loadFavorites() async {
     Box favoritesBox = Hive.box('favorites');
     List<dynamic> cards = favoritesBox.get('favoriteCards');
     if (cards != null) {
       _favoriteRates.addAll(cards.cast<FavoriteRate>());
-
-      Future.wait(
+      await Future.wait(
         _favoriteRates.map(
-          (x) => API.getData(x.endpoint, (json) => (json), false),
+          (x) => API
+              .getRawData(x.endpoint, false)
+              .then((value) => _responses[x.endpoint] = value),
         ),
       );
     }
   }
 
-  List<Widget> _buildCards() {
-    List<Widget> futureCards = [];
+  void _buildCards() {
     for (FavoriteRate favoriteRate in _favoriteRates) {
       String type = favoriteRate.cardResponseType;
       if (type == (DollarResponse).toString() ||
           type == (EuroResponse).toString() ||
           type == (RealResponse).toString())
-        futureCards.add(_buildFutureFiatCurrencyCard(favoriteRate));
-      // else if (type == (CryptoResponse).toString())
-      //   futureCards.add(_buildFutureCryptoCard(favoriteRate));
-      // else if (type == (MetalResponse).toString())
-      //   futureCards.add(_buildFutureMetalCard(favoriteRate));
-      // else if (type == (CountryRiskResponse).toString())
-      //   futureCards.add(_buildFutureCountryRiskCard(favoriteRate));
-      // else if (type == (BcraResponse).toString())
-      //   futureCards.add(_buildFutureBcraCard(favoriteRate));
-      // else if (type == (VenezuelaResponse).toString())
-      //   futureCards.add(_buildFutureVenezuelaCard(favoriteRate));
+        _cards.add(_buildFiatCurrencyCard(favoriteRate));
+      else if (type == (CryptoResponse).toString())
+        _cards.add(_buildCryptoCard(favoriteRate));
+      else if (type == (MetalResponse).toString())
+        _cards.add(_buildMetalCard(favoriteRate));
+      else if (type == (CountryRiskResponse).toString())
+        _cards.add(_buildCountryRiskCard(favoriteRate));
+      else if (type == (BcraResponse).toString())
+        _cards.add(_buildBcraCard(favoriteRate));
+      else if (type == (VenezuelaResponse).toString())
+        _cards.add(_buildVenezuelaCard(favoriteRate));
     }
 
-    return futureCards;
+    _cardsLoaded = true;
   }
 
-  Widget _buildFutureFiatCurrencyCard<T extends GenericCurrencyResponse>(
+  Widget _buildFiatCurrencyCard<T extends GenericCurrencyResponse>(
       FavoriteRate favoriteRate) {
-    GenericCurrencyResponse response = _responses[favoriteRate.endpoint];
+    GenericCurrencyResponse data =
+        GenericCurrencyResponse(_responses[favoriteRate.endpoint]);
 
     return Container(
       child: Stack(
@@ -274,7 +244,7 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
           FiatCurrencyCard(
             homeKey: widget.key,
             title: favoriteRate.cardTitle,
-            data: response,
+            data: data,
             tag: favoriteRate.cardTag,
             gradiantColors:
                 favoriteRate.cardColors.map((n) => Color(n)).toList(),
@@ -284,178 +254,115 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
                 fontPackage: "font_awesome_flutter"),
             endpoint: favoriteRate.endpoint,
           ),
-          // FutureScreenDelegate(
-          //   loadingWidget: _buildLoadingFutureForCard(FiatCurrencyCard.height),
-          //   response: API.getData(
-          //     favoriteRate.endpoint,
-          //     (json) => new GenericCurrencyResponse(json),
-          //     false,
-          //   ),
-          //   screen: (data) {
-          //     return FiatCurrencyCard(
-          //       homeKey: widget.key,
-          //       title: favoriteRate.cardTitle,
-          //       data: data,
-          //       tag: favoriteRate.cardTag,
-          //       gradiantColors:
-          //           favoriteRate.cardColors.map((n) => Color(n)).toList(),
-          //       iconAsset: favoriteRate.cardIconAsset,
-          //       iconData: IconData(favoriteRate.cardIconData,
-          //           fontFamily: "FontAwesomeSolid",
-          //           fontPackage: "font_awesome_flutter"),
-          //       endpoint: favoriteRate.endpoint,
-          //     );
-          //   },
-          //   onSuccessfulLoad: (data) =>
-          //       _responses[favoriteRate.endpoint] = data,
-          // )
         ],
       ),
     );
   }
 
-  Widget _buildFutureCryptoCard(FavoriteRate favoriteRate) {
+  Widget _buildCryptoCard(FavoriteRate favoriteRate) {
+    CryptoResponse data = CryptoResponse(_responses[favoriteRate.endpoint]);
     return Stack(
       alignment: Alignment.center,
       children: [
         _buildCardBackground(CryptoCard.height),
-        FutureScreenDelegate(
-          loadingWidget: _buildLoadingFutureForCard(CryptoCard.height),
-          response: API.getData(
-            favoriteRate.endpoint,
-            (json) => new CryptoResponse(json),
-            false,
-          ),
-          screen: (data) => CryptoCard(
-            homeKey: widget.key,
-            title: favoriteRate.cardTitle,
-            data: data,
-            tag: favoriteRate.cardTag,
-            gradiantColors:
-                favoriteRate.cardColors.map((n) => Color(n)).toList(),
-            iconAsset: favoriteRate.cardIconAsset,
-            iconData: IconData(favoriteRate.cardIconData,
-                fontFamily: 'CryptoFont', fontPackage: 'crypto_font_icons'),
-            endpoint: favoriteRate.endpoint,
-          ),
+        CryptoCard(
+          homeKey: widget.key,
+          title: favoriteRate.cardTitle,
+          data: data,
+          tag: favoriteRate.cardTag,
+          gradiantColors: favoriteRate.cardColors.map((n) => Color(n)).toList(),
+          iconAsset: favoriteRate.cardIconAsset,
+          iconData: IconData(favoriteRate.cardIconData,
+              fontFamily: 'CryptoFont', fontPackage: 'crypto_font_icons'),
+          endpoint: favoriteRate.endpoint,
         ),
       ],
     );
   }
 
-  Widget _buildFutureMetalCard(FavoriteRate favoriteRate) {
+  Widget _buildMetalCard(FavoriteRate favoriteRate) {
+    MetalResponse data = MetalResponse(_responses[favoriteRate.endpoint]);
     return Stack(
       alignment: Alignment.center,
       children: [
         _buildCardBackground(MetalCard.height),
-        FutureScreenDelegate(
-          loadingWidget: _buildLoadingFutureForCard(MetalCard.height),
-          response: API.getData(
-            favoriteRate.endpoint,
-            (json) => new MetalResponse(json),
-            false,
-          ),
-          screen: (data) => MetalCard(
-            homeKey: widget.key,
-            title: favoriteRate.cardTitle,
-            data: data,
-            tag: favoriteRate.cardTag,
-            gradiantColors:
-                favoriteRate.cardColors.map((n) => Color(n)).toList(),
-            iconAsset: favoriteRate.cardIconAsset,
-            iconData: IconData(favoriteRate.cardIconData),
-            endpoint: favoriteRate.endpoint,
-          ),
+        MetalCard(
+          homeKey: widget.key,
+          title: favoriteRate.cardTitle,
+          data: data,
+          tag: favoriteRate.cardTag,
+          gradiantColors: favoriteRate.cardColors.map((n) => Color(n)).toList(),
+          iconAsset: favoriteRate.cardIconAsset,
+          iconData: IconData(favoriteRate.cardIconData),
+          endpoint: favoriteRate.endpoint,
         ),
       ],
     );
   }
 
-  Widget _buildFutureCountryRiskCard(FavoriteRate favoriteRate) {
+  Widget _buildCountryRiskCard(FavoriteRate favoriteRate) {
+    CountryRiskResponse data =
+        CountryRiskResponse(_responses[favoriteRate.endpoint]);
     return Stack(
       alignment: Alignment.center,
       children: [
         _buildCardBackground(CountryRiskCard.height),
-        FutureScreenDelegate(
-          loadingWidget: _buildLoadingFutureForCard(CountryRiskCard.height),
-          response: API.getData(
-            favoriteRate.endpoint,
-            (json) => new CountryRiskResponse(json),
-            false,
-          ),
-          screen: (data) => CountryRiskCard(
-            homeKey: widget.key,
-            title: favoriteRate.cardTitle,
-            data: data,
-            tag: favoriteRate.cardTag,
-            gradiantColors:
-                favoriteRate.cardColors.map((n) => Color(n)).toList(),
-            iconAsset: favoriteRate.cardIconAsset,
-            iconData: IconData(favoriteRate.cardIconData,
-                fontFamily: "FontAwesomeSolid",
-                fontPackage: "font_awesome_flutter"),
-            endpoint: favoriteRate.endpoint,
-          ),
+        CountryRiskCard(
+          homeKey: widget.key,
+          title: favoriteRate.cardTitle,
+          data: data,
+          tag: favoriteRate.cardTag,
+          gradiantColors: favoriteRate.cardColors.map((n) => Color(n)).toList(),
+          iconAsset: favoriteRate.cardIconAsset,
+          iconData: IconData(favoriteRate.cardIconData,
+              fontFamily: "FontAwesomeSolid",
+              fontPackage: "font_awesome_flutter"),
+          endpoint: favoriteRate.endpoint,
         ),
       ],
     );
   }
 
-  Widget _buildFutureBcraCard(FavoriteRate favoriteRate) {
+  Widget _buildBcraCard(FavoriteRate favoriteRate) {
+    BcraResponse data = BcraResponse(_responses[favoriteRate.endpoint]);
     return Stack(
       alignment: Alignment.center,
       children: [
         _buildCardBackground(BcraCard.height),
-        FutureScreenDelegate(
-          loadingWidget: _buildLoadingFutureForCard(BcraCard.height),
-          response: API.getData(
-            favoriteRate.endpoint,
-            (json) => new BcraResponse(json),
-            false,
-          ),
-          screen: (data) => BcraCard(
-            homeKey: widget.key,
-            title: favoriteRate.cardTitle,
-            subtitle: favoriteRate.cardSubtitle,
-            symbol: favoriteRate.cardSymbol,
-            data: data,
-            tag: favoriteRate.cardTag,
-            gradiantColors:
-                favoriteRate.cardColors.map((n) => Color(n)).toList(),
-            iconAsset: favoriteRate.cardIconAsset,
-            iconData: IconData(favoriteRate.cardIconData,
-                fontFamily: "FontAwesomeSolid",
-                fontPackage: "font_awesome_flutter"),
-            endpoint: favoriteRate.endpoint,
-          ),
+        BcraCard(
+          homeKey: widget.key,
+          title: favoriteRate.cardTitle,
+          subtitle: favoriteRate.cardSubtitle,
+          symbol: favoriteRate.cardSymbol,
+          data: data,
+          tag: favoriteRate.cardTag,
+          gradiantColors: favoriteRate.cardColors.map((n) => Color(n)).toList(),
+          iconAsset: favoriteRate.cardIconAsset,
+          iconData: IconData(favoriteRate.cardIconData,
+              fontFamily: "FontAwesomeSolid",
+              fontPackage: "font_awesome_flutter"),
+          endpoint: favoriteRate.endpoint,
         ),
       ],
     );
   }
 
-  Widget _buildFutureVenezuelaCard(FavoriteRate favoriteRate) {
+  Widget _buildVenezuelaCard(FavoriteRate favoriteRate) {
+    VenezuelaResponse data =
+        VenezuelaResponse(_responses[favoriteRate.endpoint]);
     return Stack(
       alignment: Alignment.center,
       children: [
         _buildCardBackground(VenezuelaCard.height),
-        FutureScreenDelegate(
-          loadingWidget: _buildLoadingFutureForCard(VenezuelaCard.height),
-          response: API.getData(
-            favoriteRate.endpoint,
-            (json) => new VenezuelaResponse(json),
-            false,
-          ),
-          screen: (data) => VenezuelaCard(
-            homeKey: widget.key,
-            title: favoriteRate.cardTitle,
-            data: data,
-            tag: favoriteRate.cardTag,
-            gradiantColors:
-                favoriteRate.cardColors.map((n) => Color(n)).toList(),
-            iconAsset: favoriteRate.cardIconAsset,
-            iconData: IconData(favoriteRate.cardIconData),
-            endpoint: favoriteRate.endpoint,
-          ),
+        VenezuelaCard(
+          homeKey: widget.key,
+          title: favoriteRate.cardTitle,
+          data: data,
+          tag: favoriteRate.cardTag,
+          gradiantColors: favoriteRate.cardColors.map((n) => Color(n)).toList(),
+          iconAsset: favoriteRate.cardIconAsset,
+          iconData: IconData(favoriteRate.cardIconData),
+          endpoint: favoriteRate.endpoint,
         ),
       ],
     );
@@ -484,11 +391,17 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
     );
   }
 
-  LoadingFuture _buildLoadingFutureForCard(double cardHeight) {
-    return LoadingFuture(
-      indicatorType: Indicator.ballPulseSync,
-      size: 32,
-      color: ThemeManager.getDottedBorderColor(context),
+  PlayAnimation _buildAnimation(Widget widget) {
+    return PlayAnimation<double>(
+      tween: Tween(begin: 0, end: 1),
+      duration: kAnimationDuration,
+      child: widget,
+      builder: (context, child, value) {
+        return Opacity(
+          opacity: value,
+          child: child,
+        );
+      },
     );
   }
 }

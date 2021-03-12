@@ -59,7 +59,6 @@ class _CryptoCardState extends BaseCardTemplateState<CryptoCard> {
       header: CardHeader(
         title: widget.title,
         showButtons: showButtons,
-        onRemovePressed: () => onRemovePressed(),
         onSharePressed: () => onSharePressed(),
       ),
       spaceBetweenHeader: Spacing.medium,

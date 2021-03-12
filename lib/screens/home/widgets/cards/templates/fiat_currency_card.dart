@@ -61,7 +61,6 @@ class _FiatCurrencyCardState extends BaseCardTemplateState<FiatCurrencyCard> {
       header: CardHeader(
         title: widget.title,
         showButtons: showButtons,
-        onRemovePressed: () => onRemovePressed(),
         onSharePressed: () => onSharePressed(),
       ),
       spaceBetweenItems: Spacing.small,

@@ -58,7 +58,6 @@ class _CountryRiskCardState extends BaseCardTemplateState<CountryRiskCard> {
       header: CardHeader(
         title: widget.title,
         showButtons: showButtons,
-        onRemovePressed: () => onRemovePressed(),
         onSharePressed: () => onSharePressed(),
       ),
       spaceBetweenHeader: Spacing.small,

@@ -137,4 +137,19 @@ class API {
 
     return creator(jsonMap);
   }
+
+  static Future<Map> getRawData(String endpoint, bool forceRefresh) async {
+    Map jsonMap;
+    CacheEntry cachedValue = CacheManager.read(endpoint);
+
+    if (cachedValue == null || cachedValue.isExpired() || forceRefresh) {
+      String response = await _fetch(endpoint);
+      CacheManager.save(endpoint, response);
+      jsonMap = json.decode(response);
+    } else {
+      jsonMap = json.decode(cachedValue.data);
+    }
+
+    return jsonMap;
+  }
 }

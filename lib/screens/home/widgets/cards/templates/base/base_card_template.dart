@@ -61,25 +61,6 @@ abstract class BaseCardTemplateState<Card extends BaseCardTemplate>
     isVisible = !isSharing;
   }
 
-  void onRemovePressed() {
-    Box favoritesBox = Hive.box('favorites');
-    List<FavoriteRate> favoriteCards = favoritesBox
-        .get('favoriteCards', defaultValue: []).cast<FavoriteRate>();
-
-    int index =
-        favoriteCards.indexWhere((fav) => fav.endpoint == widget.endpoint);
-    favoriteCards.removeAt(index);
-    //widget.homeKey?.currentState?.removeCard(index);
-    favoritesBox.put('favoriteCards', favoriteCards);
-    Future.delayed(
-      widget.homeKey?.currentState?.kCardAnimationDuration ??
-          Duration(milliseconds: 0),
-      () => widget.homeKey?.currentState?.refresh(
-        showAnimations: favoriteCards.isEmpty,
-      ),
-    );
-  }
-
   void onSharePressed() {
     setState(() => _prepareCardToShare(true));
 

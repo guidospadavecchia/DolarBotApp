@@ -266,7 +266,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
   }
 
   @nonVirtual
-  void onSuccessfulLoad(_) {
+  void onSuccessfulLoad() {
     simpleFabKey?.currentState?.show();
   }
 

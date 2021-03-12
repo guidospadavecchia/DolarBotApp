@@ -59,7 +59,6 @@ class _MetalCardState extends BaseCardTemplateState<MetalCard> {
       header: CardHeader(
         title: widget.title,
         showButtons: showButtons,
-        onRemovePressed: () => onRemovePressed(),
         onSharePressed: () => onSharePressed(),
       ),
       spaceBetweenHeader: Spacing.small,
