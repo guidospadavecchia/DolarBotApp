@@ -1,4 +1,4 @@
-import 'package:dolarbot_app/api/responses/base/apiResponse.dart';
+import 'package:dolarbot_app/api/responses/base/api_response.dart';
 
 class HistoricalRateResponse extends ApiResponse {
   String timestamp;
@@ -15,8 +15,7 @@ class HistoricalRateResponse extends ApiResponse {
     currency = json["moneda"];
     monthlyRates = [];
 
-    json["meses"].forEach((key, value) =>
-        {monthlyRates.add(HistoricalMonthRate.fromJson(value))});
+    json["meses"].forEach((key, value) => {monthlyRates.add(HistoricalMonthRate.fromJson(value))});
   }
 }
 

@@ -4,8 +4,8 @@ import 'dart:async';
 import 'package:dolarbot_app/api/cache/cache_manager.dart';
 import 'package:http/http.dart' as http;
 import 'package:dolarbot_app/classes/hive/cache_entry.dart';
-import 'package:dolarbot_app/api/responses/base/apiResponse.dart';
-import 'package:dolarbot_app/api/responses/metalResponse.dart';
+import 'package:dolarbot_app/api/responses/base/api_response.dart';
+import 'package:dolarbot_app/api/responses/metal_response.dart';
 import 'package:global_configuration/global_configuration.dart';
 import 'package:dolarbot_app/api/api_endpoints.dart';
 
@@ -68,8 +68,7 @@ class API {
     );
   }
 
-  static Future<CountryRiskResponse> getCountryRisk(
-      {bool forceRefresh = false}) async {
+  static Future<CountryRiskResponse> getCountryRisk({bool forceRefresh = false}) async {
     return getData(
       BcraEndpoints.riesgoPais.value,
       (json) => new CountryRiskResponse(json),
@@ -77,8 +76,7 @@ class API {
     );
   }
 
-  static Future<BcraResponse> getBcraReserves(
-      {bool forceRefresh = false}) async {
+  static Future<BcraResponse> getBcraReserves({bool forceRefresh = false}) async {
     return getData(
       BcraEndpoints.reservas.value,
       (json) => new BcraResponse(json),
@@ -86,8 +84,7 @@ class API {
     );
   }
 
-  static Future<BcraResponse> getCirculatingCurrency(
-      {bool forceRefresh = false}) async {
+  static Future<BcraResponse> getCirculatingCurrency({bool forceRefresh = false}) async {
     return getData(
       BcraEndpoints.circulante.value,
       (json) => new BcraResponse(json),
@@ -95,8 +92,7 @@ class API {
     );
   }
 
-  static Future<HistoricalRateResponse> getHistoricalRates(
-      HistoricalRateEndpoints endpoint,
+  static Future<HistoricalRateResponse> getHistoricalRates(HistoricalRateEndpoints endpoint,
       {bool forceRefresh = false}) async {
     return getData(
       endpoint.value,

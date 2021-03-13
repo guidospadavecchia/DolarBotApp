@@ -1,6 +1,5 @@
 import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
-import 'package:dolarbot_app/screens/home/home_screen.dart';
 import 'package:dolarbot_app/util/util.dart';
 import 'package:dolarbot_app/widgets/common/future_screen_delegate/loading_future.dart';
 import 'package:flutter/material.dart';
@@ -20,11 +19,9 @@ abstract class BaseCardTemplate extends StatefulWidget {
   final bool showPoweredBy;
   final bool showButtons;
   final String endpoint;
-  final GlobalKey<HomeScreenState> homeKey;
 
   const BaseCardTemplate({
     Key key,
-    this.homeKey,
     this.title,
     this.subtitle,
     this.tag,
@@ -86,7 +83,10 @@ abstract class BaseCardTemplateState<Card extends BaseCardTemplate>
           opacity: isVisible ? 1 : 0,
           child: Screenshot(
             controller: screenshotController,
-            child: card(),
+            child: Container(
+              padding: isVisible ? EdgeInsets.only(top: 10, bottom: 10) : EdgeInsets.all(10),
+              child: card(),
+            ),
           ),
         ),
       ],

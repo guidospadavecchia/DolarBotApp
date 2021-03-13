@@ -22,12 +22,9 @@ class _VenezuelaInfoScreenState extends BaseInfoScreenState<VenezuelaInfoScreen>
     with BaseScreen
     implements IShareable<VenezuelaResponse> {
   @override
-  String getEndpointIdentifier() => widget.cardData.endpoint;
-
-  @override
   Widget body() {
-    VenezuelaEndpoints venezuelaEndpoint = VenezuelaEndpoints.values
-        .firstWhere((e) => e.value == widget.cardData.endpoint);
+    VenezuelaEndpoints venezuelaEndpoint =
+        VenezuelaEndpoints.values.firstWhere((e) => e.value == widget.cardData.endpoint);
 
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
@@ -42,9 +39,7 @@ class _VenezuelaInfoScreenState extends BaseInfoScreenState<VenezuelaInfoScreen>
         onSuccessfulLoad: onSuccessfulLoad,
         screen: (data) {
           WidgetsBinding.instance.addPostFrameCallback((_) => setActiveData(
-              data,
-              "${widget.title} - ${widget.cardData.title}",
-              getShareInfo(data)));
+              data, "${widget.title} - ${widget.cardData.title}", getShareInfo(data)));
 
           return Column(
             children: [
@@ -95,13 +90,12 @@ class _VenezuelaInfoScreenState extends BaseInfoScreenState<VenezuelaInfoScreen>
       final blackMarketValue = data.blackMarketPrice.isNumeric()
           ? numberFormat.format(double.parse(data.blackMarketPrice))
           : 'N/A';
-      final banksValue = data.bankPrice.isNumeric()
-          ? numberFormat.format(double.parse(data.bankPrice))
-          : 'N/A';
+      final banksValue =
+          data.bankPrice.isNumeric() ? numberFormat.format(double.parse(data.bankPrice)) : 'N/A';
       DateTime date = DateTime.parse(data.timestamp.replaceAll('/', '-'));
-      String formattedTime = DateFormat(
-              DateTime.now().isSameDayAs(date) ? 'HH:mm' : 'HH:mm - dd-MM-yyyy')
-          .format(date);
+      String formattedTime =
+          DateFormat(DateTime.now().isSameDayAs(date) ? 'HH:mm' : 'HH:mm - dd-MM-yyyy')
+              .format(date);
 
       shareText =
           'Bancos: \t Bs. $banksValue\nParalelo: \t Bs. $blackMarketValue\nHora: \t $formattedTime';

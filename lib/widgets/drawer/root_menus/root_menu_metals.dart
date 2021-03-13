@@ -1,5 +1,5 @@
 import 'package:dolarbot_app/api/api_endpoints.dart';
-import 'package:dolarbot_app/api/responses/metalResponse.dart';
+import 'package:dolarbot_app/api/responses/metal_response.dart';
 import 'package:dolarbot_app/util/constants.dart';
 import 'package:dolarbot_app/classes/dolarbot_icons.dart';
 import 'package:dolarbot_app/widgets/drawer/drawer_menu_body.dart';

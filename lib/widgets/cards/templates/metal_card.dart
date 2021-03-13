@@ -1,14 +1,13 @@
-import 'package:dolarbot_app/api/responses/metalResponse.dart';
+import 'package:dolarbot_app/api/responses/metal_response.dart';
 import 'package:dolarbot_app/widgets/cards/card_favorite.dart';
 import 'package:dolarbot_app/widgets/cards/templates/base/base_card_template.dart';
 import 'package:flutter/material.dart';
 
-export 'package:dolarbot_app/api/responses/metalResponse.dart';
+export 'package:dolarbot_app/api/responses/metal_response.dart';
 
 class MetalCard extends BaseCardTemplate {
   static const double height = 130;
 
-  final GlobalKey<HomeScreenState> homeKey;
   final String title;
   final String tag;
   final MetalResponse data;
@@ -21,7 +20,6 @@ class MetalCard extends BaseCardTemplate {
 
   const MetalCard({
     Key key,
-    this.homeKey,
     @required this.title,
     @required this.tag,
     @required this.data,
@@ -32,7 +30,6 @@ class MetalCard extends BaseCardTemplate {
     this.showButtons = true,
     @required this.endpoint,
   }) : super(
-          homeKey: homeKey,
           title: title,
           tag: tag,
           gradiantColors: gradiantColors,

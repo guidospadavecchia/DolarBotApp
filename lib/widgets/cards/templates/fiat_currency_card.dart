@@ -1,16 +1,14 @@
-import 'package:dolarbot_app/api/responses/base/genericCurrencyResponse.dart';
+import 'package:dolarbot_app/api/responses/base/generic_currency_response.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
-import 'package:dolarbot_app/screens/home/home_screen.dart';
 import 'package:dolarbot_app/widgets/cards/card_favorite.dart';
 import 'package:dolarbot_app/widgets/cards/templates/base/base_card_template.dart';
 import 'package:flutter/material.dart';
 
-export 'package:dolarbot_app/api/responses/base/genericCurrencyResponse.dart';
+export 'package:dolarbot_app/api/responses/base/generic_currency_response.dart';
 
 class FiatCurrencyCard extends BaseCardTemplate {
   static const double height = 145;
 
-  final GlobalKey<HomeScreenState> homeKey;
   final String title;
   final String tag;
   final GenericCurrencyResponse data;
@@ -23,7 +21,6 @@ class FiatCurrencyCard extends BaseCardTemplate {
 
   const FiatCurrencyCard({
     Key key,
-    this.homeKey,
     @required this.title,
     @required this.tag,
     @required this.data,
@@ -34,7 +31,6 @@ class FiatCurrencyCard extends BaseCardTemplate {
     this.showButtons = true,
     @required this.endpoint,
   }) : super(
-          homeKey: homeKey,
           title: title,
           tag: tag,
           gradiantColors: gradiantColors,

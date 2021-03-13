@@ -1,5 +1,5 @@
-import 'package:dolarbot_app/api/responses/base/genericCurrencyResponse.dart';
-import 'package:dolarbot_app/api/responses/metalResponse.dart';
+import 'package:dolarbot_app/api/responses/base/generic_currency_response.dart';
+import 'package:dolarbot_app/api/responses/metal_response.dart';
 import 'package:dolarbot_app/models/active_screen_data.dart';
 import 'package:dolarbot_app/models/settings.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
@@ -126,14 +126,11 @@ class _FabMenuState extends State<FabMenu> {
               tooltip: "Agregar a Favoritos ❤",
               iconColor: Colors.red[400],
               backgroundColor: Colors.white,
-              icon: isFavorite
-                  ? FontAwesomeIcons.solidHeart
-                  : FontAwesomeIcons.heart,
+              icon: isFavorite ? FontAwesomeIcons.solidHeart : FontAwesomeIcons.heart,
               onPressed: () async {
                 bool result = await widget.onFavoriteButtonTap();
                 setState(() => isFavorite = result);
-                Future.delayed(
-                    Duration(milliseconds: 200), () => closeFabMenu());
+                Future.delayed(Duration(milliseconds: 200), () => closeFabMenu());
               },
             ),
         ],
@@ -257,11 +254,8 @@ class _FabMenuState extends State<FabMenu> {
     );
   }
 
-  FabOptionCalculatorDialog _getFiatCurrencyCalculatorDialog(
-      BuildContext context,
-      GenericCurrencyResponse data,
-      String decimalSeparator,
-      String thousandSeparator) {
+  FabOptionCalculatorDialog _getFiatCurrencyCalculatorDialog(BuildContext context,
+      GenericCurrencyResponse data, String decimalSeparator, String thousandSeparator) {
     return FabOptionCalculatorDialog(
       calculator: FiatCurrencyCalculator(
         buyValue: double.tryParse(data?.buyPrice ?? ''),
@@ -272,9 +266,7 @@ class _FabMenuState extends State<FabMenu> {
         thousandSeparator: thousandSeparator,
       ),
       calculatorReversed: FiatCurrencyCalculatorReversed(
-        sellValue: data?.sellPriceWithTaxes == null
-            ? double.tryParse(data?.sellPrice ?? '')
-            : null,
+        sellValue: data?.sellPriceWithTaxes == null ? double.tryParse(data?.sellPrice ?? '') : null,
         sellValueWithTaxes: double.tryParse(data?.sellPriceWithTaxes ?? ''),
         symbol: Util.getFiatCurrencySymbol(data),
         decimalSeparator: decimalSeparator,
@@ -283,8 +275,8 @@ class _FabMenuState extends State<FabMenu> {
     );
   }
 
-  FabOptionCalculatorDialog _getCryptoCalculatorDialog(BuildContext context,
-      CryptoResponse data, String decimalSeparator, String thousandSeparator) {
+  FabOptionCalculatorDialog _getCryptoCalculatorDialog(BuildContext context, CryptoResponse data,
+      String decimalSeparator, String thousandSeparator) {
     return FabOptionCalculatorDialog(
       calculator: CryptoCalculator(
         arsValue: double.tryParse(data?.arsPrice),
@@ -303,8 +295,8 @@ class _FabMenuState extends State<FabMenu> {
     );
   }
 
-  FabOptionCalculatorDialog _getMetalCalculatorDialog(BuildContext context,
-      MetalResponse data, String decimalSeparator, String thousandSeparator) {
+  FabOptionCalculatorDialog _getMetalCalculatorDialog(
+      BuildContext context, MetalResponse data, String decimalSeparator, String thousandSeparator) {
     return FabOptionCalculatorDialog(
       calculator: MetalCalculator(
         usdValue: double.tryParse(data?.value),
@@ -321,11 +313,8 @@ class _FabMenuState extends State<FabMenu> {
     );
   }
 
-  FabOptionCalculatorDialog _getVenezuelaCalculatorDialog(
-      BuildContext context,
-      VenezuelaResponse data,
-      String decimalSeparator,
-      String thousandSeparator) {
+  FabOptionCalculatorDialog _getVenezuelaCalculatorDialog(BuildContext context,
+      VenezuelaResponse data, String decimalSeparator, String thousandSeparator) {
     return FabOptionCalculatorDialog(
       calculator: VenezuelaCalculator(
         bankValue: double.tryParse(data?.bankPrice),

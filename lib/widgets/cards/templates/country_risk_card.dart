@@ -1,14 +1,13 @@
-import 'package:dolarbot_app/api/responses/countryRiskResponse.dart';
+import 'package:dolarbot_app/api/responses/country_risk_response.dart';
 import 'package:dolarbot_app/widgets/cards/card_favorite.dart';
 import 'package:dolarbot_app/widgets/cards/templates/base/base_card_template.dart';
 import 'package:flutter/material.dart';
 
-export 'package:dolarbot_app/api/responses/countryRiskResponse.dart';
+export 'package:dolarbot_app/api/responses/country_risk_response.dart';
 
 class CountryRiskCard extends BaseCardTemplate {
   static const double height = 130;
 
-  final GlobalKey<HomeScreenState> homeKey;
   final String title;
   final String tag;
   final CountryRiskResponse data;
@@ -21,7 +20,6 @@ class CountryRiskCard extends BaseCardTemplate {
 
   const CountryRiskCard({
     Key key,
-    this.homeKey,
     @required this.title,
     @required this.tag,
     @required this.data,
@@ -32,7 +30,6 @@ class CountryRiskCard extends BaseCardTemplate {
     this.showButtons = true,
     @required this.endpoint,
   }) : super(
-          homeKey: homeKey,
           title: title,
           tag: tag,
           gradiantColors: gradiantColors,

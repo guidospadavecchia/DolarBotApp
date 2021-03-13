@@ -21,12 +21,9 @@ class _CryptoInfoScreenState extends BaseInfoScreenState<CryptoInfoScreen>
     with BaseScreen
     implements IShareable<CryptoResponse> {
   @override
-  String getEndpointIdentifier() => widget.cardData.endpoint;
-
-  @override
   Widget body() {
-    CryptoEndpoints cryptoEndpoint = CryptoEndpoints.values
-        .firstWhere((e) => e.value == widget.cardData.endpoint);
+    CryptoEndpoints cryptoEndpoint =
+        CryptoEndpoints.values.firstWhere((e) => e.value == widget.cardData.endpoint);
 
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
@@ -40,8 +37,8 @@ class _CryptoInfoScreenState extends BaseInfoScreenState<CryptoInfoScreen>
         onFailedLoad: onErrorLoad,
         onSuccessfulLoad: onSuccessfulLoad,
         screen: (data) {
-          WidgetsBinding.instance.addPostFrameCallback((_) => setActiveData(
-              data, "${widget.cardData.title}", getShareInfo(data)));
+          WidgetsBinding.instance.addPostFrameCallback(
+              (_) => setActiveData(data, "${widget.cardData.title}", getShareInfo(data)));
 
           return Column(
             children: [
@@ -91,19 +88,17 @@ class _CryptoInfoScreenState extends BaseInfoScreenState<CryptoInfoScreen>
     String shareText = '';
 
     if (data != null) {
-      final arsPrice = data.arsPrice.isNumeric()
-          ? numberFormat.format(double.parse(data.arsPrice))
-          : 'N/A';
+      final arsPrice =
+          data.arsPrice.isNumeric() ? numberFormat.format(double.parse(data.arsPrice)) : 'N/A';
       final arsPriceWithTaxes = data.arsPriceWithTaxes.isNumeric()
           ? numberFormat.format(double.parse(data.arsPriceWithTaxes))
           : 'N/A';
-      final usdPrice = data.usdPrice.isNumeric()
-          ? numberFormat.format(double.parse(data.usdPrice))
-          : 'N/A';
+      final usdPrice =
+          data.usdPrice.isNumeric() ? numberFormat.format(double.parse(data.usdPrice)) : 'N/A';
       DateTime date = DateTime.parse(data.timestamp.replaceAll('/', '-'));
-      String formattedTime = DateFormat(
-              DateTime.now().isSameDayAs(date) ? 'HH:mm' : 'HH:mm - dd-MM-yyyy')
-          .format(date);
+      String formattedTime =
+          DateFormat(DateTime.now().isSameDayAs(date) ? 'HH:mm' : 'HH:mm - dd-MM-yyyy')
+              .format(date);
 
       shareText =
           'Dólares: \t\tUS\$ $usdPrice\nPesos: \t\t\$ $arsPrice\nPesos + Imp.: \t\$ $arsPriceWithTaxes\nHora: \t\t$formattedTime';

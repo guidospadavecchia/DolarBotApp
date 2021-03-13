@@ -1,4 +1,4 @@
-import 'package:dolarbot_app/api/responses/base/apiResponse.dart';
+import 'package:dolarbot_app/api/responses/base/api_response.dart';
 
 class CountryRiskResponse extends ApiResponse {
   String timestamp;

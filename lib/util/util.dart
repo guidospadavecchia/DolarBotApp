@@ -1,13 +1,13 @@
 import 'dart:async';
 import 'dart:typed_data';
 
-import 'package:dolarbot_app/screens/home/widgets/first_time_dialog.dart';
+import 'package:dolarbot_app/widgets/steps/first_time_dialog.dart';
 import 'package:dolarbot_app/widgets/common/toasts/toast_error.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
 
-import 'package:dolarbot_app/api/responses/base/apiResponse.dart';
+import 'package:dolarbot_app/api/responses/base/api_response.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
 import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'package:flutter/material.dart';
@@ -45,10 +45,7 @@ class Util {
   static shareCard(ScreenshotController controller) async {
     await controller.capture().then((Uint8List image) async {
       Share.file(
-          'DolarBot',
-          'dolarbot_${DateTime.now().microsecondsSinceEpoch}.png',
-          image,
-          'image/png',
+          'DolarBot', 'dolarbot_${DateTime.now().microsecondsSinceEpoch}.png', image, 'image/png',
           text: 'Descargá la app en: https://www.dolarbot.com.ar');
     }).catchError((onError) {
       ToastError();
@@ -60,8 +57,7 @@ class Util {
     await Future.delayed(Duration(milliseconds: 250)).then(
       (value) => Navigator.pushReplacement(
         context,
-        PageRouteBuilder(
-            pageBuilder: (context, animation1, animation2) => screen),
+        PageRouteBuilder(pageBuilder: (context, animation1, animation2) => screen),
       ),
     );
   }

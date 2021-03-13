@@ -1,14 +1,13 @@
-import 'package:dolarbot_app/api/responses/cryptoResponse.dart';
+import 'package:dolarbot_app/api/responses/crypto_response.dart';
 import 'package:dolarbot_app/widgets/cards/card_favorite.dart';
 import 'package:dolarbot_app/widgets/cards/templates/base/base_card_template.dart';
 import 'package:flutter/material.dart';
 
-export 'package:dolarbot_app/api/responses/cryptoResponse.dart';
+export 'package:dolarbot_app/api/responses/crypto_response.dart';
 
 class CryptoCard extends BaseCardTemplate {
   static const double height = 270;
 
-  final GlobalKey<HomeScreenState> homeKey;
   final String title;
   final String tag;
   final CryptoResponse data;
@@ -21,7 +20,6 @@ class CryptoCard extends BaseCardTemplate {
 
   const CryptoCard({
     Key key,
-    this.homeKey,
     @required this.title,
     @required this.tag,
     @required this.data,
@@ -32,7 +30,6 @@ class CryptoCard extends BaseCardTemplate {
     this.showButtons = true,
     @required this.endpoint,
   }) : super(
-          homeKey: homeKey,
           title: title,
           tag: tag,
           gradiantColors: gradiantColors,

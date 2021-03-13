@@ -1,4 +1,4 @@
-import 'package:dolarbot_app/api/responses/base/genericCurrencyResponse.dart';
+import 'package:dolarbot_app/api/responses/base/generic_currency_response.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:dolarbot_app/interfaces/share_info.dart';
 import 'package:dolarbot_app/models/active_screen_data.dart';
@@ -6,8 +6,7 @@ import 'package:dolarbot_app/screens/base/base_info_screen.dart';
 import 'package:dolarbot_app/widgets/cards/factory/factory_card.dart';
 import 'package:intl/intl.dart';
 
-class FiatCurrencyInfoScreen<T extends GenericCurrencyResponse>
-    extends BaseInfoScreen {
+class FiatCurrencyInfoScreen<T extends GenericCurrencyResponse> extends BaseInfoScreen {
   final String title;
   final CardData cardData;
   final DollarEndpoints dollarEndpoint;
@@ -21,20 +20,13 @@ class FiatCurrencyInfoScreen<T extends GenericCurrencyResponse>
       this.dollarEndpoint,
       this.euroEndpoint,
       this.realEndpoint})
-      : assert((dollarEndpoint != null &&
-                euroEndpoint == null &&
-                realEndpoint == null) ||
-            (euroEndpoint != null &&
-                dollarEndpoint == null &&
-                realEndpoint == null) ||
-            (realEndpoint != null &&
-                dollarEndpoint == null &&
-                euroEndpoint == null));
+      : assert((dollarEndpoint != null && euroEndpoint == null && realEndpoint == null) ||
+            (euroEndpoint != null && dollarEndpoint == null && realEndpoint == null) ||
+            (realEndpoint != null && dollarEndpoint == null && euroEndpoint == null));
 
   @override
   _FiatCurrencyInfoScreenState<T> createState() =>
-      _FiatCurrencyInfoScreenState<T>(
-          dollarEndpoint, euroEndpoint, realEndpoint);
+      _FiatCurrencyInfoScreenState<T>(dollarEndpoint, euroEndpoint, realEndpoint);
 }
 
 class _FiatCurrencyInfoScreenState<T extends GenericCurrencyResponse>
@@ -52,9 +44,6 @@ class _FiatCurrencyInfoScreenState<T extends GenericCurrencyResponse>
   );
 
   @override
-  String getEndpointIdentifier() => widget.cardData.endpoint.toString();
-
-  @override
   Color setColorAppbar() => ThemeManager.getForegroundColor();
 
   @override
@@ -69,9 +58,7 @@ class _FiatCurrencyInfoScreenState<T extends GenericCurrencyResponse>
         onSuccessfulLoad: onSuccessfulLoad,
         screen: (data) {
           WidgetsBinding.instance.addPostFrameCallback((_) => setActiveData(
-              data,
-              "${widget.title} - ${widget.cardData.title}",
-              getShareInfo(data)));
+              data, "${widget.title} - ${widget.cardData.title}", getShareInfo(data)));
 
           return Column(
             children: [
@@ -121,16 +108,14 @@ class _FiatCurrencyInfoScreenState<T extends GenericCurrencyResponse>
     );
     String shareText = '';
     if (data != null) {
-      final buyPrice = data.buyPrice.isNumeric()
-          ? numberFormat.format(double.parse(data.buyPrice))
-          : 'N/A';
-      final sellPrice = data.sellPrice.isNumeric()
-          ? numberFormat.format(double.parse(data.sellPrice))
-          : 'N/A';
+      final buyPrice =
+          data.buyPrice.isNumeric() ? numberFormat.format(double.parse(data.buyPrice)) : 'N/A';
+      final sellPrice =
+          data.sellPrice.isNumeric() ? numberFormat.format(double.parse(data.sellPrice)) : 'N/A';
       DateTime date = DateTime.parse(data.timestamp.replaceAll('/', '-'));
-      String formattedTime = DateFormat(
-              DateTime.now().isSameDayAs(date) ? 'HH:mm' : 'HH:mm - dd-MM-yyyy')
-          .format(date);
+      String formattedTime =
+          DateFormat(DateTime.now().isSameDayAs(date) ? 'HH:mm' : 'HH:mm - dd-MM-yyyy')
+              .format(date);
 
       if (data.sellPriceWithTaxes != null) {
         final sellPriceWithTaxes = data.sellPriceWithTaxes.isNumeric()
@@ -139,8 +124,7 @@ class _FiatCurrencyInfoScreenState<T extends GenericCurrencyResponse>
         shareText =
             'Compra: \t\t\$ $buyPrice\nVenta: \t\t\$ $sellPrice\nVenta Ahorro: \t\$ $sellPriceWithTaxes\nHora: \t\t$formattedTime';
       } else {
-        shareText =
-            'Compra: \t\t\$ $buyPrice\nVenta: \t\t\$ $sellPrice\nHora: \t\t$formattedTime';
+        shareText = 'Compra: \t\t\$ $buyPrice\nVenta: \t\t\$ $sellPrice\nHora: \t\t$formattedTime';
       }
     }
 
@@ -171,8 +155,7 @@ class _FiatCurrencyInfoScreenState<T extends GenericCurrencyResponse>
 
   _getResponse<T extends GenericCurrencyResponse>() {
     if (dollarEndpoint != null) {
-      return API.getDollarRate(dollarEndpoint,
-          forceRefresh: shouldForceRefresh);
+      return API.getDollarRate(dollarEndpoint, forceRefresh: shouldForceRefresh);
     } else if (euroEndpoint != null) {
       return API.getEuroRate(euroEndpoint, forceRefresh: shouldForceRefresh);
     } else if (realEndpoint != null) {

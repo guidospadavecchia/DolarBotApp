@@ -1,7 +1,7 @@
-import 'package:dolarbot_app/api/responses/base/apiResponse.dart';
+import 'package:dolarbot_app/api/responses/base/api_response.dart';
 import 'package:flutter/foundation.dart';
 
-export 'package:dolarbot_app/api/responses/base/apiResponse.dart';
+export 'package:dolarbot_app/api/responses/base/api_response.dart';
 
 class ActiveScreenData extends ChangeNotifier {
   String _shareText;

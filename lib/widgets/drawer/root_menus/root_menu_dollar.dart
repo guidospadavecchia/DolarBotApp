@@ -1,5 +1,5 @@
 import 'package:dolarbot_app/api/api_endpoints.dart';
-import 'package:dolarbot_app/api/responses/dollarResponse.dart';
+import 'package:dolarbot_app/api/responses/dollar_response.dart';
 import 'package:dolarbot_app/classes/dolarbot_icons.dart';
 import 'package:dolarbot_app/widgets/drawer/drawer_menu_body.dart';
 import 'package:dolarbot_app/screens/fiat_currency_info/fiat_currency_info_screen.dart';

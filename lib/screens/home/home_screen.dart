@@ -1,5 +1,4 @@
-import 'package:dolarbot_app/api/responses/base/genericCurrencyResponse.dart';
-import 'package:dolarbot_app/api/responses/metalResponse.dart';
+import 'package:dolarbot_app/api/responses/factory/api_response_builder.dart';
 import 'package:dolarbot_app/classes/hive/favorite_rate.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
@@ -54,16 +53,12 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
   Color setColorAppbar() => ThemeManager.getPrimaryTextColor(context);
 
   @override
-  String getEndpointIdentifier() => null;
-
-  @override
   void initState() {
     super.initState();
 
     if (!_cardsLoaded) {
       _loadFavorites().then(
-        (_) => WidgetsBinding.instance
-            .addPostFrameCallback((_) => setState(() => _buildCards())),
+        (_) => WidgetsBinding.instance.addPostFrameCallback((_) => setState(() => _buildCards())),
       );
     } else {
       _buildCards();
@@ -91,8 +86,7 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
         duration: kAnimationDuration,
         child: Container(
           height: MediaQuery.of(context).size.height,
-          padding: EdgeInsets.only(
-              bottom: MediaQuery.of(context).viewInsets.bottom + 110),
+          padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom + 110),
           child: NotificationListener<OverscrollIndicatorNotification>(
             onNotification: (OverscrollIndicatorNotification overScroll) {
               overScroll.disallowGlow();
@@ -107,7 +101,7 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
                       borderRadius: BorderRadius.circular(10),
                       color: Colors.transparent,
                     ),
-                    margin: EdgeInsets.only(left: 15, right: 15, bottom: 15),
+                    margin: EdgeInsets.only(left: 15, right: 15),
                     child: Dismissible(
                       dismissThresholds: {
                         DismissDirection.endToStart: 0.4,
@@ -143,8 +137,8 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
 
   void _onDismissCard(int cardIndex) {
     Box favoritesBox = Hive.box('favorites');
-    List<FavoriteRate> favoriteCards = favoritesBox
-        .get('favoriteCards', defaultValue: []).cast<FavoriteRate>();
+    List<FavoriteRate> favoriteCards =
+        favoritesBox.get('favoriteCards', defaultValue: []).cast<FavoriteRate>();
 
     _cards.removeAt(cardIndex);
     favoriteCards.removeAt(cardIndex);
@@ -165,9 +159,7 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
       _favoriteRates.addAll(cards.cast<FavoriteRate>());
       await Future.wait(
         _favoriteRates.map(
-          (x) => API
-              .getRawData(x.endpoint, false)
-              .then((value) => _responses[x.endpoint] = value),
+          (x) => API.getRawData(x.endpoint, false).then((value) => _responses[x.endpoint] = value),
         ),
       );
     }
@@ -177,27 +169,9 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
     for (FavoriteRate favoriteRate in _favoriteRates) {
       String type = favoriteRate.cardResponseType;
       Map json = _responses[favoriteRate.endpoint];
+      ApiResponse response = ApiResponseBuilder.fromType(type, json);
 
-      if (type == (DollarResponse).toString() ||
-          type == (EuroResponse).toString() ||
-          type == (RealResponse).toString())
-        _cards.add(BuildCard(GenericCurrencyResponse(json))
-            .fromFavoriteRate(context, favoriteRate));
-      else if (type == (CryptoResponse).toString())
-        _cards.add(BuildCard(CryptoResponse(json))
-            .fromFavoriteRate(context, favoriteRate));
-      else if (type == (MetalResponse).toString())
-        _cards.add(BuildCard(MetalResponse(json))
-            .fromFavoriteRate(context, favoriteRate));
-      else if (type == (CountryRiskResponse).toString())
-        _cards.add(BuildCard(CountryRiskResponse(json))
-            .fromFavoriteRate(context, favoriteRate));
-      else if (type == (BcraResponse).toString())
-        _cards.add(BuildCard(BcraResponse(json))
-            .fromFavoriteRate(context, favoriteRate));
-      else if (type == (VenezuelaResponse).toString())
-        _cards.add(BuildCard(VenezuelaResponse(json))
-            .fromFavoriteRate(context, favoriteRate));
+      _cards.add(BuildCard(response).fromFavoriteRate(context, favoriteRate));
     }
 
     _cardsLoaded = true;
@@ -212,7 +186,7 @@ class _DismissFavoriteButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 10, bottom: 10),
+      margin: EdgeInsets.only(top: 20, bottom: 20),
       alignment: Alignment.centerRight,
       padding: EdgeInsets.only(right: 40),
       decoration: BoxDecoration(

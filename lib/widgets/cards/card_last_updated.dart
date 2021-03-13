@@ -42,7 +42,7 @@ class CardLastUpdated extends StatelessWidget {
                             : "Última actualización: ${_getFormattedDateTime()}",
                         style: TextStyle(
                           fontSize: 12,
-                          fontFamily: 'Raleway',
+                          fontFamily: 'Montserrat',
                           fontWeight: FontWeight.normal,
                           color: Colors.white54,
                         ),

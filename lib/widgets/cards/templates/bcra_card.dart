@@ -1,14 +1,13 @@
-import 'package:dolarbot_app/api/responses/bcraResponse.dart';
+import 'package:dolarbot_app/api/responses/bcra_response.dart';
 import 'package:dolarbot_app/widgets/cards/card_favorite.dart';
 import 'package:dolarbot_app/widgets/cards/templates/base/base_card_template.dart';
 import 'package:flutter/material.dart';
 
-export 'package:dolarbot_app/api/responses/bcraResponse.dart';
+export 'package:dolarbot_app/api/responses/bcra_response.dart';
 
 class BcraCard extends BaseCardTemplate {
   static const double height = 140;
 
-  final GlobalKey<HomeScreenState> homeKey;
   final String title;
   final String subtitle;
   final String tag;
@@ -23,7 +22,6 @@ class BcraCard extends BaseCardTemplate {
 
   const BcraCard({
     Key key,
-    this.homeKey,
     @required this.title,
     @required this.subtitle,
     @required this.tag,
@@ -36,7 +34,6 @@ class BcraCard extends BaseCardTemplate {
     this.showButtons = true,
     @required this.endpoint,
   }) : super(
-          homeKey: homeKey,
           title: title,
           subtitle: subtitle,
           tag: tag,

@@ -28,9 +28,6 @@ class _BcraInfoScreenState extends BaseInfoScreenState<BcraInfoScreen>
   _BcraInfoScreenState(this.bcraEndpoint);
 
   @override
-  String getEndpointIdentifier() => widget.cardData.endpoint.toString();
-
-  @override
   bool showCalculatorButton() => false;
 
   @override
@@ -79,8 +76,7 @@ class _BcraInfoScreenState extends BaseInfoScreenState<BcraInfoScreen>
           onSuccessfulLoad: onSuccessfulLoad,
           screen: (data) {
             WidgetsBinding.instance.addPostFrameCallback((_) {
-              setActiveData(data, "${widget.title} - ${widget.cardData.title}",
-                  getShareInfo(data));
+              setActiveData(data, "${widget.title} - ${widget.cardData.title}", getShareInfo(data));
             });
             return Column(
               children: [
@@ -100,15 +96,13 @@ class _BcraInfoScreenState extends BaseInfoScreenState<BcraInfoScreen>
         );
       case BcraEndpoints.circulante:
         return FutureScreenDelegate(
-          response:
-              API.getCirculatingCurrency(forceRefresh: shouldForceRefresh),
+          response: API.getCirculatingCurrency(forceRefresh: shouldForceRefresh),
           onLoading: onLoading,
           onFailedLoad: onErrorLoad,
           onSuccessfulLoad: onSuccessfulLoad,
           screen: (data) {
             WidgetsBinding.instance.addPostFrameCallback((_) {
-              setActiveData(data, "${widget.title} - ${widget.cardData.title}",
-                  getShareInfo(data));
+              setActiveData(data, "${widget.title} - ${widget.cardData.title}", getShareInfo(data));
             });
             return Column(
               children: [
@@ -137,17 +131,7 @@ class _BcraInfoScreenState extends BaseInfoScreenState<BcraInfoScreen>
       builder: (context, activeData, child) {
         ApiResponse data = activeData.getActiveData();
 
-        if (data != null && data is CountryRiskResponse) {
-          return BuildCard(data).fromCardData(context, widget.cardData);
-        }
-
-        if (data != null && data is BcraResponse) {
-          // String subtitle = bcraEndpoint == BcraEndpoints.circulante
-          //     ? "Dinero en Circulación"
-          //     : "Dólares Estadounidenses";
-          // String symbol =
-          //     bcraEndpoint == BcraEndpoints.circulante ? "\$" : "US\$";
-          //Agregar subtitle y symbol.
+        if (data != null && (data is CountryRiskResponse || data is BcraResponse)) {
           return BuildCard(data).fromCardData(context, widget.cardData);
         }
 
@@ -164,14 +148,12 @@ class _BcraInfoScreenState extends BaseInfoScreenState<BcraInfoScreen>
     String shareText = '';
 
     if (data != null) {
-      final value = data.value.isNumeric()
-          ? numberFormat.format(int.parse(data.value))
-          : 'N/A';
+      final value = data.value.isNumeric() ? numberFormat.format(int.parse(data.value)) : 'N/A';
       final symbol = data.currency == 'USD' ? 'US\$' : '\$';
       DateTime date = DateTime.parse(data.timestamp.replaceAll('/', '-'));
-      String formattedTime = intl.DateFormat(
-              DateTime.now().isSameDayAs(date) ? 'HH:mm' : 'HH:mm - dd-MM-yyyy')
-          .format(date);
+      String formattedTime =
+          intl.DateFormat(DateTime.now().isSameDayAs(date) ? 'HH:mm' : 'HH:mm - dd-MM-yyyy')
+              .format(date);
 
       shareText = '$symbol $value\nHora: $formattedTime';
     }
@@ -190,9 +172,9 @@ class _BcraInfoScreenState extends BaseInfoScreenState<BcraInfoScreen>
           ? numberFormat.format(int.parse(data.value.split('.')[0]))
           : 'N/A';
       DateTime date = DateTime.parse(data.timestamp.replaceAll('/', '-'));
-      String formattedTime = intl.DateFormat(
-              DateTime.now().isSameDayAs(date) ? 'HH:mm' : 'HH:mm - dd-MM-yyyy')
-          .format(date);
+      String formattedTime =
+          intl.DateFormat(DateTime.now().isSameDayAs(date) ? 'HH:mm' : 'HH:mm - dd-MM-yyyy')
+              .format(date);
 
       shareText = '$value puntos\nHora: $formattedTime';
     }
@@ -206,7 +188,7 @@ class _BcraInfoScreenState extends BaseInfoScreenState<BcraInfoScreen>
     String symbol;
 
     if (bcraEndpoint == BcraEndpoints.circulante) {
-      subtitle = "Dinero en Circulación";
+      subtitle = "Pesos Argentinos";
       symbol = "\$";
     }
     if (bcraEndpoint == BcraEndpoints.reservas) {
@@ -228,8 +210,6 @@ class _BcraInfoScreenState extends BaseInfoScreenState<BcraInfoScreen>
 
   @override
   Type getResponseType() {
-    return bcraEndpoint == BcraEndpoints.riesgoPais
-        ? CountryRiskResponse
-        : BcraResponse;
+    return bcraEndpoint == BcraEndpoints.riesgoPais ? CountryRiskResponse : BcraResponse;
   }
 }

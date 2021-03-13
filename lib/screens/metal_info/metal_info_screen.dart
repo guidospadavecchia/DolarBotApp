@@ -1,4 +1,4 @@
-import 'package:dolarbot_app/api/responses/metalResponse.dart';
+import 'package:dolarbot_app/api/responses/metal_response.dart';
 import 'package:dolarbot_app/interfaces/share_info.dart';
 import 'package:dolarbot_app/models/active_screen_data.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
@@ -22,12 +22,9 @@ class _MetalInfoScreenState extends BaseInfoScreenState<MetalInfoScreen>
     with BaseScreen
     implements IShareable<MetalResponse> {
   @override
-  String getEndpointIdentifier() => widget.cardData.endpoint;
-
-  @override
   Widget body() {
-    MetalEndpoints metalEndpoint = MetalEndpoints.values
-        .firstWhere((e) => e.value == widget.cardData.endpoint);
+    MetalEndpoints metalEndpoint =
+        MetalEndpoints.values.firstWhere((e) => e.value == widget.cardData.endpoint);
 
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
@@ -42,9 +39,7 @@ class _MetalInfoScreenState extends BaseInfoScreenState<MetalInfoScreen>
         onSuccessfulLoad: onSuccessfulLoad,
         screen: (data) {
           WidgetsBinding.instance.addPostFrameCallback((_) => setActiveData(
-              data,
-              "${widget.title} - ${widget.cardData.title}",
-              getShareInfo(data)));
+              data, "${widget.title} - ${widget.cardData.title}", getShareInfo(data)));
 
           return Column(
             children: [
@@ -86,14 +81,12 @@ class _MetalInfoScreenState extends BaseInfoScreenState<MetalInfoScreen>
     String shareText = '';
 
     if (data != null) {
-      final value = data.value.isNumeric()
-          ? numberFormat.format(double.parse(data.value))
-          : 'N/A';
+      final value = data.value.isNumeric() ? numberFormat.format(double.parse(data.value)) : 'N/A';
       final symbol = data.currency == 'USD' ? 'US\$' : '\$';
       DateTime date = DateTime.parse(data.timestamp.replaceAll('/', '-'));
-      String formattedTime = intl.DateFormat(
-              DateTime.now().isSameDayAs(date) ? 'HH:mm' : 'HH:mm - dd-MM-yyyy')
-          .format(date);
+      String formattedTime =
+          intl.DateFormat(DateTime.now().isSameDayAs(date) ? 'HH:mm' : 'HH:mm - dd-MM-yyyy')
+              .format(date);
 
       shareText = '$symbol $value / ${data.unit}\nHora: $formattedTime';
     }

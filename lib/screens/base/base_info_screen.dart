@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:dolarbot_app/api/responses/base/apiResponse.dart';
+import 'package:dolarbot_app/api/responses/base/api_response.dart';
 import 'package:dolarbot_app/classes/hive/favorite_rate.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:dolarbot_app/models/active_screen_data.dart';
@@ -25,7 +25,7 @@ import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
 
 export 'package:dolarbot_app/api/api.dart';
-export 'package:dolarbot_app/api/responses/base/apiResponse.dart';
+export 'package:dolarbot_app/api/responses/base/api_response.dart';
 export 'package:dolarbot_app/classes/hive/favorite_rate.dart';
 export 'package:dolarbot_app/util/extensions/datetime_extensions.dart';
 export 'package:dolarbot_app/util/extensions/string_extensions.dart';
@@ -46,8 +46,8 @@ abstract class BaseInfoScreen extends StatefulWidget {
   }) : super(key: key);
 }
 
-abstract class BaseInfoScreenState<Page extends BaseInfoScreen>
-    extends State<BaseInfoScreen> with SingleTickerProviderStateMixin {
+abstract class BaseInfoScreenState<Page extends BaseInfoScreen> extends State<BaseInfoScreen>
+    with SingleTickerProviderStateMixin {
   final GlobalKey<SimpleFabMenuState> simpleFabKey = GlobalKey();
 
   bool isMainMenu() => true;
@@ -72,13 +72,12 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
   Widget card();
   FavoriteRate createFavorite();
   Type getResponseType();
-  String getEndpointIdentifier();
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (this.mounted && getEndpointIdentifier() != null) {
+      if (this.mounted && widget.cardData?.endpoint != null) {
         _getRateDescription().then(
           (value) => setState(
             () {
@@ -123,19 +122,28 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
               width: 290,
               child: Drawer(
                 child: DrawerMenu(
-                  onDrawerDisplayChanged: (isOpen) =>
-                      _onDrawerDisplayChange(isOpen),
+                  onDrawerDisplayChanged: (isOpen) => _onDrawerDisplayChange(isOpen),
                 ),
               ),
             ),
+            //HOME: 998x440
+            //SCREEN: 1080x468
             drawerEdgeDragWidth: MediaQuery.of(context).size.width / 3,
             drawerEnableOpenDragGesture: true,
             body: (widget.title != null && isMainMenu())
                 ? Stack(children: [
                     card() != null
-                        ? Screenshot(
-                            child: card(),
-                            controller: screenshotController,
+                        ? Container(
+                            margin: EdgeInsets.only(left: 15, right: 15),
+                            child: Screenshot(
+                              child: Container(
+                                padding: EdgeInsets.only(left: 10, right: 10),
+                                child: Container(
+                                  child: card(),
+                                ),
+                              ),
+                              controller: screenshotController,
+                            ),
                           )
                         : SizedBox.shrink(),
                     Container(
@@ -146,10 +154,8 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
                           end: Alignment.bottomRight,
                           colors: widget.cardData?.colors == null
                               ? [
-                                  ThemeManager.getGlobalBackgroundColor(
-                                      context),
-                                  ThemeManager.getGlobalBackgroundColor(
-                                      context),
+                                  ThemeManager.getGlobalBackgroundColor(context),
+                                  ThemeManager.getGlobalBackgroundColor(context),
                                 ]
                               : widget.cardData.colors,
                         ),
@@ -172,8 +178,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
                     onFavoriteButtonTap: _onFavoriteStatusChange,
                     isFavorite: _getIsFavorite(),
                     showShareButton: showShareButton(),
-                    onShareButtonTap: () =>
-                        Util.shareCard(screenshotController),
+                    onShareButtonTap: () => Util.shareCard(screenshotController),
                     showClipboardButton: showClipboardButton(),
                     showCalculatorButton: showCalculatorButton(),
                     showDescriptionButton: _shouldShowDescriptionButton,
@@ -190,8 +195,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
 
   @nonVirtual
   void setActiveData(ApiResponse data, String shareTitle, String shareText) {
-    ActiveScreenData activeScreenData =
-        Provider.of<ActiveScreenData>(context, listen: false);
+    ActiveScreenData activeScreenData = Provider.of<ActiveScreenData>(context, listen: false);
     activeScreenData.setActiveData(data, shareTitle, shareText);
   }
 
@@ -227,12 +231,9 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
                     ),
               SizedBox(width: 20),
               Container(
-                constraints: BoxConstraints(
-                    maxWidth: MediaQuery.of(context).size.width * 0.7),
+                constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.7),
                 child: FittedBox(
-                  fit: widget.cardData.title.length > 10
-                      ? BoxFit.fitWidth
-                      : BoxFit.none,
+                  fit: widget.cardData.title.length > 10 ? BoxFit.fitWidth : BoxFit.none,
                   child: Text(
                     widget.cardData.title,
                     style: TextStyle(
@@ -270,9 +271,8 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
 
   Future<String> _getRateDescription() async {
     String descriptionsString = await rootBundle.loadString(kDescriptionsFile);
-    Map<String, dynamic> descriptions =
-        json.decode(descriptionsString) as Map<String, dynamic>;
-    return descriptions[getEndpointIdentifier()];
+    Map<String, dynamic> descriptions = json.decode(descriptionsString) as Map<String, dynamic>;
+    return descriptions[widget.cardData?.endpoint];
   }
 
   Future<void> _onShowRateDescription() async {
@@ -322,8 +322,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
                           text: 'Cerrar',
                           icon: Icons.close,
                           onPressed: () {
-                            if (Navigator.of(context).canPop())
-                              Navigator.of(context).pop();
+                            if (Navigator.of(context).canPop()) Navigator.of(context).pop();
                           }),
                     )
                   ],
@@ -350,8 +349,8 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
 
   bool _getIsFavorite() {
     Box favoritesBox = Hive.box('favorites');
-    List<FavoriteRate> favoriteCards = favoritesBox
-        .get('favoriteCards', defaultValue: []).cast<FavoriteRate>();
+    List<FavoriteRate> favoriteCards =
+        favoritesBox.get('favoriteCards', defaultValue: []).cast<FavoriteRate>();
 
     return favoriteCards.any(
       (fav) => fav.endpoint == widget.cardData.endpoint,
@@ -363,12 +362,11 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
 
     try {
       Box favoritesBox = Hive.box('favorites');
-      List<FavoriteRate> favoriteCards = favoritesBox
-          .get('favoriteCards', defaultValue: []).cast<FavoriteRate>();
+      List<FavoriteRate> favoriteCards =
+          favoritesBox.get('favoriteCards', defaultValue: []).cast<FavoriteRate>();
 
-      FavoriteRate favoriteCard = favoriteCards.firstWhere(
-          (fav) => fav.endpoint == widget.cardData.endpoint,
-          orElse: () => null);
+      FavoriteRate favoriteCard = favoriteCards
+          .firstWhere((fav) => fav.endpoint == widget.cardData.endpoint, orElse: () => null);
       if (favoriteCard == null) {
         //Add favorite
         favoriteCards.add(createFavorite());

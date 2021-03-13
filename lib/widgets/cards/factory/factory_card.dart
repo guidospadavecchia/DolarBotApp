@@ -1,5 +1,5 @@
-import 'package:dolarbot_app/api/responses/base/apiResponse.dart';
-import 'package:dolarbot_app/api/responses/base/genericCurrencyResponse.dart';
+import 'package:dolarbot_app/api/responses/base/api_response.dart';
+import 'package:dolarbot_app/api/responses/base/generic_currency_response.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
 import 'package:dolarbot_app/widgets/cards/templates/bcra_card.dart';
@@ -12,15 +12,12 @@ import 'package:dotted_border/dotted_border.dart';
 
 abstract class BuildCard {
   factory BuildCard(ApiResponse data) {
-    if (data is GenericCurrencyResponse)
-      return _FiatCurrency(data, FiatCurrencyCard.height);
+    if (data is GenericCurrencyResponse) return _FiatCurrency(data, FiatCurrencyCard.height);
     if (data is CryptoResponse) return _Crypto(data, CryptoCard.height);
     if (data is MetalResponse) return _Metal(data, MetalCard.height);
     if (data is BcraResponse) return _Bcra(data, BcraCard.height);
-    if (data is CountryRiskResponse)
-      return _CountryRisk(data, CountryRiskCard.height);
-    if (data is VenezuelaResponse)
-      return _Venezuela(data, VenezuelaCard.height);
+    if (data is CountryRiskResponse) return _CountryRisk(data, CountryRiskCard.height);
+    if (data is VenezuelaResponse) return _Venezuela(data, VenezuelaCard.height);
 
     return EmptyCard();
   }
@@ -77,8 +74,7 @@ class _FiatCurrency implements BuildCard {
         tag: favoriteRate.cardTag,
         iconAsset: favoriteRate.cardIconAsset,
         iconData: IconData(favoriteRate.cardIconData,
-            fontFamily: "FontAwesomeSolid",
-            fontPackage: "font_awesome_flutter"),
+            fontFamily: "FontAwesomeSolid", fontPackage: "font_awesome_flutter"),
         gradiantColors: favoriteRate.cardColors.map((n) => Color(n)).toList(),
         endpoint: favoriteRate.endpoint,
       ),
@@ -138,6 +134,7 @@ class _Metal implements BuildCard {
 
   @override
   Widget fromCardData(context, buildCardData) {
+    print(height);
     return _InternalBuildCard(
       context: context,
       height: height,
@@ -157,6 +154,7 @@ class _Metal implements BuildCard {
 
   @override
   Widget fromFavoriteRate(BuildContext context, FavoriteRate favoriteRate) {
+    print(height);
     return _InternalBuildCard(
       context: context,
       height: height,
@@ -213,8 +211,7 @@ class _Bcra implements BuildCard {
         tag: favoriteRate.cardTag,
         iconAsset: favoriteRate.cardIconAsset,
         iconData: IconData(favoriteRate.cardIconData,
-            fontFamily: "FontAwesomeSolid",
-            fontPackage: "font_awesome_flutter"),
+            fontFamily: "FontAwesomeSolid", fontPackage: "font_awesome_flutter"),
         gradiantColors: favoriteRate.cardColors.map((n) => Color(n)).toList(),
         endpoint: favoriteRate.endpoint,
       ),
@@ -258,8 +255,7 @@ class _CountryRisk implements BuildCard {
         tag: favoriteRate.cardTag,
         iconAsset: favoriteRate.cardIconAsset,
         iconData: IconData(favoriteRate.cardIconData,
-            fontFamily: "FontAwesomeSolid",
-            fontPackage: "font_awesome_flutter"),
+            fontFamily: "FontAwesomeSolid", fontPackage: "font_awesome_flutter"),
         gradiantColors: favoriteRate.cardColors.map((n) => Color(n)).toList(),
         endpoint: favoriteRate.endpoint,
       ),

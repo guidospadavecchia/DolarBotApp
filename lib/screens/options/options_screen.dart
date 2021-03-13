@@ -22,8 +22,7 @@ class OptionsScreen extends BaseInfoScreen {
   _OptionsScreenState createState() => _OptionsScreenState();
 }
 
-class _OptionsScreenState extends BaseInfoScreenState<OptionsScreen>
-    with BaseScreen {
+class _OptionsScreenState extends BaseInfoScreenState<OptionsScreen> with BaseScreen {
   @override
   bool isMainMenu() => false;
 
@@ -49,9 +48,6 @@ class _OptionsScreenState extends BaseInfoScreenState<OptionsScreen>
   Type getResponseType() => null;
 
   @override
-  String getEndpointIdentifier() => null;
-
-  @override
   Widget body() {
     return Container(
       child: Column(
@@ -66,8 +62,7 @@ class _OptionsScreenState extends BaseInfoScreenState<OptionsScreen>
               onChanged: (bool value) {
                 setState(() {
                   AdaptiveTheme.of(context).toggleThemeMode();
-                  Provider.of<Settings>(context, listen: false)
-                      .notifyThemeChange();
+                  Provider.of<Settings>(context, listen: false).notifyThemeChange();
                 });
               },
             ),
