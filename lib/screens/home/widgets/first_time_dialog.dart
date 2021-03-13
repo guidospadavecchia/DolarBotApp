@@ -1,12 +1,7 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:dolarbot_app/screens/home/widgets/steps/step_finish.dart';
-import 'package:dolarbot_app/screens/home/widgets/steps/step_four.dart';
-import 'package:dolarbot_app/screens/home/widgets/steps/step_one.dart';
-import 'package:dolarbot_app/screens/home/widgets/steps/step_three.dart';
-import 'package:dolarbot_app/screens/home/widgets/steps/step_two.dart';
-import 'package:dolarbot_app/screens/home/widgets/steps/step_welcome.dart';
 import 'package:dolarbot_app/widgets/common/blur_dialog.dart';
+import 'package:dolarbot_app/widgets/steps/exports/step_exports.dart';
 import 'package:flutter/material.dart';
 
 class FirstTimeDialog extends StatelessWidget {

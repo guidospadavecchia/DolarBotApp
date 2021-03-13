@@ -1,41 +1,34 @@
 import 'package:dolarbot_app/interfaces/share_info.dart';
 import 'package:dolarbot_app/models/active_screen_data.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
-import 'package:dolarbot_app/screens/home/widgets/cards/templates/bcra_card.dart';
-import 'package:dolarbot_app/screens/home/widgets/cards/templates/country_risk_card.dart';
+import 'package:dolarbot_app/widgets/cards/factory/factory_card.dart';
 import 'package:intl/intl.dart' as intl;
 
 class BcraInfoScreen extends BaseInfoScreen {
   final String title;
-  final String bannerTitle;
-  final IconData bannerIconData;
-  final List<Color> gradiantColors;
-  final BcraEndpoints bcraEndpoint;
+  final CardData cardData;
 
   BcraInfoScreen({
-    this.title,
-    this.bannerTitle,
-    this.bannerIconData,
-    this.gradiantColors,
-    @required this.bcraEndpoint,
-  }) : super(
-          title: title,
-          endpoint: bcraEndpoint.value,
-        );
+    @required this.title,
+    @required this.cardData,
+  }) : super(cardData: cardData, title: title);
+
+  BcraEndpoints getEndpoint() {
+    return BcraEndpoints.values.firstWhere((e) => e.value == cardData.endpoint);
+  }
 
   @override
-  _BcraInfoScreenState createState() => _BcraInfoScreenState(bcraEndpoint);
+  _BcraInfoScreenState createState() => _BcraInfoScreenState(getEndpoint());
 }
 
 class _BcraInfoScreenState extends BaseInfoScreenState<BcraInfoScreen>
     with BaseScreen
     implements IShareable<BcraResponse> {
   final BcraEndpoints bcraEndpoint;
-
   _BcraInfoScreenState(this.bcraEndpoint);
 
   @override
-  String getEndpointIdentifier() => bcraEndpoint.toString();
+  String getEndpointIdentifier() => widget.cardData.endpoint.toString();
 
   @override
   bool showCalculatorButton() => false;
@@ -59,7 +52,7 @@ class _BcraInfoScreenState extends BaseInfoScreenState<BcraInfoScreen>
           onSuccessfulLoad: onSuccessfulLoad,
           screen: (data) {
             WidgetsBinding.instance.addPostFrameCallback((_) {
-              setActiveData(data, "${widget.title} - ${widget.bannerTitle}",
+              setActiveData(data, "${widget.title} - ${widget.cardData.title}",
                   getShareInfoCountryRisk(data));
             });
             return Column(
@@ -86,7 +79,7 @@ class _BcraInfoScreenState extends BaseInfoScreenState<BcraInfoScreen>
           onSuccessfulLoad: onSuccessfulLoad,
           screen: (data) {
             WidgetsBinding.instance.addPostFrameCallback((_) {
-              setActiveData(data, "${widget.title} - ${widget.bannerTitle}",
+              setActiveData(data, "${widget.title} - ${widget.cardData.title}",
                   getShareInfo(data));
             });
             return Column(
@@ -114,7 +107,7 @@ class _BcraInfoScreenState extends BaseInfoScreenState<BcraInfoScreen>
           onSuccessfulLoad: onSuccessfulLoad,
           screen: (data) {
             WidgetsBinding.instance.addPostFrameCallback((_) {
-              setActiveData(data, "${widget.title} - ${widget.bannerTitle}",
+              setActiveData(data, "${widget.title} - ${widget.cardData.title}",
                   getShareInfo(data));
             });
             return Column(
@@ -145,39 +138,17 @@ class _BcraInfoScreenState extends BaseInfoScreenState<BcraInfoScreen>
         ApiResponse data = activeData.getActiveData();
 
         if (data != null && data is CountryRiskResponse) {
-          return CountryRiskCard(
-            data: data,
-            title: widget.bannerTitle,
-            tag: widget.title,
-            gradiantColors: widget.gradiantColors,
-            iconAsset: widget.bannerIconAsset,
-            iconData: widget.bannerIconData,
-            showButtons: false,
-            showPoweredBy: true,
-            endpoint: widget.endpoint,
-          );
+          return BuildCard(data).fromCardData(context, widget.cardData);
         }
 
         if (data != null && data is BcraResponse) {
-          String subtitle = bcraEndpoint == BcraEndpoints.circulante
-              ? "Dinero en Circulación"
-              : "Dólares Estadounidenses";
-          String symbol =
-              bcraEndpoint == BcraEndpoints.circulante ? "\$" : "US\$";
-
-          return BcraCard(
-            data: data,
-            title: widget.bannerTitle,
-            subtitle: subtitle,
-            tag: widget.title,
-            symbol: symbol,
-            iconData: widget.bannerIconData,
-            iconAsset: widget.bannerIconAsset,
-            gradiantColors: widget.gradiantColors,
-            showButtons: false,
-            showPoweredBy: true,
-            endpoint: widget.endpoint,
-          );
+          // String subtitle = bcraEndpoint == BcraEndpoints.circulante
+          //     ? "Dinero en Circulación"
+          //     : "Dólares Estadounidenses";
+          // String symbol =
+          //     bcraEndpoint == BcraEndpoints.circulante ? "\$" : "US\$";
+          //Agregar subtitle y symbol.
+          return BuildCard(data).fromCardData(context, widget.cardData);
         }
 
         return SizedBox.shrink();
@@ -244,15 +215,15 @@ class _BcraInfoScreenState extends BaseInfoScreenState<BcraInfoScreen>
     }
 
     return FavoriteRate(
-        endpoint: bcraEndpoint.value,
-        cardResponseType: getResponseType().toString(),
-        cardTitle: widget.bannerTitle,
+        endpoint: widget.cardData.endpoint,
+        cardResponseType: widget.cardData.response.toString(),
+        cardTitle: widget.cardData.title,
         cardSubtitle: subtitle,
         cardSymbol: symbol,
         cardTag: widget.title,
-        cardColors: widget.gradiantColors.map((color) => color.value).toList(),
-        cardIconData: widget.bannerIconData?.codePoint,
-        cardIconAsset: widget.bannerIconAsset);
+        cardColors: widget.cardData.colors.map((color) => color.value).toList(),
+        cardIconData: widget.cardData.iconData?.codePoint,
+        cardIconAsset: widget.cardData.iconAsset);
   }
 
   @override

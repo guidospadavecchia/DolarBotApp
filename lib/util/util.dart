@@ -2,13 +2,13 @@ import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:dolarbot_app/screens/home/widgets/first_time_dialog.dart';
+import 'package:dolarbot_app/widgets/common/toasts/toast_error.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
 
 import 'package:dolarbot_app/api/responses/base/apiResponse.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
-import 'package:dolarbot_app/widgets/toasts/toast_error.dart';
 import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'package:flutter/material.dart';
 import 'package:oktoast/oktoast.dart';

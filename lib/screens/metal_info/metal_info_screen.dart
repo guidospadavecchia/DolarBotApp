@@ -2,43 +2,33 @@ import 'package:dolarbot_app/api/responses/metalResponse.dart';
 import 'package:dolarbot_app/interfaces/share_info.dart';
 import 'package:dolarbot_app/models/active_screen_data.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
-import 'package:dolarbot_app/screens/home/widgets/cards/templates/metal_card.dart';
+import 'package:dolarbot_app/widgets/cards/factory/factory_card.dart';
 import 'package:intl/intl.dart' as intl;
 
 class MetalInfoScreen extends BaseInfoScreen {
   final String title;
-  final String bannerTitle;
-  final String bannerIconAsset;
-  final List<Color> gradiantColors;
-  final MetalEndpoints metalEndpoint;
+  final CardData cardData;
 
   MetalInfoScreen({
-    this.title,
-    @required this.metalEndpoint,
-    this.bannerTitle,
-    this.bannerIconAsset,
-    this.gradiantColors,
-  }) : super(
-          title: title,
-          endpoint: metalEndpoint.value,
-        );
+    @required this.title,
+    @required this.cardData,
+  }) : super(cardData: cardData, title: title);
 
   @override
-  _MetalInfoScreenState createState() => _MetalInfoScreenState(metalEndpoint);
+  _MetalInfoScreenState createState() => _MetalInfoScreenState();
 }
 
 class _MetalInfoScreenState extends BaseInfoScreenState<MetalInfoScreen>
     with BaseScreen
     implements IShareable<MetalResponse> {
-  final MetalEndpoints metalEndpoint;
-
-  _MetalInfoScreenState(this.metalEndpoint);
-
   @override
-  String getEndpointIdentifier() => metalEndpoint.toString();
+  String getEndpointIdentifier() => widget.cardData.endpoint;
 
   @override
   Widget body() {
+    MetalEndpoints metalEndpoint = MetalEndpoints.values
+        .firstWhere((e) => e.value == widget.cardData.endpoint);
+
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       physics: BouncingScrollPhysics(),
@@ -53,7 +43,7 @@ class _MetalInfoScreenState extends BaseInfoScreenState<MetalInfoScreen>
         screen: (data) {
           WidgetsBinding.instance.addPostFrameCallback((_) => setActiveData(
               data,
-              "${widget.title} - ${widget.bannerTitle}",
+              "${widget.title} - ${widget.cardData.title}",
               getShareInfo(data)));
 
           return Column(
@@ -81,21 +71,7 @@ class _MetalInfoScreenState extends BaseInfoScreenState<MetalInfoScreen>
       builder: (context, activeData, child) {
         ApiResponse data = activeData.getActiveData();
 
-        if (data != null && data is MetalResponse) {
-          return MetalCard(
-            title: widget.bannerTitle,
-            data: data,
-            tag: widget.title,
-            iconAsset: widget.bannerIconAsset,
-            iconData: widget.bannerIconData,
-            gradiantColors: widget.gradiantColors,
-            showButtons: false,
-            showPoweredBy: true,
-            endpoint: widget.endpoint,
-          );
-        } else {
-          return SizedBox.shrink();
-        }
+        return BuildCard(data).fromCardData(context, widget.cardData);
       },
     );
   }
@@ -128,15 +104,15 @@ class _MetalInfoScreenState extends BaseInfoScreenState<MetalInfoScreen>
   @override
   FavoriteRate createFavorite() {
     return FavoriteRate(
-        endpoint: metalEndpoint.value,
-        cardResponseType: getResponseType().toString(),
-        cardTitle: widget.bannerTitle,
+        endpoint: widget.cardData.endpoint,
+        cardResponseType: widget.cardData.response.toString(),
+        cardTitle: widget.cardData.title,
         cardSubtitle: null,
         cardSymbol: null,
-        cardTag: widget.title,
-        cardColors: widget.gradiantColors.map((color) => color.value).toList(),
-        cardIconData: widget.bannerIconData?.codePoint,
-        cardIconAsset: widget.bannerIconAsset);
+        cardTag: widget.cardData.tag,
+        cardColors: widget.cardData.colors.map((color) => color.value).toList(),
+        cardIconData: widget.cardData.iconData?.codePoint,
+        cardIconAsset: widget.cardData.iconAsset);
   }
 
   @override

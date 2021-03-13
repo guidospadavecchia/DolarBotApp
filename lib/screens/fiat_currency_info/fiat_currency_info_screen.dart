@@ -3,16 +3,13 @@ import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:dolarbot_app/interfaces/share_info.dart';
 import 'package:dolarbot_app/models/active_screen_data.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
-import 'package:dolarbot_app/screens/home/widgets/cards/templates/fiat_currency_card.dart';
+import 'package:dolarbot_app/widgets/cards/factory/factory_card.dart';
 import 'package:intl/intl.dart';
 
 class FiatCurrencyInfoScreen<T extends GenericCurrencyResponse>
     extends BaseInfoScreen {
   final String title;
-  final String bannerTitle;
-  final String bannerIconAsset;
-  final IconData bannerIconData;
-  final List<Color> gradiantColors;
+  final CardData cardData;
   final DollarEndpoints dollarEndpoint;
   final EuroEndpoints euroEndpoint;
   final RealEndpoints realEndpoint;
@@ -20,10 +17,7 @@ class FiatCurrencyInfoScreen<T extends GenericCurrencyResponse>
   FiatCurrencyInfoScreen(
       {Key key,
       this.title,
-      this.bannerTitle,
-      this.bannerIconAsset,
-      this.bannerIconData,
-      this.gradiantColors,
+      this.cardData,
       this.dollarEndpoint,
       this.euroEndpoint,
       this.realEndpoint})
@@ -35,15 +29,7 @@ class FiatCurrencyInfoScreen<T extends GenericCurrencyResponse>
                 realEndpoint == null) ||
             (realEndpoint != null &&
                 dollarEndpoint == null &&
-                euroEndpoint == null)),
-        super(
-          title: title,
-          bannerTitle: bannerTitle,
-          bannerIconAsset: bannerIconAsset,
-          bannerIconData: bannerIconData,
-          endpoint:
-              dollarEndpoint.value ?? euroEndpoint.value ?? realEndpoint.value,
-        );
+                euroEndpoint == null));
 
   @override
   _FiatCurrencyInfoScreenState<T> createState() =>
@@ -66,8 +52,7 @@ class _FiatCurrencyInfoScreenState<T extends GenericCurrencyResponse>
   );
 
   @override
-  String getEndpointIdentifier() =>
-      (dollarEndpoint ?? euroEndpoint ?? realEndpoint).toString();
+  String getEndpointIdentifier() => widget.cardData.endpoint.toString();
 
   @override
   Color setColorAppbar() => ThemeManager.getForegroundColor();
@@ -85,7 +70,7 @@ class _FiatCurrencyInfoScreenState<T extends GenericCurrencyResponse>
         screen: (data) {
           WidgetsBinding.instance.addPostFrameCallback((_) => setActiveData(
               data,
-              "${widget.title} - ${widget.bannerTitle}",
+              "${widget.title} - ${widget.cardData.title}",
               getShareInfo(data)));
 
           return Column(
@@ -123,21 +108,7 @@ class _FiatCurrencyInfoScreenState<T extends GenericCurrencyResponse>
     return Consumer<ActiveScreenData>(builder: (context, activeData, child) {
       ApiResponse data = activeData.getActiveData();
 
-      if (data != null && data is GenericCurrencyResponse) {
-        return FiatCurrencyCard(
-          title: widget.bannerTitle,
-          data: data,
-          tag: widget.title,
-          gradiantColors: widget.gradiantColors,
-          iconAsset: widget.bannerIconAsset,
-          iconData: widget.bannerIconData,
-          showButtons: false,
-          showPoweredBy: true,
-          endpoint: widget.endpoint,
-        );
-      } else {
-        return SizedBox.shrink();
-      }
+      return BuildCard(data).fromCardData(context, widget.cardData);
     });
   }
 
@@ -178,24 +149,16 @@ class _FiatCurrencyInfoScreenState<T extends GenericCurrencyResponse>
 
   @override
   FavoriteRate createFavorite() {
-    String endpoint;
-
-    if (dollarEndpoint != null)
-      endpoint = dollarEndpoint.value;
-    else if (euroEndpoint != null)
-      endpoint = euroEndpoint.value;
-    else if (realEndpoint != null) endpoint = realEndpoint.value;
-
     return FavoriteRate(
-        endpoint: endpoint,
-        cardResponseType: getResponseType().toString(),
-        cardTitle: widget.bannerTitle,
+        endpoint: widget.cardData.endpoint,
+        cardResponseType: widget.cardData.response.toString(),
+        cardTitle: widget.cardData.title,
         cardSubtitle: null,
         cardSymbol: null,
         cardTag: widget.title,
-        cardColors: widget.gradiantColors.map((color) => color.value).toList(),
-        cardIconData: widget.bannerIconData?.codePoint,
-        cardIconAsset: widget.bannerIconAsset);
+        cardColors: widget.cardData.colors.map((color) => color.value).toList(),
+        cardIconData: widget.cardData.iconData?.codePoint,
+        cardIconAsset: widget.cardData.iconAsset);
   }
 
   Type getResponseType() {

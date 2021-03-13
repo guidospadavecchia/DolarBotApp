@@ -5,16 +5,17 @@ import 'package:dolarbot_app/classes/hive/favorite_rate.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:dolarbot_app/models/active_screen_data.dart';
 import 'package:dolarbot_app/models/settings.dart';
-import 'package:dolarbot_app/screens/base/widgets/drawer/drawer_menu.dart';
-import 'package:dolarbot_app/screens/base/widgets/fab_menu/fab_menu.dart';
+import 'package:dolarbot_app/widgets/common/toasts/toast_error.dart';
+import 'package:dolarbot_app/widgets/common/toasts/toast_ok.dart';
+import 'package:dolarbot_app/widgets/drawer/drawer_menu.dart';
+import 'package:dolarbot_app/screens/base/widgets/fab_menu.dart';
 import 'package:dolarbot_app/screens/home/home_screen.dart';
 import 'package:dolarbot_app/util/util.dart';
+import 'package:dolarbot_app/widgets/cards/factory/card_data.dart';
 import 'package:dolarbot_app/widgets/common/blur_dialog.dart';
 import 'package:dolarbot_app/widgets/common/cool_app_bar.dart';
 import 'package:dolarbot_app/widgets/common/dialog_button.dart';
 import 'package:dolarbot_app/widgets/common/simple_fab_menu.dart';
-import 'package:dolarbot_app/widgets/toasts/toast_error.dart';
-import 'package:dolarbot_app/widgets/toasts/toast_ok.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
@@ -25,32 +26,24 @@ import 'package:screenshot/screenshot.dart';
 
 export 'package:dolarbot_app/api/api.dart';
 export 'package:dolarbot_app/api/responses/base/apiResponse.dart';
-export 'package:dolarbot_app/widgets/common/future_screen_delegate/future_screen_delegate.dart';
-export 'package:dolarbot_app/widgets/currency_info/currency_info_container.dart';
+export 'package:dolarbot_app/classes/hive/favorite_rate.dart';
 export 'package:dolarbot_app/util/extensions/datetime_extensions.dart';
 export 'package:dolarbot_app/util/extensions/string_extensions.dart';
-export 'package:dolarbot_app/classes/hive/favorite_rate.dart';
-export 'package:provider/provider.dart';
+export 'package:dolarbot_app/widgets/cards/factory/card_data.dart';
+export 'package:dolarbot_app/widgets/common/future_screen_delegate/future_screen_delegate.dart';
+export 'package:dolarbot_app/widgets/currency_info/currency_info_container.dart';
 export 'package:flutter/material.dart';
+export 'package:provider/provider.dart';
 
 abstract class BaseInfoScreen extends StatefulWidget {
   final String title;
-  final String bannerTitle;
-  final String bannerIconAsset;
-  final IconData bannerIconData;
-  final List<Color> gradiantColors;
-  final String endpoint;
+  final CardData cardData;
 
   BaseInfoScreen({
     Key key,
     this.title,
-    this.bannerTitle,
-    this.bannerIconAsset,
-    this.bannerIconData,
-    this.gradiantColors,
-    this.endpoint,
-  })  : assert(bannerIconAsset == null || bannerIconData == null),
-        super(key: key);
+    this.cardData,
+  }) : super(key: key);
 }
 
 abstract class BaseInfoScreenState<Page extends BaseInfoScreen>
@@ -137,7 +130,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
             ),
             drawerEdgeDragWidth: MediaQuery.of(context).size.width / 3,
             drawerEnableOpenDragGesture: true,
-            body: (widget.bannerTitle != null || isMainMenu())
+            body: (widget.title != null && isMainMenu())
                 ? Stack(children: [
                     card() != null
                         ? Screenshot(
@@ -151,14 +144,14 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
                         gradient: LinearGradient(
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
-                          colors: widget.gradiantColors == null
+                          colors: widget.cardData?.colors == null
                               ? [
                                   ThemeManager.getGlobalBackgroundColor(
                                       context),
                                   ThemeManager.getGlobalBackgroundColor(
                                       context),
                                 ]
-                              : widget.gradiantColors,
+                              : widget.cardData.colors,
                         ),
                       ),
                       child: Wrap(
@@ -204,7 +197,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
 
   @nonVirtual
   Widget banner() {
-    if (widget.bannerTitle != null) {
+    if (widget.cardData?.title != null) {
       return Padding(
         padding: const EdgeInsets.only(top: 30),
         child: Container(
@@ -215,10 +208,10 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              widget.bannerIconAsset != null
+              widget.cardData?.iconAsset != null
                   ? Container(
                       child: Image.asset(
-                        widget.bannerIconAsset,
+                        widget.cardData.iconAsset,
                         width: 36,
                         height: 36,
                         filterQuality: FilterQuality.high,
@@ -227,7 +220,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
                     )
                   : Container(
                       child: Icon(
-                        widget.bannerIconData,
+                        widget.cardData?.iconData,
                         size: 36,
                         color: Colors.white,
                       ),
@@ -237,11 +230,11 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
                 constraints: BoxConstraints(
                     maxWidth: MediaQuery.of(context).size.width * 0.7),
                 child: FittedBox(
-                  fit: widget.bannerTitle.length > 10
+                  fit: widget.cardData.title.length > 10
                       ? BoxFit.fitWidth
                       : BoxFit.none,
                   child: Text(
-                    widget.bannerTitle,
+                    widget.cardData.title,
                     style: TextStyle(
                       fontSize: 28,
                       fontFamily: 'Raleway',
@@ -361,7 +354,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
         .get('favoriteCards', defaultValue: []).cast<FavoriteRate>();
 
     return favoriteCards.any(
-      (fav) => fav.endpoint == widget.endpoint,
+      (fav) => fav.endpoint == widget.cardData.endpoint,
     );
   }
 
@@ -374,7 +367,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
           .get('favoriteCards', defaultValue: []).cast<FavoriteRate>();
 
       FavoriteRate favoriteCard = favoriteCards.firstWhere(
-          (fav) => fav.endpoint == widget.endpoint,
+          (fav) => fav.endpoint == widget.cardData.endpoint,
           orElse: () => null);
       if (favoriteCard == null) {
         //Add favorite

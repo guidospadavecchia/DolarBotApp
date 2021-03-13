@@ -1,45 +1,33 @@
 import 'package:dolarbot_app/interfaces/share_info.dart';
 import 'package:dolarbot_app/models/active_screen_data.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
-import 'package:dolarbot_app/screens/home/widgets/cards/templates/crypto_card.dart';
+import 'package:dolarbot_app/widgets/cards/factory/factory_card.dart';
 import 'package:intl/intl.dart';
 
 class CryptoInfoScreen extends BaseInfoScreen {
   final String title;
-  final String bannerTitle;
-  final IconData bannerIconData;
-  final List<Color> gradiantColors;
-  final CryptoEndpoints cryptoEndpoint;
+  final CardData cardData;
 
   CryptoInfoScreen({
-    this.title,
-    this.bannerTitle,
-    this.bannerIconData,
-    this.gradiantColors,
-    @required this.cryptoEndpoint,
-  }) : super(
-            title: title,
-            bannerTitle: bannerTitle,
-            bannerIconData: bannerIconData,
-            endpoint: cryptoEndpoint.value);
+    @required this.title,
+    @required this.cardData,
+  });
 
   @override
-  _CryptoInfoScreenState createState() =>
-      _CryptoInfoScreenState(cryptoEndpoint);
+  _CryptoInfoScreenState createState() => _CryptoInfoScreenState();
 }
 
 class _CryptoInfoScreenState extends BaseInfoScreenState<CryptoInfoScreen>
     with BaseScreen
     implements IShareable<CryptoResponse> {
-  final CryptoEndpoints cryptoEndpoint;
-
-  _CryptoInfoScreenState(this.cryptoEndpoint);
-
   @override
-  String getEndpointIdentifier() => cryptoEndpoint.toString();
+  String getEndpointIdentifier() => widget.cardData.endpoint;
 
   @override
   Widget body() {
+    CryptoEndpoints cryptoEndpoint = CryptoEndpoints.values
+        .firstWhere((e) => e.value == widget.cardData.endpoint);
+
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       physics: BouncingScrollPhysics(),
@@ -52,8 +40,8 @@ class _CryptoInfoScreenState extends BaseInfoScreenState<CryptoInfoScreen>
         onFailedLoad: onErrorLoad,
         onSuccessfulLoad: onSuccessfulLoad,
         screen: (data) {
-          WidgetsBinding.instance.addPostFrameCallback((_) =>
-              setActiveData(data, "${widget.bannerTitle}", getShareInfo(data)));
+          WidgetsBinding.instance.addPostFrameCallback((_) => setActiveData(
+              data, "${widget.cardData.title}", getShareInfo(data)));
 
           return Column(
             children: [
@@ -89,21 +77,7 @@ class _CryptoInfoScreenState extends BaseInfoScreenState<CryptoInfoScreen>
     return Consumer<ActiveScreenData>(builder: (context, activeData, child) {
       ApiResponse data = activeData.getActiveData();
 
-      if (data != null && data is CryptoResponse) {
-        return CryptoCard(
-          title: widget.bannerTitle,
-          data: data,
-          tag: widget.title,
-          iconAsset: widget.bannerIconAsset,
-          iconData: widget.bannerIconData,
-          gradiantColors: widget.gradiantColors,
-          showButtons: false,
-          showPoweredBy: true,
-          endpoint: widget.endpoint,
-        );
-      } else {
-        return SizedBox.shrink();
-      }
+      return BuildCard(data).fromCardData(context, widget.cardData);
     });
   }
 
@@ -141,15 +115,15 @@ class _CryptoInfoScreenState extends BaseInfoScreenState<CryptoInfoScreen>
   @override
   FavoriteRate createFavorite() {
     return FavoriteRate(
-        endpoint: cryptoEndpoint.value,
-        cardResponseType: getResponseType().toString(),
-        cardTitle: widget.bannerTitle,
+        endpoint: widget.cardData.endpoint,
+        cardResponseType: widget.cardData.response.toString(),
+        cardTitle: widget.cardData.title,
         cardSubtitle: null,
         cardSymbol: null,
         cardTag: widget.title,
-        cardColors: widget.gradiantColors.map((color) => color.value).toList(),
-        cardIconData: widget.bannerIconData?.codePoint,
-        cardIconAsset: widget.bannerIconAsset);
+        cardColors: widget.cardData.colors.map((color) => color.value).toList(),
+        cardIconData: widget.cardData.iconData?.codePoint,
+        cardIconAsset: widget.cardData.iconAsset);
   }
 
   @override

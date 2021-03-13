@@ -4,7 +4,7 @@ import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:dolarbot_app/models/settings.dart';
 import 'package:dolarbot_app/widgets/common/blur_dialog.dart';
 import 'package:dolarbot_app/widgets/common/dialog_button.dart';
-import 'package:dolarbot_app/widgets/toasts/toast_ok.dart';
+import 'package:dolarbot_app/widgets/common/toasts/toast_ok.dart';
 import 'package:flutter/material.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';

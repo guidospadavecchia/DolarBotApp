@@ -4,8 +4,8 @@ import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:dolarbot_app/interfaces/share_info.dart';
 import 'package:dolarbot_app/models/settings.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
-import 'package:dolarbot_app/screens/home/widgets/cards/card_favorite.dart';
 import 'package:dolarbot_app/screens/options/widgets/format_currency_dialog/format_currency_dialog.dart';
+import 'package:dolarbot_app/widgets/cards/card_favorite.dart';
 import 'package:dolarbot_app/widgets/common/menu_item.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 

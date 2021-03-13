@@ -2,46 +2,33 @@ import 'package:dolarbot_app/classes/dolarbot_icons.dart';
 import 'package:dolarbot_app/interfaces/share_info.dart';
 import 'package:dolarbot_app/models/active_screen_data.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
-import 'package:dolarbot_app/screens/home/widgets/cards/templates/venezuela_card.dart';
+import 'package:dolarbot_app/widgets/cards/factory/factory_card.dart';
 import 'package:intl/intl.dart';
 
 class VenezuelaInfoScreen extends BaseInfoScreen {
   final String title;
-  final String bannerTitle;
-  final IconData bannerIconData;
-  final List<Color> gradiantColors;
-  final VenezuelaEndpoints venezuelaEndpoint;
+  final CardData cardData;
 
   VenezuelaInfoScreen({
-    this.title,
-    @required this.bannerTitle,
-    @required this.bannerIconData,
-    this.gradiantColors,
-    @required this.venezuelaEndpoint,
-  }) : super(
-          title: title,
-          bannerTitle: bannerTitle,
-          bannerIconData: bannerIconData,
-          endpoint: venezuelaEndpoint.value,
-        );
+    @required this.title,
+    @required this.cardData,
+  });
 
   @override
-  _VenezuelaInfoScreenState createState() =>
-      _VenezuelaInfoScreenState(venezuelaEndpoint);
+  _VenezuelaInfoScreenState createState() => _VenezuelaInfoScreenState();
 }
 
 class _VenezuelaInfoScreenState extends BaseInfoScreenState<VenezuelaInfoScreen>
     with BaseScreen
     implements IShareable<VenezuelaResponse> {
-  final VenezuelaEndpoints venezuelaEndpoint;
-
-  _VenezuelaInfoScreenState(this.venezuelaEndpoint);
-
   @override
-  String getEndpointIdentifier() => venezuelaEndpoint.toString();
+  String getEndpointIdentifier() => widget.cardData.endpoint;
 
   @override
   Widget body() {
+    VenezuelaEndpoints venezuelaEndpoint = VenezuelaEndpoints.values
+        .firstWhere((e) => e.value == widget.cardData.endpoint);
+
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       physics: BouncingScrollPhysics(),
@@ -56,7 +43,7 @@ class _VenezuelaInfoScreenState extends BaseInfoScreenState<VenezuelaInfoScreen>
         screen: (data) {
           WidgetsBinding.instance.addPostFrameCallback((_) => setActiveData(
               data,
-              "${widget.title} - ${widget.bannerTitle}",
+              "${widget.title} - ${widget.cardData.title}",
               getShareInfo(data)));
 
           return Column(
@@ -89,21 +76,8 @@ class _VenezuelaInfoScreenState extends BaseInfoScreenState<VenezuelaInfoScreen>
       builder: (context, activeData, child) {
         ApiResponse data = activeData.getActiveData();
 
-        if (data != null && data is VenezuelaResponse) {
-          return VenezuelaCard(
-            title: widget.title,
-            data: data,
-            tag: widget.bannerTitle,
-            iconAsset: widget.bannerIconAsset,
-            iconData: widget.bannerIconData,
-            gradiantColors: widget.gradiantColors,
-            showButtons: false,
-            showPoweredBy: true,
-            endpoint: widget.endpoint,
-          );
-        } else {
-          return SizedBox.shrink();
-        }
+        CardData newCardData = widget.cardData.clone(title: "Venezuela");
+        return BuildCard(data).fromCardData(context, newCardData);
       },
     );
   }
@@ -139,14 +113,14 @@ class _VenezuelaInfoScreenState extends BaseInfoScreenState<VenezuelaInfoScreen>
   @override
   FavoriteRate createFavorite() {
     return FavoriteRate(
-        endpoint: venezuelaEndpoint.value,
-        cardResponseType: getResponseType().toString(),
+        endpoint: widget.cardData.endpoint,
+        cardResponseType: widget.cardData.response.toString(),
         cardTitle: widget.title,
         cardSubtitle: null,
         cardSymbol: null,
-        cardTag: widget.bannerTitle,
-        cardColors: widget.gradiantColors.map((color) => color.value).toList(),
-        cardIconData: widget.bannerIconData?.codePoint,
+        cardTag: widget.cardData.tag,
+        cardColors: widget.cardData.colors.map((color) => color.value).toList(),
+        cardIconData: widget.cardData.iconData?.codePoint,
         cardIconAsset: DolarBotIcons.general.venezuela);
   }
 

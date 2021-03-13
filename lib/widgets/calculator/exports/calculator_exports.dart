@@ -1,0 +1,9 @@
+export 'package:dolarbot_app/widgets/calculator/crypto_calculator.dart';
+export 'package:dolarbot_app/widgets/calculator/crypto_calculator_reversed.dart';
+export 'package:dolarbot_app/widgets/calculator/dialog/fab_option_calculator_dialog.dart';
+export 'package:dolarbot_app/widgets/calculator/fiat_currency_calculator.dart';
+export 'package:dolarbot_app/widgets/calculator/fiat_currency_calculator_reversed.dart';
+export 'package:dolarbot_app/widgets/calculator/metal_calculator.dart';
+export 'package:dolarbot_app/widgets/calculator/metal_calculator_reversed.dart';
+export 'package:dolarbot_app/widgets/calculator/venezuela_calculator.dart';
+export 'package:dolarbot_app/widgets/calculator/venezuela_calculator_reversed.dart';
