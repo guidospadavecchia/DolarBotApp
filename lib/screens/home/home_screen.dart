@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dolarbot_app/api/responses/factory/api_response_builder.dart';
 import 'package:dolarbot_app/classes/hive/favorite_rate.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
@@ -23,6 +25,7 @@ class HomeScreen extends BaseInfoScreen {
 
 class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
   final Duration kAnimationDuration = Duration(milliseconds: 500);
+  final Duration kDoubleTapToLeaveDuration = Duration(seconds: 2);
   final settings = Hive.box('settings');
   final Map<String, Map> _responses = Map<String, Map>();
   final List<Widget> _cards = [];
@@ -30,6 +33,7 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
 
   bool _cardsLoaded = false;
   bool _animateEmptyFavorites = false;
+  DateTime lastBackPressTimestamp;
 
   @override
   bool canPop() => false;
@@ -54,6 +58,21 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
 
   @override
   Color setColorAppbar() => ThemeManager.getPrimaryTextColor(context);
+
+  @override
+  Future<bool> onWillPopScope() {
+    DateTime now = DateTime.now();
+
+    dismissAllToast();
+    if (lastBackPressTimestamp == null ||
+        now.difference(lastBackPressTimestamp) > kDoubleTapToLeaveDuration) {
+      lastBackPressTimestamp = now;
+      showSnackBar('Presioná atrás nuevamente para salir');
+      return Future.value(false);
+    } else {
+      exit(0);
+    }
+  }
 
   @override
   void initState() {
@@ -147,21 +166,12 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
       setState(() {
         _loadFavorites(true)
             .then(
-          (_) => WidgetsBinding.instance.addPostFrameCallback((_) => setState(() => _buildCards())),
-        )
-            .then((_) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              backgroundColor: ThemeManager.getSnackBarColor(context),
-              duration: Duration(seconds: 2),
-              content: Text(
-                '¡Cotizaciones actualizadas!',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontFamily: 'Montserrat', color: Colors.white),
-              ),
-            ),
-          );
-        });
+              (_) => WidgetsBinding.instance
+                  .addPostFrameCallback((_) => setState(() => _buildCards())),
+            )
+            .then(
+              (_) => showSnackBar('¡Cotizaciones actualizadas!'),
+            );
       });
     });
   }

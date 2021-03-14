@@ -93,7 +93,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: _onWillPopScope,
+      onWillPop: onWillPopScope,
       child: Consumer<Settings>(builder: (context, settings, child) {
         return Scaffold(
           extendBodyBehindAppBar: extendBodyBehindAppBar(),
@@ -184,6 +184,21 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
   }
 
   @nonVirtual
+  void showSnackBar(String text, {Duration duration, TextAlign textAlign = TextAlign.center}) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        backgroundColor: ThemeManager.getSnackBarColor(context),
+        duration: duration ?? Duration(seconds: 2),
+        content: Text(
+          text,
+          textAlign: TextAlign.center,
+          style: TextStyle(fontFamily: 'Montserrat', color: Colors.white),
+        ),
+      ),
+    );
+  }
+
+  @nonVirtual
   Widget banner() {
     if (widget.cardData?.title != null) {
       return Padding(
@@ -251,6 +266,19 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
   @nonVirtual
   void onErrorLoad() {
     simpleFabKey?.currentState?.hide();
+  }
+
+  Future<bool> onWillPopScope() async {
+    if (canPop()) {
+      dismissAllToast();
+      Util.navigateTo(
+        context,
+        HomeScreen(
+          key: GlobalKey<HomeScreenState>(),
+        ),
+      );
+    }
+    return false;
   }
 
   Future<String> _getRateDescription() async {
@@ -322,19 +350,6 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
         () => showToastWidget(ToastError()),
       );
     }
-  }
-
-  Future<bool> _onWillPopScope() async {
-    if (canPop()) {
-      dismissAllToast();
-      Util.navigateTo(
-        context,
-        HomeScreen(
-          key: GlobalKey<HomeScreenState>(),
-        ),
-      );
-    }
-    return false;
   }
 
   void _onDrawerDisplayChange(bool isOpen) {
