@@ -16,14 +16,12 @@ class SplashScreen extends StatelessWidget {
           children: [
             Container(
               decoration: BoxDecoration(
-                gradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    colors: [
-                      Color.fromRGBO(51, 148, 34, 1),
-                      Color.fromRGBO(50, 177, 40, 1),
-                      Color.fromRGBO(40, 245, 51, 1),
-                    ]),
+                gradient:
+                    LinearGradient(begin: Alignment.topLeft, end: Alignment.bottomRight, colors: [
+                  Color.fromRGBO(51, 148, 34, 1),
+                  Color.fromRGBO(50, 177, 40, 1),
+                  Color.fromRGBO(40, 245, 51, 1),
+                ]),
               ),
             ),
             Column(
@@ -93,16 +91,15 @@ _waitAndGoHome(BuildContext context, Duration waitToHome) {
     waitToHome,
     () async {
       Globals.packageInfo = await PackageInfo.fromPlatform();
-      //TODO: Looking up a deactivated widget's ancestor is unsafe
-      Navigator.pushReplacement(
+
+      await Navigator.pushReplacement(
         context,
         PageRouteBuilder(
           pageBuilder: (context, animation1, animation2) => HomeScreen(
             key: GlobalKey<HomeScreenState>(),
           ),
           transitionDuration: Duration(milliseconds: 300),
-          transitionsBuilder: (context, animation1, animation2, child) =>
-              FadeTransition(
+          transitionsBuilder: (context, animation1, animation2, child) => FadeTransition(
             opacity: animation1,
             child: child,
           ),
