@@ -10,9 +10,7 @@ class ThemeManager {
   static AdaptiveThemeMode getDefaultTheme(BuildContext context) {
     Brightness brightness = SchedulerBinding.instance.window.platformBrightness;
 
-    return brightness == Brightness.light
-        ? AdaptiveThemeMode.light
-        : AdaptiveThemeMode.dark;
+    return brightness == Brightness.light ? AdaptiveThemeMode.light : AdaptiveThemeMode.dark;
   }
 
   static Color getPrimaryColor() {
@@ -61,6 +59,12 @@ class ThemeManager {
         : Color.fromRGBO(50, 50, 50, 1);
   }
 
+  static Color getSnackBarColor(BuildContext context) {
+    return AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
+        ? _secondaryColor
+        : Color.fromRGBO(60, 60, 60, 1);
+  }
+
   static Color getGlobalBackgroundColor(BuildContext context) {
     return AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
         ? Color.fromRGBO(250, 250, 250, 1)
@@ -68,9 +72,7 @@ class ThemeManager {
   }
 
   static Color getPrimaryAccentColor(BuildContext context) {
-    return AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
-        ? _primaryColor
-        : _accentColor;
+    return AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light ? _primaryColor : _accentColor;
   }
 
   static Color getHighlightDrawerMenuItem(BuildContext context) {
@@ -85,14 +87,11 @@ class ThemeManager {
         : Colors.grey[700];
   }
 
-  static ThemeData getThemeForDrawerMenu(BuildContext context,
-      {bool disableHighlight = false}) {
+  static ThemeData getThemeForDrawerMenu(BuildContext context, {bool disableHighlight = false}) {
     return Theme.of(context).copyWith(
       accentColor: ThemeManager.getDrawerMenuItemIconColor(context),
       splashColor: Colors.transparent,
-      highlightColor: disableHighlight
-          ? Colors.transparent
-          : getHighlightDrawerMenuItem(context),
+      highlightColor: disableHighlight ? Colors.transparent : getHighlightDrawerMenuItem(context),
       unselectedWidgetColor: ThemeManager.getDrawerMenuItemIconColor(context),
       textTheme: TextTheme(
         bodyText1: TextStyle(

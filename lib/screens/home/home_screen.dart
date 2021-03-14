@@ -32,6 +32,9 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
   bool _animateEmptyFavorites = false;
 
   @override
+  bool canPop() => false;
+
+  @override
   bool showRefreshButton() => false;
 
   @override
@@ -57,7 +60,7 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
     super.initState();
 
     if (!_cardsLoaded) {
-      _loadFavorites().then(
+      _loadFavorites(false).then(
         (_) => WidgetsBinding.instance.addPostFrameCallback((_) => setState(() => _buildCards())),
       );
     } else {
@@ -92,30 +95,35 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
               overScroll.disallowGlow();
               return false;
             },
-            child: ListView.builder(
-                itemCount: _cards.length,
-                physics: BouncingScrollPhysics(),
-                itemBuilder: (context, i) {
-                  return Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.transparent,
-                    ),
-                    margin: EdgeInsets.only(left: 15, right: 15),
-                    child: Dismissible(
-                      dismissThresholds: {
-                        DismissDirection.endToStart: 0.4,
-                      },
-                      child: _cards[i],
-                      direction: DismissDirection.endToStart,
-                      background: _DismissFavoriteButton(),
-                      key: ValueKey(_cards[i]),
-                      onDismissed: (direction) {
-                        _onDismissCard(i);
-                      },
-                    ),
-                  );
-                }),
+            child: RefreshIndicator(
+              displacement: 80,
+              onRefresh: _refreshData,
+              triggerMode: RefreshIndicatorTriggerMode.onEdge,
+              child: ListView.builder(
+                  itemCount: _cards.length,
+                  physics: AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
+                  itemBuilder: (context, i) {
+                    return Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.transparent,
+                      ),
+                      margin: EdgeInsets.only(left: 15, right: 15),
+                      child: Dismissible(
+                        dismissThresholds: {
+                          DismissDirection.endToStart: 0.4,
+                        },
+                        child: _cards[i],
+                        direction: DismissDirection.endToStart,
+                        background: _DismissFavoriteButton(),
+                        key: ValueKey(_cards[i]),
+                        onDismissed: (direction) {
+                          _onDismissCard(i);
+                        },
+                      ),
+                    );
+                  }),
+            ),
           ),
         ),
       );
@@ -129,6 +137,33 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
         return EmptyFavorites();
       }
     }
+  }
+
+  Future _refreshData() async {
+    _cardsLoaded = false;
+    _cards.clear();
+    _favoriteRates.clear();
+    await Future.delayed(Duration(milliseconds: 500), () {
+      setState(() {
+        _loadFavorites(true)
+            .then(
+          (_) => WidgetsBinding.instance.addPostFrameCallback((_) => setState(() => _buildCards())),
+        )
+            .then((_) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              backgroundColor: ThemeManager.getSnackBarColor(context),
+              duration: Duration(seconds: 2),
+              content: Text(
+                '¡Cotizaciones actualizadas!',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontFamily: 'Montserrat', color: Colors.white),
+              ),
+            ),
+          );
+        });
+      });
+    });
   }
 
   bool _checkIsFirstTime() {
@@ -152,14 +187,16 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
     );
   }
 
-  Future _loadFavorites() async {
+  Future _loadFavorites(bool forceRefresh) async {
     Box favoritesBox = Hive.box('favorites');
     List<dynamic> cards = favoritesBox.get('favoriteCards');
     if (cards != null) {
       _favoriteRates.addAll(cards.cast<FavoriteRate>());
       await Future.wait(
         _favoriteRates.map(
-          (x) => API.getRawData(x.endpoint, false).then((value) => _responses[x.endpoint] = value),
+          (x) => API
+              .getRawData(x.endpoint, forceRefresh)
+              .then((value) => _responses[x.endpoint] = value),
         ),
       );
     }

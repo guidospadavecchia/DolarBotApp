@@ -184,24 +184,12 @@ class _BcraInfoScreenState extends BaseInfoScreenState<BcraInfoScreen>
 
   @override
   FavoriteRate createFavorite() {
-    String subtitle;
-    String symbol;
-
-    if (bcraEndpoint == BcraEndpoints.circulante) {
-      subtitle = "Pesos Argentinos";
-      symbol = "\$";
-    }
-    if (bcraEndpoint == BcraEndpoints.reservas) {
-      subtitle = "Dólares Estadounidenses";
-      symbol = "US\$";
-    }
-
     return FavoriteRate(
         endpoint: widget.cardData.endpoint,
         cardResponseType: widget.cardData.response.toString(),
         cardTitle: widget.cardData.title,
-        cardSubtitle: subtitle,
-        cardSymbol: symbol,
+        cardSubtitle: widget.cardData.subtitle,
+        cardSymbol: widget.cardData.symbol,
         cardTag: widget.title,
         cardColors: widget.cardData.colors.map((color) => color.value).toList(),
         cardIconData: widget.cardData.iconData?.codePoint,

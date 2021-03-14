@@ -51,6 +51,7 @@ abstract class BaseInfoScreenState<Page extends BaseInfoScreen> extends State<Ba
   final GlobalKey<SimpleFabMenuState> simpleFabKey = GlobalKey();
 
   bool isMainMenu() => true;
+  bool canPop() => true;
   bool showRefreshButton() => true;
   bool showFabMenu() => true;
   bool showShareButton() => true;
@@ -95,8 +96,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
       builder: (context, settings, child) {
         return WillPopScope(
           onWillPop: () async {
-            bool result = isMainMenu();
-            if (result) {
+            if (canPop()) {
               dismissAllToast();
               Util.navigateTo(
                 context,
@@ -106,7 +106,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
               );
             }
 
-            return !result;
+            return false;
           },
           child: Scaffold(
             extendBodyBehindAppBar: extendBodyBehindAppBar(),
