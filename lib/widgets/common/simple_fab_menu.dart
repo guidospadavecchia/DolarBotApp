@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:simple_animations/simple_animations.dart';
 
 class SimpleFabOption {
   final IconData icon;
@@ -32,6 +33,7 @@ class SimpleFabMenu extends StatefulWidget {
   final Function onOpened;
   final Function onClosed;
   final bool visible;
+  final bool showInitialAnimation;
 
   const SimpleFabMenu({
     Key key,
@@ -48,6 +50,7 @@ class SimpleFabMenu extends StatefulWidget {
     this.onOpened,
     this.onClosed,
     this.visible = true,
+    this.showInitialAnimation = true,
   })  : assert(iconSize >= 60 && iconSize <= 90),
         assert(childrenItemSize >= 32 && childrenItemSize <= 60),
         super(key: key);
@@ -56,8 +59,7 @@ class SimpleFabMenu extends StatefulWidget {
   SimpleFabMenuState createState() => SimpleFabMenuState();
 }
 
-class SimpleFabMenuState extends State<SimpleFabMenu>
-    with SingleTickerProviderStateMixin {
+class SimpleFabMenuState extends State<SimpleFabMenu> with SingleTickerProviderStateMixin {
   Animation<double> _listAnimation;
   AnimationController _animationController;
   bool _isOpen = false;
@@ -75,8 +77,7 @@ class SimpleFabMenuState extends State<SimpleFabMenu>
       vsync: this,
       duration: Duration(milliseconds: 250),
     );
-    _listAnimation =
-        Tween<double>(begin: 0, end: 1).animate(_animationController);
+    _listAnimation = Tween<double>(begin: 0, end: 1).animate(_animationController);
   }
 
   @override
@@ -136,54 +137,58 @@ class SimpleFabMenuState extends State<SimpleFabMenu>
     if (_visible) {
       EdgeInsets paddingContent = widget.direction == Axis.vertical
           ? EdgeInsets.symmetric(
-              vertical: 15,
-              horizontal: (widget.iconSize / 2) - (widget.childrenItemSize / 2))
-          : EdgeInsets.symmetric(
-              horizontal:
-                  (widget.iconSize / 2) - (widget.childrenItemSize / 2));
-      return Padding(
-        padding: widget.padding,
-        child: Container(
-          height: widget.direction == Axis.horizontal
-              ? widget.iconSize
-              : double.infinity,
-          alignment: Alignment.bottomRight,
-          child: Wrap(
-            crossAxisAlignment: WrapCrossAlignment.end,
-            alignment: widget.direction == Axis.horizontal
-                ? WrapAlignment.center
-                : WrapAlignment.end,
-            direction: widget.direction == Axis.horizontal
-                ? Axis.vertical
-                : Axis.horizontal,
-            children: [
-              _SimpleFabMenuListAnimated(
-                items: widget.items,
-                size: widget.childrenItemSize,
-                screenInset: _getScreenInset(),
-                direction: widget.direction,
-                padding: paddingContent,
-                animation: _listAnimation,
-              ),
-              _FabCircularOption(
-                direction: widget.direction,
-                size: widget.iconSize,
-                item: SimpleFabOption(
-                  backgroundColor: widget.backGroundColor,
-                  icon: _iconFab,
-                  iconColor: widget.iconColor,
-                  onPressed: () {
-                    if (_isAnimating) return;
-
-                    if (_isOpen) {
-                      closeMenu();
-                    } else {
-                      openMenu();
-                    }
-                  },
+              vertical: 15, horizontal: (widget.iconSize / 2) - (widget.childrenItemSize / 2))
+          : EdgeInsets.symmetric(horizontal: (widget.iconSize / 2) - (widget.childrenItemSize / 2));
+      return PlayAnimation<double>(
+        tween: Tween(
+            begin: widget.showInitialAnimation ? MediaQuery.of(context).size.height : 0, end: 0),
+        duration: Duration(milliseconds: 500),
+        curve: Curves.fastOutSlowIn,
+        builder: (context, child, value) {
+          return Transform.translate(
+            offset: Offset(0, value),
+            child: child,
+          );
+        },
+        child: Padding(
+          padding: widget.padding,
+          child: Container(
+            height: widget.direction == Axis.horizontal ? widget.iconSize : double.infinity,
+            alignment: Alignment.bottomRight,
+            child: Wrap(
+              crossAxisAlignment: WrapCrossAlignment.end,
+              alignment:
+                  widget.direction == Axis.horizontal ? WrapAlignment.center : WrapAlignment.end,
+              direction: widget.direction == Axis.horizontal ? Axis.vertical : Axis.horizontal,
+              children: [
+                _SimpleFabMenuListAnimated(
+                  items: widget.items,
+                  size: widget.childrenItemSize,
+                  screenInset: _getScreenInset(),
+                  direction: widget.direction,
+                  padding: paddingContent,
+                  animation: _listAnimation,
                 ),
-              ),
-            ],
+                _FabCircularOption(
+                  direction: widget.direction,
+                  size: widget.iconSize,
+                  item: SimpleFabOption(
+                    backgroundColor: widget.backGroundColor,
+                    icon: _iconFab,
+                    iconColor: widget.iconColor,
+                    onPressed: () {
+                      if (_isAnimating) return;
+
+                      if (_isOpen) {
+                        closeMenu();
+                      } else {
+                        openMenu();
+                      }
+                    },
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       );
@@ -218,9 +223,8 @@ class _SimpleFabMenuListAnimated extends AnimatedWidget {
   get _listAnimation => listenable;
 
   Widget buildItem(BuildContext context, int index) {
-    double matrixTranslation = 1 *
-        (screenInset - _listAnimation.value * screenInset) *
-        ((items.length - index) / 4);
+    double matrixTranslation =
+        1 * (screenInset - _listAnimation.value * screenInset) * ((items.length - index) / 4);
 
     final transform = Matrix4.translationValues(
       direction == Axis.horizontal ? matrixTranslation : 0,
@@ -229,9 +233,7 @@ class _SimpleFabMenuListAnimated extends AnimatedWidget {
     );
 
     return Align(
-      alignment: direction == Axis.vertical
-          ? Alignment.centerRight
-          : Alignment.centerLeft,
+      alignment: direction == Axis.vertical ? Alignment.centerRight : Alignment.centerLeft,
       child: Transform(
         transform: transform,
         child: Opacity(
@@ -283,16 +285,12 @@ class _FabCircularOption extends StatelessWidget {
       child: RawMaterialButton(
         shape: CircleBorder(),
         fillColor: item.backgroundColor,
-        splashColor: item.splashColor != null
-            ? item.splashColor
-            : Theme.of(context).splashColor,
+        splashColor: item.splashColor != null ? item.splashColor : Theme.of(context).splashColor,
         onPressed: item.onPressed,
         child: item.tooltip != null
             ? Tooltip(
                 preferBelow: false,
-                margin: direction == Axis.vertical
-                    ? EdgeInsets.only(right: 80)
-                    : EdgeInsets.zero,
+                margin: direction == Axis.vertical ? EdgeInsets.only(right: 80) : EdgeInsets.zero,
                 verticalOffset: direction == Axis.vertical ? -15 : size - 10,
                 message: item.tooltip,
                 child: Icon(
