@@ -35,75 +35,78 @@ class CardValue extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final settings = Provider.of<Settings>(context, listen: false);
-    final numberFormat = new intl.NumberFormat(
-      settings.getCurrencyPattern(),
-      settings.getCurrencyFormat(),
-    );
+    return Consumer<Settings>(
+      builder: (context, settings, child) {
+        final numberFormat = new intl.NumberFormat(
+          settings.getCurrencyPattern(),
+          settings.getCurrencyFormat(),
+        );
+        String value = _getFormatedValue(numberFormat, settings);
 
-    String _getFormatedValue() {
-      if (value.isNumeric()) {
-        String formattedNumber = numberFormat.format(double.parse(value));
-        List<String> splittedFormattedNumber =
-            formattedNumber.split(settings.getDecimalSeparator());
-
-        if (splittedFormattedNumber.length == 2 && hideDecimals) {
-          return "$symbol ${splittedFormattedNumber[0]}";
-        }
-        return "$symbol ${formattedNumber}";
-      } else {
-        return "N/A";
-      }
-    }
-
-    return Wrap(
-      spacing: _getSpaceMainAxisEnd(),
-      children: [
-        Wrap(
-          crossAxisAlignment: crossAlignment,
-          textDirection: textDirection,
-          direction: direction,
-          spacing: _getSpaceBetweenTitle(),
+        return Wrap(
+          spacing: _getSpaceMainAxisEnd(),
           children: [
-            Text(
-              title,
-              style: TextStyle(
-                fontSize: titleSize,
-                fontFamily: 'Raleway',
-                fontWeight: FontWeight.normal,
-                color: Colors.white,
-                shadows: [
-                  Shadow(
-                    blurRadius: 2,
-                    color: Colors.black54,
-                    offset: Offset(2, 2),
+            Wrap(
+              crossAxisAlignment: crossAlignment,
+              textDirection: textDirection,
+              direction: direction,
+              spacing: _getSpaceBetweenTitle(),
+              children: [
+                Text(
+                  title,
+                  style: TextStyle(
+                    fontSize: titleSize,
+                    fontFamily: 'Raleway',
+                    fontWeight: FontWeight.normal,
+                    color: Colors.white,
+                    shadows: [
+                      Shadow(
+                        blurRadius: 2,
+                        color: Colors.black54,
+                        offset: Offset(2, 2),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-            ),
-            Text(
-              "${_getFormatedValue()}".trimLeft(),
-              style: TextStyle(
-                fontSize: valueSize,
-                fontFamily: 'Montserrat',
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-                shadows: [
-                  Shadow(
-                    blurRadius: 7,
-                    color: Colors.black54,
-                    offset: Offset(2, 2),
+                ),
+                Text(
+                  value.trimLeft(),
+                  style: TextStyle(
+                    fontSize: valueSize,
+                    fontFamily: 'Montserrat',
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    shadows: [
+                      Shadow(
+                        blurRadius: 7,
+                        color: Colors.black54,
+                        offset: Offset(2, 2),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
+            direction == Axis.vertical
+                ? SizedBox(height: _getSpaceMainAxisEnd() * 2)
+                : SizedBox.shrink(),
           ],
-        ),
-        direction == Axis.vertical
-            ? SizedBox(height: _getSpaceMainAxisEnd() * 2)
-            : SizedBox.shrink(),
-      ],
+        );
+      },
     );
+  }
+
+  String _getFormatedValue(intl.NumberFormat numberFormat, Settings settings) {
+    if (value.isNumeric()) {
+      String formattedNumber = numberFormat.format(double.parse(value));
+      List<String> splittedFormattedNumber = formattedNumber.split(settings.getDecimalSeparator());
+
+      if (splittedFormattedNumber.length == 2 && hideDecimals) {
+        return "$symbol ${splittedFormattedNumber[0]}";
+      }
+      return "$symbol ${formattedNumber}";
+    } else {
+      return "N/A";
+    }
   }
 
   double _getSpaceBetweenTitle() {

@@ -92,104 +92,88 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<Settings>(
-      builder: (context, settings, child) {
-        return WillPopScope(
-          onWillPop: () async {
-            if (canPop()) {
-              dismissAllToast();
-              Util.navigateTo(
-                context,
-                HomeScreen(
-                  key: GlobalKey<HomeScreenState>(),
-                ),
-              );
-            }
-
-            return false;
-          },
-          child: Scaffold(
-            extendBodyBehindAppBar: extendBodyBehindAppBar(),
-            resizeToAvoidBottomInset: false,
-            appBar: CoolAppBar(
-              title: widget.title,
-              isMainMenu: isMainMenu(),
-              foregroundColor: setColorAppbar(),
-              showRefreshButton: showRefreshButton(),
-              onRefresh: () => _refresh(),
-            ),
-            drawer: Container(
-              width: 290,
-              child: Drawer(
-                child: DrawerMenu(
-                  onDrawerDisplayChanged: (isOpen) => _onDrawerDisplayChange(isOpen),
-                ),
+    return WillPopScope(
+      onWillPop: _onWillPopScope,
+      child: Consumer<Settings>(builder: (context, settings, child) {
+        return Scaffold(
+          extendBodyBehindAppBar: extendBodyBehindAppBar(),
+          resizeToAvoidBottomInset: false,
+          appBar: CoolAppBar(
+            title: widget.title,
+            isMainMenu: isMainMenu(),
+            foregroundColor: setColorAppbar(),
+            showRefreshButton: showRefreshButton(),
+            onRefresh: () => _refresh(),
+          ),
+          drawer: Container(
+            width: 290,
+            child: Drawer(
+              child: DrawerMenu(
+                onDrawerDisplayChanged: (isOpen) => _onDrawerDisplayChange(isOpen),
               ),
             ),
-            //HOME: 998x440
-            //SCREEN: 1080x468
-            drawerEdgeDragWidth: MediaQuery.of(context).size.width / 3,
-            drawerEnableOpenDragGesture: true,
-            body: (widget.title != null && isMainMenu())
-                ? Stack(children: [
-                    card() != null
-                        ? Container(
-                            margin: EdgeInsets.only(left: 15, right: 15),
-                            child: Screenshot(
+          ),
+          drawerEdgeDragWidth: MediaQuery.of(context).size.width / 3,
+          drawerEnableOpenDragGesture: true,
+          body: (widget.title != null && isMainMenu())
+              ? Stack(children: [
+                  card() != null
+                      ? Container(
+                          margin: EdgeInsets.only(left: 15, right: 15),
+                          child: Screenshot(
+                            child: Container(
+                              padding: EdgeInsets.only(left: 10, right: 10),
                               child: Container(
-                                padding: EdgeInsets.only(left: 10, right: 10),
-                                child: Container(
-                                  child: card(),
-                                ),
+                                child: card(),
                               ),
-                              controller: screenshotController,
                             ),
-                          )
-                        : SizedBox.shrink(),
-                    Container(
-                      height: double.infinity,
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                          colors: widget.cardData?.colors == null
-                              ? [
-                                  ThemeManager.getGlobalBackgroundColor(context),
-                                  ThemeManager.getGlobalBackgroundColor(context),
-                                ]
-                              : widget.cardData.colors,
-                        ),
-                      ),
-                      child: Wrap(
-                        runAlignment: WrapAlignment.center,
-                        runSpacing: 0,
-                        children: [
-                          body(),
-                        ],
+                            controller: screenshotController,
+                          ),
+                        )
+                      : SizedBox.shrink(),
+                  Container(
+                    height: double.infinity,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: widget.cardData?.colors == null
+                            ? [
+                                ThemeManager.getGlobalBackgroundColor(context),
+                                ThemeManager.getGlobalBackgroundColor(context),
+                              ]
+                            : widget.cardData.colors,
                       ),
                     ),
-                  ])
-                : body(),
-            floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-            floatingActionButton: showFabMenu()
-                ? FabMenu(
-                    simpleFabKey: simpleFabKey,
-                    showFavoriteButton: showFavoriteButton(),
-                    onFavoriteButtonTap: _onFavoriteStatusChange,
-                    isFavorite: _getIsFavorite(),
-                    showShareButton: showShareButton(),
-                    onShareButtonTap: () => Util.shareCard(screenshotController),
-                    showClipboardButton: showClipboardButton(),
-                    showCalculatorButton: showCalculatorButton(),
-                    showDescriptionButton: _shouldShowDescriptionButton,
-                    onShowDescriptionTap: () => _onShowRateDescription(),
-                    onOpened: () => dismissAllToast(),
-                    visible: false,
-                  )
-                : null,
-          ),
+                    child: Wrap(
+                      runAlignment: WrapAlignment.center,
+                      runSpacing: 0,
+                      children: [
+                        body(),
+                      ],
+                    ),
+                  ),
+                ])
+              : body(),
+          floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+          floatingActionButton: showFabMenu()
+              ? FabMenu(
+                  simpleFabKey: simpleFabKey,
+                  showFavoriteButton: showFavoriteButton(),
+                  onFavoriteButtonTap: _onFavoriteStatusChange,
+                  isFavorite: _getIsFavorite(),
+                  showShareButton: showShareButton(),
+                  onShareButtonTap: () => Util.shareCard(screenshotController),
+                  showClipboardButton: showClipboardButton(),
+                  showCalculatorButton: showCalculatorButton(),
+                  showDescriptionButton: _shouldShowDescriptionButton,
+                  onShowDescriptionTap: () => _onShowRateDescription(),
+                  onOpened: () => dismissAllToast(),
+                  visible: false,
+                )
+              : null,
         );
-      },
+      }),
     );
   }
 
@@ -338,6 +322,19 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
         () => showToastWidget(ToastError()),
       );
     }
+  }
+
+  Future<bool> _onWillPopScope() async {
+    if (canPop()) {
+      dismissAllToast();
+      Util.navigateTo(
+        context,
+        HomeScreen(
+          key: GlobalKey<HomeScreenState>(),
+        ),
+      );
+    }
+    return false;
   }
 
   void _onDrawerDisplayChange(bool isOpen) {
