@@ -91,7 +91,7 @@ _waitAndGoHome(BuildContext context, Duration waitToHome) {
     waitToHome,
     () async {
       Globals.packageInfo = await PackageInfo.fromPlatform();
-
+      //TODO: Looking up a deactivated widget's ancestor is unsafe
       await Navigator.pushReplacement(
         context,
         PageRouteBuilder(
