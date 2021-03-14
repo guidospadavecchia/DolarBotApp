@@ -32,7 +32,7 @@ abstract class BaseCardTemplate extends StatefulWidget {
     this.showPoweredBy,
     this.showButtons,
     @required this.endpoint,
-  }) : assert(iconData != null || iconAsset != null);
+  });
 }
 
 abstract class BaseCardTemplateState<Card extends BaseCardTemplate>
