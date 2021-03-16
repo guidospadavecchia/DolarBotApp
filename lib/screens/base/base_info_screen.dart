@@ -107,7 +107,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> imple
             title: widget.title,
             isMainMenu: isMainMenu(),
             foregroundColor: setColorAppbar(),
-            showRefreshButton: showRefreshButton(),
+            showRefreshButton: isDataLoaded && showRefreshButton(),
             onRefresh: () => onRefresh(),
           ),
           drawer: Container(
