@@ -116,44 +116,51 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
           drawerEdgeDragWidth: MediaQuery.of(context).size.width / 3,
           drawerEnableOpenDragGesture: true,
           body: (widget.title != null && isMainMenu())
-              ? Stack(children: [
-                  card() != null
-                      ? Container(
-                          margin: EdgeInsets.only(left: 15, right: 15),
-                          child: Screenshot(
-                            child: Container(
-                              padding: EdgeInsets.only(left: 10, right: 10),
-                              child: Container(
-                                child: card(),
-                              ),
-                            ),
-                            controller: screenshotController,
-                          ),
-                        )
-                      : SizedBox.shrink(),
-                  Container(
-                    height: double.infinity,
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: widget.cardData?.colors == null
-                            ? [
-                                ThemeManager.getGlobalBackgroundColor(context),
-                                ThemeManager.getGlobalBackgroundColor(context),
-                              ]
-                            : widget.cardData.colors,
+              ? Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Container(
+                      height: double.infinity,
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: widget.cardData?.colors == null
+                              ? [
+                                  ThemeManager.getGlobalBackgroundColor(context),
+                                  ThemeManager.getGlobalBackgroundColor(context),
+                                ]
+                              : widget.cardData.colors,
+                        ),
+                      ),
+                      child: Wrap(
+                        runAlignment: WrapAlignment.center,
+                        runSpacing: 0,
+                        children: [
+                          body(),
+                        ],
                       ),
                     ),
-                    child: Wrap(
-                      runAlignment: WrapAlignment.center,
-                      runSpacing: 0,
-                      children: [
-                        body(),
-                      ],
-                    ),
-                  ),
-                ])
+                    card() != null
+                        ? RotatedBox(
+                            quarterTurns: 1,
+                            child: Container(
+                              width: MediaQuery.of(context).size.width,
+                              margin: EdgeInsets.only(left: 15, right: 15),
+                              child: Screenshot(
+                                child: Container(
+                                  padding: EdgeInsets.only(left: 10, right: 10),
+                                  child: Container(
+                                    child: card(),
+                                  ),
+                                ),
+                                controller: screenshotController,
+                              ),
+                            ),
+                          )
+                        : SizedBox.shrink(),
+                  ],
+                )
               : body(),
           floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
           floatingActionButton: showFabMenu()
