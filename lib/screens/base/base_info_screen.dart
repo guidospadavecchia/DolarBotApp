@@ -4,6 +4,7 @@ import 'package:dolarbot_app/classes/hive/favorite_rate.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:dolarbot_app/interfaces/share_info.dart';
 import 'package:dolarbot_app/models/settings.dart';
+import 'package:dolarbot_app/util/constants.dart';
 import 'package:dolarbot_app/widgets/calculator/exports/calculator_exports.dart';
 import 'package:dolarbot_app/widgets/common/toasts/toast_error.dart';
 import 'package:dolarbot_app/widgets/common/toasts/toast_ok.dart';
@@ -66,7 +67,6 @@ abstract class BaseInfoScreenState<Page extends BaseInfoScreen> extends State<Ba
 }
 
 mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> implements IShareable {
-  final String kDescriptionsFile = 'assets/cfg/rate_descriptions.json';
   bool shouldForceRefresh = false;
   bool isDataLoaded = false;
   bool _shouldShowDescriptionButton = false;
@@ -306,7 +306,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> imple
   }
 
   Future<String> _getRateDescription() async {
-    String descriptionsString = await rootBundle.loadString(kDescriptionsFile);
+    String descriptionsString = await rootBundle.loadString(DolarBotConstants.kDescriptionsFile);
     Map<String, dynamic> descriptions = json.decode(descriptionsString) as Map<String, dynamic>;
     return descriptions[widget.cardData?.endpoint];
   }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class DolarBotConstants {
+  static const String kDescriptionsFile = 'assets/cfg/rate_descriptions.json';
+
   static List<Color> kGradiantDefault = [
     Colors.green[600],
     Colors.green[900],
