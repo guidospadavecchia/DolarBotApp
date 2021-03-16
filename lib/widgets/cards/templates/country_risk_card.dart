@@ -58,7 +58,8 @@ class _CountryRiskCardState extends BaseCardState<CountryRiskCard> {
       height: CountryRiskCard.height,
       header: CardHeader(
         title: widget.title,
-        shareButton: showButtons ? CardShareButton(onSharePressed: () => onSharePressed()) : null,
+        shareButton:
+            widget.showShareButton ? CardShareButton(onSharePressed: () => onSharePressed()) : null,
       ),
       spaceBetweenHeader: Spacing.none,
       spaceBetweenItems: Spacing.large,
@@ -84,7 +85,7 @@ class _CountryRiskCardState extends BaseCardState<CountryRiskCard> {
       ),
       lastUpdated: CardLastUpdated(
         timestamp: data.timestamp,
-        showPoweredBy: showPoweredBy,
+        showPoweredBy: widget.showPoweredBy,
       ),
       gradiantColors: widget.gradiantColors,
     );

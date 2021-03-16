@@ -59,7 +59,8 @@ class _MetalCardState extends BaseCardState<MetalCard> {
       height: MetalCard.height,
       header: CardHeader(
         title: widget.title,
-        shareButton: showButtons ? CardShareButton(onSharePressed: () => onSharePressed()) : null,
+        shareButton:
+            widget.showShareButton ? CardShareButton(onSharePressed: () => onSharePressed()) : null,
       ),
       spaceBetweenHeader: Spacing.small,
       rates: [
@@ -81,7 +82,7 @@ class _MetalCardState extends BaseCardState<MetalCard> {
       ),
       lastUpdated: CardLastUpdated(
         timestamp: data.timestamp,
-        showPoweredBy: showPoweredBy,
+        showPoweredBy: widget.showPoweredBy,
       ),
       gradiantColors: widget.gradiantColors,
     );

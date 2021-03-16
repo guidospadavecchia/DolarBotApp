@@ -64,7 +64,8 @@ class _BcraCardState extends BaseCardState<BcraCard> {
       height: BcraCard.height,
       header: CardHeader(
         title: widget.title,
-        shareButton: showButtons ? CardShareButton(onSharePressed: () => onSharePressed()) : null,
+        shareButton:
+            widget.showShareButton ? CardShareButton(onSharePressed: () => onSharePressed()) : null,
       ),
       spaceBetweenHeader: Spacing.small,
       spaceBetweenItems: Spacing.large,
@@ -85,7 +86,7 @@ class _BcraCardState extends BaseCardState<BcraCard> {
       ),
       lastUpdated: CardLastUpdated(
         timestamp: data.timestamp,
-        showPoweredBy: showPoweredBy,
+        showPoweredBy: widget.showPoweredBy,
       ),
       gradiantColors: widget.gradiantColors,
     );

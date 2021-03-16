@@ -42,17 +42,6 @@ abstract class BaseCard extends StatefulWidget {
 }
 
 abstract class BaseCardState<Card extends BaseCard> extends State<BaseCard> {
-  bool showPoweredBy;
-  bool showButtons;
-  bool isVisible = true;
-
-  @override
-  void initState() {
-    super.initState();
-    showPoweredBy = widget.showPoweredBy;
-    showButtons = widget.showShareButton;
-  }
-
   void onSharePressed() async {
     CardData cardData = CardData(
       title: widget.title,

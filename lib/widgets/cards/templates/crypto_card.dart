@@ -58,7 +58,8 @@ class _CryptoCardState extends BaseCardState<CryptoCard> {
       height: CryptoCard.height,
       header: CardHeader(
         title: widget.title,
-        shareButton: showButtons ? CardShareButton(onSharePressed: () => onSharePressed()) : null,
+        shareButton:
+            widget.showShareButton ? CardShareButton(onSharePressed: () => onSharePressed()) : null,
       ),
       spaceBetweenHeader: Spacing.medium,
       spaceBetweenItems: Spacing.medium,
@@ -96,7 +97,7 @@ class _CryptoCardState extends BaseCardState<CryptoCard> {
       ),
       lastUpdated: CardLastUpdated(
         timestamp: data.timestamp,
-        showPoweredBy: showPoweredBy,
+        showPoweredBy: widget.showPoweredBy,
       ),
       gradiantColors: widget.gradiantColors,
     );

@@ -58,7 +58,8 @@ class _VenezuelaCardState extends BaseCardState<VenezuelaCard> {
       height: VenezuelaCard.height,
       header: CardHeader(
         title: widget.title,
-        shareButton: showButtons ? CardShareButton(onSharePressed: () => onSharePressed()) : null,
+        shareButton:
+            widget.showShareButton ? CardShareButton(onSharePressed: () => onSharePressed()) : null,
       ),
       spaceBetweenHeader: Spacing.small,
       rates: [
@@ -88,7 +89,7 @@ class _VenezuelaCardState extends BaseCardState<VenezuelaCard> {
       ),
       lastUpdated: CardLastUpdated(
         timestamp: data.timestamp,
-        showPoweredBy: showPoweredBy,
+        showPoweredBy: widget.showPoweredBy,
       ),
       gradiantColors: widget.gradiantColors,
     );

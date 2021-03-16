@@ -61,7 +61,8 @@ class _FiatCurrencyCardState extends BaseCardState<FiatCurrencyCard> {
       height: FiatCurrencyCard.height,
       header: CardHeader(
         title: widget.title,
-        shareButton: showButtons ? CardShareButton(onSharePressed: () => onSharePressed()) : null,
+        shareButton:
+            widget.showShareButton ? CardShareButton(onSharePressed: () => onSharePressed()) : null,
       ),
       spaceBetweenItems: Spacing.small,
       spaceBetweenHeader: (data.sellPriceWithTaxes != null) ? Spacing.medium : Spacing.small,
@@ -98,7 +99,7 @@ class _FiatCurrencyCardState extends BaseCardState<FiatCurrencyCard> {
       ),
       lastUpdated: CardLastUpdated(
         timestamp: data.timestamp,
-        showPoweredBy: showPoweredBy,
+        showPoweredBy: widget.showPoweredBy,
       ),
       gradiantColors: widget.gradiantColors,
     );
