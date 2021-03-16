@@ -29,8 +29,8 @@ class RootMenuVenezuela extends StatelessWidget {
               VenezuelaInfoScreen(
                 title: _title,
                 cardData: CardData(
-                  title: "Dolar",
-                  tag: "Dolar",
+                  title: "Dólar",
+                  tag: "Dólar",
                   iconData: FontAwesomeIcons.dollarSign,
                   colors: DolarBotConstants.kGradiantVenezuela,
                   endpoint: VenezuelaEndpoints.dolar.value,
