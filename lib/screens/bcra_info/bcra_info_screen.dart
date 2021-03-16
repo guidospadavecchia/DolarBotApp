@@ -129,7 +129,8 @@ class _BcraInfoScreenState extends BaseInfoScreenState<BcraInfoScreen> with Base
   @override
   Widget card() {
     if (data != null && (data is CountryRiskResponse || data is BcraResponse)) {
-      return BuildCard(data).fromCardData(context, widget.cardData);
+      Settings settings = Provider.of<Settings>(context, listen: false);
+      return BuildCard(data).fromCardData(context, widget.cardData, settings);
     }
 
     return SizedBox.shrink();

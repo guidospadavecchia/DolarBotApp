@@ -65,7 +65,8 @@ class _VenezuelaInfoScreenState extends BaseInfoScreenState<VenezuelaInfoScreen>
   Widget card() {
     CardData newCardData =
         widget.cardData.clone(title: "Venezuela", iconAsset: DolarBotIcons.general.venezuela);
-    return BuildCard(data).fromCardData(context, newCardData);
+    Settings settings = Provider.of<Settings>(context, listen: false);
+    return BuildCard(data).fromCardData(context, newCardData, settings);
   }
 
   @override
@@ -88,10 +89,8 @@ class _VenezuelaInfoScreenState extends BaseInfoScreenState<VenezuelaInfoScreen>
   @override
   String getShareText() {
     Settings settings = Provider.of<Settings>(context, listen: false);
-    final numberFormat = new NumberFormat(
-      settings.getCurrencyPattern(),
-      settings.getCurrencyFormat(),
-    );
+    NumberFormat numberFormat = settings.getNumberFormat().item1;
+
     String shareText = '';
 
     if (data != null) {

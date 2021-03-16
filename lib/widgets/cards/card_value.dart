@@ -1,7 +1,7 @@
-import 'package:dolarbot_app/models/settings.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
+import 'package:tuple/tuple.dart';
 
 enum Spacing { none, small, medium, large }
 
@@ -17,6 +17,7 @@ class CardValue extends StatelessWidget {
   final Spacing spaceBetweenTitle;
   final Spacing spaceMainAxisEnd;
   final bool hideDecimals;
+  final Tuple2<intl.NumberFormat, String> numberFormat;
 
   const CardValue({
     Key key,
@@ -31,74 +32,67 @@ class CardValue extends StatelessWidget {
     this.spaceBetweenTitle = Spacing.none,
     this.spaceMainAxisEnd = Spacing.none,
     this.hideDecimals = false,
+    this.numberFormat,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<Settings>(
-      builder: (context, settings, child) {
-        final numberFormat = new intl.NumberFormat(
-          settings.getCurrencyPattern(),
-          settings.getCurrencyFormat(),
-        );
-        String value = _getFormatedValue(numberFormat, settings);
+    String value = _getFormatedValue(numberFormat.item1, numberFormat.item2);
 
-        return Wrap(
-          spacing: _getSpaceMainAxisEnd(),
+    return Wrap(
+      spacing: _getSpaceMainAxisEnd(),
+      children: [
+        Wrap(
+          crossAxisAlignment: crossAlignment,
+          textDirection: textDirection,
+          direction: direction,
+          spacing: _getSpaceBetweenTitle(),
           children: [
-            Wrap(
-              crossAxisAlignment: crossAlignment,
-              textDirection: textDirection,
-              direction: direction,
-              spacing: _getSpaceBetweenTitle(),
-              children: [
-                Text(
-                  title,
-                  style: TextStyle(
-                    fontSize: titleSize,
-                    fontFamily: 'Raleway',
-                    fontWeight: FontWeight.normal,
-                    color: Colors.white,
-                    shadows: [
-                      Shadow(
-                        blurRadius: 2,
-                        color: Colors.black54,
-                        offset: Offset(2, 2),
-                      ),
-                    ],
+            Text(
+              title,
+              style: TextStyle(
+                fontSize: titleSize,
+                fontFamily: 'Raleway',
+                fontWeight: FontWeight.normal,
+                color: Colors.white,
+                shadows: [
+                  Shadow(
+                    blurRadius: 2,
+                    color: Colors.black54,
+                    offset: Offset(2, 2),
                   ),
-                ),
-                Text(
-                  value.trimLeft(),
-                  style: TextStyle(
-                    fontSize: valueSize,
-                    fontFamily: 'Montserrat',
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                    shadows: [
-                      Shadow(
-                        blurRadius: 7,
-                        color: Colors.black54,
-                        offset: Offset(2, 2),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
-            direction == Axis.vertical
-                ? SizedBox(height: _getSpaceMainAxisEnd() * 2)
-                : SizedBox.shrink(),
+            Text(
+              value.trimLeft(),
+              style: TextStyle(
+                fontSize: valueSize,
+                fontFamily: 'Montserrat',
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+                shadows: [
+                  Shadow(
+                    blurRadius: 7,
+                    color: Colors.black54,
+                    offset: Offset(2, 2),
+                  ),
+                ],
+              ),
+            ),
           ],
-        );
-      },
+        ),
+        direction == Axis.vertical
+            ? SizedBox(height: _getSpaceMainAxisEnd() * 2)
+            : SizedBox.shrink(),
+      ],
     );
   }
 
-  String _getFormatedValue(intl.NumberFormat numberFormat, Settings settings) {
+  String _getFormatedValue(intl.NumberFormat numberFormat, String decimalSeparator) {
     if (value.isNumeric()) {
       String formattedNumber = numberFormat.format(double.parse(value));
-      List<String> splittedFormattedNumber = formattedNumber.split(settings.getDecimalSeparator());
+      List<String> splittedFormattedNumber = formattedNumber.split(decimalSeparator);
 
       if (splittedFormattedNumber.length == 2 && hideDecimals) {
         return "$symbol ${splittedFormattedNumber[0]}";

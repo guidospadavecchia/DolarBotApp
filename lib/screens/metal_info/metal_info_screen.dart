@@ -58,7 +58,8 @@ class _MetalInfoScreenState extends BaseInfoScreenState<MetalInfoScreen> with Ba
 
   @override
   Widget card() {
-    return BuildCard(data).fromCardData(context, widget.cardData);
+    Settings settings = Provider.of<Settings>(context, listen: false);
+    return BuildCard(data).fromCardData(context, widget.cardData, settings);
   }
 
   @override
@@ -81,10 +82,8 @@ class _MetalInfoScreenState extends BaseInfoScreenState<MetalInfoScreen> with Ba
   @override
   String getShareText() {
     Settings settings = Provider.of<Settings>(context, listen: false);
-    final numberFormat = new intl.NumberFormat(
-      settings.getCurrencyPattern(),
-      settings.getCurrencyFormat(),
-    );
+    intl.NumberFormat numberFormat = settings.getNumberFormat().item1;
+
     String shareText = '';
 
     if (data != null) {

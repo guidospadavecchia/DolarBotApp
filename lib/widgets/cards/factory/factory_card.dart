@@ -1,14 +1,15 @@
 import 'package:dolarbot_app/api/responses/base/api_response.dart';
 import 'package:dolarbot_app/api/responses/base/generic_currency_response.dart';
-import 'package:dolarbot_app/classes/theme_manager.dart';
+import 'package:dolarbot_app/models/settings.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
+import 'package:dolarbot_app/widgets/cards/templates/base/base_card.dart';
 import 'package:dolarbot_app/widgets/cards/templates/bcra_card.dart';
 import 'package:dolarbot_app/widgets/cards/templates/country_risk_card.dart';
 import 'package:dolarbot_app/widgets/cards/templates/crypto_card.dart';
+import 'package:dolarbot_app/widgets/cards/templates/empty_card.dart';
 import 'package:dolarbot_app/widgets/cards/templates/fiat_currency_card.dart';
 import 'package:dolarbot_app/widgets/cards/templates/metal_card.dart';
 import 'package:dolarbot_app/widgets/cards/templates/venezuela_card.dart';
-import 'package:dotted_border/dotted_border.dart';
 
 abstract class BuildCard {
   factory BuildCard(ApiResponse data) {
@@ -19,22 +20,22 @@ abstract class BuildCard {
     if (data is CountryRiskResponse) return _CountryRisk(data, CountryRiskCard.height);
     if (data is VenezuelaResponse) return _Venezuela(data, VenezuelaCard.height);
 
+    return _Empty();
+  }
+
+  BaseCard fromCardData(BuildContext context, CardData buildCardData, Settings settings);
+  BaseCard fromFavoriteRate(BuildContext context, FavoriteRate favoriteRate, Settings settings);
+}
+
+class _Empty implements BuildCard {
+  @override
+  BaseCard fromCardData(BuildContext context, CardData buildCardData, Settings settings) {
     return EmptyCard();
   }
 
-  Widget fromCardData(BuildContext context, CardData buildCardData);
-  Widget fromFavoriteRate(BuildContext context, FavoriteRate favoriteRate);
-}
-
-class EmptyCard implements BuildCard {
   @override
-  Widget fromCardData(BuildContext context, CardData buildCardData) {
-    return SizedBox.shrink();
-  }
-
-  @override
-  Widget fromFavoriteRate(BuildContext context, FavoriteRate favoriteRate) {
-    return SizedBox.shrink();
+  BaseCard fromFavoriteRate(BuildContext context, FavoriteRate favoriteRate, Settings settings) {
+    return EmptyCard();
   }
 }
 
@@ -45,39 +46,33 @@ class _FiatCurrency implements BuildCard {
   _FiatCurrency(this.data, this.height);
 
   @override
-  Widget fromCardData(context, buildCardData) {
-    return _InternalBuildCard(
-      context: context,
-      height: height,
-      child: FiatCurrencyCard(
-        title: buildCardData.title,
-        data: data,
-        tag: buildCardData.tag,
-        iconAsset: buildCardData.iconAsset,
-        iconData: buildCardData.iconData,
-        gradiantColors: buildCardData.colors,
-        showButtons: buildCardData.showButtons,
-        showPoweredBy: buildCardData.showPoweredBy,
-        endpoint: buildCardData.endpoint,
-      ),
+  BaseCard fromCardData(context, buildCardData, Settings settings) {
+    return FiatCurrencyCard(
+      title: buildCardData.title,
+      data: data,
+      tag: buildCardData.tag,
+      iconAsset: buildCardData.iconAsset,
+      iconData: buildCardData.iconData,
+      gradiantColors: buildCardData.colors,
+      showShareButton: buildCardData.showButtons,
+      showPoweredBy: buildCardData.showPoweredBy,
+      endpoint: buildCardData.endpoint,
+      numberFormat: settings.getNumberFormat(),
     );
   }
 
   @override
-  Widget fromFavoriteRate(BuildContext context, FavoriteRate favoriteRate) {
-    return _InternalBuildCard(
-      context: context,
-      height: height,
-      child: FiatCurrencyCard(
-        title: favoriteRate.cardTitle,
-        data: data,
-        tag: favoriteRate.cardTag,
-        iconAsset: favoriteRate.cardIconAsset,
-        iconData: IconData(favoriteRate.cardIconData,
-            fontFamily: "FontAwesomeSolid", fontPackage: "font_awesome_flutter"),
-        gradiantColors: favoriteRate.cardColors.map((n) => Color(n)).toList(),
-        endpoint: favoriteRate.endpoint,
-      ),
+  BaseCard fromFavoriteRate(BuildContext context, FavoriteRate favoriteRate, Settings settings) {
+    return FiatCurrencyCard(
+      title: favoriteRate.cardTitle,
+      data: data,
+      tag: favoriteRate.cardTag,
+      iconAsset: favoriteRate.cardIconAsset,
+      iconData: IconData(favoriteRate.cardIconData,
+          fontFamily: "FontAwesomeSolid", fontPackage: "font_awesome_flutter"),
+      gradiantColors: favoriteRate.cardColors.map((n) => Color(n)).toList(),
+      endpoint: favoriteRate.endpoint,
+      numberFormat: settings.getNumberFormat(),
     );
   }
 }
@@ -89,39 +84,33 @@ class _Crypto implements BuildCard {
   _Crypto(this.data, this.height);
 
   @override
-  Widget fromCardData(context, buildCardData) {
-    return _InternalBuildCard(
-      context: context,
-      height: height,
-      child: CryptoCard(
-        title: buildCardData.title,
-        data: data,
-        tag: buildCardData.tag,
-        iconAsset: buildCardData.iconAsset,
-        iconData: buildCardData.iconData,
-        gradiantColors: buildCardData.colors,
-        showButtons: buildCardData.showButtons,
-        showPoweredBy: buildCardData.showPoweredBy,
-        endpoint: buildCardData.endpoint,
-      ),
+  BaseCard fromCardData(context, buildCardData, Settings settings) {
+    return CryptoCard(
+      title: buildCardData.title,
+      data: data,
+      tag: buildCardData.tag,
+      iconAsset: buildCardData.iconAsset,
+      iconData: buildCardData.iconData,
+      gradiantColors: buildCardData.colors,
+      showShareButton: buildCardData.showButtons,
+      showPoweredBy: buildCardData.showPoweredBy,
+      endpoint: buildCardData.endpoint,
+      numberFormat: settings.getNumberFormat(),
     );
   }
 
   @override
-  Widget fromFavoriteRate(BuildContext context, FavoriteRate favoriteRate) {
-    return _InternalBuildCard(
-      context: context,
-      height: height,
-      child: CryptoCard(
-        title: favoriteRate.cardTitle,
-        data: data,
-        tag: favoriteRate.cardTag,
-        iconAsset: favoriteRate.cardIconAsset,
-        iconData: IconData(favoriteRate.cardIconData,
-            fontFamily: 'CryptoFont', fontPackage: 'crypto_font_icons'),
-        gradiantColors: favoriteRate.cardColors.map((n) => Color(n)).toList(),
-        endpoint: favoriteRate.endpoint,
-      ),
+  BaseCard fromFavoriteRate(BuildContext context, FavoriteRate favoriteRate, Settings settings) {
+    return CryptoCard(
+      title: favoriteRate.cardTitle,
+      data: data,
+      tag: favoriteRate.cardTag,
+      iconAsset: favoriteRate.cardIconAsset,
+      iconData: IconData(favoriteRate.cardIconData,
+          fontFamily: 'CryptoFont', fontPackage: 'crypto_font_icons'),
+      gradiantColors: favoriteRate.cardColors.map((n) => Color(n)).toList(),
+      endpoint: favoriteRate.endpoint,
+      numberFormat: settings.getNumberFormat(),
     );
   }
 }
@@ -133,38 +122,32 @@ class _Metal implements BuildCard {
   _Metal(this.data, this.height);
 
   @override
-  Widget fromCardData(context, buildCardData) {
-    return _InternalBuildCard(
-      context: context,
-      height: height,
-      child: MetalCard(
-        title: buildCardData.title,
-        data: data,
-        tag: buildCardData.tag,
-        iconAsset: buildCardData.iconAsset,
-        iconData: buildCardData.iconData,
-        gradiantColors: buildCardData.colors,
-        showButtons: buildCardData.showButtons,
-        showPoweredBy: buildCardData.showPoweredBy,
-        endpoint: buildCardData.endpoint,
-      ),
+  BaseCard fromCardData(context, buildCardData, Settings settings) {
+    return MetalCard(
+      title: buildCardData.title,
+      data: data,
+      tag: buildCardData.tag,
+      iconAsset: buildCardData.iconAsset,
+      iconData: buildCardData.iconData,
+      gradiantColors: buildCardData.colors,
+      showShareButton: buildCardData.showButtons,
+      showPoweredBy: buildCardData.showPoweredBy,
+      endpoint: buildCardData.endpoint,
+      numberFormat: settings.getNumberFormat(),
     );
   }
 
   @override
-  Widget fromFavoriteRate(BuildContext context, FavoriteRate favoriteRate) {
-    return _InternalBuildCard(
-      context: context,
-      height: height,
-      child: MetalCard(
-        title: favoriteRate.cardTitle,
-        data: data,
-        tag: favoriteRate.cardTag,
-        iconAsset: favoriteRate.cardIconAsset,
-        iconData: IconData(favoriteRate.cardIconData),
-        gradiantColors: favoriteRate.cardColors.map((n) => Color(n)).toList(),
-        endpoint: favoriteRate.endpoint,
-      ),
+  BaseCard fromFavoriteRate(BuildContext context, FavoriteRate favoriteRate, Settings settings) {
+    return MetalCard(
+      title: favoriteRate.cardTitle,
+      data: data,
+      tag: favoriteRate.cardTag,
+      iconAsset: favoriteRate.cardIconAsset,
+      iconData: IconData(favoriteRate.cardIconData),
+      gradiantColors: favoriteRate.cardColors.map((n) => Color(n)).toList(),
+      endpoint: favoriteRate.endpoint,
+      numberFormat: settings.getNumberFormat(),
     );
   }
 }
@@ -176,43 +159,37 @@ class _Bcra implements BuildCard {
   _Bcra(this.data, this.height);
 
   @override
-  Widget fromCardData(context, buildCardData) {
-    return _InternalBuildCard(
-      context: context,
-      height: height,
-      child: BcraCard(
-        title: buildCardData.title,
-        subtitle: buildCardData.subtitle,
-        symbol: buildCardData.symbol,
-        data: data,
-        tag: buildCardData.tag,
-        iconAsset: buildCardData.iconAsset,
-        iconData: buildCardData.iconData,
-        gradiantColors: buildCardData.colors,
-        showButtons: buildCardData.showButtons,
-        showPoweredBy: buildCardData.showPoweredBy,
-        endpoint: buildCardData.endpoint,
-      ),
+  BaseCard fromCardData(context, buildCardData, Settings settings) {
+    return BcraCard(
+      title: buildCardData.title,
+      subtitle: buildCardData.subtitle,
+      symbol: buildCardData.symbol,
+      data: data,
+      tag: buildCardData.tag,
+      iconAsset: buildCardData.iconAsset,
+      iconData: buildCardData.iconData,
+      gradiantColors: buildCardData.colors,
+      showShareButton: buildCardData.showButtons,
+      showPoweredBy: buildCardData.showPoweredBy,
+      endpoint: buildCardData.endpoint,
+      numberFormat: settings.getNumberFormat(),
     );
   }
 
   @override
-  Widget fromFavoriteRate(BuildContext context, FavoriteRate favoriteRate) {
-    return _InternalBuildCard(
-      context: context,
-      height: height,
-      child: BcraCard(
-        title: favoriteRate.cardTitle,
-        subtitle: favoriteRate.cardSubtitle,
-        symbol: favoriteRate.cardSymbol,
-        data: data,
-        tag: favoriteRate.cardTag,
-        iconAsset: favoriteRate.cardIconAsset,
-        iconData: IconData(favoriteRate.cardIconData,
-            fontFamily: "FontAwesomeSolid", fontPackage: "font_awesome_flutter"),
-        gradiantColors: favoriteRate.cardColors.map((n) => Color(n)).toList(),
-        endpoint: favoriteRate.endpoint,
-      ),
+  BaseCard fromFavoriteRate(BuildContext context, FavoriteRate favoriteRate, Settings settings) {
+    return BcraCard(
+      title: favoriteRate.cardTitle,
+      subtitle: favoriteRate.cardSubtitle,
+      symbol: favoriteRate.cardSymbol,
+      data: data,
+      tag: favoriteRate.cardTag,
+      iconAsset: favoriteRate.cardIconAsset,
+      iconData: IconData(favoriteRate.cardIconData,
+          fontFamily: "FontAwesomeSolid", fontPackage: "font_awesome_flutter"),
+      gradiantColors: favoriteRate.cardColors.map((n) => Color(n)).toList(),
+      endpoint: favoriteRate.endpoint,
+      numberFormat: settings.getNumberFormat(),
     );
   }
 }
@@ -224,39 +201,33 @@ class _CountryRisk implements BuildCard {
   _CountryRisk(this.data, this.height);
 
   @override
-  Widget fromCardData(context, buildCardData) {
-    return _InternalBuildCard(
-      context: context,
-      height: height,
-      child: CountryRiskCard(
-        title: buildCardData.title,
-        data: data,
-        tag: buildCardData.tag,
-        iconAsset: buildCardData.iconAsset,
-        iconData: buildCardData.iconData,
-        gradiantColors: buildCardData.colors,
-        showButtons: buildCardData.showButtons,
-        showPoweredBy: buildCardData.showPoweredBy,
-        endpoint: buildCardData.endpoint,
-      ),
+  BaseCard fromCardData(context, buildCardData, Settings settings) {
+    return CountryRiskCard(
+      title: buildCardData.title,
+      data: data,
+      tag: buildCardData.tag,
+      iconAsset: buildCardData.iconAsset,
+      iconData: buildCardData.iconData,
+      gradiantColors: buildCardData.colors,
+      showShareButton: buildCardData.showButtons,
+      showPoweredBy: buildCardData.showPoweredBy,
+      endpoint: buildCardData.endpoint,
+      numberFormat: settings.getNumberFormat(),
     );
   }
 
   @override
-  Widget fromFavoriteRate(BuildContext context, FavoriteRate favoriteRate) {
-    return _InternalBuildCard(
-      context: context,
-      height: height,
-      child: CountryRiskCard(
-        title: favoriteRate.cardTitle,
-        data: data,
-        tag: favoriteRate.cardTag,
-        iconAsset: favoriteRate.cardIconAsset,
-        iconData: IconData(favoriteRate.cardIconData,
-            fontFamily: "FontAwesomeSolid", fontPackage: "font_awesome_flutter"),
-        gradiantColors: favoriteRate.cardColors.map((n) => Color(n)).toList(),
-        endpoint: favoriteRate.endpoint,
-      ),
+  BaseCard fromFavoriteRate(BuildContext context, FavoriteRate favoriteRate, Settings settings) {
+    return CountryRiskCard(
+      title: favoriteRate.cardTitle,
+      data: data,
+      tag: favoriteRate.cardTag,
+      iconAsset: favoriteRate.cardIconAsset,
+      iconData: IconData(favoriteRate.cardIconData,
+          fontFamily: "FontAwesomeSolid", fontPackage: "font_awesome_flutter"),
+      gradiantColors: favoriteRate.cardColors.map((n) => Color(n)).toList(),
+      endpoint: favoriteRate.endpoint,
+      numberFormat: settings.getNumberFormat(),
     );
   }
 }
@@ -268,81 +239,32 @@ class _Venezuela implements BuildCard {
   _Venezuela(this.data, this.height);
 
   @override
-  Widget fromCardData(context, buildCardData) {
-    return _InternalBuildCard(
-      context: context,
-      height: height,
-      child: VenezuelaCard(
-        title: buildCardData.title,
-        data: data,
-        tag: buildCardData.tag,
-        gradiantColors: buildCardData.colors,
-        iconAsset: buildCardData.iconAsset,
-        iconData: buildCardData.iconData,
-        endpoint: buildCardData.endpoint,
-        showButtons: buildCardData.showButtons,
-        showPoweredBy: buildCardData.showPoweredBy,
-      ),
+  BaseCard fromCardData(context, buildCardData, Settings settings) {
+    return VenezuelaCard(
+      title: buildCardData.title,
+      data: data,
+      tag: buildCardData.tag,
+      gradiantColors: buildCardData.colors,
+      iconAsset: buildCardData.iconAsset,
+      iconData: buildCardData.iconData,
+      endpoint: buildCardData.endpoint,
+      showShareButton: buildCardData.showButtons,
+      showPoweredBy: buildCardData.showPoweredBy,
+      numberFormat: settings.getNumberFormat(),
     );
   }
 
   @override
-  Widget fromFavoriteRate(BuildContext context, FavoriteRate favoriteRate) {
-    return _InternalBuildCard(
-      context: context,
-      height: height,
-      child: VenezuelaCard(
-        title: favoriteRate.cardTitle,
-        data: data,
-        tag: favoriteRate.cardTag,
-        gradiantColors: favoriteRate.cardColors.map((n) => Color(n)).toList(),
-        iconAsset: favoriteRate.cardIconAsset,
-        iconData: IconData(favoriteRate.cardIconData),
-        endpoint: favoriteRate.endpoint,
-      ),
-    );
-  }
-}
-
-class _InternalBuildCard extends StatelessWidget {
-  final BuildContext context;
-  final Widget child;
-  final double height;
-
-  const _InternalBuildCard({
-    Key key,
-    @required this.context,
-    @required this.child,
-    @required this.height,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-          ),
-          alignment: Alignment.center,
-          height: height,
-          child: Transform.scale(
-            scale: 0.98,
-            child: DottedBorder(
-              strokeWidth: 2,
-              color: ThemeManager.getDottedBorderColor(context),
-              dashPattern: [8, 6],
-              radius: Radius.circular(10),
-              borderType: BorderType.RRect,
-              child: Container(
-                height: height,
-              ),
-            ),
-          ),
-        ),
-        child
-      ],
+  BaseCard fromFavoriteRate(BuildContext context, FavoriteRate favoriteRate, Settings settings) {
+    return VenezuelaCard(
+      title: favoriteRate.cardTitle,
+      data: data,
+      tag: favoriteRate.cardTag,
+      gradiantColors: favoriteRate.cardColors.map((n) => Color(n)).toList(),
+      iconAsset: favoriteRate.cardIconAsset,
+      iconData: IconData(favoriteRate.cardIconData),
+      endpoint: favoriteRate.endpoint,
+      numberFormat: settings.getNumberFormat(),
     );
   }
 }

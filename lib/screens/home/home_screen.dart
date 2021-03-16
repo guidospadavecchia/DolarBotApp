@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:dolarbot_app/api/responses/factory/api_response_builder.dart';
 import 'package:dolarbot_app/classes/hive/favorite_rate.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
+import 'package:dolarbot_app/models/settings.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
 import 'package:dolarbot_app/screens/home/widgets/empty_favorites.dart';
 import 'package:dolarbot_app/util/util.dart';
@@ -139,7 +140,7 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
                         borderRadius: BorderRadius.circular(10),
                         color: Colors.transparent,
                       ),
-                      margin: EdgeInsets.only(left: 15, right: 15),
+                      margin: EdgeInsets.fromLTRB(15, 0, 15, 15),
                       child: Dismissible(
                         dismissThresholds: {
                           DismissDirection.endToStart: 0.4,
@@ -243,7 +244,11 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
       Map json = _responses[favoriteRate.endpoint];
       ApiResponse response = ApiResponseBuilder.fromType(type, json);
 
-      _cards.add(BuildCard(response).fromFavoriteRate(context, favoriteRate));
+      _cards.add(
+        Consumer<Settings>(builder: (context, settings, child) {
+          return BuildCard(response).fromFavoriteRate(context, favoriteRate, settings);
+        }),
+      );
     }
 
     _cardsLoaded = true;

@@ -1,11 +1,11 @@
 import 'package:dolarbot_app/api/responses/bcra_response.dart';
 import 'package:dolarbot_app/widgets/cards/card_favorite.dart';
-import 'package:dolarbot_app/widgets/cards/templates/base/base_card_template.dart';
+import 'package:dolarbot_app/widgets/cards/templates/base/base_card.dart';
 import 'package:flutter/material.dart';
 
 export 'package:dolarbot_app/api/responses/bcra_response.dart';
 
-class BcraCard extends BaseCardTemplate {
+class BcraCard extends BaseCard {
   static const double height = 140;
 
   final String title;
@@ -17,8 +17,9 @@ class BcraCard extends BaseCardTemplate {
   final IconData iconData;
   final String iconAsset;
   final bool showPoweredBy;
-  final bool showButtons;
+  final bool showShareButton;
   final String endpoint;
+  final Tuple2<NumberFormat, String> numberFormat;
 
   const BcraCard({
     Key key,
@@ -31,8 +32,9 @@ class BcraCard extends BaseCardTemplate {
     this.iconAsset,
     this.iconData,
     this.showPoweredBy = false,
-    this.showButtons = true,
+    this.showShareButton = true,
     @required this.endpoint,
+    @required this.numberFormat,
   }) : super(
           title: title,
           subtitle: subtitle,
@@ -42,15 +44,16 @@ class BcraCard extends BaseCardTemplate {
           iconAsset: iconAsset,
           iconData: iconData,
           showPoweredBy: showPoweredBy,
-          showButtons: showButtons,
+          showShareButton: showShareButton,
           endpoint: endpoint,
+          numberFormat: numberFormat,
         );
 
   @override
   _BcraCardState createState() => _BcraCardState(data);
 }
 
-class _BcraCardState extends BaseCardTemplateState<BcraCard> {
+class _BcraCardState extends BaseCardState<BcraCard> {
   final BcraResponse data;
 
   _BcraCardState(this.data);
@@ -61,14 +64,14 @@ class _BcraCardState extends BaseCardTemplateState<BcraCard> {
       height: BcraCard.height,
       header: CardHeader(
         title: widget.title,
-        showButtons: showButtons,
-        onSharePressed: () => onSharePressed(),
+        shareButton: showButtons ? CardShareButton(onSharePressed: () => onSharePressed()) : null,
       ),
       spaceBetweenHeader: Spacing.small,
       spaceBetweenItems: Spacing.large,
       direction: Axis.vertical,
       rates: [
         CardValue(
+          numberFormat: widget.numberFormat,
           title: widget.subtitle,
           value: data.value,
           symbol: widget.symbol,

@@ -1,11 +1,12 @@
 import 'package:dolarbot_app/api/responses/metal_response.dart';
 import 'package:dolarbot_app/widgets/cards/card_favorite.dart';
-import 'package:dolarbot_app/widgets/cards/templates/base/base_card_template.dart';
+import 'package:dolarbot_app/widgets/cards/templates/base/base_card.dart';
 import 'package:flutter/material.dart';
+import 'dart:ui' as ui;
 
 export 'package:dolarbot_app/api/responses/metal_response.dart';
 
-class MetalCard extends BaseCardTemplate {
+class MetalCard extends BaseCard {
   static const double height = 130;
 
   final String title;
@@ -15,8 +16,9 @@ class MetalCard extends BaseCardTemplate {
   final IconData iconData;
   final String iconAsset;
   final bool showPoweredBy;
-  final bool showButtons;
+  final bool showShareButton;
   final String endpoint;
+  final Tuple2<NumberFormat, String> numberFormat;
 
   const MetalCard({
     Key key,
@@ -27,8 +29,9 @@ class MetalCard extends BaseCardTemplate {
     this.iconData,
     this.iconAsset,
     this.showPoweredBy = false,
-    this.showButtons = true,
+    this.showShareButton = true,
     @required this.endpoint,
+    @required this.numberFormat,
   }) : super(
           title: title,
           tag: tag,
@@ -36,15 +39,16 @@ class MetalCard extends BaseCardTemplate {
           iconAsset: iconAsset,
           iconData: iconData,
           showPoweredBy: showPoweredBy,
-          showButtons: showButtons,
+          showShareButton: showShareButton,
           endpoint: endpoint,
+          numberFormat: numberFormat,
         );
 
   @override
   _MetalCardState createState() => _MetalCardState(data);
 }
 
-class _MetalCardState extends BaseCardTemplateState<MetalCard> {
+class _MetalCardState extends BaseCardState<MetalCard> {
   final MetalResponse data;
 
   _MetalCardState(this.data);
@@ -55,17 +59,17 @@ class _MetalCardState extends BaseCardTemplateState<MetalCard> {
       height: MetalCard.height,
       header: CardHeader(
         title: widget.title,
-        showButtons: showButtons,
-        onSharePressed: () => onSharePressed(),
+        shareButton: showButtons ? CardShareButton(onSharePressed: () => onSharePressed()) : null,
       ),
       spaceBetweenHeader: Spacing.small,
       rates: [
         CardValue(
+          numberFormat: widget.numberFormat,
           title: "/ ${data.unit}",
           value: data.value,
           symbol: data.currency == 'USD' ? 'US\$' : '\$',
           direction: Axis.horizontal,
-          textDirection: TextDirection.rtl,
+          textDirection: ui.TextDirection.rtl,
           spaceBetweenTitle: Spacing.small,
           crossAlignment: WrapCrossAlignment.center,
           valueSize: 26,

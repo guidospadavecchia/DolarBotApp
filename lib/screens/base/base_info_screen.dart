@@ -17,12 +17,12 @@ import 'package:dolarbot_app/widgets/common/cool_app_bar.dart';
 import 'package:dolarbot_app/widgets/common/dialog_button.dart';
 import 'package:dolarbot_app/widgets/common/simple_fab_menu.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
 import 'package:meta/meta.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';
-import 'package:screenshot/screenshot.dart';
 
 export 'package:dolarbot_app/api/api.dart';
 export 'package:dolarbot_app/api/responses/base/api_response.dart';
@@ -70,8 +70,6 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> imple
   bool shouldForceRefresh = false;
   bool isDataLoaded = false;
   bool _shouldShowDescriptionButton = false;
-
-  ScreenshotController screenshotController = ScreenshotController();
 
   Widget body();
   Widget card();
@@ -123,50 +121,27 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> imple
           drawerEdgeDragWidth: MediaQuery.of(context).size.width / 3,
           drawerEnableOpenDragGesture: true,
           body: (widget.title != null && isMainMenu())
-              ? Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    card() != null
-                        ? RotatedBox(
-                            quarterTurns: 1,
-                            child: Container(
-                              width: MediaQuery.of(context).size.width * 0.9,
-                              margin: EdgeInsets.only(left: 15, right: 15),
-                              child: Screenshot(
-                                child: Container(
-                                  padding: EdgeInsets.only(left: 10, right: 10),
-                                  child: Container(
-                                    child: card(),
-                                  ),
-                                ),
-                                controller: screenshotController,
-                              ),
-                            ),
-                          )
-                        : SizedBox.shrink(),
-                    Container(
-                      height: double.infinity,
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                          colors: widget.cardData?.colors == null
-                              ? [
-                                  ThemeManager.getGlobalBackgroundColor(context),
-                                  ThemeManager.getGlobalBackgroundColor(context),
-                                ]
-                              : widget.cardData.colors,
-                        ),
-                      ),
-                      child: Wrap(
-                        runAlignment: WrapAlignment.center,
-                        runSpacing: 0,
-                        children: [
-                          body(),
-                        ],
-                      ),
+              ? Container(
+                  height: double.infinity,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: widget.cardData?.colors == null
+                          ? [
+                              ThemeManager.getGlobalBackgroundColor(context),
+                              ThemeManager.getGlobalBackgroundColor(context),
+                            ]
+                          : widget.cardData.colors,
                     ),
-                  ],
+                  ),
+                  child: Wrap(
+                    runAlignment: WrapAlignment.center,
+                    runSpacing: 0,
+                    children: [
+                      body(),
+                    ],
+                  ),
                 )
               : body(),
           floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
@@ -177,13 +152,13 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> imple
                   onFavoriteButtonTap: _onFavoriteStatusChange,
                   isFavorite: _getIsFavorite(),
                   showShareButton: showShareButton(),
-                  onShareButtonTap: () => Util.shareCard(screenshotController),
+                  onShareButtonTap: () => _onShareButtonTap(),
                   showClipboardButton: showClipboardButton(),
-                  onClipboardButtonTap: () => _copyToClipboard(),
+                  onClipboardButtonTap: () => _onClipboardButtonTap(),
                   showCalculatorButton: showCalculatorButton(),
-                  onCalculatorButtonTap: () => _openCalculator(),
+                  onCalculatorButtonTap: () => _onCalculatorButtonTap(),
                   showDescriptionButton: _shouldShowDescriptionButton,
-                  onShowDescriptionTap: () => _onShowRateDescription(),
+                  onShowDescriptionTap: () => _onShowDescriptionTap(),
                   onOpened: () => dismissAllToast(),
                   visible: isDataLoaded,
                 )
@@ -295,7 +270,11 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> imple
     return false;
   }
 
-  Future<void> _copyToClipboard() async {
+  Future _onShareButtonTap() async {
+    await Util.shareCard(context, card());
+  }
+
+  Future<void> _onClipboardButtonTap() async {
     String shareText = getShareText();
     String text =
         "${widget.title} - ${widget.cardData.title.toUpperCase()}\n\n$shareText\n\nPowered by DolarBot";
@@ -315,7 +294,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> imple
     );
   }
 
-  void _openCalculator() {
+  void _onCalculatorButtonTap() {
     simpleFabKey.currentState.closeMenu();
     showDialog(
       barrierDismissible: false,
@@ -332,7 +311,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> imple
     return descriptions[widget.cardData?.endpoint];
   }
 
-  Future<void> _onShowRateDescription() async {
+  Future<void> _onShowDescriptionTap() async {
     String description = await _getRateDescription();
     if (description != null && description != '') {
       showDialog(

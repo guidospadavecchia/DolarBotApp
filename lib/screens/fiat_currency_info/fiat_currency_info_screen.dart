@@ -3,6 +3,7 @@ import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:dolarbot_app/interfaces/share_info.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
 import 'package:dolarbot_app/widgets/cards/factory/factory_card.dart';
+import 'package:dolarbot_app/widgets/cards/templates/fiat_currency_card.dart';
 import 'package:dolarbot_app/widgets/common/future_screen_delegate/loading_future.dart';
 import 'package:intl/intl.dart';
 
@@ -115,16 +116,15 @@ class _FiatCurrencyInfoScreenState<T extends GenericCurrencyResponse>
 
   @override
   Widget card() {
-    return BuildCard(data).fromCardData(context, widget.cardData);
+    Settings settings = Provider.of<Settings>(context, listen: false);
+    return BuildCard(data).fromCardData(context, widget.cardData, settings);
   }
 
   @override
   String getShareText() {
     Settings settings = Provider.of<Settings>(context, listen: false);
-    final numberFormat = new NumberFormat(
-      settings.getCurrencyPattern(),
-      settings.getCurrencyFormat(),
-    );
+    NumberFormat numberFormat = settings.getNumberFormat().item1;
+
     String shareText = '';
     if (data != null) {
       final buyPrice =

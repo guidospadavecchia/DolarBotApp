@@ -1,11 +1,11 @@
 import 'package:dolarbot_app/api/responses/venezuela_response.dart';
 import 'package:dolarbot_app/widgets/cards/card_favorite.dart';
-import 'package:dolarbot_app/widgets/cards/templates/base/base_card_template.dart';
+import 'package:dolarbot_app/widgets/cards/templates/base/base_card.dart';
 import 'package:flutter/material.dart';
 
 export 'package:dolarbot_app/api/responses/venezuela_response.dart';
 
-class VenezuelaCard extends BaseCardTemplate {
+class VenezuelaCard extends BaseCard {
   static const double height = 200;
 
   final String title;
@@ -15,8 +15,9 @@ class VenezuelaCard extends BaseCardTemplate {
   final IconData iconData;
   final String iconAsset;
   final bool showPoweredBy;
-  final bool showButtons;
+  final bool showShareButton;
   final String endpoint;
+  final Tuple2<NumberFormat, String> numberFormat;
 
   const VenezuelaCard({
     Key key,
@@ -27,8 +28,9 @@ class VenezuelaCard extends BaseCardTemplate {
     this.iconData,
     this.iconAsset,
     this.showPoweredBy = false,
-    this.showButtons = true,
+    this.showShareButton = true,
     @required this.endpoint,
+    @required this.numberFormat,
   }) : super(
           title: title,
           tag: tag,
@@ -36,15 +38,16 @@ class VenezuelaCard extends BaseCardTemplate {
           iconAsset: iconAsset,
           iconData: iconData,
           showPoweredBy: showPoweredBy,
-          showButtons: showButtons,
+          showShareButton: showShareButton,
           endpoint: endpoint,
+          numberFormat: numberFormat,
         );
 
   @override
   _VenezuelaCardState createState() => _VenezuelaCardState(data);
 }
 
-class _VenezuelaCardState extends BaseCardTemplateState<VenezuelaCard> {
+class _VenezuelaCardState extends BaseCardState<VenezuelaCard> {
   final VenezuelaResponse data;
 
   _VenezuelaCardState(this.data);
@@ -55,12 +58,12 @@ class _VenezuelaCardState extends BaseCardTemplateState<VenezuelaCard> {
       height: VenezuelaCard.height,
       header: CardHeader(
         title: widget.title,
-        showButtons: showButtons,
-        onSharePressed: () => onSharePressed(),
+        shareButton: showButtons ? CardShareButton(onSharePressed: () => onSharePressed()) : null,
       ),
       spaceBetweenHeader: Spacing.small,
       rates: [
         CardValue(
+          numberFormat: widget.numberFormat,
           title: "Promedio Bancos",
           value: data.bankPrice,
           symbol: "Bs.",
@@ -69,6 +72,7 @@ class _VenezuelaCardState extends BaseCardTemplateState<VenezuelaCard> {
           valueSize: 20,
         ),
         CardValue(
+          numberFormat: widget.numberFormat,
           title: "Paralelo",
           value: data.blackMarketPrice,
           symbol: "Bs.",

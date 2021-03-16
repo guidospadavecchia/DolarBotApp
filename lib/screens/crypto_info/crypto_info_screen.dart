@@ -1,6 +1,7 @@
 import 'package:dolarbot_app/interfaces/share_info.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
 import 'package:dolarbot_app/widgets/cards/factory/factory_card.dart';
+import 'package:dolarbot_app/widgets/cards/templates/base/base_card.dart';
 import 'package:dolarbot_app/widgets/common/future_screen_delegate/loading_future.dart';
 import 'package:intl/intl.dart';
 
@@ -67,7 +68,8 @@ class _CryptoInfoScreenState extends BaseInfoScreenState<CryptoInfoScreen> with 
 
   @override
   Widget card() {
-    return BuildCard(data).fromCardData(context, widget.cardData);
+    Settings settings = Provider.of<Settings>(context, listen: false);
+    return BuildCard(data).fromCardData(context, widget.cardData, settings);
   }
 
   @override
@@ -91,10 +93,8 @@ class _CryptoInfoScreenState extends BaseInfoScreenState<CryptoInfoScreen> with 
   @override
   String getShareText() {
     Settings settings = Provider.of<Settings>(context, listen: false);
-    final numberFormat = new NumberFormat(
-      settings.getCurrencyPattern(),
-      settings.getCurrencyFormat(),
-    );
+    NumberFormat numberFormat = settings.getNumberFormat().item1;
+
     String shareText = '';
 
     if (data != null) {

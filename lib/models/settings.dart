@@ -1,5 +1,8 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:tuple/tuple.dart';
+import 'package:intl/intl.dart';
 
 class Settings extends ChangeNotifier {
   final settings = Hive.box('settings');
@@ -23,6 +26,16 @@ class Settings extends ChangeNotifier {
 
   String getCurrencyPattern() {
     return "#,###,##0.00";
+  }
+
+  Tuple2<NumberFormat, String> getNumberFormat() {
+    final format = new NumberFormat(
+      getCurrencyPattern(),
+      getCurrencyFormat(),
+    );
+    final decimal = getDecimalSeparator();
+
+    return Tuple2<NumberFormat, String>(format, decimal);
   }
 
   void notifyThemeChange() {

@@ -1,11 +1,11 @@
 import 'package:dolarbot_app/api/responses/crypto_response.dart';
 import 'package:dolarbot_app/widgets/cards/card_favorite.dart';
-import 'package:dolarbot_app/widgets/cards/templates/base/base_card_template.dart';
+import 'package:dolarbot_app/widgets/cards/templates/base/base_card.dart';
 import 'package:flutter/material.dart';
 
 export 'package:dolarbot_app/api/responses/crypto_response.dart';
 
-class CryptoCard extends BaseCardTemplate {
+class CryptoCard extends BaseCard {
   static const double height = 270;
 
   final String title;
@@ -15,8 +15,9 @@ class CryptoCard extends BaseCardTemplate {
   final IconData iconData;
   final String iconAsset;
   final bool showPoweredBy;
-  final bool showButtons;
+  final bool showShareButton;
   final String endpoint;
+  final Tuple2<NumberFormat, String> numberFormat;
 
   const CryptoCard({
     Key key,
@@ -27,8 +28,9 @@ class CryptoCard extends BaseCardTemplate {
     this.iconData,
     this.iconAsset,
     this.showPoweredBy = false,
-    this.showButtons = true,
+    this.showShareButton = true,
     @required this.endpoint,
+    @required this.numberFormat,
   }) : super(
           title: title,
           tag: tag,
@@ -36,15 +38,16 @@ class CryptoCard extends BaseCardTemplate {
           iconAsset: iconAsset,
           iconData: iconData,
           showPoweredBy: showPoweredBy,
-          showButtons: showButtons,
+          showShareButton: showShareButton,
           endpoint: endpoint,
+          numberFormat: numberFormat,
         );
 
   @override
   _CryptoCardState createState() => _CryptoCardState(data);
 }
 
-class _CryptoCardState extends BaseCardTemplateState<CryptoCard> {
+class _CryptoCardState extends BaseCardState<CryptoCard> {
   final CryptoResponse data;
 
   _CryptoCardState(this.data);
@@ -55,14 +58,14 @@ class _CryptoCardState extends BaseCardTemplateState<CryptoCard> {
       height: CryptoCard.height,
       header: CardHeader(
         title: widget.title,
-        showButtons: showButtons,
-        onSharePressed: () => onSharePressed(),
+        shareButton: showButtons ? CardShareButton(onSharePressed: () => onSharePressed()) : null,
       ),
       spaceBetweenHeader: Spacing.medium,
       spaceBetweenItems: Spacing.medium,
       direction: Axis.vertical,
       rates: [
         CardValue(
+          numberFormat: widget.numberFormat,
           title: "Pesos Argentinos",
           value: data.arsPrice,
           symbol: "\$",
@@ -70,6 +73,7 @@ class _CryptoCardState extends BaseCardTemplateState<CryptoCard> {
           valueSize: 22,
         ),
         CardValue(
+          numberFormat: widget.numberFormat,
           title: "Pesos Argentinos + Impuestos",
           value: data.arsPriceWithTaxes,
           symbol: "\$",
@@ -77,6 +81,7 @@ class _CryptoCardState extends BaseCardTemplateState<CryptoCard> {
           valueSize: 22,
         ),
         CardValue(
+          numberFormat: widget.numberFormat,
           title: "Dólares Estadounidenses",
           value: data.usdPrice,
           symbol: "US\$",
