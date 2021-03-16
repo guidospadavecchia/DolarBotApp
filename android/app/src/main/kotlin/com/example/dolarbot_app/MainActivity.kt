@@ -1,4 +1,4 @@
-package com.example.dolarbot_app
+package ar.dolarbot
 
 import io.flutter.embedding.android.FlutterActivity
 

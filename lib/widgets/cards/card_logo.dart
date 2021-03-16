@@ -10,8 +10,7 @@ class CardLogo extends StatelessWidget {
     this.iconAsset,
     this.iconData,
     @required this.tag,
-  })  : assert(iconAsset != null || iconData != null),
-        super(key: key);
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

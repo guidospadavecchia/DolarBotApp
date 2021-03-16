@@ -126,7 +126,7 @@ class _FabMenuState extends State<FabMenu> {
               tooltip: "Agregar a Favoritos ❤",
               iconColor: Colors.red[400],
               backgroundColor: Colors.white,
-              icon: isFavorite ? FontAwesomeIcons.solidHeart : FontAwesomeIcons.heart,
+              icon: isFavorite ? Icons.favorite_rounded : Icons.favorite_outline_rounded,
               onPressed: () async {
                 bool result = await widget.onFavoriteButtonTap();
                 setState(() => isFavorite = result);

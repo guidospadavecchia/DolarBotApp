@@ -103,7 +103,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
             isMainMenu: isMainMenu(),
             foregroundColor: setColorAppbar(),
             showRefreshButton: showRefreshButton(),
-            onRefresh: () => _refresh(),
+            onRefresh: () => onRefresh(),
           ),
           drawer: Container(
             width: 290,
@@ -406,7 +406,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
     }
   }
 
-  void _refresh() async {
+  void onRefresh() async {
     setState(() {
       shouldForceRefresh = true;
     });

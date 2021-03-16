@@ -65,6 +65,12 @@ class ThemeManager {
         : Color.fromRGBO(60, 60, 60, 1);
   }
 
+  static Color getRefreshIndicatorColor(BuildContext context) {
+    return AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
+        ? Colors.grey[100]
+        : Colors.grey[900];
+  }
+
   static Color getGlobalBackgroundColor(BuildContext context) {
     return AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
         ? Color.fromRGBO(250, 250, 250, 1)

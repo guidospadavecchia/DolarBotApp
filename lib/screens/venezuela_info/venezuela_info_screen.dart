@@ -12,7 +12,7 @@ class VenezuelaInfoScreen extends BaseInfoScreen {
   VenezuelaInfoScreen({
     @required this.title,
     @required this.cardData,
-  });
+  }) : super(cardData: cardData, title: title);
 
   @override
   _VenezuelaInfoScreenState createState() => _VenezuelaInfoScreenState();

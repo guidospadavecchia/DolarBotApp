@@ -11,7 +11,7 @@ class CryptoInfoScreen extends BaseInfoScreen {
   CryptoInfoScreen({
     @required this.title,
     @required this.cardData,
-  });
+  }) : super(cardData: cardData, title: title);
 
   @override
   _CryptoInfoScreenState createState() => _CryptoInfoScreenState();

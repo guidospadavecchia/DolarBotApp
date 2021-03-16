@@ -22,7 +22,8 @@ class FiatCurrencyInfoScreen<T extends GenericCurrencyResponse> extends BaseInfo
       this.realEndpoint})
       : assert((dollarEndpoint != null && euroEndpoint == null && realEndpoint == null) ||
             (euroEndpoint != null && dollarEndpoint == null && realEndpoint == null) ||
-            (realEndpoint != null && dollarEndpoint == null && euroEndpoint == null));
+            (realEndpoint != null && dollarEndpoint == null && euroEndpoint == null)),
+        super(cardData: cardData, title: title);
 
   @override
   _FiatCurrencyInfoScreenState<T> createState() =>

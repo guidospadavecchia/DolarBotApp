@@ -26,7 +26,8 @@ class HomeScreen extends BaseInfoScreen {
 class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
   final Duration kAnimationDuration = Duration(milliseconds: 500);
   final Duration kDoubleTapToLeaveDuration = Duration(seconds: 2);
-  final settings = Hive.box('settings');
+  final Box settings = Hive.box('settings');
+  final Box favoritesBox = Hive.box('favorites');
   final Map<String, Map> _responses = Map<String, Map>();
   final List<Widget> _cards = [];
   final List<FavoriteRate> _favoriteRates = [];
@@ -39,7 +40,7 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
   bool canPop() => false;
 
   @override
-  bool showRefreshButton() => false;
+  bool showRefreshButton() => _favoriteRates.length > 0;
 
   @override
   bool showFabMenu() => false;
@@ -114,15 +115,17 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
               overScroll.disallowGlow();
               return false;
             },
-            child: RefreshIndicator(
-              displacement: 80,
-              onRefresh: _refreshData,
-              triggerMode: RefreshIndicatorTriggerMode.onEdge,
-              child: ListView.builder(
-                  itemCount: _cards.length,
-                  physics: AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
-                  itemBuilder: (context, i) {
-                    return Container(
+            child: Theme(
+              data: ThemeData(canvasColor: Colors.transparent, shadowColor: Colors.transparent),
+              child: ReorderableListView(
+                physics: AlwaysScrollableScrollPhysics(),
+                onReorder: (int oldIndex, int newIndex) {
+                  _onReorder(oldIndex, newIndex);
+                },
+                children: [
+                  for (var i = 0; i < _cards.length; i++)
+                    Container(
+                      key: ValueKey(_cards[i]),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         color: Colors.transparent,
@@ -140,8 +143,9 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
                           _onDismissCard(i);
                         },
                       ),
-                    );
-                  }),
+                    ),
+                ],
+              ),
             ),
           ),
         ),
@@ -158,11 +162,11 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
     }
   }
 
-  Future _refreshData() async {
-    _cardsLoaded = false;
+  @override
+  Future onRefresh() async {
     _cards.clear();
-    _favoriteRates.clear();
-    await Future.delayed(Duration(milliseconds: 500), () {
+    _cardsLoaded = false;
+    await Future.delayed(Duration(milliseconds: 0), () {
       setState(() {
         _loadFavorites(true)
             .then(
@@ -180,28 +184,40 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
     return settings.get('isFirstTime') == null ? true : false;
   }
 
-  void _onDismissCard(int cardIndex) {
-    Box favoritesBox = Hive.box('favorites');
-    List<FavoriteRate> favoriteCards =
-        favoritesBox.get('favoriteCards', defaultValue: []).cast<FavoriteRate>();
+  void _onReorder(int oldIndex, int newIndex) {
+    setState(() {
+      if (newIndex > oldIndex) {
+        newIndex -= 1;
+      }
 
+      Widget oldCard = _cards.removeAt(oldIndex);
+      _cards.insert(newIndex, oldCard);
+
+      FavoriteRate oldFavoriteRate = _favoriteRates.removeAt(oldIndex);
+      _favoriteRates.insert(newIndex, oldFavoriteRate);
+      favoritesBox.put('favoriteCards', _favoriteRates);
+    });
+  }
+
+  void _onDismissCard(int cardIndex) {
     _cards.removeAt(cardIndex);
-    favoriteCards.removeAt(cardIndex);
-    favoritesBox.put('favoriteCards', favoriteCards);
+    _favoriteRates.removeAt(cardIndex);
+    favoritesBox.put('favoriteCards', _favoriteRates);
 
     Future.delayed(
       kAnimationDuration ?? Duration(milliseconds: 0),
       () => setState(() {
-        _animateEmptyFavorites = favoriteCards.isEmpty;
+        _animateEmptyFavorites = _favoriteRates.isEmpty;
       }),
     );
   }
 
   Future _loadFavorites(bool forceRefresh) async {
-    Box favoritesBox = Hive.box('favorites');
     List<dynamic> cards = favoritesBox.get('favoriteCards');
     if (cards != null) {
-      _favoriteRates.addAll(cards.cast<FavoriteRate>());
+      if (!forceRefresh) {
+        _favoriteRates.addAll(cards.cast<FavoriteRate>());
+      }
       await Future.wait(
         _favoriteRates.map(
           (x) => API

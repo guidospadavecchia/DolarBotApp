@@ -1,6 +1,7 @@
 import 'dart:async';
-import 'dart:typed_data';
+import 'dart:io';
 
+import 'package:dolarbot_app/interfaces/share_info.dart';
 import 'package:dolarbot_app/widgets/steps/first_time_dialog.dart';
 import 'package:dolarbot_app/widgets/common/toasts/toast_error.dart';
 import 'package:flutter/foundation.dart';
@@ -9,14 +10,14 @@ import 'package:flutter/services.dart';
 
 import 'package:dolarbot_app/api/responses/base/api_response.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
-import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'package:flutter/material.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:screenshot/screenshot.dart';
+import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:path_provider/path_provider.dart';
 
 export 'dart:typed_data';
-export 'package:esys_flutter_share/esys_flutter_share.dart';
 export 'package:oktoast/oktoast.dart';
 
 class Util {
@@ -43,13 +44,22 @@ class Util {
   }
 
   static shareCard(ScreenshotController controller) async {
-    await controller.capture().then((Uint8List image) async {
-      Share.file(
-          'DolarBot', 'dolarbot_${DateTime.now().microsecondsSinceEpoch}.png', image, 'image/png',
-          text: 'Descargá la app en: https://www.dolarbot.com.ar');
-    }).catchError((onError) {
-      ToastError();
+    final tempDir = await getTemporaryDirectory();
+    final String fileName = 'dolarbot_${DateTime.now().microsecondsSinceEpoch}.png';
+
+    await controller.captureAndSave(tempDir.path, fileName: fileName).then((String pathFile) async {
+      List<String> files = []..add(pathFile);
+      List<String> mimeTypes = []..add('image/png');
+
+      await Share.shareFiles(
+        files,
+        mimeTypes: mimeTypes,
+        subject: 'DolarBot',
+        text: 'Descargá la app en: https://www.dolarbot.com.ar',
+      );
     });
+
+    tempDir.deleteSync(recursive: true);
   }
 
   static navigateTo(BuildContext context, BaseInfoScreen screen) async {
