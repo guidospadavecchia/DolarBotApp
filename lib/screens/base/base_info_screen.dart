@@ -56,7 +56,6 @@ abstract class BaseInfoScreenState<Page extends BaseInfoScreen> extends State<Ba
 
   bool isMainMenu() => true;
   bool canPop() => true;
-  bool showRefreshButton() => true;
   bool showFabMenu() => true;
   bool showShareButton() => true;
   bool showClipboardButton() => true;
@@ -67,6 +66,7 @@ abstract class BaseInfoScreenState<Page extends BaseInfoScreen> extends State<Ba
 }
 
 mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> implements IShareable {
+  bool showRefreshButton = false;
   bool shouldForceRefresh = false;
   bool isDataLoaded = false;
   bool _shouldShowDescriptionButton = false;
@@ -107,7 +107,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> imple
             title: widget.title,
             isMainMenu: isMainMenu(),
             foregroundColor: setColorAppbar(),
-            showRefreshButton: isDataLoaded && showRefreshButton(),
+            showRefreshButton: showRefreshButton,
             onRefresh: () => onRefresh(),
           ),
           drawer: Container(
@@ -252,6 +252,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> imple
     hideSimpleFabMenu();
     setState(() {
       isDataLoaded = false;
+      showRefreshButton = false;
       shouldForceRefresh = true;
       loadData();
     });

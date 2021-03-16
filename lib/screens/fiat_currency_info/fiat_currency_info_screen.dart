@@ -52,15 +52,7 @@ class _FiatCurrencyInfoScreenState<T extends GenericCurrencyResponse>
   void initState() {
     super.initState();
     if (!isDataLoaded) {
-      _getResponse<T>().then((value) {
-        WidgetsBinding.instance.addPostFrameCallback(
-          (_) => setState(() {
-            data = value;
-            isDataLoaded = true;
-            showSimpleFabMenu();
-          }),
-        );
-      });
+      loadData();
     }
   }
 
@@ -71,6 +63,7 @@ class _FiatCurrencyInfoScreenState<T extends GenericCurrencyResponse>
         (_) => setState(() {
           data = value;
           isDataLoaded = true;
+          showRefreshButton = true;
           showSimpleFabMenu();
         }),
       );

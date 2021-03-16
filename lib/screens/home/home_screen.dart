@@ -41,9 +41,6 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
   bool canPop() => false;
 
   @override
-  bool showRefreshButton() => _favoriteRates.length > 0;
-
-  @override
   bool showFabMenu() => false;
 
   @override
@@ -180,6 +177,7 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
   Future onRefresh() async {
     _cards.clear();
     _cardsLoaded = false;
+    showRefreshButton = false;
     await Future.delayed(Duration(milliseconds: 0), () {
       setState(() {
         _loadFavorites(true)
@@ -256,6 +254,7 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
     }
 
     _cardsLoaded = true;
+    showRefreshButton = _favoriteRates.length > 0;
   }
 }
 

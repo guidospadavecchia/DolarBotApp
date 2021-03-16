@@ -79,6 +79,7 @@ class _VenezuelaInfoScreenState extends BaseInfoScreenState<VenezuelaInfoScreen>
           (_) => setState(() {
             data = value;
             isDataLoaded = true;
+            showRefreshButton = true;
             showSimpleFabMenu();
           }),
         );

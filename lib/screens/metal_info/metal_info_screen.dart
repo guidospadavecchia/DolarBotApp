@@ -72,6 +72,7 @@ class _MetalInfoScreenState extends BaseInfoScreenState<MetalInfoScreen> with Ba
           (_) => setState(() {
             data = value;
             isDataLoaded = true;
+            showRefreshButton = true;
             showSimpleFabMenu();
           }),
         );

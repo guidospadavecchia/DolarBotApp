@@ -120,6 +120,7 @@ class _BcraInfoScreenState extends BaseInfoScreenState<BcraInfoScreen> with Base
         (_) => setState(() {
           data = value;
           isDataLoaded = true;
+          showRefreshButton = true;
           showSimpleFabMenu();
         }),
       );

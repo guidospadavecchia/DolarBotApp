@@ -27,9 +27,6 @@ class _OptionsScreenState extends BaseInfoScreenState<OptionsScreen> with BaseSc
   bool isMainMenu() => false;
 
   @override
-  bool showRefreshButton() => false;
-
-  @override
   bool showFabMenu() => false;
 
   @override

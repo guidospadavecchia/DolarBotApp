@@ -83,6 +83,7 @@ class _CryptoInfoScreenState extends BaseInfoScreenState<CryptoInfoScreen> with 
           (_) => setState(() {
             data = value;
             isDataLoaded = true;
+            showRefreshButton = true;
             showSimpleFabMenu();
           }),
         );
