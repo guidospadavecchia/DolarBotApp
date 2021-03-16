@@ -46,6 +46,9 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
   bool showFabMenu() => false;
 
   @override
+  FabOptionCalculatorDialog getCalculatorWidget() => null;
+
+  @override
   bool extendBodyBehindAppBar() => false;
 
   @override
@@ -56,6 +59,12 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
 
   @override
   Type getResponseType() => null;
+
+  @override
+  String getShareText() => '';
+
+  @override
+  Future loadData() => null;
 
   @override
   Color setColorAppbar() => ThemeManager.getPrimaryTextColor(context);

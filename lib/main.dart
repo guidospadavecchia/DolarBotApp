@@ -4,7 +4,6 @@ import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:dolarbot_app/classes/hive/adapters/cache_entry_adapter.dart';
 import 'package:dolarbot_app/classes/hive/adapters/favorite_rate_adapter.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
-import 'package:dolarbot_app/models/active_screen_data.dart';
 import 'package:dolarbot_app/models/settings.dart';
 import 'package:dolarbot_app/screens/about/about_screen.dart';
 import 'package:dolarbot_app/screens/options/options_screen.dart';
@@ -30,8 +29,7 @@ void main() async {
   await GlobalConfiguration().loadFromAsset("app_settings");
   initializeHive();
 
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
-      .then((_) {
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then((_) {
     runApp(DolarBotApp(savedThemeMode: savedThemeMode));
   });
 }
@@ -39,8 +37,7 @@ void main() async {
 void _preloadImages() async {
   final manifestContent = await rootBundle.loadString('AssetManifest.json');
   final Map<String, dynamic> manifestMap = json.decode(manifestContent);
-  final imagePaths =
-      manifestMap.keys.where((String key) => key.contains('images/')).toList();
+  final imagePaths = manifestMap.keys.where((String key) => key.contains('images/')).toList();
 
   List<AssetImage> providers = [];
   for (var i = 0; i < imagePaths.length; i++) {
@@ -64,7 +61,6 @@ class DolarBotApp extends StatelessWidget {
       builder: (lightTheme, darkTheme) => MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (context) => Settings()),
-          ChangeNotifierProvider(create: (context) => ActiveScreenData()),
         ],
         child: OKToast(
           child: MaterialApp(

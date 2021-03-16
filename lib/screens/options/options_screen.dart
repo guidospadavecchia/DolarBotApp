@@ -33,6 +33,9 @@ class _OptionsScreenState extends BaseInfoScreenState<OptionsScreen> with BaseSc
   bool showFabMenu() => false;
 
   @override
+  FabOptionCalculatorDialog getCalculatorWidget() => null;
+
+  @override
   bool extendBodyBehindAppBar() => false;
 
   @override
@@ -40,6 +43,12 @@ class _OptionsScreenState extends BaseInfoScreenState<OptionsScreen> with BaseSc
 
   @override
   CardFavorite card() => null;
+
+  @override
+  String getShareText() => '';
+
+  @override
+  Future loadData() => null;
 
   @override
   FavoriteRate createFavorite() => null;

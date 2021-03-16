@@ -1,8 +1,8 @@
 import 'package:dolarbot_app/api/responses/metal_response.dart';
 import 'package:dolarbot_app/interfaces/share_info.dart';
-import 'package:dolarbot_app/models/active_screen_data.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
 import 'package:dolarbot_app/widgets/cards/factory/factory_card.dart';
+import 'package:dolarbot_app/widgets/common/future_screen_delegate/loading_future.dart';
 import 'package:intl/intl.dart' as intl;
 
 class MetalInfoScreen extends BaseInfoScreen {
@@ -18,61 +18,68 @@ class MetalInfoScreen extends BaseInfoScreen {
   _MetalInfoScreenState createState() => _MetalInfoScreenState();
 }
 
-class _MetalInfoScreenState extends BaseInfoScreenState<MetalInfoScreen>
-    with BaseScreen
-    implements IShareable<MetalResponse> {
+class _MetalInfoScreenState extends BaseInfoScreenState<MetalInfoScreen> with BaseScreen {
+  bool isDataLoaded = false;
+  MetalResponse data;
+
+  @override
+  void initState() {
+    super.initState();
+    if (!isDataLoaded) {
+      loadData();
+    }
+  }
+
   @override
   Widget body() {
-    MetalEndpoints metalEndpoint =
-        MetalEndpoints.values.firstWhere((e) => e.value == widget.cardData.endpoint);
+    if (!isDataLoaded) {
+      return LoadingFuture();
+    }
 
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       physics: BouncingScrollPhysics(),
-      child: FutureScreenDelegate(
-        response: API.getMetalRate(
-          metalEndpoint,
-          forceRefresh: shouldForceRefresh,
-        ),
-        onLoading: onLoading,
-        onFailedLoad: onErrorLoad,
-        onSuccessfulLoad: onSuccessfulLoad,
-        screen: (data) {
-          WidgetsBinding.instance.addPostFrameCallback((_) => setActiveData(
-              data, "${widget.title} - ${widget.cardData.title}", getShareInfo(data)));
-
-          return Column(
-            children: [
-              banner(),
-              CurrencyInfoContainer(
-                items: [
-                  CurrencyInfo(
-                    title: '/ ${data.unit}',
-                    symbol: data.currency == 'USD' ? 'US\$' : '\$',
-                    value: data.value,
-                  ),
-                ],
+      child: Column(
+        children: [
+          banner(),
+          CurrencyInfoContainer(
+            items: [
+              CurrencyInfo(
+                title: '/ ${data.unit}',
+                symbol: data.currency == 'USD' ? 'US\$' : '\$',
+                value: data.value,
               ),
             ],
-          );
-        },
+          ),
+        ],
       ),
     );
   }
 
   @override
   Widget card() {
-    return Consumer<ActiveScreenData>(
-      builder: (context, activeData, child) {
-        ApiResponse data = activeData.getActiveData();
+    return BuildCard(data).fromCardData(context, widget.cardData);
+  }
 
-        return BuildCard(data).fromCardData(context, widget.cardData);
+  @override
+  Future loadData() async {
+    MetalEndpoints metalEndpoint =
+        MetalEndpoints.values.firstWhere((e) => e.value == widget.cardData.endpoint);
+    API.getMetalRate(metalEndpoint, forceRefresh: shouldForceRefresh).then(
+      (value) {
+        WidgetsBinding.instance.addPostFrameCallback(
+          (_) => setState(() {
+            data = value;
+            isDataLoaded = true;
+            showSimpleFabMenu();
+          }),
+        );
       },
     );
   }
 
   @override
-  String getShareInfo(MetalResponse data) {
+  String getShareText() {
     Settings settings = Provider.of<Settings>(context, listen: false);
     final numberFormat = new intl.NumberFormat(
       settings.getCurrencyPattern(),
@@ -92,6 +99,27 @@ class _MetalInfoScreenState extends BaseInfoScreenState<MetalInfoScreen>
     }
 
     return shareText;
+  }
+
+  @override
+  FabOptionCalculatorDialog getCalculatorWidget() {
+    String _currencyFormat = Provider.of<Settings>(context, listen: false).getCurrencyFormat();
+    String decimalSeparator = _currencyFormat == "es_AR" ? "," : ".";
+    String thousandSeparator = _currencyFormat == "es_AR" ? "." : ",";
+    return FabOptionCalculatorDialog(
+      calculator: MetalCalculator(
+        usdValue: double.tryParse(data?.value),
+        unit: data?.unit,
+        decimalSeparator: decimalSeparator,
+        thousandSeparator: thousandSeparator,
+      ),
+      calculatorReversed: MetalCalculatorReversed(
+        usdValue: double.tryParse(data?.value),
+        unit: data?.unit,
+        decimalSeparator: decimalSeparator,
+        thousandSeparator: thousandSeparator,
+      ),
+    );
   }
 
   @override

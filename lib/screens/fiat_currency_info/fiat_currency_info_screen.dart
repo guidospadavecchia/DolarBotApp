@@ -1,9 +1,9 @@
 import 'package:dolarbot_app/api/responses/base/generic_currency_response.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:dolarbot_app/interfaces/share_info.dart';
-import 'package:dolarbot_app/models/active_screen_data.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
 import 'package:dolarbot_app/widgets/cards/factory/factory_card.dart';
+import 'package:dolarbot_app/widgets/common/future_screen_delegate/loading_future.dart';
 import 'package:intl/intl.dart';
 
 class FiatCurrencyInfoScreen<T extends GenericCurrencyResponse> extends BaseInfoScreen {
@@ -31,12 +31,12 @@ class FiatCurrencyInfoScreen<T extends GenericCurrencyResponse> extends BaseInfo
 }
 
 class _FiatCurrencyInfoScreenState<T extends GenericCurrencyResponse>
-    extends BaseInfoScreenState<FiatCurrencyInfoScreen<T>>
-    with BaseScreen
-    implements IShareable<T> {
+    extends BaseInfoScreenState<FiatCurrencyInfoScreen<T>> with BaseScreen {
   final DollarEndpoints dollarEndpoint;
   final EuroEndpoints euroEndpoint;
   final RealEndpoints realEndpoint;
+
+  T data;
 
   _FiatCurrencyInfoScreenState(
     this.dollarEndpoint,
@@ -48,60 +48,78 @@ class _FiatCurrencyInfoScreenState<T extends GenericCurrencyResponse>
   Color setColorAppbar() => ThemeManager.getForegroundColor();
 
   @override
+  void initState() {
+    super.initState();
+    if (!isDataLoaded) {
+      _getResponse<T>().then((value) {
+        WidgetsBinding.instance.addPostFrameCallback(
+          (_) => setState(() {
+            data = value;
+            isDataLoaded = true;
+            showSimpleFabMenu();
+          }),
+        );
+      });
+    }
+  }
+
+  @override
+  Future loadData() async {
+    _getResponse<GenericCurrencyResponse>().then((value) {
+      WidgetsBinding.instance.addPostFrameCallback(
+        (_) => setState(() {
+          data = value;
+          isDataLoaded = true;
+          showSimpleFabMenu();
+        }),
+      );
+    });
+  }
+
+  @override
   Widget body() {
+    if (!isDataLoaded) {
+      return LoadingFuture();
+    }
+
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       physics: BouncingScrollPhysics(),
-      child: FutureScreenDelegate(
-        response: _getResponse<T>(),
-        onLoading: onLoading,
-        onFailedLoad: onErrorLoad,
-        onSuccessfulLoad: onSuccessfulLoad,
-        screen: (data) {
-          WidgetsBinding.instance.addPostFrameCallback((_) => setActiveData(
-              data, "${widget.title} - ${widget.cardData.title}", getShareInfo(data)));
-
-          return Column(
-            children: [
-              banner(),
-              CurrencyInfoContainer(
-                items: [
-                  CurrencyInfo(
-                    title: "COMPRA",
-                    symbol: '\$',
-                    value: data.buyPrice,
-                  ),
-                  CurrencyInfo(
-                    title: "VENTA",
-                    symbol: '\$',
-                    value: data.sellPrice,
-                  ),
-                  if (data.sellPriceWithTaxes != null)
-                    CurrencyInfo(
-                      title: "VENTA + IMPUESTOS",
-                      symbol: '\$',
-                      value: data.sellPriceWithTaxes,
-                    ),
-                ],
+      child: Column(
+        children: [
+          banner(),
+          CurrencyInfoContainer(
+            items: [
+              CurrencyInfo(
+                title: "COMPRA",
+                symbol: '\$',
+                value: data.buyPrice,
               ),
+              CurrencyInfo(
+                title: "VENTA",
+                symbol: '\$',
+                value: data.sellPrice,
+              ),
+              if (data.sellPriceWithTaxes != null)
+                CurrencyInfo(
+                  title: "VENTA + IMPUESTOS",
+                  symbol: '\$',
+                  value: data.sellPriceWithTaxes,
+                ),
             ],
-          );
-        },
+          ),
+        ],
       ),
     );
   }
 
   @override
   Widget card() {
-    return Consumer<ActiveScreenData>(builder: (context, activeData, child) {
-      ApiResponse data = activeData.getActiveData();
-
-      return BuildCard(data).fromCardData(context, widget.cardData);
-    });
+    return BuildCard(data).fromCardData(context, widget.cardData);
   }
 
   @override
-  String getShareInfo(T data) {
+  String getShareText() {
     Settings settings = Provider.of<Settings>(context, listen: false);
     final numberFormat = new NumberFormat(
       settings.getCurrencyPattern(),
@@ -133,6 +151,30 @@ class _FiatCurrencyInfoScreenState<T extends GenericCurrencyResponse>
   }
 
   @override
+  FabOptionCalculatorDialog getCalculatorWidget() {
+    String _currencyFormat = Provider.of<Settings>(context, listen: false).getCurrencyFormat();
+    String decimalSeparator = _currencyFormat == "es_AR" ? "," : ".";
+    String thousandSeparator = _currencyFormat == "es_AR" ? "." : ",";
+    return FabOptionCalculatorDialog(
+      calculator: FiatCurrencyCalculator(
+        buyValue: double.tryParse(data?.buyPrice ?? ''),
+        sellValue: double.tryParse(data?.sellPrice ?? ''),
+        sellValueWithTaxes: double.tryParse(data?.sellPriceWithTaxes ?? ''),
+        symbol: Util.getFiatCurrencySymbol(data),
+        decimalSeparator: decimalSeparator,
+        thousandSeparator: thousandSeparator,
+      ),
+      calculatorReversed: FiatCurrencyCalculatorReversed(
+        sellValue: data?.sellPriceWithTaxes == null ? double.tryParse(data?.sellPrice ?? '') : null,
+        sellValueWithTaxes: double.tryParse(data?.sellPriceWithTaxes ?? ''),
+        symbol: Util.getFiatCurrencySymbol(data),
+        decimalSeparator: decimalSeparator,
+        thousandSeparator: thousandSeparator,
+      ),
+    );
+  }
+
+  @override
   FavoriteRate createFavorite() {
     return FavoriteRate(
         endpoint: widget.cardData.endpoint,
@@ -154,13 +196,13 @@ class _FiatCurrencyInfoScreenState<T extends GenericCurrencyResponse>
     return responseType;
   }
 
-  _getResponse<T extends GenericCurrencyResponse>() {
+  Future<dynamic> _getResponse<T extends GenericCurrencyResponse>() async {
     if (dollarEndpoint != null) {
-      return API.getDollarRate(dollarEndpoint, forceRefresh: shouldForceRefresh);
+      return await API.getDollarRate(dollarEndpoint, forceRefresh: shouldForceRefresh);
     } else if (euroEndpoint != null) {
-      return API.getEuroRate(euroEndpoint, forceRefresh: shouldForceRefresh);
+      return await API.getEuroRate(euroEndpoint, forceRefresh: shouldForceRefresh);
     } else if (realEndpoint != null) {
-      return API.getRealRate(realEndpoint, forceRefresh: shouldForceRefresh);
+      return await API.getRealRate(realEndpoint, forceRefresh: shouldForceRefresh);
     }
   }
 }

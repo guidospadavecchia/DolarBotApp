@@ -1,10 +1,10 @@
 import 'dart:convert';
 
-import 'package:dolarbot_app/api/responses/base/api_response.dart';
 import 'package:dolarbot_app/classes/hive/favorite_rate.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
-import 'package:dolarbot_app/models/active_screen_data.dart';
+import 'package:dolarbot_app/interfaces/share_info.dart';
 import 'package:dolarbot_app/models/settings.dart';
+import 'package:dolarbot_app/widgets/calculator/exports/calculator_exports.dart';
 import 'package:dolarbot_app/widgets/common/toasts/toast_error.dart';
 import 'package:dolarbot_app/widgets/common/toasts/toast_ok.dart';
 import 'package:dolarbot_app/widgets/drawer/drawer_menu.dart';
@@ -31,7 +31,10 @@ export 'package:dolarbot_app/util/extensions/datetime_extensions.dart';
 export 'package:dolarbot_app/util/extensions/string_extensions.dart';
 export 'package:dolarbot_app/widgets/cards/factory/card_data.dart';
 export 'package:dolarbot_app/widgets/common/future_screen_delegate/future_screen_delegate.dart';
+export 'package:dolarbot_app/widgets/calculator/exports/calculator_exports.dart';
 export 'package:dolarbot_app/widgets/currency_info/currency_info_container.dart';
+export 'package:dolarbot_app/util/extensions/string_extensions.dart';
+export 'package:dolarbot_app/util/extensions/datetime_extensions.dart';
 export 'package:flutter/material.dart';
 export 'package:provider/provider.dart';
 
@@ -62,9 +65,10 @@ abstract class BaseInfoScreenState<Page extends BaseInfoScreen> extends State<Ba
   Color setColorAppbar() => Colors.white;
 }
 
-mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
+mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> implements IShareable {
   final String kDescriptionsFile = 'assets/cfg/rate_descriptions.json';
   bool shouldForceRefresh = false;
+  bool isDataLoaded = false;
   bool _shouldShowDescriptionButton = false;
 
   ScreenshotController screenshotController = ScreenshotController();
@@ -72,7 +76,10 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
   Widget body();
   Widget card();
   FavoriteRate createFavorite();
+  String getShareText();
   Type getResponseType();
+  Future loadData();
+  FabOptionCalculatorDialog getCalculatorWidget();
 
   @override
   void initState() {
@@ -116,44 +123,51 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
           drawerEdgeDragWidth: MediaQuery.of(context).size.width / 3,
           drawerEnableOpenDragGesture: true,
           body: (widget.title != null && isMainMenu())
-              ? Stack(children: [
-                  card() != null
-                      ? Container(
-                          margin: EdgeInsets.only(left: 15, right: 15),
-                          child: Screenshot(
+              ? Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    card() != null
+                        ? RotatedBox(
+                            quarterTurns: 1,
                             child: Container(
-                              padding: EdgeInsets.only(left: 10, right: 10),
-                              child: Container(
-                                child: card(),
+                              width: MediaQuery.of(context).size.width * 0.9,
+                              margin: EdgeInsets.only(left: 15, right: 15),
+                              child: Screenshot(
+                                child: Container(
+                                  padding: EdgeInsets.only(left: 10, right: 10),
+                                  child: Container(
+                                    child: card(),
+                                  ),
+                                ),
+                                controller: screenshotController,
                               ),
                             ),
-                            controller: screenshotController,
-                          ),
-                        )
-                      : SizedBox.shrink(),
-                  Container(
-                    height: double.infinity,
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: widget.cardData?.colors == null
-                            ? [
-                                ThemeManager.getGlobalBackgroundColor(context),
-                                ThemeManager.getGlobalBackgroundColor(context),
-                              ]
-                            : widget.cardData.colors,
+                          )
+                        : SizedBox.shrink(),
+                    Container(
+                      height: double.infinity,
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: widget.cardData?.colors == null
+                              ? [
+                                  ThemeManager.getGlobalBackgroundColor(context),
+                                  ThemeManager.getGlobalBackgroundColor(context),
+                                ]
+                              : widget.cardData.colors,
+                        ),
+                      ),
+                      child: Wrap(
+                        runAlignment: WrapAlignment.center,
+                        runSpacing: 0,
+                        children: [
+                          body(),
+                        ],
                       ),
                     ),
-                    child: Wrap(
-                      runAlignment: WrapAlignment.center,
-                      runSpacing: 0,
-                      children: [
-                        body(),
-                      ],
-                    ),
-                  ),
-                ])
+                  ],
+                )
               : body(),
           floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
           floatingActionButton: showFabMenu()
@@ -165,22 +179,18 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
                   showShareButton: showShareButton(),
                   onShareButtonTap: () => Util.shareCard(screenshotController),
                   showClipboardButton: showClipboardButton(),
+                  onClipboardButtonTap: () => _copyToClipboard(),
                   showCalculatorButton: showCalculatorButton(),
+                  onCalculatorButtonTap: () => _openCalculator(),
                   showDescriptionButton: _shouldShowDescriptionButton,
                   onShowDescriptionTap: () => _onShowRateDescription(),
                   onOpened: () => dismissAllToast(),
-                  visible: false,
+                  visible: isDataLoaded,
                 )
               : null,
         );
       }),
     );
-  }
-
-  @nonVirtual
-  void setActiveData(ApiResponse data, String shareTitle, String shareText) {
-    ActiveScreenData activeScreenData = Provider.of<ActiveScreenData>(context, listen: false);
-    activeScreenData.setActiveData(data, shareTitle, shareText);
   }
 
   @nonVirtual
@@ -254,18 +264,22 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
   }
 
   @nonVirtual
-  void onLoading() {
+  void hideSimpleFabMenu() {
     simpleFabKey?.currentState?.hide();
   }
 
   @nonVirtual
-  void onSuccessfulLoad() {
+  void showSimpleFabMenu() {
     simpleFabKey?.currentState?.show();
   }
 
-  @nonVirtual
-  void onErrorLoad() {
-    simpleFabKey?.currentState?.hide();
+  void onRefresh() async {
+    hideSimpleFabMenu();
+    setState(() {
+      isDataLoaded = false;
+      shouldForceRefresh = true;
+      loadData();
+    });
   }
 
   Future<bool> onWillPopScope() async {
@@ -279,6 +293,37 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
       );
     }
     return false;
+  }
+
+  Future<void> _copyToClipboard() async {
+    String shareText = getShareText();
+    String text =
+        "${widget.title} - ${widget.cardData.title.toUpperCase()}\n\n$shareText\n\nPowered by DolarBot";
+
+    simpleFabKey.currentState.closeMenu();
+    await Clipboard.setData(
+      new ClipboardData(text: text),
+    ).then(
+      (_) async => {
+        Future.delayed(
+          Duration(milliseconds: 100),
+          () => showToastWidget(
+            ToastOk(),
+          ),
+        ),
+      },
+    );
+  }
+
+  void _openCalculator() {
+    simpleFabKey.currentState.closeMenu();
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        return getCalculatorWidget();
+      },
+    );
   }
 
   Future<String> _getRateDescription() async {
@@ -404,11 +449,5 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
     } finally {
       return isFavorite;
     }
-  }
-
-  void onRefresh() async {
-    setState(() {
-      shouldForceRefresh = true;
-    });
   }
 }

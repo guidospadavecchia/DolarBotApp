@@ -1,8 +1,8 @@
 import 'package:dolarbot_app/classes/dolarbot_icons.dart';
 import 'package:dolarbot_app/interfaces/share_info.dart';
-import 'package:dolarbot_app/models/active_screen_data.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
 import 'package:dolarbot_app/widgets/cards/factory/factory_card.dart';
+import 'package:dolarbot_app/widgets/common/future_screen_delegate/loading_future.dart';
 import 'package:intl/intl.dart';
 
 class VenezuelaInfoScreen extends BaseInfoScreen {
@@ -18,67 +18,75 @@ class VenezuelaInfoScreen extends BaseInfoScreen {
   _VenezuelaInfoScreenState createState() => _VenezuelaInfoScreenState();
 }
 
-class _VenezuelaInfoScreenState extends BaseInfoScreenState<VenezuelaInfoScreen>
-    with BaseScreen
-    implements IShareable<VenezuelaResponse> {
+class _VenezuelaInfoScreenState extends BaseInfoScreenState<VenezuelaInfoScreen> with BaseScreen {
+  bool isDataLoaded = false;
+  VenezuelaResponse data;
+
+  @override
+  void initState() {
+    super.initState();
+    if (!isDataLoaded) {
+      loadData();
+    }
+  }
+
   @override
   Widget body() {
-    VenezuelaEndpoints venezuelaEndpoint =
-        VenezuelaEndpoints.values.firstWhere((e) => e.value == widget.cardData.endpoint);
+    if (!isDataLoaded) {
+      return LoadingFuture();
+    }
 
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       physics: BouncingScrollPhysics(),
-      child: FutureScreenDelegate(
-        response: API.getVzlaRate(
-          venezuelaEndpoint,
-          forceRefresh: shouldForceRefresh,
-        ),
-        onLoading: onLoading,
-        onFailedLoad: onErrorLoad,
-        onSuccessfulLoad: onSuccessfulLoad,
-        screen: (data) {
-          WidgetsBinding.instance.addPostFrameCallback((_) => setActiveData(
-              data, "${widget.title} - ${widget.cardData.title}", getShareInfo(data)));
-
-          return Column(
-            children: [
-              banner(),
-              CurrencyInfoContainer(
-                items: [
-                  CurrencyInfo(
-                    title: 'PROMEDIO BANCOS',
-                    symbol: 'Bs.',
-                    value: data.bankPrice,
-                  ),
-                  CurrencyInfo(
-                    title: "PARALELO",
-                    symbol: 'Bs.',
-                    value: data.blackMarketPrice,
-                  ),
-                ],
+      child: Column(
+        children: [
+          banner(),
+          CurrencyInfoContainer(
+            items: [
+              CurrencyInfo(
+                title: 'PROMEDIO BANCOS',
+                symbol: 'Bs.',
+                value: data.bankPrice,
+              ),
+              CurrencyInfo(
+                title: "PARALELO",
+                symbol: 'Bs.',
+                value: data.blackMarketPrice,
               ),
             ],
-          );
-        },
+          ),
+        ],
       ),
     );
   }
 
   @override
   Widget card() {
-    return Consumer<ActiveScreenData>(
-      builder: (context, activeData, child) {
-        ApiResponse data = activeData.getActiveData();
+    CardData newCardData =
+        widget.cardData.clone(title: "Venezuela", iconAsset: DolarBotIcons.general.venezuela);
+    return BuildCard(data).fromCardData(context, newCardData);
+  }
 
-        CardData newCardData = widget.cardData.clone(title: "Venezuela");
-        return BuildCard(data).fromCardData(context, newCardData);
+  @override
+  Future loadData() async {
+    VenezuelaEndpoints venezuelaEndpoint =
+        VenezuelaEndpoints.values.firstWhere((e) => e.value == widget.cardData.endpoint);
+    API.getVzlaRate(venezuelaEndpoint, forceRefresh: shouldForceRefresh).then(
+      (value) {
+        WidgetsBinding.instance.addPostFrameCallback(
+          (_) => setState(() {
+            data = value;
+            isDataLoaded = true;
+            showSimpleFabMenu();
+          }),
+        );
       },
     );
   }
 
   @override
-  String getShareInfo(VenezuelaResponse data) {
+  String getShareText() {
     Settings settings = Provider.of<Settings>(context, listen: false);
     final numberFormat = new NumberFormat(
       settings.getCurrencyPattern(),
@@ -102,6 +110,31 @@ class _VenezuelaInfoScreenState extends BaseInfoScreenState<VenezuelaInfoScreen>
     }
 
     return shareText;
+  }
+
+  @override
+  FabOptionCalculatorDialog getCalculatorWidget() {
+    String _currencyFormat = Provider.of<Settings>(context, listen: false).getCurrencyFormat();
+    String decimalSeparator = _currencyFormat == "es_AR" ? "," : ".";
+    String thousandSeparator = _currencyFormat == "es_AR" ? "." : ",";
+    return FabOptionCalculatorDialog(
+      calculator: VenezuelaCalculator(
+        bankValue: double.tryParse(data?.bankPrice),
+        blackMarketValue: double.tryParse(data?.blackMarketPrice),
+        symbol: Util.getFiatCurrencySymbol(data),
+        currencyCode: data?.currencyCode,
+        decimalSeparator: decimalSeparator,
+        thousandSeparator: thousandSeparator,
+      ),
+      calculatorReversed: VenezuelaCalculatorReversed(
+        bankValue: double.tryParse(data?.bankPrice),
+        blackMarketValue: double.tryParse(data?.blackMarketPrice),
+        symbol: Util.getFiatCurrencySymbol(data),
+        currencyCode: data?.currencyCode,
+        decimalSeparator: decimalSeparator,
+        thousandSeparator: thousandSeparator,
+      ),
+    );
   }
 
   @override

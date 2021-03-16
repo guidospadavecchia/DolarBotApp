@@ -1,7 +1,7 @@
 import 'package:dolarbot_app/interfaces/share_info.dart';
-import 'package:dolarbot_app/models/active_screen_data.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
 import 'package:dolarbot_app/widgets/cards/factory/factory_card.dart';
+import 'package:dolarbot_app/widgets/common/future_screen_delegate/loading_future.dart';
 import 'package:intl/intl.dart';
 
 class CryptoInfoScreen extends BaseInfoScreen {
@@ -17,69 +17,79 @@ class CryptoInfoScreen extends BaseInfoScreen {
   _CryptoInfoScreenState createState() => _CryptoInfoScreenState();
 }
 
-class _CryptoInfoScreenState extends BaseInfoScreenState<CryptoInfoScreen>
-    with BaseScreen
-    implements IShareable<CryptoResponse> {
+class _CryptoInfoScreenState extends BaseInfoScreenState<CryptoInfoScreen> with BaseScreen {
+  bool isDataLoaded = false;
+  CryptoResponse data;
+
+  @override
+  void initState() {
+    super.initState();
+    if (!isDataLoaded) {
+      loadData();
+    }
+  }
+
   @override
   Widget body() {
-    CryptoEndpoints cryptoEndpoint =
-        CryptoEndpoints.values.firstWhere((e) => e.value == widget.cardData.endpoint);
+    if (!isDataLoaded) {
+      return LoadingFuture();
+    }
 
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       physics: BouncingScrollPhysics(),
-      child: FutureScreenDelegate(
-        response: API.getCryptoRate(
-          cryptoEndpoint,
-          forceRefresh: shouldForceRefresh,
-        ),
-        onLoading: onLoading,
-        onFailedLoad: onErrorLoad,
-        onSuccessfulLoad: onSuccessfulLoad,
-        screen: (data) {
-          WidgetsBinding.instance.addPostFrameCallback(
-              (_) => setActiveData(data, "${widget.cardData.title}", getShareInfo(data)));
-
-          return Column(
-            children: [
-              banner(),
-              CurrencyInfoContainer(
-                items: [
-                  CurrencyInfo(
-                    title: "PESOS ARGENTINOS",
-                    symbol: '\$',
-                    value: data.arsPrice,
-                  ),
-                  CurrencyInfo(
-                    title: "PESOS ARGENTINOS + IMPUESTOS",
-                    symbol: '\$',
-                    value: data.arsPriceWithTaxes,
-                  ),
-                  CurrencyInfo(
-                    title: "DÓLARES ESTADOUNIDENSES",
-                    symbol: 'US\$',
-                    value: data.usdPrice,
-                  ),
-                ],
+      child: Column(
+        children: [
+          banner(),
+          CurrencyInfoContainer(
+            items: [
+              CurrencyInfo(
+                title: "PESOS ARGENTINOS",
+                symbol: '\$',
+                value: data.arsPrice,
+              ),
+              CurrencyInfo(
+                title: "PESOS ARGENTINOS + IMPUESTOS",
+                symbol: '\$',
+                value: data.arsPriceWithTaxes,
+              ),
+              CurrencyInfo(
+                title: "DÓLARES ESTADOUNIDENSES",
+                symbol: 'US\$',
+                value: data.usdPrice,
               ),
             ],
-          );
-        },
+          ),
+        ],
       ),
     );
   }
 
   @override
   Widget card() {
-    return Consumer<ActiveScreenData>(builder: (context, activeData, child) {
-      ApiResponse data = activeData.getActiveData();
-
-      return BuildCard(data).fromCardData(context, widget.cardData);
-    });
+    return BuildCard(data).fromCardData(context, widget.cardData);
   }
 
   @override
-  String getShareInfo(CryptoResponse data) {
+  Future loadData() async {
+    CryptoEndpoints cryptoEndpoint =
+        CryptoEndpoints.values.firstWhere((e) => e.value == widget.cardData.endpoint);
+
+    API.getCryptoRate(cryptoEndpoint, forceRefresh: shouldForceRefresh).then(
+      (value) {
+        WidgetsBinding.instance.addPostFrameCallback(
+          (_) => setState(() {
+            data = value;
+            isDataLoaded = true;
+            showSimpleFabMenu();
+          }),
+        );
+      },
+    );
+  }
+
+  @override
+  String getShareText() {
     Settings settings = Provider.of<Settings>(context, listen: false);
     final numberFormat = new NumberFormat(
       settings.getCurrencyPattern(),
@@ -105,6 +115,29 @@ class _CryptoInfoScreenState extends BaseInfoScreenState<CryptoInfoScreen>
     }
 
     return shareText;
+  }
+
+  @override
+  FabOptionCalculatorDialog getCalculatorWidget() {
+    String _currencyFormat = Provider.of<Settings>(context, listen: false).getCurrencyFormat();
+    String decimalSeparator = _currencyFormat == "es_AR" ? "," : ".";
+    String thousandSeparator = _currencyFormat == "es_AR" ? "." : ",";
+    return FabOptionCalculatorDialog(
+      calculator: CryptoCalculator(
+        arsValue: double.tryParse(data?.arsPrice),
+        arsValueWithTaxes: double.tryParse(data?.arsPriceWithTaxes),
+        usdValue: double.tryParse(data?.usdPrice),
+        cryptoCode: data.code,
+        decimalSeparator: decimalSeparator,
+        thousandSeparator: thousandSeparator,
+      ),
+      calculatorReversed: CryptoCalculatorReversed(
+        usdValue: double.tryParse(data?.usdPrice ?? ''),
+        cryptoCode: data.code,
+        decimalSeparator: decimalSeparator,
+        thousandSeparator: thousandSeparator,
+      ),
+    );
   }
 
   @override

@@ -1,8 +1,8 @@
 import 'package:dolarbot_app/interfaces/share_info.dart';
-import 'package:dolarbot_app/models/active_screen_data.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
 import 'package:dolarbot_app/widgets/cards/factory/factory_card.dart';
-import 'package:intl/intl.dart' as intl;
+import 'package:dolarbot_app/widgets/common/future_screen_delegate/loading_future.dart';
+import 'package:intl/intl.dart';
 
 class BcraInfoScreen extends BaseInfoScreen {
   final String title;
@@ -21,17 +21,34 @@ class BcraInfoScreen extends BaseInfoScreen {
   _BcraInfoScreenState createState() => _BcraInfoScreenState(getEndpoint());
 }
 
-class _BcraInfoScreenState extends BaseInfoScreenState<BcraInfoScreen>
-    with BaseScreen
-    implements IShareable<BcraResponse> {
+class _BcraInfoScreenState extends BaseInfoScreenState<BcraInfoScreen> with BaseScreen {
   final BcraEndpoints bcraEndpoint;
+
   _BcraInfoScreenState(this.bcraEndpoint);
+
+  bool isDataLoaded = false;
+  dynamic data;
 
   @override
   bool showCalculatorButton() => false;
 
   @override
+  FabOptionCalculatorDialog getCalculatorWidget() => null;
+
+  @override
+  void initState() {
+    super.initState();
+    if (!isDataLoaded) {
+      loadData();
+    }
+  }
+
+  @override
   Widget body() {
+    if (!isDataLoaded) {
+      return LoadingFuture();
+    }
+
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       physics: BouncingScrollPhysics(),
@@ -42,83 +59,49 @@ class _BcraInfoScreenState extends BaseInfoScreenState<BcraInfoScreen>
   Widget _buildChildScreen() {
     switch (bcraEndpoint) {
       case BcraEndpoints.riesgoPais:
-        return FutureScreenDelegate(
-          response: API.getCountryRisk(forceRefresh: shouldForceRefresh),
-          onLoading: onLoading,
-          onFailedLoad: onErrorLoad,
-          onSuccessfulLoad: onSuccessfulLoad,
-          screen: (data) {
-            WidgetsBinding.instance.addPostFrameCallback((_) {
-              setActiveData(data, "${widget.title} - ${widget.cardData.title}",
-                  getShareInfoCountryRisk(data));
-            });
-            return Column(
-              children: [
-                banner(),
-                CurrencyInfoContainer(
-                  items: [
-                    CurrencyInfo(
-                      title: 'VALOR',
-                      value: data.value,
-                      hideDecimals: true,
-                    ),
-                  ],
+        return Column(
+          children: [
+            banner(),
+            CurrencyInfoContainer(
+              items: [
+                CurrencyInfo(
+                  title: 'VALOR',
+                  value: data.value,
+                  hideDecimals: true,
                 ),
               ],
-            );
-          },
+            ),
+          ],
         );
       case BcraEndpoints.reservas:
-        return FutureScreenDelegate(
-          response: API.getBcraReserves(forceRefresh: shouldForceRefresh),
-          onLoading: onLoading,
-          onFailedLoad: onErrorLoad,
-          onSuccessfulLoad: onSuccessfulLoad,
-          screen: (data) {
-            WidgetsBinding.instance.addPostFrameCallback((_) {
-              setActiveData(data, "${widget.title} - ${widget.cardData.title}", getShareInfo(data));
-            });
-            return Column(
-              children: [
-                banner(),
-                CurrencyInfoContainer(
-                  items: [
-                    CurrencyInfo(
-                      title: "DÓLARES ESTADOUNIDENSES",
-                      symbol: 'US\$',
-                      value: data.value,
-                    ),
-                  ],
+        return Column(
+          children: [
+            banner(),
+            CurrencyInfoContainer(
+              items: [
+                CurrencyInfo(
+                  title: "DÓLARES ESTADOUNIDENSES",
+                  symbol: 'US\$',
+                  value: data.value,
                 ),
               ],
-            );
-          },
+            ),
+          ],
         );
       case BcraEndpoints.circulante:
-        return FutureScreenDelegate(
-          response: API.getCirculatingCurrency(forceRefresh: shouldForceRefresh),
-          onLoading: onLoading,
-          onFailedLoad: onErrorLoad,
-          onSuccessfulLoad: onSuccessfulLoad,
-          screen: (data) {
-            WidgetsBinding.instance.addPostFrameCallback((_) {
-              setActiveData(data, "${widget.title} - ${widget.cardData.title}", getShareInfo(data));
-            });
-            return Column(
-              children: [
-                banner(),
-                CurrencyInfoContainer(
-                  items: [
-                    CurrencyInfo(
-                      title: "PESOS ARGENTINOS",
-                      symbol: '\$',
-                      value: data.value,
-                    ),
-                  ],
+        return Column(
+          children: [
+            banner(),
+            CurrencyInfoContainer(
+              items: [
+                CurrencyInfo(
+                  title: "PESOS ARGENTINOS",
+                  symbol: '\$',
+                  value: data.value,
                 ),
               ],
-            );
-          },
+            ),
+          ],
         );
       default:
         throw ('$bcraEndpoint not implemented.');
@@ -126,60 +109,60 @@ class _BcraInfoScreenState extends BaseInfoScreenState<BcraInfoScreen>
   }
 
   @override
-  Widget card() {
-    return Consumer<ActiveScreenData>(
-      builder: (context, activeData, child) {
-        ApiResponse data = activeData.getActiveData();
-
-        if (data != null && (data is CountryRiskResponse || data is BcraResponse)) {
-          return BuildCard(data).fromCardData(context, widget.cardData);
-        }
-
-        return SizedBox.shrink();
-      },
-    );
+  Future loadData() async {
+    API.getData(bcraEndpoint.value, (json) {
+      if (bcraEndpoint == BcraEndpoints.riesgoPais) {
+        return CountryRiskResponse(json);
+      }
+      return BcraResponse(json);
+    }, shouldForceRefresh).then((value) {
+      WidgetsBinding.instance.addPostFrameCallback(
+        (_) => setState(() {
+          data = value;
+          isDataLoaded = true;
+          showSimpleFabMenu();
+        }),
+      );
+    });
   }
 
   @override
-  String getShareInfo(BcraResponse data) {
-    Settings settings = Provider.of<Settings>(context, listen: false);
-    final currencyFormat = settings.getCurrencyFormat();
-    final numberFormat = new intl.NumberFormat("#,###,###", currencyFormat);
-    String shareText = '';
-
-    if (data != null) {
-      final value = data.value.isNumeric() ? numberFormat.format(int.parse(data.value)) : 'N/A';
-      final symbol = data.currency == 'USD' ? 'US\$' : '\$';
-      DateTime date = DateTime.parse(data.timestamp.replaceAll('/', '-'));
-      String formattedTime =
-          intl.DateFormat(DateTime.now().isSameDayAs(date) ? 'HH:mm' : 'HH:mm - dd-MM-yyyy')
-              .format(date);
-
-      shareText = '$symbol $value\nHora: $formattedTime';
+  Widget card() {
+    if (data != null && (data is CountryRiskResponse || data is BcraResponse)) {
+      return BuildCard(data).fromCardData(context, widget.cardData);
     }
 
-    return shareText;
+    return SizedBox.shrink();
   }
 
-  String getShareInfoCountryRisk(CountryRiskResponse data) {
+  @override
+  String getShareText() {
     Settings settings = Provider.of<Settings>(context, listen: false);
     final currencyFormat = settings.getCurrencyFormat();
-    final numberFormat = new intl.NumberFormat("#,###,###", currencyFormat);
-    String shareText = '';
+    final numberFormat = new NumberFormat("#,###,###", currencyFormat);
 
     if (data != null) {
-      final value = data.value.split('.')[0].isNumeric()
-          ? numberFormat.format(int.parse(data.value.split('.')[0]))
-          : 'N/A';
+      String value;
       DateTime date = DateTime.parse(data.timestamp.replaceAll('/', '-'));
       String formattedTime =
-          intl.DateFormat(DateTime.now().isSameDayAs(date) ? 'HH:mm' : 'HH:mm - dd-MM-yyyy')
+          DateFormat(DateTime.now().isSameDayAs(date) ? 'HH:mm' : 'HH:mm - dd-MM-yyyy')
               .format(date);
-
-      shareText = '$value puntos\nHora: $formattedTime';
+      if (data is CountryRiskResponse) {
+        value = data.value;
+        value = value.split('.')[0].toString().isNumeric()
+            ? numberFormat.format(int.parse(data.value.split('.')[0]))
+            : 'N/A';
+        return '$value puntos\nHora: $formattedTime';
+      }
+      if (data is BcraResponse) {
+        value = data.value;
+        final symbol = data.currency == 'USD' ? 'US\$' : '\$';
+        value = value.isNumeric() ? numberFormat.format(int.parse(data.value)) : 'N/A';
+        return '$symbol $value\nHora: $formattedTime';
+      }
     }
 
-    return shareText;
+    return '';
   }
 
   @override

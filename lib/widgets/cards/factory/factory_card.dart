@@ -134,7 +134,6 @@ class _Metal implements BuildCard {
 
   @override
   Widget fromCardData(context, buildCardData) {
-    print(height);
     return _InternalBuildCard(
       context: context,
       height: height,
@@ -154,7 +153,6 @@ class _Metal implements BuildCard {
 
   @override
   Widget fromFavoriteRate(BuildContext context, FavoriteRate favoriteRate) {
-    print(height);
     return _InternalBuildCard(
       context: context,
       height: height,
