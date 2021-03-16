@@ -80,7 +80,11 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
 
     if (!_cardsLoaded) {
       _loadFavorites(false).then(
-        (_) => WidgetsBinding.instance.addPostFrameCallback((_) => setState(() => _buildCards())),
+        (_) {
+          if (this.mounted) {
+            WidgetsBinding.instance.addPostFrameCallback((_) => setState(() => _buildCards()));
+          }
+        },
       );
     } else {
       _buildCards();
