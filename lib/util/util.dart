@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:dolarbot_app/interfaces/share_info.dart';
 import 'package:dolarbot_app/widgets/steps/first_time_dialog.dart';
