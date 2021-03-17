@@ -182,12 +182,13 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
       setState(() {
         _loadFavorites(true)
             .then(
-              (_) => WidgetsBinding.instance
-                  .addPostFrameCallback((_) => setState(() => _buildCards())),
-            )
+          (_) => WidgetsBinding.instance.addPostFrameCallback((_) => setState(() => _buildCards())),
+        )
             .then(
-              (_) => showSnackBar('¡Cotizaciones actualizadas!'),
-            );
+          (_) {
+            if (_cards.length > 0) showSnackBar('¡Cotizaciones actualizadas!');
+          },
+        );
       });
     });
   }
@@ -244,7 +245,7 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
     for (FavoriteRate favoriteRate in _favoriteRates) {
       String type = favoriteRate.cardResponseType;
       Map json = _responses[favoriteRate.endpoint];
-      ApiResponse response = ApiResponseBuilder.fromType(type, json);
+      ApiResponse response = json != null ? ApiResponseBuilder.fromType(type, json) : null;
 
       _cards.add(
         Consumer<Settings>(builder: (context, settings, child) {

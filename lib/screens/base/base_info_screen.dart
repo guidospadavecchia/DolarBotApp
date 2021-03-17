@@ -69,6 +69,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> imple
   bool showRefreshButton = false;
   bool shouldForceRefresh = false;
   bool isDataLoaded = false;
+  bool errorOnLoad = false;
   bool _shouldShowDescriptionButton = false;
 
   Widget body();

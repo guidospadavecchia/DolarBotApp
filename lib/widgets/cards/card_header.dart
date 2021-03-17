@@ -1,7 +1,7 @@
-import 'package:dolarbot_app/widgets/cards/card_share.dart';
+import 'package:dolarbot_app/widgets/cards/card_share_button.dart';
 import 'package:flutter/material.dart';
 
-export 'package:dolarbot_app/widgets/cards/card_share.dart';
+export 'package:dolarbot_app/widgets/cards/card_share_button.dart';
 
 class CardHeader extends StatelessWidget {
   final String title;
