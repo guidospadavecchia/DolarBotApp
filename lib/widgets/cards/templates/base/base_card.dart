@@ -68,10 +68,6 @@ abstract class BaseCardState<Card extends BaseCard> extends State<BaseCard> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.endpoint == null) {
-      return SizedBox.shrink();
-    }
-
     return card();
   }
 }

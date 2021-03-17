@@ -89,11 +89,11 @@ class CardFavorite extends StatelessWidget {
                             ),
                           ],
                         ),
-                        //END - CARD VALUE
-                        Padding(
-                          padding: EdgeInsets.only(bottom: 12),
-                          child: lastUpdated,
-                        ),
+                        if (lastUpdated != null) //END - CARD VALUE
+                          Padding(
+                            padding: EdgeInsets.only(bottom: 12),
+                            child: lastUpdated,
+                          ),
                       ],
                     ),
                   )

@@ -14,7 +14,7 @@ import 'package:dolarbot_app/widgets/cards/templates/venezuela_card.dart';
 abstract class BuildCard {
   factory BuildCard(ApiResponse data) {
     if (data is GenericCurrencyResponse) return _FiatCurrency(data, FiatCurrencyCard.height);
-    if (data is CryptoResponse) return _Crypto(data, CryptoCard.height);
+    if (data is CryptoResponse) return _Empty();
     if (data is MetalResponse) return _Metal(data, MetalCard.height);
     if (data is BcraResponse) return _Bcra(data, BcraCard.height);
     if (data is CountryRiskResponse) return _CountryRisk(data, CountryRiskCard.height);
