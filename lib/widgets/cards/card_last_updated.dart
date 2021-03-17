@@ -41,7 +41,7 @@ class _CardLastUpdatedState extends State<CardLastUpdated> with WidgetsBindingOb
       return DateTime.parse(widget.timestamp.replaceAll('/', '-')).toLongDateString();
     }
 
-    return DateTime.parse(widget.timestamp.replaceAll('/', '-')).toLiteralyString();
+    return DateTime.parse(widget.timestamp.replaceAll('/', '-')).toRelativeString();
   }
 
   @override

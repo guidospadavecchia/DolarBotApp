@@ -17,7 +17,7 @@ extension DateTimeExtensions on DateTime {
     return DateFormat('HH:mm').format(this);
   }
 
-  String toLiteralyString() {
+  String toRelativeString() {
     Duration duration = DateTime.now().difference(this);
     if (duration.inMinutes < 1) {
       return "Ahora";

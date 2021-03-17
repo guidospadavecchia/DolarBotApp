@@ -116,7 +116,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> imple
   @nonVirtual
   String getTimestamp() {
     if (timestamp != null) {
-      return DateTime.parse(timestamp.replaceAll('/', '-')).toLiteralyString();
+      return DateTime.parse(timestamp.replaceAll('/', '-')).toRelativeString();
     }
 
     return '';
