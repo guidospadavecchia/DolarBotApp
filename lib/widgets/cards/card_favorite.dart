@@ -54,54 +54,56 @@ class CardFavorite extends StatelessWidget {
       ),
       height: height,
       constraints: BoxConstraints(minHeight: height),
-      child: Row(
-        children: [
-          logo,
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.only(left: 15, top: 13),
-              child: Column(
-                children: [
-                  header,
-                  Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        //BEGIN - CARD VALUE
-                        Row(
-                          children: [
-                            Expanded(
-                              child: Padding(
-                                padding: EdgeInsets.only(
-                                  top: _getSpaceBetweenHeader(),
-                                ),
-                                child: Wrap(
-                                  verticalDirection: VerticalDirection.down,
-                                  direction: direction,
-                                  runSpacing: _getSpaceBetweenItems(),
-                                  spacing: _getSpaceBetweenItems(),
-                                  children: [
-                                    ...rates,
-                                  ],
+      child: Container(
+        child: Row(
+          children: [
+            logo,
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(left: 15, top: 13),
+                child: Column(
+                  children: [
+                    header,
+                    Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          //BEGIN - CARD VALUE
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Padding(
+                                  padding: EdgeInsets.only(
+                                    top: _getSpaceBetweenHeader(),
+                                  ),
+                                  child: Wrap(
+                                    verticalDirection: VerticalDirection.down,
+                                    direction: direction,
+                                    runSpacing: _getSpaceBetweenItems(),
+                                    spacing: _getSpaceBetweenItems(),
+                                    children: [
+                                      ...rates,
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
-                        if (lastUpdated != null) //END - CARD VALUE
-                          Padding(
-                            padding: EdgeInsets.only(bottom: 12),
-                            child: lastUpdated,
+                            ],
                           ),
-                      ],
+                        ],
+                      ),
                     ),
-                  )
-                ],
+                    if (lastUpdated != null) //END - CARD VALUE
+                      Padding(
+                        padding: EdgeInsets.only(bottom: 12),
+                        child: lastUpdated,
+                      ),
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

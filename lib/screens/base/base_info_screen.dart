@@ -52,7 +52,7 @@ abstract class BaseInfoScreen extends StatefulWidget {
 }
 
 abstract class BaseInfoScreenState<Page extends BaseInfoScreen> extends State<BaseInfoScreen>
-    with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin, WidgetsBindingObserver {
   final GlobalKey<SimpleFabMenuState> simpleFabKey = GlobalKey();
 
   bool isMainMenu() => true;
@@ -85,9 +85,9 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> imple
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       hideSnackBar();
-      DateTime.parse(timestamp.replaceAll('/', '-')).toLongDateString();
       if (this.mounted && widget.cardData?.endpoint != null) {
         _getRateDescription().then(
           (value) => setState(
@@ -98,6 +98,28 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> imple
         );
       }
     });
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state.index == 0) {
+      setState(() {});
+    }
+  }
+
+  @nonVirtual
+  String getTimestamp() {
+    if (timestamp != null) {
+      return DateTime.parse(timestamp.replaceAll('/', '-')).toLiteralyString();
+    }
+
+    return '';
   }
 
   @override
@@ -210,7 +232,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> imple
   Widget banner() {
     if (widget.cardData?.title != null) {
       return Padding(
-        padding: const EdgeInsets.only(top: 30),
+        padding: const EdgeInsets.only(top: 50),
         child: Column(
           children: [
             Container(
@@ -259,29 +281,29 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> imple
             ),
             if (timestamp != null)
               Opacity(
-                opacity: 0.5,
+                opacity: 1,
                 child: Container(
                   alignment: Alignment.center,
                   height: 22,
                   width: double.infinity,
-                  color: Colors.black.withOpacity(0.17),
+                  color: Colors.black26,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Icon(
                         Icons.alarm,
                         size: 16,
-                        color: Colors.white54,
+                        color: Colors.white70,
                       ),
                       Padding(
                         padding: const EdgeInsets.only(left: 5, top: 0),
                         child: Text(
-                          "Última actualización: ${timestamp}",
+                          "Última actualización: ${getTimestamp()}",
                           style: TextStyle(
                             fontSize: 12,
                             fontFamily: 'Montserrat',
                             fontWeight: FontWeight.normal,
-                            color: Colors.white54,
+                            color: Colors.white70,
                           ),
                         ),
                       ),

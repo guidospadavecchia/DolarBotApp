@@ -14,6 +14,7 @@ import 'package:dolarbot_app/api/responses/base/api_response.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:oktoast/oktoast.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:path_provider/path_provider.dart';
@@ -83,7 +84,12 @@ class Util {
     await Future.delayed(Duration(milliseconds: 250)).then(
       (value) => Navigator.pushReplacement(
         context,
-        PageRouteBuilder(pageBuilder: (context, animation1, animation2) => screen),
+        PageTransition(
+          child: screen,
+          type: PageTransitionType.fade,
+          duration: Duration(milliseconds: 150),
+          reverseDuration: Duration(milliseconds: 150),
+        ),
       ),
     );
   }
