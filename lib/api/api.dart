@@ -2,12 +2,13 @@ import 'dart:convert';
 import 'dart:async';
 
 import 'package:dolarbot_app/api/cache/cache_manager.dart';
-import 'package:http/http.dart' as http;
 import 'package:dolarbot_app/classes/hive/cache_entry.dart';
 import 'package:dolarbot_app/api/responses/base/api_response.dart';
 import 'package:dolarbot_app/api/responses/metal_response.dart';
-import 'package:global_configuration/global_configuration.dart';
 import 'package:dolarbot_app/api/api_endpoints.dart';
+import 'package:dolarbot_app/classes/connectivity_status.dart';
+import 'package:global_configuration/global_configuration.dart';
+import 'package:http/http.dart' as http;
 
 export 'package:dolarbot_app/api/api_endpoints.dart';
 
@@ -108,19 +109,23 @@ class API {
       'DOLARBOT_APIKEY': cfg.get("apiKey"),
     };
     try {
-      String urlBase = cfg.get("apiBaseUrl");
-      int timeoutSeconds = cfg.get("apiRequestTimeoutSeconds");
-      String url = "$urlBase$endpoint";
+      bool isConnected = await ConnectivityStatus.isConnected();
+      if (isConnected) {
+        String urlBase = cfg.get("apiBaseUrl");
+        int timeoutSeconds = cfg.get("apiRequestTimeoutSeconds");
+        String url = "$urlBase$endpoint";
 
-      String data;
-      Duration timeout =
-          Duration(seconds: timeoutSeconds > 0 ? timeoutSeconds : Duration.secondsPerDay);
-      await http
-          .get(url, headers: requestHeaders)
-          .timeout(timeout, onTimeout: () => null)
-          .then((response) => data = response.body);
-
-      return data;
+        String data;
+        Duration timeout =
+            Duration(seconds: timeoutSeconds > 0 ? timeoutSeconds : Duration.secondsPerDay);
+        await http
+            .get(url, headers: requestHeaders)
+            .timeout(timeout, onTimeout: () => null)
+            .then((response) => data = response.body);
+        return data;
+      } else {
+        return null;
+      }
     } catch (e) {
       return null;
     }

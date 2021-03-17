@@ -4,8 +4,8 @@ import 'package:dolarbot_app/interfaces/share_info.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
 import 'package:dolarbot_app/widgets/cards/factory/factory_card.dart';
 import 'package:dolarbot_app/widgets/cards/templates/fiat_currency_card.dart';
-import 'package:dolarbot_app/widgets/common/future_screen_delegate/error_future.dart';
-import 'package:dolarbot_app/widgets/common/future_screen_delegate/loading_future.dart';
+import 'package:dolarbot_app/screens/common/error_screen.dart';
+import 'package:dolarbot_app/screens/common/loading_screen.dart';
 import 'package:intl/intl.dart';
 
 class FiatCurrencyInfoScreen<T extends GenericCurrencyResponse> extends BaseInfoScreen {
@@ -75,11 +75,11 @@ class _FiatCurrencyInfoScreenState<T extends GenericCurrencyResponse>
   @override
   Widget body() {
     if (errorOnLoad) {
-      return ErrorFuture();
+      return ErrorScreen();
     }
 
     if (!isDataLoaded) {
-      return LoadingFuture();
+      return LoadingScreen();
     }
 
     return SingleChildScrollView(

@@ -13,8 +13,6 @@ import 'package:dolarbot_app/widgets/cards/templates/venezuela_card.dart';
 
 abstract class BuildCard {
   factory BuildCard(ApiResponse data) {
-    //TODO: Si json es null, construir y devolver una ErrorCard
-
     if (data is GenericCurrencyResponse) return _FiatCurrency(data, FiatCurrencyCard.height);
     if (data is CryptoResponse) return _Crypto(data, MetalCard.height);
     if (data is MetalResponse) return _Metal(data, MetalCard.height);

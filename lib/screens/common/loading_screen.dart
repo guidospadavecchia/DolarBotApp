@@ -4,12 +4,12 @@ import 'package:loading_indicator/loading_indicator.dart';
 
 export 'package:loading_indicator/loading_indicator.dart';
 
-class LoadingFuture extends StatelessWidget {
+class LoadingScreen extends StatelessWidget {
   final Indicator indicatorType;
   final double size;
   final Color color;
 
-  const LoadingFuture({
+  const LoadingScreen({
     Key key,
     this.indicatorType = Indicator.ballScale,
     this.size = 64,
