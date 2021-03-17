@@ -72,7 +72,7 @@ class _OptionsScreenState extends BaseInfoScreenState<OptionsScreen> with BaseSc
                 });
               },
             ),
-            onTap: null,
+            onTap: () => null,
             depthLevel: 1,
             disableHighlight: true,
           ),
