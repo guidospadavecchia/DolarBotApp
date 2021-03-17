@@ -5,7 +5,7 @@ class DolarBotConstants {
 
   static List<Color> kGradiantError = [
     Colors.grey[900],
-    Colors.grey[700],
+    Colors.grey[600],
   ];
   static List<Color> kGradiantDefault = [
     Colors.green[600],
