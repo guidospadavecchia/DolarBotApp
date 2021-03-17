@@ -84,6 +84,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> imple
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      hideSnackBar();
       if (this.mounted && widget.cardData?.endpoint != null) {
         _getRateDescription().then(
           (value) => setState(
@@ -170,18 +171,36 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> imple
   }
 
   @nonVirtual
-  void showSnackBar(String text, {Duration duration, TextAlign textAlign = TextAlign.center}) {
+  void showSnackBar(
+    String text, {
+    Duration duration,
+    TextAlign textAlign = TextAlign.center,
+    Icon leadingIcon = null,
+  }) {
+    hideSnackBar();
+
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         backgroundColor: ThemeManager.getSnackBarColor(context),
         duration: duration ?? Duration(seconds: 2),
-        content: Text(
-          text,
-          textAlign: TextAlign.center,
-          style: TextStyle(fontFamily: 'Montserrat', color: Colors.white),
+        behavior: SnackBarBehavior.floating,
+        content: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            if (leadingIcon != null) leadingIcon,
+            Text(
+              text,
+              textAlign: TextAlign.center,
+              style: TextStyle(fontFamily: 'Montserrat', color: Colors.white),
+            ),
+          ],
         ),
       ),
     );
+  }
+
+  void hideSnackBar() {
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
   }
 
   @nonVirtual

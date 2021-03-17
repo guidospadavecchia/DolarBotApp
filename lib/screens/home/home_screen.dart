@@ -5,6 +5,7 @@ import 'package:dolarbot_app/classes/hive/favorite_rate.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:dolarbot_app/models/settings.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
+import 'package:dolarbot_app/screens/common/error_screen.dart';
 import 'package:dolarbot_app/screens/home/widgets/empty_favorites.dart';
 import 'package:dolarbot_app/util/util.dart';
 import 'package:dolarbot_app/widgets/cards/card_favorite.dart';
@@ -34,6 +35,7 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
   final List<FavoriteRate> _favoriteRates = [];
 
   bool _cardsLoaded = false;
+  bool _hasErrorsAll = false;
   bool _animateEmptyFavorites = false;
   DateTime lastBackPressTimestamp;
 
@@ -85,7 +87,6 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
   @override
   void initState() {
     super.initState();
-
     if (!_cardsLoaded) {
       _loadFavorites(false).then(
         (_) {
@@ -114,6 +115,13 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
         size: 64,
         color: ThemeManager.getDottedBorderColor(context),
       );
+
+    if (_hasErrorsAll) {
+      return ErrorScreen(
+        color: ThemeManager.getPrimaryTextColor(context),
+        opacity: 0.2,
+      );
+    }
 
     if (_cards.length > 0)
       return _AnimationContainer(
@@ -177,13 +185,15 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
   Future onRefresh() async {
     _cards.clear();
     _cardsLoaded = false;
+    _hasErrorsAll = false;
     showRefreshButton = false;
-    await Future.delayed(Duration(milliseconds: 0), () {
+    hideSnackBar();
+    await Future.delayed(Duration.zero, () {
       setState(() {
         _loadFavorites(true)
-            .then(
-          (_) => WidgetsBinding.instance.addPostFrameCallback((_) => setState(() => _buildCards())),
-        )
+            .then((_) => WidgetsBinding.instance.addPostFrameCallback(
+                  (_) => setState(() => _buildCards()),
+                ))
             .then(
           (_) {
             if (_cards.length > 0) showSnackBar('¡Cotizaciones actualizadas!');
@@ -218,9 +228,10 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
     favoritesBox.put('favoriteCards', _favoriteRates);
 
     Future.delayed(
-      kAnimationDuration ?? Duration(milliseconds: 0),
+      kAnimationDuration ?? Duration.zero,
       () => setState(() {
         _animateEmptyFavorites = _favoriteRates.isEmpty;
+        showRefreshButton = _favoriteRates.isNotEmpty;
       }),
     );
   }
@@ -232,11 +243,9 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
         _favoriteRates.addAll(cards.cast<FavoriteRate>());
       }
       await Future.wait(
-        _favoriteRates.map(
-          (x) => API
-              .getRawData(x.endpoint, forceRefresh)
-              .then((value) => _responses[x.endpoint] = value),
-        ),
+        _favoriteRates.map((x) => API
+            .getRawData(x.endpoint, forceRefresh)
+            .then((value) => _responses[x.endpoint] = value)),
       );
     }
   }
@@ -255,7 +264,21 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
     }
 
     _cardsLoaded = true;
-    showRefreshButton = _favoriteRates.length > 0;
+    _hasErrorsAll = _favoriteRates.isNotEmpty && _cards.length == 0;
+    showRefreshButton = _favoriteRates.isNotEmpty;
+
+    if (ModalRoute.of(context)?.isCurrent ?? false) {
+      if (_favoriteRates.length > 0 && _favoriteRates.length != _cards.length && !_hasErrorsAll) {
+        showSnackBar(
+          'Algunas cotizaciones no pudieron cargarse',
+          duration: Duration(seconds: 8),
+          leadingIcon: Icon(
+            Icons.warning_rounded,
+            color: Colors.yellow,
+          ),
+        );
+      }
+    }
   }
 }
 
