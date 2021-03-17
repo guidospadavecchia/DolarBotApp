@@ -2,6 +2,7 @@ import 'package:dolarbot_app/interfaces/share_info.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
 import 'package:dolarbot_app/widgets/cards/factory/factory_card.dart';
 import 'package:dolarbot_app/widgets/cards/templates/base/base_card.dart';
+import 'package:dolarbot_app/widgets/common/future_screen_delegate/error_future.dart';
 import 'package:dolarbot_app/widgets/common/future_screen_delegate/loading_future.dart';
 import 'package:intl/intl.dart';
 
@@ -19,7 +20,6 @@ class CryptoInfoScreen extends BaseInfoScreen {
 }
 
 class _CryptoInfoScreenState extends BaseInfoScreenState<CryptoInfoScreen> with BaseScreen {
-  bool isDataLoaded = false;
   CryptoResponse data;
 
   @override
@@ -32,6 +32,10 @@ class _CryptoInfoScreenState extends BaseInfoScreenState<CryptoInfoScreen> with 
 
   @override
   Widget body() {
+    if (errorOnLoad) {
+      return ErrorFuture();
+    }
+
     if (!isDataLoaded) {
       return LoadingFuture();
     }
@@ -83,8 +87,9 @@ class _CryptoInfoScreenState extends BaseInfoScreenState<CryptoInfoScreen> with 
           (_) => setState(() {
             data = value;
             isDataLoaded = true;
+            errorOnLoad = value == null;
             showRefreshButton = true;
-            showSimpleFabMenu();
+            if (!errorOnLoad) showSimpleFabMenu();
           }),
         );
       },

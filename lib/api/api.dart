@@ -107,45 +107,55 @@ class API {
       'Accept': 'application/json',
       'DOLARBOT_APIKEY': cfg.get("apiKey"),
     };
-    String urlBase = cfg.get("apiBaseUrl");
-    String url = "$urlBase$endpoint";
+    try {
+      String urlBase = cfg.get("apiBaseUrl");
+      int timeoutSeconds = cfg.get("apiRequestTimeoutSeconds");
+      String url = "$urlBase$endpoint";
 
-    String data;
-    await http.get(url, headers: requestHeaders).then((response) {
-      data = response.body;
-    });
+      String data;
+      Duration timeout =
+          Duration(seconds: timeoutSeconds > 0 ? timeoutSeconds : Duration.secondsPerDay);
+      await http
+          .get(url, headers: requestHeaders)
+          .timeout(timeout, onTimeout: () => null)
+          .then((response) => data = response.body);
 
-    return data;
+      return data;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  static Future<Map> getRawData(String endpoint, bool forceRefresh) async {
+    try {
+      Map jsonMap;
+      CacheEntry cachedValue = CacheManager.read(endpoint);
+
+      if (cachedValue == null || cachedValue.isExpired() || forceRefresh) {
+        String response = await _fetch(endpoint);
+        if (response != null) {
+          CacheManager.save(endpoint, response);
+          jsonMap = json.decode(response);
+        } else {
+          return null;
+        }
+      } else {
+        jsonMap = json.decode(cachedValue.data);
+      }
+
+      return jsonMap;
+    } catch (e) {
+      return null;
+    }
   }
 
   static Future<T> getData<T extends ApiResponse>(
       String endpoint, T Function(Map json) creator, bool forceRefresh) async {
-    Map jsonMap;
-    CacheEntry cachedValue = CacheManager.read(endpoint);
-
-    if (cachedValue == null || cachedValue.isExpired() || forceRefresh) {
-      String response = await _fetch(endpoint);
-      CacheManager.save(endpoint, response);
-      jsonMap = json.decode(response);
-    } else {
-      jsonMap = json.decode(cachedValue.data);
+    try {
+      Map jsonMap = await getRawData(endpoint, forceRefresh);
+      return jsonMap != null ? creator(jsonMap) : null;
+    } catch (e) {
+      return null;
     }
-
-    return creator(jsonMap);
-  }
-
-  static Future<Map> getRawData(String endpoint, bool forceRefresh) async {
-    Map jsonMap;
-    CacheEntry cachedValue = CacheManager.read(endpoint);
-
-    if (cachedValue == null || cachedValue.isExpired() || forceRefresh) {
-      String response = await _fetch(endpoint);
-      CacheManager.save(endpoint, response);
-      jsonMap = json.decode(response);
-    } else {
-      jsonMap = json.decode(cachedValue.data);
-    }
-
-    return jsonMap;
   }
 }

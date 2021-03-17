@@ -1,6 +1,7 @@
 import 'package:dolarbot_app/interfaces/share_info.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
 import 'package:dolarbot_app/widgets/cards/factory/factory_card.dart';
+import 'package:dolarbot_app/widgets/common/future_screen_delegate/error_future.dart';
 import 'package:dolarbot_app/widgets/common/future_screen_delegate/loading_future.dart';
 import 'package:intl/intl.dart';
 
@@ -26,7 +27,6 @@ class _BcraInfoScreenState extends BaseInfoScreenState<BcraInfoScreen> with Base
 
   _BcraInfoScreenState(this.bcraEndpoint);
 
-  bool isDataLoaded = false;
   dynamic data;
 
   @override
@@ -45,6 +45,9 @@ class _BcraInfoScreenState extends BaseInfoScreenState<BcraInfoScreen> with Base
 
   @override
   Widget body() {
+    if (errorOnLoad) {
+      return ErrorFuture();
+    }
     if (!isDataLoaded) {
       return LoadingFuture();
     }
@@ -120,8 +123,9 @@ class _BcraInfoScreenState extends BaseInfoScreenState<BcraInfoScreen> with Base
         (_) => setState(() {
           data = value;
           isDataLoaded = true;
+          errorOnLoad = value == null;
           showRefreshButton = true;
-          showSimpleFabMenu();
+          if (!errorOnLoad) showSimpleFabMenu();
         }),
       );
     });

@@ -2,6 +2,7 @@ import 'package:dolarbot_app/api/responses/metal_response.dart';
 import 'package:dolarbot_app/interfaces/share_info.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
 import 'package:dolarbot_app/widgets/cards/factory/factory_card.dart';
+import 'package:dolarbot_app/widgets/common/future_screen_delegate/error_future.dart';
 import 'package:dolarbot_app/widgets/common/future_screen_delegate/loading_future.dart';
 import 'package:intl/intl.dart' as intl;
 
@@ -19,7 +20,6 @@ class MetalInfoScreen extends BaseInfoScreen {
 }
 
 class _MetalInfoScreenState extends BaseInfoScreenState<MetalInfoScreen> with BaseScreen {
-  bool isDataLoaded = false;
   MetalResponse data;
 
   @override
@@ -32,6 +32,10 @@ class _MetalInfoScreenState extends BaseInfoScreenState<MetalInfoScreen> with Ba
 
   @override
   Widget body() {
+    if (errorOnLoad) {
+      return ErrorFuture();
+    }
+
     if (!isDataLoaded) {
       return LoadingFuture();
     }
@@ -72,8 +76,9 @@ class _MetalInfoScreenState extends BaseInfoScreenState<MetalInfoScreen> with Ba
           (_) => setState(() {
             data = value;
             isDataLoaded = true;
+            errorOnLoad = value == null;
             showRefreshButton = true;
-            showSimpleFabMenu();
+            if (!errorOnLoad) showSimpleFabMenu();
           }),
         );
       },
