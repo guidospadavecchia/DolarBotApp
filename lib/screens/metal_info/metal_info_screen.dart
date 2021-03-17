@@ -75,6 +75,7 @@ class _MetalInfoScreenState extends BaseInfoScreenState<MetalInfoScreen> with Ba
         WidgetsBinding.instance.addPostFrameCallback(
           (_) => setState(() {
             data = value;
+            timestamp = data.timestamp;
             isDataLoaded = true;
             errorOnLoad = value == null;
             showRefreshButton = true;

@@ -86,6 +86,7 @@ class _CryptoInfoScreenState extends BaseInfoScreenState<CryptoInfoScreen> with 
         WidgetsBinding.instance.addPostFrameCallback(
           (_) => setState(() {
             data = value;
+            timestamp = data.timestamp;
             isDataLoaded = true;
             errorOnLoad = value == null;
             showRefreshButton = true;

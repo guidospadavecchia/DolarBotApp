@@ -24,6 +24,7 @@ import 'package:hive/hive.dart';
 import 'package:meta/meta.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';
+import 'package:dolarbot_app/util/extensions/datetime_extensions.dart';
 
 export 'package:dolarbot_app/api/api.dart';
 export 'package:dolarbot_app/api/responses/base/api_response.dart';
@@ -66,6 +67,7 @@ abstract class BaseInfoScreenState<Page extends BaseInfoScreen> extends State<Ba
 }
 
 mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> implements IShareable {
+  String timestamp;
   bool showRefreshButton = false;
   bool shouldForceRefresh = false;
   bool isDataLoaded = false;
@@ -85,6 +87,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> imple
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       hideSnackBar();
+      DateTime.parse(timestamp.replaceAll('/', '-')).toLongDateString();
       if (this.mounted && widget.cardData?.endpoint != null) {
         _getRateDescription().then(
           (value) => setState(
@@ -208,49 +211,85 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> imple
     if (widget.cardData?.title != null) {
       return Padding(
         padding: const EdgeInsets.only(top: 30),
-        child: Container(
-          color: Colors.black12,
-          padding: const EdgeInsets.all(20),
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              widget.cardData?.iconAsset != null
-                  ? Container(
-                      child: Image.asset(
-                        widget.cardData.iconAsset,
-                        width: 36,
-                        height: 36,
-                        filterQuality: FilterQuality.high,
-                        color: Colors.white,
-                      ),
-                    )
-                  : Container(
-                      child: Icon(
-                        widget.cardData?.iconData,
-                        size: 36,
-                        color: Colors.white,
+        child: Column(
+          children: [
+            Container(
+              color: Colors.black12,
+              padding: const EdgeInsets.all(20),
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  widget.cardData?.iconAsset != null
+                      ? Container(
+                          child: Image.asset(
+                            widget.cardData.iconAsset,
+                            width: 36,
+                            height: 36,
+                            filterQuality: FilterQuality.high,
+                            color: Colors.white,
+                          ),
+                        )
+                      : Container(
+                          child: Icon(
+                            widget.cardData?.iconData,
+                            size: 36,
+                            color: Colors.white,
+                          ),
+                        ),
+                  SizedBox(width: 20),
+                  Container(
+                    constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.7),
+                    child: FittedBox(
+                      fit: widget.cardData.title.length > 10 ? BoxFit.fitWidth : BoxFit.none,
+                      child: Text(
+                        widget.cardData.title,
+                        style: TextStyle(
+                          fontSize: 28,
+                          fontFamily: 'Raleway',
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
-              SizedBox(width: 20),
-              Container(
-                constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.7),
-                child: FittedBox(
-                  fit: widget.cardData.title.length > 10 ? BoxFit.fitWidth : BoxFit.none,
-                  child: Text(
-                    widget.cardData.title,
-                    style: TextStyle(
-                      fontSize: 28,
-                      fontFamily: 'Raleway',
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
+                  ),
+                ],
+              ),
+            ),
+            if (timestamp != null)
+              Opacity(
+                opacity: 0.5,
+                child: Container(
+                  alignment: Alignment.center,
+                  height: 22,
+                  width: double.infinity,
+                  color: Colors.black.withOpacity(0.17),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.alarm,
+                        size: 16,
+                        color: Colors.white54,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 5, top: 0),
+                        child: Text(
+                          "Última actualización: ${timestamp}",
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontFamily: 'Montserrat',
+                            fontWeight: FontWeight.normal,
+                            color: Colors.white54,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
-            ],
-          ),
+          ],
         ),
       );
     } else {
