@@ -253,6 +253,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> imple
     hideSimpleFabMenu();
     setState(() {
       isDataLoaded = false;
+      errorOnLoad = false;
       showRefreshButton = false;
       shouldForceRefresh = true;
       loadData();
