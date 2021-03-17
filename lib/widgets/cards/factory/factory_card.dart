@@ -16,7 +16,7 @@ abstract class BuildCard {
     //TODO: Si json es null, construir y devolver una ErrorCard
 
     if (data is GenericCurrencyResponse) return _FiatCurrency(data, FiatCurrencyCard.height);
-    if (data is CryptoResponse) return _Crypto(data, CryptoCard.height);
+    if (data is CryptoResponse) return _Crypto(data, MetalCard.height);
     if (data is MetalResponse) return _Metal(data, MetalCard.height);
     if (data is BcraResponse) return _Bcra(data, BcraCard.height);
     if (data is CountryRiskResponse) return _CountryRisk(data, CountryRiskCard.height);
