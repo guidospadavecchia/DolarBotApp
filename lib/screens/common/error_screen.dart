@@ -1,8 +1,8 @@
 import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:flutter/material.dart';
 
-class ErrorFuture extends StatelessWidget {
-  const ErrorFuture({
+class ErrorScreen extends StatelessWidget {
+  const ErrorScreen({
     Key key,
   }) : super(key: key);
 

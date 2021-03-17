@@ -9,7 +9,7 @@ import 'package:dolarbot_app/screens/home/widgets/empty_favorites.dart';
 import 'package:dolarbot_app/util/util.dart';
 import 'package:dolarbot_app/widgets/cards/card_favorite.dart';
 import 'package:dolarbot_app/widgets/cards/factory/factory_card.dart';
-import 'package:dolarbot_app/widgets/common/future_screen_delegate/loading_future.dart';
+import 'package:dolarbot_app/screens/common/loading_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:hive/hive.dart';
@@ -109,7 +109,7 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
   @override
   Widget body() {
     if (!_cardsLoaded)
-      return LoadingFuture(
+      return LoadingScreen(
         indicatorType: Indicator.ballPulseSync,
         size: 64,
         color: ThemeManager.getDottedBorderColor(context),

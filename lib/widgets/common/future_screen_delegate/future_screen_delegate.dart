@@ -1,6 +1,6 @@
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
-import 'package:dolarbot_app/widgets/common/future_screen_delegate/error_future.dart';
-import 'package:dolarbot_app/widgets/common/future_screen_delegate/loading_future.dart';
+import 'package:dolarbot_app/screens/common/error_screen.dart';
+import 'package:dolarbot_app/screens/common/loading_screen.dart';
 import 'package:flutter/material.dart';
 
 export 'package:loading_indicator/loading_indicator.dart';
@@ -10,7 +10,7 @@ typedef ScreenDataBuildFunction<T> = Widget Function(T data);
 class FutureScreenDelegate extends StatelessWidget {
   final Future response;
   final ScreenDataBuildFunction screen;
-  final LoadingFuture loadingWidget;
+  final LoadingScreen loadingWidget;
   final Function onLoading;
   final Function onSuccessfulLoad;
   final Function onFailedLoad;
@@ -33,13 +33,13 @@ class FutureScreenDelegate extends StatelessWidget {
           if (onLoading != null) {
             onLoading();
           }
-          return loadingWidget != null ? loadingWidget : LoadingFuture();
+          return loadingWidget != null ? loadingWidget : LoadingScreen();
         }
 
         Widget screenWidget;
         if (snapshot.hasError || snapshot.hasData) {
           if (snapshot.hasError) {
-            screenWidget = ErrorFuture();
+            screenWidget = ErrorScreen();
             if (onFailedLoad != null) {
               onFailedLoad();
             }
