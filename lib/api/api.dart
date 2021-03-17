@@ -137,7 +137,8 @@ class API {
           CacheManager.save(endpoint, response);
           jsonMap = json.decode(response);
         } else {
-          return null;
+          //If fetch fails, return the cached value even if expired
+          return jsonMap = cachedValue.data != null ? json.decode(cachedValue.data) : null;
         }
       } else {
         jsonMap = json.decode(cachedValue.data);
