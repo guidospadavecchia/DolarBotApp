@@ -71,7 +71,7 @@ class _CryptoCardState extends BaseCardState<CryptoCard> {
           value: data.arsPrice,
           symbol: "\$",
           titleSize: 16,
-          valueSize: 22,
+          valueSize: 20,
         ),
         CardValue(
           numberFormat: widget.numberFormat,
@@ -79,7 +79,7 @@ class _CryptoCardState extends BaseCardState<CryptoCard> {
           value: data.arsPriceWithTaxes,
           symbol: "\$",
           titleSize: 16,
-          valueSize: 22,
+          valueSize: 20,
         ),
         CardValue(
           numberFormat: widget.numberFormat,
@@ -87,7 +87,7 @@ class _CryptoCardState extends BaseCardState<CryptoCard> {
           value: data.usdPrice,
           symbol: "US\$",
           titleSize: 16,
-          valueSize: 22,
+          valueSize: 20,
         ),
       ],
       logo: CardLogo(

@@ -76,7 +76,7 @@ class _BcraCardState extends BaseCardState<BcraCard> {
           title: widget.subtitle,
           value: data.value,
           symbol: widget.symbol,
-          valueSize: 22,
+          valueSize: 20,
         ),
       ],
       logo: CardLogo(

@@ -75,7 +75,7 @@ class _CountryRiskCardState extends BaseCardState<CountryRiskCard> {
           textDirection: ui.TextDirection.rtl,
           spaceBetweenTitle: Spacing.medium,
           crossAlignment: WrapCrossAlignment.center,
-          valueSize: 32,
+          valueSize: 26,
         ),
       ],
       logo: CardLogo(
