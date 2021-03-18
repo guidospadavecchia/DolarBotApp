@@ -14,7 +14,7 @@ class Settings extends ChangeNotifier {
   }
 
   String getCurrencyFormat() {
-    return settings.get('currencyFormat') ?? CurrencyFormats.AR;
+    return settings.get('currencyFormat') ?? CurrencyFormats.AR.value;
   }
 
   NumberFormat getNumberFormat() {
