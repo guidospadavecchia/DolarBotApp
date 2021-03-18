@@ -64,6 +64,7 @@ class CurrencyInfo extends StatelessWidget {
                     fontSize: 32,
                     color: Colors.grey[200],
                     fontWeight: FontWeight.w600,
+                    fontFamily: 'Montserrat',
                   ),
                 ),
               ),
@@ -73,6 +74,7 @@ class CurrencyInfo extends StatelessWidget {
                 fontSize: 92,
                 color: Colors.grey[200],
                 fontWeight: FontWeight.w600,
+                fontFamily: 'Montserrat',
               ),
             ),
             if (value.split('.').length == 2 && !hideDecimals)
@@ -82,7 +84,8 @@ class CurrencyInfo extends StatelessWidget {
                   '${numberFormat.symbols.DECIMAL_SEP}${value.split('.')[1].substring(0, 2)}',
                   style: TextStyle(
                     fontSize: 32,
-                    color: Colors.grey[300],
+                    color: Colors.grey[200].withAlpha(150),
+                    fontFamily: 'Montserrat',
                   ),
                 ),
               ),

@@ -65,9 +65,9 @@ class ThemeManager {
         : Color.fromRGBO(60, 60, 60, 1);
   }
 
-  static Color getRefreshIndicatorColor(BuildContext context) {
+  static Color getDividerColor(BuildContext context) {
     return AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
-        ? Colors.grey[100]
+        ? Colors.grey[300]
         : Colors.grey[900];
   }
 
@@ -87,7 +87,7 @@ class ThemeManager {
         : Colors.grey[800];
   }
 
-  static Color getDottedBorderColor(BuildContext context) {
+  static Color getLoadingIndicatorColor(BuildContext context) {
     return AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
         ? Colors.grey[400]
         : Colors.grey[700];
@@ -114,7 +114,7 @@ class ThemeManager {
         primaryColor: getPrimaryColor(),
         accentColor: getAccentColor(),
         brightness: Brightness.light,
-        fontFamily: 'Montserrat',
+        fontFamily: 'Raleway',
         appBarTheme: AppBarTheme(
           iconTheme: IconThemeData(
             color: Colors.grey[700],
@@ -148,7 +148,7 @@ class ThemeManager {
         primaryColor: getPrimaryColor(),
         accentColor: getAccentColor(),
         brightness: Brightness.dark,
-        fontFamily: 'Montserrat',
+        fontFamily: 'Raleway',
         appBarTheme: AppBarTheme(
           iconTheme: IconThemeData(
             color: Colors.grey[300],

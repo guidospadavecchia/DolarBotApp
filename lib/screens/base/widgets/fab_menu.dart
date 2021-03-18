@@ -1,3 +1,4 @@
+import 'package:dolarbot_app/screens/common/icon_fonts.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
 import 'package:dolarbot_app/widgets/common/simple_fab_menu.dart';
 import 'package:flutter/material.dart';
@@ -22,25 +23,27 @@ class FabMenu extends StatefulWidget {
   final Function onOpened;
   final Function onClosed;
   final bool visible;
+  final Axis direction;
 
-  const FabMenu({
-    Key key,
-    this.simpleFabKey,
-    this.showFavoriteButton = true,
-    this.onFavoriteButtonTap,
-    this.isFavorite = false,
-    this.showShareButton = true,
-    this.onShareButtonTap,
-    this.showClipboardButton = true,
-    this.onClipboardButtonTap,
-    this.showCalculatorButton = true,
-    this.onCalculatorButtonTap,
-    this.showDescriptionButton = false,
-    this.onShowDescriptionTap,
-    this.onOpened,
-    this.onClosed,
-    this.visible = true,
-  }) : super(key: key);
+  const FabMenu(
+      {Key key,
+      this.simpleFabKey,
+      this.showFavoriteButton = true,
+      this.onFavoriteButtonTap,
+      this.isFavorite = false,
+      this.showShareButton = true,
+      this.onShareButtonTap,
+      this.showClipboardButton = true,
+      this.onClipboardButtonTap,
+      this.showCalculatorButton = true,
+      this.onCalculatorButtonTap,
+      this.showDescriptionButton = false,
+      this.onShowDescriptionTap,
+      this.onOpened,
+      this.onClosed,
+      this.visible = true,
+      this.direction})
+      : super(key: key);
 
   @override
   _FabMenuState createState() => _FabMenuState();
@@ -59,7 +62,7 @@ class _FabMenuState extends State<FabMenu> {
   Widget build(BuildContext context) {
     return SimpleFabMenu(
       key: widget.simpleFabKey,
-      direction: Axis.horizontal,
+      direction: widget.direction,
       icon: Icons.more_horiz,
       iconColor: Colors.black87,
       backGroundColor: Colors.white,
@@ -70,9 +73,9 @@ class _FabMenuState extends State<FabMenu> {
         if (widget.showDescriptionButton)
           SimpleFabOption(
             tooltip: "Ver descripción 📖",
-            iconColor: Colors.black87,
+            iconColor: Colors.blue[800],
             backgroundColor: Colors.white,
-            icon: FontAwesomeIcons.question,
+            icon: IconFonts.info,
             onPressed: () {
               widget.onShowDescriptionTap();
               closeFabMenu();
@@ -81,7 +84,7 @@ class _FabMenuState extends State<FabMenu> {
         if (widget.showClipboardButton)
           SimpleFabOption(
             tooltip: "Copiar al portapapeles 📝",
-            iconColor: Colors.black87,
+            iconColor: Colors.brown[600],
             backgroundColor: Colors.white,
             icon: Icons.copy,
             onPressed: () {
@@ -92,7 +95,7 @@ class _FabMenuState extends State<FabMenu> {
         if (widget.showCalculatorButton)
           SimpleFabOption(
             tooltip: "Calculadora 💱",
-            iconColor: Colors.black87,
+            iconColor: Colors.blueGrey[700],
             backgroundColor: Colors.white,
             icon: FontAwesomeIcons.calculator,
             onPressed: () {
@@ -105,7 +108,7 @@ class _FabMenuState extends State<FabMenu> {
               tooltip: "Compartir 📲",
               iconColor: Colors.green[700],
               backgroundColor: Colors.white,
-              icon: Icons.share,
+              icon: IconFonts.share,
               onPressed: () {
                 closeFabMenu();
                 widget.onShareButtonTap();
@@ -115,7 +118,7 @@ class _FabMenuState extends State<FabMenu> {
             tooltip: "Agregar a Favoritos ❤",
             iconColor: Colors.red[400],
             backgroundColor: Colors.white,
-            icon: isFavorite ? Icons.favorite_rounded : Icons.favorite_outline_rounded,
+            icon: isFavorite ? IconFonts.heart : IconFonts.heart_empty,
             onPressed: () async {
               bool result = await widget.onFavoriteButtonTap();
               setState(() => isFavorite = result);

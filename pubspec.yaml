@@ -96,3 +96,6 @@ flutter:
         - asset: fonts/raleway/Raleway-Bold.ttf
         - asset: fonts/raleway/Raleway-Regular.ttf
         - asset: fonts/raleway/Raleway-SemiBold.ttf
+    - family: IconFonts
+      fonts:
+        - asset: fonts/iconfonts/IconFonts.ttf

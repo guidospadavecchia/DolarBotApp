@@ -1,3 +1,4 @@
+import 'package:dolarbot_app/screens/common/icon_fonts.dart';
 import 'package:flutter/material.dart';
 
 class CardShareButton extends StatelessWidget {
@@ -20,7 +21,7 @@ class CardShareButton extends StatelessWidget {
           constraints: BoxConstraints(minWidth: 50, minHeight: 80),
           onPressed: onSharePressed,
           child: Icon(
-            Icons.share,
+            IconFonts.share,
             color: Colors.white,
           ),
         ),

@@ -4,6 +4,8 @@ import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:dolarbot_app/interfaces/share_info.dart';
 import 'package:dolarbot_app/models/settings.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
+import 'package:dolarbot_app/screens/options/widgets/card_gesture_dismiss_dialog/card_gesture_dismiss_dialog.dart';
+import 'package:dolarbot_app/screens/options/widgets/fab_direction_dialog.dart/fab_direction_dialog.dart';
 import 'package:dolarbot_app/screens/options/widgets/format_currency_dialog/format_currency_dialog.dart';
 import 'package:dolarbot_app/widgets/cards/card_favorite.dart';
 import 'package:dolarbot_app/widgets/common/menu_item.dart';
@@ -61,6 +63,7 @@ class _OptionsScreenState extends BaseInfoScreenState<OptionsScreen> with BaseSc
     return Container(
       child: Column(
         children: [
+          _buildDivider("Apariencia", supressPaddingTop: true),
           MenuItem(
             text: "Modo oscuro",
             subtitle: "Habilita o deshabilita el modo oscuro",
@@ -79,6 +82,7 @@ class _OptionsScreenState extends BaseInfoScreenState<OptionsScreen> with BaseSc
             depthLevel: 1,
             disableHighlight: true,
           ),
+          _buildDivider("Preferencias"),
           MenuItem(
             text: "Formato de moneda",
             subtitle: "Cambia el formato de moneda entre AR y US",
@@ -87,10 +91,23 @@ class _OptionsScreenState extends BaseInfoScreenState<OptionsScreen> with BaseSc
             onTap: () => _showFormatCurrencyDialog(context),
             disableHighlight: false,
           ),
-          Divider(
-            endIndent: 25,
-            indent: 25,
+          MenuItem(
+            text: "Menú de acciones",
+            subtitle: "Permite elegir entre despliegue horizontal y vertical",
+            leading: Icon(FontAwesomeIcons.ellipsisH),
+            depthLevel: 1,
+            onTap: () => _showFabDirectionDialog(context),
+            disableHighlight: false,
           ),
+          MenuItem(
+            text: "Gesto de eliminación de tarjeta",
+            subtitle: "Ajusta el gesto para eliminar tarjetas en el Inicio",
+            leading: Icon(FontAwesomeIcons.exchangeAlt),
+            depthLevel: 1,
+            onTap: () => _showCardGestureDismissDialog(context),
+            disableHighlight: false,
+          ),
+          _buildDivider("Otros"),
           MenuItem(
               text: "Ayuda",
               subtitle: "Muestra una breve guía sobre la aplicación",
@@ -114,11 +131,56 @@ class _OptionsScreenState extends BaseInfoScreenState<OptionsScreen> with BaseSc
     );
   }
 
+  _buildDivider(String text, {bool supressPaddingTop = false}) {
+    return Padding(
+      padding: EdgeInsets.only(bottom: 5, top: supressPaddingTop ? 0 : 10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            width: double.infinity,
+            height: supressPaddingTop ? 0 : 10,
+            color: ThemeManager.getDividerColor(context),
+          ),
+          Padding(
+            padding: EdgeInsets.only(left: 20, top: supressPaddingTop ? 0 : 20),
+            child: Text(
+              text,
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Raleway',
+                  fontSize: 14,
+                  color: ThemeManager.getPrimaryAccentColor(context)),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   _showFormatCurrencyDialog(BuildContext context) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return FormatCurrencyDialog();
+      },
+    );
+  }
+
+  _showFabDirectionDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return FabDirectionDialog();
+      },
+    );
+  }
+
+  _showCardGestureDismissDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return CardGestureDismissDialog();
       },
     );
   }

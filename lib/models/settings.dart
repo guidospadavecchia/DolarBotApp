@@ -17,6 +17,43 @@ class Settings extends ChangeNotifier {
     return settings.get('currencyFormat') ?? CurrencyFormats.AR.value;
   }
 
+  void saveFabDirection(Axis direction) {
+    settings.put('fabDirection', direction.index);
+    notifyListeners();
+  }
+
+  Axis getFabDirection() {
+    final value = settings.get('fabDirection');
+    return value != null
+        ? value == 0
+            ? Axis.horizontal
+            : Axis.vertical
+        : Axis.horizontal;
+  }
+
+  void saveCardGestureDismiss(DismissDirection direction) {
+    settings.put('cardGestureDelete', direction.index);
+    notifyListeners();
+  }
+
+  DismissDirection getCardGestureDismiss() {
+    final int indexValue = settings.get('cardGestureDelete');
+
+    switch (indexValue) {
+      case 1:
+        return DismissDirection.horizontal;
+        break;
+      case 2:
+        return DismissDirection.endToStart;
+        break;
+      case 3:
+        return DismissDirection.startToEnd;
+        break;
+      default:
+        return DismissDirection.endToStart;
+    }
+  }
+
   NumberFormat getNumberFormat() {
     return NumberFormat(
       FORMAT_PATTERN,

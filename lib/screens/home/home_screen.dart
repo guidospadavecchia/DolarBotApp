@@ -116,7 +116,7 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
       return LoadingScreen(
         indicatorType: Indicator.ballPulseSync,
         size: 64,
-        color: ThemeManager.getDottedBorderColor(context),
+        color: ThemeManager.getLoadingIndicatorColor(context),
       );
 
     if (_hasErrorsAll) {
@@ -153,18 +153,22 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
                         color: Colors.transparent,
                       ),
                       margin: EdgeInsets.fromLTRB(15, 0, 15, 15),
-                      child: Dismissible(
-                        dismissThresholds: {
-                          DismissDirection.endToStart: 0.4,
-                        },
-                        child: _cards[i],
-                        direction: DismissDirection.endToStart,
-                        background: _DismissFavoriteButton(),
-                        key: ValueKey(_cards[i]),
-                        onDismissed: (direction) {
-                          _onDismissCard(i);
-                        },
-                      ),
+                      child: Consumer<Settings>(builder: (context, settings, child) {
+                        return Dismissible(
+                          dismissThresholds: {
+                            DismissDirection.endToStart: 0.4,
+                            DismissDirection.startToEnd: 0.4,
+                          },
+                          child: _cards[i],
+                          direction: settings.getCardGestureDismiss(),
+                          background:
+                              _DismissFavoriteButton(direction: settings.getCardGestureDismiss()),
+                          key: ValueKey(_cards[i]),
+                          onDismissed: (direction) {
+                            _onDismissCard(i);
+                          },
+                        );
+                      }),
                     ),
                 ],
               ),
@@ -286,21 +290,17 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
 }
 
 class _DismissFavoriteButton extends StatelessWidget {
+  final DismissDirection direction;
+
   const _DismissFavoriteButton({
     Key key,
+    @required this.direction,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(top: 20, bottom: 20),
-      alignment: Alignment.centerRight,
-      padding: EdgeInsets.only(right: 40),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: Colors.red[800],
-      ),
-      child: Column(
+    _buildRemoveButton() {
+      return Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -317,6 +317,27 @@ class _DismissFavoriteButton extends StatelessWidget {
               fontWeight: FontWeight.w600,
             ),
           ),
+        ],
+      );
+    }
+
+    return Container(
+      margin: EdgeInsets.only(top: 20, bottom: 20),
+      alignment: Alignment.centerRight,
+      padding: EdgeInsets.only(left: 40, right: 40),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: Colors.red[800],
+      ),
+      child: Row(
+        mainAxisAlignment: direction == DismissDirection.endToStart
+            ? MainAxisAlignment.end
+            : direction == DismissDirection.startToEnd
+                ? MainAxisAlignment.start
+                : MainAxisAlignment.spaceBetween,
+        children: [
+          if (direction == DismissDirection.horizontal) _buildRemoveButton(),
+          _buildRemoveButton(),
         ],
       ),
     );

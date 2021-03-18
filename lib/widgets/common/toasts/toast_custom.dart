@@ -33,9 +33,6 @@ class ToastCustom extends StatelessWidget {
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             color: backgroundColor,
-            boxShadow: [
-              BoxShadow(blurRadius: 5, color: Colors.black45, spreadRadius: 0)
-            ],
           ),
           child: Center(
             child: Icon(

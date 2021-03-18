@@ -23,7 +23,7 @@ class MenuItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double _paddingOffset = leading == null ? 22 : 25;
+    final double _paddingOffset = leading == null ? 12 : 15;
 
     EdgeInsetsGeometry _calculatePaddingOffset() {
       return EdgeInsets.only(left: depthLevel * _paddingOffset, right: 20);
@@ -31,8 +31,7 @@ class MenuItem extends StatelessWidget {
 
     return (subItems != null)
         ? Theme(
-            data: ThemeManager.getThemeForDrawerMenu(context,
-                disableHighlight: disableHighlight),
+            data: ThemeManager.getThemeForDrawerMenu(context, disableHighlight: disableHighlight),
             child: (ExpansionTile(
               tilePadding: _calculatePaddingOffset(),
               title: Text(
@@ -44,7 +43,7 @@ class MenuItem extends StatelessWidget {
                     fontWeight: FontWeight.w600),
               ),
               leading: Padding(
-                padding: EdgeInsets.only(left: 3),
+                padding: EdgeInsets.only(left: 12),
                 child: leading,
               ),
               trailing: trailing,
@@ -62,8 +61,7 @@ class MenuItem extends StatelessWidget {
             )),
           )
         : Theme(
-            data: ThemeManager.getThemeForDrawerMenu(context,
-                disableHighlight: disableHighlight),
+            data: ThemeManager.getThemeForDrawerMenu(context, disableHighlight: disableHighlight),
             child: (ListTile(
               contentPadding: _calculatePaddingOffset(),
               title: Text(
@@ -75,8 +73,7 @@ class MenuItem extends StatelessWidget {
                     fontWeight: FontWeight.w600),
               ),
               leading: Padding(
-                padding:
-                    EdgeInsets.only(top: subtitle != null ? 7 : 0, left: 3),
+                padding: EdgeInsets.only(top: subtitle != null ? 7 : 0, left: 12),
                 child: leading,
               ),
               trailing: trailing,

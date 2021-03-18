@@ -13,6 +13,7 @@ import 'package:flutter/services.dart';
 import 'package:dolarbot_app/api/responses/base/api_response.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:global_configuration/global_configuration.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:share/share.dart';
@@ -23,6 +24,8 @@ export 'dart:typed_data';
 export 'package:oktoast/oktoast.dart';
 
 class Util {
+  static final cfg = GlobalConfiguration();
+
   static String getFiatCurrencySymbol(ApiResponse data) {
     if (data is DollarResponse) return "US\$";
     if (data is EuroResponse) return "€";
@@ -54,7 +57,7 @@ class Util {
               child: MediaQuery(
                 data: MediaQueryData(),
                 child: Container(
-                  margin: EdgeInsets.all(15),
+                  margin: EdgeInsets.all(18),
                   child: widget,
                 ),
               ),
@@ -72,8 +75,8 @@ class Util {
         await Share.shareFiles(
           files,
           mimeTypes: mimeTypes,
-          subject: 'DolarBot',
-          text: 'Descargá la app en: https://www.dolarbot.com.ar',
+          subject: cfg.getDeepValue("share:subject"),
+          text: cfg.getDeepValue("share:message"),
         );
       },
     ).whenComplete(() => tempDir.deleteSync(recursive: true));

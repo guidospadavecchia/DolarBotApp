@@ -1,5 +1,8 @@
 import 'dart:convert';
 
+import 'package:dolarbot_app/api/api.dart';
+import 'package:dolarbot_app/api/responses/base/api_response.dart';
+import 'package:dolarbot_app/api/responses/metal_response.dart';
 import 'package:dolarbot_app/classes/hive/favorite_rate.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:dolarbot_app/interfaces/share_info.dart';
@@ -146,7 +149,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> imple
               ),
             ),
           ),
-          drawerEdgeDragWidth: MediaQuery.of(context).size.width / 3,
+          drawerEdgeDragWidth: 80,
           drawerEnableOpenDragGesture: true,
           body: (widget.title != null && isMainMenu())
               ? Container(
@@ -189,6 +192,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> imple
                   onShowDescriptionTap: () => _onShowDescriptionTap(),
                   onOpened: () => dismissAllToast(),
                   visible: isDataLoaded,
+                  direction: settings.getFabDirection(),
                 )
               : null,
         );
@@ -361,7 +365,8 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> imple
   Future<void> _onClipboardButtonTap() async {
     String shareText = getShareText();
     String shareTitle = getShareTitle();
-    String text = "$shareTitle\n\n$shareText\n\nPowered by DolarBot";
+    String poweredBy = Util.cfg.getDeepValue("share:poweredBy");
+    String text = "$shareTitle\n\n$shareText\n\n$poweredBy";
 
     simpleFabKey.currentState.closeMenu();
     await Clipboard.setData(
@@ -392,7 +397,59 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> imple
   Future<String> _getRateDescription() async {
     String descriptionsString = await rootBundle.loadString(DolarBotConstants.kDescriptionsFile);
     Map<String, dynamic> descriptions = json.decode(descriptionsString) as Map<String, dynamic>;
-    return descriptions[widget.cardData?.endpoint];
+    return descriptions[_getEndpointType(widget.cardData?.response)];
+  }
+
+  String _getEndpointType(Type response) {
+    String endpointName;
+
+    switch (response) {
+      case DollarResponse:
+        endpointName = DollarEndpoints.values
+            .firstWhere((e) => e.value == widget.cardData?.endpoint, orElse: () => null)
+            .toString();
+        break;
+
+      case EuroResponse:
+        endpointName = EuroEndpoints.values
+            .firstWhere((e) => e.value == widget.cardData?.endpoint, orElse: () => null)
+            .toString();
+        break;
+
+      case RealResponse:
+        endpointName = RealEndpoints.values
+            .firstWhere((e) => e.value == widget.cardData?.endpoint, orElse: () => null)
+            .toString();
+        break;
+
+      case CryptoResponse:
+        endpointName = CryptoEndpoints.values
+            .firstWhere((e) => e.value == widget.cardData?.endpoint, orElse: () => null)
+            .toString();
+        break;
+
+      case MetalResponse:
+        endpointName = MetalEndpoints.values
+            .firstWhere((e) => e.value == widget.cardData?.endpoint, orElse: () => null)
+            .toString();
+        break;
+
+      case CountryRiskResponse:
+      case BcraResponse:
+        endpointName = BcraEndpoints.values
+            .firstWhere((e) => e.value == widget.cardData?.endpoint, orElse: () => null)
+            .toString();
+        break;
+
+      case VenezuelaResponse:
+        endpointName = VenezuelaEndpoints.values
+            .firstWhere((e) => e.value == widget.cardData?.endpoint, orElse: () => null)
+            .toString();
+        break;
+      default:
+    }
+
+    return endpointName;
   }
 
   Future<void> _onShowDescriptionTap() async {
@@ -420,7 +477,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> imple
                           fontSize: 20,
                           fontFamily: 'Raleway',
                           fontWeight: FontWeight.bold,
-                          color: Colors.white,
+                          color: ThemeManager.getPrimaryTextColor(context),
                         ),
                       ),
                     ),
