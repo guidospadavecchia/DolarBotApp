@@ -49,39 +49,35 @@ class _CardLastUpdatedState extends State<CardLastUpdated> with WidgetsBindingOb
     return Row(
       children: [
         Expanded(
-          child: FittedBox(
-            alignment: Alignment.centerLeft,
-            fit: widget.showPoweredBy ? BoxFit.none : BoxFit.none,
-            child: Padding(
-              padding: EdgeInsets.only(top: 5, right: widget.showPoweredBy ? 0 : 15),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.alarm,
-                        size: 16,
-                        color: Colors.white54,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 5, top: 0),
-                        child: Text(
-                          widget.showPoweredBy
-                              ? "${_getFormattedDateTime()}"
-                              : "Última actualización: ${_getFormattedDateTime()}",
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontFamily: 'Montserrat',
-                            fontWeight: FontWeight.normal,
-                            color: Colors.white54,
-                          ),
+          child: Padding(
+            padding: EdgeInsets.only(top: 5, right: widget.showPoweredBy ? 0 : 15),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    Icon(
+                      Icons.alarm,
+                      size: 16,
+                      color: Colors.white54,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 5, top: 0),
+                      child: Text(
+                        widget.showPoweredBy
+                            ? "${_getFormattedDateTime()}"
+                            : "Última actualización: ${_getFormattedDateTime()}",
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontFamily: 'Montserrat',
+                          fontWeight: FontWeight.normal,
+                          color: Colors.white54,
                         ),
                       ),
-                    ],
-                  ),
-                ],
-              ),
+                    ),
+                  ],
+                ),
+              ],
             ),
           ),
         ),
