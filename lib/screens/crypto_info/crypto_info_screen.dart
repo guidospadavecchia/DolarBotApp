@@ -98,6 +98,11 @@ class _CryptoInfoScreenState extends BaseInfoScreenState<CryptoInfoScreen> with 
   }
 
   @override
+  String getShareTitle() {
+    return widget.cardData.title.toUpperCase();
+  }
+
+  @override
   String getShareText() {
     Settings settings = Provider.of<Settings>(context, listen: false);
     NumberFormat numberFormat = settings.getNumberFormat().item1;

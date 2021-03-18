@@ -87,6 +87,11 @@ class _MetalInfoScreenState extends BaseInfoScreenState<MetalInfoScreen> with Ba
   }
 
   @override
+  String getShareTitle() {
+    return widget.cardData.title.toUpperCase();
+  }
+
+  @override
   String getShareText() {
     Settings settings = Provider.of<Settings>(context, listen: false);
     intl.NumberFormat numberFormat = settings.getNumberFormat().item1;

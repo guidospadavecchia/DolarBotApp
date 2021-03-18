@@ -121,6 +121,11 @@ class _FiatCurrencyInfoScreenState<T extends GenericCurrencyResponse>
   }
 
   @override
+  String getShareTitle() {
+    return "${widget.title} ${widget.cardData.title.toUpperCase()}";
+  }
+
+  @override
   String getShareText() {
     Settings settings = Provider.of<Settings>(context, listen: false);
     NumberFormat numberFormat = settings.getNumberFormat().item1;

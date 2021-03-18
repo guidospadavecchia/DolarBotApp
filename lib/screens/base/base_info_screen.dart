@@ -77,6 +77,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> imple
   Widget body();
   Widget card();
   FavoriteRate createFavorite();
+  String getShareTitle();
   String getShareText();
   Type getResponseType();
   Future loadData();
@@ -359,8 +360,8 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> imple
 
   Future<void> _onClipboardButtonTap() async {
     String shareText = getShareText();
-    String text =
-        "${widget.title} - ${widget.cardData.title.toUpperCase()}\n\n$shareText\n\nPowered by DolarBot";
+    String shareTitle = getShareTitle();
+    String text = "$shareTitle\n\n$shareText\n\nPowered by DolarBot";
 
     simpleFabKey.currentState.closeMenu();
     await Clipboard.setData(

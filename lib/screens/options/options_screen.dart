@@ -45,6 +45,9 @@ class _OptionsScreenState extends BaseInfoScreenState<OptionsScreen> with BaseSc
   String getShareText() => '';
 
   @override
+  String getShareTitle() => '';
+
+  @override
   Future loadData() => null;
 
   @override

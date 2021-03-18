@@ -64,6 +64,9 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
   String getShareText() => '';
 
   @override
+  String getShareTitle() => '';
+
+  @override
   Future loadData() => null;
 
   @override

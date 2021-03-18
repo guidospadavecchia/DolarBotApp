@@ -143,6 +143,14 @@ class _BcraInfoScreenState extends BaseInfoScreenState<BcraInfoScreen> with Base
   }
 
   @override
+  String getShareTitle() {
+    if (bcraEndpoint == BcraEndpoints.riesgoPais) return widget.cardData.title.toUpperCase();
+    if (bcraEndpoint == BcraEndpoints.reservas) return "RESERVAS BCRA";
+    if (bcraEndpoint == BcraEndpoints.circulante) return "DINERO EN CIRCULACIÓN";
+    return '';
+  }
+
+  @override
   String getShareText() {
     Settings settings = Provider.of<Settings>(context, listen: false);
     final currencyFormat = settings.getCurrencyFormat();
