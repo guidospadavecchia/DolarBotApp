@@ -7,7 +7,8 @@ import 'package:show_up_animation/show_up_animation.dart';
 class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    _waitAndGoHome(context, Duration(milliseconds: 3000));
+    _waitAndGoHome(context, Duration(milliseconds: 4000));
+
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
