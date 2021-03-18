@@ -46,9 +46,7 @@ class CurrencyInfo extends StatelessWidget {
 
   Padding _getCurrencyValue(BuildContext context) {
     final settings = Provider.of<Settings>(context, listen: false);
-    final numberFormat =
-        new NumberFormat("#,###,###", settings.getCurrencyFormat());
-    final decimalSeparator = settings.getDecimalSeparator();
+    final numberFormat = settings.getNumberFormat()..maximumFractionDigits = 0;
 
     return Padding(
       padding: const EdgeInsets.only(left: 30, right: 30),
@@ -71,9 +69,7 @@ class CurrencyInfo extends StatelessWidget {
                 ),
               ),
             Text(
-              value.isNumeric()
-                  ? numberFormat.format(int.parse(value.split('.')[0]))
-                  : 'N/A',
+              value.isNumeric() ? numberFormat.format(int.parse(value.split('.')[0])) : 'N/A',
               style: TextStyle(
                 fontSize: 92,
                 color: Colors.grey[200],
@@ -84,7 +80,7 @@ class CurrencyInfo extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(left: 5, bottom: 38),
                 child: Text(
-                  '$decimalSeparator${value.split('.')[1].substring(0, 2)}',
+                  '${numberFormat.symbols.DECIMAL_SEP}${value.split('.')[1].substring(0, 2)}',
                   style: TextStyle(
                     fontSize: 32,
                     color: Colors.grey[300],

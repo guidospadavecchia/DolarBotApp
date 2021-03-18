@@ -1,7 +1,6 @@
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
-import 'package:tuple/tuple.dart';
 
 enum Spacing { none, small, medium, large }
 
@@ -17,7 +16,7 @@ class CardValue extends StatelessWidget {
   final Spacing spaceBetweenTitle;
   final Spacing spaceMainAxisEnd;
   final bool hideDecimals;
-  final Tuple2<intl.NumberFormat, String> numberFormat;
+  final intl.NumberFormat numberFormat;
 
   const CardValue({
     Key key,
@@ -37,7 +36,7 @@ class CardValue extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String value = _getFormatedValue(numberFormat.item1, numberFormat.item2);
+    String value = _getFormatedValue(numberFormat);
 
     return Wrap(
       spacing: _getSpaceMainAxisEnd(),
@@ -89,13 +88,14 @@ class CardValue extends StatelessWidget {
     );
   }
 
-  String _getFormatedValue(intl.NumberFormat numberFormat, String decimalSeparator) {
+  String _getFormatedValue(intl.NumberFormat numberFormat) {
     if (value.isNumeric()) {
-      String formattedNumber = numberFormat.format(double.parse(value));
-      List<String> splittedFormattedNumber = formattedNumber.split(decimalSeparator);
-
-      if (splittedFormattedNumber.length == 2 && hideDecimals) {
-        return "$symbol ${splittedFormattedNumber[0]}";
+      String formattedNumber;
+      if (hideDecimals) {
+        numberFormat.maximumFractionDigits = 0;
+        formattedNumber = numberFormat.format(double.parse(value).round());
+      } else {
+        formattedNumber = numberFormat.format(double.parse(value));
       }
       return "$symbol ${formattedNumber}";
     } else {

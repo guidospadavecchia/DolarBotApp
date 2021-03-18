@@ -7,45 +7,39 @@ import 'package:intl/intl.dart';
 class CryptoCalculatorReversed extends BaseCalculatorScreen {
   final double usdValue;
   final String cryptoCode;
-  final String decimalSeparator;
-  final String thousandSeparator;
+  final NumberFormat numberFormat;
 
   CryptoCalculatorReversed({
     Key key,
     @required this.usdValue,
     @required this.cryptoCode,
-    @required this.decimalSeparator,
-    @required this.thousandSeparator,
+    @required this.numberFormat,
   }) : super(
-            key: key,
-            symbol: cryptoCode,
-            decimalSeparator: decimalSeparator,
-            thousandSeparator: thousandSeparator);
+          key: key,
+          symbol: cryptoCode,
+          numberFormat: numberFormat,
+        );
 
   @override
-  _CryptoCalculatorReversedState createState() =>
-      _CryptoCalculatorReversedState(
+  _CryptoCalculatorReversedState createState() => _CryptoCalculatorReversedState(
         usdValue,
         cryptoCode,
-        decimalSeparator,
-        thousandSeparator,
+        numberFormat,
       );
 }
 
-class _CryptoCalculatorReversedState
-    extends BaseCalculatorState<CryptoCalculatorReversed> with BaseCalculator {
+class _CryptoCalculatorReversedState extends BaseCalculatorState<CryptoCalculatorReversed>
+    with BaseCalculator {
   final double usdValue;
   final String cryptoCode;
-  final String decimalSeparator;
-  final String thousandSeparator;
+  final NumberFormat numberFormat;
   MoneyMaskedTextController _textControllerInput;
   TextEditingController _textControllerCryptoValue;
 
   _CryptoCalculatorReversedState(
     this.usdValue,
     this.cryptoCode,
-    this.decimalSeparator,
-    this.thousandSeparator,
+    this.numberFormat,
   );
 
   @override
@@ -91,18 +85,16 @@ class _CryptoCalculatorReversedState
   void _createControllers() {
     _textControllerInput = MoneyMaskedTextController(
         precision: 2,
-        decimalSeparator: decimalSeparator,
-        thousandSeparator: thousandSeparator,
+        decimalSeparator: numberFormat.symbols.DECIMAL_SEP,
+        thousandSeparator: numberFormat.symbols.GROUP_SEP,
         leftSymbol: "US\$ ");
     _textControllerCryptoValue =
-        TextEditingController(text: "0.00 $cryptoCode");
+        TextEditingController(text: "0${numberFormat.symbols.DECIMAL_SEP}00 $cryptoCode");
   }
 
   void _setConversion() {
     if (usdValue > 0) {
-      NumberFormat numberFormat = getNumberFormat(context);
-      Decimal input =
-          Decimal.parse(_textControllerInput.numberValue.toString());
+      Decimal input = Decimal.parse(_textControllerInput.numberValue.toString());
       Decimal dUsdValue = Decimal.parse(usdValue.toString());
       Decimal d100 = Decimal.parse("100.00");
       Decimal value = ((input / dUsdValue) * d100).truncate() / d100;

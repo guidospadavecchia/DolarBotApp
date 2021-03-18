@@ -101,7 +101,7 @@ class _VenezuelaInfoScreenState extends BaseInfoScreenState<VenezuelaInfoScreen>
   @override
   String getShareText() {
     Settings settings = Provider.of<Settings>(context, listen: false);
-    NumberFormat numberFormat = settings.getNumberFormat().item1;
+    NumberFormat numberFormat = settings.getNumberFormat();
 
     String shareText = '';
 
@@ -125,25 +125,21 @@ class _VenezuelaInfoScreenState extends BaseInfoScreenState<VenezuelaInfoScreen>
 
   @override
   FabOptionCalculatorDialog getCalculatorWidget() {
-    String _currencyFormat = Provider.of<Settings>(context, listen: false).getCurrencyFormat();
-    String decimalSeparator = _currencyFormat == "es_AR" ? "," : ".";
-    String thousandSeparator = _currencyFormat == "es_AR" ? "." : ",";
+    NumberFormat numberFormat = Provider.of<Settings>(context, listen: false).getNumberFormat();
     return FabOptionCalculatorDialog(
       calculator: VenezuelaCalculator(
         bankValue: double.tryParse(data?.bankPrice),
         blackMarketValue: double.tryParse(data?.blackMarketPrice),
         symbol: Util.getFiatCurrencySymbol(data),
         currencyCode: data?.currencyCode,
-        decimalSeparator: decimalSeparator,
-        thousandSeparator: thousandSeparator,
+        numberFormat: numberFormat,
       ),
       calculatorReversed: VenezuelaCalculatorReversed(
         bankValue: double.tryParse(data?.bankPrice),
         blackMarketValue: double.tryParse(data?.blackMarketPrice),
         symbol: Util.getFiatCurrencySymbol(data),
         currencyCode: data?.currencyCode,
-        decimalSeparator: decimalSeparator,
-        thousandSeparator: thousandSeparator,
+        numberFormat: numberFormat,
       ),
     );
   }

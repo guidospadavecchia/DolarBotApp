@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:tuple/tuple.dart';
 import 'package:intl/intl.dart';
 
 class Settings extends ChangeNotifier {
@@ -13,32 +12,31 @@ class Settings extends ChangeNotifier {
   }
 
   String getCurrencyFormat() {
-    return settings.get('currencyFormat') ?? "es_AR";
+    return settings.get('currencyFormat') ?? CurrencyFormats.AR;
   }
 
-  String getThousandSeparator() {
-    return getDecimalSeparator() == "." ? "," : ".";
-  }
-
-  String getDecimalSeparator() {
-    return (settings.get('currencyFormat') ?? "es_AR") == "es_AR" ? "," : ".";
-  }
-
-  String getCurrencyPattern() {
-    return "#,###,##0.00";
-  }
-
-  Tuple2<NumberFormat, String> getNumberFormat() {
-    final format = new NumberFormat(
-      getCurrencyPattern(),
+  NumberFormat getNumberFormat() {
+    return NumberFormat(
+      "#,###,##0.00",
       getCurrencyFormat(),
     );
-    final decimal = getDecimalSeparator();
-
-    return Tuple2<NumberFormat, String>(format, decimal);
   }
 
   void notifyThemeChange() {
     notifyListeners();
   }
+}
+
+enum CurrencyFormats {
+  AR,
+  US,
+}
+
+extension CurrencyFormatsExtension on CurrencyFormats {
+  static const formats = {
+    CurrencyFormats.AR: 'es_AR',
+    CurrencyFormats.US: 'en_US',
+  };
+
+  String get value => formats[this];
 }

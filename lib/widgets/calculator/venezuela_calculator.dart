@@ -9,8 +9,7 @@ class VenezuelaCalculator extends BaseCalculatorScreen {
   final double blackMarketValue;
   final String symbol;
   final String currencyCode;
-  final String decimalSeparator;
-  final String thousandSeparator;
+  final NumberFormat numberFormat;
 
   VenezuelaCalculator({
     Key key,
@@ -18,13 +17,8 @@ class VenezuelaCalculator extends BaseCalculatorScreen {
     @required this.blackMarketValue,
     @required this.symbol,
     @required this.currencyCode,
-    @required this.decimalSeparator,
-    @required this.thousandSeparator,
-  }) : super(
-            key: key,
-            symbol: symbol,
-            decimalSeparator: decimalSeparator,
-            thousandSeparator: thousandSeparator);
+    @required this.numberFormat,
+  }) : super(key: key, symbol: symbol, numberFormat: numberFormat);
 
   @override
   _VenezuelaCalculatorState createState() => _VenezuelaCalculatorState(
@@ -32,8 +26,7 @@ class VenezuelaCalculator extends BaseCalculatorScreen {
         blackMarketValue,
         symbol,
         currencyCode,
-        decimalSeparator,
-        thousandSeparator,
+        numberFormat,
       );
 }
 
@@ -43,8 +36,7 @@ class _VenezuelaCalculatorState extends BaseCalculatorState<VenezuelaCalculator>
   final double blackMarketValue;
   final String symbol;
   final String currencyCode;
-  final String decimalSeparator;
-  final String thousandSeparator;
+  final NumberFormat numberFormat;
   MoneyMaskedTextController _textControllerInput;
   TextEditingController _textControllerBankValue;
   TextEditingController _textControllerBlackMarketValue;
@@ -54,8 +46,7 @@ class _VenezuelaCalculatorState extends BaseCalculatorState<VenezuelaCalculator>
     this.blackMarketValue,
     this.symbol,
     this.currencyCode,
-    this.decimalSeparator,
-    this.thousandSeparator,
+    this.numberFormat,
   );
 
   @override
@@ -111,24 +102,22 @@ class _VenezuelaCalculatorState extends BaseCalculatorState<VenezuelaCalculator>
     String currencySymbol = currencyCode == 'USD' ? 'US\$' : '€';
     _textControllerInput = MoneyMaskedTextController(
         precision: 2,
-        decimalSeparator: decimalSeparator,
-        thousandSeparator: thousandSeparator,
+        decimalSeparator: numberFormat.symbols.DECIMAL_SEP,
+        thousandSeparator: numberFormat.symbols.GROUP_SEP,
         leftSymbol: "$currencySymbol ");
-    _textControllerBankValue = TextEditingController(text: "$symbol 0.00");
+    _textControllerBankValue =
+        TextEditingController(text: "$symbol 0${numberFormat.symbols.DECIMAL_SEP}00");
     _textControllerBlackMarketValue =
-        TextEditingController(text: "$symbol 0.00");
+        TextEditingController(text: "$symbol 0${numberFormat.symbols.DECIMAL_SEP}00");
   }
 
   void _setConversion() {
-    NumberFormat numberFormat = getNumberFormat(context);
     Decimal input = Decimal.parse(_textControllerInput.numberValue.toString());
     Decimal dBankValue = Decimal.parse(bankValue.toString());
-    String formattedBuyValue =
-        numberFormat.format(DecimalAdapter(input * dBankValue));
+    String formattedBuyValue = numberFormat.format(DecimalAdapter(input * dBankValue));
     _textControllerBankValue.text = "$symbol $formattedBuyValue";
     Decimal dBlackMarketValue = Decimal.parse(blackMarketValue.toString());
-    String formattedSellValue =
-        numberFormat.format(DecimalAdapter(input * dBlackMarketValue));
+    String formattedSellValue = numberFormat.format(DecimalAdapter(input * dBlackMarketValue));
     _textControllerBlackMarketValue.text = "$symbol $formattedSellValue";
   }
 }

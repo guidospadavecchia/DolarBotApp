@@ -4,7 +4,7 @@ import 'package:dolarbot_app/screens/base/base_info_screen.dart';
 import 'package:dolarbot_app/widgets/cards/factory/factory_card.dart';
 import 'package:dolarbot_app/screens/common/error_screen.dart';
 import 'package:dolarbot_app/screens/common/loading_screen.dart';
-import 'package:intl/intl.dart' as intl;
+import 'package:intl/intl.dart';
 
 class MetalInfoScreen extends BaseInfoScreen {
   final String title;
@@ -94,7 +94,7 @@ class _MetalInfoScreenState extends BaseInfoScreenState<MetalInfoScreen> with Ba
   @override
   String getShareText() {
     Settings settings = Provider.of<Settings>(context, listen: false);
-    intl.NumberFormat numberFormat = settings.getNumberFormat().item1;
+    NumberFormat numberFormat = settings.getNumberFormat();
 
     String shareText = '';
 
@@ -103,7 +103,7 @@ class _MetalInfoScreenState extends BaseInfoScreenState<MetalInfoScreen> with Ba
       final symbol = data.currency == 'USD' ? 'US\$' : '\$';
       DateTime date = DateTime.parse(data.timestamp.replaceAll('/', '-'));
       String formattedTime =
-          intl.DateFormat(DateTime.now().isSameDayAs(date) ? 'HH:mm' : 'HH:mm - dd-MM-yyyy')
+          DateFormat(DateTime.now().isSameDayAs(date) ? 'HH:mm' : 'HH:mm - dd-MM-yyyy')
               .format(date);
 
       shareText = '$symbol $value / ${data.unit}\nHora: $formattedTime';
@@ -114,21 +114,17 @@ class _MetalInfoScreenState extends BaseInfoScreenState<MetalInfoScreen> with Ba
 
   @override
   FabOptionCalculatorDialog getCalculatorWidget() {
-    String _currencyFormat = Provider.of<Settings>(context, listen: false).getCurrencyFormat();
-    String decimalSeparator = _currencyFormat == "es_AR" ? "," : ".";
-    String thousandSeparator = _currencyFormat == "es_AR" ? "." : ",";
+    NumberFormat numberFormat = Provider.of<Settings>(context, listen: false).getNumberFormat();
     return FabOptionCalculatorDialog(
       calculator: MetalCalculator(
         usdValue: double.tryParse(data?.value),
         unit: data?.unit,
-        decimalSeparator: decimalSeparator,
-        thousandSeparator: thousandSeparator,
+        numberFormat: numberFormat,
       ),
       calculatorReversed: MetalCalculatorReversed(
         usdValue: double.tryParse(data?.value),
         unit: data?.unit,
-        decimalSeparator: decimalSeparator,
-        thousandSeparator: thousandSeparator,
+        numberFormat: numberFormat,
       ),
     );
   }

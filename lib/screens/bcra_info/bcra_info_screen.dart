@@ -153,8 +153,7 @@ class _BcraInfoScreenState extends BaseInfoScreenState<BcraInfoScreen> with Base
   @override
   String getShareText() {
     Settings settings = Provider.of<Settings>(context, listen: false);
-    final currencyFormat = settings.getCurrencyFormat();
-    final numberFormat = new NumberFormat("#,###,###", currencyFormat);
+    final numberFormat = settings.getNumberFormat();
 
     if (data != null) {
       String value;
@@ -163,6 +162,7 @@ class _BcraInfoScreenState extends BaseInfoScreenState<BcraInfoScreen> with Base
           DateFormat(DateTime.now().isSameDayAs(date) ? 'HH:mm' : 'HH:mm - dd-MM-yyyy')
               .format(date);
       if (data is CountryRiskResponse) {
+        numberFormat.maximumFractionDigits = 0;
         value = data.value;
         value = value.split('.')[0].toString().isNumeric()
             ? numberFormat.format(int.parse(data.value.split('.')[0]))

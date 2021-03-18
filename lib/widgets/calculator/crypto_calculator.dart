@@ -9,8 +9,7 @@ class CryptoCalculator extends BaseCalculatorScreen {
   final double arsValueWithTaxes;
   final double usdValue;
   final String cryptoCode;
-  final String decimalSeparator;
-  final String thousandSeparator;
+  final NumberFormat numberFormat;
 
   CryptoCalculator({
     Key key,
@@ -18,13 +17,12 @@ class CryptoCalculator extends BaseCalculatorScreen {
     @required this.arsValueWithTaxes,
     @required this.usdValue,
     @required this.cryptoCode,
-    @required this.decimalSeparator,
-    @required this.thousandSeparator,
+    @required this.numberFormat,
   }) : super(
-            key: key,
-            symbol: cryptoCode,
-            decimalSeparator: decimalSeparator,
-            thousandSeparator: thousandSeparator);
+          key: key,
+          symbol: cryptoCode,
+          numberFormat: numberFormat,
+        );
 
   @override
   _CryptoCalculatorState createState() => _CryptoCalculatorState(
@@ -32,19 +30,16 @@ class CryptoCalculator extends BaseCalculatorScreen {
         arsValueWithTaxes,
         usdValue,
         cryptoCode,
-        decimalSeparator,
-        thousandSeparator,
+        numberFormat,
       );
 }
 
-class _CryptoCalculatorState extends BaseCalculatorState<CryptoCalculator>
-    with BaseCalculator {
+class _CryptoCalculatorState extends BaseCalculatorState<CryptoCalculator> with BaseCalculator {
   final double arsValue;
   final double arsValueWithTaxes;
   final double usdValue;
   final String cryptoCode;
-  final String decimalSeparator;
-  final String thousandSeparator;
+  final NumberFormat numberFormat;
   MoneyMaskedTextController _textControllerInput;
   TextEditingController _textControllerArsValue;
   TextEditingController _textControllerArsValueWithTaxes;
@@ -55,8 +50,7 @@ class _CryptoCalculatorState extends BaseCalculatorState<CryptoCalculator>
     this.arsValueWithTaxes,
     this.usdValue,
     this.cryptoCode,
-    this.decimalSeparator,
-    this.thousandSeparator,
+    this.numberFormat,
   );
 
   @override
@@ -122,16 +116,18 @@ class _CryptoCalculatorState extends BaseCalculatorState<CryptoCalculator>
   void _createControllers() {
     _textControllerInput = MoneyMaskedTextController(
         precision: 2,
-        decimalSeparator: decimalSeparator,
-        thousandSeparator: thousandSeparator,
+        decimalSeparator: numberFormat.symbols.DECIMAL_SEP,
+        thousandSeparator: numberFormat.symbols.GROUP_SEP,
         rightSymbol: " $cryptoCode");
-    _textControllerArsValue = TextEditingController(text: "\$ 0.00");
-    _textControllerArsValueWithTaxes = TextEditingController(text: "\$ 0.00");
-    _textControllerUsdValue = TextEditingController(text: "US\$ 0.00");
+    _textControllerArsValue =
+        TextEditingController(text: "\$ 0${numberFormat.symbols.DECIMAL_SEP}00");
+    _textControllerArsValueWithTaxes =
+        TextEditingController(text: "\$ 0${numberFormat.symbols.DECIMAL_SEP}00");
+    _textControllerUsdValue =
+        TextEditingController(text: "US\$ 0${numberFormat.symbols.DECIMAL_SEP}00");
   }
 
   void _setConversion() {
-    NumberFormat numberFormat = getNumberFormat(context);
     Decimal input = Decimal.parse(_textControllerInput.numberValue.toString());
     Decimal dArsValue = Decimal.parse(arsValue.toString());
     Decimal dArsValueWithTaxes = Decimal.parse(arsValueWithTaxes.toString());

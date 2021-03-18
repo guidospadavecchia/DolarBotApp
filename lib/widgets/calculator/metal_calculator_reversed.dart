@@ -7,44 +7,39 @@ import 'package:intl/intl.dart';
 class MetalCalculatorReversed extends BaseCalculatorScreen {
   final double usdValue;
   final String unit;
-  final String decimalSeparator;
-  final String thousandSeparator;
+  final NumberFormat numberFormat;
 
   MetalCalculatorReversed({
     Key key,
     @required this.usdValue,
     @required this.unit,
-    @required this.decimalSeparator,
-    @required this.thousandSeparator,
+    @required this.numberFormat,
   }) : super(
-            key: key,
-            symbol: unit,
-            decimalSeparator: decimalSeparator,
-            thousandSeparator: thousandSeparator);
+          key: key,
+          symbol: unit,
+          numberFormat: numberFormat,
+        );
 
   @override
   _MetalCalculatorReversedState createState() => _MetalCalculatorReversedState(
         usdValue,
         unit,
-        decimalSeparator,
-        thousandSeparator,
+        numberFormat,
       );
 }
 
-class _MetalCalculatorReversedState
-    extends BaseCalculatorState<MetalCalculatorReversed> with BaseCalculator {
+class _MetalCalculatorReversedState extends BaseCalculatorState<MetalCalculatorReversed>
+    with BaseCalculator {
   final double usdValue;
   final String unit;
-  final String decimalSeparator;
-  final String thousandSeparator;
+  final NumberFormat numberFormat;
   MoneyMaskedTextController _textControllerInput;
   TextEditingController _textControllerValue;
 
   _MetalCalculatorReversedState(
     this.usdValue,
     this.unit,
-    this.decimalSeparator,
-    this.thousandSeparator,
+    this.numberFormat,
   );
 
   @override
@@ -93,15 +88,15 @@ class _MetalCalculatorReversedState
     String pluralUnit = "${unit.toLowerCase()}s";
     _textControllerInput = MoneyMaskedTextController(
       precision: 2,
-      decimalSeparator: decimalSeparator,
-      thousandSeparator: thousandSeparator,
+      decimalSeparator: numberFormat.symbols.DECIMAL_SEP,
+      thousandSeparator: numberFormat.symbols.GROUP_SEP,
       rightSymbol: " $pluralUnit",
     );
-    _textControllerValue = TextEditingController(text: "US\$ 0.00");
+    _textControllerValue =
+        TextEditingController(text: "US\$ 0${numberFormat.symbols.DECIMAL_SEP}00");
   }
 
   void _setConversion() {
-    NumberFormat numberFormat = getNumberFormat(context);
     Decimal input = Decimal.parse(_textControllerInput.numberValue.toString());
     Decimal dUsdValue = Decimal.parse(usdValue.toString());
     String formattedUsdValue = numberFormat.format(

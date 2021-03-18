@@ -17,7 +17,7 @@ class CryptoCard extends BaseCard {
   final bool showPoweredBy;
   final bool showShareButton;
   final String endpoint;
-  final Tuple2<NumberFormat, String> numberFormat;
+  final NumberFormat numberFormat;
 
   const CryptoCard({
     Key key,

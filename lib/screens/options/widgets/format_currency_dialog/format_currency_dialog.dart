@@ -20,8 +20,7 @@ class _FormatCurrencyDialogState extends State<FormatCurrencyDialog> {
 
   @override
   Widget build(BuildContext context) {
-    _currencyFormat =
-        Provider.of<Settings>(context, listen: false).getCurrencyFormat();
+    _currencyFormat = Provider.of<Settings>(context, listen: false).getCurrencyFormat();
 
     if (_actualCurrencyFormat == null) {
       _actualCurrencyFormat = _currencyFormat;
@@ -40,8 +39,7 @@ class _FormatCurrencyDialogState extends State<FormatCurrencyDialog> {
             children: [
               Padding(
                 padding: EdgeInsets.only(left: 25, right: 7),
-                child: Text(
-                    "Elegí el formato de moneda que\naparecerá en todas las cotizaciones."),
+                child: Text("Elegí el formato de moneda que\naparecerá en todas las cotizaciones."),
               ),
               SizedBox(
                 height: 10,
@@ -55,7 +53,7 @@ class _FormatCurrencyDialogState extends State<FormatCurrencyDialog> {
                   ),
                 ),
                 subtitle: Text('Ejemplo: \$1.234,56'),
-                value: "es_AR",
+                value: CurrencyFormats.AR.value,
                 groupValue: _actualCurrencyFormat,
                 activeColor: ThemeManager.getPrimaryAccentColor(context),
                 onChanged: (value) {
@@ -73,7 +71,7 @@ class _FormatCurrencyDialogState extends State<FormatCurrencyDialog> {
                   ),
                 ),
                 subtitle: Text('Ejemplo: \$1,234.56'),
-                value: "en_US",
+                value: CurrencyFormats.US.value,
                 groupValue: _actualCurrencyFormat,
                 activeColor: ThemeManager.getPrimaryAccentColor(context),
                 onChanged: (value) {

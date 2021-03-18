@@ -8,42 +8,36 @@ class FiatCurrencyCalculatorReversed extends BaseCalculatorScreen {
   final double sellValue;
   final double sellValueWithTaxes;
   final String symbol;
-  final String decimalSeparator;
-  final String thousandSeparator;
+  final NumberFormat numberFormat;
 
   FiatCurrencyCalculatorReversed({
     Key key,
     this.sellValue,
     this.sellValueWithTaxes,
     @required this.symbol,
-    @required this.decimalSeparator,
-    @required this.thousandSeparator,
+    @required this.numberFormat,
   })  : assert((sellValue != null) ^ (sellValueWithTaxes != null)),
         super(
-            key: key,
-            symbol: symbol,
-            decimalSeparator: decimalSeparator,
-            thousandSeparator: thousandSeparator);
+          key: key,
+          symbol: symbol,
+          numberFormat: numberFormat,
+        );
 
   @override
-  _FiatCurrencyCalculatorReversedState createState() =>
-      _FiatCurrencyCalculatorReversedState(
+  _FiatCurrencyCalculatorReversedState createState() => _FiatCurrencyCalculatorReversedState(
         sellValue,
         sellValueWithTaxes,
         symbol,
-        decimalSeparator,
-        thousandSeparator,
+        numberFormat,
       );
 }
 
 class _FiatCurrencyCalculatorReversedState
-    extends BaseCalculatorState<FiatCurrencyCalculatorReversed>
-    with BaseCalculator {
+    extends BaseCalculatorState<FiatCurrencyCalculatorReversed> with BaseCalculator {
   final double sellValue;
   final double sellValueWithTaxes;
   final String symbol;
-  final String decimalSeparator;
-  final String thousandSeparator;
+  final NumberFormat numberFormat;
   MoneyMaskedTextController _textControllerInput;
   TextEditingController _textControllerSellValue;
   TextEditingController _textControllerSellValueWithTaxes;
@@ -52,8 +46,7 @@ class _FiatCurrencyCalculatorReversedState
     this.sellValue,
     this.sellValueWithTaxes,
     this.symbol,
-    this.decimalSeparator,
-    this.thousandSeparator,
+    this.numberFormat,
   );
 
   @override
@@ -106,20 +99,20 @@ class _FiatCurrencyCalculatorReversedState
   void _createControllers() {
     _textControllerInput = MoneyMaskedTextController(
         precision: 2,
-        decimalSeparator: decimalSeparator,
-        thousandSeparator: thousandSeparator,
+        decimalSeparator: numberFormat.symbols.DECIMAL_SEP,
+        thousandSeparator: numberFormat.symbols.GROUP_SEP,
         leftSymbol: "\$ ");
     if (sellValue != null) {
-      _textControllerSellValue = TextEditingController(text: "US\$ 0.00");
+      _textControllerSellValue =
+          TextEditingController(text: "US\$ 0${numberFormat.symbols.DECIMAL_SEP}00");
     }
     if (sellValueWithTaxes != null) {
       _textControllerSellValueWithTaxes =
-          TextEditingController(text: "US\$ 0.00");
+          TextEditingController(text: "US\$ 0${numberFormat.symbols.DECIMAL_SEP}00");
     }
   }
 
   void _setConversion() {
-    NumberFormat numberFormat = getNumberFormat(context);
     Decimal input = Decimal.parse(_textControllerInput.numberValue.toString());
     Decimal d100 = Decimal.parse("100.00");
     if (sellValue != null && sellValue > 0) {
@@ -129,13 +122,10 @@ class _FiatCurrencyCalculatorReversedState
       _textControllerSellValue.text = "$symbol $formattedSellValue";
     }
     if (sellValueWithTaxes != null && sellValueWithTaxes > 0) {
-      Decimal dSellValueWithTaxes =
-          Decimal.parse(sellValueWithTaxes.toString());
+      Decimal dSellValueWithTaxes = Decimal.parse(sellValueWithTaxes.toString());
       Decimal value = ((input / dSellValueWithTaxes) * d100).truncate() / d100;
-      String formattedSellValueWithTaxes =
-          numberFormat.format(DecimalAdapter(value));
-      _textControllerSellValueWithTaxes.text =
-          "$symbol $formattedSellValueWithTaxes";
+      String formattedSellValueWithTaxes = numberFormat.format(DecimalAdapter(value));
+      _textControllerSellValueWithTaxes.text = "$symbol $formattedSellValueWithTaxes";
     }
   }
 }

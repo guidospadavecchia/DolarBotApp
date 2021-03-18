@@ -3,7 +3,6 @@ import 'package:dolarbot_app/screens/base/base_info_screen.dart';
 import 'package:dolarbot_app/widgets/cards/card_favorite.dart';
 import 'package:dolarbot_app/widgets/cards/templates/base/base_card.dart';
 import 'package:flutter/material.dart';
-import 'package:tuple/tuple.dart';
 import 'package:intl/intl.dart';
 
 export 'package:dolarbot_app/api/responses/base/generic_currency_response.dart';
@@ -20,7 +19,7 @@ class FiatCurrencyCard extends BaseCard {
   final bool showPoweredBy;
   final bool showShareButton;
   final String endpoint;
-  final Tuple2<NumberFormat, String> numberFormat;
+  final NumberFormat numberFormat;
 
   const FiatCurrencyCard(
       {Key key,

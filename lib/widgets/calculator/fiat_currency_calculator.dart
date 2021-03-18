@@ -9,8 +9,7 @@ class FiatCurrencyCalculator extends BaseCalculatorScreen {
   final double sellValue;
   final double sellValueWithTaxes;
   final String symbol;
-  final String decimalSeparator;
-  final String thousandSeparator;
+  final NumberFormat numberFormat;
 
   FiatCurrencyCalculator({
     Key key,
@@ -18,16 +17,13 @@ class FiatCurrencyCalculator extends BaseCalculatorScreen {
     this.sellValue,
     this.sellValueWithTaxes,
     @required this.symbol,
-    @required this.decimalSeparator,
-    @required this.thousandSeparator,
-  })  : assert(buyValue != null ||
-            sellValue != null ||
-            sellValueWithTaxes != null),
+    @required this.numberFormat,
+  })  : assert(buyValue != null || sellValue != null || sellValueWithTaxes != null),
         super(
-            key: key,
-            symbol: symbol,
-            decimalSeparator: decimalSeparator,
-            thousandSeparator: thousandSeparator);
+          key: key,
+          symbol: symbol,
+          numberFormat: numberFormat,
+        );
 
   @override
   _FiatCurrencyCalculatorState createState() => _FiatCurrencyCalculatorState(
@@ -35,19 +31,17 @@ class FiatCurrencyCalculator extends BaseCalculatorScreen {
         sellValue,
         sellValueWithTaxes,
         symbol,
-        decimalSeparator,
-        thousandSeparator,
+        numberFormat,
       );
 }
 
-class _FiatCurrencyCalculatorState
-    extends BaseCalculatorState<FiatCurrencyCalculator> with BaseCalculator {
+class _FiatCurrencyCalculatorState extends BaseCalculatorState<FiatCurrencyCalculator>
+    with BaseCalculator {
   final double buyValue;
   final double sellValue;
   final double sellValueWithTaxes;
   final String symbol;
-  final String decimalSeparator;
-  final String thousandSeparator;
+  final NumberFormat numberFormat;
   MoneyMaskedTextController _textControllerInput;
   TextEditingController _textControllerBuyValue;
   TextEditingController _textControllerSellValue;
@@ -58,8 +52,7 @@ class _FiatCurrencyCalculatorState
     this.sellValue,
     this.sellValueWithTaxes,
     this.symbol,
-    this.decimalSeparator,
-    this.thousandSeparator,
+    this.numberFormat,
   );
 
   @override
@@ -145,44 +138,41 @@ class _FiatCurrencyCalculatorState
   void _createControllers() {
     _textControllerInput = MoneyMaskedTextController(
         precision: 2,
-        decimalSeparator: decimalSeparator,
-        thousandSeparator: thousandSeparator,
+        decimalSeparator: numberFormat.symbols.DECIMAL_SEP,
+        thousandSeparator: numberFormat.symbols.GROUP_SEP,
         leftSymbol: "$symbol ");
     if (buyValue != null) {
-      _textControllerBuyValue = TextEditingController(text: "\$ 0.00");
+      _textControllerBuyValue =
+          TextEditingController(text: "\$ 0${numberFormat.symbols.DECIMAL_SEP}00");
     }
     if (sellValue != null) {
-      _textControllerSellValue = TextEditingController(text: "\$ 0.00");
+      _textControllerSellValue =
+          TextEditingController(text: "\$ 0${numberFormat.symbols.DECIMAL_SEP}00");
     }
     if (sellValueWithTaxes != null) {
       _textControllerSellValueWithTaxes =
-          TextEditingController(text: "\$ 0.00");
+          TextEditingController(text: "\$ 0${numberFormat.symbols.DECIMAL_SEP}00");
     }
   }
 
   void _setConversion() {
-    NumberFormat numberFormat = getNumberFormat(context);
     Decimal input = Decimal.parse(_textControllerInput.numberValue.toString());
     if (buyValue != null) {
       Decimal dBuyValue = Decimal.parse(buyValue.toString());
-      String formattedBuyValue =
-          numberFormat.format(DecimalAdapter(input * dBuyValue));
+      String formattedBuyValue = numberFormat.format(DecimalAdapter(input * dBuyValue));
       _textControllerBuyValue.text = "\$ $formattedBuyValue";
     }
     if (sellValue != null) {
       Decimal dSellValue = Decimal.parse(sellValue.toString());
-      String formattedSellValue =
-          numberFormat.format(DecimalAdapter(input * dSellValue));
+      String formattedSellValue = numberFormat.format(DecimalAdapter(input * dSellValue));
       _textControllerSellValue.text = "\$ $formattedSellValue";
     }
     if (sellValueWithTaxes != null) {
-      Decimal dSellValueWithTaxes =
-          Decimal.parse(sellValueWithTaxes.toString());
+      Decimal dSellValueWithTaxes = Decimal.parse(sellValueWithTaxes.toString());
       String formattedSellValueWithTaxes = numberFormat.format(
         DecimalAdapter(input * dSellValueWithTaxes),
       );
-      _textControllerSellValueWithTaxes.text =
-          "\$ $formattedSellValueWithTaxes";
+      _textControllerSellValueWithTaxes.text = "\$ $formattedSellValueWithTaxes";
     }
   }
 }

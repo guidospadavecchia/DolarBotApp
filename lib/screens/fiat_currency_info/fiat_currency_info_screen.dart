@@ -128,7 +128,7 @@ class _FiatCurrencyInfoScreenState<T extends GenericCurrencyResponse>
   @override
   String getShareText() {
     Settings settings = Provider.of<Settings>(context, listen: false);
-    NumberFormat numberFormat = settings.getNumberFormat().item1;
+    NumberFormat numberFormat = settings.getNumberFormat();
 
     String shareText = '';
     if (data != null) {
@@ -157,24 +157,20 @@ class _FiatCurrencyInfoScreenState<T extends GenericCurrencyResponse>
 
   @override
   FabOptionCalculatorDialog getCalculatorWidget() {
-    String _currencyFormat = Provider.of<Settings>(context, listen: false).getCurrencyFormat();
-    String decimalSeparator = _currencyFormat == "es_AR" ? "," : ".";
-    String thousandSeparator = _currencyFormat == "es_AR" ? "." : ",";
+    NumberFormat numberFormat = Provider.of<Settings>(context, listen: false).getNumberFormat();
     return FabOptionCalculatorDialog(
       calculator: FiatCurrencyCalculator(
         buyValue: double.tryParse(data?.buyPrice ?? ''),
         sellValue: double.tryParse(data?.sellPrice ?? ''),
         sellValueWithTaxes: double.tryParse(data?.sellPriceWithTaxes ?? ''),
         symbol: Util.getFiatCurrencySymbol(data),
-        decimalSeparator: decimalSeparator,
-        thousandSeparator: thousandSeparator,
+        numberFormat: numberFormat,
       ),
       calculatorReversed: FiatCurrencyCalculatorReversed(
         sellValue: data?.sellPriceWithTaxes == null ? double.tryParse(data?.sellPrice ?? '') : null,
         sellValueWithTaxes: double.tryParse(data?.sellPriceWithTaxes ?? ''),
         symbol: Util.getFiatCurrencySymbol(data),
-        decimalSeparator: decimalSeparator,
-        thousandSeparator: thousandSeparator,
+        numberFormat: numberFormat,
       ),
     );
   }

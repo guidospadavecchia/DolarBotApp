@@ -105,7 +105,7 @@ class _CryptoInfoScreenState extends BaseInfoScreenState<CryptoInfoScreen> with 
   @override
   String getShareText() {
     Settings settings = Provider.of<Settings>(context, listen: false);
-    NumberFormat numberFormat = settings.getNumberFormat().item1;
+    NumberFormat numberFormat = settings.getNumberFormat();
 
     String shareText = '';
 
@@ -131,23 +131,19 @@ class _CryptoInfoScreenState extends BaseInfoScreenState<CryptoInfoScreen> with 
 
   @override
   FabOptionCalculatorDialog getCalculatorWidget() {
-    String _currencyFormat = Provider.of<Settings>(context, listen: false).getCurrencyFormat();
-    String decimalSeparator = _currencyFormat == "es_AR" ? "," : ".";
-    String thousandSeparator = _currencyFormat == "es_AR" ? "." : ",";
+    NumberFormat numberFormat = Provider.of<Settings>(context, listen: false).getNumberFormat();
     return FabOptionCalculatorDialog(
       calculator: CryptoCalculator(
         arsValue: double.tryParse(data?.arsPrice),
         arsValueWithTaxes: double.tryParse(data?.arsPriceWithTaxes),
         usdValue: double.tryParse(data?.usdPrice),
         cryptoCode: data.code,
-        decimalSeparator: decimalSeparator,
-        thousandSeparator: thousandSeparator,
+        numberFormat: numberFormat,
       ),
       calculatorReversed: CryptoCalculatorReversed(
         usdValue: double.tryParse(data?.usdPrice ?? ''),
         cryptoCode: data.code,
-        decimalSeparator: decimalSeparator,
-        thousandSeparator: thousandSeparator,
+        numberFormat: numberFormat,
       ),
     );
   }

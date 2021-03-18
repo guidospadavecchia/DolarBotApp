@@ -3,12 +3,10 @@ import 'package:dolarbot_app/screens/base/base_info_screen.dart';
 import 'package:dolarbot_app/util/util.dart';
 import 'package:dolarbot_app/widgets/cards/factory/factory_card.dart';
 import 'package:flutter/material.dart';
-import 'package:tuple/tuple.dart';
 import 'package:intl/intl.dart';
 
 export 'package:dolarbot_app/screens/home/home_screen.dart';
 export 'package:intl/intl.dart';
-export 'package:tuple/tuple.dart';
 
 abstract class BaseCard extends StatefulWidget {
   final String title;
@@ -22,7 +20,7 @@ abstract class BaseCard extends StatefulWidget {
   final bool showPoweredBy;
   final bool showShareButton;
   final String endpoint;
-  final Tuple2<NumberFormat, String> numberFormat;
+  final NumberFormat numberFormat;
 
   const BaseCard({
     Key key,
