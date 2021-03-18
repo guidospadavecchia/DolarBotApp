@@ -14,4 +14,9 @@
         ]
     },
     "discordUrl": ""
+    "share": {
+        "subject": "",
+        "message": "",
+        "poweredBy": ""
+  }
 }
