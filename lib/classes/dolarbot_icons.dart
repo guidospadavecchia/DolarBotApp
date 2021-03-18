@@ -7,6 +7,7 @@ class DolarBotIcons {
 class DolarBotIconsGeneral {
   final String venezuela = "assets/images/general/venezuela.png";
   final String real = "assets/images/general/real.png";
+  final String crypto = "assets/images/general/crypto.png";
 }
 
 class DolarBotIconsMetals {

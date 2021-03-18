@@ -1,6 +1,7 @@
 import 'package:crypto_font_icons/crypto_font_icons.dart';
 import 'package:dolarbot_app/api/api_endpoints.dart';
 import 'package:dolarbot_app/api/responses/base/api_response.dart';
+import 'package:dolarbot_app/classes/dolarbot_icons.dart';
 import 'package:dolarbot_app/util/constants.dart';
 import 'package:dolarbot_app/widgets/drawer/drawer_menu_body.dart';
 import 'package:dolarbot_app/screens/crypto_info/crypto_info_screen.dart';
@@ -16,7 +17,7 @@ class RootMenuCrypto extends StatelessWidget {
 
     return MenuItem(
       text: "Crypto",
-      leading: getIconData(context, CryptoFontIcons.TRIG),
+      leading: getIconAsset(context, DolarBotIcons.general.crypto),
       depthLevel: 1,
       subItems: [
         MenuItem(

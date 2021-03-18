@@ -19,8 +19,7 @@ class DrawerMenuBody extends StatelessWidget {
           children: [
             RootMenuHome(),
             RootMenuDollar(),
-            RootMenuEuro(),
-            RootMenuReal(),
+            RootMenuBanks(),
             RootMenuCrypto(),
             RootMenuMetals(),
             RootMenuBCRA(),
