@@ -73,8 +73,8 @@ class DolarBotConstants {
   ];
 
   static const List<Color> kGradiantBitcoin = [
-    Color.fromRGBO(199, 118, 21, 1),
-    Color.fromRGBO(140, 80, 0, 1),
+    Color.fromRGBO(239, 142, 25, 1),
+    Color.fromRGBO(173, 81, 0, 1),
   ];
   static const List<Color> kGradiantBitcoinCash = [
     Color.fromRGBO(75, 201, 70, 1),
@@ -94,7 +94,7 @@ class DolarBotConstants {
   ];
   static const List<Color> kGradiantMonero = [
     Color.fromRGBO(255, 102, 0, 1),
-    Color.fromRGBO(99, 72, 48, 1),
+    Color.fromRGBO(153, 61, 0, 1),
   ];
   static const List<Color> kGradiantRipple = [
     Color.fromRGBO(0, 165, 223, 1),
