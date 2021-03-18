@@ -47,8 +47,6 @@ class _CardLastUpdatedState extends State<CardLastUpdated> with WidgetsBindingOb
   @override
   Widget build(BuildContext context) {
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Expanded(
           child: FittedBox(
