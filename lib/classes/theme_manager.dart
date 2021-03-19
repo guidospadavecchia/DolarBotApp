@@ -93,6 +93,34 @@ class ThemeManager {
         : Colors.grey[700];
   }
 
+  static ThemeData getTooltipTheme(BuildContext context) {
+    return Theme.of(context).copyWith(
+      tooltipTheme: AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
+          ? _getTooltipThemeLight()
+          : _getTooltipThemeDark(),
+    );
+  }
+
+  static TooltipThemeData _getTooltipThemeLight() {
+    return TooltipThemeData(
+      textStyle: TextStyle(fontFamily: 'Raleway', color: Colors.black87),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(3)),
+        color: Colors.grey[200].withOpacity(0.9),
+      ),
+    );
+  }
+
+  static TooltipThemeData _getTooltipThemeDark() {
+    return TooltipThemeData(
+      textStyle: TextStyle(fontFamily: 'Raleway', color: Colors.white70),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(3)),
+        color: Colors.grey[800].withOpacity(0.9),
+      ),
+    );
+  }
+
   static ThemeData getThemeForDrawerMenu(BuildContext context, {bool disableHighlight = false}) {
     return Theme.of(context).copyWith(
       accentColor: ThemeManager.getDrawerMenuItemIconColor(context),
@@ -120,6 +148,7 @@ class ThemeManager {
             color: Colors.grey[700],
           ),
         ),
+        tooltipTheme: _getTooltipThemeLight(),
         textTheme: TextTheme(
           bodyText1: TextStyle(
             color: Colors.grey[800],
@@ -154,6 +183,7 @@ class ThemeManager {
             color: Colors.grey[300],
           ),
         ),
+        tooltipTheme: _getTooltipThemeDark(),
         textTheme: TextTheme(
           bodyText1: TextStyle(
             color: Colors.grey[200],
