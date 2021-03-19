@@ -11,6 +11,7 @@ import 'package:dolarbot_app/util/util.dart';
 import 'package:dolarbot_app/widgets/cards/card_favorite.dart';
 import 'package:dolarbot_app/widgets/cards/factory/factory_card.dart';
 import 'package:dolarbot_app/screens/common/loading_screen.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:hive/hive.dart';
@@ -37,6 +38,7 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
   bool _cardsLoaded = false;
   bool _hasErrorsAll = false;
   bool _animateEmptyFavorites = false;
+  bool _hideIconTrashCard = false;
   DateTime lastBackPressTimestamp;
 
   @override
@@ -161,9 +163,15 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
                           },
                           child: _cards[i],
                           direction: settings.getCardGestureDismiss(),
-                          background:
-                              _DismissFavoriteButton(direction: settings.getCardGestureDismiss()),
+                          background: _DismissFavoriteButton(
+                              direction: DismissDirection.startToEnd, hideIcon: _hideIconTrashCard),
+                          secondaryBackground: _DismissFavoriteButton(
+                              direction: DismissDirection.endToStart, hideIcon: _hideIconTrashCard),
                           key: ValueKey(_cards[i]),
+                          confirmDismiss: (direction) => Future.delayed(Duration.zero, () {
+                            setState(() => _hideIconTrashCard = true);
+                            return true;
+                          }),
                           onDismissed: (direction) {
                             _onDismissCard(i);
                           },
@@ -202,10 +210,8 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
                   (_) => setState(() => _buildCards()),
                 ))
             .then(
-          (_) {
-            if (_cards.length > 0) showSnackBar('¡Cotizaciones actualizadas!');
-          },
-        );
+              (_) => showSnackBar('¡Cotizaciones actualizadas!'),
+            );
       });
     });
   }
@@ -239,6 +245,7 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
       () => setState(() {
         _animateEmptyFavorites = _favoriteRates.isEmpty;
         showRefreshButton = _favoriteRates.isNotEmpty;
+        _hideIconTrashCard = false;
       }),
     );
   }
@@ -291,55 +298,51 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
 
 class _DismissFavoriteButton extends StatelessWidget {
   final DismissDirection direction;
+  final bool hideIcon;
 
   const _DismissFavoriteButton({
     Key key,
     @required this.direction,
+    this.hideIcon = false,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     _buildRemoveButton() {
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Icon(
-            Icons.delete,
-            size: 32,
-            color: Colors.white,
-          ),
-          Text(
-            "Quitar",
-            style: TextStyle(
-              fontFamily: "Roboto",
+      return Offstage(
+        offstage: hideIcon,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.delete,
+              size: 32,
               color: Colors.white,
-              fontWeight: FontWeight.w600,
             ),
-          ),
-        ],
+            Text(
+              "Quitar",
+              style: TextStyle(
+                fontFamily: "Roboto",
+                color: Colors.white,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ],
+        ),
       );
     }
 
     return Container(
       margin: EdgeInsets.only(top: 20, bottom: 20),
-      alignment: Alignment.centerRight,
+      alignment:
+          direction == DismissDirection.endToStart ? Alignment.centerRight : Alignment.centerLeft,
       padding: EdgeInsets.only(left: 40, right: 40),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         color: Colors.red[800],
       ),
-      child: Row(
-        mainAxisAlignment: direction == DismissDirection.endToStart
-            ? MainAxisAlignment.end
-            : direction == DismissDirection.startToEnd
-                ? MainAxisAlignment.start
-                : MainAxisAlignment.spaceBetween,
-        children: [
-          if (direction == DismissDirection.horizontal) _buildRemoveButton(),
-          _buildRemoveButton(),
-        ],
-      ),
+      child: _buildRemoveButton(),
     );
   }
 }

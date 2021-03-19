@@ -213,7 +213,6 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> imple
       SnackBar(
         backgroundColor: ThemeManager.getSnackBarColor(context),
         duration: duration ?? Duration(seconds: 2),
-        behavior: SnackBarBehavior.floating,
         content: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
