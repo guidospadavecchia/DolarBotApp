@@ -11,7 +11,6 @@ import 'package:dolarbot_app/util/util.dart';
 import 'package:dolarbot_app/widgets/cards/card_favorite.dart';
 import 'package:dolarbot_app/widgets/cards/factory/factory_card.dart';
 import 'package:dolarbot_app/screens/common/loading_screen.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:hive/hive.dart';
