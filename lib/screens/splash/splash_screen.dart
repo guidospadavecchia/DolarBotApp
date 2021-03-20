@@ -4,11 +4,20 @@ import 'package:flutter/material.dart';
 import 'package:package_info/package_info.dart';
 import 'package:show_up_animation/show_up_animation.dart';
 
-class SplashScreen extends StatelessWidget {
+class SplashScreen extends StatefulWidget {
+  @override
+  _SplashScreenState createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    super.initState();
+    _waitAndGoHome(context, Duration(milliseconds: 4000));
+  }
+
   @override
   Widget build(BuildContext context) {
-    _waitAndGoHome(context, Duration(milliseconds: 4000));
-
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
@@ -85,29 +94,30 @@ class SplashScreen extends StatelessWidget {
       ),
     );
   }
-}
 
-_waitAndGoHome(BuildContext context, Duration waitToHome) {
-  return Future.delayed(
-    waitToHome,
-    () async {
-      Globals.packageInfo = await PackageInfo.fromPlatform();
-      //TODO: Looking up a deactivated widget's ancestor is unsafe
-      await Navigator.pushReplacement(
-        context,
-        PageRouteBuilder(
-          pageBuilder: (context, animation1, animation2) => HomeScreen(
-            key: GlobalKey<HomeScreenState>(),
-          ),
-          transitionDuration: Duration(milliseconds: 300),
-          transitionsBuilder: (context, animation1, animation2, child) => FadeTransition(
-            opacity: animation1,
-            child: child,
-          ),
-        ),
-      );
-    },
-  );
+  void _waitAndGoHome(BuildContext context, Duration waitToHome) {
+    return WidgetsBinding.instance.addPostFrameCallback(
+      (_) => Future.delayed(
+        waitToHome,
+        () async {
+          Globals.packageInfo = await PackageInfo.fromPlatform();
+          await Navigator.pushReplacement(
+            context,
+            PageRouteBuilder(
+              pageBuilder: (context, animation1, animation2) => HomeScreen(
+                key: GlobalKey<HomeScreenState>(),
+              ),
+              transitionDuration: Duration(milliseconds: 300),
+              transitionsBuilder: (context, animation1, animation2, child) => FadeTransition(
+                opacity: animation1,
+                child: child,
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
 }
 
 class Footer extends StatelessWidget {
