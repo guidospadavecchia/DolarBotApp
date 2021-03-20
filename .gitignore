@@ -41,3 +41,4 @@ app.*.symbols
 app.*.map.json
 assets/cfg/app_settings.json
 android/app/key/key.jks
+.vscode/settings.json
