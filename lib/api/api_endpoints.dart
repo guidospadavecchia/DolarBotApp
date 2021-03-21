@@ -50,6 +50,16 @@ enum CryptoEndpoints {
   litecoin,
   ripple,
   dash,
+  binance,
+  cardano,
+  tether,
+  dogecoin,
+  polkadot,
+  chainlink,
+  dai,
+  stellar,
+  uniswap,
+  theta
 }
 
 enum VenezuelaEndpoints {
@@ -142,6 +152,16 @@ extension CryptoEndpointsExtension on CryptoEndpoints {
     CryptoEndpoints.litecoin: '/api/crypto/litecoin',
     CryptoEndpoints.ripple: '/api/crypto/ripple',
     CryptoEndpoints.dash: '/api/crypto/dash',
+    CryptoEndpoints.binance: '/api/crypto/binancecoin',
+    CryptoEndpoints.cardano: '/api/crypto/cardano',
+    CryptoEndpoints.tether: '/api/crypto/tether',
+    CryptoEndpoints.dogecoin: '/api/crypto/dogecoin',
+    CryptoEndpoints.polkadot: '/api/crypto/polkadot',
+    CryptoEndpoints.chainlink: '/api/crypto/chainlink',
+    CryptoEndpoints.dai: '/api/crypto/dai',
+    CryptoEndpoints.stellar: '/api/crypto/stellar',
+    CryptoEndpoints.uniswap: '/api/crypto/uniswap',
+    CryptoEndpoints.theta: '/api/crypto/theta-token',
   };
 
   String get value => endpoints[this];

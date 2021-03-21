@@ -71,7 +71,6 @@ class DolarBotConstants {
     Color.fromRGBO(240, 46, 46, 1),
     Color.fromRGBO(128, 13, 70, 1),
   ];
-
   static const List<Color> kGradiantBitcoin = [
     Color.fromRGBO(239, 142, 25, 1),
     Color.fromRGBO(173, 81, 0, 1),
@@ -80,9 +79,29 @@ class DolarBotConstants {
     Color.fromRGBO(75, 201, 70, 1),
     Color.fromRGBO(20, 60, 20, 1),
   ];
+  static const List<Color> kGradiantBinanceCoin = [
+    Color.fromRGBO(243, 186, 47, 1),
+    Color.fromRGBO(185, 133, 11, 1),
+  ];
+  static const List<Color> kGradiantCardano = [
+    Color.fromRGBO(0, 51, 173, 1),
+    Color.fromRGBO(3, 5, 86, 1),
+  ];
+  static const List<Color> kGradiantChainlink = [
+    Color.fromRGBO(42, 90, 218, 1),
+    Color.fromRGBO(14, 46, 132, 1),
+  ];
+  static const List<Color> kGradiantDAI = [
+    Color.fromRGBO(245, 172, 55, 1),
+    Color.fromRGBO(203, 125, 10, 1),
+  ];
   static const List<Color> kGradiantDASH = [
     Color.fromRGBO(0, 141, 228, 1),
     Color.fromRGBO(0, 70, 105, 1),
+  ];
+  static const List<Color> kGradiantDoge = [
+    Color.fromRGBO(186, 159, 51, 1),
+    Color.fromRGBO(53, 43, 20, 1),
   ];
   static const List<Color> kGradiantEthereum = [
     Color.fromRGBO(84, 94, 133, 1),
@@ -96,9 +115,29 @@ class DolarBotConstants {
     Color.fromRGBO(255, 102, 0, 1),
     Color.fromRGBO(153, 61, 0, 1),
   ];
+  static const List<Color> kGradiantPolkadot = [
+    Color.fromRGBO(255, 28, 147, 1),
+    Color.fromRGBO(30, 30, 30, 1),
+  ];
   static const List<Color> kGradiantRipple = [
     Color.fromRGBO(0, 165, 223, 1),
     Color.fromRGBO(0, 70, 90, 1),
+  ];
+  static const List<Color> kGradiantStellar = [
+    Color.fromRGBO(106, 184, 227, 1),
+    Color.fromRGBO(23, 89, 125, 1),
+  ];
+  static const List<Color> kGradiantTether = [
+    Color.fromRGBO(80, 175, 149, 1),
+    Color.fromRGBO(35, 75, 65, 1),
+  ];
+  static const List<Color> kGradiantTheta = [
+    Color.fromRGBO(16, 196, 146, 1),
+    Color.fromRGBO(13, 71, 84, 1),
+  ];
+  static const List<Color> kGradiantUniswap = [
+    Color.fromRGBO(255, 0, 122, 1),
+    Color.fromRGBO(136, 0, 65, 1),
   ];
   static const List<Color> kGradiantGold = [
     Color.fromRGBO(222, 168, 0, 1),

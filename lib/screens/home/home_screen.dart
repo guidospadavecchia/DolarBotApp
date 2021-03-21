@@ -73,6 +73,17 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
   @override
   Color setColorAppbar() => ThemeManager.getPrimaryTextColor(context);
 
+  List<String> item = [
+    "Clients",
+    "Designer",
+    "Developer",
+    "Director",
+    "Employee",
+    "Manager",
+    "Worker",
+    "Owner"
+  ];
+
   @override
   Future<bool> onWillPopScope() {
     DateTime now = DateTime.now();
@@ -141,6 +152,15 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
             child: Theme(
               data: ThemeData(canvasColor: Colors.transparent, shadowColor: Colors.transparent),
               child: ReorderableListView(
+                proxyDecorator: (Widget child, int i, Animation<double> animation) {
+                  return Transform.scale(
+                    scale: 0.95,
+                    child: Opacity(
+                      opacity: 0.9,
+                      child: child,
+                    ),
+                  );
+                },
                 physics: AlwaysScrollableScrollPhysics(),
                 onReorder: (int oldIndex, int newIndex) {
                   _onReorder(oldIndex, newIndex);
