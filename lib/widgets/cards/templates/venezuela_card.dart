@@ -9,6 +9,7 @@ class VenezuelaCard extends BaseCard {
   static const double height = 200;
 
   final String title;
+  final String bannerTitle;
   final String tag;
   final VenezuelaResponse data;
   final List<Color> gradiantColors;
@@ -22,6 +23,7 @@ class VenezuelaCard extends BaseCard {
   const VenezuelaCard({
     Key key,
     @required this.title,
+    @required this.bannerTitle,
     @required this.tag,
     @required this.data,
     @required this.gradiantColors,
@@ -33,6 +35,7 @@ class VenezuelaCard extends BaseCard {
     @required this.numberFormat,
   }) : super(
           title: title,
+          bannerTitle: bannerTitle,
           tag: tag,
           gradiantColors: gradiantColors,
           iconAsset: iconAsset,
@@ -57,7 +60,7 @@ class _VenezuelaCardState extends BaseCardState<VenezuelaCard> {
     return CardFavorite(
       height: VenezuelaCard.height,
       header: CardHeader(
-        title: widget.title,
+        title: widget.bannerTitle,
         shareButton:
             widget.showShareButton ? CardShareButton(onSharePressed: () => onSharePressed()) : null,
       ),

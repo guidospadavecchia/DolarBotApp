@@ -1,5 +1,6 @@
 import 'package:dolarbot_app/models/settings.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
+import 'package:dolarbot_app/screens/base/factory/factory_screen.dart';
 import 'package:dolarbot_app/util/util.dart';
 import 'package:dolarbot_app/widgets/cards/factory/factory_card.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +11,7 @@ export 'package:intl/intl.dart';
 
 abstract class BaseCard extends StatefulWidget {
   final String title;
+  final String bannerTitle;
   final String subtitle;
   final String tag;
   final String symbol;
@@ -25,6 +27,7 @@ abstract class BaseCard extends StatefulWidget {
   const BaseCard({
     Key key,
     this.title,
+    this.bannerTitle,
     this.subtitle,
     this.tag,
     this.symbol,
@@ -43,6 +46,7 @@ abstract class BaseCardState<Card extends BaseCard> extends State<BaseCard> {
   void onSharePressed() async {
     CardData cardData = CardData(
       title: widget.title,
+      bannerTitle: widget.bannerTitle,
       subtitle: widget.subtitle,
       tag: widget.tag,
       symbol: widget.symbol,
@@ -52,7 +56,7 @@ abstract class BaseCardState<Card extends BaseCard> extends State<BaseCard> {
       showPoweredBy: true,
       showButtons: false,
       endpoint: widget.endpoint,
-      response: null,
+      responseType: widget.data.runtimeType,
     );
 
     Settings settings = Provider.of<Settings>(context, listen: false);
@@ -62,10 +66,32 @@ abstract class BaseCardState<Card extends BaseCard> extends State<BaseCard> {
     );
   }
 
+  void onDoubleTap() async {
+    CardData cardData = CardData(
+      title: widget.title,
+      bannerTitle: widget.bannerTitle,
+      subtitle: widget.subtitle,
+      tag: widget.tag,
+      symbol: widget.symbol,
+      colors: widget.gradiantColors,
+      iconAsset: widget.iconAsset,
+      iconData: widget.iconData,
+      showPoweredBy: false,
+      showButtons: false,
+      endpoint: widget.endpoint,
+      responseType: widget.data.runtimeType,
+    );
+
+    Util.navigateTo(context, BuildScreen(cardData.responseType).fromCardData(context, cardData));
+  }
+
   Widget card();
 
   @override
   Widget build(BuildContext context) {
-    return card();
+    return GestureDetector(
+      onDoubleTap: onDoubleTap,
+      child: card(),
+    );
   }
 }

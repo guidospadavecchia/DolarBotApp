@@ -7,13 +7,11 @@ import 'package:dolarbot_app/screens/common/loading_screen.dart';
 import 'package:intl/intl.dart';
 
 class CryptoInfoScreen extends BaseInfoScreen {
-  final String title;
   final CardData cardData;
 
   CryptoInfoScreen({
-    @required this.title,
     @required this.cardData,
-  }) : super(cardData: cardData, title: title);
+  }) : super(cardData: cardData);
 
   @override
   _CryptoInfoScreenState createState() => _CryptoInfoScreenState();
@@ -99,7 +97,7 @@ class _CryptoInfoScreenState extends BaseInfoScreenState<CryptoInfoScreen> with 
 
   @override
   String getShareTitle() {
-    return widget.cardData.title.toUpperCase();
+    return widget.cardData.bannerTitle.toUpperCase();
   }
 
   @override
@@ -152,16 +150,13 @@ class _CryptoInfoScreenState extends BaseInfoScreenState<CryptoInfoScreen> with 
   FavoriteRate createFavorite() {
     return FavoriteRate(
         endpoint: widget.cardData.endpoint,
-        cardResponseType: widget.cardData.response.toString(),
-        cardTitle: widget.cardData.title,
+        cardResponseType: widget.cardData.responseType.toString(),
+        cardTitle: widget.cardData.bannerTitle,
         cardSubtitle: null,
         cardSymbol: null,
-        cardTag: widget.title,
+        cardTag: widget.cardData.tag,
         cardColors: widget.cardData.colors.map((color) => color.value).toList(),
         cardIconData: widget.cardData.iconData?.codePoint,
         cardIconAsset: widget.cardData.iconAsset);
   }
-
-  @override
-  Type getResponseType() => CryptoResponse;
 }

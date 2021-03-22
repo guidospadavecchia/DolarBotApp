@@ -10,6 +10,7 @@ class MetalCard extends BaseCard {
   static const double height = 130;
 
   final String title;
+  final String bannerTitle;
   final String tag;
   final MetalResponse data;
   final List<Color> gradiantColors;
@@ -23,6 +24,7 @@ class MetalCard extends BaseCard {
   const MetalCard({
     Key key,
     @required this.title,
+    @required this.bannerTitle,
     @required this.tag,
     @required this.data,
     @required this.gradiantColors,
@@ -34,6 +36,7 @@ class MetalCard extends BaseCard {
     @required this.numberFormat,
   }) : super(
           title: title,
+          bannerTitle: bannerTitle,
           tag: tag,
           gradiantColors: gradiantColors,
           iconAsset: iconAsset,
@@ -58,7 +61,7 @@ class _MetalCardState extends BaseCardState<MetalCard> {
     return CardFavorite(
       height: MetalCard.height,
       header: CardHeader(
-        title: widget.title,
+        title: widget.bannerTitle,
         shareButton:
             widget.showShareButton ? CardShareButton(onSharePressed: () => onSharePressed()) : null,
       ),

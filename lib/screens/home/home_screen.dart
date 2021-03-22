@@ -19,7 +19,16 @@ import 'package:simple_animations/simple_animations.dart';
 class HomeScreen extends BaseInfoScreen {
   HomeScreen({
     Key key,
-  }) : super(key: key, title: "Inicio");
+  }) : super(
+            key: key,
+            cardData: CardData(
+              title: 'Inicio',
+              bannerTitle: null,
+              tag: null,
+              colors: null,
+              endpoint: null,
+              responseType: null,
+            ));
 
   @override
   HomeScreenState createState() => HomeScreenState();
@@ -59,9 +68,6 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
   FavoriteRate createFavorite() => null;
 
   @override
-  Type getResponseType() => null;
-
-  @override
   String getShareText() => '';
 
   @override
@@ -72,17 +78,6 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
 
   @override
   Color setColorAppbar() => ThemeManager.getPrimaryTextColor(context);
-
-  List<String> item = [
-    "Clients",
-    "Designer",
-    "Developer",
-    "Director",
-    "Employee",
-    "Manager",
-    "Worker",
-    "Owner"
-  ];
 
   @override
   Future<bool> onWillPopScope() {

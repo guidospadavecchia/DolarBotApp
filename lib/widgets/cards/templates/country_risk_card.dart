@@ -10,6 +10,7 @@ class CountryRiskCard extends BaseCard {
   static const double height = 130;
 
   final String title;
+  final String bannerTitle;
   final String tag;
   final CountryRiskResponse data;
   final List<Color> gradiantColors;
@@ -23,6 +24,7 @@ class CountryRiskCard extends BaseCard {
   const CountryRiskCard({
     Key key,
     @required this.title,
+    @required this.bannerTitle,
     @required this.tag,
     @required this.data,
     @required this.gradiantColors,
@@ -34,6 +36,7 @@ class CountryRiskCard extends BaseCard {
     @required this.numberFormat,
   }) : super(
           title: title,
+          bannerTitle: bannerTitle,
           tag: tag,
           gradiantColors: gradiantColors,
           iconAsset: iconAsset,
@@ -57,7 +60,7 @@ class _CountryRiskCardState extends BaseCardState<CountryRiskCard> {
     return CardFavorite(
       height: CountryRiskCard.height,
       header: CardHeader(
-        title: widget.title,
+        title: widget.bannerTitle,
         shareButton:
             widget.showShareButton ? CardShareButton(onSharePressed: () => onSharePressed()) : null,
       ),

@@ -14,11 +14,18 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 class OptionsScreen extends BaseInfoScreen {
   static const routeName = '/options';
 
-  final String title;
-
   OptionsScreen({
-    this.title,
-  }) : super(title: title);
+    Key key,
+  }) : super(
+            key: key,
+            cardData: CardData(
+              title: 'Opciones',
+              bannerTitle: null,
+              tag: null,
+              colors: null,
+              endpoint: null,
+              responseType: null,
+            ));
 
   @override
   _OptionsScreenState createState() => _OptionsScreenState();
@@ -54,9 +61,6 @@ class _OptionsScreenState extends BaseInfoScreenState<OptionsScreen> with BaseSc
 
   @override
   FavoriteRate createFavorite() => null;
-
-  @override
-  Type getResponseType() => null;
 
   @override
   Widget body() {

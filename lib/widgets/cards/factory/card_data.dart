@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class CardData {
   final String title;
+  final String bannerTitle;
   final String subtitle;
   final String symbol;
   final String tag;
@@ -9,13 +10,14 @@ class CardData {
   final IconData iconData;
   final String iconAsset;
   final String endpoint;
-  final Type response;
+  final Type responseType;
   final bool showButtons;
   final bool showPoweredBy;
 
   CardData({
     Key key,
     @required this.title,
+    @required this.bannerTitle,
     this.subtitle,
     this.symbol,
     @required this.tag,
@@ -23,13 +25,14 @@ class CardData {
     this.iconData,
     this.iconAsset,
     @required this.endpoint,
-    @required this.response,
+    @required this.responseType,
     this.showButtons = false,
     this.showPoweredBy = true,
   });
 
   CardData clone({
     String title,
+    String bannerTitle,
     String subtitle,
     String symbol,
     String tag,
@@ -43,6 +46,7 @@ class CardData {
   }) {
     return CardData(
       title: title ?? this.title,
+      bannerTitle: bannerTitle ?? this.bannerTitle,
       subtitle: subtitle ?? this.subtitle,
       symbol: symbol ?? this.symbol,
       tag: tag ?? this.tag,
@@ -50,7 +54,7 @@ class CardData {
       iconData: iconData ?? this.iconData,
       iconAsset: iconAsset ?? this.iconAsset,
       endpoint: endpoint ?? this.endpoint,
-      response: response ?? this.response,
+      responseType: response ?? this.responseType,
       showButtons: showButtons ?? this.showButtons,
       showPoweredBy: response ?? this.showPoweredBy,
     );

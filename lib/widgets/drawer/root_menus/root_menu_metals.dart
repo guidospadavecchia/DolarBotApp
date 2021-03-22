@@ -27,14 +27,14 @@ class RootMenuMetals extends StatelessWidget {
             Util.navigateTo(
               context,
               MetalInfoScreen(
-                title: _title,
                 cardData: CardData(
-                  title: "Oro",
+                  title: _title,
+                  bannerTitle: "Oro",
                   tag: _title,
                   iconAsset: DolarBotIcons.metals.gold,
                   colors: DolarBotConstants.kGradiantGold,
                   endpoint: MetalEndpoints.oro.value,
-                  response: MetalResponse,
+                  responseType: MetalResponse,
                 ),
                 //metalEndpoint: MetalEndpoints.oro,
               ),
@@ -49,14 +49,14 @@ class RootMenuMetals extends StatelessWidget {
             Util.navigateTo(
               context,
               MetalInfoScreen(
-                title: _title,
                 cardData: CardData(
-                  title: "Plata",
+                  title: _title,
+                  bannerTitle: "Plata",
                   tag: _title,
                   iconAsset: DolarBotIcons.metals.silver,
                   colors: DolarBotConstants.kGradiantSilver,
                   endpoint: MetalEndpoints.plata.value,
-                  response: MetalResponse,
+                  responseType: MetalResponse,
                 ),
                 //metalEndpoint: MetalEndpoints.plata,
               ),
@@ -71,14 +71,14 @@ class RootMenuMetals extends StatelessWidget {
             Util.navigateTo(
               context,
               MetalInfoScreen(
-                title: _title,
                 cardData: CardData(
-                  title: "Cobre",
+                  title: _title,
+                  bannerTitle: "Cobre",
                   tag: _title,
                   iconAsset: DolarBotIcons.metals.copper,
                   colors: DolarBotConstants.kGradiantCopper,
                   endpoint: MetalEndpoints.cobre.value,
-                  response: MetalResponse,
+                  responseType: MetalResponse,
                 ),
                 //metalEndpoint: MetalEndpoints.cobre,
               ),

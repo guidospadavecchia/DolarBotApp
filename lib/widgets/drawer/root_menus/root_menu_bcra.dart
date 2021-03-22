@@ -26,14 +26,14 @@ class RootMenuBCRA extends StatelessWidget {
             Util.navigateTo(
               context,
               BcraInfoScreen(
-                title: _title,
                 cardData: CardData(
-                  title: "Riesgo País",
+                  title: _title,
+                  bannerTitle: "Riesgo País",
                   tag: _title,
                   iconData: FontAwesomeIcons.chartLine,
                   colors: DolarBotConstants.kGradiantBCRA,
                   endpoint: BcraEndpoints.riesgoPais.value,
-                  response: CountryRiskResponse,
+                  responseType: CountryRiskResponse,
                 ),
                 //bcraEndpoint: BcraEndpoints.riesgoPais,
               ),
@@ -48,16 +48,16 @@ class RootMenuBCRA extends StatelessWidget {
             Util.navigateTo(
               context,
               BcraInfoScreen(
-                title: _title,
                 cardData: CardData(
-                  title: "Reservas",
+                  title: _title,
+                  bannerTitle: "Reservas",
                   subtitle: "Dólares Estadounidenses",
                   symbol: "US\$",
                   tag: _title,
                   iconData: FontAwesomeIcons.handHoldingUsd,
                   colors: DolarBotConstants.kGradiantBCRA,
                   endpoint: BcraEndpoints.reservas.value,
-                  response: BcraResponse,
+                  responseType: BcraResponse,
                 ),
                 //bcraEndpoint: BcraEndpoints.reservas,
               ),
@@ -72,16 +72,16 @@ class RootMenuBCRA extends StatelessWidget {
             Util.navigateTo(
               context,
               BcraInfoScreen(
-                title: _title,
                 cardData: CardData(
-                  title: 'Dinero en Circulación',
+                  title: _title,
+                  bannerTitle: 'Dinero en Circulación',
                   subtitle: 'Pesos Argentinos',
                   symbol: '\$',
                   tag: _title,
                   iconData: FontAwesomeIcons.moneyBillWave,
                   colors: DolarBotConstants.kGradiantBCRA,
                   endpoint: BcraEndpoints.circulante.value,
-                  response: BcraResponse,
+                  responseType: BcraResponse,
                 ),
                 //bcraEndpoint: BcraEndpoints.circulante,
               ),

@@ -13,7 +13,9 @@ import 'package:dolarbot_app/widgets/cards/templates/venezuela_card.dart';
 
 abstract class BuildCard {
   factory BuildCard(ApiResponse data) {
-    if (data is GenericCurrencyResponse) return _FiatCurrency(data, FiatCurrencyCard.height);
+    if (data is DollarResponse) return _FiatCurrency<DollarResponse>(data, FiatCurrencyCard.height);
+    if (data is EuroResponse) return _FiatCurrency<EuroResponse>(data, FiatCurrencyCard.height);
+    if (data is RealResponse) return _FiatCurrency<RealResponse>(data, FiatCurrencyCard.height);
     if (data is CryptoResponse) return _Crypto(data, MetalCard.height);
     if (data is MetalResponse) return _Metal(data, MetalCard.height);
     if (data is BcraResponse) return _Bcra(data, BcraCard.height);
@@ -39,16 +41,17 @@ class _Empty implements BuildCard {
   }
 }
 
-class _FiatCurrency implements BuildCard {
-  final GenericCurrencyResponse data;
+class _FiatCurrency<T extends GenericCurrencyResponse> implements BuildCard {
+  final T data;
   final double height;
 
   _FiatCurrency(this.data, this.height);
 
   @override
   BaseCard fromCardData(context, buildCardData, Settings settings) {
-    return FiatCurrencyCard(
+    return FiatCurrencyCard<T>(
       title: buildCardData.title,
+      bannerTitle: buildCardData.bannerTitle,
       data: data,
       tag: buildCardData.tag,
       iconAsset: buildCardData.iconAsset,
@@ -64,7 +67,8 @@ class _FiatCurrency implements BuildCard {
   @override
   BaseCard fromFavoriteRate(BuildContext context, FavoriteRate favoriteRate, Settings settings) {
     return FiatCurrencyCard(
-      title: favoriteRate.cardTitle,
+      title: favoriteRate.cardTag,
+      bannerTitle: favoriteRate.cardTitle,
       data: data,
       tag: favoriteRate.cardTag,
       iconAsset: favoriteRate.cardIconAsset,
@@ -87,6 +91,7 @@ class _Crypto implements BuildCard {
   BaseCard fromCardData(context, buildCardData, Settings settings) {
     return CryptoCard(
       title: buildCardData.title,
+      bannerTitle: buildCardData.bannerTitle,
       data: data,
       tag: buildCardData.tag,
       iconAsset: buildCardData.iconAsset,
@@ -102,7 +107,8 @@ class _Crypto implements BuildCard {
   @override
   BaseCard fromFavoriteRate(BuildContext context, FavoriteRate favoriteRate, Settings settings) {
     return CryptoCard(
-      title: favoriteRate.cardTitle,
+      title: favoriteRate.cardTag,
+      bannerTitle: favoriteRate.cardTitle,
       data: data,
       tag: favoriteRate.cardTag,
       iconAsset: favoriteRate.cardIconAsset,
@@ -125,6 +131,7 @@ class _Metal implements BuildCard {
   BaseCard fromCardData(context, buildCardData, Settings settings) {
     return MetalCard(
       title: buildCardData.title,
+      bannerTitle: buildCardData.bannerTitle,
       data: data,
       tag: buildCardData.tag,
       iconAsset: buildCardData.iconAsset,
@@ -140,7 +147,8 @@ class _Metal implements BuildCard {
   @override
   BaseCard fromFavoriteRate(BuildContext context, FavoriteRate favoriteRate, Settings settings) {
     return MetalCard(
-      title: favoriteRate.cardTitle,
+      title: favoriteRate.cardTag,
+      bannerTitle: favoriteRate.cardTitle,
       data: data,
       tag: favoriteRate.cardTag,
       iconAsset: favoriteRate.cardIconAsset,
@@ -162,6 +170,7 @@ class _Bcra implements BuildCard {
   BaseCard fromCardData(context, buildCardData, Settings settings) {
     return BcraCard(
       title: buildCardData.title,
+      bannerTitle: buildCardData.bannerTitle,
       subtitle: buildCardData.subtitle,
       symbol: buildCardData.symbol,
       data: data,
@@ -179,7 +188,8 @@ class _Bcra implements BuildCard {
   @override
   BaseCard fromFavoriteRate(BuildContext context, FavoriteRate favoriteRate, Settings settings) {
     return BcraCard(
-      title: favoriteRate.cardTitle,
+      title: favoriteRate.cardTag,
+      bannerTitle: favoriteRate.cardTitle,
       subtitle: favoriteRate.cardSubtitle,
       symbol: favoriteRate.cardSymbol,
       data: data,
@@ -204,6 +214,7 @@ class _CountryRisk implements BuildCard {
   BaseCard fromCardData(context, buildCardData, Settings settings) {
     return CountryRiskCard(
       title: buildCardData.title,
+      bannerTitle: buildCardData.bannerTitle,
       data: data,
       tag: buildCardData.tag,
       iconAsset: buildCardData.iconAsset,
@@ -219,7 +230,8 @@ class _CountryRisk implements BuildCard {
   @override
   BaseCard fromFavoriteRate(BuildContext context, FavoriteRate favoriteRate, Settings settings) {
     return CountryRiskCard(
-      title: favoriteRate.cardTitle,
+      title: favoriteRate.cardTag,
+      bannerTitle: favoriteRate.cardTitle,
       data: data,
       tag: favoriteRate.cardTag,
       iconAsset: favoriteRate.cardIconAsset,
@@ -242,6 +254,7 @@ class _Venezuela implements BuildCard {
   BaseCard fromCardData(context, buildCardData, Settings settings) {
     return VenezuelaCard(
       title: buildCardData.title,
+      bannerTitle: buildCardData.bannerTitle,
       data: data,
       tag: buildCardData.tag,
       gradiantColors: buildCardData.colors,
@@ -257,7 +270,8 @@ class _Venezuela implements BuildCard {
   @override
   BaseCard fromFavoriteRate(BuildContext context, FavoriteRate favoriteRate, Settings settings) {
     return VenezuelaCard(
-      title: favoriteRate.cardTitle,
+      title: favoriteRate.cardTag,
+      bannerTitle: favoriteRate.cardTitle,
       data: data,
       tag: favoriteRate.cardTag,
       gradiantColors: favoriteRate.cardColors.map((n) => Color(n)).toList(),

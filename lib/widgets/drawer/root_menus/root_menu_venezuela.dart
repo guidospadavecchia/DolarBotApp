@@ -27,14 +27,14 @@ class RootMenuVenezuela extends StatelessWidget {
             Util.navigateTo(
               context,
               VenezuelaInfoScreen(
-                title: _title,
                 cardData: CardData(
-                  title: "Dólar",
+                  title: _title,
+                  bannerTitle: "Dólar",
                   tag: "Dólar",
                   iconData: FontAwesomeIcons.dollarSign,
                   colors: DolarBotConstants.kGradiantVenezuela,
                   endpoint: VenezuelaEndpoints.dolar.value,
-                  response: VenezuelaResponse,
+                  responseType: VenezuelaResponse,
                 ),
               ),
             )
@@ -48,14 +48,14 @@ class RootMenuVenezuela extends StatelessWidget {
             Util.navigateTo(
               context,
               VenezuelaInfoScreen(
-                title: _title,
                 cardData: CardData(
-                  title: "Euro",
+                  title: _title,
+                  bannerTitle: "Euro",
                   tag: "Euro",
                   iconData: FontAwesomeIcons.euroSign,
                   colors: DolarBotConstants.kGradiantVenezuela,
                   endpoint: VenezuelaEndpoints.euro.value,
-                  response: VenezuelaResponse,
+                  responseType: VenezuelaResponse,
                 ),
               ),
             )

@@ -7,13 +7,11 @@ import 'package:dolarbot_app/screens/common/loading_screen.dart';
 import 'package:intl/intl.dart';
 
 class MetalInfoScreen extends BaseInfoScreen {
-  final String title;
   final CardData cardData;
 
   MetalInfoScreen({
-    @required this.title,
     @required this.cardData,
-  }) : super(cardData: cardData, title: title);
+  }) : super(cardData: cardData);
 
   @override
   _MetalInfoScreenState createState() => _MetalInfoScreenState();
@@ -88,7 +86,7 @@ class _MetalInfoScreenState extends BaseInfoScreenState<MetalInfoScreen> with Ba
 
   @override
   String getShareTitle() {
-    return widget.cardData.title.toUpperCase();
+    return widget.cardData.bannerTitle.toUpperCase();
   }
 
   @override
@@ -133,8 +131,8 @@ class _MetalInfoScreenState extends BaseInfoScreenState<MetalInfoScreen> with Ba
   FavoriteRate createFavorite() {
     return FavoriteRate(
         endpoint: widget.cardData.endpoint,
-        cardResponseType: widget.cardData.response.toString(),
-        cardTitle: widget.cardData.title,
+        cardResponseType: widget.cardData.responseType.toString(),
+        cardTitle: widget.cardData.bannerTitle,
         cardSubtitle: null,
         cardSymbol: null,
         cardTag: widget.cardData.tag,
@@ -142,7 +140,4 @@ class _MetalInfoScreenState extends BaseInfoScreenState<MetalInfoScreen> with Ba
         cardIconData: widget.cardData.iconData?.codePoint,
         cardIconAsset: widget.cardData.iconAsset);
   }
-
-  @override
-  Type getResponseType() => MetalResponse;
 }

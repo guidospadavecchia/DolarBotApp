@@ -6,13 +6,11 @@ import 'package:dolarbot_app/screens/common/loading_screen.dart';
 import 'package:intl/intl.dart';
 
 class BcraInfoScreen extends BaseInfoScreen {
-  final String title;
   final CardData cardData;
 
   BcraInfoScreen({
-    @required this.title,
     @required this.cardData,
-  }) : super(cardData: cardData, title: title);
+  }) : super(cardData: cardData);
 
   BcraEndpoints getEndpoint() {
     return BcraEndpoints.values.firstWhere((e) => e.value == cardData.endpoint);
@@ -144,7 +142,7 @@ class _BcraInfoScreenState extends BaseInfoScreenState<BcraInfoScreen> with Base
 
   @override
   String getShareTitle() {
-    if (bcraEndpoint == BcraEndpoints.riesgoPais) return widget.cardData.title.toUpperCase();
+    if (bcraEndpoint == BcraEndpoints.riesgoPais) return widget.cardData.bannerTitle.toUpperCase();
     if (bcraEndpoint == BcraEndpoints.reservas) return "RESERVAS BCRA";
     if (bcraEndpoint == BcraEndpoints.circulante) return "DINERO EN CIRCULACIÓN";
     return '';
@@ -184,18 +182,13 @@ class _BcraInfoScreenState extends BaseInfoScreenState<BcraInfoScreen> with Base
   FavoriteRate createFavorite() {
     return FavoriteRate(
         endpoint: widget.cardData.endpoint,
-        cardResponseType: widget.cardData.response.toString(),
-        cardTitle: widget.cardData.title,
+        cardResponseType: widget.cardData.responseType.toString(),
+        cardTitle: widget.cardData.bannerTitle,
         cardSubtitle: widget.cardData.subtitle,
         cardSymbol: widget.cardData.symbol,
-        cardTag: widget.title,
+        cardTag: widget.cardData.tag,
         cardColors: widget.cardData.colors.map((color) => color.value).toList(),
         cardIconData: widget.cardData.iconData?.codePoint,
         cardIconAsset: widget.cardData.iconAsset);
-  }
-
-  @override
-  Type getResponseType() {
-    return bcraEndpoint == BcraEndpoints.riesgoPais ? CountryRiskResponse : BcraResponse;
   }
 }

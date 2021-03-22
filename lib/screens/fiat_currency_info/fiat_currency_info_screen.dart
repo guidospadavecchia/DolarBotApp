@@ -9,42 +9,20 @@ import 'package:dolarbot_app/screens/common/loading_screen.dart';
 import 'package:intl/intl.dart';
 
 class FiatCurrencyInfoScreen<T extends GenericCurrencyResponse> extends BaseInfoScreen {
-  final String title;
   final CardData cardData;
-  final DollarEndpoints dollarEndpoint;
-  final EuroEndpoints euroEndpoint;
-  final RealEndpoints realEndpoint;
 
-  FiatCurrencyInfoScreen(
-      {Key key,
-      this.title,
-      this.cardData,
-      this.dollarEndpoint,
-      this.euroEndpoint,
-      this.realEndpoint})
-      : assert((dollarEndpoint != null && euroEndpoint == null && realEndpoint == null) ||
-            (euroEndpoint != null && dollarEndpoint == null && realEndpoint == null) ||
-            (realEndpoint != null && dollarEndpoint == null && euroEndpoint == null)),
-        super(cardData: cardData, title: title);
+  FiatCurrencyInfoScreen({
+    Key key,
+    this.cardData,
+  }) : super(cardData: cardData);
 
   @override
-  _FiatCurrencyInfoScreenState<T> createState() =>
-      _FiatCurrencyInfoScreenState<T>(dollarEndpoint, euroEndpoint, realEndpoint);
+  _FiatCurrencyInfoScreenState<T> createState() => _FiatCurrencyInfoScreenState<T>();
 }
 
 class _FiatCurrencyInfoScreenState<T extends GenericCurrencyResponse>
     extends BaseInfoScreenState<FiatCurrencyInfoScreen<T>> with BaseScreen {
-  final DollarEndpoints dollarEndpoint;
-  final EuroEndpoints euroEndpoint;
-  final RealEndpoints realEndpoint;
-
   T data;
-
-  _FiatCurrencyInfoScreenState(
-    this.dollarEndpoint,
-    this.euroEndpoint,
-    this.realEndpoint,
-  );
 
   @override
   Color setColorAppbar() => ThemeManager.getForegroundColor();
@@ -59,7 +37,7 @@ class _FiatCurrencyInfoScreenState<T extends GenericCurrencyResponse>
 
   @override
   Future loadData() async {
-    _getResponse<GenericCurrencyResponse>().then((value) {
+    _getResponse().then((value) {
       WidgetsBinding.instance.addPostFrameCallback(
         (_) => setState(() {
           data = value;
@@ -122,7 +100,7 @@ class _FiatCurrencyInfoScreenState<T extends GenericCurrencyResponse>
 
   @override
   String getShareTitle() {
-    return "${widget.title} ${widget.cardData.title.toUpperCase()}";
+    return "${widget.cardData.title} ${widget.cardData.bannerTitle.toUpperCase()}";
   }
 
   @override
@@ -179,31 +157,34 @@ class _FiatCurrencyInfoScreenState<T extends GenericCurrencyResponse>
   FavoriteRate createFavorite() {
     return FavoriteRate(
         endpoint: widget.cardData.endpoint,
-        cardResponseType: widget.cardData.response.toString(),
-        cardTitle: widget.cardData.title,
+        cardResponseType: widget.cardData.responseType.toString(),
+        cardTitle: widget.cardData.bannerTitle,
         cardSubtitle: null,
         cardSymbol: null,
-        cardTag: widget.title,
+        cardTag: widget.cardData.tag,
         cardColors: widget.cardData.colors.map((color) => color.value).toList(),
         cardIconData: widget.cardData.iconData?.codePoint,
         cardIconAsset: widget.cardData.iconAsset);
   }
 
-  Type getResponseType() {
-    Type responseType;
-    if (dollarEndpoint != null) responseType = DollarResponse;
-    if (euroEndpoint != null) responseType = EuroResponse;
-    if (realEndpoint != null) responseType = RealResponse;
-    return responseType;
-  }
+  Future<GenericCurrencyResponse> _getResponse() async {
+    switch (widget.cardData.responseType) {
+      case DollarResponse:
+        DollarEndpoints endpoint =
+            DollarEndpoints.values.firstWhere((e) => e.value == widget.cardData.endpoint);
+        return await API.getDollarRate(endpoint, forceRefresh: shouldForceRefresh);
+        break;
+      case EuroResponse:
+        EuroEndpoints endpoint =
+            EuroEndpoints.values.firstWhere((e) => e.value == widget.cardData.endpoint);
+        return await API.getEuroRate(endpoint, forceRefresh: shouldForceRefresh);
 
-  Future<dynamic> _getResponse<T extends GenericCurrencyResponse>() async {
-    if (dollarEndpoint != null) {
-      return await API.getDollarRate(dollarEndpoint, forceRefresh: shouldForceRefresh);
-    } else if (euroEndpoint != null) {
-      return await API.getEuroRate(euroEndpoint, forceRefresh: shouldForceRefresh);
-    } else if (realEndpoint != null) {
-      return await API.getRealRate(realEndpoint, forceRefresh: shouldForceRefresh);
+      case RealResponse:
+        RealEndpoints endpoint =
+            RealEndpoints.values.firstWhere((e) => e.value == widget.cardData.endpoint);
+        return await API.getRealRate(endpoint, forceRefresh: shouldForceRefresh);
+      default:
+        return throw 'Error endpoint';
     }
   }
 }

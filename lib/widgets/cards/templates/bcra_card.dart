@@ -9,6 +9,7 @@ class BcraCard extends BaseCard {
   static const double height = 140;
 
   final String title;
+  final String bannerTitle;
   final String subtitle;
   final String tag;
   final String symbol;
@@ -24,6 +25,7 @@ class BcraCard extends BaseCard {
   const BcraCard({
     Key key,
     @required this.title,
+    @required this.bannerTitle,
     @required this.subtitle,
     @required this.tag,
     @required this.symbol,
@@ -37,6 +39,7 @@ class BcraCard extends BaseCard {
     @required this.numberFormat,
   }) : super(
           title: title,
+          bannerTitle: bannerTitle,
           subtitle: subtitle,
           tag: tag,
           symbol: symbol,
@@ -63,7 +66,7 @@ class _BcraCardState extends BaseCardState<BcraCard> {
     return CardFavorite(
       height: BcraCard.height,
       header: CardHeader(
-        title: widget.title,
+        title: widget.bannerTitle,
         shareButton:
             widget.showShareButton ? CardShareButton(onSharePressed: () => onSharePressed()) : null,
       ),

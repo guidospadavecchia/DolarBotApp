@@ -80,9 +80,7 @@ class DolarBotApp extends StatelessWidget {
                   );
                 case OptionsScreen.routeName:
                   return PageTransition(
-                    child: OptionsScreen(
-                      title: "Opciones",
-                    ),
+                    child: OptionsScreen(),
                     type: PageTransitionType.rightToLeft,
                     duration: Duration(milliseconds: 200),
                     reverseDuration: Duration(milliseconds: 200),

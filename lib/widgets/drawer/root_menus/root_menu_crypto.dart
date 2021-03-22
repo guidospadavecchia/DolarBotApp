@@ -28,14 +28,14 @@ class RootMenuCrypto extends StatelessWidget {
             Util.navigateTo(
               context,
               CryptoInfoScreen(
-                title: _title,
                 cardData: CardData(
-                  title: "Bitcoin (BTC)",
+                  title: _title,
+                  bannerTitle: "Bitcoin (BTC)",
                   tag: _title,
                   iconData: CryptoFontIcons.BTC,
                   colors: DolarBotConstants.kGradiantBitcoin,
                   endpoint: CryptoEndpoints.bitcoin.value,
-                  response: CryptoResponse,
+                  responseType: CryptoResponse,
                 ),
               ),
             )
@@ -49,14 +49,14 @@ class RootMenuCrypto extends StatelessWidget {
             Util.navigateTo(
               context,
               CryptoInfoScreen(
-                title: _title,
                 cardData: CardData(
-                  title: "Bitcoin Cash (BCH)",
+                  title: _title,
+                  bannerTitle: "Bitcoin Cash (BCH)",
                   tag: _title,
                   iconData: CryptoFontIcons.BTC_ALT,
                   colors: DolarBotConstants.kGradiantBitcoinCash,
                   endpoint: CryptoEndpoints.bitcoincash.value,
-                  response: CryptoResponse,
+                  responseType: CryptoResponse,
                 ),
               ),
             )
@@ -70,14 +70,14 @@ class RootMenuCrypto extends StatelessWidget {
             Util.navigateTo(
               context,
               CryptoInfoScreen(
-                title: _title,
                 cardData: CardData(
-                  title: "Binance Coin (BNB)",
+                  title: _title,
+                  bannerTitle: "Binance Coin (BNB)",
                   tag: _title,
                   iconAsset: DolarBotIcons.crypto.binance,
                   colors: DolarBotConstants.kGradiantBinanceCoin,
                   endpoint: CryptoEndpoints.binance.value,
-                  response: CryptoResponse,
+                  responseType: CryptoResponse,
                 ),
               ),
             )
@@ -91,14 +91,14 @@ class RootMenuCrypto extends StatelessWidget {
             Util.navigateTo(
               context,
               CryptoInfoScreen(
-                title: _title,
                 cardData: CardData(
-                  title: "Cardano (ADA)",
+                  title: _title,
+                  bannerTitle: "Cardano (ADA)",
                   tag: _title,
                   iconAsset: DolarBotIcons.crypto.cardano,
                   colors: DolarBotConstants.kGradiantCardano,
                   endpoint: CryptoEndpoints.cardano.value,
-                  response: CryptoResponse,
+                  responseType: CryptoResponse,
                 ),
               ),
             )
@@ -112,14 +112,14 @@ class RootMenuCrypto extends StatelessWidget {
             Util.navigateTo(
               context,
               CryptoInfoScreen(
-                title: _title,
                 cardData: CardData(
-                  title: "Chainlink (LINK)",
+                  title: _title,
+                  bannerTitle: "Chainlink (LINK)",
                   tag: _title,
                   iconAsset: DolarBotIcons.crypto.chainlink,
                   colors: DolarBotConstants.kGradiantChainlink,
                   endpoint: CryptoEndpoints.chainlink.value,
-                  response: CryptoResponse,
+                  responseType: CryptoResponse,
                 ),
               ),
             )
@@ -133,14 +133,14 @@ class RootMenuCrypto extends StatelessWidget {
             Util.navigateTo(
               context,
               CryptoInfoScreen(
-                title: _title,
                 cardData: CardData(
-                  title: "DAI (DAI)",
+                  title: _title,
+                  bannerTitle: "DAI (DAI)",
                   tag: _title,
                   iconAsset: DolarBotIcons.crypto.dai,
                   colors: DolarBotConstants.kGradiantDAI,
                   endpoint: CryptoEndpoints.dai.value,
-                  response: CryptoResponse,
+                  responseType: CryptoResponse,
                 ),
               ),
             )
@@ -154,14 +154,14 @@ class RootMenuCrypto extends StatelessWidget {
             Util.navigateTo(
               context,
               CryptoInfoScreen(
-                title: _title,
                 cardData: CardData(
-                  title: "DASH (DASH)",
+                  title: _title,
+                  bannerTitle: "DASH (DASH)",
                   tag: _title,
                   iconData: CryptoFontIcons.DASH,
                   colors: DolarBotConstants.kGradiantDASH,
                   endpoint: CryptoEndpoints.dash.value,
-                  response: CryptoResponse,
+                  responseType: CryptoResponse,
                 ),
               ),
             )
@@ -175,14 +175,14 @@ class RootMenuCrypto extends StatelessWidget {
             Util.navigateTo(
               context,
               CryptoInfoScreen(
-                title: _title,
                 cardData: CardData(
-                  title: "Dogecoin (DOGE)",
+                  title: _title,
+                  bannerTitle: "Dogecoin (DOGE)",
                   tag: _title,
                   iconData: CryptoFontIcons.DOGE,
                   colors: DolarBotConstants.kGradiantDoge,
                   endpoint: CryptoEndpoints.dogecoin.value,
-                  response: CryptoResponse,
+                  responseType: CryptoResponse,
                 ),
               ),
             )
@@ -196,14 +196,14 @@ class RootMenuCrypto extends StatelessWidget {
             Util.navigateTo(
               context,
               CryptoInfoScreen(
-                title: _title,
                 cardData: CardData(
-                  title: 'Ethereum (ETH)',
+                  title: _title,
+                  bannerTitle: 'Ethereum (ETH)',
                   tag: _title,
                   iconData: CryptoFontIcons.ETH,
                   colors: DolarBotConstants.kGradiantEthereum,
                   endpoint: CryptoEndpoints.ethereum.value,
-                  response: CryptoResponse,
+                  responseType: CryptoResponse,
                 ),
               ),
             )
@@ -217,14 +217,14 @@ class RootMenuCrypto extends StatelessWidget {
             Util.navigateTo(
               context,
               CryptoInfoScreen(
-                title: _title,
                 cardData: CardData(
-                  title: 'Litecoin (LTC)',
+                  title: _title,
+                  bannerTitle: 'Litecoin (LTC)',
                   tag: _title,
                   iconData: CryptoFontIcons.LTC,
                   colors: DolarBotConstants.kGradiantLitecoin,
                   endpoint: CryptoEndpoints.litecoin.value,
-                  response: CryptoResponse,
+                  responseType: CryptoResponse,
                 ),
               ),
             )
@@ -238,14 +238,14 @@ class RootMenuCrypto extends StatelessWidget {
             Util.navigateTo(
               context,
               CryptoInfoScreen(
-                title: _title,
                 cardData: CardData(
-                  title: 'Monero (XMR)',
+                  title: _title,
+                  bannerTitle: 'Monero (XMR)',
                   tag: _title,
                   iconData: CryptoFontIcons.XMR,
                   colors: DolarBotConstants.kGradiantMonero,
                   endpoint: CryptoEndpoints.monero.value,
-                  response: CryptoResponse,
+                  responseType: CryptoResponse,
                 ),
               ),
             )
@@ -259,14 +259,14 @@ class RootMenuCrypto extends StatelessWidget {
             Util.navigateTo(
               context,
               CryptoInfoScreen(
-                title: _title,
                 cardData: CardData(
-                  title: "Polkadot (DOT)",
+                  title: _title,
+                  bannerTitle: "Polkadot (DOT)",
                   tag: _title,
                   iconAsset: DolarBotIcons.crypto.polkadot,
                   colors: DolarBotConstants.kGradiantPolkadot,
                   endpoint: CryptoEndpoints.polkadot.value,
-                  response: CryptoResponse,
+                  responseType: CryptoResponse,
                 ),
               ),
             )
@@ -280,14 +280,14 @@ class RootMenuCrypto extends StatelessWidget {
             Util.navigateTo(
               context,
               CryptoInfoScreen(
-                title: _title,
                 cardData: CardData(
-                  title: 'Ripple (XRP)',
+                  title: _title,
+                  bannerTitle: 'Ripple (XRP)',
                   tag: _title,
                   iconData: CryptoFontIcons.XRP,
                   colors: DolarBotConstants.kGradiantRipple,
                   endpoint: CryptoEndpoints.ripple.value,
-                  response: CryptoResponse,
+                  responseType: CryptoResponse,
                 ),
               ),
             )
@@ -301,14 +301,14 @@ class RootMenuCrypto extends StatelessWidget {
             Util.navigateTo(
               context,
               CryptoInfoScreen(
-                title: _title,
                 cardData: CardData(
-                  title: "Stellar (XLM)",
+                  title: _title,
+                  bannerTitle: "Stellar (XLM)",
                   tag: _title,
                   iconAsset: DolarBotIcons.crypto.stellar,
                   colors: DolarBotConstants.kGradiantStellar,
                   endpoint: CryptoEndpoints.stellar.value,
-                  response: CryptoResponse,
+                  responseType: CryptoResponse,
                 ),
               ),
             )
@@ -322,14 +322,14 @@ class RootMenuCrypto extends StatelessWidget {
             Util.navigateTo(
               context,
               CryptoInfoScreen(
-                title: _title,
                 cardData: CardData(
-                  title: "Tether (USDT)",
+                  title: _title,
+                  bannerTitle: "Tether (USDT)",
                   tag: _title,
                   iconAsset: DolarBotIcons.crypto.tether,
                   colors: DolarBotConstants.kGradiantTether,
                   endpoint: CryptoEndpoints.tether.value,
-                  response: CryptoResponse,
+                  responseType: CryptoResponse,
                 ),
               ),
             )
@@ -343,14 +343,14 @@ class RootMenuCrypto extends StatelessWidget {
             Util.navigateTo(
               context,
               CryptoInfoScreen(
-                title: _title,
                 cardData: CardData(
-                  title: "Theta (THETA)",
+                  title: _title,
+                  bannerTitle: "Theta (THETA)",
                   tag: _title,
                   iconAsset: DolarBotIcons.crypto.theta,
                   colors: DolarBotConstants.kGradiantTheta,
                   endpoint: CryptoEndpoints.theta.value,
-                  response: CryptoResponse,
+                  responseType: CryptoResponse,
                 ),
               ),
             )
@@ -364,14 +364,14 @@ class RootMenuCrypto extends StatelessWidget {
             Util.navigateTo(
               context,
               CryptoInfoScreen(
-                title: _title,
                 cardData: CardData(
-                  title: "Uniswap (UNI)",
+                  title: _title,
+                  bannerTitle: "Uniswap (UNI)",
                   tag: _title,
                   iconAsset: DolarBotIcons.crypto.uniswap,
                   colors: DolarBotConstants.kGradiantUniswap,
                   endpoint: CryptoEndpoints.uniswap.value,
-                  response: CryptoResponse,
+                  responseType: CryptoResponse,
                 ),
               ),
             )

@@ -36,16 +36,15 @@ class RootMenuBanks extends StatelessWidget {
                 Util.navigateTo(
                   context,
                   FiatCurrencyInfoScreen<DollarResponse>(
-                    title: _titleDolar,
                     cardData: CardData(
-                      title: "Banco BBVA",
+                      title: _titleDolar,
+                      bannerTitle: "Banco BBVA",
                       tag: _titleDolar,
                       iconAsset: DolarBotIcons.banks.bbva,
                       colors: DolarBotConstants.kGradiantBBVA,
                       endpoint: DollarEndpoints.bbva.value,
-                      response: DollarResponse,
+                      responseType: DollarResponse,
                     ),
-                    dollarEndpoint: DollarEndpoints.bbva,
                   ),
                 )
               },
@@ -58,16 +57,15 @@ class RootMenuBanks extends StatelessWidget {
                 Util.navigateTo(
                   context,
                   FiatCurrencyInfoScreen<EuroResponse>(
-                    title: _titleEuro,
                     cardData: CardData(
-                      title: "Banco BBVA",
+                      title: _titleEuro,
+                      bannerTitle: "Banco BBVA",
                       tag: _titleEuro,
                       iconAsset: DolarBotIcons.banks.bbva,
                       colors: DolarBotConstants.kGradiantBBVA,
                       endpoint: EuroEndpoints.bbva.value,
-                      response: EuroResponse,
+                      responseType: EuroResponse,
                     ),
-                    euroEndpoint: EuroEndpoints.bbva,
                   ),
                 )
               },
@@ -80,16 +78,15 @@ class RootMenuBanks extends StatelessWidget {
                 Util.navigateTo(
                   context,
                   FiatCurrencyInfoScreen<RealResponse>(
-                    title: _titleReal,
                     cardData: CardData(
-                      title: "Banco BBVA",
+                      title: _titleReal,
+                      bannerTitle: "Banco BBVA",
                       tag: _titleReal,
                       iconAsset: DolarBotIcons.banks.bbva,
                       colors: DolarBotConstants.kGradiantBBVA,
                       endpoint: RealEndpoints.bbva.value,
-                      response: RealResponse,
+                      responseType: RealResponse,
                     ),
-                    realEndpoint: RealEndpoints.bbva,
                   ),
                 )
               },
@@ -109,16 +106,15 @@ class RootMenuBanks extends StatelessWidget {
                 Util.navigateTo(
                   context,
                   FiatCurrencyInfoScreen<DollarResponse>(
-                    title: _titleDolar,
                     cardData: CardData(
-                      title: "Nuevo Banco del Chaco",
+                      title: _titleDolar,
+                      bannerTitle: "Nuevo Banco del Chaco",
                       tag: _titleDolar,
                       iconAsset: DolarBotIcons.banks.chaco,
                       colors: DolarBotConstants.kGradiantChaco,
                       endpoint: DollarEndpoints.chaco.value,
-                      response: DollarResponse,
+                      responseType: DollarResponse,
                     ),
-                    dollarEndpoint: DollarEndpoints.chaco,
                   ),
                 )
               },
@@ -131,16 +127,15 @@ class RootMenuBanks extends StatelessWidget {
                 Util.navigateTo(
                   context,
                   FiatCurrencyInfoScreen<EuroResponse>(
-                    title: _titleEuro,
                     cardData: CardData(
-                      title: "Nuevo Banco del Chaco",
+                      title: _titleEuro,
+                      bannerTitle: "Nuevo Banco del Chaco",
                       tag: _titleEuro,
                       iconAsset: DolarBotIcons.banks.chaco,
                       colors: DolarBotConstants.kGradiantChaco,
                       endpoint: EuroEndpoints.chaco.value,
-                      response: EuroResponse,
+                      responseType: EuroResponse,
                     ),
-                    euroEndpoint: EuroEndpoints.chaco,
                   ),
                 )
               },
@@ -153,16 +148,15 @@ class RootMenuBanks extends StatelessWidget {
                 Util.navigateTo(
                   context,
                   FiatCurrencyInfoScreen<RealResponse>(
-                    title: _titleReal,
                     cardData: CardData(
-                      title: "Nuevo Banco del Chaco",
+                      title: _titleReal,
+                      bannerTitle: "Nuevo Banco del Chaco",
                       tag: _titleReal,
                       iconAsset: DolarBotIcons.banks.chaco,
                       colors: DolarBotConstants.kGradiantChaco,
                       endpoint: RealEndpoints.chaco.value,
-                      response: RealResponse,
+                      responseType: RealResponse,
                     ),
-                    realEndpoint: RealEndpoints.chaco,
                   ),
                 )
               },
@@ -182,16 +176,15 @@ class RootMenuBanks extends StatelessWidget {
                 Util.navigateTo(
                   context,
                   FiatCurrencyInfoScreen<DollarResponse>(
-                    title: _titleDolar,
                     cardData: CardData(
-                      title: "Banco Ciudad",
+                      title: _titleDolar,
+                      bannerTitle: "Banco Ciudad",
                       tag: _titleDolar,
                       iconAsset: DolarBotIcons.banks.ciudad,
                       colors: DolarBotConstants.kGradiantCiudad,
                       endpoint: DollarEndpoints.ciudad.value,
-                      response: DollarResponse,
+                      responseType: DollarResponse,
                     ),
-                    dollarEndpoint: DollarEndpoints.ciudad,
                   ),
                 )
               },
@@ -211,16 +204,15 @@ class RootMenuBanks extends StatelessWidget {
                 Util.navigateTo(
                   context,
                   FiatCurrencyInfoScreen<DollarResponse>(
-                    title: _titleDolar,
                     cardData: CardData(
-                      title: "Banco Comafi",
+                      title: _titleDolar,
+                      bannerTitle: "Banco Comafi",
                       tag: _titleDolar,
                       iconAsset: DolarBotIcons.banks.comafi,
                       colors: DolarBotConstants.kGradiantComafi,
                       endpoint: DollarEndpoints.comafi.value,
-                      response: DollarResponse,
+                      responseType: DollarResponse,
                     ),
-                    dollarEndpoint: DollarEndpoints.comafi,
                   ),
                 )
               },
@@ -240,16 +232,15 @@ class RootMenuBanks extends StatelessWidget {
                 Util.navigateTo(
                   context,
                   FiatCurrencyInfoScreen<DollarResponse>(
-                    title: _titleDolar,
                     cardData: CardData(
-                      title: "Banco de Córdoba",
+                      title: _titleDolar,
+                      bannerTitle: "Banco de Córdoba",
                       tag: _titleDolar,
                       iconAsset: DolarBotIcons.banks.cordoba,
                       colors: DolarBotConstants.kGradiantCordoba,
                       endpoint: DollarEndpoints.bancor.value,
-                      response: DollarResponse,
+                      responseType: DollarResponse,
                     ),
-                    dollarEndpoint: DollarEndpoints.bancor,
                   ),
                 )
               },
@@ -269,16 +260,15 @@ class RootMenuBanks extends StatelessWidget {
                 Util.navigateTo(
                   context,
                   FiatCurrencyInfoScreen<DollarResponse>(
-                    title: _titleDolar,
                     cardData: CardData(
-                      title: "Banco Galicia",
+                      title: _titleDolar,
+                      bannerTitle: "Banco Galicia",
                       tag: _titleDolar,
                       iconAsset: DolarBotIcons.banks.galicia,
                       colors: DolarBotConstants.kGradiantGalicia,
                       endpoint: DollarEndpoints.galicia.value,
-                      response: DollarResponse,
+                      responseType: DollarResponse,
                     ),
-                    dollarEndpoint: DollarEndpoints.galicia,
                   ),
                 )
               },
@@ -291,16 +281,15 @@ class RootMenuBanks extends StatelessWidget {
                 Util.navigateTo(
                   context,
                   FiatCurrencyInfoScreen<EuroResponse>(
-                    title: _titleEuro,
                     cardData: CardData(
-                      title: "Banco Galicia",
+                      title: _titleEuro,
+                      bannerTitle: "Banco Galicia",
                       tag: _titleEuro,
                       iconAsset: DolarBotIcons.banks.galicia,
                       colors: DolarBotConstants.kGradiantGalicia,
                       endpoint: EuroEndpoints.galicia.value,
-                      response: EuroResponse,
+                      responseType: EuroResponse,
                     ),
-                    euroEndpoint: EuroEndpoints.galicia,
                   ),
                 )
               },
@@ -320,16 +309,15 @@ class RootMenuBanks extends StatelessWidget {
                 Util.navigateTo(
                   context,
                   FiatCurrencyInfoScreen<DollarResponse>(
-                    title: _titleDolar,
                     cardData: CardData(
-                      title: "Banco Hipotecario",
+                      title: _titleDolar,
+                      bannerTitle: "Banco Hipotecario",
                       tag: _titleDolar,
                       iconAsset: DolarBotIcons.banks.hipotecario,
                       colors: DolarBotConstants.kGradiantHipotecario,
                       endpoint: DollarEndpoints.hipotecario.value,
-                      response: DollarResponse,
+                      responseType: DollarResponse,
                     ),
-                    dollarEndpoint: DollarEndpoints.hipotecario,
                   ),
                 )
               },
@@ -342,16 +330,15 @@ class RootMenuBanks extends StatelessWidget {
                 Util.navigateTo(
                   context,
                   FiatCurrencyInfoScreen<EuroResponse>(
-                    title: _titleEuro,
                     cardData: CardData(
-                      title: "Banco Hipotecario",
+                      title: _titleEuro,
+                      bannerTitle: "Banco Hipotecario",
                       tag: _titleEuro,
                       iconAsset: DolarBotIcons.banks.hipotecario,
                       colors: DolarBotConstants.kGradiantHipotecario,
                       endpoint: EuroEndpoints.hipotecario.value,
-                      response: EuroResponse,
+                      responseType: EuroResponse,
                     ),
-                    euroEndpoint: EuroEndpoints.hipotecario,
                   ),
                 )
               },
@@ -371,16 +358,15 @@ class RootMenuBanks extends StatelessWidget {
                 Util.navigateTo(
                   context,
                   FiatCurrencyInfoScreen<DollarResponse>(
-                    title: _titleDolar,
                     cardData: CardData(
-                      title: "Banco de La Pampa",
+                      title: _titleDolar,
+                      bannerTitle: "Banco de La Pampa",
                       tag: _titleDolar,
                       iconAsset: DolarBotIcons.banks.pampa,
                       colors: DolarBotConstants.kGradiantPampa,
                       endpoint: DollarEndpoints.pampa.value,
-                      response: DollarResponse,
+                      responseType: DollarResponse,
                     ),
-                    dollarEndpoint: DollarEndpoints.pampa,
                   ),
                 )
               },
@@ -393,16 +379,15 @@ class RootMenuBanks extends StatelessWidget {
                 Util.navigateTo(
                   context,
                   FiatCurrencyInfoScreen<EuroResponse>(
-                    title: _titleEuro,
                     cardData: CardData(
-                      title: "Banco de La Pampa",
+                      title: _titleEuro,
+                      bannerTitle: "Banco de La Pampa",
                       tag: _titleEuro,
                       iconAsset: DolarBotIcons.banks.pampa,
                       colors: DolarBotConstants.kGradiantPampa,
                       endpoint: EuroEndpoints.pampa.value,
-                      response: EuroResponse,
+                      responseType: EuroResponse,
                     ),
-                    euroEndpoint: EuroEndpoints.pampa,
                   ),
                 )
               },
@@ -422,16 +407,15 @@ class RootMenuBanks extends StatelessWidget {
                 Util.navigateTo(
                   context,
                   FiatCurrencyInfoScreen<DollarResponse>(
-                    title: _titleDolar,
                     cardData: CardData(
-                      title: "Banco Nación",
+                      title: _titleDolar,
+                      bannerTitle: "Banco Nación",
                       tag: _titleDolar,
                       iconAsset: DolarBotIcons.banks.nacion,
                       colors: DolarBotConstants.kGradiantNacion,
                       endpoint: DollarEndpoints.nacion.value,
-                      response: DollarResponse,
+                      responseType: DollarResponse,
                     ),
-                    dollarEndpoint: DollarEndpoints.nacion,
                   ),
                 )
               },
@@ -444,16 +428,15 @@ class RootMenuBanks extends StatelessWidget {
                 Util.navigateTo(
                   context,
                   FiatCurrencyInfoScreen<EuroResponse>(
-                    title: _titleEuro,
                     cardData: CardData(
-                      title: "Banco Nación",
+                      title: _titleEuro,
+                      bannerTitle: "Banco Nación",
                       tag: _titleEuro,
                       iconAsset: DolarBotIcons.banks.nacion,
                       colors: DolarBotConstants.kGradiantNacion,
                       endpoint: EuroEndpoints.nacion.value,
-                      response: EuroResponse,
+                      responseType: EuroResponse,
                     ),
-                    euroEndpoint: EuroEndpoints.nacion,
                   ),
                 )
               },
@@ -466,16 +449,15 @@ class RootMenuBanks extends StatelessWidget {
                 Util.navigateTo(
                   context,
                   FiatCurrencyInfoScreen<RealResponse>(
-                    title: _titleReal,
                     cardData: CardData(
-                      title: "Banco Nación",
+                      title: _titleReal,
+                      bannerTitle: "Banco Nación",
                       tag: _titleReal,
                       iconAsset: DolarBotIcons.banks.nacion,
                       colors: DolarBotConstants.kGradiantNacion,
                       endpoint: RealEndpoints.nacion.value,
-                      response: RealResponse,
+                      responseType: RealResponse,
                     ),
-                    realEndpoint: RealEndpoints.nacion,
                   ),
                 )
               },
@@ -495,16 +477,15 @@ class RootMenuBanks extends StatelessWidget {
                 Util.navigateTo(
                   context,
                   FiatCurrencyInfoScreen<DollarResponse>(
-                    title: _titleDolar,
                     cardData: CardData(
-                      title: "Banco Patagonia",
+                      title: _titleDolar,
+                      bannerTitle: "Banco Patagonia",
                       tag: _titleDolar,
                       iconAsset: DolarBotIcons.banks.patagonia,
                       colors: DolarBotConstants.kGradiantPatagonia,
                       endpoint: DollarEndpoints.patagonia.value,
-                      response: DollarResponse,
+                      responseType: DollarResponse,
                     ),
-                    dollarEndpoint: DollarEndpoints.patagonia,
                   ),
                 )
               },
@@ -524,16 +505,15 @@ class RootMenuBanks extends StatelessWidget {
                 Util.navigateTo(
                   context,
                   FiatCurrencyInfoScreen<DollarResponse>(
-                    title: _titleDolar,
                     cardData: CardData(
-                      title: "Banco Piano",
+                      title: _titleDolar,
+                      bannerTitle: "Banco Piano",
                       tag: _titleDolar,
                       iconAsset: DolarBotIcons.banks.piano,
                       colors: DolarBotConstants.kGradiantPiano,
                       endpoint: DollarEndpoints.piano.value,
-                      response: DollarResponse,
+                      responseType: DollarResponse,
                     ),
-                    dollarEndpoint: DollarEndpoints.piano,
                   ),
                 )
               },
@@ -553,16 +533,15 @@ class RootMenuBanks extends StatelessWidget {
                 Util.navigateTo(
                   context,
                   FiatCurrencyInfoScreen<DollarResponse>(
-                    title: _titleDolar,
                     cardData: CardData(
-                      title: "Banco Santander",
+                      title: _titleDolar,
+                      bannerTitle: "Banco Santander",
                       tag: _titleDolar,
                       iconAsset: DolarBotIcons.banks.santander,
                       colors: DolarBotConstants.kGradiantSantander,
                       endpoint: DollarEndpoints.santander.value,
-                      response: DollarResponse,
+                      responseType: DollarResponse,
                     ),
-                    dollarEndpoint: DollarEndpoints.santander,
                   ),
                 )
               },
@@ -582,16 +561,15 @@ class RootMenuBanks extends StatelessWidget {
                 Util.navigateTo(
                   context,
                   FiatCurrencyInfoScreen<DollarResponse>(
-                    title: _titleDolar,
                     cardData: CardData(
-                      title: "Banco Supervielle",
+                      title: _titleDolar,
+                      bannerTitle: "Banco Supervielle",
                       tag: _titleDolar,
                       iconAsset: DolarBotIcons.banks.supervielle,
                       colors: DolarBotConstants.kGradiantSupervielle,
                       endpoint: DollarEndpoints.supervielle.value,
-                      response: DollarResponse,
+                      responseType: DollarResponse,
                     ),
-                    dollarEndpoint: DollarEndpoints.supervielle,
                   ),
                 )
               },

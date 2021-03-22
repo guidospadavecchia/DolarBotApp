@@ -7,12 +7,13 @@ import 'package:intl/intl.dart';
 
 export 'package:dolarbot_app/api/responses/base/generic_currency_response.dart';
 
-class FiatCurrencyCard extends BaseCard {
+class FiatCurrencyCard<T extends GenericCurrencyResponse> extends BaseCard {
   static const double height = 150;
 
   final String title;
+  final String bannerTitle;
   final String tag;
-  final GenericCurrencyResponse data;
+  final T data;
   final List<Color> gradiantColors;
   final IconData iconData;
   final String iconAsset;
@@ -24,6 +25,7 @@ class FiatCurrencyCard extends BaseCard {
   const FiatCurrencyCard(
       {Key key,
       @required this.title,
+      @required this.bannerTitle,
       @required this.tag,
       @required this.data,
       @required this.gradiantColors,
@@ -35,6 +37,7 @@ class FiatCurrencyCard extends BaseCard {
       @required this.numberFormat})
       : super(
           title: title,
+          bannerTitle: bannerTitle,
           tag: tag,
           gradiantColors: gradiantColors,
           iconAsset: iconAsset,
@@ -59,7 +62,7 @@ class _FiatCurrencyCardState extends BaseCardState<FiatCurrencyCard> {
     return CardFavorite(
       height: FiatCurrencyCard.height,
       header: CardHeader(
-        title: widget.title,
+        title: widget.bannerTitle,
         shareButton:
             widget.showShareButton ? CardShareButton(onSharePressed: () => onSharePressed()) : null,
       ),

@@ -7,13 +7,11 @@ import 'package:dolarbot_app/screens/common/loading_screen.dart';
 import 'package:intl/intl.dart';
 
 class VenezuelaInfoScreen extends BaseInfoScreen {
-  final String title;
   final CardData cardData;
 
   VenezuelaInfoScreen({
-    @required this.title,
     @required this.cardData,
-  }) : super(cardData: cardData, title: title);
+  }) : super(cardData: cardData);
 
   @override
   _VenezuelaInfoScreenState createState() => _VenezuelaInfoScreenState();
@@ -68,7 +66,7 @@ class _VenezuelaInfoScreenState extends BaseInfoScreenState<VenezuelaInfoScreen>
   @override
   Widget card() {
     CardData newCardData =
-        widget.cardData.clone(title: "Venezuela", iconAsset: DolarBotIcons.general.venezuela);
+        widget.cardData.clone(bannerTitle: "Venezuela", iconAsset: DolarBotIcons.general.venezuela);
     Settings settings = Provider.of<Settings>(context, listen: false);
     return BuildCard(data).fromCardData(context, newCardData, settings);
   }
@@ -95,7 +93,7 @@ class _VenezuelaInfoScreenState extends BaseInfoScreenState<VenezuelaInfoScreen>
 
   @override
   String getShareTitle() {
-    return "${widget.title} - ${widget.cardData.title.toUpperCase()}";
+    return "${widget.cardData.title} - ${widget.cardData.bannerTitle.toUpperCase()}";
   }
 
   @override
@@ -148,8 +146,8 @@ class _VenezuelaInfoScreenState extends BaseInfoScreenState<VenezuelaInfoScreen>
   FavoriteRate createFavorite() {
     return FavoriteRate(
         endpoint: widget.cardData.endpoint,
-        cardResponseType: widget.cardData.response.toString(),
-        cardTitle: widget.title,
+        cardResponseType: widget.cardData.responseType.toString(),
+        cardTitle: widget.cardData.title,
         cardSubtitle: null,
         cardSymbol: null,
         cardTag: widget.cardData.tag,
@@ -157,7 +155,4 @@ class _VenezuelaInfoScreenState extends BaseInfoScreenState<VenezuelaInfoScreen>
         cardIconData: widget.cardData.iconData?.codePoint,
         cardIconAsset: DolarBotIcons.general.venezuela);
   }
-
-  @override
-  Type getResponseType() => VenezuelaResponse;
 }

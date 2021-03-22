@@ -26,16 +26,15 @@ class RootMenuDollar extends StatelessWidget {
             Util.navigateTo(
               context,
               FiatCurrencyInfoScreen<DollarResponse>(
-                title: _title,
                 cardData: CardData(
-                  title: "Oficial",
+                  title: _title,
+                  bannerTitle: "Oficial",
                   tag: _title,
                   iconData: FontAwesomeIcons.dollarSign,
                   colors: DolarBotConstants.kGradiantDefault,
                   endpoint: DollarEndpoints.oficial.value,
-                  response: DollarResponse,
+                  responseType: DollarResponse,
                 ),
-                dollarEndpoint: DollarEndpoints.oficial,
               ),
             )
           },
@@ -48,16 +47,15 @@ class RootMenuDollar extends StatelessWidget {
             Util.navigateTo(
               context,
               FiatCurrencyInfoScreen<DollarResponse>(
-                title: _title,
                 cardData: CardData(
-                  title: "Ahorro",
+                  title: _title,
+                  bannerTitle: "Ahorro",
                   tag: _title,
                   iconData: FontAwesomeIcons.piggyBank,
                   colors: DolarBotConstants.kGradiantDefault,
                   endpoint: DollarEndpoints.ahorro.value,
-                  response: DollarResponse,
+                  responseType: DollarResponse,
                 ),
-                dollarEndpoint: DollarEndpoints.ahorro,
               ),
             )
           },
@@ -70,16 +68,15 @@ class RootMenuDollar extends StatelessWidget {
             Util.navigateTo(
               context,
               FiatCurrencyInfoScreen<DollarResponse>(
-                title: _title,
                 cardData: CardData(
-                  title: "Blue",
+                  title: _title,
+                  bannerTitle: "Blue",
                   tag: _title,
                   iconData: FontAwesomeIcons.commentDollar,
                   colors: DolarBotConstants.kGradiantDefault,
                   endpoint: DollarEndpoints.blue.value,
-                  response: DollarResponse,
+                  responseType: DollarResponse,
                 ),
-                dollarEndpoint: DollarEndpoints.blue,
               ),
             )
           },
@@ -92,16 +89,15 @@ class RootMenuDollar extends StatelessWidget {
             Util.navigateTo(
               context,
               FiatCurrencyInfoScreen<DollarResponse>(
-                title: _title,
                 cardData: CardData(
-                  title: "Bolsa (MEP)",
+                  title: _title,
+                  bannerTitle: "Bolsa (MEP)",
                   tag: _title,
                   iconData: FontAwesomeIcons.poll,
                   colors: DolarBotConstants.kGradiantDefault,
                   endpoint: DollarEndpoints.bolsa.value,
-                  response: DollarResponse,
+                  responseType: DollarResponse,
                 ),
-                dollarEndpoint: DollarEndpoints.bolsa,
               ),
             )
           },
@@ -114,16 +110,15 @@ class RootMenuDollar extends StatelessWidget {
             Util.navigateTo(
               context,
               FiatCurrencyInfoScreen<DollarResponse>(
-                title: _title,
                 cardData: CardData(
-                  title: "Contado con Liqui",
+                  title: _title,
+                  bannerTitle: "Contado con Liqui",
                   tag: _title,
                   iconData: FontAwesomeIcons.coins,
                   colors: DolarBotConstants.kGradiantDefault,
                   endpoint: DollarEndpoints.contadoLiqui.value,
-                  response: DollarResponse,
+                  responseType: DollarResponse,
                 ),
-                dollarEndpoint: DollarEndpoints.contadoLiqui,
               ),
             )
           },
@@ -136,16 +131,15 @@ class RootMenuDollar extends StatelessWidget {
             Util.navigateTo(
               context,
               FiatCurrencyInfoScreen<DollarResponse>(
-                title: _title,
                 cardData: CardData(
-                  title: "Promedio",
+                  title: _title,
+                  bannerTitle: "Promedio",
                   tag: _title,
                   iconData: FontAwesomeIcons.percentage,
                   colors: DolarBotConstants.kGradiantDefault,
                   endpoint: DollarEndpoints.promedio.value,
-                  response: DollarResponse,
+                  responseType: DollarResponse,
                 ),
-                dollarEndpoint: DollarEndpoints.promedio,
               ),
             )
           },

@@ -44,12 +44,10 @@ export 'package:flutter/material.dart';
 export 'package:provider/provider.dart';
 
 abstract class BaseInfoScreen extends StatefulWidget {
-  final String title;
   final CardData cardData;
 
   BaseInfoScreen({
     Key key,
-    this.title,
     this.cardData,
   }) : super(key: key);
 }
@@ -82,7 +80,6 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> imple
   FavoriteRate createFavorite();
   String getShareTitle();
   String getShareText();
-  Type getResponseType();
   Future loadData();
   FabOptionCalculatorDialog getCalculatorWidget();
 
@@ -135,7 +132,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> imple
           extendBodyBehindAppBar: extendBodyBehindAppBar(),
           resizeToAvoidBottomInset: false,
           appBar: CoolAppBar(
-            title: widget.title,
+            title: widget.cardData.title,
             isMainMenu: isMainMenu(),
             foregroundColor: setColorAppbar(),
             showRefreshButton: showRefreshButton,
@@ -151,7 +148,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> imple
           ),
           drawerEdgeDragWidth: 80,
           drawerEnableOpenDragGesture: true,
-          body: (widget.title != null && isMainMenu())
+          body: (widget.cardData.title != null && isMainMenu())
               ? Container(
                   height: double.infinity,
                   decoration: BoxDecoration(
@@ -234,7 +231,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> imple
 
   @nonVirtual
   Widget banner() {
-    if (widget.cardData?.title != null) {
+    if (widget.cardData?.bannerTitle != null) {
       return Padding(
         padding: const EdgeInsets.only(top: 50),
         child: Column(
@@ -268,9 +265,9 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> imple
                   Container(
                     constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.7),
                     child: FittedBox(
-                      fit: widget.cardData.title.length > 10 ? BoxFit.fitWidth : BoxFit.none,
+                      fit: widget.cardData.bannerTitle.length > 10 ? BoxFit.fitWidth : BoxFit.none,
                       child: Text(
-                        widget.cardData.title,
+                        widget.cardData.bannerTitle,
                         style: TextStyle(
                           fontSize: 28,
                           fontFamily: 'Raleway',
@@ -396,7 +393,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> imple
   Future<String> _getRateDescription() async {
     String descriptionsString = await rootBundle.loadString(DolarBotConstants.kDescriptionsFile);
     Map<String, dynamic> descriptions = json.decode(descriptionsString) as Map<String, dynamic>;
-    return descriptions[_getEndpointType(widget.cardData?.response)];
+    return descriptions[_getEndpointType(widget.cardData?.responseType)];
   }
 
   String _getEndpointType(Type response) {
