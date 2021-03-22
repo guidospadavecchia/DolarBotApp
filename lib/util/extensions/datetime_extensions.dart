@@ -23,14 +23,10 @@ extension DateTimeExtensions on DateTime {
       return "Ahora";
     } else if (duration.inMinutes == 1) {
       return "Hace 1 minuto";
-    } else if (duration.inMinutes >= 1 && duration.inMinutes <= 15) {
-      return "Hace ${duration.inMinutes} minutos";
-    } else if (duration.inMinutes > 15 && duration.inMinutes < 30) {
-      return "Más de 15 minutos";
     } else if (duration.inMinutes == 30) {
       return "Hace media hora";
-    } else if (duration.inMinutes > 30 && duration.inMinutes < 60) {
-      return "Más de media hora";
+    } else if (duration.inMinutes >= 1 && duration.inMinutes < 60) {
+      return "Hace ${duration.inMinutes} minutos";
     } else if (duration.inHours == 1) {
       return "Hace 1 hora";
     } else if (duration.inHours >= 1 && duration.inHours <= 6) {
