@@ -147,7 +147,7 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
             child: Theme(
               data: ThemeData(canvasColor: Colors.transparent, shadowColor: Colors.transparent),
               child: ReorderableListView(
-                proxyDecorator: (Widget child, int i, Animation<double> animation) {
+                proxyDecorator: (Widget child, int index, Animation<double> animation) {
                   return Transform.scale(
                     scale: 0.95,
                     child: Opacity(

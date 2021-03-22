@@ -93,7 +93,7 @@ class DolarBotConstants {
   ];
   static const List<Color> kGradiantDAI = [
     Color.fromRGBO(245, 172, 55, 1),
-    Color.fromRGBO(203, 125, 10, 1),
+    Color.fromRGBO(164, 75, 11, 1),
   ];
   static const List<Color> kGradiantDASH = [
     Color.fromRGBO(0, 141, 228, 1),
@@ -116,8 +116,8 @@ class DolarBotConstants {
     Color.fromRGBO(153, 61, 0, 1),
   ];
   static const List<Color> kGradiantPolkadot = [
-    Color.fromRGBO(40, 40, 40, 1),
-    Color.fromRGBO(255, 28, 147, 1),
+    Color.fromRGBO(115, 0, 61, 1),
+    Color.fromRGBO(230, 0, 122, 1),
   ];
   static const List<Color> kGradiantRipple = [
     Color.fromRGBO(0, 165, 223, 1),
