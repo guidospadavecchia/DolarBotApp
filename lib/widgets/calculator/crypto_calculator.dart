@@ -81,6 +81,7 @@ class _CryptoCalculatorState extends BaseCalculatorState<CryptoCalculator> with 
         InputAmount(
           title: "Ingresá la cantidad:",
           textController: _textControllerInput,
+          maxDigits: 12,
         ),
         SizedBox(
           height: 30,
