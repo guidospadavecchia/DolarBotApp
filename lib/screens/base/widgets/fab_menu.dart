@@ -20,30 +20,34 @@ class FabMenu extends StatefulWidget {
   final Function onCalculatorButtonTap;
   final bool showDescriptionButton;
   final Function onShowDescriptionTap;
+  final bool showHistoricalChartButton;
+  final Function onHistoricalChartButtonTap;
   final Function onOpened;
   final Function onClosed;
   final bool visible;
   final Axis direction;
 
-  const FabMenu(
-      {Key key,
-      this.simpleFabKey,
-      this.showFavoriteButton = true,
-      this.onFavoriteButtonTap,
-      this.isFavorite = false,
-      this.showShareButton = true,
-      this.onShareButtonTap,
-      this.showClipboardButton = true,
-      this.onClipboardButtonTap,
-      this.showCalculatorButton = true,
-      this.onCalculatorButtonTap,
-      this.showDescriptionButton = false,
-      this.onShowDescriptionTap,
-      this.onOpened,
-      this.onClosed,
-      this.visible = true,
-      this.direction})
-      : super(key: key);
+  const FabMenu({
+    Key key,
+    this.simpleFabKey,
+    this.showFavoriteButton = false,
+    this.onFavoriteButtonTap,
+    this.isFavorite = false,
+    this.showShareButton = false,
+    this.onShareButtonTap,
+    this.showClipboardButton = false,
+    this.onClipboardButtonTap,
+    this.showCalculatorButton = false,
+    this.onCalculatorButtonTap,
+    this.showDescriptionButton = false,
+    this.onShowDescriptionTap,
+    this.showHistoricalChartButton = false,
+    this.onHistoricalChartButtonTap,
+    this.onOpened,
+    this.onClosed,
+    this.visible = true,
+    this.direction,
+  }) : super(key: key);
 
   @override
   _FabMenuState createState() => _FabMenuState();
@@ -100,6 +104,17 @@ class _FabMenuState extends State<FabMenu> {
             icon: FontAwesomeIcons.calculator,
             onPressed: () {
               widget.onCalculatorButtonTap();
+              closeFabMenu();
+            },
+          ),
+        if (widget.showHistoricalChartButton)
+          SimpleFabOption(
+            tooltip: "Gráfico histórico 📈",
+            iconColor: Colors.deepOrange[800],
+            backgroundColor: Colors.white,
+            icon: FontAwesomeIcons.chartBar,
+            onPressed: () {
+              widget.onHistoricalChartButtonTap();
               closeFabMenu();
             },
           ),

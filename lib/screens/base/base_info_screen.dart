@@ -65,6 +65,7 @@ abstract class BaseInfoScreenState<Page extends BaseInfoScreen> extends State<Ba
   bool showClipboardButton() => true;
   bool showCalculatorButton() => true;
   bool showFavoriteButton() => true;
+  bool showHistoricalChartButton() => true;
   bool extendBodyBehindAppBar() => true;
   Color setColorAppbar() => Colors.white;
 }
@@ -191,6 +192,9 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> imple
                   onCalculatorButtonTap: () => _onCalculatorButtonTap(),
                   showDescriptionButton: _shouldShowDescriptionButton,
                   onShowDescriptionTap: () => _onShowDescriptionTap(),
+                  showHistoricalChartButton: showHistoricalChartButton(),
+                  //TODO Abrir y mostrar gráfico
+                  onHistoricalChartButtonTap: () => null,
                   onOpened: () => dismissAllToast(),
                   visible: isDataLoaded,
                   direction: settings.getFabDirection(),
@@ -344,7 +348,9 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> imple
     timestamp = timestamp.replaceAll('/', '-');
     bool rateExists = historicalRates.any((x) =>
         x.endpoint == endpoint &&
-        DateTime.parse(x.timestamp).difference(DateTime.parse(timestamp)).inMinutes < saveFreq);
+        (saveFreq <= 0 ||
+            DateTime.parse(x.timestamp).difference(DateTime.parse(timestamp)).inMinutes <
+                saveFreq));
 
     if (!rateExists) {
       HistoricalRate historicalRate = HistoricalRate(
