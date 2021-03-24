@@ -1,7 +1,7 @@
+import 'dart:convert';
 import 'package:dolarbot_app/api/responses/base/api_response.dart';
 
 class VenezuelaResponse extends ApiResponse {
-  String timestamp;
   String blackMarketPrice;
   String bankPrice;
   String cucutaPrice;
@@ -16,5 +16,16 @@ class VenezuelaResponse extends ApiResponse {
     bankPrice = json["bancos"];
     cucutaPrice = json["cucuta"];
     currencyCode = json["moneda"];
+  }
+
+  @override
+  String serialize() {
+    return jsonEncode({
+      'timestamp': timestamp,
+      'blackMarketPrice': blackMarketPrice,
+      'bankPrice': bankPrice,
+      'cucutaPrice': cucutaPrice,
+      'currencyCode': currencyCode,
+    });
   }
 }

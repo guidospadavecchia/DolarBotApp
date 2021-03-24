@@ -81,6 +81,12 @@ class _CryptoInfoScreenState extends BaseInfoScreenState<CryptoInfoScreen> with 
 
     API.getCryptoRate(cryptoEndpoint, forceRefresh: shouldForceRefresh).then(
       (value) {
+        saveHistoricalRate(
+          widget.cardData.endpoint,
+          widget.cardData.responseType.toString(),
+          value.timestamp,
+          value,
+        );
         WidgetsBinding.instance.addPostFrameCallback(
           (_) => setState(() {
             data = value;

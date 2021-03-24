@@ -4,6 +4,7 @@ import 'package:dolarbot_app/api/api.dart';
 import 'package:dolarbot_app/api/responses/base/api_response.dart';
 import 'package:dolarbot_app/api/responses/metal_response.dart';
 import 'package:dolarbot_app/classes/hive/favorite_rate.dart';
+import 'package:dolarbot_app/classes/hive/historical_rate.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:dolarbot_app/interfaces/share_info.dart';
 import 'package:dolarbot_app/models/settings.dart';
@@ -23,6 +24,7 @@ import 'package:dolarbot_app/widgets/common/simple_fab_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:global_configuration/global_configuration.dart';
 import 'package:hive/hive.dart';
 import 'package:meta/meta.dart';
 import 'package:oktoast/oktoast.dart';
@@ -68,6 +70,8 @@ abstract class BaseInfoScreenState<Page extends BaseInfoScreen> extends State<Ba
 }
 
 mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> implements IShareable {
+  static final cfg = GlobalConfiguration();
+
   String timestamp;
   bool showRefreshButton = false;
   bool shouldForceRefresh = false;
@@ -328,6 +332,32 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> imple
   @nonVirtual
   void showSimpleFabMenu() {
     simpleFabKey?.currentState?.show();
+  }
+
+  Future<void> saveHistoricalRate(
+      String endpoint, String responseType, String timestamp, ApiResponse data) {
+    Box historicalRatesBox = Hive.box('historicalRates');
+    List<HistoricalRate> historicalRates =
+        historicalRatesBox.get('historicalRates', defaultValue: []).cast<HistoricalRate>();
+
+    int saveFreq = cfg.get("historicalRateSaveFrequencyMinutes") ?? Duration.minutesPerDay;
+    timestamp = timestamp.replaceAll('/', '-');
+    bool rateExists = historicalRates.any((x) =>
+        x.endpoint == endpoint &&
+        DateTime.parse(x.timestamp).difference(DateTime.parse(timestamp)).inMinutes < saveFreq);
+
+    if (!rateExists) {
+      HistoricalRate historicalRate = HistoricalRate(
+        endpoint: endpoint,
+        responseType: responseType,
+        timestamp: timestamp,
+        json: data.serialize(),
+      );
+      historicalRates.add(historicalRate);
+      return historicalRatesBox.put('historicalRates', historicalRates);
+    }
+
+    return Future.value();
   }
 
   void onRefresh() async {

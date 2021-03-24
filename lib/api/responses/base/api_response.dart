@@ -8,9 +8,12 @@ export 'package:dolarbot_app/api/responses/country_risk_response.dart';
 export 'package:dolarbot_app/api/responses/crypto_response.dart';
 
 abstract class ApiResponse {
+  String timestamp;
+
   ApiResponse(Map json) {
     map(json);
   }
 
   void map(Map json);
+  String serialize();
 }

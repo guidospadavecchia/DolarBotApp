@@ -38,6 +38,12 @@ class _FiatCurrencyInfoScreenState<T extends GenericCurrencyResponse>
   @override
   Future loadData() async {
     _getResponse().then((value) {
+      saveHistoricalRate(
+        widget.cardData.endpoint,
+        widget.cardData.responseType.toString(),
+        value.timestamp,
+        value,
+      );
       WidgetsBinding.instance.addPostFrameCallback(
         (_) => setState(() {
           data = value;

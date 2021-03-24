@@ -1,7 +1,7 @@
+import 'dart:convert';
 import 'package:dolarbot_app/api/responses/base/api_response.dart';
 
 class HistoricalRateResponse extends ApiResponse {
-  String timestamp;
   String value;
   String currency;
   List<HistoricalMonthRate> monthlyRates;
@@ -10,12 +10,28 @@ class HistoricalRateResponse extends ApiResponse {
 
   @override
   void map(Map json) {
+    monthlyRates = [];
     timestamp = json["fecha"];
     value = json["valor"];
     currency = json["moneda"];
-    monthlyRates = [];
 
-    json["meses"].forEach((key, value) => {monthlyRates.add(HistoricalMonthRate.fromJson(value))});
+    json["meses"].forEach(
+      (key, value) => {
+        monthlyRates.add(
+          HistoricalMonthRate.fromJson(value),
+        ),
+      },
+    );
+  }
+
+  @override
+  String serialize() {
+    return jsonEncode({
+      'timestamp': timestamp,
+      'value': value,
+      'currency': currency,
+      'monthlyRates': monthlyRates.map((x) => x.toJson()),
+    });
   }
 }
 
@@ -34,4 +50,12 @@ class HistoricalMonthRate {
       : year = json["anio"],
         month = json["mes"],
         value = json["valor"];
+
+  String toJson() {
+    return jsonEncode({
+      'year': year,
+      'month': month,
+      'value': value,
+    });
+  }
 }

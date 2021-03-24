@@ -1,7 +1,7 @@
+import 'dart:convert';
 import 'package:dolarbot_app/api/responses/base/api_response.dart';
 
 class CryptoResponse extends ApiResponse {
-  String timestamp;
   String arsPrice;
   String arsPriceWithTaxes;
   String usdPrice;
@@ -16,5 +16,16 @@ class CryptoResponse extends ApiResponse {
     arsPriceWithTaxes = json["arsTaxed"];
     usdPrice = json["usd"];
     code = json["code"];
+  }
+
+  @override
+  String serialize() {
+    return jsonEncode({
+      'timestamp': timestamp,
+      'arsPrice': arsPrice,
+      'arsPriceWithTaxes': arsPriceWithTaxes,
+      'usdPrice': usdPrice,
+      'code': code,
+    });
   }
 }

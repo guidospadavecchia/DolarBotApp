@@ -271,10 +271,24 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
         _favoriteRates.addAll(cards.cast<FavoriteRate>());
       }
       await Future.wait(
-        _favoriteRates.map((x) => API
-            .getRawData(x.endpoint, forceRefresh)
-            .then((value) => _responses[x.endpoint] = value)),
+        _favoriteRates.map(
+          (x) => API
+              .getRawData(x.endpoint, forceRefresh)
+              .then((value) => _responses[x.endpoint] = value),
+        ),
       );
+
+      _favoriteRates.forEach((x) {
+        Map json = _responses[x.endpoint];
+        ApiResponse response =
+            json != null ? ApiResponseBuilder.fromType(x.cardResponseType, json) : null;
+        saveHistoricalRate(
+          x.endpoint,
+          x.cardResponseType,
+          response.timestamp,
+          response,
+        );
+      });
     }
   }
 

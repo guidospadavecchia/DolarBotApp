@@ -70,6 +70,12 @@ class _MetalInfoScreenState extends BaseInfoScreenState<MetalInfoScreen> with Ba
         MetalEndpoints.values.firstWhere((e) => e.value == widget.cardData.endpoint);
     API.getMetalRate(metalEndpoint, forceRefresh: shouldForceRefresh).then(
       (value) {
+        saveHistoricalRate(
+          widget.cardData.endpoint,
+          widget.cardData.responseType.toString(),
+          value.timestamp,
+          value,
+        );
         WidgetsBinding.instance.addPostFrameCallback(
           (_) => setState(() {
             data = value;

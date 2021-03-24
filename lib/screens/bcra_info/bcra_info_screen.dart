@@ -117,6 +117,13 @@ class _BcraInfoScreenState extends BaseInfoScreenState<BcraInfoScreen> with Base
       }
       return BcraResponse(json);
     }, shouldForceRefresh).then((value) {
+      ApiResponse response = value;
+      saveHistoricalRate(
+        widget.cardData.endpoint,
+        widget.cardData.responseType.toString(),
+        value.timestamp,
+        response,
+      );
       WidgetsBinding.instance.addPostFrameCallback(
         (_) => setState(() {
           data = value;

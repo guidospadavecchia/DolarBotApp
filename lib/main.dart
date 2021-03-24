@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:dolarbot_app/classes/hive/adapters/cache_entry_adapter.dart';
 import 'package:dolarbot_app/classes/hive/adapters/favorite_rate_adapter.dart';
+import 'package:dolarbot_app/classes/hive/adapters/historical_rate_adapter.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:dolarbot_app/models/settings.dart';
 import 'package:dolarbot_app/screens/about/about_screen.dart';
@@ -108,10 +109,12 @@ void initializeHive() async {
 
   Hive.registerAdapter(CacheEntryAdapter());
   Hive.registerAdapter(FavoriteRateAdapter());
+  Hive.registerAdapter(HistoricalRateAdapter());
 
   await Future.wait([
     Hive.openBox('cache'),
     Hive.openBox('favorites'),
     Hive.openBox('settings'),
+    Hive.openBox('historicalRates'),
   ]);
 }
