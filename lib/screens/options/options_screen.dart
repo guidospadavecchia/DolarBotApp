@@ -7,6 +7,7 @@ import 'package:dolarbot_app/screens/base/base_info_screen.dart';
 import 'package:dolarbot_app/screens/options/widgets/card_gesture_dismiss_dialog/card_gesture_dismiss_dialog.dart';
 import 'package:dolarbot_app/screens/options/widgets/fab_direction_dialog.dart/fab_direction_dialog.dart';
 import 'package:dolarbot_app/screens/options/widgets/format_currency_dialog/format_currency_dialog.dart';
+import 'package:dolarbot_app/screens/options/widgets/clear_historical_data_dialog/clear_historical_data_dialog.dart';
 import 'package:dolarbot_app/widgets/cards/card_favorite.dart';
 import 'package:dolarbot_app/widgets/common/menu_item.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -130,6 +131,14 @@ class _OptionsScreenState extends BaseInfoScreenState<OptionsScreen> with BaseSc
             disableHighlight: false,
             onTap: () => Navigator.of(context).pushNamed("/about"),
           ),
+          MenuItem(
+            text: "Limpiar cotizaciones históricas",
+            subtitle: "Elimina los datos de las cotizaciones consultadas",
+            leading: Icon(FontAwesomeIcons.eraser),
+            depthLevel: 1,
+            disableHighlight: false,
+            onTap: () => _showClearHistoricalDataDialog(context),
+          ),
         ],
       ),
     );
@@ -159,6 +168,15 @@ class _OptionsScreenState extends BaseInfoScreenState<OptionsScreen> with BaseSc
           ),
         ],
       ),
+    );
+  }
+
+  _showClearHistoricalDataDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return ClearHistoricalDataDialog();
+      },
     );
   }
 

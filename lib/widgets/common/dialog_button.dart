@@ -4,12 +4,16 @@ import 'package:flutter/material.dart';
 class DialogButton extends StatelessWidget {
   final String text;
   final IconData icon;
+  final Color iconColor;
+  final Color textColor;
   final Function onPressed;
 
   const DialogButton({
     Key key,
     this.text,
     this.icon,
+    this.iconColor,
+    this.textColor,
     @required this.onPressed,
   }) : super(key: key);
 
@@ -20,8 +24,8 @@ class DialogButton extends StatelessWidget {
         padding: MaterialStateProperty.all<EdgeInsets>(
           EdgeInsets.only(top: 7, right: 25, left: 15, bottom: 7),
         ),
-        overlayColor: MaterialStateColor.resolveWith((states) =>
-            ThemeManager.getDrawerMenuItemIconColor(context).withOpacity(0.2)),
+        overlayColor: MaterialStateColor.resolveWith(
+            (states) => ThemeManager.getDrawerMenuItemIconColor(context).withOpacity(0.2)),
         backgroundColor: MaterialStateProperty.resolveWith<Color>(
           (Set<MaterialState> states) {
             return ThemeManager.getButtonColor(context);
@@ -37,7 +41,7 @@ class DialogButton extends StatelessWidget {
           Icon(
             icon,
             size: 32,
-            color: ThemeManager.getPrimaryAccentColor(context),
+            color: iconColor ?? ThemeManager.getPrimaryAccentColor(context),
           ),
           SizedBox(
             width: 10,
@@ -48,7 +52,7 @@ class DialogButton extends StatelessWidget {
               fontSize: 16,
               fontFamily: 'Raleway',
               fontWeight: FontWeight.normal,
-              color: ThemeManager.getPrimaryTextColor(context),
+              color: textColor ?? ThemeManager.getPrimaryTextColor(context),
             ),
           ),
         ],
