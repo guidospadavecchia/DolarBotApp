@@ -6,7 +6,6 @@ import 'package:dolarbot_app/api/responses/metal_response.dart';
 import 'package:dolarbot_app/classes/hive/favorite_rate.dart';
 import 'package:dolarbot_app/classes/hive/historical_rate.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
-import 'package:dolarbot_app/interfaces/share_info.dart';
 import 'package:dolarbot_app/models/settings.dart';
 import 'package:dolarbot_app/util/constants.dart';
 import 'package:dolarbot_app/widgets/calculator/exports/calculator_exports.dart';
@@ -42,6 +41,7 @@ export 'package:dolarbot_app/widgets/calculator/exports/calculator_exports.dart'
 export 'package:dolarbot_app/widgets/currency_info/currency_info_container.dart';
 export 'package:dolarbot_app/util/extensions/string_extensions.dart';
 export 'package:dolarbot_app/util/extensions/datetime_extensions.dart';
+export 'package:dolarbot_app/models/settings.dart';
 export 'package:flutter/material.dart';
 export 'package:provider/provider.dart';
 
@@ -70,7 +70,7 @@ abstract class BaseInfoScreenState<Page extends BaseInfoScreen> extends State<Ba
   Color setColorAppbar() => Colors.white;
 }
 
-mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> implements IShareable {
+mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
   static final cfg = GlobalConfiguration();
 
   String timestamp;

@@ -1,7 +1,7 @@
 import 'package:dolarbot_app/api/responses/base/generic_currency_response.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
-import 'package:dolarbot_app/interfaces/share_info.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
+import 'package:dolarbot_app/util/util.dart';
 import 'package:dolarbot_app/widgets/cards/factory/factory_card.dart';
 import 'package:dolarbot_app/widgets/cards/templates/fiat_currency_card.dart';
 import 'package:dolarbot_app/screens/common/error_screen.dart';

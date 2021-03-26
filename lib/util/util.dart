@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:io';
+import 'dart:typed_data';
 import 'dart:ui' as ui;
 
-import 'package:dolarbot_app/interfaces/share_info.dart';
 import 'package:dolarbot_app/widgets/steps/first_time_dialog.dart';
 import 'package:dolarbot_app/widgets/common/toasts/toast_error.dart';
 import 'package:flutter/foundation.dart';
