@@ -90,6 +90,7 @@ class HistoricalChart extends StatelessWidget {
                 fontWeight: FontWeight.bold,
                 fontSize: 14,
               );
+              //TODO: Configurar simbolo en base a la factory
               return LineTooltipItem("\$ ${numberFormat.format(touchedSpot.x)}", textStyle);
             },
           ).toList();
@@ -120,6 +121,7 @@ class HistoricalChart extends StatelessWidget {
           ),
       margin: 20,
       getTitles: (value) {
+        //TODO: Configurar simbolo en base a la factory
         NumberFormat numberFormat = Provider.of<Settings>(context, listen: false).getNumberFormat();
         return "\$ ${numberFormat.format(value)}";
       });
