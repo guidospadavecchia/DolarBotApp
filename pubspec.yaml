@@ -46,6 +46,7 @@ dependencies:
   simple_animations: '>=2.0.0 <3.0.0'
   carousel_slider: ^3.0.0
   connectivity: ^3.0.2
+  fl_chart: ^0.30.0
 
 flutter_icons:
   android: true

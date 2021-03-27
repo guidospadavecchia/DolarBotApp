@@ -2,6 +2,7 @@ import 'package:dolarbot_app/classes/hive/historical_rate.dart';
 import 'package:dolarbot_app/widgets/common/blur_dialog.dart';
 import 'package:dolarbot_app/widgets/common/dialog_button.dart';
 import 'package:dolarbot_app/util/extensions/datetime_extensions.dart';
+import 'package:dolarbot_app/widgets/historical_chart/historical_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
@@ -42,7 +43,7 @@ class _HistoricalChartDialogState extends State<HistoricalChartDialog> {
         child: Container(
           width: MediaQuery.of(context).size.width * 0.95,
           padding: const EdgeInsets.only(top: 20, bottom: 20, left: 10, right: 10),
-          height: 640,
+          height: 700,
           child: Column(
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -70,14 +71,10 @@ class _HistoricalChartDialogState extends State<HistoricalChartDialog> {
               ),
               Divider(),
               SizedBox(
-                height: 15,
+                height: 0,
               ),
-              //TODO: Create Chart
-              Placeholder(
-                color: Colors.red,
-              ),
-              SizedBox(
-                height: 20,
+              HistoricalChart(
+                values: historicalRates,
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 20.0, right: 20.0),
