@@ -20,6 +20,7 @@ import 'package:dolarbot_app/widgets/common/blur_dialog.dart';
 import 'package:dolarbot_app/widgets/common/cool_app_bar.dart';
 import 'package:dolarbot_app/widgets/common/dialog_button.dart';
 import 'package:dolarbot_app/widgets/common/simple_fab_menu.dart';
+import 'package:dolarbot_app/widgets/historical_chart/historical_chart_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
@@ -193,8 +194,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
                   showDescriptionButton: _shouldShowDescriptionButton,
                   onShowDescriptionTap: () => _onShowDescriptionTap(),
                   showHistoricalChartButton: showHistoricalChartButton(),
-                  //TODO Abrir y mostrar gráfico
-                  onHistoricalChartButtonTap: () => null,
+                  onHistoricalChartButtonTap: () => _onHistoricalChartButtonTap(),
                   onOpened: () => dismissAllToast(),
                   visible: isDataLoaded,
                   direction: settings.getFabDirection(),
@@ -422,6 +422,21 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
       context: context,
       builder: (BuildContext context) {
         return getCalculatorWidget();
+      },
+    );
+  }
+
+  void _onHistoricalChartButtonTap() {
+    simpleFabKey.currentState.closeMenu();
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return HistoricalChartDialog(
+          title: widget.cardData.title,
+          subtitle: widget.cardData.bannerTitle,
+          endpoint: widget.cardData.endpoint,
+          responseType: widget.cardData.responseType,
+        );
       },
     );
   }
