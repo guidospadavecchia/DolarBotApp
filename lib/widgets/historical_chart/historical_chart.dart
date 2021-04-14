@@ -25,7 +25,7 @@ class HistoricalChart extends StatelessWidget {
           borderData: FlBorderData(
             show: true,
             border: Border.all(
-              color: Colors.blue,
+              color: Colors.grey,
               width: 1,
             ),
           ),
@@ -38,11 +38,16 @@ class HistoricalChart extends StatelessWidget {
             //TODO traer valores con Factory a partir del responseType. Que cada tipo de valor del response sea un LineChartBarData distinto.
             LineChartBarData(
               spots: [
-                FlSpot(2, 8),
-                FlSpot(3, 2),
-                FlSpot(5, 4),
-                FlSpot(6, 8),
-                FlSpot(7, 16),
+                FlSpot(2, 70),
+                FlSpot(3, 72),
+                FlSpot(5, 74),
+                FlSpot(6, 75),
+                FlSpot(7, 76),
+                FlSpot(9, 79),
+                FlSpot(11, 81),
+                FlSpot(25, 85),
+                FlSpot(32, 90),
+                FlSpot(45, 93),
               ],
               isCurved: false,
               colors: [
@@ -91,7 +96,7 @@ class HistoricalChart extends StatelessWidget {
                 fontSize: 14,
               );
               //TODO: Configurar simbolo en base a la factory
-              return LineTooltipItem("\$ ${numberFormat.format(touchedSpot.x)}", textStyle);
+              return LineTooltipItem("\$ ${numberFormat.format(touchedSpot.y)}", textStyle);
             },
           ).toList();
         },
@@ -101,16 +106,17 @@ class HistoricalChart extends StatelessWidget {
 
   FlGridData _getGridData(BuildContext context) => FlGridData(
         show: true,
-        drawVerticalLine: true,
         drawHorizontalLine: true,
         getDrawingHorizontalLine: (value) => FlLine(
-          color: Colors.grey,
+          color: Colors.grey.withOpacity(0.5),
           strokeWidth: 1,
         ),
-        getDrawingVerticalLine: (value) => FlLine(
-          color: Colors.grey,
-          strokeWidth: 1,
-        ),
+        horizontalInterval: values.length > 0 ? values.length / 2 : null,
+        drawVerticalLine: false,
+        // getDrawingVerticalLine: (value) => FlLine(
+        //   color: Colors.grey,
+        //   strokeWidth: 1,
+        // ),
       );
 
   SideTitles _getLeftTitles(BuildContext context) => SideTitles(
@@ -120,6 +126,7 @@ class HistoricalChart extends StatelessWidget {
             fontSize: 11,
           ),
       margin: 20,
+      interval: values.length > 0 ? values.length.toDouble() : null,
       getTitles: (value) {
         //TODO: Configurar simbolo en base a la factory
         NumberFormat numberFormat = Provider.of<Settings>(context, listen: false).getNumberFormat();
@@ -133,6 +140,7 @@ class HistoricalChart extends StatelessWidget {
           DateTime date = DateTime.fromMillisecondsSinceEpoch(value.toInt());
           return dateFormat.format(date);
         },
+        interval: values.length > 0 ? values.length.toDouble() : null,
         margin: 8,
         reservedSize: 10,
         getTextStyles: (value) => TextStyle(
