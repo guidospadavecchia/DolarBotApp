@@ -82,7 +82,7 @@ class Util {
     ).whenComplete(() => tempDir.deleteSync(recursive: true));
   }
 
-  static navigateTo(BuildContext context, BaseInfoScreen screen) async {
+  static navigateTo(BuildContext context, Widget screen) async {
     if (Navigator.canPop(context)) Navigator.pop(context, true);
     await Future.delayed(Duration(milliseconds: 250)).then(
       (value) => Navigator.pushReplacement(
@@ -97,14 +97,47 @@ class Util {
     );
   }
 
-  static showFirstTimeDialog(BuildContext context, bool isComingFromOptions) {
+  static showFirstTimeDialog(BuildContext context, bool dismissable) {
     showDialog(
       context: context,
-      barrierDismissible: false,
+      barrierDismissible: dismissable,
       builder: (BuildContext context) {
-        return FirstTimeDialog(isComingFromOptions: isComingFromOptions);
+        return FirstTimeDialog(dismissable: dismissable);
       },
     );
+  }
+
+  static void showSnackBar(
+    BuildContext context,
+    String text,
+    Color backgroundColor, {
+    Duration duration,
+    TextAlign textAlign = TextAlign.center,
+    Icon leadingIcon = null,
+  }) {
+    hideSnackBar(context);
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        backgroundColor: backgroundColor,
+        duration: duration ?? Duration(seconds: 2),
+        content: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            if (leadingIcon != null) leadingIcon,
+            Text(
+              text,
+              textAlign: TextAlign.center,
+              style: TextStyle(fontFamily: 'Montserrat', color: Colors.white),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  static void hideSnackBar(BuildContext context) {
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
   }
 
   static Future<void> loadImage(List<ImageProvider> providers) {

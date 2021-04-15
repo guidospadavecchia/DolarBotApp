@@ -1,6 +1,6 @@
 import 'dart:io';
-
 import 'package:dolarbot_app/api/responses/factory/api_response_builder.dart';
+import 'package:dolarbot_app/classes/historical_rate_manager.dart';
 import 'package:dolarbot_app/classes/hive/favorite_rate.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:dolarbot_app/models/settings.dart';
@@ -8,33 +8,25 @@ import 'package:dolarbot_app/screens/base/base_info_screen.dart';
 import 'package:dolarbot_app/screens/common/error_screen.dart';
 import 'package:dolarbot_app/screens/home/widgets/empty_favorites.dart';
 import 'package:dolarbot_app/util/util.dart';
-import 'package:dolarbot_app/widgets/cards/card_favorite.dart';
 import 'package:dolarbot_app/widgets/cards/factory/factory_card.dart';
 import 'package:dolarbot_app/screens/common/loading_screen.dart';
+import 'package:dolarbot_app/widgets/common/cool_app_bar.dart';
+import 'package:dolarbot_app/widgets/drawer/drawer_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:hive/hive.dart';
 import 'package:simple_animations/simple_animations.dart';
 
-class HomeScreen extends BaseInfoScreen {
+class HomeScreen extends StatefulWidget {
   HomeScreen({
     Key key,
-  }) : super(
-            key: key,
-            cardData: CardData(
-              title: 'Inicio',
-              bannerTitle: null,
-              tag: null,
-              colors: null,
-              endpoint: null,
-              responseType: null,
-            ));
+  }) : super(key: key);
 
   @override
   HomeScreenState createState() => HomeScreenState();
 }
 
-class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
+class HomeScreenState extends State<HomeScreen> {
   final Duration kAnimationDuration = Duration(milliseconds: 500);
   final Duration kDoubleTapToLeaveDuration = Duration(seconds: 2);
   final Box settings = Hive.box('settings');
@@ -47,47 +39,21 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
   bool _hasErrorsAll = false;
   bool _animateEmptyFavorites = false;
   bool _hideIconTrashCard = false;
+  bool _showRefreshButton = false;
   DateTime lastBackPressTimestamp;
 
-  @override
-  bool canPop() => false;
-
-  @override
-  bool showFabMenu() => false;
-
-  @override
-  FabOptionCalculatorDialog getCalculatorWidget() => null;
-
-  @override
-  bool extendBodyBehindAppBar() => false;
-
-  @override
-  CardFavorite card() => null;
-
-  @override
-  FavoriteRate createFavorite() => null;
-
-  @override
-  String getShareText() => '';
-
-  @override
-  String getShareTitle() => '';
-
-  @override
-  Future loadData() => null;
-
-  @override
-  Color setColorAppbar() => ThemeManager.getPrimaryTextColor(context);
-
-  @override
-  Future<bool> onWillPopScope() {
+  Future<bool> onWillPopScope(BuildContext context) {
     DateTime now = DateTime.now();
 
     dismissAllToast();
     if (lastBackPressTimestamp == null ||
         now.difference(lastBackPressTimestamp) > kDoubleTapToLeaveDuration) {
       lastBackPressTimestamp = now;
-      showSnackBar('Presioná atrás nuevamente para salir');
+      Util.showSnackBar(
+        context,
+        'Presioná atrás nuevamente para salir',
+        ThemeManager.getSnackBarColor(context),
+      );
       return Future.value(false);
     } else {
       exit(0);
@@ -118,7 +84,56 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
   }
 
   @override
-  Widget body() {
+  Widget build(BuildContext context) {
+    return WillPopScope(
+      onWillPop: () => onWillPopScope(context),
+      child: Consumer<Settings>(builder: (context, settings, child) {
+        return Scaffold(
+          extendBodyBehindAppBar: false,
+          resizeToAvoidBottomInset: false,
+          appBar: CoolAppBar(
+            title: 'Inicio',
+            isMainMenu: true,
+            foregroundColor: ThemeManager.getPrimaryTextColor(context),
+            showRefreshButton: _showRefreshButton,
+            onRefresh: () => onRefresh(context),
+          ),
+          drawer: Container(
+            width: 290,
+            child: Drawer(
+              child: DrawerMenu(
+                onDrawerDisplayChanged: (_) => dismissAllToast(),
+              ),
+            ),
+          ),
+          drawerEdgeDragWidth: 80,
+          drawerEnableOpenDragGesture: true,
+          body: Container(
+            height: double.infinity,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  ThemeManager.getGlobalBackgroundColor(context),
+                  ThemeManager.getGlobalBackgroundColor(context),
+                ],
+              ),
+            ),
+            child: Wrap(
+              runAlignment: WrapAlignment.center,
+              runSpacing: 0,
+              children: [
+                _body(),
+              ],
+            ),
+          ),
+        );
+      }),
+    );
+  }
+
+  Widget _body() {
     if (!_cardsLoaded)
       return LoadingScreen(
         indicatorType: Indicator.ballPulseSync,
@@ -210,13 +225,12 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
     }
   }
 
-  @override
-  Future onRefresh() async {
+  Future onRefresh(BuildContext context) async {
     _cards.clear();
     _cardsLoaded = false;
     _hasErrorsAll = false;
-    showRefreshButton = false;
-    hideSnackBar();
+    _showRefreshButton = false;
+    Util.hideSnackBar(context);
     await Future.delayed(Duration.zero, () {
       setState(() {
         _loadFavorites(true)
@@ -224,7 +238,11 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
                   (_) => setState(() => _buildCards()),
                 ))
             .then(
-              (_) => showSnackBar('¡Cotizaciones actualizadas!'),
+              (_) => Util.showSnackBar(
+                context,
+                '¡Cotizaciones actualizadas!',
+                ThemeManager.getSnackBarColor(context),
+              ),
             );
       });
     });
@@ -258,7 +276,7 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
       kAnimationDuration ?? Duration.zero,
       () => setState(() {
         _animateEmptyFavorites = _favoriteRates.isEmpty;
-        showRefreshButton = _favoriteRates.isNotEmpty;
+        _showRefreshButton = _favoriteRates.isNotEmpty;
         _hideIconTrashCard = false;
       }),
     );
@@ -282,7 +300,7 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
         Map json = _responses[x.endpoint];
         ApiResponse response =
             json != null ? ApiResponseBuilder.fromType(x.cardResponseType, json) : null;
-        saveHistoricalRate(
+        HistoricalRateManager.saveHistoricalRate(
           x.endpoint,
           x.cardResponseType,
           response.timestamp,
@@ -307,12 +325,14 @@ class HomeScreenState extends BaseInfoScreenState<HomeScreen> with BaseScreen {
 
     _cardsLoaded = true;
     _hasErrorsAll = _favoriteRates.isNotEmpty && _cards.length == 0;
-    showRefreshButton = _favoriteRates.isNotEmpty;
+    _showRefreshButton = _favoriteRates.isNotEmpty;
 
     if (ModalRoute.of(context)?.isCurrent ?? false) {
       if (_favoriteRates.length > 0 && _favoriteRates.length != _cards.length && !_hasErrorsAll) {
-        showSnackBar(
+        Util.showSnackBar(
+          context,
           'Algunas cotizaciones no pudieron cargarse',
+          ThemeManager.getSnackBarColor(context),
           duration: Duration(seconds: 8),
           leadingIcon: Icon(
             Icons.warning_rounded,

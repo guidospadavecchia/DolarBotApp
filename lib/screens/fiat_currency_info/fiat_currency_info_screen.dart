@@ -1,4 +1,5 @@
 import 'package:dolarbot_app/api/responses/base/generic_currency_response.dart';
+import 'package:dolarbot_app/classes/historical_rate_manager.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
 import 'package:dolarbot_app/util/util.dart';
@@ -38,7 +39,7 @@ class _FiatCurrencyInfoScreenState<T extends GenericCurrencyResponse>
   @override
   Future loadData() async {
     _getResponse().then((value) {
-      saveHistoricalRate(
+      HistoricalRateManager.saveHistoricalRate(
         widget.cardData.endpoint,
         widget.cardData.responseType.toString(),
         value.timestamp,

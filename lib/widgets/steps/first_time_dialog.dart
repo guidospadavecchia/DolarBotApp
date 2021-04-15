@@ -5,17 +5,17 @@ import 'package:dolarbot_app/widgets/steps/exports/step_exports.dart';
 import 'package:flutter/material.dart';
 
 class FirstTimeDialog extends StatelessWidget {
-  final bool isComingFromOptions;
+  final bool dismissable;
 
   const FirstTimeDialog({
     Key key,
-    this.isComingFromOptions = false,
+    this.dismissable = false,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: () async => isComingFromOptions,
+      onWillPop: () async => dismissable,
       child: BlurDialog(
         dialog: Dialog(
           insetPadding: const EdgeInsets.all(20),
@@ -28,10 +28,7 @@ class FirstTimeDialog extends StatelessWidget {
                   ? LinearGradient(
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
-                      colors: [
-                        Color.fromRGBO(14, 24, 29, 1),
-                        Color.fromRGBO(14, 24, 29, 0.4)
-                      ],
+                      colors: [Color.fromRGBO(14, 24, 29, 1), Color.fromRGBO(14, 24, 29, 0.4)],
                     )
                   : null,
             ),
@@ -77,7 +74,7 @@ class FirstTimeDialog extends StatelessWidget {
                   stepIndex: 5,
                   title: "Eso es todo",
                   showStep: false,
-                  isComingFromOptions: isComingFromOptions,
+                  isComingFromOptions: dismissable,
                 )
               ].map(
                 (i) {

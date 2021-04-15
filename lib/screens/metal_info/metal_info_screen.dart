@@ -1,4 +1,5 @@
 import 'package:dolarbot_app/api/responses/metal_response.dart';
+import 'package:dolarbot_app/classes/historical_rate_manager.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
 import 'package:dolarbot_app/widgets/cards/factory/factory_card.dart';
 import 'package:dolarbot_app/screens/common/error_screen.dart';
@@ -69,7 +70,7 @@ class _MetalInfoScreenState extends BaseInfoScreenState<MetalInfoScreen> with Ba
         MetalEndpoints.values.firstWhere((e) => e.value == widget.cardData.endpoint);
     API.getMetalRate(metalEndpoint, forceRefresh: shouldForceRefresh).then(
       (value) {
-        saveHistoricalRate(
+        HistoricalRateManager.saveHistoricalRate(
           widget.cardData.endpoint,
           widget.cardData.responseType.toString(),
           value.timestamp,

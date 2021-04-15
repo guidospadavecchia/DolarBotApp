@@ -1,70 +1,49 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
-import 'package:dolarbot_app/classes/hive/favorite_rate.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:dolarbot_app/models/settings.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
+import 'package:dolarbot_app/screens/home/home_screen.dart';
 import 'package:dolarbot_app/screens/options/widgets/card_gesture_dismiss_dialog/card_gesture_dismiss_dialog.dart';
 import 'package:dolarbot_app/screens/options/widgets/fab_direction_dialog.dart/fab_direction_dialog.dart';
 import 'package:dolarbot_app/screens/options/widgets/format_currency_dialog/format_currency_dialog.dart';
 import 'package:dolarbot_app/screens/options/widgets/clear_historical_data_dialog/clear_historical_data_dialog.dart';
 import 'package:dolarbot_app/util/util.dart';
-import 'package:dolarbot_app/widgets/cards/card_favorite.dart';
+import 'package:dolarbot_app/widgets/common/cool_app_bar.dart';
 import 'package:dolarbot_app/widgets/common/menu_item.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class OptionsScreen extends BaseInfoScreen {
+class OptionsScreen extends StatefulWidget {
   static const routeName = '/options';
 
   OptionsScreen({
     Key key,
-  }) : super(
-            key: key,
-            cardData: CardData(
-              title: 'Opciones',
-              bannerTitle: null,
-              tag: null,
-              colors: null,
-              endpoint: null,
-              responseType: null,
-            ));
+  }) : super(key: key);
 
   @override
   _OptionsScreenState createState() => _OptionsScreenState();
 }
 
-class _OptionsScreenState extends BaseInfoScreenState<OptionsScreen> with BaseScreen {
+class _OptionsScreenState extends State<OptionsScreen> {
   @override
-  bool isMainMenu() => false;
+  Widget build(BuildContext context) {
+    return WillPopScope(
+      onWillPop: () => _onWillPopScope(context),
+      child: Consumer<Settings>(builder: (context, settings, child) {
+        return Scaffold(
+          extendBodyBehindAppBar: false,
+          resizeToAvoidBottomInset: false,
+          appBar: CoolAppBar(
+            title: 'Opciones',
+            isMainMenu: false,
+            foregroundColor: ThemeManager.getPrimaryTextColor(context),
+          ),
+          body: _body(),
+        );
+      }),
+    );
+  }
 
-  @override
-  bool showFabMenu() => false;
-
-  @override
-  FabOptionCalculatorDialog getCalculatorWidget() => null;
-
-  @override
-  bool extendBodyBehindAppBar() => false;
-
-  @override
-  Color setColorAppbar() => ThemeManager.getPrimaryTextColor(context);
-
-  @override
-  CardFavorite card() => null;
-
-  @override
-  String getShareText() => '';
-
-  @override
-  String getShareTitle() => '';
-
-  @override
-  Future loadData() => null;
-
-  @override
-  FavoriteRate createFavorite() => null;
-
-  @override
-  Widget body() {
+  Widget _body() {
     return Container(
       child: Column(
         children: [
@@ -142,6 +121,17 @@ class _OptionsScreenState extends BaseInfoScreenState<OptionsScreen> with BaseSc
         ],
       ),
     );
+  }
+
+  Future<bool> _onWillPopScope(BuildContext context) {
+    dismissAllToast();
+    Util.navigateTo(
+      context,
+      HomeScreen(
+        key: GlobalKey<HomeScreenState>(),
+      ),
+    );
+    return Future.value(false);
   }
 
   _buildDivider(String text, {bool supressPaddingTop = false}) {
