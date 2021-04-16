@@ -82,18 +82,29 @@ class Util {
     ).whenComplete(() => tempDir.deleteSync(recursive: true));
   }
 
-  static navigateTo(BuildContext context, Widget screen) async {
-    if (Navigator.canPop(context)) Navigator.pop(context, true);
-    await Future.delayed(Duration(milliseconds: 250)).then(
-      (value) => Navigator.pushReplacement(
-        context,
-        PageTransition(
-          child: screen,
-          type: PageTransitionType.fade,
-          duration: Duration(milliseconds: 150),
-          reverseDuration: Duration(milliseconds: 150),
-        ),
-      ),
+  static navigateTo(
+    BuildContext context,
+    Widget screen, {
+    bool withReplacement = true,
+    PageTransitionType transitionType = PageTransitionType.fade,
+    Duration duration,
+    Duration reverseDuration,
+    Duration pushDelay,
+  }) {
+    if (Navigator.canPop(context)) {
+      Navigator.pop(context, true);
+    }
+
+    PageTransition transition = PageTransition(
+      child: screen,
+      type: transitionType,
+      duration: duration ?? Duration(milliseconds: 150),
+      reverseDuration: reverseDuration ?? Duration(milliseconds: 150),
+    );
+    Future.delayed(pushDelay ?? Duration(milliseconds: 250)).then(
+      (value) => withReplacement
+          ? Navigator.pushReplacement(context, transition)
+          : Navigator.push(context, transition),
     );
   }
 

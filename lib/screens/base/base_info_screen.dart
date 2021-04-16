@@ -6,6 +6,7 @@ import 'package:dolarbot_app/api/responses/metal_response.dart';
 import 'package:dolarbot_app/classes/hive/favorite_rate.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:dolarbot_app/models/settings.dart';
+import 'package:dolarbot_app/screens/historical_rates/historical_rates_screen.dart';
 import 'package:dolarbot_app/util/constants.dart';
 import 'package:dolarbot_app/widgets/calculator/exports/calculator_exports.dart';
 import 'package:dolarbot_app/widgets/common/toasts/toast_error.dart';
@@ -19,7 +20,6 @@ import 'package:dolarbot_app/widgets/common/blur_dialog.dart';
 import 'package:dolarbot_app/widgets/common/cool_app_bar.dart';
 import 'package:dolarbot_app/widgets/common/dialog_button.dart';
 import 'package:dolarbot_app/widgets/common/simple_fab_menu.dart';
-import 'package:dolarbot_app/widgets/historical_chart/historical_chart_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
@@ -27,6 +27,7 @@ import 'package:global_configuration/global_configuration.dart';
 import 'package:hive/hive.dart';
 import 'package:meta/meta.dart';
 import 'package:oktoast/oktoast.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:dolarbot_app/util/extensions/datetime_extensions.dart';
 
@@ -398,17 +399,18 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
   }
 
   void _onHistoricalChartButtonTap() {
-    simpleFabKey.currentState.closeMenu();
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return HistoricalChartDialog(
-          title: widget.cardData.title,
-          subtitle: widget.cardData.bannerTitle,
-          endpoint: widget.cardData.endpoint,
-          responseType: widget.cardData.responseType,
-        );
-      },
+    Util.navigateTo(
+      context,
+      HistoricalRatesScreen(
+        title: widget.cardData.title,
+        subtitle: widget.cardData.bannerTitle,
+        endpoint: widget.cardData.endpoint,
+        responseType: widget.cardData.responseType,
+      ),
+      withReplacement: false,
+      transitionType: PageTransitionType.rightToLeft,
+      duration: Duration(milliseconds: 200),
+      reverseDuration: Duration(milliseconds: 200),
     );
   }
 
@@ -427,38 +429,32 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
             .firstWhere((e) => e.value == widget.cardData?.endpoint, orElse: () => null)
             .toString();
         break;
-
       case EuroResponse:
         endpointName = EuroEndpoints.values
             .firstWhere((e) => e.value == widget.cardData?.endpoint, orElse: () => null)
             .toString();
         break;
-
       case RealResponse:
         endpointName = RealEndpoints.values
             .firstWhere((e) => e.value == widget.cardData?.endpoint, orElse: () => null)
             .toString();
         break;
-
       case CryptoResponse:
         endpointName = CryptoEndpoints.values
             .firstWhere((e) => e.value == widget.cardData?.endpoint, orElse: () => null)
             .toString();
         break;
-
       case MetalResponse:
         endpointName = MetalEndpoints.values
             .firstWhere((e) => e.value == widget.cardData?.endpoint, orElse: () => null)
             .toString();
         break;
-
       case CountryRiskResponse:
       case BcraResponse:
         endpointName = BcraEndpoints.values
             .firstWhere((e) => e.value == widget.cardData?.endpoint, orElse: () => null)
             .toString();
         break;
-
       case VenezuelaResponse:
         endpointName = VenezuelaEndpoints.values
             .firstWhere((e) => e.value == widget.cardData?.endpoint, orElse: () => null)

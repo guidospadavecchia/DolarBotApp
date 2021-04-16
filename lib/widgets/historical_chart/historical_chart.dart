@@ -16,7 +16,7 @@ class HistoricalChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 500,
+      height: MediaQuery.of(context).size.height * 0.7,
       padding: EdgeInsets.all(20),
       child: LineChart(
         LineChartData(
