@@ -14,10 +14,11 @@ class HistoricalRateManager {
 
     int saveFreq = cfg.get("historicalRateSaveFrequencyMinutes") ?? Duration.minutesPerDay;
     timestamp = timestamp.replaceAll('/', '-');
+
     bool rateExists = historicalRates.any((x) =>
         x.endpoint == endpoint &&
         (saveFreq <= 0 ||
-            DateTime.parse(x.timestamp).difference(DateTime.parse(timestamp)).inMinutes <
+            DateTime.parse(x.timestamp).difference(DateTime.parse(timestamp)).inMinutes.abs() <
                 saveFreq));
 
     if (!rateExists) {
