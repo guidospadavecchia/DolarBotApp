@@ -19,10 +19,10 @@ class MetalResponse extends ApiResponse {
   @override
   String serialize() {
     return jsonEncode({
-      'timestamp': timestamp,
-      'value': value,
-      'unit': unit,
-      'currency': currency,
+      'fecha': timestamp,
+      'valor': value,
+      'unidad': unit,
+      'moneda': currency,
     });
   }
 }

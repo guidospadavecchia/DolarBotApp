@@ -1,5 +1,5 @@
 import 'package:dolarbot_app/classes/dolarbot_icons.dart';
-import 'package:dolarbot_app/classes/historical_rate_manager.dart';
+import 'package:dolarbot_app/widgets/historical_chart/historical_rate_manager.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
 import 'package:dolarbot_app/util/util.dart';
 import 'package:dolarbot_app/widgets/cards/factory/factory_card.dart';
@@ -78,7 +78,7 @@ class _VenezuelaInfoScreenState extends BaseInfoScreenState<VenezuelaInfoScreen>
         VenezuelaEndpoints.values.firstWhere((e) => e.value == widget.cardData.endpoint);
     API.getVzlaRate(venezuelaEndpoint, forceRefresh: shouldForceRefresh).then(
       (value) {
-        HistoricalRateManager.saveHistoricalRate(
+        HistoricalRateManager.saveRate(
           widget.cardData.endpoint,
           widget.cardData.responseType.toString(),
           value.timestamp,

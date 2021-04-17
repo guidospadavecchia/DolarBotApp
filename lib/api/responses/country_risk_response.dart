@@ -15,8 +15,8 @@ class CountryRiskResponse extends ApiResponse {
   @override
   String serialize() {
     return jsonEncode({
-      'timestamp': timestamp,
-      'value': value,
+      'fecha': timestamp,
+      'valor': value,
     });
   }
 }

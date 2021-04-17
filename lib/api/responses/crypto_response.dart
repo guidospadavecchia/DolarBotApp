@@ -21,10 +21,10 @@ class CryptoResponse extends ApiResponse {
   @override
   String serialize() {
     return jsonEncode({
-      'timestamp': timestamp,
-      'arsPrice': arsPrice,
-      'arsPriceWithTaxes': arsPriceWithTaxes,
-      'usdPrice': usdPrice,
+      'fecha': timestamp,
+      'ars': arsPrice,
+      'arsTaxed': arsPriceWithTaxes,
+      'usd': usdPrice,
       'code': code,
     });
   }

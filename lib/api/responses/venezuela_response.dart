@@ -21,11 +21,11 @@ class VenezuelaResponse extends ApiResponse {
   @override
   String serialize() {
     return jsonEncode({
-      'timestamp': timestamp,
-      'blackMarketPrice': blackMarketPrice,
-      'bankPrice': bankPrice,
-      'cucutaPrice': cucutaPrice,
-      'currencyCode': currencyCode,
+      'fecha': timestamp,
+      'paralelo': blackMarketPrice,
+      'bancos': bankPrice,
+      'cucuta': cucutaPrice,
+      'moneda': currencyCode,
     });
   }
 }

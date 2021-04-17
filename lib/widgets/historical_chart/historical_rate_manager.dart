@@ -6,7 +6,7 @@ import 'package:hive/hive.dart';
 class HistoricalRateManager {
   static final cfg = GlobalConfiguration();
 
-  static Future<void> saveHistoricalRate(
+  static Future<void> saveRate(
       String endpoint, String responseType, String timestamp, ApiResponse data) {
     Box historicalRatesBox = Hive.box('historicalRates');
     List<HistoricalRate> historicalRates =

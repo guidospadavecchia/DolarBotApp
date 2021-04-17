@@ -17,9 +17,9 @@ class BcraResponse extends ApiResponse {
   @override
   String serialize() {
     return jsonEncode({
-      'timestamp': timestamp,
-      'value': value,
-      'currency': currency,
+      'fecha': timestamp,
+      'valor': value,
+      'moneda': currency,
     });
   }
 }

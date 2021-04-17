@@ -45,7 +45,7 @@ class _HistoricalRatesScreenState extends State<HistoricalRatesScreen> {
           extendBodyBehindAppBar: false,
           resizeToAvoidBottomInset: false,
           appBar: CoolAppBar(
-            title: widget.title,
+            title: "Datos históricos de ${widget.title}",
             isMainMenu: false,
             foregroundColor: ThemeManager.getPrimaryTextColor(context),
           ),
@@ -56,50 +56,71 @@ class _HistoricalRatesScreenState extends State<HistoricalRatesScreen> {
   }
 
   Widget _body() {
+    if (historicalRates.length <= 1) {
+      //TODO: Cambiar por un widget que muestre una imagen centrada con texto.
+      return Column(
+        mainAxisSize: MainAxisSize.max,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Center(
+            child: Text("No hay datos suficientes para mostrar la evolución"),
+          ),
+        ],
+      );
+    }
+
+    //TODO: Agregar controles de zoom (+/- y reset)
+    //TODO: Ver si es posible agrandar el gráfico en width para que todo entre mejor
     return Container(
       height: double.infinity,
-      padding: const EdgeInsets.only(top: 20, bottom: 20, left: 10, right: 10),
+      padding: const EdgeInsets.only(top: 20, bottom: 20, left: 15, right: 15),
       child: Column(
         mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.start,
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.only(left: 10, right: 10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Text(
-                  widget.subtitle,
-                  style: TextStyle(fontSize: 22),
-                ),
-                Expanded(
-                  child: const SizedBox.shrink(),
-                ),
-                Text(dataTimeSpan),
-              ],
-            ),
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Text(
+                widget.subtitle,
+                style: TextStyle(fontSize: 22),
+              ),
+              Expanded(
+                child: const SizedBox.shrink(),
+              ),
+              Text(dataTimeSpan),
+            ],
           ),
           SizedBox(
             height: 5,
           ),
           Divider(),
-          InteractiveViewer(
-            maxScale: 3,
-            minScale: 1,
-            child: HistoricalChart(
-              values: historicalRates,
+          SizedBox(
+            height: 10,
+          ),
+          Container(
+            decoration: BoxDecoration(border: Border.all(color: Colors.black54, width: 2)),
+            child: InteractiveViewer(
+              maxScale: 3.5,
+              minScale: 1,
+              child: HistoricalChart(
+                responseType: widget.responseType,
+                values: historicalRates,
+              ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 20.0, right: 20.0),
-            child: Text(
-              "La información mostrada corresponde al registro histórico de tus consultas dentro de la app.",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontStyle: FontStyle.italic,
-              ),
+          SizedBox(
+            height: 15,
+          ),
+          Text(
+            "La información mostrada corresponde al registro histórico de tus consultas recopiladas periódicamente dentro de la app.",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontStyle: FontStyle.italic,
+              fontSize: 13,
             ),
           ),
         ],
@@ -122,24 +143,24 @@ class _HistoricalRatesScreenState extends State<HistoricalRatesScreen> {
     historicalRates = history.where((x) => x.endpoint == widget.endpoint).toList();
 
     if (historicalRates.isEmpty) {
-      dataTimeSpan = 'Sin datos';
+      return;
+    }
+
+    DateFormat dateFormat = DateFormat('dd-MM-yyyy');
+    if (historicalRates.length > 1) {
+      historicalRates.sort(
+        (a, b) => a.timestamp.compareTo(b.timestamp),
+      );
+      DateTime startDate = DateTime.parse(historicalRates.first.timestamp);
+      String formattedStartDate = dateFormat.format(startDate);
+      DateTime endDate = DateTime.parse(historicalRates.last.timestamp);
+      String formattedEndDate = dateFormat.format(endDate);
+      dataTimeSpan = startDate.isSameDayAs(endDate)
+          ? "$formattedStartDate"
+          : "$formattedStartDate - $formattedEndDate";
     } else {
-      DateFormat dateFormat = DateFormat('dd-MM-yyyy');
-      if (historicalRates.length > 1) {
-        historicalRates.sort(
-          (a, b) => a.timestamp.compareTo(b.timestamp),
-        );
-        DateTime startDate = DateTime.parse(historicalRates.first.timestamp);
-        String formattedStartDate = dateFormat.format(startDate);
-        DateTime endDate = DateTime.parse(historicalRates.last.timestamp);
-        String formattedEndDate = dateFormat.format(endDate);
-        dataTimeSpan = startDate.isSameDayAs(endDate)
-            ? "$formattedStartDate"
-            : "$formattedStartDate - $formattedEndDate";
-      } else {
-        DateTime date = DateTime.parse(historicalRates.single.timestamp);
-        dataTimeSpan = dateFormat.format(date);
-      }
+      DateTime date = DateTime.parse(historicalRates.single.timestamp);
+      dataTimeSpan = dateFormat.format(date);
     }
   }
 }

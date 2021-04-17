@@ -22,10 +22,10 @@ class GenericCurrencyResponse extends ApiResponse {
   @override
   String serialize() {
     return jsonEncode({
-      'timestamp': timestamp,
-      'buyPrice': buyPrice,
-      'sellPrice': sellPrice,
-      'sellPriceWithTaxes': sellPriceWithTaxes,
+      'fecha': timestamp,
+      'compra': buyPrice,
+      'venta': sellPrice,
+      'ventaAhorro': sellPriceWithTaxes,
     });
   }
 }

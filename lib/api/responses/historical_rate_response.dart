@@ -27,10 +27,10 @@ class HistoricalRateResponse extends ApiResponse {
   @override
   String serialize() {
     return jsonEncode({
-      'timestamp': timestamp,
-      'value': value,
-      'currency': currency,
-      'monthlyRates': monthlyRates.map((x) => x.toJson()),
+      'fecha': timestamp,
+      'valor': value,
+      'moneda': currency,
+      'meses': monthlyRates.map((x) => x.toJson()),
     });
   }
 }
@@ -53,9 +53,9 @@ class HistoricalMonthRate {
 
   String toJson() {
     return jsonEncode({
-      'year': year,
-      'month': month,
-      'value': value,
+      'anio': year,
+      'mes': month,
+      'valor': value,
     });
   }
 }

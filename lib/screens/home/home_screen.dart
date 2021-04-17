@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:dolarbot_app/api/responses/factory/api_response_builder.dart';
-import 'package:dolarbot_app/classes/historical_rate_manager.dart';
+import 'package:dolarbot_app/widgets/historical_chart/historical_rate_manager.dart';
 import 'package:dolarbot_app/classes/hive/favorite_rate.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:dolarbot_app/models/settings.dart';
@@ -299,8 +299,8 @@ class HomeScreenState extends State<HomeScreen> {
       _favoriteRates.forEach((x) {
         Map json = _responses[x.endpoint];
         ApiResponse response =
-            json != null ? ApiResponseBuilder.fromType(x.cardResponseType, json) : null;
-        HistoricalRateManager.saveHistoricalRate(
+            json != null ? ApiResponseBuilder.fromTypeName(x.cardResponseType, json) : null;
+        HistoricalRateManager.saveRate(
           x.endpoint,
           x.cardResponseType,
           response.timestamp,
@@ -314,7 +314,7 @@ class HomeScreenState extends State<HomeScreen> {
     for (FavoriteRate favoriteRate in _favoriteRates) {
       String type = favoriteRate.cardResponseType;
       Map json = _responses[favoriteRate.endpoint];
-      ApiResponse response = json != null ? ApiResponseBuilder.fromType(type, json) : null;
+      ApiResponse response = json != null ? ApiResponseBuilder.fromTypeName(type, json) : null;
 
       _cards.add(
         Consumer<Settings>(builder: (context, settings, child) {
