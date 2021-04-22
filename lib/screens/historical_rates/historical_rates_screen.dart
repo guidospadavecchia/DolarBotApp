@@ -106,7 +106,7 @@ class _HistoricalRatesScreenState extends State<HistoricalRatesScreen> {
           Text(
             "La información mostrada corresponde al registro histórico de tus consultas recopiladas periódicamente dentro de la app.",
             textAlign: TextAlign.center,
-            style: TextStyle(
+            style: const TextStyle(
               fontStyle: FontStyle.italic,
               fontSize: 13,
             ),
