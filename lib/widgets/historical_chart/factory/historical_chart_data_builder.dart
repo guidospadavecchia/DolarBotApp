@@ -9,8 +9,8 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
 const List<Color> _kTabColorGradient1 = const [
-  Colors.lightBlue,
   Colors.lightBlueAccent,
+  Colors.lightBlue,
   Colors.cyan,
   Colors.cyanAccent,
 ];
@@ -29,7 +29,7 @@ const List<Color> _kTabColorGradient3 = const [
 const TextStyle _kTooltipTextStyle = const TextStyle(
   color: Colors.black87,
   fontWeight: FontWeight.bold,
-  fontSize: 24,
+  fontSize: 18,
   fontFamily: 'Montserrat',
 );
 
