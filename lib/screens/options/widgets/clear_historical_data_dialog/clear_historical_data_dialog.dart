@@ -1,4 +1,3 @@
-import 'package:dolarbot_app/classes/hive/historical_rate.dart';
 import 'package:dolarbot_app/widgets/common/blur_dialog.dart';
 import 'package:dolarbot_app/widgets/common/dialog_button.dart';
 import 'package:dolarbot_app/widgets/common/toasts/toast_ok.dart';
@@ -68,23 +67,13 @@ class _ClearHistoricalDataDialogState extends State<ClearHistoricalDataDialog> {
 
   void clearData() async {
     Box historicalRatesBox = Hive.box('historicalRates');
-    List<HistoricalRate> historicalRates =
-        historicalRatesBox.get('historicalRates', defaultValue: []).cast<HistoricalRate>();
-    historicalRates.clear();
-    historicalRatesBox
-        .put('historicalRates', historicalRates)
-        .then(
-          (_) => Navigator.of(context).pop(),
-        )
-        .then(
-          (_) async => {
-            Future.delayed(
-              Duration(milliseconds: 100),
-              () => showToastWidget(
-                ToastOk(),
-              ),
+    historicalRatesBox.clear().then((_) => Navigator.of(context).pop()).then((_) async => {
+          Future.delayed(
+            Duration(milliseconds: 100),
+            () => showToastWidget(
+              ToastOk(),
             ),
-          },
-        );
+          ),
+        });
   }
 }

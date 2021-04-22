@@ -10,16 +10,14 @@ class HistoricalRateManager {
       String endpoint, String responseType, String timestamp, ApiResponse data) {
     Box historicalRatesBox = Hive.box('historicalRates');
     List<HistoricalRate> historicalRates =
-        historicalRatesBox.get('historicalRates', defaultValue: []).cast<HistoricalRate>();
+        historicalRatesBox.get(endpoint, defaultValue: []).cast<HistoricalRate>();
 
     int saveFreq = cfg.get("historicalRateSaveFrequencyMinutes") ?? Duration.minutesPerDay;
     timestamp = timestamp.replaceAll('/', '-');
 
-    bool rateExists = historicalRates.any((x) =>
-        x.endpoint == endpoint &&
-        (saveFreq <= 0 ||
-            DateTime.parse(x.timestamp).difference(DateTime.parse(timestamp)).inMinutes.abs() <
-                saveFreq));
+    bool rateExists = historicalRates.any((x) => (saveFreq <= 0 ||
+        DateTime.parse(x.timestamp).difference(DateTime.parse(timestamp)).inMinutes.abs() <
+            saveFreq));
 
     if (!rateExists) {
       HistoricalRate historicalRate = HistoricalRate(
@@ -29,7 +27,7 @@ class HistoricalRateManager {
         json: data.serialize(),
       );
       historicalRates.add(historicalRate);
-      return historicalRatesBox.put('historicalRates', historicalRates);
+      return historicalRatesBox.put(endpoint, historicalRates);
     }
 
     return Future.value();

@@ -26,8 +26,8 @@ class HistoricalRatesScreen extends StatefulWidget {
 }
 
 class _HistoricalRatesScreenState extends State<HistoricalRatesScreen> {
-  List<HistoricalRate> historicalRates;
-  String dataTimeSpan = '';
+  List<HistoricalRate> _historicalRates;
+  String _dataTimeSpan = '';
 
   @override
   void initState() {
@@ -53,7 +53,7 @@ class _HistoricalRatesScreenState extends State<HistoricalRatesScreen> {
   }
 
   Widget _body() {
-    if (historicalRates.length <= 1) {
+    if (_historicalRates.length <= 1) {
       //TODO: Cambiar por un widget que muestre una imagen centrada con texto.
       return Column(
         mainAxisSize: MainAxisSize.max,
@@ -86,7 +86,7 @@ class _HistoricalRatesScreenState extends State<HistoricalRatesScreen> {
               Expanded(
                 child: const SizedBox.shrink(),
               ),
-              Text(dataTimeSpan),
+              Text(_dataTimeSpan),
             ],
           ),
           SizedBox(
@@ -98,7 +98,7 @@ class _HistoricalRatesScreenState extends State<HistoricalRatesScreen> {
           ),
           HistoricalChart(
             responseType: widget.responseType,
-            values: historicalRates,
+            values: _historicalRates,
           ),
           SizedBox(
             height: 20,
@@ -126,29 +126,28 @@ class _HistoricalRatesScreenState extends State<HistoricalRatesScreen> {
 
   void _loadHistoricalData() {
     Box historicalRatesBox = Hive.box('historicalRates');
-    List<HistoricalRate> history =
-        historicalRatesBox.get('historicalRates', defaultValue: []).cast<HistoricalRate>();
-    historicalRates = history.where((x) => x.endpoint == widget.endpoint).toList();
+    _historicalRates =
+        historicalRatesBox.get(widget.endpoint, defaultValue: []).cast<HistoricalRate>();
 
-    if (historicalRates.isEmpty) {
+    if (_historicalRates.isEmpty) {
       return;
     }
 
     DateFormat dateFormat = DateFormat('dd-MM-yyyy');
-    if (historicalRates.length > 1) {
-      historicalRates.sort(
+    if (_historicalRates.length > 1) {
+      _historicalRates.sort(
         (a, b) => a.timestamp.compareTo(b.timestamp),
       );
-      DateTime startDate = DateTime.parse(historicalRates.first.timestamp);
+      DateTime startDate = DateTime.parse(_historicalRates.first.timestamp);
       String formattedStartDate = dateFormat.format(startDate);
-      DateTime endDate = DateTime.parse(historicalRates.last.timestamp);
+      DateTime endDate = DateTime.parse(_historicalRates.last.timestamp);
       String formattedEndDate = dateFormat.format(endDate);
-      dataTimeSpan = startDate.isSameDayAs(endDate)
+      _dataTimeSpan = startDate.isSameDayAs(endDate)
           ? "$formattedStartDate"
           : "$formattedStartDate - $formattedEndDate";
     } else {
-      DateTime date = DateTime.parse(historicalRates.single.timestamp);
-      dataTimeSpan = dateFormat.format(date);
+      DateTime date = DateTime.parse(_historicalRates.single.timestamp);
+      _dataTimeSpan = dateFormat.format(date);
     }
   }
 }
