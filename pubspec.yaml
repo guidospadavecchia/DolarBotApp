@@ -47,6 +47,7 @@ dependencies:
   carousel_slider: ^3.0.0
   connectivity: ^3.0.2
   fl_chart: ^0.30.0
+  flutter_scroll_to_top: ^1.1.0
 
 flutter_icons:
   android: true

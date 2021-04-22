@@ -16,6 +16,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:hive/hive.dart';
 import 'package:simple_animations/simple_animations.dart';
+import 'package:flutter_scroll_to_top/flutter_scroll_to_top.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({
@@ -34,6 +35,7 @@ class HomeScreenState extends State<HomeScreen> {
   final Map<String, Map> _responses = Map<String, Map>();
   final List<Widget> _cards = [];
   final List<FavoriteRate> _favoriteRates = [];
+  final ScrollController _scrollController = ScrollController();
 
   bool _cardsLoaded = false;
   bool _hasErrorsAll = false;
@@ -161,53 +163,66 @@ class HomeScreenState extends State<HomeScreen> {
             },
             child: Theme(
               data: ThemeData(canvasColor: Colors.transparent, shadowColor: Colors.transparent),
-              child: ReorderableListView(
-                proxyDecorator: (Widget child, int index, Animation<double> animation) {
-                  return Transform.scale(
-                    scale: 0.95,
-                    child: Opacity(
-                      opacity: 0.9,
-                      child: child,
-                    ),
-                  );
-                },
-                physics: AlwaysScrollableScrollPhysics(),
-                onReorder: (int oldIndex, int newIndex) {
-                  _onReorder(oldIndex, newIndex);
-                },
-                children: [
-                  for (var i = 0; i < _cards.length; i++)
-                    Container(
-                      key: ValueKey(_cards[i]),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Colors.transparent,
+              child: ScrollWrapper(
+                scrollController: _scrollController,
+                promptAlignment: Alignment.bottomRight,
+                promptDuration: const Duration(milliseconds: 500),
+                promptTheme: PromptButtonTheme(
+                  color: ThemeManager.getDarkThemeData().backgroundColor.withOpacity(0.8),
+                  padding: const EdgeInsets.only(right: 25, bottom: 30),
+                  iconPadding: const EdgeInsets.all(10),
+                ),
+                child: ReorderableListView(
+                  scrollController: _scrollController,
+                  proxyDecorator: (Widget child, int index, Animation<double> animation) {
+                    return Transform.scale(
+                      scale: 0.95,
+                      child: Opacity(
+                        opacity: 0.9,
+                        child: child,
                       ),
-                      margin: EdgeInsets.fromLTRB(15, 0, 15, 15),
-                      child: Consumer<Settings>(builder: (context, settings, child) {
-                        return Dismissible(
-                          dismissThresholds: {
-                            DismissDirection.endToStart: 0.4,
-                            DismissDirection.startToEnd: 0.4,
-                          },
-                          child: _cards[i],
-                          direction: settings.getCardGestureDismiss(),
-                          background: _DismissFavoriteButton(
-                              direction: DismissDirection.startToEnd, hideIcon: _hideIconTrashCard),
-                          secondaryBackground: _DismissFavoriteButton(
-                              direction: DismissDirection.endToStart, hideIcon: _hideIconTrashCard),
-                          key: ValueKey(_cards[i]),
-                          confirmDismiss: (direction) => Future.delayed(Duration.zero, () {
-                            setState(() => _hideIconTrashCard = true);
-                            return true;
-                          }),
-                          onDismissed: (direction) {
-                            _onDismissCard(i);
-                          },
-                        );
-                      }),
-                    ),
-                ],
+                    );
+                  },
+                  physics: AlwaysScrollableScrollPhysics(),
+                  onReorder: (int oldIndex, int newIndex) {
+                    _onReorder(oldIndex, newIndex);
+                  },
+                  children: [
+                    for (var i = 0; i < _cards.length; i++)
+                      Container(
+                        key: ValueKey(_cards[i]),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.transparent,
+                        ),
+                        margin: EdgeInsets.fromLTRB(15, 0, 15, 15),
+                        child: Consumer<Settings>(builder: (context, settings, child) {
+                          return Dismissible(
+                            dismissThresholds: {
+                              DismissDirection.endToStart: 0.4,
+                              DismissDirection.startToEnd: 0.4,
+                            },
+                            child: _cards[i],
+                            direction: settings.getCardGestureDismiss(),
+                            background: _DismissFavoriteButton(
+                                direction: DismissDirection.startToEnd,
+                                hideIcon: _hideIconTrashCard),
+                            secondaryBackground: _DismissFavoriteButton(
+                                direction: DismissDirection.endToStart,
+                                hideIcon: _hideIconTrashCard),
+                            key: ValueKey(_cards[i]),
+                            confirmDismiss: (direction) => Future.delayed(Duration.zero, () {
+                              setState(() => _hideIconTrashCard = true);
+                              return true;
+                            }),
+                            onDismissed: (direction) {
+                              _onDismissCard(i);
+                            },
+                          );
+                        }),
+                      ),
+                  ],
+                ),
               ),
             ),
           ),
