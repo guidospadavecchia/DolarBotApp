@@ -98,7 +98,7 @@ class _HistoricalChartState extends State<HistoricalChart> with SingleTickerProv
         boundaryMargin: const EdgeInsets.all(50),
         constrained: false,
         child: Container(
-          width: MediaQuery.of(context).size.width * 2,
+          width: MediaQuery.of(context).size.width * 3,
           height: MediaQuery.of(context).size.height,
           child: LineChart(
             LineChartData(
