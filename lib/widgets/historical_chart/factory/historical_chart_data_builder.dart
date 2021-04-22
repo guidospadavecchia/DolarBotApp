@@ -8,6 +8,31 @@ import 'package:dolarbot_app/util/extensions/string_extensions.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
+const List<Color> _kTabColorGradient1 = const [
+  Colors.lightBlue,
+  Colors.lightBlueAccent,
+  Colors.cyan,
+  Colors.cyanAccent,
+];
+const List<Color> _kTabColorGradient2 = const [
+  Colors.orange,
+  Colors.orangeAccent,
+  Colors.red,
+  Colors.redAccent,
+];
+const List<Color> _kTabColorGradient3 = const [
+  Colors.purple,
+  Colors.purpleAccent,
+  Colors.pink,
+  Colors.pinkAccent,
+];
+const TextStyle _kTooltipTextStyle = const TextStyle(
+  color: Colors.black87,
+  fontWeight: FontWeight.bold,
+  fontSize: 24,
+  fontFamily: 'Montserrat',
+);
+
 abstract class BuildHistoricalChartData {
   factory BuildHistoricalChartData(Type responseType) {
     if (responseType == DollarResponse ||
@@ -53,69 +78,58 @@ class _FiatCurrency implements BuildHistoricalChartData {
       }
     }
 
-    double maxValue =
-        buyPrices.length > 0 || sellPrices.length > 0 || sellPricesWithTaxes.length > 0
-            ? [
-                if (buyPrices.length > 0) buyPrices.map((spot) => spot.y).reduce(max),
-                if (sellPrices.length > 0) sellPrices.map((spot) => spot.y).reduce(max),
-                if (sellPricesWithTaxes.length > 0)
-                  sellPricesWithTaxes.map((spot) => spot.y).reduce(max),
-              ].reduce(max)
-            : 1;
-
     return HistoricalChartData(
-      leftSymbol: "\$",
-      maxValue: maxValue,
-      tooltipTextStyle: TextStyle(
-        color: Colors.red,
-        fontWeight: FontWeight.bold,
-        fontSize: 12,
-      ),
-      lineChartsData: [
+      ratesData: [
         if (buyPrices.length > 0)
-          LineChartBarData(
-            spots: buyPrices,
-            isCurved: false,
-            colors: [
-              Colors.blue,
-              Colors.lightBlue,
-              Colors.green,
-              Colors.greenAccent,
-            ],
-            // belowBarData: BarAreaData(
-            //   show: true,
-            //   colors: [
-            //     Colors.blue.withAlpha(70),
-            //     Colors.lightBlue.withAlpha(70),
-            //     Colors.green.withAlpha(70),
-            //     Colors.greenAccent.withAlpha(70),
-            //   ],
-            // ),
-            barWidth: 1,
+          HistoricalRateData(
+            title: "Compra",
+            leftSymbol: "\$",
+            maxValue: buyPrices.map((spot) => spot.y).reduce(max),
+            tooltipTextStyle: _kTooltipTextStyle,
+            lineChartBarData: LineChartBarData(
+              spots: buyPrices,
+              isCurved: false,
+              colors: _kTabColorGradient1,
+              belowBarData: BarAreaData(
+                show: true,
+                colors: [_kTabColorGradient1.first.withAlpha(20)],
+              ),
+              barWidth: 1,
+            ),
           ),
         if (sellPrices.length > 0)
-          LineChartBarData(
-            spots: sellPrices,
-            isCurved: false,
-            colors: [
-              Colors.orange,
-              Colors.orangeAccent,
-              Colors.red,
-              Colors.redAccent,
-            ],
-            barWidth: 1,
+          HistoricalRateData(
+            title: "Venta",
+            leftSymbol: "\$",
+            maxValue: sellPrices.map((spot) => spot.y).reduce(max),
+            tooltipTextStyle: _kTooltipTextStyle,
+            lineChartBarData: LineChartBarData(
+              spots: sellPrices,
+              isCurved: false,
+              colors: _kTabColorGradient2,
+              belowBarData: BarAreaData(
+                show: true,
+                colors: [_kTabColorGradient2.first.withAlpha(20)],
+              ),
+              barWidth: 2,
+            ),
           ),
         if (sellPricesWithTaxes.length > 0)
-          LineChartBarData(
-            spots: sellPricesWithTaxes,
-            isCurved: false,
-            colors: [
-              Colors.purple,
-              Colors.purpleAccent,
-              Colors.pink,
-              Colors.pinkAccent,
-            ],
-            barWidth: 1,
+          HistoricalRateData(
+            title: "Venta + Imp.",
+            leftSymbol: "\$",
+            maxValue: sellPricesWithTaxes.map((spot) => spot.y).reduce(max),
+            tooltipTextStyle: _kTooltipTextStyle,
+            lineChartBarData: LineChartBarData(
+              spots: sellPricesWithTaxes,
+              isCurved: false,
+              colors: _kTabColorGradient3,
+              belowBarData: BarAreaData(
+                show: true,
+                colors: [_kTabColorGradient3.first.withAlpha(20)],
+              ),
+              barWidth: 2,
+            ),
           ),
       ],
     );
@@ -127,6 +141,7 @@ class _Crypto implements BuildHistoricalChartData {
   HistoricalChartData fromHistoricalRates(List<HistoricalRate> historicalRates) {
     List<FlSpot> arsPrices = [];
     List<FlSpot> arsPricesWithTaxes = [];
+    List<FlSpot> usdPrices = [];
 
     for (HistoricalRate historicalRate in historicalRates) {
       Map<dynamic, dynamic> jsonMap = json.decode(historicalRate.json);
@@ -141,48 +156,65 @@ class _Crypto implements BuildHistoricalChartData {
           double arsPriceWithTaxes = double.tryParse(data.arsPriceWithTaxes);
           arsPricesWithTaxes.add(FlSpot(date.millisecondsSinceEpoch.toDouble(), arsPriceWithTaxes));
         }
+        if (data.usdPrice.isNumeric()) {
+          double usdPrice = double.tryParse(data.usdPrice);
+          usdPrices.add(FlSpot(date.millisecondsSinceEpoch.toDouble(), usdPrice));
+        }
       }
     }
 
-    double maxValue = arsPrices.length > 0 || arsPricesWithTaxes.length > 0
-        ? [
-            if (arsPrices.length > 0) arsPrices.map((spot) => spot.y).reduce(max),
-            if (arsPricesWithTaxes.length > 0) arsPricesWithTaxes.map((spot) => spot.y).reduce(max),
-          ].reduce(max)
-        : 1;
-
     return HistoricalChartData(
-      leftSymbol: "\$",
-      maxValue: maxValue,
-      tooltipTextStyle: TextStyle(
-        color: Colors.red,
-        fontWeight: FontWeight.bold,
-        fontSize: 12,
-      ),
-      lineChartsData: [
+      ratesData: [
         if (arsPrices.length > 0)
-          LineChartBarData(
-            spots: arsPrices,
-            isCurved: false,
-            colors: [
-              Colors.blue,
-              Colors.lightBlue,
-              Colors.green,
-              Colors.greenAccent,
-            ],
-            barWidth: 1,
+          HistoricalRateData(
+            title: "\$ Pesos",
+            leftSymbol: "\$",
+            maxValue: arsPrices.map((spot) => spot.y).reduce(max),
+            tooltipTextStyle: _kTooltipTextStyle,
+            lineChartBarData: LineChartBarData(
+              spots: arsPrices,
+              isCurved: false,
+              colors: _kTabColorGradient1,
+              belowBarData: BarAreaData(
+                show: true,
+                colors: [_kTabColorGradient1.first.withAlpha(20)],
+              ),
+              barWidth: 2,
+            ),
           ),
         if (arsPricesWithTaxes.length > 0)
-          LineChartBarData(
-            spots: arsPricesWithTaxes,
-            isCurved: false,
-            colors: [
-              Colors.orange,
-              Colors.orangeAccent,
-              Colors.red,
-              Colors.redAccent,
-            ],
-            barWidth: 1,
+          HistoricalRateData(
+            title: "\$ Pesos + Imp.",
+            leftSymbol: "\$",
+            maxValue: arsPricesWithTaxes.map((spot) => spot.y).reduce(max),
+            tooltipTextStyle: _kTooltipTextStyle,
+            lineChartBarData: LineChartBarData(
+              spots: arsPricesWithTaxes,
+              isCurved: false,
+              colors: _kTabColorGradient2,
+              belowBarData: BarAreaData(
+                show: true,
+                colors: [_kTabColorGradient2.first.withAlpha(20)],
+              ),
+              barWidth: 2,
+            ),
+          ),
+        if (usdPrices.length > 0)
+          HistoricalRateData(
+            title: "US\$ Dólares",
+            leftSymbol: "US\$",
+            maxValue: usdPrices.map((spot) => spot.y).reduce(max),
+            tooltipTextStyle: _kTooltipTextStyle,
+            lineChartBarData: LineChartBarData(
+              spots: usdPrices,
+              isCurved: false,
+              colors: _kTabColorGradient3,
+              belowBarData: BarAreaData(
+                show: true,
+                colors: [_kTabColorGradient3.first.withAlpha(20)],
+              ),
+              barWidth: 2,
+            ),
           ),
       ],
     );
@@ -193,6 +225,7 @@ class _Metal implements BuildHistoricalChartData {
   @override
   HistoricalChartData fromHistoricalRates(List<HistoricalRate> historicalRates) {
     List<FlSpot> values = [];
+    String unit;
 
     for (HistoricalRate historicalRate in historicalRates) {
       Map<dynamic, dynamic> jsonMap = json.decode(historicalRate.json);
@@ -203,31 +236,28 @@ class _Metal implements BuildHistoricalChartData {
           double value = double.tryParse(data.value);
           values.add(FlSpot(date.millisecondsSinceEpoch.toDouble(), value));
         }
+        if (unit == null) unit = data.unit;
       }
     }
 
-    double maxValue = values.length > 0 ? values.map((spot) => spot.y).reduce(max) : 1;
-
     return HistoricalChartData(
-      leftSymbol: 'US\$',
-      maxValue: maxValue,
-      tooltipTextStyle: TextStyle(
-        color: Colors.red,
-        fontWeight: FontWeight.bold,
-        fontSize: 12,
-      ),
-      lineChartsData: [
+      ratesData: [
         if (values.length > 0)
-          LineChartBarData(
-            spots: values,
-            isCurved: false,
-            colors: [
-              Colors.blue,
-              Colors.lightBlue,
-              Colors.green,
-              Colors.greenAccent,
-            ],
-            barWidth: 1,
+          HistoricalRateData(
+            title: "US\$ / $unit",
+            leftSymbol: 'US\$',
+            maxValue: values.map((spot) => spot.y).reduce(max),
+            tooltipTextStyle: _kTooltipTextStyle,
+            lineChartBarData: LineChartBarData(
+              spots: values,
+              isCurved: false,
+              colors: _kTabColorGradient1,
+              belowBarData: BarAreaData(
+                show: true,
+                colors: [_kTabColorGradient1.first.withAlpha(20)],
+              ),
+              barWidth: 2,
+            ),
           ),
       ],
     );
@@ -253,28 +283,24 @@ class _Bcra implements BuildHistoricalChartData {
       }
     }
 
-    double maxValue = values.length > 0 ? values.map((spot) => spot.y).reduce(max) : 1;
-
     return HistoricalChartData(
-      leftSymbol: symbol,
-      maxValue: maxValue,
-      tooltipTextStyle: TextStyle(
-        color: Colors.red,
-        fontWeight: FontWeight.bold,
-        fontSize: 12,
-      ),
-      lineChartsData: [
+      ratesData: [
         if (values.length > 0)
-          LineChartBarData(
-            spots: values,
-            isCurved: false,
-            colors: [
-              Colors.blue,
-              Colors.lightBlue,
-              Colors.green,
-              Colors.greenAccent,
-            ],
-            barWidth: 1,
+          HistoricalRateData(
+            title: symbol,
+            leftSymbol: symbol,
+            maxValue: values.map((spot) => spot.y).reduce(max),
+            tooltipTextStyle: _kTooltipTextStyle,
+            lineChartBarData: LineChartBarData(
+              spots: values,
+              isCurved: false,
+              colors: _kTabColorGradient1,
+              belowBarData: BarAreaData(
+                show: true,
+                colors: [_kTabColorGradient1.first.withAlpha(20)],
+              ),
+              barWidth: 2,
+            ),
           ),
       ],
     );
@@ -298,29 +324,24 @@ class _CountryRisk implements BuildHistoricalChartData {
       }
     }
 
-    double maxValue = values.length > 0 ? values.map((spot) => spot.y).reduce(max) : 1;
-
     return HistoricalChartData(
-      rightSymbol: "puntos",
-      maxValue: maxValue,
-      isInteger: true,
-      tooltipTextStyle: TextStyle(
-        color: Colors.red,
-        fontWeight: FontWeight.bold,
-        fontSize: 12,
-      ),
-      lineChartsData: [
+      ratesData: [
         if (values.length > 0)
-          LineChartBarData(
-            spots: values,
-            isCurved: false,
-            colors: [
-              Colors.blue,
-              Colors.lightBlue,
-              Colors.green,
-              Colors.greenAccent,
-            ],
-            barWidth: 1,
+          HistoricalRateData(
+            title: "Riesgo País",
+            rightSymbol: "puntos",
+            maxValue: values.map((spot) => spot.y).reduce(max),
+            tooltipTextStyle: _kTooltipTextStyle,
+            lineChartBarData: LineChartBarData(
+              spots: values,
+              isCurved: false,
+              colors: _kTabColorGradient1,
+              belowBarData: BarAreaData(
+                show: true,
+                colors: [_kTabColorGradient1.first.withAlpha(20)],
+              ),
+              barWidth: 2,
+            ),
           ),
       ],
     );
@@ -349,45 +370,41 @@ class _Venezuela implements BuildHistoricalChartData {
       }
     }
 
-    double maxValue = bankPrices.length > 0 || blackMarketPrices.length > 0
-        ? [
-            if (bankPrices.length > 0) bankPrices.map((spot) => spot.y).reduce(max),
-            if (blackMarketPrices.length > 0) blackMarketPrices.map((spot) => spot.y).reduce(max),
-          ].reduce(max)
-        : 1;
-
     return HistoricalChartData(
-      leftSymbol: "Bs.",
-      maxValue: maxValue,
-      tooltipTextStyle: TextStyle(
-        color: Colors.red,
-        fontWeight: FontWeight.bold,
-        fontSize: 12,
-      ),
-      lineChartsData: [
+      ratesData: [
         if (bankPrices.length > 0)
-          LineChartBarData(
-            spots: bankPrices,
-            isCurved: false,
-            colors: [
-              Colors.blue,
-              Colors.lightBlue,
-              Colors.green,
-              Colors.greenAccent,
-            ],
-            barWidth: 1,
+          HistoricalRateData(
+            title: "Promedio Bancos",
+            leftSymbol: "Bs.",
+            maxValue: bankPrices.map((spot) => spot.y).reduce(max),
+            tooltipTextStyle: _kTooltipTextStyle,
+            lineChartBarData: LineChartBarData(
+              spots: bankPrices,
+              isCurved: false,
+              colors: _kTabColorGradient1,
+              belowBarData: BarAreaData(
+                show: true,
+                colors: [_kTabColorGradient1.first.withAlpha(20)],
+              ),
+              barWidth: 2,
+            ),
           ),
         if (blackMarketPrices.length > 0)
-          LineChartBarData(
-            spots: blackMarketPrices,
-            isCurved: false,
-            colors: [
-              Colors.orange,
-              Colors.orangeAccent,
-              Colors.red,
-              Colors.redAccent,
-            ],
-            barWidth: 1,
+          HistoricalRateData(
+            title: "Paralelo",
+            leftSymbol: "Bs.",
+            maxValue: blackMarketPrices.map((spot) => spot.y).reduce(max),
+            tooltipTextStyle: _kTooltipTextStyle,
+            lineChartBarData: LineChartBarData(
+              spots: blackMarketPrices,
+              isCurved: false,
+              colors: _kTabColorGradient2,
+              belowBarData: BarAreaData(
+                show: true,
+                colors: [_kTabColorGradient2.first.withAlpha(20)],
+              ),
+              barWidth: 2,
+            ),
           ),
       ],
     );

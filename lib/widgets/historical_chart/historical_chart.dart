@@ -22,8 +22,13 @@ class HistoricalChart extends StatefulWidget {
   _HistoricalChartState createState() => _HistoricalChartState();
 }
 
-class _HistoricalChartState extends State<HistoricalChart> {
+class _HistoricalChartState extends State<HistoricalChart> with SingleTickerProviderStateMixin {
+  static const double kMaxScale = 2.5;
+  static const double kMinScale = 0.5;
+
   HistoricalChartData historicalChartData;
+  TransformationController _transformationController;
+  TabController _tabController;
   bool _chartDataLoaded = false;
 
   @override
@@ -33,45 +38,113 @@ class _HistoricalChartState extends State<HistoricalChart> {
   }
 
   @override
+  void dispose() {
+    _transformationController.dispose();
+    _tabController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    if (!_chartDataLoaded) {
-      return SizedBox.shrink();
+    if (!_chartDataLoaded || historicalChartData.ratesData.length == 0) {
+      return const SizedBox.shrink();
     }
 
+    //TODO: Agregar controles de zoom (+/- y reset)
     return Container(
       height: MediaQuery.of(context).size.height * 0.7,
-      padding: EdgeInsets.all(20),
-      child: LineChart(
-        LineChartData(
-          gridData: _getGridData(context),
-          lineTouchData: _getLineTouchData(context),
-          minY: historicalChartData.minValue,
-          maxY: historicalChartData.maxValue,
-          borderData: FlBorderData(
-            show: true,
-            border: Border.all(
-              color: ThemeManager.getPrimaryTextColor(context),
-              width: 1,
+      decoration: BoxDecoration(border: Border.all(color: Colors.black54, width: 1)),
+      child: Column(
+        children: [
+          Container(
+            child: TabBar(
+              controller: _tabController,
+              tabs: historicalChartData.ratesData.map((x) => Tab(text: x.title)).toList(),
+              indicatorColor: ThemeManager.getPrimaryAccentColor(context),
+              labelColor: ThemeManager.getPrimaryTextColor(context),
+              enableFeedback: historicalChartData.ratesData.length > 1,
+              labelStyle: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontFamily: "Raleway",
+              ),
+              unselectedLabelStyle: TextStyle(
+                fontWeight: FontWeight.normal,
+                fontFamily: "Raleway",
+              ),
+              unselectedLabelColor: ThemeManager.getPrimaryTextColor(context).withOpacity(0.5),
             ),
           ),
-          titlesData: FlTitlesData(
-            show: true,
-            bottomTitles: _getBottomTitles(context),
-            leftTitles: _getLeftTitles(context),
+          Expanded(
+            child: TabBarView(
+              physics: NeverScrollableScrollPhysics(),
+              controller: _tabController,
+              children: historicalChartData.ratesData.map((x) => _buildChart(context, x)).toList(),
+            ),
           ),
-          lineBarsData: historicalChartData.lineChartsData,
-        ),
-        swapAnimationDuration: Duration(milliseconds: 150),
+        ],
       ),
     );
   }
 
-  LineTouchData _getLineTouchData(BuildContext context) {
+  Widget _buildChart(BuildContext context, HistoricalRateData rateData) {
+    return Container(
+      constraints: const BoxConstraints.expand(),
+      padding: const EdgeInsets.all(10),
+      child: InteractiveViewer(
+        maxScale: kMaxScale,
+        minScale: kMinScale,
+        transformationController: _transformationController,
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+        boundaryMargin: const EdgeInsets.all(50),
+        constrained: false,
+        child: Container(
+          width: MediaQuery.of(context).size.width * 2,
+          height: MediaQuery.of(context).size.height,
+          child: LineChart(
+            LineChartData(
+              gridData: _getGridData(context, rateData),
+              lineTouchData: _getLineTouchData(context, rateData),
+              minY: rateData.minValue,
+              maxY: rateData.maxValue,
+              borderData: FlBorderData(
+                show: true,
+                border: Border.all(
+                  color: ThemeManager.getPrimaryTextColor(context),
+                  width: 1,
+                ),
+              ),
+              titlesData: FlTitlesData(
+                show: true,
+                bottomTitles: SideTitles(showTitles: false),
+                leftTitles: _getLeftTitles(context, rateData),
+              ),
+              lineBarsData: [
+                rateData.lineChartBarData,
+              ],
+            ),
+            swapAnimationDuration: const Duration(milliseconds: 150),
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _loadChartData() {
+    historicalChartData =
+        BuildHistoricalChartData(widget.responseType).fromHistoricalRates(widget.values);
+    _tabController = TabController(length: historicalChartData.ratesData.length, vsync: this);
+    _transformationController = TransformationController(Matrix4.identity() * 0.6);
+    _chartDataLoaded = true;
+  }
+
+  LineTouchData _getLineTouchData(BuildContext context, HistoricalRateData rateData) {
     return LineTouchData(
       touchTooltipData: LineTouchTooltipData(
         fitInsideVertically: true,
         fitInsideHorizontally: true,
-        tooltipBgColor: Colors.white,
+        tooltipBgColor: Colors.grey[400],
+        maxContentWidth: MediaQuery.of(context).size.width / 2,
+        tooltipRoundedRadius: 15,
         getTooltipItems: (touchedSpots) {
           if (touchedSpots == null) {
             return null;
@@ -84,18 +157,18 @@ class _HistoricalChartState extends State<HistoricalChart> {
             LineBarSpot touchedSpot = touchedSpots[i];
             if (touchedSpot != null) {
               DateFormat dateFormat = DateFormat('dd/MM/yyyy HH:mm');
-              if (historicalChartData.isInteger) {
+              if (rateData.isInteger) {
                 numberFormat.maximumFractionDigits = 0;
               }
               String value = numberFormat.format(touchedSpot.y);
               DateTime date = DateTime.fromMillisecondsSinceEpoch(touchedSpot.x.toInt());
               String formattedDate = dateFormat.format(date);
-              String leftSymbol = "${historicalChartData?.leftSymbol ?? ''} ";
-              String rightSymbol = " ${historicalChartData.rightSymbol ?? ''}";
+              String leftSymbol = "${rateData?.leftSymbol ?? ''} ";
+              String rightSymbol = " ${rateData.rightSymbol ?? ''}";
               String tooltip = i + 1 < touchedSpots.length
                   ? "$leftSymbol$value$rightSymbol"
                   : "$leftSymbol$value$rightSymbol\n\n$formattedDate";
-              tooltipItems.add(LineTooltipItem(tooltip, historicalChartData.tooltipTextStyle));
+              tooltipItems.add(LineTooltipItem(tooltip, rateData.tooltipTextStyle));
             }
           }
           return tooltipItems;
@@ -104,13 +177,7 @@ class _HistoricalChartState extends State<HistoricalChart> {
     );
   }
 
-  void _loadChartData() {
-    historicalChartData =
-        BuildHistoricalChartData(widget.responseType).fromHistoricalRates(widget.values);
-    _chartDataLoaded = true;
-  }
-
-  FlGridData _getGridData(BuildContext context) {
+  FlGridData _getGridData(BuildContext context, HistoricalRateData rateData) {
     return FlGridData(
       show: true,
       drawHorizontalLine: true,
@@ -118,50 +185,31 @@ class _HistoricalChartState extends State<HistoricalChart> {
         color: Colors.grey.withOpacity(0.5),
         strokeWidth: 1,
       ),
-      horizontalInterval: historicalChartData.interval / 2,
+      horizontalInterval: rateData.interval / 2,
       drawVerticalLine: false,
     );
   }
 
-  SideTitles _getLeftTitles(BuildContext context) {
+  SideTitles _getLeftTitles(BuildContext context, HistoricalRateData rateData) {
     return SideTitles(
       showTitles: true,
       getTextStyles: (value) => TextStyle(
         color: ThemeManager.getPrimaryTextColor(context),
-        fontSize: 11,
+        fontSize: 20,
       ),
-      interval: historicalChartData.interval,
-      margin: 15,
-      //TODO: Ajustar reservedSize dinamicamente
-      reservedSize: 50,
+      interval: rateData.interval,
+      margin: 10,
+      reservedSize: 200,
       getTitles: (value) {
         NumberFormat numberFormat = Provider.of<Settings>(context, listen: false).getNumberFormat();
-        if (historicalChartData.isInteger) {
+        if (rateData.isInteger) {
           numberFormat.maximumFractionDigits = 0;
         }
-        String leftSymbol = "${historicalChartData?.leftSymbol ?? ''} ";
-        String rightSymbol = " ${historicalChartData.rightSymbol ?? ''}";
+        String leftSymbol = "${rateData?.leftSymbol ?? ''} ";
+        String rightSymbol = " ${rateData.rightSymbol ?? ''}";
 
         return "$leftSymbol${numberFormat.format(value)}$rightSymbol";
       },
-    );
-  }
-
-  SideTitles _getBottomTitles(BuildContext context) {
-    return SideTitles(
-      showTitles: true,
-      getTitles: (value) {
-        DateFormat dateFormat = DateFormat('dd/MM/yyyy');
-        DateTime date = DateTime.fromMillisecondsSinceEpoch(value.toInt());
-        return dateFormat.format(date);
-      },
-      interval: widget.values.length > 0 ? widget.values.length.toDouble() * 10 : 1,
-      margin: 20,
-      reservedSize: 20,
-      getTextStyles: (value) => TextStyle(
-        color: ThemeManager.getPrimaryTextColor(context),
-        fontSize: 9,
-      ),
     );
   }
 }

@@ -1,6 +1,5 @@
 import 'package:dolarbot_app/classes/hive/historical_rate.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
-import 'package:dolarbot_app/models/settings.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
 import 'package:dolarbot_app/util/util.dart';
 import 'package:dolarbot_app/widgets/common/cool_app_bar.dart';
@@ -40,18 +39,16 @@ class _HistoricalRatesScreenState extends State<HistoricalRatesScreen> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () => _onWillPopScope(context),
-      child: Consumer<Settings>(builder: (context, settings, child) {
-        return Scaffold(
-          extendBodyBehindAppBar: false,
-          resizeToAvoidBottomInset: false,
-          appBar: CoolAppBar(
-            title: "Datos históricos de ${widget.title}",
-            isMainMenu: false,
-            foregroundColor: ThemeManager.getPrimaryTextColor(context),
-          ),
-          body: _body(),
-        );
-      }),
+      child: Scaffold(
+        extendBodyBehindAppBar: false,
+        resizeToAvoidBottomInset: false,
+        appBar: CoolAppBar(
+          title: "Datos históricos de ${widget.title}",
+          isMainMenu: false,
+          foregroundColor: ThemeManager.getPrimaryTextColor(context),
+        ),
+        body: _body(),
+      ),
     );
   }
 
@@ -64,14 +61,12 @@ class _HistoricalRatesScreenState extends State<HistoricalRatesScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Center(
-            child: Text("No hay datos suficientes para mostrar la evolución"),
+            child: Text("Aún no hay datos suficientes para mostrar la evolución"),
           ),
         ],
       );
     }
 
-    //TODO: Agregar controles de zoom (+/- y reset)
-    //TODO: Ver si es posible agrandar el gráfico en width para que todo entre mejor
     return Container(
       height: double.infinity,
       padding: const EdgeInsets.only(top: 20, bottom: 20, left: 15, right: 15),
@@ -101,19 +96,12 @@ class _HistoricalRatesScreenState extends State<HistoricalRatesScreen> {
           SizedBox(
             height: 10,
           ),
-          Container(
-            decoration: BoxDecoration(border: Border.all(color: Colors.black54, width: 2)),
-            child: InteractiveViewer(
-              maxScale: 3.5,
-              minScale: 1,
-              child: HistoricalChart(
-                responseType: widget.responseType,
-                values: historicalRates,
-              ),
-            ),
+          HistoricalChart(
+            responseType: widget.responseType,
+            values: historicalRates,
           ),
           SizedBox(
-            height: 15,
+            height: 20,
           ),
           Text(
             "La información mostrada corresponde al registro histórico de tus consultas recopiladas periódicamente dentro de la app.",
