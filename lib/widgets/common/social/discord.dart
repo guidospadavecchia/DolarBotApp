@@ -27,7 +27,7 @@ class Discord extends StatelessWidget {
               height: imageSize,
               filterQuality: FilterQuality.high,
             ),
-            SizedBox(
+            const SizedBox(
               width: 10,
             ),
             Text(
@@ -35,7 +35,7 @@ class Discord extends StatelessWidget {
               style: TextStyle(
                 fontSize: fontSize,
                 fontFamily: 'Raleway',
-                color: Color.fromRGBO(114, 137, 218, 1),
+                color: const Color.fromRGBO(114, 137, 218, 1),
                 fontWeight: FontWeight.w600,
               ),
             ),

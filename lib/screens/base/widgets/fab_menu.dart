@@ -137,7 +137,7 @@ class _FabMenuState extends State<FabMenu> {
             onPressed: () async {
               bool result = await widget.onFavoriteButtonTap();
               setState(() => isFavorite = result);
-              Future.delayed(Duration(milliseconds: 200), () => closeFabMenu());
+              Future.delayed(const Duration(milliseconds: 200), () => closeFabMenu());
             },
           ),
       ],

@@ -63,11 +63,11 @@ class _HistoricalChartState extends State<HistoricalChart> with SingleTickerProv
               indicatorColor: ThemeManager.getPrimaryAccentColor(context),
               labelColor: ThemeManager.getPrimaryTextColor(context),
               enableFeedback: historicalChartData.ratesData.length > 1,
-              labelStyle: TextStyle(
+              labelStyle: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontFamily: "Raleway",
               ),
-              unselectedLabelStyle: TextStyle(
+              unselectedLabelStyle: const TextStyle(
                 fontWeight: FontWeight.normal,
                 fontFamily: "Raleway",
               ),

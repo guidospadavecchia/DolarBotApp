@@ -56,7 +56,7 @@ class _CardLastUpdatedState extends State<CardLastUpdated> with WidgetsBindingOb
               children: [
                 Row(
                   children: [
-                    Icon(
+                    const Icon(
                       Icons.alarm,
                       size: 16,
                       color: Colors.white54,
@@ -67,7 +67,7 @@ class _CardLastUpdatedState extends State<CardLastUpdated> with WidgetsBindingOb
                         widget.showPoweredBy
                             ? "${_getFormattedDateTime()}"
                             : "Última actualización: ${_getFormattedDateTime()}",
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 12,
                           fontFamily: 'Montserrat',
                           fontWeight: FontWeight.normal,

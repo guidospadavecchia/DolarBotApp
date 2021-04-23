@@ -26,10 +26,10 @@ class DrawerMenuHeader extends StatelessWidget {
                   width: 64,
                   height: 64,
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 15,
                 ),
-                Text(
+                const Text(
                   'Dolar',
                   style: TextStyle(
                       fontSize: 24,
@@ -50,7 +50,7 @@ class DrawerMenuHeader extends StatelessWidget {
             ),
           ),
         ),
-        Divider(),
+        const Divider(),
       ],
     );
   }

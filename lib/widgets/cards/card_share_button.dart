@@ -17,14 +17,14 @@ class CardShareButton extends StatelessWidget {
       child: Theme(
         data: ThemeManager.getTooltipTheme(context),
         child: Tooltip(
-          margin: EdgeInsets.only(right: 50),
+          margin: const EdgeInsets.only(right: 50),
           verticalOffset: -45,
           message: "Compartir 📲",
           child: RawMaterialButton(
             shape: CircleBorder(),
-            constraints: BoxConstraints(minWidth: 50, minHeight: 80),
+            constraints: const BoxConstraints(minWidth: 50, minHeight: 80),
             onPressed: onSharePressed,
-            child: Icon(
+            child: const Icon(
               IconFonts.share,
               color: Colors.white,
             ),

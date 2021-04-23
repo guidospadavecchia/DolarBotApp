@@ -75,7 +75,7 @@ class SimpleFabMenuState extends State<SimpleFabMenu> with SingleTickerProviderS
     _visible = widget.visible;
     _animationController = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 250),
+      duration: const Duration(milliseconds: 250),
     );
     _listAnimation = Tween<double>(begin: 0, end: 1).animate(_animationController);
   }
@@ -142,7 +142,7 @@ class SimpleFabMenuState extends State<SimpleFabMenu> with SingleTickerProviderS
       return PlayAnimation<double>(
         tween: Tween(
             begin: widget.showInitialAnimation ? MediaQuery.of(context).size.height : 0, end: 0),
-        duration: Duration(milliseconds: 500),
+        duration: const Duration(milliseconds: 500),
         curve: Curves.fastOutSlowIn,
         builder: (context, child, value) {
           return Transform.translate(
@@ -193,7 +193,7 @@ class SimpleFabMenuState extends State<SimpleFabMenu> with SingleTickerProviderS
         ),
       );
     } else {
-      return SizedBox.shrink();
+      return const SizedBox.shrink();
     }
   }
 
@@ -256,7 +256,7 @@ class _SimpleFabMenuListAnimated extends AnimatedWidget {
         scrollDirection: direction,
         shrinkWrap: true,
         physics: NeverScrollableScrollPhysics(),
-        separatorBuilder: (_, __) => SizedBox(height: 8, width: 8),
+        separatorBuilder: (_, __) => const SizedBox(height: 8, width: 8),
         padding: padding,
         itemCount: items.length,
         itemBuilder: buildItem,
@@ -290,7 +290,8 @@ class _FabCircularOption extends StatelessWidget {
         child: item.tooltip != null
             ? Tooltip(
                 preferBelow: false,
-                margin: direction == Axis.vertical ? EdgeInsets.only(right: 80) : EdgeInsets.zero,
+                margin:
+                    direction == Axis.vertical ? const EdgeInsets.only(right: 80) : EdgeInsets.zero,
                 verticalOffset: direction == Axis.vertical ? -15 : size - 10,
                 message: item.tooltip,
                 child: Icon(

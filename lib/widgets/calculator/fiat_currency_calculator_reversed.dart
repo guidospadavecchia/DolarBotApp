@@ -76,7 +76,7 @@ class _FiatCurrencyCalculatorReversedState
         InputAmount(
           textController: _textControllerInput,
         ),
-        SizedBox(
+        const SizedBox(
           height: 30,
         ),
         if (sellValue != null)
@@ -89,7 +89,7 @@ class _FiatCurrencyCalculatorReversedState
             title: "Comprás con impuestos",
             textController: _textControllerSellValueWithTaxes,
           ),
-        SizedBox(
+        const SizedBox(
           height: 30,
         ),
       ],

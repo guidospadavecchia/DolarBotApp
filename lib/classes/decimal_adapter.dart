@@ -49,8 +49,7 @@ class DecimalAdapter {
   int toInt() => decimal.toInt();
 
   @override
-  bool operator ==(Object other) =>
-      decimal == DecimalAdapter.tryParse(other).decimal;
+  bool operator ==(Object other) => decimal == DecimalAdapter.tryParse(other).decimal;
 
   @override
   String toString() => decimal.toString();

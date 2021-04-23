@@ -83,7 +83,7 @@ class _FiatCurrencyCalculatorState extends BaseCalculatorState<FiatCurrencyCalcu
         InputAmount(
           textController: _textControllerInput,
         ),
-        SizedBox(
+        const SizedBox(
           height: 30,
         ),
         if (sellValue != null)
@@ -93,7 +93,7 @@ class _FiatCurrencyCalculatorState extends BaseCalculatorState<FiatCurrencyCalcu
                 title: "Comprás a",
                 textController: _textControllerSellValue,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
             ],
@@ -113,20 +113,20 @@ class _FiatCurrencyCalculatorState extends BaseCalculatorState<FiatCurrencyCalcu
         if (buyValue != null)
           Column(
             children: [
-              Divider(
+              const Divider(
                 color: Colors.black,
                 indent: 50,
                 endIndent: 50,
                 height: 0,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               InputConverted(
                 title: "Vendés a",
                 textController: _textControllerBuyValue,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
             ],

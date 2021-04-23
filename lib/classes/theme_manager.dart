@@ -3,13 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
 class ThemeManager {
-  static Color _primaryColor = Color.fromRGBO(50, 177, 40, 1);
-  static Color _secondaryColor = Color.fromRGBO(51, 148, 34, 1);
-  static Color _accentColor = Color.fromRGBO(140, 216, 18, 1);
+  static Color _primaryColor = const Color.fromRGBO(50, 177, 40, 1);
+  static Color _secondaryColor = const Color.fromRGBO(51, 148, 34, 1);
+  static Color _accentColor = const Color.fromRGBO(140, 216, 18, 1);
 
   static AdaptiveThemeMode getDefaultTheme(BuildContext context) {
     Brightness brightness = SchedulerBinding.instance.window.platformBrightness;
-
     return brightness == Brightness.light ? AdaptiveThemeMode.light : AdaptiveThemeMode.dark;
   }
 
@@ -55,14 +54,14 @@ class ThemeManager {
 
   static Color getButtonColor(BuildContext context) {
     return AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
-        ? Color.fromRGBO(230, 230, 230, 1)
-        : Color.fromRGBO(50, 50, 50, 1);
+        ? const Color.fromRGBO(230, 230, 230, 1)
+        : const Color.fromRGBO(50, 50, 50, 1);
   }
 
   static Color getSnackBarColor(BuildContext context) {
     return AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
         ? _secondaryColor
-        : Color.fromRGBO(60, 60, 60, 1);
+        : const Color.fromRGBO(60, 60, 60, 1);
   }
 
   static Color getDividerColor(BuildContext context) {
@@ -73,8 +72,8 @@ class ThemeManager {
 
   static Color getGlobalBackgroundColor(BuildContext context) {
     return AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
-        ? Color.fromRGBO(250, 250, 250, 1)
-        : Color.fromRGBO(48, 48, 48, 1);
+        ? const Color.fromRGBO(250, 250, 250, 1)
+        : const Color.fromRGBO(48, 48, 48, 1);
   }
 
   static Color getPrimaryAccentColor(BuildContext context) {
@@ -103,9 +102,12 @@ class ThemeManager {
 
   static TooltipThemeData _getTooltipThemeLight() {
     return TooltipThemeData(
-      textStyle: TextStyle(fontFamily: 'Raleway', color: Colors.black87),
+      textStyle: const TextStyle(
+        fontFamily: 'Raleway',
+        color: Colors.black87,
+      ),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(3)),
+        borderRadius: BorderRadius.all(const Radius.circular(3)),
         color: Colors.grey[200].withOpacity(0.9),
       ),
     );
@@ -113,9 +115,12 @@ class ThemeManager {
 
   static TooltipThemeData _getTooltipThemeDark() {
     return TooltipThemeData(
-      textStyle: TextStyle(fontFamily: 'Raleway', color: Colors.white70),
+      textStyle: const TextStyle(
+        fontFamily: 'Raleway',
+        color: Colors.white70,
+      ),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(3)),
+        borderRadius: BorderRadius.all(const Radius.circular(3)),
         color: Colors.grey[800].withOpacity(0.9),
       ),
     );

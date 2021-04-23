@@ -13,7 +13,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    _waitAndGoHome(context, Duration(milliseconds: 4000));
+    _waitAndGoHome(context, const Duration(milliseconds: 4000));
   }
 
   @override
@@ -28,9 +28,9 @@ class _SplashScreenState extends State<SplashScreen> {
               decoration: BoxDecoration(
                 gradient:
                     LinearGradient(begin: Alignment.topLeft, end: Alignment.bottomRight, colors: [
-                  Color.fromRGBO(51, 148, 34, 1),
-                  Color.fromRGBO(50, 177, 40, 1),
-                  Color.fromRGBO(40, 245, 51, 1),
+                  const Color.fromRGBO(51, 148, 34, 1),
+                  const Color.fromRGBO(50, 177, 40, 1),
+                  const Color.fromRGBO(40, 245, 51, 1),
                 ]),
               ),
             ),
@@ -51,18 +51,18 @@ class _SplashScreenState extends State<SplashScreen> {
                           width: 124,
                           filterQuality: FilterQuality.high,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 25,
                         ),
                         ShowUpAnimation(
-                          delayStart: Duration(milliseconds: 0),
-                          animationDuration: Duration(seconds: 1),
+                          delayStart: Duration.zero,
+                          animationDuration: const Duration(seconds: 1),
                           curve: Curves.easeIn,
                           direction: Direction.vertical,
                           offset: 0,
-                          child: Text(
+                          child: const Text(
                             'DolarBot',
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontSize: 40,
                                 fontWeight: FontWeight.w600,
                                 color: Colors.white,
@@ -79,8 +79,8 @@ class _SplashScreenState extends State<SplashScreen> {
                   child: Align(
                     alignment: FractionalOffset.bottomCenter,
                     child: ShowUpAnimation(
-                      delayStart: Duration(milliseconds: 500),
-                      animationDuration: Duration(milliseconds: 1500),
+                      delayStart: const Duration(milliseconds: 500),
+                      animationDuration: const Duration(milliseconds: 1500),
                       direction: Direction.vertical,
                       offset: 2,
                       child: Footer(),
@@ -107,7 +107,7 @@ class _SplashScreenState extends State<SplashScreen> {
               pageBuilder: (context, animation1, animation2) => HomeScreen(
                 key: GlobalKey<HomeScreenState>(),
               ),
-              transitionDuration: Duration(milliseconds: 300),
+              transitionDuration: const Duration(milliseconds: 300),
               transitionsBuilder: (context, animation1, animation2, child) => FadeTransition(
                 opacity: animation1,
                 child: child,
@@ -140,11 +140,11 @@ class Footer extends StatelessWidget {
             ),
           ),
           Container(
-            padding: EdgeInsets.all(35),
+            padding: const EdgeInsets.all(35),
             alignment: Alignment.bottomLeft,
             child: Text(
               "Una app.\nTodas las cotizaciones.",
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.w600,
                 color: Colors.black87,

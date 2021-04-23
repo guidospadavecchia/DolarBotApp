@@ -28,7 +28,10 @@ class FirstTimeDialog extends StatelessWidget {
                   ? LinearGradient(
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
-                      colors: [Color.fromRGBO(14, 24, 29, 1), Color.fromRGBO(14, 24, 29, 0.4)],
+                      colors: [
+                        const Color.fromRGBO(14, 24, 29, 1),
+                        const Color.fromRGBO(14, 24, 29, 0.4),
+                      ],
                     )
                   : null,
             ),

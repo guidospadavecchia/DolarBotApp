@@ -29,7 +29,7 @@ class CoolAppBar extends StatelessWidget implements PreferredSizeWidget {
         builder: (BuildContext context) {
           if (isMainMenu) {
             return IconButton(
-              icon: Icon(Icons.menu),
+              icon: const Icon(Icons.menu),
               splashRadius: 25,
               color: foregroundColor,
               onPressed: () => Scaffold.of(context).openDrawer(),
@@ -37,7 +37,7 @@ class CoolAppBar extends StatelessWidget implements PreferredSizeWidget {
             );
           } else {
             return IconButton(
-              icon: Icon(Icons.arrow_back),
+              icon: const Icon(Icons.arrow_back),
               splashRadius: 25,
               color: foregroundColor,
               onPressed: () => Navigator.of(context).pop(),
@@ -50,9 +50,9 @@ class CoolAppBar extends StatelessWidget implements PreferredSizeWidget {
         Container(
           child: showRefreshButton
               ? Padding(
-                  padding: EdgeInsets.only(right: 15),
+                  padding: const EdgeInsets.only(right: 15),
                   child: IconButton(
-                    icon: Icon(FontAwesomeIcons.redo),
+                    icon: const Icon(FontAwesomeIcons.redo),
                     color: foregroundColor,
                     iconSize: 18,
                     splashRadius: 25,
@@ -82,5 +82,5 @@ class CoolAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => new Size.fromHeight(70);
+  Size get preferredSize => const Size.fromHeight(70);
 }

@@ -28,8 +28,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class HomeScreenState extends State<HomeScreen> {
-  final Duration kAnimationDuration = Duration(milliseconds: 500);
-  final Duration kDoubleTapToLeaveDuration = Duration(seconds: 2);
+  final Duration kAnimationDuration = const Duration(milliseconds: 500);
+  final Duration kDoubleTapToLeaveDuration = const Duration(seconds: 2);
   final Box settings = Hive.box('settings');
   final Box favoritesBox = Hive.box('favorites');
   final Map<String, Map> _responses = Map<String, Map>();
@@ -45,7 +45,7 @@ class HomeScreenState extends State<HomeScreen> {
   DateTime lastBackPressTimestamp;
 
   Future<bool> onWillPopScope(BuildContext context) {
-    DateTime now = DateTime.now();
+    final DateTime now = DateTime.now();
 
     dismissAllToast();
     if (lastBackPressTimestamp == null ||
@@ -168,9 +168,9 @@ class HomeScreenState extends State<HomeScreen> {
                 promptAlignment: Alignment.bottomRight,
                 promptDuration: const Duration(milliseconds: 500),
                 promptTheme: PromptButtonTheme(
-                  color: ThemeManager.getDarkThemeData().backgroundColor.withOpacity(0.8),
+                  color: ThemeManager.getDarkThemeData().backgroundColor.withOpacity(0.9),
                   padding: const EdgeInsets.only(right: 25, bottom: 30),
-                  iconPadding: const EdgeInsets.all(10),
+                  iconPadding: const EdgeInsets.all(12),
                 ),
                 child: ReorderableListView(
                   scrollController: _scrollController,
@@ -195,7 +195,7 @@ class HomeScreenState extends State<HomeScreen> {
                           borderRadius: BorderRadius.circular(10),
                           color: Colors.transparent,
                         ),
-                        margin: EdgeInsets.fromLTRB(15, 0, 15, 15),
+                        margin: const EdgeInsets.fromLTRB(15, 0, 15, 15),
                         child: Consumer<Settings>(builder: (context, settings, child) {
                           return Dismissible(
                             dismissThresholds: {
@@ -348,7 +348,7 @@ class HomeScreenState extends State<HomeScreen> {
           context,
           'Algunas cotizaciones no pudieron cargarse',
           ThemeManager.getSnackBarColor(context),
-          duration: Duration(seconds: 8),
+          duration: const Duration(seconds: 8),
           leadingIcon: Icon(
             Icons.warning_rounded,
             color: Colors.yellow,
@@ -385,7 +385,7 @@ class _DismissFavoriteButton extends StatelessWidget {
             ),
             Text(
               "Quitar",
-              style: TextStyle(
+              style: const TextStyle(
                 fontFamily: "Roboto",
                 color: Colors.white,
                 fontWeight: FontWeight.w600,
@@ -397,10 +397,10 @@ class _DismissFavoriteButton extends StatelessWidget {
     }
 
     return Container(
-      margin: EdgeInsets.only(top: 20, bottom: 20),
+      margin: const EdgeInsets.only(top: 20, bottom: 20),
       alignment:
           direction == DismissDirection.endToStart ? Alignment.centerRight : Alignment.centerLeft,
-      padding: EdgeInsets.only(left: 40, right: 40),
+      padding: const EdgeInsets.only(left: 40, right: 40),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         color: Colors.red[800],

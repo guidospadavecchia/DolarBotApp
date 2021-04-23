@@ -144,7 +144,7 @@ class _BcraInfoScreenState extends BaseInfoScreenState<BcraInfoScreen> with Base
       return BuildCard(data).fromCardData(context, widget.cardData, settings);
     }
 
-    return SizedBox.shrink();
+    return const SizedBox.shrink();
   }
 
   @override

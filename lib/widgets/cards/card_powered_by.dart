@@ -14,7 +14,7 @@ class CardPoweredBy extends StatelessWidget {
           padding: const EdgeInsets.only(left: 3, top: 2, right: 3),
           child: Text(
             "Powered by",
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 10,
               fontFamily: 'Raleway',
               fontWeight: FontWeight.normal,
@@ -34,7 +34,7 @@ class CardPoweredBy extends StatelessWidget {
           padding: const EdgeInsets.only(left: 3, top: 2),
           child: Text(
             "DolarBot",
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 10,
               fontFamily: 'Raleway',
               fontWeight: FontWeight.normal,

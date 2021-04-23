@@ -55,7 +55,7 @@ class CardValue extends StatelessWidget {
                 fontWeight: FontWeight.normal,
                 color: Colors.white,
                 shadows: [
-                  Shadow(
+                  const Shadow(
                     blurRadius: 2,
                     color: Colors.black54,
                     offset: Offset(2, 2),
@@ -71,7 +71,7 @@ class CardValue extends StatelessWidget {
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
                 shadows: [
-                  Shadow(
+                  const Shadow(
                     blurRadius: 7,
                     color: Colors.black54,
                     offset: Offset(2, 2),
@@ -83,7 +83,7 @@ class CardValue extends StatelessWidget {
         ),
         direction == Axis.vertical
             ? SizedBox(height: _getSpaceMainAxisEnd() * 2)
-            : SizedBox.shrink(),
+            : const SizedBox.shrink(),
       ],
     );
   }

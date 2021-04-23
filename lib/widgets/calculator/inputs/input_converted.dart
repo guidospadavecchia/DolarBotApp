@@ -27,7 +27,7 @@ class InputConverted extends StatelessWidget {
             color: ThemeManager.getPrimaryTextColor(context),
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
         Container(
@@ -38,7 +38,7 @@ class InputConverted extends StatelessWidget {
             controller: textController,
             decoration: InputDecoration(
               border: InputBorder.none,
-              contentPadding: EdgeInsets.only(bottom: 3),
+              contentPadding: const EdgeInsets.only(bottom: 3),
               isDense: true,
             ),
             textAlign: TextAlign.center,

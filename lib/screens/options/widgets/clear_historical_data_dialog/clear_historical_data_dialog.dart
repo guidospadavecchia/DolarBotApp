@@ -15,7 +15,7 @@ class _ClearHistoricalDataDialogState extends State<ClearHistoricalDataDialog> {
   Widget build(BuildContext context) {
     return BlurDialog(
       dialog: Dialog(
-        insetPadding: EdgeInsets.all(25),
+        insetPadding: const EdgeInsets.all(25),
         child: Container(
           width: MediaQuery.of(context).size.width * 0.85,
           height: 230,
@@ -24,24 +24,24 @@ class _ClearHistoricalDataDialogState extends State<ClearHistoricalDataDialog> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Padding(
-                padding: EdgeInsets.only(left: 25, right: 25),
-                child: Text(
+              const Padding(
+                padding: const EdgeInsets.only(left: 25, right: 25),
+                child: const Text(
                   "Al limpiar los datos de las cotizaciones, dejará de mostrarse la información guardada relativa a los gráficos históricos.",
                   textAlign: TextAlign.center,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
-              Padding(
-                padding: EdgeInsets.only(left: 25, right: 25),
-                child: Text(
+              const Padding(
+                padding: const EdgeInsets.only(left: 25, right: 25),
+                child: const Text(
                   "¿Estás seguro que deseas continuar?",
                   textAlign: TextAlign.center,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               Center(
@@ -69,7 +69,7 @@ class _ClearHistoricalDataDialogState extends State<ClearHistoricalDataDialog> {
     Box historicalRatesBox = Hive.box('historicalRates');
     historicalRatesBox.clear().then((_) => Navigator.of(context).pop()).then((_) async => {
           Future.delayed(
-            Duration(milliseconds: 100),
+            const Duration(milliseconds: 100),
             () => showToastWidget(
               ToastOk(),
             ),

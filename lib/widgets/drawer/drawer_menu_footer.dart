@@ -16,24 +16,20 @@ class DrawerMenuFooter extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
-            Divider(),
+            const Divider(),
             MenuItem(
               text: "Opciones",
               leading: Icon(FontAwesomeIcons.cog,
                   color: ThemeManager.getDrawerMenuItemIconColor(context)),
               depthLevel: 1,
-              onTap: () => {
-                Navigator.of(context).popAndPushNamed(OptionsScreen.routeName),
-              },
+              onTap: () => Navigator.of(context).popAndPushNamed(OptionsScreen.routeName),
             ),
             MenuItem(
               text: "Salir",
               leading: Icon(FontAwesomeIcons.signOutAlt,
                   color: ThemeManager.getDrawerMenuItemIconColor(context)),
               depthLevel: 1,
-              onTap: () => {
-                exit(0),
-              },
+              onTap: () => exit(0),
             ),
           ],
         ),

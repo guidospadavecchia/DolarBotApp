@@ -24,13 +24,13 @@ class InputAmount extends StatelessWidget {
         controller: textController,
         decoration: InputDecoration(
           labelText: title ?? "Ingresá un monto:",
-          labelStyle: TextStyle(
+          labelStyle: const TextStyle(
             fontSize: 18,
             height: 0.5,
             fontFamily: 'Raleway',
             fontWeight: FontWeight.bold,
           ),
-          contentPadding: EdgeInsets.only(left: 0, bottom: 10, right: 0),
+          contentPadding: const EdgeInsets.only(left: 0, bottom: 10, right: 0),
           isDense: true,
         ),
         inputFormatters: [

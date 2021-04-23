@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:async';
-
 import 'package:dolarbot_app/api/cache/cache_manager.dart';
 import 'package:dolarbot_app/classes/hive/cache_entry.dart';
 import 'package:dolarbot_app/api/responses/base/api_response.dart';

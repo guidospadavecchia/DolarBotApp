@@ -38,7 +38,7 @@ class CardFavorite extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         boxShadow: [
-          BoxShadow(
+          const BoxShadow(
             blurRadius: 5,
             spreadRadius: 1,
             color: Colors.black26,
@@ -69,7 +69,6 @@ class CardFavorite extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          //BEGIN - CARD VALUE
                           Row(
                             children: [
                               Expanded(
@@ -93,9 +92,9 @@ class CardFavorite extends StatelessWidget {
                         ],
                       ),
                     ),
-                    if (lastUpdated != null) //END - CARD VALUE
+                    if (lastUpdated != null)
                       Padding(
-                        padding: EdgeInsets.only(bottom: 12),
+                        padding: const EdgeInsets.only(bottom: 12),
                         child: lastUpdated,
                       ),
                   ],

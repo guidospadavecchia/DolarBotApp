@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 export 'package:dolarbot_app/api/responses/crypto_response.dart';
 
 class CryptoCard extends BaseCard {
-  static const double height = 270;
+  static const double kHeight = 270;
 
   final String title;
   final String bannerTitle;
@@ -58,7 +58,7 @@ class _CryptoCardState extends BaseCardState<CryptoCard> {
   @override
   Widget card() {
     return CardFavorite(
-      height: CryptoCard.height,
+      height: CryptoCard.kHeight,
       header: CardHeader(
         title: widget.bannerTitle,
         shareButton:

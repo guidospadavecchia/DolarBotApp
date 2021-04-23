@@ -21,32 +21,30 @@ class StepFinish extends StepBase {
   @override
   List<Widget> body() {
     return [
-      SizedBox.shrink(),
+      const SizedBox.shrink(),
       RichText(
         textAlign: TextAlign.center,
         text: TextSpan(
-          style: TextStyle(height: 1.3),
+          style: const TextStyle(height: 1.3),
           children: [
             writeText(context, "¡Listo 👌!", fontSize: 40),
             writeNewLine(context, lines: 4),
-            if (!isComingFromOptions)
-              ..._buildFinishText()
-            else
-              ..._buildOptionsFinishText(),
+            if (!isComingFromOptions) ..._buildFinishText() else ..._buildOptionsFinishText(),
           ],
         ),
       ),
       DialogButton(
-          icon: Icons.check,
-          text: "Entendido",
-          onPressed: () {
-            var settings = Hive.box('settings');
-            settings
-                .put('isFirstTime', false)
-                .then((_) => Navigator.of(context).pop());
-          }),
-      SizedBox.shrink(),
+        icon: Icons.check,
+        text: "Entendido",
+        onPressed: () => _finishTutorial(),
+      ),
+      const SizedBox.shrink(),
     ];
+  }
+
+  void _finishTutorial() {
+    var settings = Hive.box('settings');
+    settings.put('isFirstTime', false).then((_) => Navigator.of(context).pop());
   }
 
   List<InlineSpan> _buildFinishText() {
@@ -63,8 +61,7 @@ class StepFinish extends StepBase {
         fontSize: 24,
       ),
       writeNewLine(context, lines: 3),
-      writeText(context,
-          "Recordá que esta guía siempre está accesible desde el menú:"),
+      writeText(context, "Recordá que esta guía siempre está accesible desde el menú:"),
       writeNewLine(context, lines: 2),
       ...writeIcon(
         context,

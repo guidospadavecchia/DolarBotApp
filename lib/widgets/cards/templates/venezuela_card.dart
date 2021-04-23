@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 export 'package:dolarbot_app/api/responses/venezuela_response.dart';
 
 class VenezuelaCard extends BaseCard {
-  static const double height = 200;
+  static const double kHeight = 200;
 
   final String title;
   final String bannerTitle;
@@ -58,7 +58,7 @@ class _VenezuelaCardState extends BaseCardState<VenezuelaCard> {
   @override
   Widget card() {
     return CardFavorite(
-      height: VenezuelaCard.height,
+      height: VenezuelaCard.kHeight,
       header: CardHeader(
         title: widget.bannerTitle,
         shareButton:

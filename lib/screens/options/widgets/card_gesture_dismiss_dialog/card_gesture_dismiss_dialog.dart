@@ -30,7 +30,7 @@ class _CardGestureDismissDialogState extends State<CardGestureDismissDialog> {
 
     return BlurDialog(
       dialog: Dialog(
-        insetPadding: EdgeInsets.all(25),
+        insetPadding: const EdgeInsets.all(25),
         child: Container(
           width: MediaQuery.of(context).size.width * 0.8,
           height: 480,
@@ -40,18 +40,18 @@ class _CardGestureDismissDialogState extends State<CardGestureDismissDialog> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: EdgeInsets.only(left: 25, right: 15),
-                child: Text(
+                padding: const EdgeInsets.only(left: 25, right: 15),
+                child: const Text(
                     "Seleccioná la forma que te quede más cómoda para eliminar las tarjetas del Inicio."),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               RadioListTile<DismissDirection>(
-                contentPadding: EdgeInsets.fromLTRB(15, 10, 15, 10),
-                title: Text(
+                contentPadding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
+                title: const Text(
                   'Hacia la Izquierda',
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
                   ),
@@ -66,14 +66,14 @@ class _CardGestureDismissDialogState extends State<CardGestureDismissDialog> {
                   });
                 },
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               RadioListTile<DismissDirection>(
-                contentPadding: EdgeInsets.fromLTRB(15, 10, 15, 10),
-                title: Text(
+                contentPadding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
+                title: const Text(
                   'Hacia la derecha',
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
                   ),
@@ -88,14 +88,14 @@ class _CardGestureDismissDialogState extends State<CardGestureDismissDialog> {
                   });
                 },
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               RadioListTile<DismissDirection>(
-                contentPadding: EdgeInsets.fromLTRB(15, 10, 15, 10),
-                title: Text(
+                contentPadding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
+                title: const Text(
                   'Ambas direcciones',
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
                   ),
@@ -110,7 +110,7 @@ class _CardGestureDismissDialogState extends State<CardGestureDismissDialog> {
                   });
                 },
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Center(
@@ -163,7 +163,7 @@ class _CardGestureDismissDialogState extends State<CardGestureDismissDialog> {
                   ),
                   color: Colors.red[800],
                 ),
-                child: Icon(
+                child: const Icon(
                   Icons.delete,
                   size: 18,
                   color: Colors.white,
@@ -193,13 +193,13 @@ class _CardGestureDismissDialogState extends State<CardGestureDismissDialog> {
                     colors: DolarBotConstants.kGradiantDefault),
               ),
               child: direction == DismissDirection.endToStart
-                  ? Icon(
+                  ? const Icon(
                       FontAwesomeIcons.solidHandPointLeft,
                       size: 32,
                       color: Colors.white,
                     )
                   : direction == DismissDirection.startToEnd
-                      ? Icon(
+                      ? const Icon(
                           FontAwesomeIcons.solidHandPointRight,
                           size: 32,
                           color: Colors.white,
@@ -208,12 +208,12 @@ class _CardGestureDismissDialogState extends State<CardGestureDismissDialog> {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Icon(
+                            const Icon(
                               FontAwesomeIcons.solidHandPointLeft,
                               size: 32,
                               color: Colors.white,
                             ),
-                            Icon(
+                            const Icon(
                               FontAwesomeIcons.solidHandPointRight,
                               size: 32,
                               color: Colors.white,
@@ -227,23 +227,23 @@ class _CardGestureDismissDialogState extends State<CardGestureDismissDialog> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.only(
                   topLeft: direction == DismissDirection.endToStart
-                      ? Radius.circular(0)
-                      : Radius.circular(5),
+                      ? const Radius.circular(0)
+                      : const Radius.circular(5),
                   bottomLeft: direction == DismissDirection.endToStart
-                      ? Radius.circular(0)
-                      : Radius.circular(5),
+                      ? const Radius.circular(0)
+                      : const Radius.circular(5),
                   topRight: direction == DismissDirection.startToEnd
-                      ? Radius.circular(0)
+                      ? const Radius.circular(0)
                       : direction == DismissDirection.horizontal
-                          ? Radius.circular(0)
-                          : Radius.circular(5),
+                          ? const Radius.circular(0)
+                          : const Radius.circular(5),
                   bottomRight: direction == DismissDirection.endToStart
-                      ? Radius.circular(5)
-                      : Radius.circular(0),
+                      ? const Radius.circular(5)
+                      : const Radius.circular(0),
                 ),
                 color: Colors.red[800],
               ),
-              child: Icon(
+              child: const Icon(
                 Icons.delete,
                 size: 18,
                 color: Colors.white,
@@ -264,7 +264,7 @@ class _CardGestureDismissDialogState extends State<CardGestureDismissDialog> {
         .then(
           (_) async => {
             Future.delayed(
-              Duration(milliseconds: 100),
+              const Duration(milliseconds: 100),
               () => showToastWidget(
                 ToastOk(),
               ),

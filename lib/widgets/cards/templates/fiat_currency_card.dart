@@ -8,7 +8,7 @@ import 'package:intl/intl.dart';
 export 'package:dolarbot_app/api/responses/base/generic_currency_response.dart';
 
 class FiatCurrencyCard<T extends GenericCurrencyResponse> extends BaseCard {
-  static const double height = 150;
+  static const double kHeight = 150;
 
   final String title;
   final String bannerTitle;
@@ -60,7 +60,7 @@ class _FiatCurrencyCardState extends BaseCardState<FiatCurrencyCard> {
   @override
   Widget card() {
     return CardFavorite(
-      height: FiatCurrencyCard.height,
+      height: FiatCurrencyCard.kHeight,
       header: CardHeader(
         title: widget.bannerTitle,
         shareButton:

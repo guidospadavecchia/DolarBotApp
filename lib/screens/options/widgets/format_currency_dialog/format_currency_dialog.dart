@@ -28,7 +28,7 @@ class _FormatCurrencyDialogState extends State<FormatCurrencyDialog> {
 
     return BlurDialog(
       dialog: Dialog(
-        insetPadding: EdgeInsets.all(25),
+        insetPadding: const EdgeInsets.all(25),
         child: Container(
           width: MediaQuery.of(context).size.width * 0.8,
           height: 310,
@@ -37,23 +37,23 @@ class _FormatCurrencyDialogState extends State<FormatCurrencyDialog> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding: EdgeInsets.only(left: 25, right: 25),
-                child: Text("Elegí el formato de moneda que aparecerá en todas las cotizaciones."),
-                //Este formató se verá reflejado tanto en las tarjetas del inicio como en las cotizaciones individuales de cada pantalla."
+              const Padding(
+                padding: const EdgeInsets.only(left: 25, right: 25),
+                child: const Text(
+                    "Elegí el formato de moneda que aparecerá en todas las cotizaciones."),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               RadioListTile<String>(
-                title: Text(
+                title: const Text(
                   'Argentina',
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                subtitle: Text('Ejemplo: \$1.234,56'),
+                subtitle: const Text('Ejemplo: \$1.234,56'),
                 value: CurrencyFormats.AR.value,
                 groupValue: _actualCurrencyFormat,
                 activeColor: ThemeManager.getPrimaryAccentColor(context),
@@ -64,14 +64,14 @@ class _FormatCurrencyDialogState extends State<FormatCurrencyDialog> {
                 },
               ),
               RadioListTile<String>(
-                title: Text(
+                title: const Text(
                   'Estados Unidos',
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                subtitle: Text('Ejemplo: \$1,234.56'),
+                subtitle: const Text('Ejemplo: \$1,234.56'),
                 value: CurrencyFormats.US.value,
                 groupValue: _actualCurrencyFormat,
                 activeColor: ThemeManager.getPrimaryAccentColor(context),
@@ -81,7 +81,7 @@ class _FormatCurrencyDialogState extends State<FormatCurrencyDialog> {
                   });
                 },
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Center(
@@ -100,14 +100,14 @@ class _FormatCurrencyDialogState extends State<FormatCurrencyDialog> {
 
   void saveValueAndPop(String value) async {
     Provider.of<Settings>(context, listen: false).saveCurrencyFormat(value);
-    await Future.delayed(Duration(milliseconds: 50))
+    await Future.delayed(const Duration(milliseconds: 50))
         .then(
           (value) => Navigator.of(context).pop(),
         )
         .then(
           (_) async => {
             Future.delayed(
-              Duration(milliseconds: 100),
+              const Duration(milliseconds: 100),
               () => showToastWidget(
                 ToastOk(),
               ),

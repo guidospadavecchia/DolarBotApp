@@ -17,11 +17,11 @@ class StepWelcome extends StepBase {
   @override
   List<Widget> body() {
     return [
-      SizedBox.shrink(),
+      const SizedBox.shrink(),
       RichText(
         textAlign: TextAlign.center,
         text: TextSpan(
-          style: TextStyle(height: 1.3),
+          style: const TextStyle(height: 1.3),
           children: [
             writeText(context, "¡Hola 👋!", fontSize: 40, bold: true),
             writeNewLine(context, lines: 4),
@@ -60,7 +60,7 @@ class StepWelcome extends StepBase {
           ],
         ),
       ),
-      SizedBox.shrink(),
+      const SizedBox.shrink(),
     ];
   }
 }

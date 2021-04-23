@@ -31,15 +31,15 @@ class _AboutScreenState extends State<AboutScreen> {
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [
-                Colors.teal[900],
-                Colors.blueGrey[900],
-              ]),
-          image: DecorationImage(
-              image: AssetImage("assets/images/general/about.png"),
-              fit: BoxFit.cover),
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              Colors.teal[900],
+              Colors.blueGrey[900],
+            ],
+          ),
+          image: const DecorationImage(
+              image: AssetImage("assets/images/general/about.png"), fit: BoxFit.cover),
         ),
         child: Padding(
           padding: const EdgeInsets.only(top: 70),
@@ -63,21 +63,21 @@ class _AboutScreenState extends State<AboutScreen> {
       children: [
         Text(
           Globals.packageInfo.appName,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 36,
             fontWeight: FontWeight.bold,
             fontFamily: 'Raleway',
             color: Colors.white,
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 5,
         ),
         Text(
           "Versión ${Globals.packageInfo.version}",
           style: _getTextStyle(),
         ),
-        SizedBox(
+        const SizedBox(
           height: 30,
         ),
         InkWell(
@@ -90,7 +90,7 @@ class _AboutScreenState extends State<AboutScreen> {
           ),
           onTap: () => _onTapLogo(),
         ),
-        SizedBox(
+        const SizedBox(
           height: 20,
         ),
       ],
@@ -129,26 +129,26 @@ class _AboutScreenState extends State<AboutScreen> {
           style: _getTextStyle(),
           textAlign: TextAlign.center,
         ),
-        SizedBox(height: 10),
+        const SizedBox(height: 10),
         Text(
           "Hecho en 🇦🇷 Argentina",
           style: _getTextStyle(),
           textAlign: TextAlign.center,
         ),
-        SizedBox(height: 30),
+        const SizedBox(height: 30),
         Text(
           "Desarrollado por",
           style: _getTextStyle(),
         ),
-        SizedBox(height: 15),
+        const SizedBox(height: 15),
         _buildAuthors(),
-        SizedBox(height: 20),
+        const SizedBox(height: 20),
       ],
     );
   }
 
   Widget _buildAuthors() {
-    List<Widget> authorWidgets = [];
+    final List<Widget> authorWidgets = [];
     final authors = cfg.getDeepValue("github:authors");
     for (final author in authors) {
       String name = author["name"];
@@ -159,13 +159,12 @@ class _AboutScreenState extends State<AboutScreen> {
           text: TextSpan(
             text: name,
             style: _getTextStyle(isLink: true),
-            recognizer: TapGestureRecognizer()
-              ..onTap = () => Util.launchURL(link),
+            recognizer: TapGestureRecognizer()..onTap = () => Util.launchURL(link),
           ),
         ),
       ));
       authorWidgets.add(
-        SizedBox(height: 5),
+        const SizedBox(height: 5),
       );
     }
 
@@ -183,12 +182,12 @@ class _AboutScreenState extends State<AboutScreen> {
             "Unite a nuestro Discord, o visitanos en GitHub",
             style: _getTextStyle(),
           ),
-          SizedBox(height: 15),
+          const SizedBox(height: 15),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Discord(imageSize: 32, fontSize: 18),
-              SizedBox(width: 30),
+              const SizedBox(width: 30),
               GitHub(imageSize: 32, fontSize: 18, color: Colors.white70),
             ],
           ),
@@ -208,7 +207,7 @@ class _AboutScreenState extends State<AboutScreen> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(
+          const Text(
             "HECHO CON 💙 EN ",
             style: TextStyle(
               fontSize: 14,
@@ -240,7 +239,7 @@ class _AboutScreenState extends State<AboutScreen> {
         color: Colors.teal[200],
       );
     } else {
-      return TextStyle(
+      return const TextStyle(
         fontSize: 14,
         fontWeight: FontWeight.normal,
         fontFamily: 'Raleway',

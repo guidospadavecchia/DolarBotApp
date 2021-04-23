@@ -36,7 +36,6 @@ class RootMenuMetals extends StatelessWidget {
                   endpoint: MetalEndpoints.oro.value,
                   responseType: MetalResponse,
                 ),
-                //metalEndpoint: MetalEndpoints.oro,
               ),
             )
           },
@@ -58,7 +57,6 @@ class RootMenuMetals extends StatelessWidget {
                   endpoint: MetalEndpoints.plata.value,
                   responseType: MetalResponse,
                 ),
-                //metalEndpoint: MetalEndpoints.plata,
               ),
             )
           },
@@ -80,7 +78,6 @@ class RootMenuMetals extends StatelessWidget {
                   endpoint: MetalEndpoints.cobre.value,
                   responseType: MetalResponse,
                 ),
-                //metalEndpoint: MetalEndpoints.cobre,
               ),
             )
           },

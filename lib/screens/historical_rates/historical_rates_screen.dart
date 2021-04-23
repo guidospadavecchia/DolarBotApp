@@ -60,7 +60,7 @@ class _HistoricalRatesScreenState extends State<HistoricalRatesScreen> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Center(
+          const Center(
             child: Text("Aún no hay datos suficientes para mostrar la evolución"),
           ),
         ],
@@ -81,7 +81,7 @@ class _HistoricalRatesScreenState extends State<HistoricalRatesScreen> {
             children: [
               Text(
                 widget.subtitle,
-                style: TextStyle(fontSize: 22),
+                style: const TextStyle(fontSize: 22),
               ),
               Expanded(
                 child: const SizedBox.shrink(),
@@ -89,21 +89,21 @@ class _HistoricalRatesScreenState extends State<HistoricalRatesScreen> {
               Text(_dataTimeSpan),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 5,
           ),
-          Divider(),
-          SizedBox(
+          const Divider(),
+          const SizedBox(
             height: 10,
           ),
           HistoricalChart(
             responseType: widget.responseType,
             values: _historicalRates,
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
-          Text(
+          const Text(
             "La información mostrada corresponde al registro histórico de tus consultas recopiladas periódicamente dentro de la app.",
             textAlign: TextAlign.center,
             style: const TextStyle(

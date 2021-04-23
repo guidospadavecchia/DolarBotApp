@@ -7,7 +7,7 @@ import 'dart:ui' as ui;
 export 'package:dolarbot_app/api/responses/country_risk_response.dart';
 
 class CountryRiskCard extends BaseCard {
-  static const double height = 130;
+  static const double kHeight = 130;
 
   final String title;
   final String bannerTitle;
@@ -58,7 +58,7 @@ class _CountryRiskCardState extends BaseCardState<CountryRiskCard> {
   @override
   Widget card() {
     return CardFavorite(
-      height: CountryRiskCard.height,
+      height: CountryRiskCard.kHeight,
       header: CardHeader(
         title: widget.bannerTitle,
         shareButton:

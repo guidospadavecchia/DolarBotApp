@@ -7,7 +7,7 @@ import 'dart:ui' as ui;
 export 'package:dolarbot_app/api/responses/metal_response.dart';
 
 class MetalCard extends BaseCard {
-  static const double height = 130;
+  static const double kHeight = 130;
 
   final String title;
   final String bannerTitle;
@@ -59,7 +59,7 @@ class _MetalCardState extends BaseCardState<MetalCard> {
   @override
   Widget card() {
     return CardFavorite(
-      height: MetalCard.height,
+      height: MetalCard.kHeight,
       header: CardHeader(
         title: widget.bannerTitle,
         shareButton:

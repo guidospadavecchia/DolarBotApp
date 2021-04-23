@@ -36,17 +36,17 @@ class CardLogo extends StatelessWidget {
                 ),
           if (tag != null)
             Padding(
-              padding: EdgeInsets.only(top: 15),
+              padding: const EdgeInsets.only(top: 15),
               child: Container(
                 width: 45,
-                padding: EdgeInsets.only(top: 3, bottom: 2),
+                padding: const EdgeInsets.only(top: 3, bottom: 2),
                 decoration: BoxDecoration(
                   color: Colors.black54,
                   borderRadius: BorderRadius.circular(5),
                 ),
                 child: Text(
                   tag.toUpperCase(),
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 9,
                     fontFamily: 'Raleway',
                     fontWeight: FontWeight.bold,

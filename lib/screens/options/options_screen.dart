@@ -51,7 +51,7 @@ class _OptionsScreenState extends State<OptionsScreen> {
           MenuItem(
             text: "Modo oscuro",
             subtitle: "Habilita o deshabilita el modo oscuro",
-            leading: Icon(FontAwesomeIcons.solidMoon),
+            leading: const Icon(FontAwesomeIcons.solidMoon),
             trailing: Switch(
               activeColor: ThemeManager.getPrimaryAccentColor(context),
               value: AdaptiveTheme.of(context).mode == AdaptiveThemeMode.dark,
@@ -70,7 +70,7 @@ class _OptionsScreenState extends State<OptionsScreen> {
           MenuItem(
             text: "Formato de moneda",
             subtitle: "Cambia el formato de moneda entre AR y US",
-            leading: Icon(FontAwesomeIcons.globeAmericas),
+            leading: const Icon(FontAwesomeIcons.globeAmericas),
             depthLevel: 1,
             onTap: () => _showFormatCurrencyDialog(context),
             disableHighlight: false,
@@ -78,7 +78,7 @@ class _OptionsScreenState extends State<OptionsScreen> {
           MenuItem(
             text: "Menú de acciones",
             subtitle: "Permite elegir entre despliegue horizontal y vertical",
-            leading: Icon(FontAwesomeIcons.ellipsisH),
+            leading: const Icon(FontAwesomeIcons.ellipsisH),
             depthLevel: 1,
             onTap: () => _showFabDirectionDialog(context),
             disableHighlight: false,
@@ -86,7 +86,7 @@ class _OptionsScreenState extends State<OptionsScreen> {
           MenuItem(
             text: "Gesto de eliminación de tarjeta",
             subtitle: "Ajusta el gesto para eliminar tarjetas en el Inicio",
-            leading: Icon(FontAwesomeIcons.exchangeAlt),
+            leading: const Icon(FontAwesomeIcons.exchangeAlt),
             depthLevel: 1,
             onTap: () => _showCardGestureDismissDialog(context),
             disableHighlight: false,
@@ -95,7 +95,7 @@ class _OptionsScreenState extends State<OptionsScreen> {
           MenuItem(
               text: "Ayuda",
               subtitle: "Muestra una breve guía sobre la aplicación",
-              leading: Icon(FontAwesomeIcons.solidQuestionCircle),
+              leading: const Icon(FontAwesomeIcons.solidQuestionCircle),
               depthLevel: 1,
               disableHighlight: false,
               onTap: () {
@@ -105,7 +105,7 @@ class _OptionsScreenState extends State<OptionsScreen> {
           MenuItem(
             text: "Información de la aplicación",
             subtitle: "Versión del producto y enlaces",
-            leading: Icon(FontAwesomeIcons.infoCircle),
+            leading: const Icon(FontAwesomeIcons.infoCircle),
             depthLevel: 1,
             disableHighlight: false,
             onTap: () => Navigator.of(context).pushNamed("/about"),
@@ -113,7 +113,7 @@ class _OptionsScreenState extends State<OptionsScreen> {
           MenuItem(
             text: "Limpiar cotizaciones históricas",
             subtitle: "Elimina los datos de las cotizaciones consultadas",
-            leading: Icon(FontAwesomeIcons.eraser),
+            leading: const Icon(FontAwesomeIcons.eraser),
             depthLevel: 1,
             disableHighlight: false,
             onTap: () => _showClearHistoricalDataDialog(context),

@@ -22,9 +22,9 @@ abstract class BaseCalculatorState<Page extends BaseCalculatorScreen>
     extends State<BaseCalculatorScreen> {}
 
 mixin BaseCalculator<Page extends BaseCalculatorScreen> on BaseCalculatorState<Page> {
-  final int kMaxDigits = 12;
-  final int kMinDigits = 7;
-  final int inputFactor = 7;
+  static const int kMaxDigits = 12;
+  static const int kMinDigits = 7;
+  static const int inputFactor = 7;
 
   Widget body();
 

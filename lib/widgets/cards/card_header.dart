@@ -29,13 +29,13 @@ class CardHeader extends StatelessWidget {
               fit: BoxFit.scaleDown,
               child: Text(
                 title,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 22,
                   fontFamily: 'Raleway',
                   fontWeight: FontWeight.bold,
                   color: Colors.white,
                   shadows: [
-                    Shadow(
+                    const Shadow(
                       blurRadius: 7,
                       color: Colors.black54,
                       offset: Offset(2, 2),
@@ -45,7 +45,7 @@ class CardHeader extends StatelessWidget {
               ),
             ),
           ),
-          shareButton ?? SizedBox.shrink(),
+          shareButton ?? const SizedBox.shrink(),
         ],
       ),
     );

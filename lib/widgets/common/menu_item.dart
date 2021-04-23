@@ -43,14 +43,14 @@ class MenuItem extends StatelessWidget {
                     fontWeight: FontWeight.w600),
               ),
               leading: Padding(
-                padding: EdgeInsets.only(left: 12),
+                padding: const EdgeInsets.only(left: 12),
                 child: leading,
               ),
               trailing: trailing,
               subtitle: subtitle != null
                   ? Text(
                       subtitle,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 12,
                         fontFamily: 'Raleway',
                         color: Colors.grey,
@@ -80,7 +80,7 @@ class MenuItem extends StatelessWidget {
               subtitle: subtitle != null
                   ? Text(
                       subtitle,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 12,
                         fontFamily: 'Raleway',
                         color: Colors.grey,

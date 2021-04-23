@@ -41,21 +41,19 @@ abstract class StepBase extends StatelessWidget {
   List<Widget> body();
 }
 
-Widget buildStepHeader(
-    BuildContext context, int step, String title, bool showStep) {
+Widget buildStepHeader(BuildContext context, int step, String title, bool showStep) {
   return Stack(
     children: [
       Padding(
-        padding: EdgeInsets.only(
-            left: showStep ? 45 : 0, top: 26, bottom: 15, right: 20),
+        padding: EdgeInsets.only(left: showStep ? 45 : 0, top: 26, bottom: 15, right: 20),
         child: Container(
           alignment: Alignment.center,
           width: double.infinity,
           height: 35,
-          margin: EdgeInsets.only(left: 25),
+          margin: const EdgeInsets.only(left: 25),
           decoration: BoxDecoration(
             shape: BoxShape.rectangle,
-            borderRadius: BorderRadius.horizontal(
+            borderRadius: const BorderRadius.horizontal(
               left: Radius.circular(8),
               right: Radius.circular(8),
             ),
@@ -105,24 +103,24 @@ Widget buildStepFooter(BuildContext context, int stepIndex) {
         Container(
           decoration: BoxDecoration(
             color: ThemeManager.getPrimaryAccentColor(context).withAlpha(100),
-            borderRadius: BorderRadius.horizontal(
+            borderRadius: const BorderRadius.horizontal(
               left: Radius.circular(8),
               right: Radius.circular(8),
             ),
           ),
-          margin: EdgeInsets.symmetric(horizontal: 45, vertical: 20),
+          margin: const EdgeInsets.symmetric(horizontal: 45, vertical: 20),
           width: 250,
           height: 10,
         ),
         Container(
           decoration: BoxDecoration(
             color: ThemeManager.getPrimaryAccentColor(context),
-            borderRadius: BorderRadius.horizontal(
+            borderRadius: const BorderRadius.horizontal(
               left: Radius.circular(8),
               right: Radius.circular(8),
             ),
           ),
-          margin: EdgeInsets.symmetric(horizontal: 45, vertical: 20),
+          margin: const EdgeInsets.symmetric(horizontal: 45, vertical: 20),
           width: 42 * (stepIndex.toDouble() + 1),
           height: 10,
         ),
@@ -159,9 +157,7 @@ List<InlineSpan> writeIcon(
   bool hideBrackets = false,
 }) {
   return [
-    hideBrackets
-        ? writeText(context, " ", bold: false)
-        : writeText(context, " [ ", bold: false),
+    hideBrackets ? writeText(context, " ", bold: false) : writeText(context, " [ ", bold: false),
     WidgetSpan(
       alignment: alignment,
       child: Icon(
@@ -171,8 +167,6 @@ List<InlineSpan> writeIcon(
       ),
     ),
     if (text != null) writeText(context, " ${text}", bold: true),
-    hideBrackets
-        ? writeText(context, " ", bold: false)
-        : writeText(context, " ] ", bold: false),
+    hideBrackets ? writeText(context, " ", bold: false) : writeText(context, " ] ", bold: false),
   ];
 }

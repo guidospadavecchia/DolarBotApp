@@ -217,7 +217,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         backgroundColor: ThemeManager.getSnackBarColor(context),
-        duration: duration ?? Duration(seconds: 2),
+        duration: duration ?? const Duration(seconds: 2),
         content: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
@@ -269,14 +269,14 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
                             color: Colors.white,
                           ),
                         ),
-                  SizedBox(width: 20),
+                  const SizedBox(width: 20),
                   Container(
                     constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.7),
                     child: FittedBox(
                       fit: widget.cardData.bannerTitle.length > 10 ? BoxFit.fitWidth : BoxFit.none,
                       child: Text(
                         widget.cardData.bannerTitle,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 28,
                           fontFamily: 'Raleway',
                           fontWeight: FontWeight.bold,
@@ -299,7 +299,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.alarm,
                         size: 16,
                         color: Colors.white70,
@@ -308,7 +308,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
                         padding: const EdgeInsets.only(left: 5, top: 0),
                         child: Text(
                           "Última actualización: ${getTimestamp()}",
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 12,
                             fontFamily: 'Montserrat',
                             fontWeight: FontWeight.normal,
@@ -324,7 +324,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
         ),
       );
     } else {
-      return SizedBox.shrink();
+      return const SizedBox.shrink();
     }
   }
 
@@ -378,7 +378,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
     ).then(
       (_) async => {
         Future.delayed(
-          Duration(milliseconds: 100),
+          const Duration(milliseconds: 100),
           () => showToastWidget(
             ToastOk(),
           ),
@@ -409,8 +409,8 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
       ),
       withReplacement: false,
       transitionType: PageTransitionType.rightToLeft,
-      duration: Duration(milliseconds: 200),
-      reverseDuration: Duration(milliseconds: 200),
+      duration: const Duration(milliseconds: 200),
+      reverseDuration: const Duration(milliseconds: 200),
     );
   }
 
@@ -474,10 +474,10 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
         builder: (BuildContext context) {
           return BlurDialog(
             dialog: Dialog(
-              insetPadding: EdgeInsets.all(25),
+              insetPadding: const EdgeInsets.all(25),
               child: Container(
                 width: MediaQuery.of(context).size.width * 0.8,
-                padding: EdgeInsets.only(bottom: 20),
+                padding: const EdgeInsets.only(bottom: 20),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -495,7 +495,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
                         ),
                       ),
                     ),
-                    Divider(
+                    const Divider(
                       color: Colors.black,
                       indent: 15,
                       endIndent: 15,
@@ -505,7 +505,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
                       padding: EdgeInsets.all(25),
                       child: Text(description, textAlign: TextAlign.justify),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
                     Center(
@@ -525,7 +525,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
       );
     } else {
       Future.delayed(
-        Duration(milliseconds: 500),
+        const Duration(milliseconds: 500),
         () => showToastWidget(ToastError()),
       );
     }
@@ -572,12 +572,12 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
       await favoritesBox.put('favoriteCards', favoriteCards);
 
       Future.delayed(
-        Duration(milliseconds: 500),
+        const Duration(milliseconds: 500),
         () => showToastWidget(ToastOk()),
       );
     } catch (error) {
       Future.delayed(
-        Duration(milliseconds: 500),
+        const Duration(milliseconds: 500),
         () => showToastWidget(ToastError()),
       );
     } finally {

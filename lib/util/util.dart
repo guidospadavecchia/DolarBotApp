@@ -40,7 +40,7 @@ class Util {
       await launch(url);
     } else {
       Future.delayed(
-        Duration(milliseconds: 100),
+        const Duration(milliseconds: 100),
         () => showToastWidget(
           ToastError(),
         ),
@@ -57,12 +57,12 @@ class Util {
               child: MediaQuery(
                 data: MediaQueryData(),
                 child: Container(
-                  margin: EdgeInsets.all(18),
+                  margin: const EdgeInsets.all(18),
                   child: widget,
                 ),
               ),
             ),
-            wait: Duration(milliseconds: 100))
+            wait: const Duration(milliseconds: 100))
         .then(
       (Uint8List image) async {
         final String fileName = 'dolarbot_${DateTime.now().microsecondsSinceEpoch}.png';
@@ -98,10 +98,10 @@ class Util {
     PageTransition transition = PageTransition(
       child: screen,
       type: transitionType,
-      duration: duration ?? Duration(milliseconds: 150),
-      reverseDuration: reverseDuration ?? Duration(milliseconds: 150),
+      duration: duration ?? const Duration(milliseconds: 150),
+      reverseDuration: reverseDuration ?? const Duration(milliseconds: 150),
     );
-    Future.delayed(pushDelay ?? Duration(milliseconds: 250)).then(
+    Future.delayed(pushDelay ?? const Duration(milliseconds: 250)).then(
       (value) => withReplacement
           ? Navigator.pushReplacement(context, transition)
           : Navigator.push(context, transition),
@@ -131,7 +131,7 @@ class Util {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         backgroundColor: backgroundColor,
-        duration: duration ?? Duration(seconds: 2),
+        duration: duration ?? const Duration(seconds: 2),
         content: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
@@ -139,7 +139,10 @@ class Util {
             Text(
               text,
               textAlign: TextAlign.center,
-              style: TextStyle(fontFamily: 'Montserrat', color: Colors.white),
+              style: const TextStyle(
+                fontFamily: 'Montserrat',
+                color: Colors.white,
+              ),
             ),
           ],
         ),
@@ -163,7 +166,6 @@ class Util {
       final ImageStream stream = provider.resolve(config);
 
       ImageStreamListener listener;
-
       listener = ImageStreamListener((ImageInfo image, bool sync) {
         debugPrint("Image ${image.debugLabel} finished loading");
 

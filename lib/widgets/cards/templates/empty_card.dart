@@ -9,6 +9,6 @@ class EmptyCard extends BaseCard {
 class _EmptyCardState extends BaseCardState<EmptyCard> {
   @override
   Widget card() {
-    return SizedBox.shrink();
+    return const SizedBox.shrink();
   }
 }

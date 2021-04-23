@@ -22,7 +22,7 @@ class DialogButton extends StatelessWidget {
     return TextButton(
       style: ButtonStyle(
         padding: MaterialStateProperty.all<EdgeInsets>(
-          EdgeInsets.only(top: 7, right: 25, left: 15, bottom: 7),
+          const EdgeInsets.only(top: 7, right: 25, left: 15, bottom: 7),
         ),
         overlayColor: MaterialStateColor.resolveWith(
             (states) => ThemeManager.getDrawerMenuItemIconColor(context).withOpacity(0.2)),
@@ -43,7 +43,7 @@ class DialogButton extends StatelessWidget {
             size: 32,
             color: iconColor ?? ThemeManager.getPrimaryAccentColor(context),
           ),
-          SizedBox(
+          const SizedBox(
             width: 10,
           ),
           Text(

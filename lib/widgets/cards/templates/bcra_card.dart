@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 export 'package:dolarbot_app/api/responses/bcra_response.dart';
 
 class BcraCard extends BaseCard {
-  static const double height = 140;
+  static const double kHeight = 140;
 
   final String title;
   final String bannerTitle;
@@ -64,7 +64,7 @@ class _BcraCardState extends BaseCardState<BcraCard> {
   @override
   Widget card() {
     return CardFavorite(
-      height: BcraCard.height,
+      height: BcraCard.kHeight,
       header: CardHeader(
         title: widget.bannerTitle,
         shareButton:

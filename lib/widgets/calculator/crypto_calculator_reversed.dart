@@ -68,14 +68,14 @@ class _CryptoCalculatorReversedState extends BaseCalculatorState<CryptoCalculato
         InputAmount(
           textController: _textControllerInput,
         ),
-        SizedBox(
+        const SizedBox(
           height: 30,
         ),
         InputConverted(
           title: "Comprás",
           textController: _textControllerCryptoValue,
         ),
-        SizedBox(
+        const SizedBox(
           height: 30,
         ),
       ],

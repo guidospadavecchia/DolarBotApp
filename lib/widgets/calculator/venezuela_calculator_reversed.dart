@@ -76,21 +76,21 @@ class _VenezuelaCalculatorState extends BaseCalculatorState<VenezuelaCalculatorR
         InputAmount(
           textController: _textControllerInput,
         ),
-        SizedBox(
+        const SizedBox(
           height: 30,
         ),
         InputConverted(
           title: "Comprás en bancos",
           textController: _textControllerBankValue,
         ),
-        SizedBox(
+        const SizedBox(
           height: 20,
         ),
         InputConverted(
           title: "Comprás en el paralelo",
           textController: _textControllerBlackMarketValue,
         ),
-        SizedBox(
+        const SizedBox(
           height: 30,
         ),
       ],

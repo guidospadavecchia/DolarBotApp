@@ -13,14 +13,15 @@ import 'package:dolarbot_app/widgets/cards/templates/venezuela_card.dart';
 
 abstract class BuildCard {
   factory BuildCard(ApiResponse data) {
-    if (data is DollarResponse) return _FiatCurrency<DollarResponse>(data, FiatCurrencyCard.height);
-    if (data is EuroResponse) return _FiatCurrency<EuroResponse>(data, FiatCurrencyCard.height);
-    if (data is RealResponse) return _FiatCurrency<RealResponse>(data, FiatCurrencyCard.height);
-    if (data is CryptoResponse) return _Crypto(data, MetalCard.height);
-    if (data is MetalResponse) return _Metal(data, MetalCard.height);
-    if (data is BcraResponse) return _Bcra(data, BcraCard.height);
-    if (data is CountryRiskResponse) return _CountryRisk(data, CountryRiskCard.height);
-    if (data is VenezuelaResponse) return _Venezuela(data, VenezuelaCard.height);
+    if (data is DollarResponse)
+      return _FiatCurrency<DollarResponse>(data, FiatCurrencyCard.kHeight);
+    if (data is EuroResponse) return _FiatCurrency<EuroResponse>(data, FiatCurrencyCard.kHeight);
+    if (data is RealResponse) return _FiatCurrency<RealResponse>(data, FiatCurrencyCard.kHeight);
+    if (data is CryptoResponse) return _Crypto(data, MetalCard.kHeight);
+    if (data is MetalResponse) return _Metal(data, MetalCard.kHeight);
+    if (data is BcraResponse) return _Bcra(data, BcraCard.kHeight);
+    if (data is CountryRiskResponse) return _CountryRisk(data, CountryRiskCard.kHeight);
+    if (data is VenezuelaResponse) return _Venezuela(data, VenezuelaCard.kHeight);
 
     return _Empty();
   }

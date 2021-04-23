@@ -34,7 +34,7 @@ class GitHub extends StatelessWidget {
                       : Colors.white70)
                   : color,
             ),
-            SizedBox(
+            const SizedBox(
               width: 10,
             ),
             Text(

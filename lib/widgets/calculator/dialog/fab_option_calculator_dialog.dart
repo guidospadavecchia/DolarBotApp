@@ -15,8 +15,7 @@ class FabOptionCalculatorDialog extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _FabOptionCalculatorDialogState createState() =>
-      _FabOptionCalculatorDialogState();
+  _FabOptionCalculatorDialogState createState() => _FabOptionCalculatorDialogState();
 }
 
 class _FabOptionCalculatorDialogState extends State<FabOptionCalculatorDialog> {
@@ -27,7 +26,7 @@ class _FabOptionCalculatorDialogState extends State<FabOptionCalculatorDialog> {
     return BlurDialog(
       dialog: Dialog(
         child: Container(
-          padding: EdgeInsets.only(top: 30, bottom: 20),
+          padding: const EdgeInsets.only(top: 30, bottom: 20),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -42,9 +41,7 @@ class _FabOptionCalculatorDialogState extends State<FabOptionCalculatorDialog> {
                     DialogButton(
                         onPressed: () => {
                               setState(() {
-                                isReversed =
-                                    widget.calculatorReversed != null &&
-                                        !isReversed;
+                                isReversed = widget.calculatorReversed != null && !isReversed;
                               })
                             },
                         icon: Icons.compare_arrows,

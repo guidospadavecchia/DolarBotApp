@@ -35,7 +35,6 @@ class RootMenuBCRA extends StatelessWidget {
                   endpoint: BcraEndpoints.riesgoPais.value,
                   responseType: CountryRiskResponse,
                 ),
-                //bcraEndpoint: BcraEndpoints.riesgoPais,
               ),
             )
           },
@@ -59,7 +58,6 @@ class RootMenuBCRA extends StatelessWidget {
                   endpoint: BcraEndpoints.reservas.value,
                   responseType: BcraResponse,
                 ),
-                //bcraEndpoint: BcraEndpoints.reservas,
               ),
             )
           },
@@ -83,7 +81,6 @@ class RootMenuBCRA extends StatelessWidget {
                   endpoint: BcraEndpoints.circulante.value,
                   responseType: BcraResponse,
                 ),
-                //bcraEndpoint: BcraEndpoints.circulante,
               ),
             ),
           },

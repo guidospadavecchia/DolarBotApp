@@ -28,7 +28,7 @@ class _FabDirectionDialogState extends State<FabDirectionDialog> {
 
     return BlurDialog(
       dialog: Dialog(
-        insetPadding: EdgeInsets.all(25),
+        insetPadding: const EdgeInsets.all(25),
         child: Container(
           width: MediaQuery.of(context).size.width * 0.8,
           height: 320,
@@ -37,23 +37,23 @@ class _FabDirectionDialogState extends State<FabDirectionDialog> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding: EdgeInsets.only(left: 25, right: 15),
-                child: Text(
+              const Padding(
+                padding: const EdgeInsets.only(left: 25, right: 15),
+                child: const Text(
                     "Elegí la dirección en la que se desplegará el menú de acciones en las pantallas de cotización."),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               RadioListTile<Axis>(
                 title: Text(
                   'Horizontal',
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                subtitle: Text('Despliegue hacia la izquierda.'),
+                subtitle: const Text('Despliegue hacia la izquierda.'),
                 value: Axis.horizontal,
                 groupValue: _actualFabDirection,
                 activeColor: ThemeManager.getPrimaryAccentColor(context),
@@ -64,14 +64,14 @@ class _FabDirectionDialogState extends State<FabDirectionDialog> {
                 },
               ),
               RadioListTile<Axis>(
-                title: Text(
+                title: const Text(
                   'Vertical',
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                subtitle: Text('Despliegue hacia arriba.'),
+                subtitle: const Text('Despliegue hacia arriba.'),
                 value: Axis.vertical,
                 groupValue: _actualFabDirection,
                 activeColor: ThemeManager.getPrimaryAccentColor(context),
@@ -81,7 +81,7 @@ class _FabDirectionDialogState extends State<FabDirectionDialog> {
                   });
                 },
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Center(
@@ -100,14 +100,14 @@ class _FabDirectionDialogState extends State<FabDirectionDialog> {
 
   void saveValueAndPop(Axis value) async {
     Provider.of<Settings>(context, listen: false).saveFabDirection(value);
-    await Future.delayed(Duration(milliseconds: 50))
+    await Future.delayed(const Duration(milliseconds: 50))
         .then(
           (value) => Navigator.of(context).pop(),
         )
         .then(
           (_) async => {
             Future.delayed(
-              Duration(milliseconds: 100),
+              const Duration(milliseconds: 100),
               () => showToastWidget(
                 ToastOk(),
               ),
