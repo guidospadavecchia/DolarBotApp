@@ -1,7 +1,7 @@
 import 'package:dolarbot_app/classes/decimal_adapter.dart';
 import 'package:dolarbot_app/widgets/calculator/base/base_calculator.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_masked_text/flutter_masked_text.dart';
+import 'package:extended_masked_text/extended_masked_text.dart';
 import 'package:intl/intl.dart';
 
 class FiatCurrencyCalculator extends BaseCalculatorScreen {
@@ -102,7 +102,7 @@ class _FiatCurrencyCalculatorState extends BaseCalculatorState<FiatCurrencyCalcu
           Column(
             children: [
               InputConverted(
-                title: "(Con impuestos)",
+                title: "Comprás con impuestos a",
                 textController: _textControllerSellValueWithTaxes,
               ),
               SizedBox(

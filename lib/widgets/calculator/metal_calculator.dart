@@ -1,7 +1,7 @@
 import 'package:dolarbot_app/classes/decimal_adapter.dart';
 import 'package:dolarbot_app/widgets/calculator/base/base_calculator.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_masked_text/flutter_masked_text.dart';
+import 'package:extended_masked_text/extended_masked_text.dart';
 import 'package:intl/intl.dart';
 
 class MetalCalculator extends BaseCalculatorScreen {
@@ -61,7 +61,7 @@ class _MetalCalculatorState extends BaseCalculatorState<MetalCalculator> with Ba
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         InputAmount(
-          title: "Ingresá la cantidad:",
+          title: "Ingresá un monto en dólares:",
           textController: _textControllerInput,
         ),
         const SizedBox(

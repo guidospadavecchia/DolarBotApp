@@ -1,7 +1,7 @@
 import 'package:dolarbot_app/classes/decimal_adapter.dart';
 import 'package:dolarbot_app/widgets/calculator/base/base_calculator.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_masked_text/flutter_masked_text.dart';
+import 'package:extended_masked_text/extended_masked_text.dart';
 import 'package:intl/intl.dart';
 
 class VenezuelaCalculator extends BaseCalculatorScreen {
@@ -74,6 +74,7 @@ class _VenezuelaCalculatorState extends BaseCalculatorState<VenezuelaCalculator>
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         InputAmount(
+          title: "Ingresá un monto en ${currencyCode == 'USD' ? "dólares" : "euros"}:",
           textController: _textControllerInput,
           maxDigits: 10,
         ),
