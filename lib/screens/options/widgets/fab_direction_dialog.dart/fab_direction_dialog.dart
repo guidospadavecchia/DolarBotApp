@@ -46,24 +46,6 @@ class _FabDirectionDialogState extends State<FabDirectionDialog> {
                 height: 10,
               ),
               RadioListTile<Axis>(
-                title: Text(
-                  'Horizontal',
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                subtitle: const Text('Despliegue hacia la izquierda.'),
-                value: Axis.horizontal,
-                groupValue: _actualFabDirection,
-                activeColor: ThemeManager.getPrimaryAccentColor(context),
-                onChanged: (value) {
-                  setState(() {
-                    _actualFabDirection = value;
-                  });
-                },
-              ),
-              RadioListTile<Axis>(
                 title: const Text(
                   'Vertical',
                   style: const TextStyle(
@@ -73,6 +55,24 @@ class _FabDirectionDialogState extends State<FabDirectionDialog> {
                 ),
                 subtitle: const Text('Despliegue hacia arriba.'),
                 value: Axis.vertical,
+                groupValue: _actualFabDirection,
+                activeColor: ThemeManager.getPrimaryAccentColor(context),
+                onChanged: (value) {
+                  setState(() {
+                    _actualFabDirection = value;
+                  });
+                },
+              ),
+              RadioListTile<Axis>(
+                title: Text(
+                  'Horizontal',
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                subtitle: const Text('Despliegue hacia la izquierda.'),
+                value: Axis.horizontal,
                 groupValue: _actualFabDirection,
                 activeColor: ThemeManager.getPrimaryAccentColor(context),
                 onChanged: (value) {

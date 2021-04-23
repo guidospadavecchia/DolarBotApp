@@ -28,7 +28,7 @@ class Settings extends ChangeNotifier {
         ? value == 0
             ? Axis.horizontal
             : Axis.vertical
-        : Axis.horizontal;
+        : Axis.vertical;
   }
 
   void saveCardGestureDismiss(DismissDirection direction) {
