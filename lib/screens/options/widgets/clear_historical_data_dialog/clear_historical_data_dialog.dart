@@ -52,7 +52,7 @@ class _ClearHistoricalDataDialogState extends State<ClearHistoricalDataDialog> {
                       text: 'Sí, eliminar',
                       icon: Icons.delete,
                       iconColor: Colors.red,
-                      textColor: Colors.red[700],
+                      textColor: Colors.red,
                       onPressed: () => clearData(),
                     ),
                   ],
