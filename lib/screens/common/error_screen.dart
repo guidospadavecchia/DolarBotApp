@@ -4,11 +4,13 @@ import 'package:flutter/material.dart';
 class ErrorScreen extends StatelessWidget {
   final Color color;
   final double opacity;
+  final double textOpacity;
 
   const ErrorScreen({
     Key key,
     this.color,
     this.opacity = 0.6,
+    this.textOpacity = 0.7,
   }) : super(key: key);
 
   @override
@@ -18,7 +20,7 @@ class ErrorScreen extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Opacity(
-          opacity: 0.7,
+          opacity: textOpacity,
           child: Text(
             "Ouch! Ocurrió un error\nal obtener la cotización",
             style: TextStyle(
@@ -44,7 +46,7 @@ class ErrorScreen extends StatelessWidget {
                         ? ThemeManager.getForegroundColor().withOpacity(opacity)
                         : color.withOpacity(opacity),
                     BlendMode.srcATop),
-                image: AssetImage("assets/images/general/error.png"),
+                image: const AssetImage("assets/images/general/error.png"),
               ),
             ),
           ),

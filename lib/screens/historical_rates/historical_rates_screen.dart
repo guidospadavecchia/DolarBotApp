@@ -1,6 +1,7 @@
 import 'package:dolarbot_app/classes/hive/historical_rate.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
+import 'package:dolarbot_app/screens/common/image_screen.dart';
 import 'package:dolarbot_app/util/util.dart';
 import 'package:dolarbot_app/widgets/common/cool_app_bar.dart';
 import 'package:dolarbot_app/widgets/historical_chart/historical_chart.dart';
@@ -54,16 +55,15 @@ class _HistoricalRatesScreenState extends State<HistoricalRatesScreen> {
 
   Widget _body() {
     if (_historicalRates.length <= 1) {
-      //TODO: Cambiar por un widget que muestre una imagen centrada con texto.
-      return Column(
-        mainAxisSize: MainAxisSize.max,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Center(
-            child: Text("Aún no hay datos suficientes para mostrar la evolución"),
-          ),
-        ],
+      return ImageScreen(
+        image: const AssetImage("assets/images/general/collecting_data.png"),
+        text: "Aún no hay datos suficientes para mostrar los gráficos de evolución",
+        textStyle: const TextStyle(
+          fontSize: 18,
+          fontFamily: "Raleway",
+        ),
+        textOpacity: 0.6,
+        imageColor: ThemeManager.getForegroundColor().withOpacity(0.4),
       );
     }
 
