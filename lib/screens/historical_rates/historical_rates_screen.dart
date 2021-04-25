@@ -85,6 +85,7 @@ class _HistoricalRatesScreenState extends State<HistoricalRatesScreen> {
       iconData: widget.iconData,
       showTimeStamp: _historicalRates.length > 1,
       timeStampValue: _dataTimeSpan,
+      //TODO: Revisar el alto de la appbar respecto al banner
       topPadding: 100,
     );
   }
@@ -98,36 +99,16 @@ class _HistoricalRatesScreenState extends State<HistoricalRatesScreen> {
           fontSize: 18,
           fontFamily: "Raleway",
         ),
-        imageOpacity: 0.8,
+        imageOpacity: 0.7,
+        textOpacity: 0.7,
       );
     }
 
     return Container(
       padding: const EdgeInsets.only(top: 20, bottom: 20, left: 15, right: 15),
-      child: Column(
-        mainAxisSize: MainAxisSize.max,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          HistoricalChart(
-            responseType: widget.responseType,
-            values: _historicalRates,
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          Text(
-            "La información mostrada corresponde al registro histórico de tus consultas recopiladas periódicamente dentro de la app.",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Colors.white.withOpacity(0.6),
-              fontWeight: FontWeight.w500,
-              fontStyle: FontStyle.italic,
-              fontFamily: 'Montserrat',
-              fontSize: 14,
-            ),
-          ),
-        ],
+      child: HistoricalChart(
+        responseType: widget.responseType,
+        values: _historicalRates,
       ),
     );
   }

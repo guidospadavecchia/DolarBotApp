@@ -4,6 +4,7 @@ import 'package:dolarbot_app/screens/base/base_info_screen.dart';
 import 'package:dolarbot_app/widgets/common/simple_button.dart';
 import 'package:dolarbot_app/widgets/historical_chart/factory/historical_chart_data.dart';
 import 'package:dolarbot_app/widgets/historical_chart/factory/historical_chart_data_builder.dart';
+import 'package:dolarbot_app/widgets/historical_chart/historical_chart_help_dialog.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -27,7 +28,7 @@ class _HistoricalChartState extends State<HistoricalChart> with SingleTickerProv
   static const double kMaxScale = 2.5;
   static const double kMinScale = 0.5;
 
-  final Matrix4 defaultZoom = Matrix4.identity() * 0.5;
+  final Matrix4 defaultZoom = Matrix4.identity() * kMinScale;
   HistoricalChartData historicalChartData;
   TransformationController _transformationController;
   TabController _tabController;
@@ -99,26 +100,40 @@ class _HistoricalChartState extends State<HistoricalChart> with SingleTickerProv
             ),
           ),
           Divider(
-            height: 10,
+            height: 25,
             color: Colors.white.withOpacity(0.6),
             indent: 20,
             endIndent: 20,
+          ),
+          Container(
+            padding: const EdgeInsets.only(left: 20, right: 20),
+            child: FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Text(
+                "Podes aplicar zoom con los dedos directamente sobre el gráfico!",
+                style: TextStyle(
+                  color: Colors.white.withOpacity(0.7),
+                  fontFamily: 'Raleway',
+                  fontSize: 14,
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(
+            height: 10,
           ),
           Container(
             padding: EdgeInsets.only(left: 20, right: 20),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.45,
-                  child: Text(
-                    "Tip: Podes aplicar zoom directamente sobre el gráfico!",
-                    style: TextStyle(
-                      color: Colors.white.withOpacity(0.7),
-                      fontFamily: 'Raleway',
-                      fontSize: 12,
-                    ),
-                  ),
+                SimpleButton(
+                  icon: FontAwesomeIcons.questionCircle,
+                  iconColor: Colors.white.withOpacity(0.7),
+                  iconSize: 22,
+                  backgroundColor: Colors.black26.withOpacity(0.2),
+                  padding: const EdgeInsets.only(top: 8, right: 20, left: 20, bottom: 8),
+                  onPressed: _showHelpDialog,
                 ),
                 SimpleButton(
                   icon: FontAwesomeIcons.expandArrowsAlt,
@@ -129,13 +144,13 @@ class _HistoricalChartState extends State<HistoricalChart> with SingleTickerProv
                   textColor: Colors.white.withOpacity(0.8),
                   backgroundColor: Colors.black26.withOpacity(0.2),
                   padding: const EdgeInsets.only(top: 8, right: 20, left: 20, bottom: 8),
-                  onPressed: () => _transformationController.value = defaultZoom,
+                  onPressed: _resetZoom,
                 ),
               ],
             ),
           ),
           const SizedBox(
-            height: 5,
+            height: 10,
           ),
         ],
       ),
@@ -154,8 +169,7 @@ class _HistoricalChartState extends State<HistoricalChart> with SingleTickerProv
         boundaryMargin: const EdgeInsets.all(50),
         constrained: false,
         child: Container(
-          //TODO: Setear ancho en base a la cantidad de items
-          width: MediaQuery.of(context).size.width * 3,
+          width: _calculateChartWidth(context),
           height: MediaQuery.of(context).size.height,
           child: LineChart(
             LineChartData(
@@ -192,6 +206,29 @@ class _HistoricalChartState extends State<HistoricalChart> with SingleTickerProv
     _tabController = TabController(length: historicalChartData.ratesData.length, vsync: this);
     _transformationController = TransformationController(defaultZoom);
     _chartDataLoaded = true;
+  }
+
+  double _calculateChartWidth(BuildContext context) {
+    if (historicalChartData.ratesData.length <= 10) {
+      return MediaQuery.of(context).size.width * 2;
+    } else {
+      return MediaQuery.of(context).size.width *
+          (2 + (historicalChartData.ratesData.length * 0.02));
+    }
+  }
+
+  void _showHelpDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return const HistoricalChartHelpDialog();
+      },
+    );
+  }
+
+  //TODO: Resetear con animación
+  void _resetZoom() {
+    _transformationController.value = defaultZoom;
   }
 
   LineTouchData _getLineTouchData(BuildContext context, HistoricalRateData rateData) {
@@ -251,7 +288,7 @@ class _HistoricalChartState extends State<HistoricalChart> with SingleTickerProv
     return SideTitles(
       showTitles: true,
       getTextStyles: (value) => TextStyle(
-        color: Colors.white.withOpacity(0.6),
+        color: Colors.white.withOpacity(0.7),
         fontSize: 22,
         fontWeight: FontWeight.w600,
       ),
