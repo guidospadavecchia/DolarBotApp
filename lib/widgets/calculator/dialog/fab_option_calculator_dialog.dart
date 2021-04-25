@@ -1,6 +1,6 @@
 import 'package:dolarbot_app/widgets/calculator/base/base_calculator.dart';
 import 'package:dolarbot_app/widgets/common/blur_dialog.dart';
-import 'package:dolarbot_app/widgets/common/dialog_button.dart';
+import 'package:dolarbot_app/widgets/common/simple_button.dart';
 
 import 'package:flutter/material.dart';
 
@@ -38,7 +38,7 @@ class _FabOptionCalculatorDialogState extends State<FabOptionCalculatorDialog> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   if (widget.calculatorReversed != null)
-                    DialogButton(
+                    SimpleButton(
                         onPressed: () => {
                               setState(() {
                                 isReversed = widget.calculatorReversed != null && !isReversed;
@@ -46,7 +46,7 @@ class _FabOptionCalculatorDialogState extends State<FabOptionCalculatorDialog> {
                             },
                         icon: Icons.compare_arrows,
                         text: "Invertir"),
-                  DialogButton(
+                  SimpleButton(
                     text: 'Cerrar',
                     icon: Icons.close,
                     onPressed: () => Navigator.of(context).pop(),

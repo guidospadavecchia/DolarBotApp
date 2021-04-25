@@ -1,19 +1,27 @@
 import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:flutter/material.dart';
 
-class DialogButton extends StatelessWidget {
+class SimpleButton extends StatelessWidget {
   final String text;
   final IconData icon;
+  final double iconSize;
   final Color iconColor;
   final Color textColor;
+  final double fontSize;
+  final Color backgroundColor;
+  final EdgeInsets padding;
   final Function onPressed;
 
-  const DialogButton({
+  const SimpleButton({
     Key key,
     this.text,
     this.icon,
+    this.iconSize = 32,
     this.iconColor,
     this.textColor,
+    this.fontSize = 16,
+    this.backgroundColor,
+    this.padding,
     @required this.onPressed,
   }) : super(key: key);
 
@@ -22,13 +30,15 @@ class DialogButton extends StatelessWidget {
     return TextButton(
       style: ButtonStyle(
         padding: MaterialStateProperty.all<EdgeInsets>(
-          const EdgeInsets.only(top: 7, right: 25, left: 15, bottom: 7),
+          padding ??
+              EdgeInsets.only(
+                  top: 7, right: text != null && text != '' ? 25 : 15, left: 15, bottom: 7),
         ),
         overlayColor: MaterialStateColor.resolveWith(
             (states) => ThemeManager.getDrawerMenuItemIconColor(context).withOpacity(0.2)),
         backgroundColor: MaterialStateProperty.resolveWith<Color>(
           (Set<MaterialState> states) {
-            return ThemeManager.getButtonColor(context);
+            return backgroundColor ?? ThemeManager.getButtonColor(context);
           },
         ),
       ),
@@ -40,21 +50,23 @@ class DialogButton extends StatelessWidget {
         children: [
           Icon(
             icon,
-            size: 32,
+            size: iconSize,
             color: iconColor ?? ThemeManager.getPrimaryAccentColor(context),
           ),
-          const SizedBox(
-            width: 10,
-          ),
-          Text(
-            text,
-            style: TextStyle(
-              fontSize: 16,
-              fontFamily: 'Raleway',
-              fontWeight: FontWeight.normal,
-              color: textColor ?? ThemeManager.getPrimaryTextColor(context),
+          if (text != null && text != '')
+            const SizedBox(
+              width: 10,
             ),
-          ),
+          if (text != null && text != '')
+            Text(
+              text,
+              style: TextStyle(
+                fontSize: fontSize,
+                fontFamily: 'Raleway',
+                fontWeight: FontWeight.normal,
+                color: textColor ?? ThemeManager.getPrimaryTextColor(context),
+              ),
+            ),
         ],
       ),
     );

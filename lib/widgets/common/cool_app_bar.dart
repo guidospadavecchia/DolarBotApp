@@ -8,6 +8,7 @@ class CoolAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool showRefreshButton;
   final Function onRefresh;
   final Color foregroundColor;
+  final Color backgroundColor;
 
   const CoolAppBar({
     Key key,
@@ -16,6 +17,7 @@ class CoolAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.showRefreshButton = false,
     this.onRefresh,
     this.foregroundColor,
+    this.backgroundColor,
   })  : assert(!showRefreshButton || onRefresh != null),
         super(key: key);
 
@@ -63,7 +65,7 @@ class CoolAppBar extends StatelessWidget implements PreferredSizeWidget {
               : null,
         )
       ],
-      backgroundColor: Colors.transparent,
+      backgroundColor: backgroundColor ?? Colors.transparent,
       centerTitle: true,
       title: FittedBox(
         alignment: Alignment.center,

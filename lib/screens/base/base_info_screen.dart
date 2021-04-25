@@ -6,6 +6,7 @@ import 'package:dolarbot_app/api/responses/metal_response.dart';
 import 'package:dolarbot_app/classes/hive/favorite_rate.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:dolarbot_app/models/settings.dart';
+import 'package:dolarbot_app/screens/base/widgets/title_banner.dart';
 import 'package:dolarbot_app/screens/historical_rates/historical_rates_screen.dart';
 import 'package:dolarbot_app/util/constants.dart';
 import 'package:dolarbot_app/widgets/calculator/exports/calculator_exports.dart';
@@ -18,7 +19,7 @@ import 'package:dolarbot_app/util/util.dart';
 import 'package:dolarbot_app/widgets/cards/factory/card_data.dart';
 import 'package:dolarbot_app/widgets/common/blur_dialog.dart';
 import 'package:dolarbot_app/widgets/common/cool_app_bar.dart';
-import 'package:dolarbot_app/widgets/common/dialog_button.dart';
+import 'package:dolarbot_app/widgets/common/simple_button.dart';
 import 'package:dolarbot_app/widgets/common/simple_fab_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -240,88 +241,12 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
   @nonVirtual
   Widget banner() {
     if (widget.cardData?.bannerTitle != null) {
-      return Padding(
-        padding: const EdgeInsets.only(top: 50),
-        child: Column(
-          children: [
-            Container(
-              color: Colors.black12,
-              padding: const EdgeInsets.all(20),
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  widget.cardData?.iconAsset != null
-                      ? Container(
-                          child: Image.asset(
-                            widget.cardData.iconAsset,
-                            width: 36,
-                            height: 36,
-                            filterQuality: FilterQuality.high,
-                            color: Colors.white,
-                          ),
-                        )
-                      : Container(
-                          child: Icon(
-                            widget.cardData?.iconData,
-                            size: 36,
-                            color: Colors.white,
-                          ),
-                        ),
-                  const SizedBox(width: 20),
-                  Container(
-                    constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.7),
-                    child: FittedBox(
-                      fit: widget.cardData.bannerTitle.length > 10 ? BoxFit.fitWidth : BoxFit.none,
-                      child: Text(
-                        widget.cardData.bannerTitle,
-                        style: const TextStyle(
-                          fontSize: 28,
-                          fontFamily: 'Raleway',
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            if (timestamp != null)
-              Opacity(
-                opacity: 1,
-                child: Container(
-                  alignment: Alignment.center,
-                  height: 22,
-                  width: double.infinity,
-                  color: Colors.black26,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(
-                        Icons.alarm,
-                        size: 16,
-                        color: Colors.white70,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 5, top: 0),
-                        child: Text(
-                          "Última actualización: ${getTimestamp()}",
-                          style: const TextStyle(
-                            fontSize: 12,
-                            fontFamily: 'Montserrat',
-                            fontWeight: FontWeight.normal,
-                            color: Colors.white70,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-          ],
-        ),
+      return TitleBanner(
+        text: widget.cardData.bannerTitle,
+        iconAsset: widget.cardData?.iconAsset,
+        iconData: widget.cardData?.iconData,
+        showTimeStamp: true,
+        timeStampValue: "Última actualización: ${getTimestamp()}",
       );
     } else {
       return const SizedBox.shrink();
@@ -406,6 +331,9 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
         subtitle: widget.cardData.bannerTitle,
         endpoint: widget.cardData.endpoint,
         responseType: widget.cardData.responseType,
+        colors: widget.cardData.colors,
+        iconAsset: widget.cardData.iconAsset,
+        iconData: widget.cardData.iconData,
       ),
       withReplacement: false,
       transitionType: PageTransitionType.rightToLeft,
@@ -509,7 +437,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
                       height: 5,
                     ),
                     Center(
-                      child: DialogButton(
+                      child: SimpleButton(
                           text: 'Cerrar',
                           icon: Icons.close,
                           onPressed: () {

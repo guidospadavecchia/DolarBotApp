@@ -1,11 +1,12 @@
 import 'package:dolarbot_app/classes/hive/historical_rate.dart';
-import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:dolarbot_app/models/settings.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
+import 'package:dolarbot_app/widgets/common/simple_button.dart';
 import 'package:dolarbot_app/widgets/historical_chart/factory/historical_chart_data.dart';
 import 'package:dolarbot_app/widgets/historical_chart/factory/historical_chart_data_builder.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 
 class HistoricalChart extends StatefulWidget {
@@ -26,6 +27,7 @@ class _HistoricalChartState extends State<HistoricalChart> with SingleTickerProv
   static const double kMaxScale = 2.5;
   static const double kMinScale = 0.5;
 
+  final Matrix4 defaultZoom = Matrix4.identity() * 0.5;
   HistoricalChartData historicalChartData;
   TransformationController _transformationController;
   TabController _tabController;
@@ -50,28 +52,43 @@ class _HistoricalChartState extends State<HistoricalChart> with SingleTickerProv
       return const SizedBox.shrink();
     }
 
-    //TODO: Agregar controles de zoom (+/- y reset)
     return Container(
-      height: MediaQuery.of(context).size.height * 0.7,
-      decoration: BoxDecoration(border: Border.all(color: Colors.black54, width: 1)),
+      height: MediaQuery.of(context).size.height * 0.60,
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: Colors.white.withOpacity(0.2),
+          width: 1,
+        ),
+        borderRadius: BorderRadius.circular(3),
+      ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
+            decoration: BoxDecoration(
+              border: Border(
+                bottom: BorderSide(
+                  color: Colors.white.withOpacity(0.2),
+                ),
+              ),
+            ),
             child: TabBar(
               controller: _tabController,
               tabs: historicalChartData.ratesData.map((x) => Tab(text: x.title)).toList(),
-              indicatorColor: ThemeManager.getPrimaryAccentColor(context),
-              labelColor: ThemeManager.getPrimaryTextColor(context),
+              indicatorColor: Colors.white.withOpacity(0.9),
+              labelColor: Colors.white.withOpacity(0.9),
               enableFeedback: historicalChartData.ratesData.length > 1,
               labelStyle: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontFamily: "Raleway",
+                fontSize: 15,
               ),
+              labelPadding: EdgeInsets.zero,
               unselectedLabelStyle: const TextStyle(
                 fontWeight: FontWeight.normal,
                 fontFamily: "Raleway",
               ),
-              unselectedLabelColor: ThemeManager.getPrimaryTextColor(context).withOpacity(0.5),
+              unselectedLabelColor: Colors.white.withOpacity(0.6),
             ),
           ),
           Expanded(
@@ -80,6 +97,45 @@ class _HistoricalChartState extends State<HistoricalChart> with SingleTickerProv
               controller: _tabController,
               children: historicalChartData.ratesData.map((x) => _buildChart(context, x)).toList(),
             ),
+          ),
+          Divider(
+            height: 10,
+            color: Colors.white.withOpacity(0.6),
+            indent: 20,
+            endIndent: 20,
+          ),
+          Container(
+            padding: EdgeInsets.only(left: 20, right: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.45,
+                  child: Text(
+                    "Tip: Podes aplicar zoom directamente sobre el gráfico!",
+                    style: TextStyle(
+                      color: Colors.white.withOpacity(0.7),
+                      fontFamily: 'Raleway',
+                      fontSize: 12,
+                    ),
+                  ),
+                ),
+                SimpleButton(
+                  icon: FontAwesomeIcons.expandArrowsAlt,
+                  iconColor: Colors.white.withOpacity(0.7),
+                  iconSize: 22,
+                  text: 'Reiniciar vista',
+                  fontSize: 13,
+                  textColor: Colors.white.withOpacity(0.8),
+                  backgroundColor: Colors.black26.withOpacity(0.2),
+                  padding: const EdgeInsets.only(top: 8, right: 20, left: 20, bottom: 8),
+                  onPressed: () => _transformationController.value = defaultZoom,
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(
+            height: 5,
           ),
         ],
       ),
@@ -98,6 +154,7 @@ class _HistoricalChartState extends State<HistoricalChart> with SingleTickerProv
         boundaryMargin: const EdgeInsets.all(50),
         constrained: false,
         child: Container(
+          //TODO: Setear ancho en base a la cantidad de items
           width: MediaQuery.of(context).size.width * 3,
           height: MediaQuery.of(context).size.height,
           child: LineChart(
@@ -109,7 +166,7 @@ class _HistoricalChartState extends State<HistoricalChart> with SingleTickerProv
               borderData: FlBorderData(
                 show: true,
                 border: Border.all(
-                  color: ThemeManager.getPrimaryTextColor(context),
+                  color: Colors.white.withOpacity(0.5),
                   width: 1,
                 ),
               ),
@@ -133,7 +190,7 @@ class _HistoricalChartState extends State<HistoricalChart> with SingleTickerProv
     historicalChartData =
         BuildHistoricalChartData(widget.responseType).fromHistoricalRates(widget.values);
     _tabController = TabController(length: historicalChartData.ratesData.length, vsync: this);
-    _transformationController = TransformationController(Matrix4.identity() * 0.6);
+    _transformationController = TransformationController(defaultZoom);
     _chartDataLoaded = true;
   }
 
@@ -142,7 +199,7 @@ class _HistoricalChartState extends State<HistoricalChart> with SingleTickerProv
       touchTooltipData: LineTouchTooltipData(
         fitInsideVertically: true,
         fitInsideHorizontally: true,
-        tooltipBgColor: Colors.grey[400],
+        tooltipBgColor: Colors.black54.withOpacity(0.7),
         maxContentWidth: MediaQuery.of(context).size.width / 2,
         tooltipRoundedRadius: 15,
         getTooltipItems: (touchedSpots) {
@@ -182,7 +239,7 @@ class _HistoricalChartState extends State<HistoricalChart> with SingleTickerProv
       show: true,
       drawHorizontalLine: true,
       getDrawingHorizontalLine: (value) => FlLine(
-        color: Colors.grey.withOpacity(0.5),
+        color: Colors.white.withOpacity(0.4),
         strokeWidth: 1,
       ),
       horizontalInterval: rateData.interval / 2,
@@ -194,11 +251,12 @@ class _HistoricalChartState extends State<HistoricalChart> with SingleTickerProv
     return SideTitles(
       showTitles: true,
       getTextStyles: (value) => TextStyle(
-        color: ThemeManager.getPrimaryTextColor(context),
-        fontSize: 20,
+        color: Colors.white.withOpacity(0.6),
+        fontSize: 22,
+        fontWeight: FontWeight.w600,
       ),
       interval: rateData.interval,
-      margin: 10,
+      margin: 30,
       reservedSize: 200,
       getTitles: (value) {
         NumberFormat numberFormat = Provider.of<Settings>(context, listen: false).getNumberFormat();

@@ -16,11 +16,11 @@ class ImageScreen extends StatelessWidget {
     @required this.image,
     this.text,
     this.textStyle,
-    this.textOpacity = 0.8,
+    this.textOpacity = 1,
     this.imageColor = Colors.white,
     this.imageColorFilterBlendMode = BlendMode.srcATop,
     this.imageHeight,
-    this.imageOpacity = 0.6,
+    this.imageOpacity = 1,
     this.containerPadding = const EdgeInsets.all(20),
   }) : super(key: key);
 

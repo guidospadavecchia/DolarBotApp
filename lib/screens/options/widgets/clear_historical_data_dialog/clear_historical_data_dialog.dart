@@ -1,5 +1,5 @@
 import 'package:dolarbot_app/widgets/common/blur_dialog.dart';
-import 'package:dolarbot_app/widgets/common/dialog_button.dart';
+import 'package:dolarbot_app/widgets/common/simple_button.dart';
 import 'package:dolarbot_app/widgets/common/toasts/toast_ok.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
@@ -48,7 +48,7 @@ class _ClearHistoricalDataDialogState extends State<ClearHistoricalDataDialog> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    DialogButton(
+                    SimpleButton(
                       text: 'Sí, eliminar',
                       icon: Icons.delete,
                       iconColor: Colors.red,

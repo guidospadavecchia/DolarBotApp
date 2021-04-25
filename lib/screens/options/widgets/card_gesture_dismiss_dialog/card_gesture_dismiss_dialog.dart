@@ -4,7 +4,7 @@ import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:dolarbot_app/models/settings.dart';
 import 'package:dolarbot_app/util/constants.dart';
 import 'package:dolarbot_app/widgets/common/blur_dialog.dart';
-import 'package:dolarbot_app/widgets/common/dialog_button.dart';
+import 'package:dolarbot_app/widgets/common/simple_button.dart';
 import 'package:dolarbot_app/widgets/common/toasts/toast_ok.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -114,7 +114,7 @@ class _CardGestureDismissDialogState extends State<CardGestureDismissDialog> {
                 height: 20,
               ),
               Center(
-                child: DialogButton(
+                child: SimpleButton(
                   text: 'Aplicar',
                   icon: Icons.check_outlined,
                   onPressed: () => saveValueAndPop(_actualDismissDirection),

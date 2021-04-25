@@ -1,4 +1,4 @@
-import 'package:dolarbot_app/widgets/common/dialog_button.dart';
+import 'package:dolarbot_app/widgets/common/simple_button.dart';
 import 'package:dolarbot_app/widgets/steps/base/step_base.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hive/hive.dart';
@@ -33,7 +33,7 @@ class StepFinish extends StepBase {
           ],
         ),
       ),
-      DialogButton(
+      SimpleButton(
         icon: Icons.check,
         text: "Entendido",
         onPressed: () => _finishTutorial(),

@@ -1,6 +1,7 @@
 import 'package:dolarbot_app/classes/hive/historical_rate.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
+import 'package:dolarbot_app/screens/base/widgets/title_banner.dart';
 import 'package:dolarbot_app/screens/common/image_screen.dart';
 import 'package:dolarbot_app/util/util.dart';
 import 'package:dolarbot_app/widgets/common/cool_app_bar.dart';
@@ -13,6 +14,9 @@ class HistoricalRatesScreen extends StatefulWidget {
   final String subtitle;
   final String endpoint;
   final Type responseType;
+  final List<Color> colors;
+  final String iconAsset;
+  final IconData iconData;
 
   HistoricalRatesScreen({
     Key key,
@@ -20,7 +24,11 @@ class HistoricalRatesScreen extends StatefulWidget {
     @required this.subtitle,
     @required this.endpoint,
     @required this.responseType,
-  }) : super(key: key);
+    @required this.colors,
+    this.iconAsset,
+    this.iconData,
+  })  : assert((iconAsset != null || iconData != null)),
+        super(key: key);
 
   @override
   _HistoricalRatesScreenState createState() => _HistoricalRatesScreenState();
@@ -41,15 +49,43 @@ class _HistoricalRatesScreenState extends State<HistoricalRatesScreen> {
     return WillPopScope(
       onWillPop: () => _onWillPopScope(context),
       child: Scaffold(
-        extendBodyBehindAppBar: false,
+        extendBodyBehindAppBar: true,
         resizeToAvoidBottomInset: false,
         appBar: CoolAppBar(
-          title: "Datos históricos de ${widget.title}",
+          title: "Evolución: ${widget.title}",
           isMainMenu: false,
           foregroundColor: ThemeManager.getPrimaryTextColor(context),
         ),
-        body: _body(),
+        body: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: widget.colors,
+            ),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              _banner(),
+              Expanded(
+                child: _body(),
+              ),
+            ],
+          ),
+        ),
       ),
+    );
+  }
+
+  Widget _banner() {
+    return TitleBanner(
+      text: widget.subtitle,
+      iconAsset: widget.iconAsset,
+      iconData: widget.iconData,
+      showTimeStamp: _historicalRates.length > 1,
+      timeStampValue: _dataTimeSpan,
+      topPadding: 100,
     );
   }
 
@@ -62,40 +98,17 @@ class _HistoricalRatesScreenState extends State<HistoricalRatesScreen> {
           fontSize: 18,
           fontFamily: "Raleway",
         ),
-        textOpacity: 0.6,
-        imageColor: ThemeManager.getForegroundColor().withOpacity(0.4),
+        imageOpacity: 0.8,
       );
     }
 
     return Container(
-      height: double.infinity,
       padding: const EdgeInsets.only(top: 20, bottom: 20, left: 15, right: 15),
       child: Column(
         mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Text(
-                widget.subtitle,
-                style: const TextStyle(fontSize: 22),
-              ),
-              Expanded(
-                child: const SizedBox.shrink(),
-              ),
-              Text(_dataTimeSpan),
-            ],
-          ),
-          const SizedBox(
-            height: 5,
-          ),
-          const Divider(),
-          const SizedBox(
-            height: 10,
-          ),
           HistoricalChart(
             responseType: widget.responseType,
             values: _historicalRates,
@@ -103,12 +116,15 @@ class _HistoricalRatesScreenState extends State<HistoricalRatesScreen> {
           const SizedBox(
             height: 20,
           ),
-          const Text(
+          Text(
             "La información mostrada corresponde al registro histórico de tus consultas recopiladas periódicamente dentro de la app.",
             textAlign: TextAlign.center,
-            style: const TextStyle(
+            style: TextStyle(
+              color: Colors.white.withOpacity(0.6),
+              fontWeight: FontWeight.w500,
               fontStyle: FontStyle.italic,
-              fontSize: 13,
+              fontFamily: 'Montserrat',
+              fontSize: 14,
             ),
           ),
         ],
@@ -133,7 +149,7 @@ class _HistoricalRatesScreenState extends State<HistoricalRatesScreen> {
       return;
     }
 
-    DateFormat dateFormat = DateFormat('dd-MM-yyyy');
+    DateFormat dateFormat = DateFormat('dd/MM/yyyy');
     if (_historicalRates.length > 1) {
       _historicalRates.sort(
         (a, b) => a.timestamp.compareTo(b.timestamp),

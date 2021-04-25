@@ -8,27 +8,28 @@ import 'package:dolarbot_app/util/extensions/string_extensions.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
+const double _barWidth = 3;
 const List<Color> _kTabColorGradient1 = const [
   Colors.lightBlueAccent,
   Colors.lightBlue,
-  Colors.cyan,
   Colors.cyanAccent,
+  Colors.cyan,
 ];
 const List<Color> _kTabColorGradient2 = const [
-  Colors.orange,
-  Colors.orangeAccent,
-  Colors.red,
+  Colors.deepOrange,
+  Colors.deepOrangeAccent,
   Colors.redAccent,
+  Colors.red,
 ];
 const List<Color> _kTabColorGradient3 = const [
   Colors.purple,
   Colors.purpleAccent,
-  Colors.pink,
   Colors.pinkAccent,
+  Colors.pink,
 ];
 const TextStyle _kTooltipTextStyle = const TextStyle(
-  color: Colors.black87,
-  fontWeight: FontWeight.bold,
+  color: Colors.white,
+  fontWeight: FontWeight.w600,
   fontSize: 18,
   fontFamily: 'Montserrat',
 );
@@ -92,9 +93,9 @@ class _FiatCurrency implements BuildHistoricalChartData {
               colors: _kTabColorGradient1,
               belowBarData: BarAreaData(
                 show: true,
-                colors: [_kTabColorGradient1.first.withAlpha(20)],
+                colors: _kTabColorGradient1.map((x) => x.withAlpha(100)).toList(),
               ),
-              barWidth: 1,
+              barWidth: _barWidth,
             ),
           ),
         if (sellPrices.length > 0)
@@ -109,9 +110,9 @@ class _FiatCurrency implements BuildHistoricalChartData {
               colors: _kTabColorGradient2,
               belowBarData: BarAreaData(
                 show: true,
-                colors: [_kTabColorGradient2.first.withAlpha(20)],
+                colors: _kTabColorGradient2.map((x) => x.withAlpha(100)).toList(),
               ),
-              barWidth: 2,
+              barWidth: _barWidth,
             ),
           ),
         if (sellPricesWithTaxes.length > 0)
@@ -126,9 +127,9 @@ class _FiatCurrency implements BuildHistoricalChartData {
               colors: _kTabColorGradient3,
               belowBarData: BarAreaData(
                 show: true,
-                colors: [_kTabColorGradient3.first.withAlpha(20)],
+                colors: _kTabColorGradient3.map((x) => x.withAlpha(100)).toList(),
               ),
-              barWidth: 2,
+              barWidth: _barWidth,
             ),
           ),
       ],
@@ -177,9 +178,9 @@ class _Crypto implements BuildHistoricalChartData {
               colors: _kTabColorGradient1,
               belowBarData: BarAreaData(
                 show: true,
-                colors: [_kTabColorGradient1.first.withAlpha(20)],
+                colors: _kTabColorGradient1.map((x) => x.withAlpha(100)).toList(),
               ),
-              barWidth: 2,
+              barWidth: _barWidth,
             ),
           ),
         if (arsPricesWithTaxes.length > 0)
@@ -194,9 +195,9 @@ class _Crypto implements BuildHistoricalChartData {
               colors: _kTabColorGradient2,
               belowBarData: BarAreaData(
                 show: true,
-                colors: [_kTabColorGradient2.first.withAlpha(20)],
+                colors: _kTabColorGradient2.map((x) => x.withAlpha(100)).toList(),
               ),
-              barWidth: 2,
+              barWidth: _barWidth,
             ),
           ),
         if (usdPrices.length > 0)
@@ -211,9 +212,9 @@ class _Crypto implements BuildHistoricalChartData {
               colors: _kTabColorGradient3,
               belowBarData: BarAreaData(
                 show: true,
-                colors: [_kTabColorGradient3.first.withAlpha(20)],
+                colors: _kTabColorGradient3.map((x) => x.withAlpha(100)).toList(),
               ),
-              barWidth: 2,
+              barWidth: _barWidth,
             ),
           ),
       ],
@@ -254,9 +255,9 @@ class _Metal implements BuildHistoricalChartData {
               colors: _kTabColorGradient1,
               belowBarData: BarAreaData(
                 show: true,
-                colors: [_kTabColorGradient1.first.withAlpha(20)],
+                colors: _kTabColorGradient1.map((x) => x.withAlpha(100)).toList(),
               ),
-              barWidth: 2,
+              barWidth: _barWidth,
             ),
           ),
       ],
@@ -297,9 +298,9 @@ class _Bcra implements BuildHistoricalChartData {
               colors: _kTabColorGradient1,
               belowBarData: BarAreaData(
                 show: true,
-                colors: [_kTabColorGradient1.first.withAlpha(20)],
+                colors: _kTabColorGradient1.map((x) => x.withAlpha(100)).toList(),
               ),
-              barWidth: 2,
+              barWidth: _barWidth,
             ),
           ),
       ],
@@ -338,9 +339,9 @@ class _CountryRisk implements BuildHistoricalChartData {
               colors: _kTabColorGradient1,
               belowBarData: BarAreaData(
                 show: true,
-                colors: [_kTabColorGradient1.first.withAlpha(20)],
+                colors: _kTabColorGradient1.map((x) => x.withAlpha(100)).toList(),
               ),
-              barWidth: 2,
+              barWidth: _barWidth,
             ),
           ),
       ],
@@ -384,9 +385,9 @@ class _Venezuela implements BuildHistoricalChartData {
               colors: _kTabColorGradient1,
               belowBarData: BarAreaData(
                 show: true,
-                colors: [_kTabColorGradient1.first.withAlpha(20)],
+                colors: _kTabColorGradient1.map((x) => x.withAlpha(100)).toList(),
               ),
-              barWidth: 2,
+              barWidth: _barWidth,
             ),
           ),
         if (blackMarketPrices.length > 0)
@@ -401,9 +402,9 @@ class _Venezuela implements BuildHistoricalChartData {
               colors: _kTabColorGradient2,
               belowBarData: BarAreaData(
                 show: true,
-                colors: [_kTabColorGradient2.first.withAlpha(20)],
+                colors: _kTabColorGradient2.map((x) => x.withAlpha(100)).toList(),
               ),
-              barWidth: 2,
+              barWidth: _barWidth,
             ),
           ),
       ],
