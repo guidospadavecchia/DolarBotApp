@@ -24,7 +24,7 @@ class HistoricalChart extends StatefulWidget {
   _HistoricalChartState createState() => _HistoricalChartState();
 }
 
-class _HistoricalChartState extends State<HistoricalChart> with SingleTickerProviderStateMixin {
+class _HistoricalChartState extends State<HistoricalChart> with TickerProviderStateMixin {
   static const double kMaxScale = 2.5;
   static const double kMinScale = 0.5;
 
@@ -32,18 +32,20 @@ class _HistoricalChartState extends State<HistoricalChart> with SingleTickerProv
   HistoricalChartData historicalChartData;
   TransformationController _transformationController;
   TabController _tabController;
+  AnimationController _animationController;
+  Animation<Matrix4> _animation;
   bool _chartDataLoaded = false;
 
   @override
   void initState() {
     super.initState();
     _loadChartData();
+    _initializeControllers();
   }
 
   @override
   void dispose() {
-    _transformationController.dispose();
-    _tabController.dispose();
+    _disposeControllers();
     super.dispose();
   }
 
@@ -203,9 +205,27 @@ class _HistoricalChartState extends State<HistoricalChart> with SingleTickerProv
   void _loadChartData() {
     historicalChartData =
         BuildHistoricalChartData(widget.responseType).fromHistoricalRates(widget.values);
-    _tabController = TabController(length: historicalChartData.ratesData.length, vsync: this);
-    _transformationController = TransformationController(defaultZoom);
     _chartDataLoaded = true;
+  }
+
+  void _initializeControllers() {
+    _tabController = TabController(
+      length: historicalChartData.ratesData.length,
+      vsync: this,
+    );
+    _transformationController = TransformationController(defaultZoom);
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1000),
+    )..addListener(() {
+        _transformationController.value = _animation.value;
+      });
+  }
+
+  void _disposeControllers() {
+    _transformationController.dispose();
+    _animationController.dispose();
+    _tabController.dispose();
   }
 
   double _calculateChartWidth(BuildContext context) {
@@ -226,9 +246,14 @@ class _HistoricalChartState extends State<HistoricalChart> with SingleTickerProv
     );
   }
 
-  //TODO: Resetear con animación
   void _resetZoom() {
-    _transformationController.value = defaultZoom;
+    if (_transformationController.value != defaultZoom) {
+      _animation = Matrix4Tween(
+        begin: _transformationController.value,
+        end: defaultZoom,
+      ).animate(CurveTween(curve: Curves.easeOut).animate(_animationController));
+      _animationController.forward(from: 0);
+    }
   }
 
   LineTouchData _getLineTouchData(BuildContext context, HistoricalRateData rateData) {
