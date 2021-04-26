@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 
 class HistoricalChartHelpDialog extends StatelessWidget {
   static const String _kDescriptionText =
-      "Este gráfico te permite visualizar la evolución histórica de las distintas cotizaciones. Dicha información se recolecta periódicamente y de forma local, a partir de tus consultas dentro de la app.\n\nRecordá que podes limpiar los datos de las cotizaciones guardadas, en cualquier momento, desde el menú de Opciones.";
+      "Este gráfico te permite visualizar la evolución histórica de las distintas cotizaciones. Dicha información se recolecta periódicamente y de forma local, a partir de tus consultas dentro de la app.\n\nRecordá que podes limpiar los datos de las cotizaciones guardadas en cualquier momento desde el menú de Opciones.";
 
   const HistoricalChartHelpDialog({
     Key key,
