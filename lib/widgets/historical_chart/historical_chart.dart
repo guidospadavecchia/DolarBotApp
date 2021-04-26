@@ -62,7 +62,7 @@ class _HistoricalChartState extends State<HistoricalChart> with TickerProviderSt
           color: Colors.white.withOpacity(0.2),
           width: 1,
         ),
-        borderRadius: BorderRadius.circular(3),
+        borderRadius: BorderRadius.circular(5),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
