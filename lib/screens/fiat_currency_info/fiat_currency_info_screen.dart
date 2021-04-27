@@ -26,9 +26,6 @@ class _FiatCurrencyInfoScreenState<T extends GenericCurrencyResponse>
   T data;
 
   @override
-  Color setColorAppbar() => ThemeManager.getForegroundColor();
-
-  @override
   void initState() {
     super.initState();
     if (!isDataLoaded) {

@@ -54,7 +54,7 @@ class _HistoricalRatesScreenState extends State<HistoricalRatesScreen> {
         appBar: CoolAppBar(
           title: "Evolución: ${widget.title}",
           isMainMenu: false,
-          foregroundColor: ThemeManager.getPrimaryTextColor(context),
+          foregroundColor: Colors.white,
         ),
         body: Container(
           decoration: BoxDecoration(

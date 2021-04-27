@@ -69,7 +69,6 @@ abstract class BaseInfoScreenState<Page extends BaseInfoScreen> extends State<Ba
   bool showFavoriteButton() => true;
   bool showHistoricalChartButton() => true;
   bool extendBodyBehindAppBar() => true;
-  Color setColorAppbar() => Colors.white;
 }
 
 mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
@@ -141,7 +140,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
           appBar: CoolAppBar(
             title: widget.cardData.title,
             isMainMenu: isMainMenu(),
-            foregroundColor: setColorAppbar(),
+            foregroundColor: Colors.white,
             showRefreshButton: showRefreshButton,
             onRefresh: () => onRefresh(),
           ),
