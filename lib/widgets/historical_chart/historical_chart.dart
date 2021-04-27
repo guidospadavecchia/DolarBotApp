@@ -56,7 +56,7 @@ class _HistoricalChartState extends State<HistoricalChart> with TickerProviderSt
     }
 
     return Container(
-      height: MediaQuery.of(context).size.height * 0.60,
+      height: MediaQuery.of(context).size.height * 0.7,
       decoration: BoxDecoration(
         border: Border.all(
           color: Colors.white.withOpacity(0.2),

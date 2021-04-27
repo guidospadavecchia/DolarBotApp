@@ -1,5 +1,4 @@
 import 'package:dolarbot_app/classes/hive/historical_rate.dart';
-import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
 import 'package:dolarbot_app/screens/base/widgets/title_banner.dart';
 import 'package:dolarbot_app/screens/common/image_screen.dart';
@@ -67,10 +66,10 @@ class _HistoricalRatesScreenState extends State<HistoricalRatesScreen> {
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
+              const SizedBox(height: 50),
               _banner(),
-              Expanded(
-                child: _body(),
-              ),
+              const SizedBox(height: 5),
+              _body(),
             ],
           ),
         ),
@@ -85,8 +84,6 @@ class _HistoricalRatesScreenState extends State<HistoricalRatesScreen> {
       iconData: widget.iconData,
       showTimeStamp: _historicalRates.length > 1,
       timeStampValue: _dataTimeSpan,
-      //TODO: Revisar el alto de la appbar respecto al banner
-      topPadding: 100,
     );
   }
 
