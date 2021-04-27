@@ -41,17 +41,12 @@ class _MetalInfoScreenState extends BaseInfoScreenState<MetalInfoScreen> with Ba
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       physics: BouncingScrollPhysics(),
-      child: Column(
-        children: [
-          banner(),
-          CurrencyInfoContainer(
-            items: [
-              CurrencyInfo(
-                title: '/ ${data.unit}',
-                symbol: data.currency == 'USD' ? 'US\$' : '\$',
-                value: data.value,
-              ),
-            ],
+      child: CurrencyInfoContainer(
+        items: [
+          CurrencyInfo(
+            title: '/ ${data.unit}',
+            symbol: data.currency == 'USD' ? 'US\$' : '\$',
+            value: data.value,
           ),
         ],
       ),

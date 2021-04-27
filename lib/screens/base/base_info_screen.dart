@@ -60,7 +60,6 @@ abstract class BaseInfoScreenState<Page extends BaseInfoScreen> extends State<Ba
     with SingleTickerProviderStateMixin, WidgetsBindingObserver {
   final GlobalKey<SimpleFabMenuState> simpleFabKey = GlobalKey();
 
-  bool isMainMenu() => true;
   bool canPop() => true;
   bool showFabMenu() => true;
   bool showShareButton() => true;
@@ -139,7 +138,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
           resizeToAvoidBottomInset: false,
           appBar: CoolAppBar(
             title: widget.cardData.title,
-            isMainMenu: isMainMenu(),
+            isMainMenu: true,
             foregroundColor: Colors.white,
             showRefreshButton: showRefreshButton,
             onRefresh: () => onRefresh(),
@@ -154,30 +153,32 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
           ),
           drawerEdgeDragWidth: 80,
           drawerEnableOpenDragGesture: true,
-          body: (widget.cardData.title != null && isMainMenu())
-              ? Container(
-                  height: double.infinity,
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      colors: widget.cardData?.colors == null
-                          ? [
-                              ThemeManager.getGlobalBackgroundColor(context),
-                              ThemeManager.getGlobalBackgroundColor(context),
-                            ]
-                          : widget.cardData.colors,
-                    ),
+          body: Container(
+            height: double.infinity,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: widget.cardData?.colors == null
+                    ? [
+                        ThemeManager.getGlobalBackgroundColor(context),
+                        ThemeManager.getGlobalBackgroundColor(context),
+                      ]
+                    : widget.cardData.colors,
+              ),
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                _banner(),
+                Expanded(
+                  child: Center(
+                    child: body(),
                   ),
-                  child: Wrap(
-                    runAlignment: WrapAlignment.center,
-                    runSpacing: 0,
-                    children: [
-                      body(),
-                    ],
-                  ),
-                )
-              : body(),
+                ),
+              ],
+            ),
+          ),
           floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
           floatingActionButton: showFabMenu()
               ? FabMenu(
@@ -238,21 +239,6 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
   }
 
   @nonVirtual
-  Widget banner() {
-    if (widget.cardData?.bannerTitle != null) {
-      return TitleBanner(
-        text: widget.cardData.bannerTitle,
-        iconAsset: widget.cardData?.iconAsset,
-        iconData: widget.cardData?.iconData,
-        showTimeStamp: true,
-        timeStampValue: "Última actualización: ${getTimestamp()}",
-      );
-    } else {
-      return const SizedBox.shrink();
-    }
-  }
-
-  @nonVirtual
   void hideSimpleFabMenu() {
     simpleFabKey?.currentState?.hide();
   }
@@ -284,6 +270,20 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
       );
     }
     return false;
+  }
+
+  Widget _banner() {
+    if (isDataLoaded && widget.cardData?.bannerTitle != null) {
+      return TitleBanner(
+        text: widget.cardData.bannerTitle,
+        iconAsset: widget.cardData?.iconAsset,
+        iconData: widget.cardData?.iconData,
+        showTimeStamp: true,
+        timeStampValue: "Última actualización: ${getTimestamp()}",
+      );
+    } else {
+      return const SizedBox.shrink();
+    }
   }
 
   Future _onShareButtonTap() async {

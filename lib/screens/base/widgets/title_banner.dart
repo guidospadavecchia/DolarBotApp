@@ -32,7 +32,7 @@ class TitleBanner extends StatelessWidget {
       fontWeight: FontWeight.normal,
       color: Colors.white70,
     ),
-    this.topPadding = 50,
+    this.topPadding,
     this.innerPadding = const EdgeInsets.all(20),
   })  : assert(
           (iconAsset != null || iconData != null) && (!showTimeStamp || timeStampValue != null),
@@ -42,7 +42,7 @@ class TitleBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(top: topPadding),
+      padding: EdgeInsets.only(top: topPadding ?? Scaffold.of(context).appBarMaxHeight),
       child: Column(
         children: [
           Container(

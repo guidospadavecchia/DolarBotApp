@@ -56,6 +56,7 @@ class _HistoricalRatesScreenState extends State<HistoricalRatesScreen> {
           foregroundColor: Colors.white,
         ),
         body: Container(
+          height: double.infinity,
           decoration: BoxDecoration(
             gradient: LinearGradient(
               begin: Alignment.topLeft,
@@ -66,10 +67,12 @@ class _HistoricalRatesScreenState extends State<HistoricalRatesScreen> {
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              const SizedBox(height: 50),
               _banner(),
-              const SizedBox(height: 5),
-              _body(),
+              Expanded(
+                child: Center(
+                  child: _body(),
+                ),
+              ),
             ],
           ),
         ),

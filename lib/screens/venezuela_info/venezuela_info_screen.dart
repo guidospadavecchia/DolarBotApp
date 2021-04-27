@@ -42,22 +42,17 @@ class _VenezuelaInfoScreenState extends BaseInfoScreenState<VenezuelaInfoScreen>
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       physics: BouncingScrollPhysics(),
-      child: Column(
-        children: [
-          banner(),
-          CurrencyInfoContainer(
-            items: [
-              CurrencyInfo(
-                title: 'PROMEDIO BANCOS',
-                symbol: 'Bs.',
-                value: data.bankPrice,
-              ),
-              CurrencyInfo(
-                title: "PARALELO",
-                symbol: 'Bs.',
-                value: data.blackMarketPrice,
-              ),
-            ],
+      child: CurrencyInfoContainer(
+        items: [
+          CurrencyInfo(
+            title: 'PROMEDIO BANCOS',
+            symbol: 'Bs.',
+            value: data.bankPrice,
+          ),
+          CurrencyInfo(
+            title: "PARALELO",
+            symbol: 'Bs.',
+            value: data.blackMarketPrice,
           ),
         ],
       ),

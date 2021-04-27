@@ -67,29 +67,24 @@ class _FiatCurrencyInfoScreenState<T extends GenericCurrencyResponse>
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       physics: BouncingScrollPhysics(),
-      child: Column(
-        children: [
-          banner(),
-          CurrencyInfoContainer(
-            items: [
-              CurrencyInfo(
-                title: "COMPRA",
-                symbol: '\$',
-                value: data.buyPrice,
-              ),
-              CurrencyInfo(
-                title: "VENTA",
-                symbol: '\$',
-                value: data.sellPrice,
-              ),
-              if (data.sellPriceWithTaxes != null)
-                CurrencyInfo(
-                  title: "VENTA + IMPUESTOS",
-                  symbol: '\$',
-                  value: data.sellPriceWithTaxes,
-                ),
-            ],
+      child: CurrencyInfoContainer(
+        items: [
+          CurrencyInfo(
+            title: "COMPRA",
+            symbol: '\$',
+            value: data.buyPrice,
           ),
+          CurrencyInfo(
+            title: "VENTA",
+            symbol: '\$',
+            value: data.sellPrice,
+          ),
+          if (data.sellPriceWithTaxes != null)
+            CurrencyInfo(
+              title: "VENTA + IMPUESTOS",
+              symbol: '\$',
+              value: data.sellPriceWithTaxes,
+            ),
         ],
       ),
     );

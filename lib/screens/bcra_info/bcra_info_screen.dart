@@ -60,47 +60,32 @@ class _BcraInfoScreenState extends BaseInfoScreenState<BcraInfoScreen> with Base
   Widget _buildChildScreen() {
     switch (bcraEndpoint) {
       case BcraEndpoints.riesgoPais:
-        return Column(
-          children: [
-            banner(),
-            CurrencyInfoContainer(
-              items: [
-                CurrencyInfo(
-                  title: 'VALOR',
-                  value: data.value,
-                  hideDecimals: true,
-                ),
-              ],
+        return CurrencyInfoContainer(
+          items: [
+            CurrencyInfo(
+              title: 'VALOR',
+              value: data.value,
+              hideDecimals: true,
             ),
           ],
         );
       case BcraEndpoints.reservas:
-        return Column(
-          children: [
-            banner(),
-            CurrencyInfoContainer(
-              items: [
-                CurrencyInfo(
-                  title: "DÓLARES ESTADOUNIDENSES",
-                  symbol: 'US\$',
-                  value: data.value,
-                ),
-              ],
+        return CurrencyInfoContainer(
+          items: [
+            CurrencyInfo(
+              title: "DÓLARES ESTADOUNIDENSES",
+              symbol: 'US\$',
+              value: data.value,
             ),
           ],
         );
       case BcraEndpoints.circulante:
-        return Column(
-          children: [
-            banner(),
-            CurrencyInfoContainer(
-              items: [
-                CurrencyInfo(
-                  title: "PESOS ARGENTINOS",
-                  symbol: '\$',
-                  value: data.value,
-                ),
-              ],
+        return CurrencyInfoContainer(
+          items: [
+            CurrencyInfo(
+              title: "PESOS ARGENTINOS",
+              symbol: '\$',
+              value: data.value,
             ),
           ],
         );

@@ -41,27 +41,22 @@ class _CryptoInfoScreenState extends BaseInfoScreenState<CryptoInfoScreen> with 
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       physics: BouncingScrollPhysics(),
-      child: Column(
-        children: [
-          banner(),
-          CurrencyInfoContainer(
-            items: [
-              CurrencyInfo(
-                title: "PESOS ARGENTINOS",
-                symbol: '\$',
-                value: data.arsPrice,
-              ),
-              CurrencyInfo(
-                title: "PESOS ARGENTINOS + IMPUESTOS",
-                symbol: '\$',
-                value: data.arsPriceWithTaxes,
-              ),
-              CurrencyInfo(
-                title: "DÓLARES ESTADOUNIDENSES",
-                symbol: 'US\$',
-                value: data.usdPrice,
-              ),
-            ],
+      child: CurrencyInfoContainer(
+        items: [
+          CurrencyInfo(
+            title: "PESOS ARGENTINOS",
+            symbol: '\$',
+            value: data.arsPrice,
+          ),
+          CurrencyInfo(
+            title: "PESOS ARGENTINOS + IMPUESTOS",
+            symbol: '\$',
+            value: data.arsPriceWithTaxes,
+          ),
+          CurrencyInfo(
+            title: "DÓLARES ESTADOUNIDENSES",
+            symbol: 'US\$',
+            value: data.usdPrice,
           ),
         ],
       ),
