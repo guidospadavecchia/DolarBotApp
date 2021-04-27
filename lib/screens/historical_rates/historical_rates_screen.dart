@@ -92,7 +92,8 @@ class _HistoricalRatesScreenState extends State<HistoricalRatesScreen> {
       return ImageScreen(
         image: const AssetImage("assets/images/general/collecting_data.png"),
         text: "Aún no hay datos suficientes para mostrar los gráficos de evolución",
-        textStyle: const TextStyle(
+        textStyle: TextStyle(
+          color: Colors.white.withOpacity(0.9),
           fontSize: 18,
           fontFamily: "Raleway",
         ),
