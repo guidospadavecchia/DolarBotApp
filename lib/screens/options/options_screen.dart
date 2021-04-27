@@ -45,80 +45,87 @@ class _OptionsScreenState extends State<OptionsScreen> {
 
   Widget _body() {
     return Container(
-      child: Column(
-        children: [
-          _buildDivider("Apariencia", supressPaddingTop: true),
-          MenuItem(
-            text: "Modo oscuro",
-            subtitle: "Habilita o deshabilita el modo oscuro",
-            leading: const Icon(FontAwesomeIcons.solidMoon),
-            trailing: Switch(
-              activeColor: ThemeManager.getPrimaryAccentColor(context),
-              value: AdaptiveTheme.of(context).mode == AdaptiveThemeMode.dark,
-              onChanged: (bool value) {
-                setState(() {
-                  AdaptiveTheme.of(context).toggleThemeMode();
-                  Provider.of<Settings>(context, listen: false).notifyThemeChange();
-                });
-              },
+      child: NotificationListener<OverscrollIndicatorNotification>(
+        onNotification: (OverscrollIndicatorNotification overScroll) {
+          overScroll.disallowGlow();
+          return false;
+        },
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            _buildDivider("Apariencia", supressPaddingTop: true),
+            MenuItem(
+              text: "Modo oscuro",
+              subtitle: "Habilita o deshabilita el modo oscuro",
+              leading: const Icon(FontAwesomeIcons.solidMoon),
+              trailing: Switch(
+                activeColor: ThemeManager.getPrimaryAccentColor(context),
+                value: AdaptiveTheme.of(context).mode == AdaptiveThemeMode.dark,
+                onChanged: (bool value) {
+                  setState(() {
+                    AdaptiveTheme.of(context).toggleThemeMode();
+                    Provider.of<Settings>(context, listen: false).notifyThemeChange();
+                  });
+                },
+              ),
+              onTap: () => null,
+              depthLevel: 1,
+              disableHighlight: true,
             ),
-            onTap: () => null,
-            depthLevel: 1,
-            disableHighlight: true,
-          ),
-          _buildDivider("Preferencias"),
-          MenuItem(
-            text: "Formato de moneda",
-            subtitle: "Cambia el formato de moneda entre AR y US",
-            leading: const Icon(FontAwesomeIcons.globeAmericas),
-            depthLevel: 1,
-            onTap: () => _showFormatCurrencyDialog(context),
-            disableHighlight: false,
-          ),
-          MenuItem(
-            text: "Menú de acciones",
-            subtitle: "Permite elegir entre despliegue horizontal y vertical",
-            leading: const Icon(FontAwesomeIcons.ellipsisH),
-            depthLevel: 1,
-            onTap: () => _showFabDirectionDialog(context),
-            disableHighlight: false,
-          ),
-          MenuItem(
-            text: "Gesto de eliminación de tarjeta",
-            subtitle: "Ajusta el gesto para eliminar tarjetas en el Inicio",
-            leading: const Icon(FontAwesomeIcons.exchangeAlt),
-            depthLevel: 1,
-            onTap: () => _showCardGestureDismissDialog(context),
-            disableHighlight: false,
-          ),
-          _buildDivider("Otros"),
-          MenuItem(
-              text: "Ayuda",
-              subtitle: "Muestra una breve guía sobre la aplicación",
-              leading: const Icon(FontAwesomeIcons.solidQuestionCircle),
+            _buildDivider("Preferencias"),
+            MenuItem(
+              text: "Formato de moneda",
+              subtitle: "Cambia el formato de moneda entre AR y US",
+              leading: const Icon(FontAwesomeIcons.globeAmericas),
+              depthLevel: 1,
+              onTap: () => _showFormatCurrencyDialog(context),
+              disableHighlight: false,
+            ),
+            MenuItem(
+              text: "Menú de acciones",
+              subtitle: "Permite elegir entre despliegue horizontal y vertical",
+              leading: const Icon(FontAwesomeIcons.ellipsisH),
+              depthLevel: 1,
+              onTap: () => _showFabDirectionDialog(context),
+              disableHighlight: false,
+            ),
+            MenuItem(
+              text: "Gesto de eliminación de tarjeta",
+              subtitle: "Ajusta el gesto para eliminar tarjetas en el Inicio",
+              leading: const Icon(FontAwesomeIcons.exchangeAlt),
+              depthLevel: 1,
+              onTap: () => _showCardGestureDismissDialog(context),
+              disableHighlight: false,
+            ),
+            _buildDivider("Otros"),
+            MenuItem(
+                text: "Ayuda",
+                subtitle: "Muestra una breve guía sobre la aplicación",
+                leading: const Icon(FontAwesomeIcons.solidQuestionCircle),
+                depthLevel: 1,
+                disableHighlight: false,
+                onTap: () {
+                  dismissAllToast();
+                  Util.showFirstTimeDialog(context, true);
+                }),
+            MenuItem(
+              text: "Información de la aplicación",
+              subtitle: "Versión del producto y enlaces",
+              leading: const Icon(FontAwesomeIcons.infoCircle),
               depthLevel: 1,
               disableHighlight: false,
-              onTap: () {
-                dismissAllToast();
-                Util.showFirstTimeDialog(context, true);
-              }),
-          MenuItem(
-            text: "Información de la aplicación",
-            subtitle: "Versión del producto y enlaces",
-            leading: const Icon(FontAwesomeIcons.infoCircle),
-            depthLevel: 1,
-            disableHighlight: false,
-            onTap: () => Navigator.of(context).pushNamed("/about"),
-          ),
-          MenuItem(
-            text: "Limpiar cotizaciones históricas",
-            subtitle: "Elimina los datos de las cotizaciones consultadas",
-            leading: const Icon(FontAwesomeIcons.eraser),
-            depthLevel: 1,
-            disableHighlight: false,
-            onTap: () => _showClearHistoricalDataDialog(context),
-          ),
-        ],
+              onTap: () => Navigator.of(context).pushNamed("/about"),
+            ),
+            MenuItem(
+              text: "Limpiar cotizaciones históricas",
+              subtitle: "Elimina los datos de las cotizaciones consultadas",
+              leading: const Icon(FontAwesomeIcons.eraser),
+              depthLevel: 1,
+              disableHighlight: false,
+              onTap: () => _showClearHistoricalDataDialog(context),
+            ),
+          ],
+        ),
       ),
     );
   }
