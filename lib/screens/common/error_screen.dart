@@ -1,3 +1,4 @@
+import 'package:dolarbot_app/classes/size_config.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:flutter/material.dart';
 
@@ -16,7 +17,7 @@ class ErrorScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Opacity(
@@ -24,20 +25,20 @@ class ErrorScreen extends StatelessWidget {
           child: Text(
             "Ouch! Ocurrió un error\nal obtener la cotización",
             style: TextStyle(
-              fontSize: 24,
+              fontSize: SizeConfig.blockSizeVertical * 3,
               fontFamily: "Raleway",
               color: color,
             ),
             textAlign: TextAlign.center,
           ),
         ),
-        const SizedBox(
-          height: 30,
+        SizedBox(
+          height: SizeConfig.blockSizeVertical * 4,
         ),
         Opacity(
           opacity: opacity,
           child: Container(
-            height: MediaQuery.of(context).size.height / 5,
+            height: SizeConfig.screenHeight / 5,
             decoration: BoxDecoration(
               image: new DecorationImage(
                 fit: BoxFit.scaleDown,

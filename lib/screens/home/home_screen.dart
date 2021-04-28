@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:dolarbot_app/api/responses/factory/api_response_builder.dart';
+import 'package:dolarbot_app/classes/size_config.dart';
 import 'package:dolarbot_app/widgets/historical_chart/historical_rate_manager.dart';
 import 'package:dolarbot_app/classes/hive/favorite_rate.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
@@ -108,7 +109,7 @@ class HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-          drawerEdgeDragWidth: 80,
+          drawerEdgeDragWidth: SizeConfig.screenWidth / 3,
           drawerEnableOpenDragGesture: true,
           body: Container(
             height: double.infinity,
@@ -139,7 +140,7 @@ class HomeScreenState extends State<HomeScreen> {
     if (!_cardsLoaded)
       return LoadingScreen(
         indicatorType: Indicator.ballPulseSync,
-        size: 64,
+        size: SizeConfig.blockSizeVertical * 8,
         color: ThemeManager.getLoadingIndicatorColor(context),
       );
 
@@ -315,12 +316,14 @@ class HomeScreenState extends State<HomeScreen> {
         Map json = _responses[x.endpoint];
         ApiResponse response =
             json != null ? ApiResponseBuilder.fromTypeName(x.cardResponseType, json) : null;
-        HistoricalRateManager.saveRate(
-          x.endpoint,
-          x.cardResponseType,
-          response.timestamp,
-          response,
-        );
+        if (response != null) {
+          HistoricalRateManager.saveRate(
+            x.endpoint,
+            x.cardResponseType,
+            response.timestamp,
+            response,
+          );
+        }
       });
     }
   }

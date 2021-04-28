@@ -1,7 +1,9 @@
+import 'package:dolarbot_app/classes/size_config.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:flutter/material.dart';
 
 export 'package:flutter/material.dart';
+export 'package:dolarbot_app/classes/size_config.dart';
 export 'package:dolarbot_app/classes/theme_manager.dart';
 
 abstract class StepBase extends StatelessWidget {
@@ -24,7 +26,10 @@ abstract class StepBase extends StatelessWidget {
         buildStepHeader(context, stepIndex, title, showStep),
         Expanded(
           child: Container(
-            padding: const EdgeInsets.all(20),
+            padding: EdgeInsets.symmetric(
+              vertical: SizeConfig.blockSizeVertical * 2,
+              horizontal: SizeConfig.blockSizeHorizontal * 5,
+            ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -45,7 +50,7 @@ Widget buildStepHeader(BuildContext context, int step, String title, bool showSt
   return Stack(
     children: [
       Padding(
-        padding: EdgeInsets.only(left: showStep ? 45 : 0, top: 26, bottom: 15, right: 20),
+        padding: EdgeInsets.only(left: showStep ? 45 : 0, top: 22, bottom: 20, right: 20),
         child: Container(
           alignment: Alignment.center,
           width: double.infinity,
@@ -63,7 +68,7 @@ Widget buildStepHeader(BuildContext context, int step, String title, bool showSt
             title,
             style: TextStyle(
                 fontFamily: 'Raleway',
-                fontSize: 18,
+                fontSize: showStep ? 16 : 18,
                 color: ThemeManager.getGlobalBackgroundColor(context),
                 fontWeight: FontWeight.w600),
           ),
@@ -71,7 +76,7 @@ Widget buildStepHeader(BuildContext context, int step, String title, bool showSt
       ),
       if (showStep)
         Padding(
-          padding: const EdgeInsets.only(left: 20, top: 25, right: 20),
+          padding: const EdgeInsets.only(left: 20, top: 20, right: 20),
           child: Container(
             width: 38,
             height: 38,
@@ -84,7 +89,7 @@ Widget buildStepHeader(BuildContext context, int step, String title, bool showSt
                 step.toString(),
                 style: TextStyle(
                     fontFamily: 'Montserrat',
-                    fontSize: 22,
+                    fontSize: SizeConfig.blockSizeVertical * 3.5,
                     color: ThemeManager.getGlobalBackgroundColor(context),
                     fontWeight: FontWeight.w600),
               ),
@@ -134,11 +139,11 @@ TextSpan writeNewLine(BuildContext context, {int lines = 1}) {
 }
 
 TextSpan writeText(BuildContext context, String text,
-    {bool bold = false, bool italic = false, double fontSize: 16}) {
+    {bool bold = false, bool italic = false, double fontSize}) {
   return TextSpan(
     text: text,
     style: TextStyle(
-      fontSize: fontSize,
+      fontSize: fontSize ?? SizeConfig.blockSizeVertical * 2,
       fontFamily: "Roboto",
       fontStyle: italic ? FontStyle.italic : FontStyle.normal,
       fontWeight: bold ? FontWeight.bold : FontWeight.normal,
@@ -152,7 +157,7 @@ List<InlineSpan> writeIcon(
   IconData icon,
   Color color, {
   PlaceholderAlignment alignment = PlaceholderAlignment.middle,
-  double size = 20,
+  double size,
   String text,
   bool hideBrackets = false,
 }) {
@@ -163,7 +168,7 @@ List<InlineSpan> writeIcon(
       child: Icon(
         icon,
         color: color,
-        size: size,
+        size: size ?? SizeConfig.blockSizeVertical * 2,
       ),
     ),
     if (text != null) writeText(context, " ${text}", bold: true),

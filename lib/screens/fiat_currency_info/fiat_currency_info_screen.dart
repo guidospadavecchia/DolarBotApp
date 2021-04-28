@@ -35,16 +35,18 @@ class _FiatCurrencyInfoScreenState<T extends GenericCurrencyResponse>
   @override
   Future loadData() async {
     _getResponse().then((value) {
-      HistoricalRateManager.saveRate(
-        widget.cardData.endpoint,
-        widget.cardData.responseType.toString(),
-        value.timestamp,
-        value,
-      );
+      if (value != null) {
+        HistoricalRateManager.saveRate(
+          widget.cardData.endpoint,
+          widget.cardData.responseType.toString(),
+          value.timestamp,
+          value,
+        );
+      }
       WidgetsBinding.instance.addPostFrameCallback(
         (_) => setState(() {
           data = value;
-          timestamp = data.timestamp;
+          timestamp = data?.timestamp;
           isDataLoaded = true;
           errorOnLoad = value == null;
           showRefreshButton = true;

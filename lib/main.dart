@@ -4,6 +4,7 @@ import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:dolarbot_app/classes/hive/adapters/cache_entry_adapter.dart';
 import 'package:dolarbot_app/classes/hive/adapters/favorite_rate_adapter.dart';
 import 'package:dolarbot_app/classes/hive/adapters/historical_rate_adapter.dart';
+import 'package:dolarbot_app/classes/size_config.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:dolarbot_app/models/settings.dart';
 import 'package:dolarbot_app/screens/about/about_screen.dart';
@@ -70,6 +71,7 @@ class DolarBotApp extends StatelessWidget {
             theme: lightTheme,
             darkTheme: darkTheme,
             builder: (BuildContext context, Widget child) {
+              SizeConfig().init(context);
               return MediaQuery(
                 data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
                 child: child,

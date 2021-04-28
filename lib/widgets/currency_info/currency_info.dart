@@ -1,3 +1,4 @@
+import 'package:dolarbot_app/classes/size_config.dart';
 import 'package:dolarbot_app/models/settings.dart';
 import 'package:dolarbot_app/util/extensions/string_extensions.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +37,7 @@ class CurrencyInfo extends StatelessWidget {
     return Text(
       title,
       style: TextStyle(
-          fontSize: 18,
+          fontSize: SizeConfig.blockSizeVertical * 2.2,
           fontFamily: 'Raleway',
           color: Colors.grey[200],
           fontWeight: FontWeight.normal),
@@ -48,7 +49,8 @@ class CurrencyInfo extends StatelessWidget {
     final numberFormat = settings.getNumberFormat()..maximumFractionDigits = 0;
 
     return Padding(
-      padding: const EdgeInsets.only(left: 30, right: 30),
+      padding: EdgeInsets.only(
+          left: SizeConfig.blockSizeVertical * 6, right: SizeConfig.blockSizeVertical * 6),
       child: FittedBox(
         fit: BoxFit.fitWidth,
         child: Row(
@@ -57,11 +59,11 @@ class CurrencyInfo extends StatelessWidget {
           children: [
             if (symbol != null && value.isNumeric())
               Padding(
-                padding: const EdgeInsets.only(right: 7),
+                padding: EdgeInsets.only(right: SizeConfig.blockSizeVertical * 1.5),
                 child: Text(
                   symbol,
                   style: TextStyle(
-                    fontSize: 32,
+                    fontSize: SizeConfig.blockSizeVertical * 5,
                     color: Colors.grey[200],
                     fontWeight: FontWeight.w600,
                     fontFamily: 'Montserrat',
@@ -71,7 +73,7 @@ class CurrencyInfo extends StatelessWidget {
             Text(
               value.isNumeric() ? numberFormat.format(int.parse(value.split('.')[0])) : 'N/A',
               style: TextStyle(
-                fontSize: 92,
+                fontSize: SizeConfig.blockSizeVertical * 10,
                 color: Colors.grey[200],
                 fontWeight: FontWeight.w600,
                 fontFamily: 'Montserrat',
@@ -79,11 +81,13 @@ class CurrencyInfo extends StatelessWidget {
             ),
             if (value.split('.').length == 2 && !hideDecimals)
               Padding(
-                padding: const EdgeInsets.only(left: 5, bottom: 38),
+                padding: EdgeInsets.only(
+                    left: SizeConfig.blockSizeVertical * 0.5,
+                    bottom: SizeConfig.blockSizeVertical * 5),
                 child: Text(
                   '${numberFormat.symbols.DECIMAL_SEP}${value.split('.')[1].substring(0, 2)}',
                   style: TextStyle(
-                    fontSize: 32,
+                    fontSize: SizeConfig.blockSizeVertical * 3,
                     color: Colors.grey[200].withAlpha(150),
                     fontFamily: 'Montserrat',
                   ),

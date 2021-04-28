@@ -27,7 +27,7 @@ class StepFinish extends StepBase {
         text: TextSpan(
           style: const TextStyle(height: 1.3),
           children: [
-            writeText(context, "¡Listo 👌!", fontSize: 40),
+            writeText(context, "¡Listo 👌!", fontSize: SizeConfig.blockSizeVertical * 5),
             writeNewLine(context, lines: 4),
             if (!isComingFromOptions) ..._buildFinishText() else ..._buildOptionsFinishText(),
           ],
@@ -52,13 +52,13 @@ class StepFinish extends StepBase {
       writeText(
         context,
         "Ya podés comenzar a utilizar ",
-        fontSize: 20,
+        fontSize: SizeConfig.blockSizeVertical * 2.5,
       ),
       writeText(
         context,
         "DolarBot",
         bold: true,
-        fontSize: 24,
+        fontSize: SizeConfig.blockSizeVertical * 3,
       ),
       writeNewLine(context, lines: 3),
       writeText(context, "Recordá que esta guía siempre está accesible desde el menú:"),
@@ -67,7 +67,7 @@ class StepFinish extends StepBase {
         context,
         FontAwesomeIcons.cog,
         ThemeManager.getDrawerMenuItemIconColor(context),
-        alignment: PlaceholderAlignment.bottom,
+        alignment: PlaceholderAlignment.middle,
         text: "Opciones",
         hideBrackets: true,
       ),
@@ -76,7 +76,7 @@ class StepFinish extends StepBase {
         context,
         FontAwesomeIcons.solidQuestionCircle,
         ThemeManager.getDrawerMenuItemIconColor(context),
-        alignment: PlaceholderAlignment.bottom,
+        alignment: PlaceholderAlignment.middle,
         text: "Ayuda",
         hideBrackets: true,
       ),
@@ -88,14 +88,14 @@ class StepFinish extends StepBase {
       writeText(
         context,
         "Podés volver a ver esta",
-        fontSize: 20,
+        fontSize: SizeConfig.blockSizeVertical * 3,
         italic: true,
       ),
       writeNewLine(context),
       writeText(
         context,
         "guía cuando quieras :)",
-        fontSize: 20,
+        fontSize: SizeConfig.blockSizeVertical * 3,
         italic: true,
       ),
     ];

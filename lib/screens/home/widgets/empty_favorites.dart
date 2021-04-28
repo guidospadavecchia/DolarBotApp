@@ -1,3 +1,4 @@
+import 'package:dolarbot_app/classes/size_config.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -19,10 +20,10 @@ class EmptyFavorites extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 100),
-      padding: const EdgeInsets.symmetric(horizontal: 30),
+      margin: EdgeInsets.only(bottom: Scaffold.of(context).appBarMaxHeight / 2),
+      padding: EdgeInsets.symmetric(horizontal: SizeConfig.blockSizeHorizontal * 8),
       alignment: Alignment.center,
-      height: MediaQuery.of(context).size.height / 2,
+      height: SizeConfig.screenHeight / 2,
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -33,10 +34,9 @@ class EmptyFavorites extends StatelessWidget {
               child: Text(
                 topText ?? "Tu inicio está vacío",
                 style: TextStyle(
-                    fontSize: 24,
+                    fontSize: SizeConfig.blockSizeVertical * 3,
                     fontFamily: "Raleway",
-                    color: ThemeManager.getPrimaryTextColor(context)
-                        .withOpacity(0.8),
+                    color: ThemeManager.getPrimaryTextColor(context).withOpacity(0.8),
                     fontWeight: FontWeight.w600),
                 textAlign: TextAlign.center,
               ),
@@ -44,7 +44,7 @@ class EmptyFavorites extends StatelessWidget {
             Opacity(
               opacity: imageOpacity,
               child: SizedBox(
-                width: MediaQuery.of(context).size.width * 0.7,
+                width: SizeConfig.screenWidth * 0.7,
                 child: Image.asset("assets/images/general/home_bg.png"),
               ),
             ),
@@ -54,11 +54,10 @@ class EmptyFavorites extends StatelessWidget {
                 bottomText ??
                     "Podés dirigirte a cualquier cotización y agregarla como favorita desde allí.",
                 style: TextStyle(
-                    height: 1.3,
-                    fontSize: 20,
+                    height: SizeConfig.blockSizeVertical * 0.18,
+                    fontSize: SizeConfig.blockSizeVertical * 2,
                     fontFamily: "Raleway",
-                    color: ThemeManager.getPrimaryTextColor(context)
-                        .withOpacity(0.9)),
+                    color: ThemeManager.getPrimaryTextColor(context).withOpacity(0.9)),
                 textAlign: TextAlign.center,
               ),
             ),

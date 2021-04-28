@@ -274,12 +274,13 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
 
   Widget _banner() {
     if (isDataLoaded && widget.cardData?.bannerTitle != null) {
+      String timestampValue = getTimestamp();
       return TitleBanner(
         text: widget.cardData.bannerTitle,
         iconAsset: widget.cardData?.iconAsset,
         iconData: widget.cardData?.iconData,
-        showTimeStamp: true,
-        timeStampValue: "Última actualización: ${getTimestamp()}",
+        showTimeStamp: (timestampValue ?? '') != '',
+        timeStampValue: "Última actualización: $timestampValue",
       );
     } else {
       return const SizedBox.shrink();

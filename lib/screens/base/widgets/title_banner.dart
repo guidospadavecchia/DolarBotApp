@@ -1,3 +1,4 @@
+import 'package:dolarbot_app/classes/size_config.dart';
 import 'package:flutter/material.dart';
 
 class TitleBanner extends StatelessWidget {
@@ -15,25 +16,15 @@ class TitleBanner extends StatelessWidget {
   TitleBanner({
     Key key,
     this.text,
-    this.textStyle = const TextStyle(
-      fontSize: 28,
-      fontFamily: 'Raleway',
-      fontWeight: FontWeight.bold,
-      color: Colors.white,
-    ),
+    this.textStyle,
     this.iconAsset,
     this.iconData,
-    this.iconSize = 36,
+    this.iconSize,
     this.showTimeStamp = false,
     this.timeStampValue,
-    this.timeStampTextStyle = const TextStyle(
-      fontSize: 12,
-      fontFamily: 'Montserrat',
-      fontWeight: FontWeight.normal,
-      color: Colors.white70,
-    ),
+    this.timeStampTextStyle,
     this.topPadding,
-    this.innerPadding = const EdgeInsets.all(20),
+    this.innerPadding,
   })  : assert(
           (iconAsset != null || iconData != null) && (!showTimeStamp || timeStampValue != null),
         ),
@@ -47,7 +38,7 @@ class TitleBanner extends StatelessWidget {
         children: [
           Container(
             color: Colors.black12,
-            padding: innerPadding,
+            padding: innerPadding ?? EdgeInsets.all(SizeConfig.blockSizeVertical * 2),
             child: Row(
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -57,8 +48,8 @@ class TitleBanner extends StatelessWidget {
                     ? Container(
                         child: Image.asset(
                           iconAsset,
-                          width: iconSize,
-                          height: iconSize,
+                          width: iconSize ?? SizeConfig.blockSizeVertical * 5,
+                          height: iconSize ?? SizeConfig.blockSizeVertical * 5,
                           filterQuality: FilterQuality.high,
                           color: Colors.white,
                         ),
@@ -66,18 +57,24 @@ class TitleBanner extends StatelessWidget {
                     : Container(
                         child: Icon(
                           iconData,
-                          size: iconSize,
+                          size: iconSize ?? SizeConfig.blockSizeVertical * 5,
                           color: Colors.white,
                         ),
                       ),
-                const SizedBox(width: 20),
+                SizedBox(width: SizeConfig.blockSizeHorizontal * 4),
                 Container(
-                  constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.7),
+                  constraints: BoxConstraints(maxWidth: SizeConfig.screenHeight * 0.7),
                   child: FittedBox(
                     fit: text.length > 10 ? BoxFit.fitWidth : BoxFit.none,
                     child: Text(
                       text,
-                      style: textStyle,
+                      style: textStyle ??
+                          TextStyle(
+                            fontSize: SizeConfig.blockSizeVertical * 3.5,
+                            fontFamily: 'Raleway',
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
                     ),
                   ),
                 ),
@@ -89,22 +86,28 @@ class TitleBanner extends StatelessWidget {
               opacity: 1,
               child: Container(
                 alignment: Alignment.center,
-                height: 22,
+                height: SizeConfig.blockSizeVertical * 3.5,
                 width: double.infinity,
                 color: Colors.black26,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Icon(
+                    Icon(
                       Icons.alarm,
-                      size: 16,
+                      size: SizeConfig.blockSizeVertical * 2,
                       color: Colors.white70,
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(left: 5, top: 0),
+                      padding: EdgeInsets.only(left: SizeConfig.blockSizeHorizontal),
                       child: Text(
                         timeStampValue,
-                        style: timeStampTextStyle,
+                        style: timeStampTextStyle ??
+                            TextStyle(
+                              fontSize: SizeConfig.blockSizeVertical * 1.5,
+                              fontFamily: 'Montserrat',
+                              fontWeight: FontWeight.normal,
+                              color: Colors.white70,
+                            ),
                       ),
                     ),
                   ],

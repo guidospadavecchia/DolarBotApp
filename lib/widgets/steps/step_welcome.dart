@@ -1,3 +1,4 @@
+import 'package:dolarbot_app/classes/size_config.dart';
 import 'package:dolarbot_app/widgets/steps/base/step_base.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -23,18 +24,18 @@ class StepWelcome extends StepBase {
         text: TextSpan(
           style: const TextStyle(height: 1.3),
           children: [
-            writeText(context, "¡Hola 👋!", fontSize: 40, bold: true),
+            writeText(context, "¡Hola 👋!", fontSize: SizeConfig.blockSizeVertical * 5, bold: true),
             writeNewLine(context, lines: 4),
             writeText(
               context,
               "En esta breve guía vas a conocer todas las funcionalidades de ",
-              fontSize: 20,
+              fontSize: SizeConfig.blockSizeVertical * 2.5,
             ),
             writeText(
               context,
               "DolarBot",
               bold: true,
-              fontSize: 24,
+              fontSize: SizeConfig.blockSizeVertical * 3,
             ),
           ],
         ),
@@ -46,7 +47,7 @@ class StepWelcome extends StepBase {
             writeText(
               context,
               "Deslizá para pasar de página",
-              fontSize: 20,
+              fontSize: SizeConfig.blockSizeVertical * 2.5,
               italic: true,
             ),
             writeNewLine(context, lines: 2),
@@ -54,7 +55,7 @@ class StepWelcome extends StepBase {
               context,
               FontAwesomeIcons.chevronLeft,
               ThemeManager.getPrimaryAccentColor(context),
-              size: 40,
+              size: SizeConfig.blockSizeVertical * 5,
               hideBrackets: true,
             )
           ],

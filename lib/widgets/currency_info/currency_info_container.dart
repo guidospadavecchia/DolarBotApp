@@ -1,3 +1,4 @@
+import 'package:dolarbot_app/classes/size_config.dart';
 import 'package:dolarbot_app/widgets/currency_info/currency_info.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +16,8 @@ class CurrencyInfoContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
-      height: MediaQuery.of(context).size.height * 0.7,
+      padding: EdgeInsets.only(bottom: SizeConfig.blockSizeVertical * 5),
+      height: SizeConfig.screenHeight * 0.7,
       child: Wrap(
         children: [
           for (var i = 0; i < items.length; i++)
@@ -25,10 +27,7 @@ class CurrencyInfoContainer extends StatelessWidget {
                   items[i],
                   if (i != items.length - 1)
                     Divider(
-                        endIndent: 100,
-                        indent: 100,
-                        color: Colors.white38,
-                        height: _getHeight(items.length))
+                        endIndent: 100, indent: 100, color: Colors.white38, height: _getHeight())
                 ],
               ),
             ),
@@ -37,10 +36,10 @@ class CurrencyInfoContainer extends StatelessWidget {
     );
   }
 
-  double _getHeight(int itemsLength) {
-    if (itemsLength == 2) return 100;
-    if (items.length >= 5) return 30;
+  double _getHeight() {
+    if (items.length == 2) return SizeConfig.blockSizeVertical * 15;
+    if (items.length == 3) return SizeConfig.blockSizeVertical * 8;
 
-    return (100 - (items.length * 20)).toDouble();
+    return SizeConfig.blockSizeVertical * 5;
   }
 }

@@ -1,5 +1,6 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:dolarbot_app/classes/size_config.dart';
 import 'package:dolarbot_app/widgets/common/blur_dialog.dart';
 import 'package:dolarbot_app/widgets/steps/exports/step_exports.dart';
 import 'package:flutter/material.dart';
@@ -20,10 +21,11 @@ class FirstTimeDialog extends StatelessWidget {
         dialog: Dialog(
           insetPadding: const EdgeInsets.all(20),
           child: Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height * 0.75,
+            width: SizeConfig.screenWidth,
+            height: SizeConfig.screenHeight * 0.8,
             decoration: BoxDecoration(
               border: Border.all(color: Colors.white10, width: 2),
+              borderRadius: BorderRadius.circular(SizeConfig.blockSizeVertical),
               gradient: AdaptiveTheme.of(context).brightness == Brightness.dark
                   ? LinearGradient(
                       begin: Alignment.topCenter,
@@ -38,7 +40,7 @@ class FirstTimeDialog extends StatelessWidget {
             child: CarouselSlider(
               options: CarouselOptions(
                   initialPage: 0,
-                  height: MediaQuery.of(context).size.height * 0.8,
+                  height: SizeConfig.screenHeight * 0.8,
                   enableInfiniteScroll: false,
                   viewportFraction: 1),
               items: [

@@ -91,10 +91,6 @@ class Util {
     Duration reverseDuration,
     Duration pushDelay,
   }) {
-    if (Navigator.canPop(context)) {
-      Navigator.pop(context, true);
-    }
-
     PageTransition transition = PageTransition(
       child: screen,
       type: transitionType,

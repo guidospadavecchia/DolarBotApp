@@ -22,13 +22,11 @@ class StepTwo extends StepBase {
         text: TextSpan(
           children: [
             writeText(context, "El"),
-            ...writeIcon(context, FontAwesomeIcons.home,
-                ThemeManager.getPrimaryTextColor(context),
+            ...writeIcon(context, FontAwesomeIcons.home, ThemeManager.getPrimaryTextColor(context),
                 alignment: PlaceholderAlignment.bottom, text: " Inicio"),
             writeText(context, "es tu pantalla principal."),
             writeNewLine(context, lines: 2),
-            writeText(context,
-                "Acá van a aparecer tus cotizaciones favoritas en forma de "),
+            writeText(context, "Acá van a aparecer tus cotizaciones favoritas en forma de "),
             writeText(context, "tarjetas", bold: true),
             writeText(context, ". "),
             writeText(context, "Super cool ", italic: true),
@@ -36,16 +34,14 @@ class StepTwo extends StepBase {
             writeNewLine(context, lines: 2),
             writeText(context, "¡Y no hay límite!"),
             writeNewLine(context),
-            writeText(context, "Podés agregar todas las que quieras.",
-                bold: true)
+            writeText(context, "Podés agregar todas las que quieras.", bold: true)
           ],
         ),
       ),
       SizedBox(
-        width: 256,
+        width: SizeConfig.screenWidth / 1.8,
         child: Image.asset(
           "assets/images/general/home_bg.png",
-          width: 256,
           filterQuality: FilterQuality.high,
         ),
       ),
@@ -57,8 +53,8 @@ class StepTwo extends StepBase {
             writeNewLine(context),
             writeText(context, "Tocá en la"),
             ...writeIcon(context, FontAwesomeIcons.times, Colors.red),
-            writeText(context,
-                "que está ubicada en la tarjeta y la misma desaparecerá de inmediato."),
+            writeText(
+                context, "que está ubicada en la tarjeta y la misma desaparecerá de inmediato."),
           ],
         ),
       ),

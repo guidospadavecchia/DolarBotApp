@@ -21,8 +21,8 @@ class StepOne extends StepBase {
         textAlign: TextAlign.center,
         text: TextSpan(
           children: [
-            writeText(context,
-                "Podés agregar tus cotizaciones a favoritos para que aparezcan en el"),
+            writeText(
+                context, "Podés agregar tus cotizaciones a favoritos para que aparezcan en el"),
             ...writeIcon(
               context,
               FontAwesomeIcons.home,
@@ -35,12 +35,9 @@ class StepOne extends StepBase {
         ),
       ),
       SizedBox(
-        width: 256,
-        height: 256,
+        width: SizeConfig.screenWidth / 2.2,
         child: Image.asset(
           "assets/images/general/menu_fav.png",
-          width: 256,
-          height: 256,
           filterQuality: FilterQuality.high,
         ),
       ),
@@ -48,8 +45,8 @@ class StepOne extends StepBase {
         textAlign: TextAlign.center,
         text: TextSpan(
           children: [
-            writeText(context,
-                "Para hacerlo, entrá a la cotización que quieras agregar, y tocá en el"),
+            writeText(
+                context, "Para hacerlo, entrá a la cotización que quieras agregar, y tocá en el"),
             ...writeIcon(
               context,
               Icons.favorite_border_rounded,

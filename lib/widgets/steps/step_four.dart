@@ -23,18 +23,16 @@ class StepFour extends StepBase {
           children: [
             writeText(context, "Pensamos en todo.", bold: true, italic: true),
             writeNewLine(context, lines: 2),
-            writeText(context,
-                "Por eso, si querés realizar conversiones, podés hacerlo con la "),
+            writeText(context, "Por eso, si querés realizar conversiones, podés hacerlo con la "),
             writeText(context, "calculadora", bold: true),
             writeText(context, " integrada en cada cotización.")
           ],
         ),
       ),
       SizedBox(
-        height: 256,
+        width: SizeConfig.screenWidth / 2.3,
         child: Image.asset(
           "assets/images/general/menu_calc.png",
-          height: 256,
           filterQuality: FilterQuality.high,
         ),
       ),
@@ -43,12 +41,11 @@ class StepFour extends StepBase {
         text: TextSpan(
           children: [
             writeText(context, "Presioná"),
-            ...writeIcon(context, FontAwesomeIcons.calculator,
-                ThemeManager.getPrimaryTextColor(context),
+            ...writeIcon(
+                context, FontAwesomeIcons.calculator, ThemeManager.getPrimaryTextColor(context),
                 alignment: PlaceholderAlignment.bottom),
             writeText(context, "en el menú"),
-            ...writeIcon(context, Icons.more_horiz,
-                ThemeManager.getPrimaryTextColor(context)),
+            ...writeIcon(context, Icons.more_horiz, ThemeManager.getPrimaryTextColor(context)),
             writeText(context,
                 "dentro de la cotización para abrir la calculadora y realizar tus conversiones. Simple, ¿No?"),
           ],

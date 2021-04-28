@@ -1,3 +1,4 @@
+import 'package:dolarbot_app/classes/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:simple_animations/simple_animations.dart';
 
@@ -40,10 +41,10 @@ class SimpleFabMenu extends StatefulWidget {
     @required this.icon,
     this.iconClose = Icons.close,
     @required this.iconColor,
-    this.iconSize = 64,
+    this.iconSize,
     @required this.direction,
     @required this.items,
-    this.childrenItemSize = 44,
+    this.childrenItemSize,
     @required this.backGroundColor,
     this.padding = EdgeInsets.zero,
     this.animationForce = 100,
@@ -51,9 +52,7 @@ class SimpleFabMenu extends StatefulWidget {
     this.onClosed,
     this.visible = true,
     this.showInitialAnimation = true,
-  })  : assert(iconSize >= 60 && iconSize <= 90),
-        assert(childrenItemSize >= 32 && childrenItemSize <= 60),
-        super(key: key);
+  }) : super(key: key);
 
   @override
   SimpleFabMenuState createState() => SimpleFabMenuState();
@@ -134,14 +133,17 @@ class SimpleFabMenuState extends State<SimpleFabMenu> with SingleTickerProviderS
 
   @override
   Widget build(BuildContext context) {
+    double iconSize = widget.iconSize ?? SizeConfig.blockSizeVertical * 7.5;
+    double childrenItemSize = widget.childrenItemSize ?? SizeConfig.blockSizeVertical * 5;
+
     if (_visible) {
       EdgeInsets paddingContent = widget.direction == Axis.vertical
           ? EdgeInsets.symmetric(
-              vertical: 15, horizontal: (widget.iconSize / 2) - (widget.childrenItemSize / 2))
-          : EdgeInsets.symmetric(horizontal: (widget.iconSize / 2) - (widget.childrenItemSize / 2));
+              vertical: SizeConfig.blockSizeVertical * 1.5,
+              horizontal: (iconSize / 2) - (childrenItemSize / 2))
+          : EdgeInsets.symmetric(horizontal: SizeConfig.blockSizeHorizontal * 2);
       return PlayAnimation<double>(
-        tween: Tween(
-            begin: widget.showInitialAnimation ? MediaQuery.of(context).size.height : 0, end: 0),
+        tween: Tween(begin: widget.showInitialAnimation ? SizeConfig.screenHeight : 0, end: 0),
         duration: const Duration(milliseconds: 500),
         curve: Curves.fastOutSlowIn,
         builder: (context, child, value) {
@@ -153,7 +155,7 @@ class SimpleFabMenuState extends State<SimpleFabMenu> with SingleTickerProviderS
         child: Padding(
           padding: widget.padding,
           child: Container(
-            height: widget.direction == Axis.horizontal ? widget.iconSize : double.infinity,
+            height: widget.direction == Axis.horizontal ? iconSize : double.infinity,
             alignment: Alignment.bottomRight,
             child: Wrap(
               crossAxisAlignment: WrapCrossAlignment.end,
@@ -163,7 +165,7 @@ class SimpleFabMenuState extends State<SimpleFabMenu> with SingleTickerProviderS
               children: [
                 _SimpleFabMenuListAnimated(
                   items: widget.items,
-                  size: widget.childrenItemSize,
+                  size: childrenItemSize,
                   screenInset: _getScreenInset(),
                   direction: widget.direction,
                   padding: paddingContent,
@@ -171,14 +173,13 @@ class SimpleFabMenuState extends State<SimpleFabMenu> with SingleTickerProviderS
                 ),
                 _FabCircularOption(
                   direction: widget.direction,
-                  size: widget.iconSize,
+                  size: iconSize,
                   item: SimpleFabOption(
                     backgroundColor: widget.backGroundColor,
                     icon: _iconFab,
                     iconColor: widget.iconColor,
                     onPressed: () {
                       if (_isAnimating) return;
-
                       if (_isOpen) {
                         closeMenu();
                       } else {
@@ -256,7 +257,9 @@ class _SimpleFabMenuListAnimated extends AnimatedWidget {
         scrollDirection: direction,
         shrinkWrap: true,
         physics: NeverScrollableScrollPhysics(),
-        separatorBuilder: (_, __) => const SizedBox(height: 8, width: 8),
+        separatorBuilder: (BuildContext context, int i) => SizedBox(
+            height: SizeConfig.blockSizeVertical * 1.5,
+            width: SizeConfig.blockSizeHorizontal * 1.5),
         padding: padding,
         itemCount: items.length,
         itemBuilder: buildItem,
@@ -290,8 +293,9 @@ class _FabCircularOption extends StatelessWidget {
         child: item.tooltip != null
             ? Tooltip(
                 preferBelow: false,
-                margin:
-                    direction == Axis.vertical ? const EdgeInsets.only(right: 80) : EdgeInsets.zero,
+                margin: direction == Axis.vertical
+                    ? EdgeInsets.only(right: SizeConfig.blockSizeHorizontal * 15)
+                    : EdgeInsets.zero,
                 verticalOffset: direction == Axis.vertical ? -15 : size - 10,
                 message: item.tooltip,
                 child: Icon(

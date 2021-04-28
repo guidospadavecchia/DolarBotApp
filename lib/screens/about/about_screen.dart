@@ -1,4 +1,5 @@
 import 'package:dolarbot_app/classes/globals.dart';
+import 'package:dolarbot_app/classes/size_config.dart';
 import 'package:dolarbot_app/util/util.dart';
 import 'package:dolarbot_app/widgets/common/blur_dialog.dart';
 import 'package:dolarbot_app/widgets/common/cool_app_bar.dart';
@@ -42,7 +43,7 @@ class _AboutScreenState extends State<AboutScreen> {
               image: AssetImage("assets/images/general/about.png"), fit: BoxFit.cover),
         ),
         child: Padding(
-          padding: const EdgeInsets.only(top: 70),
+          padding: EdgeInsets.only(top: SizeConfig.blockSizeVertical * 12),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -50,6 +51,7 @@ class _AboutScreenState extends State<AboutScreen> {
               _buildAppInfo(),
               _buildDevelopedBy(),
               _buildSocialMedia(),
+              SizedBox(height: SizeConfig.blockSizeVertical * 6),
             ],
           ),
         ),
@@ -63,35 +65,35 @@ class _AboutScreenState extends State<AboutScreen> {
       children: [
         Text(
           Globals.packageInfo.appName,
-          style: const TextStyle(
-            fontSize: 36,
+          style: TextStyle(
+            fontSize: SizeConfig.blockSizeVertical * 4.5,
             fontWeight: FontWeight.bold,
             fontFamily: 'Raleway',
             color: Colors.white,
           ),
         ),
-        const SizedBox(
-          height: 5,
+        SizedBox(
+          height: SizeConfig.blockSizeVertical,
         ),
         Text(
           "Versión ${Globals.packageInfo.version}",
           style: _getTextStyle(),
         ),
-        const SizedBox(
-          height: 30,
+        SizedBox(
+          height: SizeConfig.blockSizeVertical * 4,
         ),
         InkWell(
           child: Image.asset(
             'assets/images/logos/border/logo.png',
             scale: 3.0,
-            height: 164,
-            width: 164,
+            height: SizeConfig.screenHeight / 5,
+            width: SizeConfig.screenHeight / 5,
             filterQuality: FilterQuality.high,
           ),
           onTap: () => _onTapLogo(),
         ),
-        const SizedBox(
-          height: 20,
+        SizedBox(
+          height: SizeConfig.blockSizeVertical * 3,
         ),
       ],
     );
@@ -110,6 +112,7 @@ class _AboutScreenState extends State<AboutScreen> {
                 child: Container(
                   child: Image.asset(
                     "assets/images/general/authors.jpg",
+                    fit: BoxFit.scaleDown,
                     filterQuality: FilterQuality.high,
                   ),
                 ),
@@ -129,20 +132,19 @@ class _AboutScreenState extends State<AboutScreen> {
           style: _getTextStyle(),
           textAlign: TextAlign.center,
         ),
-        const SizedBox(height: 10),
+        SizedBox(height: SizeConfig.blockSizeVertical * 1.5),
         Text(
           "Hecho en 🇦🇷 Argentina",
           style: _getTextStyle(),
           textAlign: TextAlign.center,
         ),
-        const SizedBox(height: 30),
+        SizedBox(height: SizeConfig.blockSizeVertical * 4),
         Text(
           "Desarrollado por",
           style: _getTextStyle(),
         ),
-        const SizedBox(height: 15),
+        SizedBox(height: SizeConfig.blockSizeVertical * 1.5),
         _buildAuthors(),
-        const SizedBox(height: 20),
       ],
     );
   }
@@ -164,7 +166,7 @@ class _AboutScreenState extends State<AboutScreen> {
         ),
       ));
       authorWidgets.add(
-        const SizedBox(height: 5),
+        SizedBox(height: SizeConfig.blockSizeVertical * 1.2),
       );
     }
 
@@ -175,20 +177,25 @@ class _AboutScreenState extends State<AboutScreen> {
 
   Widget _buildSocialMedia() {
     return Padding(
-      padding: const EdgeInsets.only(top: 30),
+      padding: EdgeInsets.only(top: SizeConfig.blockSizeVertical * 3),
       child: Column(
         children: [
           Text(
             "Unite a nuestro Discord, o visitanos en GitHub",
             style: _getTextStyle(),
           ),
-          const SizedBox(height: 15),
+          SizedBox(height: SizeConfig.blockSizeVertical * 2.5),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Discord(imageSize: 32, fontSize: 18),
-              const SizedBox(width: 30),
-              GitHub(imageSize: 32, fontSize: 18, color: Colors.white70),
+              Discord(
+                  imageSize: SizeConfig.blockSizeVertical * 4,
+                  fontSize: SizeConfig.blockSizeVertical * 2.3),
+              SizedBox(width: SizeConfig.blockSizeHorizontal * 10),
+              GitHub(
+                  imageSize: SizeConfig.blockSizeVertical * 4,
+                  fontSize: SizeConfig.blockSizeVertical * 2.3,
+                  color: Colors.white70),
             ],
           ),
         ],
@@ -198,7 +205,7 @@ class _AboutScreenState extends State<AboutScreen> {
 
   Widget _getSloganFlutter(BuildContext context) {
     return Container(
-      height: 40,
+      height: SizeConfig.blockSizeVertical * 5,
       decoration: BoxDecoration(
         color: Colors.blueGrey[900],
         border: Border.all(color: Colors.blueGrey[800], width: 0),
@@ -207,10 +214,10 @@ class _AboutScreenState extends State<AboutScreen> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Text(
+          Text(
             "HECHO CON 💙 EN ",
             style: TextStyle(
-              fontSize: 14,
+              fontSize: SizeConfig.blockSizeVertical * 1.8,
               fontFamily: 'Montserrat',
               color: Colors.white,
               fontWeight: FontWeight.bold,
@@ -224,7 +231,9 @@ class _AboutScreenState extends State<AboutScreen> {
             ),
           ),
           Image.asset('assets/images/general/flutter.png',
-              width: 16, height: 16, filterQuality: FilterQuality.high),
+              width: SizeConfig.blockSizeVertical * 2,
+              height: SizeConfig.blockSizeVertical * 2,
+              filterQuality: FilterQuality.high),
         ],
       ),
     );
@@ -233,14 +242,14 @@ class _AboutScreenState extends State<AboutScreen> {
   TextStyle _getTextStyle({bool isLink = false}) {
     if (isLink) {
       return TextStyle(
-        fontSize: 15,
+        fontSize: SizeConfig.blockSizeVertical * 2,
         fontWeight: FontWeight.w600,
         fontFamily: 'Raleway',
         color: Colors.teal[200],
       );
     } else {
-      return const TextStyle(
-        fontSize: 14,
+      return TextStyle(
+        fontSize: SizeConfig.blockSizeVertical * 1.7,
         fontWeight: FontWeight.normal,
         fontFamily: 'Raleway',
         color: Colors.white,

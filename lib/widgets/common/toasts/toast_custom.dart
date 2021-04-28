@@ -1,3 +1,4 @@
+import 'package:dolarbot_app/classes/size_config.dart';
 import 'package:flutter/material.dart';
 
 class ToastCustom extends StatelessWidget {
@@ -17,13 +18,13 @@ class ToastCustom extends StatelessWidget {
     this.size = 50,
     this.backgroundColor = Colors.black87,
     this.alignment = Alignment.bottomCenter,
-    this.padding = const EdgeInsets.only(bottom: 30),
+    this.padding,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: padding,
+      padding: padding ?? EdgeInsets.only(bottom: SizeConfig.screenHeight / 25),
       child: Align(
         alignment: alignment,
         child: Container(
