@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:dolarbot_app/classes/size_config.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:dolarbot_app/models/settings.dart';
 import 'package:dolarbot_app/widgets/common/blur_dialog.dart';
@@ -30,56 +31,62 @@ class _FormatCurrencyDialogState extends State<FormatCurrencyDialog> {
       dialog: Dialog(
         insetPadding: const EdgeInsets.all(25),
         child: Container(
-          width: MediaQuery.of(context).size.width * 0.8,
+          width: SizeConfig.screenWidth * 0.8,
           height: 310,
           child: Column(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const Padding(
                 padding: const EdgeInsets.only(left: 25, right: 25),
                 child: const Text(
-                    "Elegí el formato de moneda que aparecerá en todas las cotizaciones."),
+                    "Elegí el formato de moneda que aparecerá en todas las cotizaciones:"),
               ),
               const SizedBox(
                 height: 10,
               ),
-              RadioListTile<String>(
-                title: const Text(
-                  'Argentina',
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
+              Container(
+                width: 230,
+                child: RadioListTile<String>(
+                  title: const Text(
+                    'Argentina',
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
+                  subtitle: const Text('Ejemplo: \$1.234,56'),
+                  value: CurrencyFormats.AR.value,
+                  groupValue: _actualCurrencyFormat,
+                  activeColor: ThemeManager.getPrimaryAccentColor(context),
+                  onChanged: (value) {
+                    setState(() {
+                      _actualCurrencyFormat = value;
+                    });
+                  },
                 ),
-                subtitle: const Text('Ejemplo: \$1.234,56'),
-                value: CurrencyFormats.AR.value,
-                groupValue: _actualCurrencyFormat,
-                activeColor: ThemeManager.getPrimaryAccentColor(context),
-                onChanged: (value) {
-                  setState(() {
-                    _actualCurrencyFormat = value;
-                  });
-                },
               ),
-              RadioListTile<String>(
-                title: const Text(
-                  'Estados Unidos',
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
+              Container(
+                width: 230,
+                child: RadioListTile<String>(
+                  title: const Text(
+                    'Estados Unidos',
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
+                  subtitle: const Text('Ejemplo: \$1,234.56'),
+                  value: CurrencyFormats.US.value,
+                  groupValue: _actualCurrencyFormat,
+                  activeColor: ThemeManager.getPrimaryAccentColor(context),
+                  onChanged: (value) {
+                    setState(() {
+                      _actualCurrencyFormat = value;
+                    });
+                  },
                 ),
-                subtitle: const Text('Ejemplo: \$1,234.56'),
-                value: CurrencyFormats.US.value,
-                groupValue: _actualCurrencyFormat,
-                activeColor: ThemeManager.getPrimaryAccentColor(context),
-                onChanged: (value) {
-                  setState(() {
-                    _actualCurrencyFormat = value;
-                  });
-                },
               ),
               const SizedBox(
                 height: 20,

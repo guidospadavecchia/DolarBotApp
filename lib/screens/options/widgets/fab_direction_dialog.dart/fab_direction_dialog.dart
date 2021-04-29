@@ -35,51 +35,57 @@ class _FabDirectionDialogState extends State<FabDirectionDialog> {
           child: Column(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const Padding(
-                padding: const EdgeInsets.only(left: 25, right: 15),
+                padding: const EdgeInsets.only(left: 25, right: 25),
                 child: const Text(
-                    "Elegí la dirección en la que se desplegará el menú de acciones en las pantallas de cotización."),
+                    "Elegí la dirección en la que se desplegará el menú de acciones en las pantallas de cotización:"),
               ),
               const SizedBox(
                 height: 10,
               ),
-              RadioListTile<Axis>(
-                title: const Text(
-                  'Vertical',
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
+              Container(
+                width: 280,
+                child: RadioListTile<Axis>(
+                  title: const Text(
+                    'Vertical',
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
+                  subtitle: const Text('Despliegue hacia arriba.'),
+                  value: Axis.vertical,
+                  groupValue: _actualFabDirection,
+                  activeColor: ThemeManager.getPrimaryAccentColor(context),
+                  onChanged: (value) {
+                    setState(() {
+                      _actualFabDirection = value;
+                    });
+                  },
                 ),
-                subtitle: const Text('Despliegue hacia arriba.'),
-                value: Axis.vertical,
-                groupValue: _actualFabDirection,
-                activeColor: ThemeManager.getPrimaryAccentColor(context),
-                onChanged: (value) {
-                  setState(() {
-                    _actualFabDirection = value;
-                  });
-                },
               ),
-              RadioListTile<Axis>(
-                title: Text(
-                  'Horizontal',
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
+              Container(
+                width: 280,
+                child: RadioListTile<Axis>(
+                  title: Text(
+                    'Horizontal',
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
+                  subtitle: const Text('Despliegue hacia la izquierda.'),
+                  value: Axis.horizontal,
+                  groupValue: _actualFabDirection,
+                  activeColor: ThemeManager.getPrimaryAccentColor(context),
+                  onChanged: (value) {
+                    setState(() {
+                      _actualFabDirection = value;
+                    });
+                  },
                 ),
-                subtitle: const Text('Despliegue hacia la izquierda.'),
-                value: Axis.horizontal,
-                groupValue: _actualFabDirection,
-                activeColor: ThemeManager.getPrimaryAccentColor(context),
-                onChanged: (value) {
-                  setState(() {
-                    _actualFabDirection = value;
-                  });
-                },
               ),
               const SizedBox(
                 height: 20,

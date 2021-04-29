@@ -1,5 +1,6 @@
 import 'dart:ui' as ui;
 
+import 'package:dolarbot_app/classes/size_config.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:dolarbot_app/models/settings.dart';
 import 'package:dolarbot_app/util/constants.dart';
@@ -37,78 +38,87 @@ class _CardGestureDismissDialogState extends State<CardGestureDismissDialog> {
           child: Column(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Padding(
-                padding: const EdgeInsets.only(left: 25, right: 15),
+                padding: const EdgeInsets.only(left: 25, right: 20),
                 child: const Text(
-                    "Seleccioná la forma que te quede más cómoda para eliminar las tarjetas del Inicio."),
+                    "Seleccioná la forma que te quede más cómoda para eliminar las tarjetas del Inicio:"),
               ),
               const SizedBox(
                 height: 10,
               ),
-              RadioListTile<DismissDirection>(
-                contentPadding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
-                title: const Text(
-                  'Hacia la Izquierda',
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
+              Container(
+                width: 300,
+                child: RadioListTile<DismissDirection>(
+                  contentPadding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
+                  title: const Text(
+                    'Hacia la Izquierda',
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
+                  subtitle: _buildExample(DismissDirection.endToStart),
+                  value: DismissDirection.endToStart,
+                  groupValue: _actualDismissDirection,
+                  activeColor: ThemeManager.getPrimaryAccentColor(context),
+                  onChanged: (value) {
+                    setState(() {
+                      _actualDismissDirection = value;
+                    });
+                  },
                 ),
-                subtitle: _buildExample(DismissDirection.endToStart),
-                value: DismissDirection.endToStart,
-                groupValue: _actualDismissDirection,
-                activeColor: ThemeManager.getPrimaryAccentColor(context),
-                onChanged: (value) {
-                  setState(() {
-                    _actualDismissDirection = value;
-                  });
-                },
               ),
               const SizedBox(
                 height: 10,
               ),
-              RadioListTile<DismissDirection>(
-                contentPadding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
-                title: const Text(
-                  'Hacia la derecha',
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
+              Container(
+                width: 300,
+                child: RadioListTile<DismissDirection>(
+                  contentPadding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
+                  title: const Text(
+                    'Hacia la derecha',
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
+                  subtitle: _buildExample(DismissDirection.startToEnd),
+                  value: DismissDirection.startToEnd,
+                  groupValue: _actualDismissDirection,
+                  activeColor: ThemeManager.getPrimaryAccentColor(context),
+                  onChanged: (value) {
+                    setState(() {
+                      _actualDismissDirection = value;
+                    });
+                  },
                 ),
-                subtitle: _buildExample(DismissDirection.startToEnd),
-                value: DismissDirection.startToEnd,
-                groupValue: _actualDismissDirection,
-                activeColor: ThemeManager.getPrimaryAccentColor(context),
-                onChanged: (value) {
-                  setState(() {
-                    _actualDismissDirection = value;
-                  });
-                },
               ),
               const SizedBox(
                 height: 10,
               ),
-              RadioListTile<DismissDirection>(
-                contentPadding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
-                title: const Text(
-                  'Ambas direcciones',
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
+              Container(
+                width: 300,
+                child: RadioListTile<DismissDirection>(
+                  contentPadding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
+                  title: const Text(
+                    'Ambas direcciones',
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
+                  subtitle: _buildExample(DismissDirection.horizontal),
+                  value: DismissDirection.horizontal,
+                  groupValue: _actualDismissDirection,
+                  activeColor: ThemeManager.getPrimaryAccentColor(context),
+                  onChanged: (value) {
+                    setState(() {
+                      _actualDismissDirection = value;
+                    });
+                  },
                 ),
-                subtitle: _buildExample(DismissDirection.horizontal),
-                value: DismissDirection.horizontal,
-                groupValue: _actualDismissDirection,
-                activeColor: ThemeManager.getPrimaryAccentColor(context),
-                onChanged: (value) {
-                  setState(() {
-                    _actualDismissDirection = value;
-                  });
-                },
               ),
               const SizedBox(
                 height: 20,

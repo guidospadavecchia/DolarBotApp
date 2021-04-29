@@ -17,7 +17,7 @@ class _ClearHistoricalDataDialogState extends State<ClearHistoricalDataDialog> {
       dialog: Dialog(
         insetPadding: const EdgeInsets.all(25),
         child: Container(
-          width: MediaQuery.of(context).size.width * 0.85,
+          width: MediaQuery.of(context).size.width * 0.8,
           height: 230,
           child: Column(
             mainAxisSize: MainAxisSize.max,
