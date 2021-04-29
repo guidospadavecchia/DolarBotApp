@@ -154,75 +154,79 @@ class HomeScreenState extends State<HomeScreen> {
     if (_cards.length > 0)
       return _AnimationContainer(
         duration: kAnimationDuration,
-        child: Container(
-          height: MediaQuery.of(context).size.height,
-          padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom + 110),
-          child: NotificationListener<OverscrollIndicatorNotification>(
-            onNotification: (OverscrollIndicatorNotification overScroll) {
-              overScroll.disallowGlow();
-              return false;
-            },
-            child: Theme(
-              data: ThemeData(canvasColor: Colors.transparent, shadowColor: Colors.transparent),
-              child: ScrollWrapper(
-                scrollController: _scrollController,
-                promptAlignment: Alignment.bottomRight,
-                promptDuration: const Duration(milliseconds: 500),
-                promptTheme: PromptButtonTheme(
-                  color: ThemeManager.getDarkThemeData().backgroundColor.withOpacity(0.9),
-                  padding: const EdgeInsets.only(right: 25, bottom: 30),
-                  iconPadding: const EdgeInsets.all(12),
-                ),
-                child: ReorderableListView(
+        child: Center(
+          child: Container(
+            constraints: const BoxConstraints(maxWidth: 400),
+            height: MediaQuery.of(context).size.height,
+            padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom + 110),
+            child: NotificationListener<OverscrollIndicatorNotification>(
+              onNotification: (OverscrollIndicatorNotification overScroll) {
+                overScroll.disallowGlow();
+                return false;
+              },
+              child: Theme(
+                data: ThemeData(canvasColor: Colors.transparent, shadowColor: Colors.transparent),
+                child: ScrollWrapper(
                   scrollController: _scrollController,
-                  proxyDecorator: (Widget child, int index, Animation<double> animation) {
-                    return Transform.scale(
-                      scale: 0.95,
-                      child: Opacity(
-                        opacity: 0.9,
-                        child: child,
-                      ),
-                    );
-                  },
-                  physics: AlwaysScrollableScrollPhysics(),
-                  onReorder: (int oldIndex, int newIndex) {
-                    _onReorder(oldIndex, newIndex);
-                  },
-                  children: [
-                    for (var i = 0; i < _cards.length; i++)
-                      Container(
-                        key: ValueKey(_cards[i]),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.transparent,
+                  promptAlignment: Alignment.bottomRight,
+                  promptDuration: const Duration(milliseconds: 500),
+                  promptTheme: PromptButtonTheme(
+                    color: ThemeManager.getDarkThemeData().backgroundColor.withOpacity(0.9),
+                    padding: const EdgeInsets.only(right: 25, bottom: 30),
+                    iconPadding: const EdgeInsets.all(12),
+                  ),
+                  child: ReorderableListView(
+                    scrollController: _scrollController,
+                    proxyDecorator: (Widget child, int index, Animation<double> animation) {
+                      return Transform.scale(
+                        scale: 0.95,
+                        child: Opacity(
+                          opacity: 0.9,
+                          child: child,
                         ),
-                        margin: const EdgeInsets.fromLTRB(15, 0, 15, 15),
-                        child: Consumer<Settings>(builder: (context, settings, child) {
-                          return Dismissible(
-                            dismissThresholds: {
-                              DismissDirection.endToStart: 0.4,
-                              DismissDirection.startToEnd: 0.4,
-                            },
-                            child: _cards[i],
-                            direction: settings.getCardGestureDismiss(),
-                            background: _DismissFavoriteButton(
-                                direction: DismissDirection.startToEnd,
-                                hideIcon: _hideIconTrashCard),
-                            secondaryBackground: _DismissFavoriteButton(
-                                direction: DismissDirection.endToStart,
-                                hideIcon: _hideIconTrashCard),
-                            key: ValueKey(_cards[i]),
-                            confirmDismiss: (direction) => Future.delayed(Duration.zero, () {
-                              setState(() => _hideIconTrashCard = true);
-                              return true;
-                            }),
-                            onDismissed: (direction) {
-                              _onDismissCard(i);
-                            },
-                          );
-                        }),
-                      ),
-                  ],
+                      );
+                    },
+                    physics: AlwaysScrollableScrollPhysics(),
+                    onReorder: (int oldIndex, int newIndex) {
+                      _onReorder(oldIndex, newIndex);
+                    },
+                    children: [
+                      for (var i = 0; i < _cards.length; i++)
+                        Container(
+                          alignment: Alignment.center,
+                          key: ValueKey(_cards[i]),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.transparent,
+                          ),
+                          margin: const EdgeInsets.fromLTRB(15, 0, 15, 15),
+                          child: Consumer<Settings>(builder: (context, settings, child) {
+                            return Dismissible(
+                              dismissThresholds: {
+                                DismissDirection.endToStart: 0.4,
+                                DismissDirection.startToEnd: 0.4,
+                              },
+                              child: _cards[i],
+                              direction: settings.getCardGestureDismiss(),
+                              background: _DismissFavoriteButton(
+                                  direction: DismissDirection.startToEnd,
+                                  hideIcon: _hideIconTrashCard),
+                              secondaryBackground: _DismissFavoriteButton(
+                                  direction: DismissDirection.endToStart,
+                                  hideIcon: _hideIconTrashCard),
+                              key: ValueKey(_cards[i]),
+                              confirmDismiss: (direction) => Future.delayed(Duration.zero, () {
+                                setState(() => _hideIconTrashCard = true);
+                                return true;
+                              }),
+                              onDismissed: (direction) {
+                                _onDismissCard(i);
+                              },
+                            );
+                          }),
+                        ),
+                    ],
+                  ),
                 ),
               ),
             ),
