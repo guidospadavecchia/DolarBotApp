@@ -16,8 +16,9 @@
     },
     "discordUrl": ""
     "share": {
-        "subject": "",
-        "message": "",
-        "poweredBy": ""
+        "subject": "DolarBot",
+        "message": "Powered By DolarBot",
+        "poweredBy": "Powered By DolarBot"
+    }
   }
 }
