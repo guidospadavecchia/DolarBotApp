@@ -209,7 +209,7 @@ class Util {
     assert(logicalSize.aspectRatio == imageSize.aspectRatio);
 
     final RenderView renderView = RenderView(
-      window: null,
+      window: ui.window,
       child: RenderPositionedBox(
         alignment: Alignment.center,
         child: repaintBoundary,
