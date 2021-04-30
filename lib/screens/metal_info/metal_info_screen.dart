@@ -46,7 +46,7 @@ class _MetalInfoScreenState extends BaseInfoScreenState<MetalInfoScreen> with Ba
           if (data?.value != null)
             CurrencyInfo(
               title: '/ ${data.unit}',
-              symbol: data?.currency ?? '' == 'USD' ? 'US\$' : '\$',
+              symbol: (data?.currency ?? '') == 'USD' ? 'US\$' : '\$',
               value: data.value,
             ),
         ],
@@ -103,7 +103,7 @@ class _MetalInfoScreenState extends BaseInfoScreenState<MetalInfoScreen> with Ba
     if (data != null && data.timestamp != null && data.unit != null) {
       final value =
           data.value?.isNumeric() ?? false ? numberFormat.format(double.parse(data.value)) : 'N/A';
-      final symbol = data.currency ?? '' == 'USD' ? 'US\$' : '\$';
+      final symbol = (data.currency ?? '') == 'USD' ? 'US\$' : '\$';
       DateTime date = DateTime.parse(data.timestamp.replaceAll('/', '-'));
       String formattedTime =
           DateFormat(DateTime.now().isSameDayAs(date) ? 'HH:mm' : 'HH:mm - dd-MM-yyyy')
