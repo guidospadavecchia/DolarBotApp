@@ -21,7 +21,7 @@ class EmptyFavorites extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(bottom: Scaffold.of(context).appBarMaxHeight / 2),
+      margin: EdgeInsets.only(bottom: (Scaffold.of(context).appBarMaxHeight ?? 0) / 2),
       padding: EdgeInsets.symmetric(horizontal: SizeConfig.blockSizeHorizontal * 8),
       alignment: Alignment.center,
       height: SizeConfig.screenHeight / 2,

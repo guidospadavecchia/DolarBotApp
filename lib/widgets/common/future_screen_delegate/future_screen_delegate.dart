@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 export 'package:loading_indicator/loading_indicator.dart';
 
-typedef ScreenDataBuildFunction<T> = Widget Function(T data);
+typedef ScreenDataBuildFunction<T> = Widget Function(T/*!*/ data);
 
 class FutureScreenDelegate extends StatelessWidget {
   final Future response;
@@ -22,7 +22,7 @@ class FutureScreenDelegate extends StatelessWidget {
     this.onLoading,
     this.onSuccessfulLoad,
     this.onFailedLoad,
-  }) : assert(response != null && screen != null);
+  });
 
   @override
   Widget build(BuildContext context) {

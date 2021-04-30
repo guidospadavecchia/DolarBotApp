@@ -2,10 +2,10 @@ import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:flutter/material.dart';
 
 class SimpleButton extends StatelessWidget {
-  final String text;
-  final IconData icon;
+  final IconData /*!*/ icon;
   final double iconSize;
   final Color iconColor;
+  final String text;
   final Color textColor;
   final double fontSize;
   final Color backgroundColor;
@@ -14,10 +14,10 @@ class SimpleButton extends StatelessWidget {
 
   const SimpleButton({
     Key key,
-    this.text = '',
     this.icon,
     this.iconSize = 32,
     this.iconColor,
+    this.text = '',
     this.textColor,
     this.fontSize = 16,
     this.backgroundColor,

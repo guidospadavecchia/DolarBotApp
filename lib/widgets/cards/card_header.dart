@@ -5,13 +5,11 @@ export 'package:dolarbot_app/widgets/cards/card_share_button.dart';
 
 class CardHeader extends StatelessWidget {
   final String /*!*/ title;
-  final bool showButtons;
   final CardShareButton shareButton;
 
   const CardHeader({
     Key key,
     this.title,
-    this.showButtons = true,
     this.shareButton,
   }) : super(key: key);
 

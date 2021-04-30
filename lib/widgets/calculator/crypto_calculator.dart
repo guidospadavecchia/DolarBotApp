@@ -40,10 +40,10 @@ class _CryptoCalculatorState extends BaseCalculatorState<CryptoCalculator> with 
   final double /*!*/ usdValue;
   final String /*!*/ cryptoCode;
   final NumberFormat numberFormat;
-  /*late final*/ MoneyMaskedTextController _textControllerInput;
-  /*late final*/ TextEditingController _textControllerArsValue;
-  /*late final*/ TextEditingController _textControllerArsValueWithTaxes;
-  /*late final*/ TextEditingController _textControllerUsdValue;
+  /*late*/ MoneyMaskedTextController _textControllerInput;
+  /*late*/ TextEditingController _textControllerArsValue;
+  /*late*/ TextEditingController _textControllerArsValueWithTaxes;
+  /*late*/ TextEditingController _textControllerUsdValue;
 
   _CryptoCalculatorState(
     this.arsValue,

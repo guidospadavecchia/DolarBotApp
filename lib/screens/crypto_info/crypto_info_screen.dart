@@ -147,7 +147,7 @@ class _CryptoInfoScreenState extends BaseInfoScreenState<CryptoInfoScreen> with 
         numberFormat: numberFormat,
       ),
       calculatorReversed: CryptoCalculatorReversed(
-        usdValue: double.tryParse(data?.usdPrice ?? ''),
+        usdValue: double.tryParse(data?.usdPrice ?? '') ?? 0,
         cryptoCode: data?.code ?? '',
         numberFormat: numberFormat,
       ),
