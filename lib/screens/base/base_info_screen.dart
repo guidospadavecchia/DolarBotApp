@@ -48,7 +48,7 @@ export 'package:flutter/material.dart';
 export 'package:provider/provider.dart';
 
 abstract class BaseInfoScreen extends StatefulWidget {
-  final CardData cardData;
+  final CardData /*!*/ cardData;
 
   BaseInfoScreen({
     Key key,
@@ -94,11 +94,11 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
     WidgetsBinding.instance.addObserver(this);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       hideSnackBar();
-      if (this.mounted && widget.cardData?.endpoint != null) {
+      if (this.mounted && widget.cardData.endpoint != null) {
         _getRateDescription().then(
           (value) => setState(
             () {
-              _shouldShowDescriptionButton = (value ?? '') != '';
+              _shouldShowDescriptionButton = value != '';
             },
           ),
         );
@@ -159,12 +159,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
-                colors: widget.cardData?.colors == null
-                    ? [
-                        ThemeManager.getGlobalBackgroundColor(context),
-                        ThemeManager.getGlobalBackgroundColor(context),
-                      ]
-                    : widget.cardData.colors,
+                colors: widget.cardData.colors,
               ),
             ),
             child: Column(
@@ -209,7 +204,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
   @nonVirtual
   void showSnackBar(
     String text, {
-    Duration duration,
+    Duration duration = const Duration(seconds: 2),
     TextAlign textAlign = TextAlign.center,
     Icon leadingIcon = null,
   }) {
@@ -218,7 +213,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         backgroundColor: ThemeManager.getSnackBarColor(context),
-        duration: duration ?? const Duration(seconds: 2),
+        duration: duration,
         content: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
@@ -240,12 +235,12 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
 
   @nonVirtual
   void hideSimpleFabMenu() {
-    simpleFabKey?.currentState?.hide();
+    simpleFabKey.currentState?.hide();
   }
 
   @nonVirtual
   void showSimpleFabMenu() {
-    simpleFabKey?.currentState?.show();
+    simpleFabKey.currentState?.show();
   }
 
   void onRefresh() async {
@@ -273,12 +268,12 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
   }
 
   Widget _banner() {
-    if (isDataLoaded && widget.cardData?.bannerTitle != null) {
+    if (isDataLoaded && widget.cardData.bannerTitle != null) {
       String timestampValue = getTimestamp();
       return TitleBanner(
         text: widget.cardData.bannerTitle,
-        iconAsset: widget.cardData?.iconAsset,
-        iconData: widget.cardData?.iconData,
+        iconAsset: widget.cardData.iconAsset,
+        iconData: widget.cardData.iconData,
         showTimeStamp: (timestampValue ?? '') != '',
         timeStampValue: "Última actualización: $timestampValue",
       );
@@ -297,7 +292,9 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
     String poweredBy = Util.cfg.getDeepValue("share:poweredBy");
     String text = "$shareTitle\n\n$shareText\n\n$poweredBy";
 
-    simpleFabKey.currentState.closeMenu();
+    if (simpleFabKey.currentState != null) {
+      simpleFabKey.currentState.closeMenu();
+    }
     await Clipboard.setData(
       new ClipboardData(text: text),
     ).then(
@@ -313,14 +310,24 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
   }
 
   void _onCalculatorButtonTap() {
-    simpleFabKey.currentState.closeMenu();
-    showDialog(
-      barrierDismissible: false,
-      context: context,
-      builder: (BuildContext context) {
-        return getCalculatorWidget();
-      },
-    );
+    if (simpleFabKey.currentState != null) {
+      simpleFabKey.currentState.closeMenu();
+    }
+    FabOptionCalculatorDialog calculatorWidget = getCalculatorWidget();
+    if (calculatorWidget != null) {
+      showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return calculatorWidget;
+        },
+      );
+    } else {
+      Future.delayed(
+        const Duration(milliseconds: 500),
+        () => showToastWidget(ToastError()),
+      );
+    }
   }
 
   void _onHistoricalChartButtonTap() {
@@ -345,7 +352,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
   Future<String> _getRateDescription() async {
     String descriptionsString = await rootBundle.loadString(DolarBotConstants.kDescriptionsFile);
     Map<String, dynamic> descriptions = json.decode(descriptionsString) as Map<String, dynamic>;
-    return descriptions[_getEndpointType(widget.cardData?.responseType)];
+    return descriptions[_getEndpointType(widget.cardData.responseType)] ?? '';
   }
 
   String _getEndpointType(Type response) {
@@ -354,41 +361,42 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
     switch (response) {
       case DollarResponse:
         endpointName = DollarEndpoints.values
-            .firstWhere((e) => e.value == widget.cardData?.endpoint, orElse: () => null)
+            .firstWhere((e) => e.value == widget.cardData.endpoint, orElse: () => null)
             .toString();
         break;
       case EuroResponse:
         endpointName = EuroEndpoints.values
-            .firstWhere((e) => e.value == widget.cardData?.endpoint, orElse: () => null)
+            .firstWhere((e) => e.value == widget.cardData.endpoint, orElse: () => null)
             .toString();
         break;
       case RealResponse:
         endpointName = RealEndpoints.values
-            .firstWhere((e) => e.value == widget.cardData?.endpoint, orElse: () => null)
+            .firstWhere((e) => e.value == widget.cardData.endpoint, orElse: () => null)
             .toString();
         break;
       case CryptoResponse:
         endpointName = CryptoEndpoints.values
-            .firstWhere((e) => e.value == widget.cardData?.endpoint, orElse: () => null)
+            .firstWhere((e) => e.value == widget.cardData.endpoint, orElse: () => null)
             .toString();
         break;
       case MetalResponse:
         endpointName = MetalEndpoints.values
-            .firstWhere((e) => e.value == widget.cardData?.endpoint, orElse: () => null)
+            .firstWhere((e) => e.value == widget.cardData.endpoint, orElse: () => null)
             .toString();
         break;
       case CountryRiskResponse:
       case BcraResponse:
         endpointName = BcraEndpoints.values
-            .firstWhere((e) => e.value == widget.cardData?.endpoint, orElse: () => null)
+            .firstWhere((e) => e.value == widget.cardData.endpoint, orElse: () => null)
             .toString();
         break;
       case VenezuelaResponse:
         endpointName = VenezuelaEndpoints.values
-            .firstWhere((e) => e.value == widget.cardData?.endpoint, orElse: () => null)
+            .firstWhere((e) => e.value == widget.cardData.endpoint, orElse: () => null)
             .toString();
         break;
       default:
+        throw 'Unknown ApiResponse type';
     }
 
     return endpointName;
@@ -460,7 +468,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
   }
 
   void _onDrawerDisplayChange(bool isOpen) {
-    if (isOpen && (simpleFabKey?.currentState?.isOpen ?? false)) {
+    if (isOpen && (simpleFabKey.currentState?.isOpen ?? false)) {
       simpleFabKey.currentState.closeMenu();
     }
     dismissAllToast();
@@ -477,7 +485,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
   }
 
   Future<bool> _onFavoriteStatusChange() async {
-    bool isFavorite;
+    bool isFavorite = false;
 
     try {
       Box favoritesBox = Hive.box('favorites');
@@ -493,7 +501,6 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
       } else {
         //Remove favorite
         favoriteCards.remove(favoriteCard);
-        isFavorite = false;
       }
 
       //Save favorite list

@@ -155,19 +155,21 @@ class _AboutScreenState extends State<AboutScreen> {
     for (final author in authors) {
       String name = author["name"];
       String link = author["link"];
-      authorWidgets.add(Tooltip(
-        message: "Visitar GitHub de $name",
-        child: RichText(
-          text: TextSpan(
-            text: name,
-            style: _getTextStyle(isLink: true),
-            recognizer: TapGestureRecognizer()..onTap = () => Util.launchURL(link),
+      if (name != null && link != null) {
+        authorWidgets.add(Tooltip(
+          message: "Visitar GitHub de $name",
+          child: RichText(
+            text: TextSpan(
+              text: name,
+              style: _getTextStyle(isLink: true),
+              recognizer: TapGestureRecognizer()..onTap = () => Util.launchURL(link),
+            ),
           ),
-        ),
-      ));
-      authorWidgets.add(
-        SizedBox(height: SizeConfig.blockSizeVertical * 1.2),
-      );
+        ));
+        authorWidgets.add(
+          SizedBox(height: SizeConfig.blockSizeVertical * 1.2),
+        );
+      }
     }
 
     return Column(

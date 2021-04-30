@@ -5,9 +5,9 @@ import 'package:extended_masked_text/extended_masked_text.dart';
 import 'package:intl/intl.dart';
 
 class FiatCurrencyCalculatorReversed extends BaseCalculatorScreen {
-  final double sellValue;
+  final double /*!*/ sellValue;
   final double sellValueWithTaxes;
-  final String symbol;
+  final String /*!*/ symbol;
   final NumberFormat numberFormat;
 
   FiatCurrencyCalculatorReversed({
@@ -34,13 +34,13 @@ class FiatCurrencyCalculatorReversed extends BaseCalculatorScreen {
 
 class _FiatCurrencyCalculatorReversedState
     extends BaseCalculatorState<FiatCurrencyCalculatorReversed> with BaseCalculator {
-  final double sellValue;
+  final double /*!*/ sellValue;
   final double sellValueWithTaxes;
-  final String symbol;
+  final String /*!*/ symbol;
   final NumberFormat numberFormat;
-  MoneyMaskedTextController _textControllerInput;
-  TextEditingController _textControllerSellValue;
-  TextEditingController _textControllerSellValueWithTaxes;
+  /*late*/ MoneyMaskedTextController _textControllerInput;
+  /*late*/ TextEditingController _textControllerSellValue;
+  /*late*/ TextEditingController _textControllerSellValueWithTaxes;
 
   _FiatCurrencyCalculatorReversedState(
     this.sellValue,
@@ -63,7 +63,7 @@ class _FiatCurrencyCalculatorReversedState
   @override
   void dispose() {
     _textControllerInput.dispose();
-    if (sellValue != null) _textControllerSellValue.dispose();
+    _textControllerSellValue.dispose();
     if (sellValueWithTaxes != null) _textControllerSellValueWithTaxes.dispose();
     super.dispose();
   }
@@ -80,11 +80,10 @@ class _FiatCurrencyCalculatorReversedState
         const SizedBox(
           height: 30,
         ),
-        if (sellValue != null)
-          InputConverted(
-            title: "Comprás",
-            textController: _textControllerSellValue,
-          ),
+        InputConverted(
+          title: "Comprás",
+          textController: _textControllerSellValue,
+        ),
         if (sellValueWithTaxes != null)
           InputConverted(
             title: "Comprás con impuestos",
@@ -103,10 +102,8 @@ class _FiatCurrencyCalculatorReversedState
         decimalSeparator: numberFormat.symbols.DECIMAL_SEP,
         thousandSeparator: numberFormat.symbols.GROUP_SEP,
         leftSymbol: "\$ ");
-    if (sellValue != null) {
-      _textControllerSellValue =
-          TextEditingController(text: "US\$ 0${numberFormat.symbols.DECIMAL_SEP}00");
-    }
+    _textControllerSellValue =
+        TextEditingController(text: "US\$ 0${numberFormat.symbols.DECIMAL_SEP}00");
     if (sellValueWithTaxes != null) {
       _textControllerSellValueWithTaxes =
           TextEditingController(text: "US\$ 0${numberFormat.symbols.DECIMAL_SEP}00");
@@ -116,7 +113,7 @@ class _FiatCurrencyCalculatorReversedState
   void _setConversion() {
     Decimal input = Decimal.parse(_textControllerInput.numberValue.toString());
     Decimal d100 = Decimal.parse("100.00");
-    if (sellValue != null && sellValue > 0) {
+    if (sellValue > 0) {
       Decimal dSellValue = Decimal.parse(sellValue.toString());
       Decimal value = ((input / dSellValue) * d100).truncate() / d100;
       String formattedSellValue = numberFormat.format(DecimalAdapter(value));

@@ -3,7 +3,7 @@ import 'package:hive/hive.dart';
 @HiveType(typeId: 0)
 class CacheEntry extends HiveObject {
   @HiveField(0)
-  final DateTime expiration;
+  final DateTime /*!*/ expiration;
   @HiveField(1)
   final dynamic data;
 

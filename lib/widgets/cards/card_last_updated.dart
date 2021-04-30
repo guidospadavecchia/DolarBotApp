@@ -38,10 +38,14 @@ class _CardLastUpdatedState extends State<CardLastUpdated> with WidgetsBindingOb
 
   String _getFormattedDateTime() {
     if (widget.showPoweredBy) {
-      return DateTime.parse(widget.timestamp.replaceAll('/', '-')).toLongDateString();
+      return widget.timestamp != null
+          ? DateTime.parse(widget.timestamp.replaceAll('/', '-')).toLongDateString()
+          : DateTime.now().toLongDateString();
     }
 
-    return DateTime.parse(widget.timestamp.replaceAll('/', '-')).toRelativeString();
+    return widget.timestamp != null
+        ? DateTime.parse(widget.timestamp.replaceAll('/', '-')).toRelativeString()
+        : DateTime.now().toRelativeString();
   }
 
   @override

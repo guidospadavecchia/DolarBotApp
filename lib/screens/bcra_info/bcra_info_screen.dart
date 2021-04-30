@@ -103,11 +103,11 @@ class _BcraInfoScreenState extends BaseInfoScreenState<BcraInfoScreen> with Base
       return BcraResponse(json);
     }, shouldForceRefresh).then((value) {
       ApiResponse response = value;
-      if (response != null) {
+      if (response != null && response.timestamp != null) {
         HistoricalRateManager.saveRate(
           widget.cardData.endpoint,
           widget.cardData.responseType.toString(),
-          value?.timestamp,
+          response.timestamp,
           response,
         );
       }
@@ -156,7 +156,7 @@ class _BcraInfoScreenState extends BaseInfoScreenState<BcraInfoScreen> with Base
       if (data is CountryRiskResponse) {
         numberFormat.maximumFractionDigits = 0;
         value = data.value;
-        value = value.split('.')[0].toString().isNumeric()
+        value = value != null && value.split('.')[0].toString().isNumeric()
             ? numberFormat.format(int.parse(data.value.split('.')[0]))
             : 'N/A';
         return '$value puntos\nHora: $formattedTime';
@@ -164,7 +164,8 @@ class _BcraInfoScreenState extends BaseInfoScreenState<BcraInfoScreen> with Base
       if (data is BcraResponse) {
         value = data.value;
         final symbol = data.currency == 'USD' ? 'US\$' : '\$';
-        value = value.isNumeric() ? numberFormat.format(int.parse(data.value)) : 'N/A';
+        value =
+            value != null && value.isNumeric() ? numberFormat.format(int.parse(data.value)) : 'N/A';
         return '$symbol $value\nHora: $formattedTime';
       }
     }

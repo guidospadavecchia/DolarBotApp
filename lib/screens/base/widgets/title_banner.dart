@@ -2,7 +2,7 @@ import 'package:dolarbot_app/classes/size_config.dart';
 import 'package:flutter/material.dart';
 
 class TitleBanner extends StatelessWidget {
-  final String text;
+  final String/*!*/ text;
   final TextStyle textStyle;
   final String iconAsset;
   final IconData iconData;

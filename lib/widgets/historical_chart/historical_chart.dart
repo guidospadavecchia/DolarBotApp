@@ -28,10 +28,10 @@ class _HistoricalChartState extends State<HistoricalChart> with TickerProviderSt
   static const double kMaxScale = 2.5;
   static const double kMinScale = 0.5;
 
-  final Matrix4 defaultZoom = Matrix4.identity() * kMinScale;
+  final Matrix4 /*!*/ defaultZoom = Matrix4.identity() * kMinScale;
   HistoricalChartData historicalChartData;
-  TransformationController _transformationController;
-  TabController _tabController;
+  /*late*/ TransformationController _transformationController;
+  /*late*/ TabController _tabController;
   AnimationController _animationController;
   Animation<Matrix4> _animation;
   bool _chartDataLoaded = false;
@@ -265,30 +265,24 @@ class _HistoricalChartState extends State<HistoricalChart> with TickerProviderSt
         maxContentWidth: MediaQuery.of(context).size.width / 2,
         tooltipRoundedRadius: 15,
         getTooltipItems: (touchedSpots) {
-          if (touchedSpots == null) {
-            return null;
-          }
-
           NumberFormat numberFormat =
               Provider.of<Settings>(context, listen: false).getNumberFormat();
           List<LineTooltipItem> tooltipItems = [];
           for (int i = 0; i < touchedSpots.length; i++) {
             LineBarSpot touchedSpot = touchedSpots[i];
-            if (touchedSpot != null) {
-              DateFormat dateFormat = DateFormat('dd/MM/yyyy HH:mm');
-              if (rateData.isInteger) {
-                numberFormat.maximumFractionDigits = 0;
-              }
-              String value = numberFormat.format(touchedSpot.y);
-              DateTime date = DateTime.fromMillisecondsSinceEpoch(touchedSpot.x.toInt());
-              String formattedDate = dateFormat.format(date);
-              String leftSymbol = "${rateData?.leftSymbol ?? ''} ";
-              String rightSymbol = " ${rateData.rightSymbol ?? ''}";
-              String tooltip = i + 1 < touchedSpots.length
-                  ? "$leftSymbol$value$rightSymbol"
-                  : "$leftSymbol$value$rightSymbol\n\n$formattedDate";
-              tooltipItems.add(LineTooltipItem(tooltip, rateData.tooltipTextStyle));
+            DateFormat dateFormat = DateFormat('dd/MM/yyyy HH:mm');
+            if (rateData.isInteger) {
+              numberFormat.maximumFractionDigits = 0;
             }
+            String value = numberFormat.format(touchedSpot.y);
+            DateTime date = DateTime.fromMillisecondsSinceEpoch(touchedSpot.x.toInt());
+            String formattedDate = dateFormat.format(date);
+            String leftSymbol = "${rateData.leftSymbol ?? ''} ";
+            String rightSymbol = " ${rateData.rightSymbol ?? ''}";
+            String tooltip = i + 1 < touchedSpots.length
+                ? "$leftSymbol$value$rightSymbol"
+                : "$leftSymbol$value$rightSymbol\n\n$formattedDate";
+            tooltipItems.add(LineTooltipItem(tooltip, rateData.tooltipTextStyle));
           }
           return tooltipItems;
         },
@@ -325,7 +319,7 @@ class _HistoricalChartState extends State<HistoricalChart> with TickerProviderSt
         if (rateData.isInteger) {
           numberFormat.maximumFractionDigits = 0;
         }
-        String leftSymbol = "${rateData?.leftSymbol ?? ''} ";
+        String leftSymbol = "${rateData.leftSymbol ?? ''} ";
         String rightSymbol = " ${rateData.rightSymbol ?? ''}";
 
         return "$leftSymbol${numberFormat.format(value)}$rightSymbol";

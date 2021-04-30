@@ -5,8 +5,8 @@ import 'package:extended_masked_text/extended_masked_text.dart';
 import 'package:intl/intl.dart';
 
 class MetalCalculator extends BaseCalculatorScreen {
-  final double usdValue;
-  final String unit;
+  final double /*!*/ usdValue;
+  final String /*!*/ unit;
   final NumberFormat numberFormat;
 
   MetalCalculator({
@@ -25,11 +25,11 @@ class MetalCalculator extends BaseCalculatorScreen {
 }
 
 class _MetalCalculatorState extends BaseCalculatorState<MetalCalculator> with BaseCalculator {
-  final double usdValue;
-  final String unit;
+  final double /*!*/ usdValue;
+  final String /*!*/ unit;
   final NumberFormat numberFormat;
-  MoneyMaskedTextController _textControllerInput;
-  TextEditingController _textControllerValue;
+  /*late*/ MoneyMaskedTextController _textControllerInput;
+  /*late*/ TextEditingController _textControllerValue;
 
   _MetalCalculatorState(
     this.usdValue,

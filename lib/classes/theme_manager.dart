@@ -24,29 +24,29 @@ class ThemeManager {
     return _accentColor;
   }
 
-  static Color getForegroundColor() {
+  static Color /*!*/ getForegroundColor() {
     return Colors.grey[200];
   }
 
-  static Color getPrimaryTextColor(BuildContext context) {
+  static Color /*!*/ getPrimaryTextColor(BuildContext context) {
     return AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
         ? Colors.grey[700]
         : Colors.grey[200];
   }
 
-  static Color getSecondaryTextColor(BuildContext context) {
+  static Color /*!*/ getSecondaryTextColor(BuildContext context) {
     return AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
         ? Colors.grey[700]
         : Colors.grey[300];
   }
 
-  static Color getDrawerMenuItemIconColor(BuildContext context) {
+  static Color /*!*/ getDrawerMenuItemIconColor(BuildContext context) {
     return AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
         ? Colors.grey[600]
         : Colors.white;
   }
 
-  static Color getDrawerMenuFooterSloganBackgroundColor(BuildContext context) {
+  static Color /*!*/ getDrawerMenuFooterSloganBackgroundColor(BuildContext context) {
     return AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
         ? Colors.blueGrey[900]
         : Colors.black54;
@@ -64,7 +64,7 @@ class ThemeManager {
         : const Color.fromRGBO(60, 60, 60, 1);
   }
 
-  static Color getDividerColor(BuildContext context) {
+  static Color /*!*/ getDividerColor(BuildContext context) {
     return AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
         ? Colors.grey[300]
         : Colors.grey[900];
@@ -80,13 +80,13 @@ class ThemeManager {
     return AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light ? _primaryColor : _accentColor;
   }
 
-  static Color getHighlightDrawerMenuItem(BuildContext context) {
+  static Color /*!*/ getHighlightDrawerMenuItem(BuildContext context) {
     return AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
         ? Theme.of(context).highlightColor
         : Colors.grey[800];
   }
 
-  static Color getLoadingIndicatorColor(BuildContext context) {
+  static Color /*!*/ getLoadingIndicatorColor(BuildContext context) {
     return AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
         ? Colors.grey[400]
         : Colors.grey[700];

@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 class CurrencyInfo extends StatelessWidget {
   final String title;
   final String symbol;
-  final String value;
+  final String/*!*/ value;
   final bool hideDecimals;
 
   const CurrencyInfo({

@@ -10,7 +10,8 @@ class CardLogo extends StatelessWidget {
     this.iconAsset,
     this.iconData,
     @required this.tag,
-  }) : super(key: key);
+  })  : assert(iconAsset != null || iconData != null),
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -34,28 +35,27 @@ class CardLogo extends StatelessWidget {
                     color: Colors.white,
                   ),
                 ),
-          if (tag != null)
-            Padding(
-              padding: const EdgeInsets.only(top: 15),
-              child: Container(
-                width: 45,
-                padding: const EdgeInsets.only(top: 3, bottom: 2),
-                decoration: BoxDecoration(
-                  color: Colors.black54,
-                  borderRadius: BorderRadius.circular(5),
+          Padding(
+            padding: const EdgeInsets.only(top: 15),
+            child: Container(
+              width: 45,
+              padding: const EdgeInsets.only(top: 3, bottom: 2),
+              decoration: BoxDecoration(
+                color: Colors.black54,
+                borderRadius: BorderRadius.circular(5),
+              ),
+              child: Text(
+                tag.toUpperCase(),
+                style: const TextStyle(
+                  fontSize: 9,
+                  fontFamily: 'Raleway',
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
                 ),
-                child: Text(
-                  tag.toUpperCase(),
-                  style: const TextStyle(
-                    fontSize: 9,
-                    fontFamily: 'Raleway',
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
+                textAlign: TextAlign.center,
               ),
             ),
+          ),
         ],
       ),
     );

@@ -102,7 +102,7 @@ class API {
   }
 
   static Future<String> _fetch(String endpoint) async {
-    Map<String, String> requestHeaders = {
+    Map<String, String /*!*/ > requestHeaders = {
       'Content-type': 'application/json',
       'Accept': 'application/json',
       'DOLARBOT_APIKEY': cfg.get("apiKey"),
@@ -114,19 +114,19 @@ class API {
         int timeoutSeconds = cfg.get("apiRequestTimeoutSeconds");
         String url = "$urlBase$endpoint";
 
-        String data;
+        String data = '';
         Duration timeout =
             Duration(seconds: timeoutSeconds > 0 ? timeoutSeconds : Duration.secondsPerDay);
         await http
-            .get(url, headers: requestHeaders)
-            .timeout(timeout, onTimeout: () => null)
+            .get(Uri.parse(url), headers: requestHeaders)
+            .timeout(timeout)
             .then((response) => data = response.body);
         return data;
       } else {
-        return null;
+        return '';
       }
     } catch (e) {
-      return null;
+      return '';
     }
   }
 
@@ -137,7 +137,7 @@ class API {
 
       if (cachedValue == null || cachedValue.isExpired() || forceRefresh) {
         String response = await _fetch(endpoint);
-        if (response != null) {
+        if (response != '') {
           CacheManager.save(endpoint, response);
           jsonMap = json.decode(response);
         } else {

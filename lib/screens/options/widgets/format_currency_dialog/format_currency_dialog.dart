@@ -16,7 +16,7 @@ class FormatCurrencyDialog extends StatefulWidget {
 }
 
 class _FormatCurrencyDialogState extends State<FormatCurrencyDialog> {
-  String _currencyFormat;
+  /*late*/ String _currencyFormat;
   String _actualCurrencyFormat;
 
   @override

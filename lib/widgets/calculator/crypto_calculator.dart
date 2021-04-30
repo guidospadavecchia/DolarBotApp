@@ -5,10 +5,10 @@ import 'package:extended_masked_text/extended_masked_text.dart';
 import 'package:intl/intl.dart';
 
 class CryptoCalculator extends BaseCalculatorScreen {
-  final double arsValue;
-  final double arsValueWithTaxes;
-  final double usdValue;
-  final String cryptoCode;
+  final double /*!*/ arsValue;
+  final double /*!*/ arsValueWithTaxes;
+  final double /*!*/ usdValue;
+  final String /*!*/ cryptoCode;
   final NumberFormat numberFormat;
 
   CryptoCalculator({
@@ -35,15 +35,15 @@ class CryptoCalculator extends BaseCalculatorScreen {
 }
 
 class _CryptoCalculatorState extends BaseCalculatorState<CryptoCalculator> with BaseCalculator {
-  final double arsValue;
-  final double arsValueWithTaxes;
-  final double usdValue;
-  final String cryptoCode;
+  final double /*!*/ arsValue;
+  final double /*!*/ arsValueWithTaxes;
+  final double /*!*/ usdValue;
+  final String /*!*/ cryptoCode;
   final NumberFormat numberFormat;
-  MoneyMaskedTextController _textControllerInput;
-  TextEditingController _textControllerArsValue;
-  TextEditingController _textControllerArsValueWithTaxes;
-  TextEditingController _textControllerUsdValue;
+  /*late final*/ MoneyMaskedTextController _textControllerInput;
+  /*late final*/ TextEditingController _textControllerArsValue;
+  /*late final*/ TextEditingController _textControllerArsValueWithTaxes;
+  /*late final*/ TextEditingController _textControllerUsdValue;
 
   _CryptoCalculatorState(
     this.arsValue,
@@ -79,7 +79,7 @@ class _CryptoCalculatorState extends BaseCalculatorState<CryptoCalculator> with 
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         InputAmount(
-          title: "Ingresá la cantidad en $cryptoCode:",
+          title: cryptoCode != '' ? "Ingresá la cantidad en $cryptoCode:" : "Ingresá la cantidad:",
           textController: _textControllerInput,
           maxDigits: 12,
         ),
@@ -119,7 +119,7 @@ class _CryptoCalculatorState extends BaseCalculatorState<CryptoCalculator> with 
         precision: 2,
         decimalSeparator: numberFormat.symbols.DECIMAL_SEP,
         thousandSeparator: numberFormat.symbols.GROUP_SEP,
-        rightSymbol: " $cryptoCode");
+        rightSymbol: cryptoCode != '' ? " $cryptoCode" : cryptoCode);
     _textControllerArsValue =
         TextEditingController(text: "\$ 0${numberFormat.symbols.DECIMAL_SEP}00");
     _textControllerArsValueWithTaxes =

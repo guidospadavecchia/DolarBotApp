@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:simple_animations/simple_animations.dart';
 
 class SimpleFabOption {
-  final IconData icon;
-  final Color iconColor;
+  final IconData /*!*/ icon;
+  final Color /*!*/ iconColor;
   final Color backgroundColor;
   final Color splashColor;
   final String tooltip;
-  final Function onPressed;
+  final VoidCallback onPressed;
 
   const SimpleFabOption({
     @required this.icon,
@@ -277,7 +277,7 @@ class _FabCircularOption extends StatelessWidget {
     Key key,
     @required this.size,
     @required this.item,
-    this.direction,
+    this.direction = Axis.vertical,
   }) : super(key: key);
 
   @override
@@ -289,7 +289,7 @@ class _FabCircularOption extends StatelessWidget {
         shape: CircleBorder(),
         fillColor: item.backgroundColor,
         splashColor: item.splashColor != null ? item.splashColor : Theme.of(context).splashColor,
-        onPressed: item.onPressed,
+        onPressed: () => item.onPressed(),
         child: item.tooltip != null
             ? Tooltip(
                 preferBelow: false,

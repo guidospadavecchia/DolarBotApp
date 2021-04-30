@@ -13,16 +13,17 @@ import 'package:dolarbot_app/widgets/cards/templates/venezuela_card.dart';
 
 abstract class BuildCard {
   factory BuildCard(ApiResponse data) {
-    if (data is DollarResponse)
-      return _FiatCurrency<DollarResponse>(data, FiatCurrencyCard.kHeight);
-    if (data is EuroResponse) return _FiatCurrency<EuroResponse>(data, FiatCurrencyCard.kHeight);
-    if (data is RealResponse) return _FiatCurrency<RealResponse>(data, FiatCurrencyCard.kHeight);
-    if (data is CryptoResponse) return _Crypto(data, MetalCard.kHeight);
-    if (data is MetalResponse) return _Metal(data, MetalCard.kHeight);
-    if (data is BcraResponse) return _Bcra(data, BcraCard.kHeight);
-    if (data is CountryRiskResponse) return _CountryRisk(data, CountryRiskCard.kHeight);
-    if (data is VenezuelaResponse) return _Venezuela(data, VenezuelaCard.kHeight);
-
+    if (data != null) {
+      if (data is DollarResponse)
+        return _FiatCurrency<DollarResponse>(data, FiatCurrencyCard.kHeight);
+      if (data is EuroResponse) return _FiatCurrency<EuroResponse>(data, FiatCurrencyCard.kHeight);
+      if (data is RealResponse) return _FiatCurrency<RealResponse>(data, FiatCurrencyCard.kHeight);
+      if (data is CryptoResponse) return _Crypto(data, MetalCard.kHeight);
+      if (data is MetalResponse) return _Metal(data, MetalCard.kHeight);
+      if (data is BcraResponse) return _Bcra(data, BcraCard.kHeight);
+      if (data is CountryRiskResponse) return _CountryRisk(data, CountryRiskCard.kHeight);
+      if (data is VenezuelaResponse) return _Venezuela(data, VenezuelaCard.kHeight);
+    }
     return _Empty();
   }
 
@@ -73,7 +74,7 @@ class _FiatCurrency<T extends GenericCurrencyResponse> implements BuildCard {
       data: data,
       tag: favoriteRate.cardTag,
       iconAsset: favoriteRate.cardIconAsset,
-      iconData: IconData(favoriteRate.cardIconData,
+      iconData: IconData(favoriteRate.cardIconData ?? 0,
           fontFamily: "FontAwesomeSolid", fontPackage: "font_awesome_flutter"),
       gradiantColors: favoriteRate.cardColors.map((n) => Color(n)).toList(),
       endpoint: favoriteRate.endpoint,
@@ -113,7 +114,7 @@ class _Crypto implements BuildCard {
       data: data,
       tag: favoriteRate.cardTag,
       iconAsset: favoriteRate.cardIconAsset,
-      iconData: IconData(favoriteRate.cardIconData,
+      iconData: IconData(favoriteRate.cardIconData ?? 0,
           fontFamily: 'CryptoFont', fontPackage: 'crypto_font_icons'),
       gradiantColors: favoriteRate.cardColors.map((n) => Color(n)).toList(),
       endpoint: favoriteRate.endpoint,
@@ -153,7 +154,7 @@ class _Metal implements BuildCard {
       data: data,
       tag: favoriteRate.cardTag,
       iconAsset: favoriteRate.cardIconAsset,
-      iconData: IconData(favoriteRate.cardIconData),
+      iconData: IconData(favoriteRate.cardIconData ?? 0),
       gradiantColors: favoriteRate.cardColors.map((n) => Color(n)).toList(),
       endpoint: favoriteRate.endpoint,
       numberFormat: settings.getNumberFormat(),
@@ -196,7 +197,7 @@ class _Bcra implements BuildCard {
       data: data,
       tag: favoriteRate.cardTag,
       iconAsset: favoriteRate.cardIconAsset,
-      iconData: IconData(favoriteRate.cardIconData,
+      iconData: IconData(favoriteRate.cardIconData ?? 0,
           fontFamily: "FontAwesomeSolid", fontPackage: "font_awesome_flutter"),
       gradiantColors: favoriteRate.cardColors.map((n) => Color(n)).toList(),
       endpoint: favoriteRate.endpoint,
@@ -236,7 +237,7 @@ class _CountryRisk implements BuildCard {
       data: data,
       tag: favoriteRate.cardTag,
       iconAsset: favoriteRate.cardIconAsset,
-      iconData: IconData(favoriteRate.cardIconData,
+      iconData: IconData(favoriteRate.cardIconData ?? 0,
           fontFamily: "FontAwesomeSolid", fontPackage: "font_awesome_flutter"),
       gradiantColors: favoriteRate.cardColors.map((n) => Color(n)).toList(),
       endpoint: favoriteRate.endpoint,
@@ -277,7 +278,7 @@ class _Venezuela implements BuildCard {
       tag: favoriteRate.cardTag,
       gradiantColors: favoriteRate.cardColors.map((n) => Color(n)).toList(),
       iconAsset: favoriteRate.cardIconAsset,
-      iconData: IconData(favoriteRate.cardIconData),
+      iconData: IconData(favoriteRate.cardIconData ?? 0),
       endpoint: favoriteRate.endpoint,
       numberFormat: settings.getNumberFormat(),
     );

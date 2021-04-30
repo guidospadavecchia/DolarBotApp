@@ -13,7 +13,7 @@ class CardFavorite extends StatelessWidget {
   final CardHeader header;
   final List<CardValue> rates;
   final CardLogo logo;
-  final CardLastUpdated lastUpdated;
+  final CardLastUpdated/*?*/ lastUpdated;
   final List<Color> gradiantColors;
   final double height;
   final Spacing spaceBetweenHeader;
@@ -108,44 +108,28 @@ class CardFavorite extends StatelessWidget {
   }
 
   double _getSpaceBetweenHeader() {
-    double spaceSize;
-
     switch (spaceBetweenHeader) {
-      case Spacing.none:
-        spaceSize = 8;
-        break;
       case Spacing.small:
-        spaceSize = 11;
-        break;
+        return 11;
       case Spacing.medium:
-        spaceSize = 16;
-        break;
+        return 16;
       case Spacing.large:
-        spaceSize = 21;
-        break;
+        return 21;
+      default:
+        return 8;
     }
-
-    return spaceSize;
   }
 
   double _getSpaceBetweenItems() {
-    double spaceSize;
-
     switch (spaceBetweenItems) {
-      case Spacing.none:
-        spaceSize = 5;
-        break;
       case Spacing.small:
-        spaceSize = 10;
-        break;
+        return 10;
       case Spacing.medium:
-        spaceSize = 15;
-        break;
+        return 15;
       case Spacing.large:
-        spaceSize = 20;
-        break;
+        return 20;
+      default:
+        return 5;
     }
-
-    return spaceSize;
   }
 }

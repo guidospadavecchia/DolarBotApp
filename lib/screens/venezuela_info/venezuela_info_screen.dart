@@ -44,16 +44,18 @@ class _VenezuelaInfoScreenState extends BaseInfoScreenState<VenezuelaInfoScreen>
       physics: BouncingScrollPhysics(),
       child: CurrencyInfoContainer(
         items: [
-          CurrencyInfo(
-            title: 'PROMEDIO BANCOS',
-            symbol: 'Bs.',
-            value: data.bankPrice,
-          ),
-          CurrencyInfo(
-            title: "PARALELO",
-            symbol: 'Bs.',
-            value: data.blackMarketPrice,
-          ),
+          if (data?.bankPrice != null)
+            CurrencyInfo(
+              title: 'PROMEDIO BANCOS',
+              symbol: 'Bs.',
+              value: data.bankPrice,
+            ),
+          if (data?.blackMarketPrice != null)
+            CurrencyInfo(
+              title: "PARALELO",
+              symbol: 'Bs.',
+              value: data.blackMarketPrice,
+            ),
         ],
       ),
     );
@@ -73,7 +75,7 @@ class _VenezuelaInfoScreenState extends BaseInfoScreenState<VenezuelaInfoScreen>
         VenezuelaEndpoints.values.firstWhere((e) => e.value == widget.cardData.endpoint);
     API.getVzlaRate(venezuelaEndpoint, forceRefresh: shouldForceRefresh).then(
       (value) {
-        if (value != null) {
+        if (value != null && value.timestamp != null) {
           HistoricalRateManager.saveRate(
             widget.cardData.endpoint,
             widget.cardData.responseType.toString(),
@@ -107,12 +109,13 @@ class _VenezuelaInfoScreenState extends BaseInfoScreenState<VenezuelaInfoScreen>
 
     String shareText = '';
 
-    if (data != null) {
-      final blackMarketValue = data.blackMarketPrice.isNumeric()
+    if (data != null && data.timestamp != null) {
+      final blackMarketValue = data.blackMarketPrice?.isNumeric() ?? false
           ? numberFormat.format(double.parse(data.blackMarketPrice))
           : 'N/A';
-      final banksValue =
-          data.bankPrice.isNumeric() ? numberFormat.format(double.parse(data.bankPrice)) : 'N/A';
+      final banksValue = data.bankPrice?.isNumeric() ?? false
+          ? numberFormat.format(double.parse(data.bankPrice))
+          : 'N/A';
       DateTime date = DateTime.parse(data.timestamp.replaceAll('/', '-'));
       String formattedTime =
           DateFormat(DateTime.now().isSameDayAs(date) ? 'HH:mm' : 'HH:mm - dd-MM-yyyy')
@@ -130,17 +133,17 @@ class _VenezuelaInfoScreenState extends BaseInfoScreenState<VenezuelaInfoScreen>
     NumberFormat numberFormat = Provider.of<Settings>(context, listen: false).getNumberFormat();
     return FabOptionCalculatorDialog(
       calculator: VenezuelaCalculator(
-        bankValue: double.tryParse(data?.bankPrice),
-        blackMarketValue: double.tryParse(data?.blackMarketPrice),
-        symbol: Util.getFiatCurrencySymbol(data),
-        currencyCode: data?.currencyCode,
+        bankValue: double.tryParse(data?.bankPrice ?? '') ?? 0,
+        blackMarketValue: double.tryParse(data?.blackMarketPrice ?? '') ?? 0,
+        symbol: Util.getFiatCurrencySymbol(data) ?? '',
+        currencyCode: data?.currencyCode ?? '',
         numberFormat: numberFormat,
       ),
       calculatorReversed: VenezuelaCalculatorReversed(
-        bankValue: double.tryParse(data?.bankPrice),
-        blackMarketValue: double.tryParse(data?.blackMarketPrice),
-        symbol: Util.getFiatCurrencySymbol(data),
-        currencyCode: data?.currencyCode,
+        bankValue: double.tryParse(data?.bankPrice ?? '') ?? 0,
+        blackMarketValue: double.tryParse(data?.blackMarketPrice ?? '') ?? 0,
+        symbol: Util.getFiatCurrencySymbol(data) ?? '',
+        currencyCode: data?.currencyCode ?? '',
         numberFormat: numberFormat,
       ),
     );

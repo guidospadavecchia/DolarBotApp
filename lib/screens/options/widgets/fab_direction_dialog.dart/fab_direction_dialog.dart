@@ -15,7 +15,7 @@ class FabDirectionDialog extends StatefulWidget {
 }
 
 class _FabDirectionDialogState extends State<FabDirectionDialog> {
-  Axis _fabDirection;
+  /*late*/ Axis _fabDirection;
   Axis _actualFabDirection;
 
   @override

@@ -14,15 +14,15 @@ class HistoricalChartData {
 class HistoricalRateData {
   static const double _kIntervalPartitionsRatio = 10;
 
-  String title;
+  String /*!*/ title;
   String leftSymbol;
   String rightSymbol;
-  TextStyle tooltipTextStyle;
-  double maxValue;
-  double minValue;
-  double interval;
+  TextStyle /*!*/ tooltipTextStyle;
+  double /*!*/ maxValue;
+  /*late*/ double minValue;
+  double /*!*/ interval;
   bool isInteger;
-  LineChartBarData lineChartBarData;
+  LineChartBarData /*!*/ lineChartBarData;
 
   HistoricalRateData({
     String title,
@@ -34,11 +34,7 @@ class HistoricalRateData {
     bool isInteger = false,
     bool extendedInterval = true,
     LineChartBarData lineChartBarData,
-  }) : assert(title != null &&
-            (leftSymbol != null || rightSymbol != null) &&
-            tooltipTextStyle != null &&
-            maxValue != null &&
-            lineChartBarData != null) {
+  }) : assert(leftSymbol != null || rightSymbol != null) {
     this.title = title;
     this.leftSymbol = leftSymbol ?? '';
     this.rightSymbol = rightSymbol ?? '';
@@ -46,20 +42,20 @@ class HistoricalRateData {
     this.maxValue = extendedInterval ? maxValue * 2 : maxValue;
     this.minValue = extendedInterval ? minValue / 2 : minValue;
     this.interval = _calculateInterval(
-        maxValue: this.maxValue,
-        minValue: this.minValue,
-        partitionRatio: _kIntervalPartitionsRatio);
+      maxValue: this.maxValue,
+      minValue: this.minValue,
+    );
     this.isInteger = isInteger;
     this.lineChartBarData = lineChartBarData;
   }
 
-  double _calculateInterval({double maxValue, double minValue, double partitionRatio}) {
+  double _calculateInterval({double maxValue, double minValue}) {
     var difference = maxValue - minValue;
-    if (difference < partitionRatio) {
+    if (difference < _kIntervalPartitionsRatio) {
       int partitionSize = difference ~/ 2;
       return partitionSize < 1 ? 1 : partitionSize.toDouble();
     } else {
-      return (difference ~/ partitionRatio).toDouble();
+      return (difference ~/ _kIntervalPartitionsRatio).toDouble();
     }
   }
 }

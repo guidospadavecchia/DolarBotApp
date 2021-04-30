@@ -18,7 +18,7 @@ class CryptoInfoScreen extends BaseInfoScreen {
 }
 
 class _CryptoInfoScreenState extends BaseInfoScreenState<CryptoInfoScreen> with BaseScreen {
-  CryptoResponse data;
+  /*late*/ CryptoResponse data;
 
   @override
   void initState() {
@@ -43,21 +43,24 @@ class _CryptoInfoScreenState extends BaseInfoScreenState<CryptoInfoScreen> with 
       physics: BouncingScrollPhysics(),
       child: CurrencyInfoContainer(
         items: [
-          CurrencyInfo(
-            title: "PESOS ARGENTINOS",
-            symbol: '\$',
-            value: data.arsPrice,
-          ),
-          CurrencyInfo(
-            title: "PESOS ARGENTINOS + IMPUESTOS",
-            symbol: '\$',
-            value: data.arsPriceWithTaxes,
-          ),
-          CurrencyInfo(
-            title: "DÓLARES ESTADOUNIDENSES",
-            symbol: 'US\$',
-            value: data.usdPrice,
-          ),
+          if (data?.arsPrice != null)
+            CurrencyInfo(
+              title: "PESOS ARGENTINOS",
+              symbol: '\$',
+              value: data.arsPrice,
+            ),
+          if (data?.arsPriceWithTaxes != null)
+            CurrencyInfo(
+              title: "PESOS ARGENTINOS + IMPUESTOS",
+              symbol: '\$',
+              value: data.arsPriceWithTaxes,
+            ),
+          if (data?.usdPrice != null)
+            CurrencyInfo(
+              title: "DÓLARES ESTADOUNIDENSES",
+              symbol: 'US\$',
+              value: data.usdPrice,
+            ),
         ],
       ),
     );
@@ -76,7 +79,7 @@ class _CryptoInfoScreenState extends BaseInfoScreenState<CryptoInfoScreen> with 
 
     API.getCryptoRate(cryptoEndpoint, forceRefresh: shouldForceRefresh).then(
       (value) {
-        if (value != null) {
+        if (value != null && value.timestamp != null) {
           HistoricalRateManager.saveRate(
             widget.cardData.endpoint,
             widget.cardData.responseType.toString(),
@@ -110,14 +113,16 @@ class _CryptoInfoScreenState extends BaseInfoScreenState<CryptoInfoScreen> with 
 
     String shareText = '';
 
-    if (data != null) {
-      final arsPrice =
-          data.arsPrice.isNumeric() ? numberFormat.format(double.parse(data.arsPrice)) : 'N/A';
-      final arsPriceWithTaxes = data.arsPriceWithTaxes.isNumeric()
+    if (data != null && data.timestamp != null) {
+      final arsPrice = data.arsPrice?.isNumeric() ?? false
+          ? numberFormat.format(double.parse(data.arsPrice))
+          : 'N/A';
+      final arsPriceWithTaxes = data.arsPriceWithTaxes?.isNumeric() ?? false
           ? numberFormat.format(double.parse(data.arsPriceWithTaxes))
           : 'N/A';
-      final usdPrice =
-          data.usdPrice.isNumeric() ? numberFormat.format(double.parse(data.usdPrice)) : 'N/A';
+      final usdPrice = data.usdPrice?.isNumeric() ?? false
+          ? numberFormat.format(double.parse(data.usdPrice))
+          : 'N/A';
       DateTime date = DateTime.parse(data.timestamp.replaceAll('/', '-'));
       String formattedTime =
           DateFormat(DateTime.now().isSameDayAs(date) ? 'HH:mm' : 'HH:mm - dd-MM-yyyy')
@@ -135,15 +140,15 @@ class _CryptoInfoScreenState extends BaseInfoScreenState<CryptoInfoScreen> with 
     NumberFormat numberFormat = Provider.of<Settings>(context, listen: false).getNumberFormat();
     return FabOptionCalculatorDialog(
       calculator: CryptoCalculator(
-        arsValue: double.tryParse(data?.arsPrice),
-        arsValueWithTaxes: double.tryParse(data?.arsPriceWithTaxes),
-        usdValue: double.tryParse(data?.usdPrice),
-        cryptoCode: data.code,
+        arsValue: double.tryParse(data?.arsPrice ?? '') ?? 0,
+        arsValueWithTaxes: double.tryParse(data?.arsPriceWithTaxes ?? '') ?? 0,
+        usdValue: double.tryParse(data?.usdPrice ?? '') ?? 0,
+        cryptoCode: data?.code ?? '',
         numberFormat: numberFormat,
       ),
       calculatorReversed: CryptoCalculatorReversed(
         usdValue: double.tryParse(data?.usdPrice ?? ''),
-        cryptoCode: data.code,
+        cryptoCode: data?.code ?? '',
         numberFormat: numberFormat,
       ),
     );

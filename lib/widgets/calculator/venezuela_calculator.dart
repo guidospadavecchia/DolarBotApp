@@ -5,10 +5,10 @@ import 'package:extended_masked_text/extended_masked_text.dart';
 import 'package:intl/intl.dart';
 
 class VenezuelaCalculator extends BaseCalculatorScreen {
-  final double bankValue;
-  final double blackMarketValue;
-  final String symbol;
-  final String currencyCode;
+  final double /*!*/ bankValue;
+  final double /*!*/ blackMarketValue;
+  final String /*!*/ symbol;
+  final String /*!*/ currencyCode;
   final NumberFormat numberFormat;
 
   VenezuelaCalculator({
@@ -32,14 +32,14 @@ class VenezuelaCalculator extends BaseCalculatorScreen {
 
 class _VenezuelaCalculatorState extends BaseCalculatorState<VenezuelaCalculator>
     with BaseCalculator {
-  final double bankValue;
-  final double blackMarketValue;
-  final String symbol;
-  final String currencyCode;
+  final double /*!*/ bankValue;
+  final double /*!*/ blackMarketValue;
+  final String /*!*/ symbol;
+  final String /*!*/ currencyCode;
   final NumberFormat numberFormat;
-  MoneyMaskedTextController _textControllerInput;
-  TextEditingController _textControllerBankValue;
-  TextEditingController _textControllerBlackMarketValue;
+  /*late*/ MoneyMaskedTextController _textControllerInput;
+  /*late*/ TextEditingController _textControllerBankValue;
+  /*late*/ TextEditingController _textControllerBlackMarketValue;
 
   _VenezuelaCalculatorState(
     this.bankValue,

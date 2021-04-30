@@ -43,11 +43,12 @@ class _MetalInfoScreenState extends BaseInfoScreenState<MetalInfoScreen> with Ba
       physics: BouncingScrollPhysics(),
       child: CurrencyInfoContainer(
         items: [
-          CurrencyInfo(
-            title: '/ ${data.unit}',
-            symbol: data.currency == 'USD' ? 'US\$' : '\$',
-            value: data.value,
-          ),
+          if (data?.value != null)
+            CurrencyInfo(
+              title: '/ ${data.unit}',
+              symbol: data?.currency ?? '' == 'USD' ? 'US\$' : '\$',
+              value: data.value,
+            ),
         ],
       ),
     );
@@ -64,21 +65,21 @@ class _MetalInfoScreenState extends BaseInfoScreenState<MetalInfoScreen> with Ba
     MetalEndpoints metalEndpoint =
         MetalEndpoints.values.firstWhere((e) => e.value == widget.cardData.endpoint);
     API.getMetalRate(metalEndpoint, forceRefresh: shouldForceRefresh).then(
-      (value) {
-        if (value != null) {
+      (response) {
+        if (response != null && response.timestamp != null) {
           HistoricalRateManager.saveRate(
             widget.cardData.endpoint,
             widget.cardData.responseType.toString(),
-            value.timestamp,
-            value,
+            response.timestamp,
+            response,
           );
         }
         WidgetsBinding.instance.addPostFrameCallback(
           (_) => setState(() {
-            data = value;
+            data = response;
             timestamp = data?.timestamp;
             isDataLoaded = true;
-            errorOnLoad = value == null;
+            errorOnLoad = response == null || response.value == null || response.value.trim() == '';
             showRefreshButton = true;
             if (!errorOnLoad) showSimpleFabMenu();
           }),
@@ -99,9 +100,10 @@ class _MetalInfoScreenState extends BaseInfoScreenState<MetalInfoScreen> with Ba
 
     String shareText = '';
 
-    if (data != null) {
-      final value = data.value.isNumeric() ? numberFormat.format(double.parse(data.value)) : 'N/A';
-      final symbol = data.currency == 'USD' ? 'US\$' : '\$';
+    if (data != null && data.timestamp != null && data.unit != null) {
+      final value =
+          data.value?.isNumeric() ?? false ? numberFormat.format(double.parse(data.value)) : 'N/A';
+      final symbol = data.currency ?? '' == 'USD' ? 'US\$' : '\$';
       DateTime date = DateTime.parse(data.timestamp.replaceAll('/', '-'));
       String formattedTime =
           DateFormat(DateTime.now().isSameDayAs(date) ? 'HH:mm' : 'HH:mm - dd-MM-yyyy')
@@ -118,13 +120,13 @@ class _MetalInfoScreenState extends BaseInfoScreenState<MetalInfoScreen> with Ba
     NumberFormat numberFormat = Provider.of<Settings>(context, listen: false).getNumberFormat();
     return FabOptionCalculatorDialog(
       calculator: MetalCalculator(
-        usdValue: double.tryParse(data?.value),
-        unit: data?.unit,
+        usdValue: double.tryParse(data?.value ?? '') ?? 0,
+        unit: data?.unit ?? '',
         numberFormat: numberFormat,
       ),
       calculatorReversed: MetalCalculatorReversed(
-        usdValue: double.tryParse(data?.value),
-        unit: data?.unit,
+        usdValue: double.tryParse(data?.value ?? '') ?? 0,
+        unit: data?.unit ?? '',
         numberFormat: numberFormat,
       ),
     );

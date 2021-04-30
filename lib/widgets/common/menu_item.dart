@@ -23,13 +23,13 @@ class MenuItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double _paddingOffset = leading == null ? 12 : 15;
+    final double _paddingOffset = 15;
 
     EdgeInsetsGeometry _calculatePaddingOffset() {
       return EdgeInsets.only(left: depthLevel * _paddingOffset, right: 20);
     }
 
-    return (subItems != null)
+    return (subItems != null && subItems.length > 0)
         ? Theme(
             data: ThemeManager.getThemeForDrawerMenu(context, disableHighlight: disableHighlight),
             child: (ExpansionTile(
@@ -87,7 +87,11 @@ class MenuItem extends StatelessWidget {
                       ),
                     )
                   : null,
-              onTap: () => onTap(),
+              onTap: () {
+                if (onTap != null) {
+                  onTap();
+                }
+              },
             )),
           );
   }

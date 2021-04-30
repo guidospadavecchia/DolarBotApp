@@ -33,8 +33,8 @@ class _MetalCalculatorReversedState extends BaseCalculatorState<MetalCalculatorR
   final double usdValue;
   final String unit;
   final NumberFormat numberFormat;
-  MoneyMaskedTextController _textControllerInput;
-  TextEditingController _textControllerValue;
+  /*late*/ MoneyMaskedTextController _textControllerInput;
+  /*late*/ TextEditingController _textControllerValue;
 
   _MetalCalculatorReversedState(
     this.usdValue,

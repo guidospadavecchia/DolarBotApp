@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 export 'package:dolarbot_app/widgets/currency_info/currency_info.dart';
 
 class CurrencyInfoContainer extends StatelessWidget {
-  final List<CurrencyInfo> items;
+  final List<CurrencyInfo>/*!*/ items;
 
   const CurrencyInfoContainer({
     Key key,

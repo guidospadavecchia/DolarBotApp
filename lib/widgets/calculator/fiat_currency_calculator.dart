@@ -8,7 +8,7 @@ class FiatCurrencyCalculator extends BaseCalculatorScreen {
   final double buyValue;
   final double sellValue;
   final double sellValueWithTaxes;
-  final String symbol;
+  final String /*!*/ symbol;
   final NumberFormat numberFormat;
 
   FiatCurrencyCalculator({
@@ -42,10 +42,10 @@ class _FiatCurrencyCalculatorState extends BaseCalculatorState<FiatCurrencyCalcu
   final double sellValueWithTaxes;
   final String symbol;
   final NumberFormat numberFormat;
-  MoneyMaskedTextController _textControllerInput;
-  TextEditingController _textControllerBuyValue;
-  TextEditingController _textControllerSellValue;
-  TextEditingController _textControllerSellValueWithTaxes;
+  /*late*/ MoneyMaskedTextController _textControllerInput;
+  /*late*/ TextEditingController _textControllerBuyValue;
+  /*late*/ TextEditingController _textControllerSellValue;
+  /*late*/ TextEditingController _textControllerSellValueWithTaxes;
 
   _FiatCurrencyCalculatorState(
     this.buyValue,
@@ -141,18 +141,13 @@ class _FiatCurrencyCalculatorState extends BaseCalculatorState<FiatCurrencyCalcu
         decimalSeparator: numberFormat.symbols.DECIMAL_SEP,
         thousandSeparator: numberFormat.symbols.GROUP_SEP,
         leftSymbol: "$symbol ");
-    if (buyValue != null) {
-      _textControllerBuyValue =
-          TextEditingController(text: "\$ 0${numberFormat.symbols.DECIMAL_SEP}00");
-    }
-    if (sellValue != null) {
-      _textControllerSellValue =
-          TextEditingController(text: "\$ 0${numberFormat.symbols.DECIMAL_SEP}00");
-    }
-    if (sellValueWithTaxes != null) {
-      _textControllerSellValueWithTaxes =
-          TextEditingController(text: "\$ 0${numberFormat.symbols.DECIMAL_SEP}00");
-    }
+
+    _textControllerBuyValue =
+        TextEditingController(text: "\$ 0${numberFormat.symbols.DECIMAL_SEP}00");
+    _textControllerSellValue =
+        TextEditingController(text: "\$ 0${numberFormat.symbols.DECIMAL_SEP}00");
+    _textControllerSellValueWithTaxes =
+        TextEditingController(text: "\$ 0${numberFormat.symbols.DECIMAL_SEP}00");
   }
 
   void _setConversion() {

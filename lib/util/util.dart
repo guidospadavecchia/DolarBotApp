@@ -27,10 +27,12 @@ class Util {
   static final cfg = GlobalConfiguration();
 
   static String getFiatCurrencySymbol(ApiResponse data) {
-    if (data is DollarResponse) return "US\$";
-    if (data is EuroResponse) return "€";
-    if (data is RealResponse) return "R\$";
-    if (data is VenezuelaResponse) return "Bs.";
+    if (data != null) {
+      if (data is DollarResponse) return "US\$";
+      if (data is EuroResponse) return "€";
+      if (data is RealResponse) return "R\$";
+      if (data is VenezuelaResponse) return "Bs.";
+    }
 
     return null;
   }
@@ -63,8 +65,8 @@ class Util {
               ),
             ),
             wait: const Duration(milliseconds: 100))
-        .then(
-      (Uint8List image) async {
+        .then((Uint8List image) async {
+      if (image != null) {
         final String fileName = 'dolarbot_${DateTime.now().microsecondsSinceEpoch}.png';
 
         final File file = await File('${tempDir.path}/${fileName}').create();
@@ -78,8 +80,14 @@ class Util {
           subject: cfg.getDeepValue("share:subject"),
           text: cfg.getDeepValue("share:message"),
         );
-      },
-    ).whenComplete(() => tempDir.deleteSync(recursive: true));
+        return true;
+      }
+      return false;
+    }).then((result) {
+      if (result) {
+        tempDir.deleteSync(recursive: true);
+      }
+    });
   }
 
   static navigateTo(
@@ -87,17 +95,17 @@ class Util {
     Widget screen, {
     bool withReplacement = true,
     PageTransitionType transitionType = PageTransitionType.fade,
-    Duration duration,
-    Duration reverseDuration,
-    Duration pushDelay,
+    Duration duration = const Duration(milliseconds: 150),
+    Duration reverseDuration = const Duration(milliseconds: 150),
+    Duration pushDelay = const Duration(milliseconds: 250),
   }) {
     PageTransition transition = PageTransition(
       child: screen,
       type: transitionType,
-      duration: duration ?? const Duration(milliseconds: 150),
-      reverseDuration: reverseDuration ?? const Duration(milliseconds: 150),
+      duration: duration,
+      reverseDuration: reverseDuration,
     );
-    Future.delayed(pushDelay ?? const Duration(milliseconds: 250)).then(
+    Future.delayed(pushDelay).then(
       (value) => withReplacement
           ? Navigator.pushReplacement(context, transition)
           : Navigator.push(context, transition),
@@ -118,7 +126,7 @@ class Util {
     BuildContext context,
     String text,
     Color backgroundColor, {
-    Duration duration,
+    Duration duration = const Duration(seconds: 2),
     TextAlign textAlign = TextAlign.center,
     Icon leadingIcon = null,
   }) {
@@ -127,7 +135,7 @@ class Util {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         backgroundColor: backgroundColor,
-        duration: duration ?? const Duration(seconds: 2),
+        duration: duration,
         content: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
@@ -187,8 +195,12 @@ class Util {
   /// then waiting for the given [wait] amount of time and then creating an image via a [RepaintBoundary].
   ///
   /// The final image will be of size [imageSize] and the the widget will be layout, ... with the given [logicalSize].
-  static Future<Uint8List> createImageFromWidget(Widget widget,
-      {Duration wait, Size logicalSize, Size imageSize}) async {
+  static Future<Uint8List /*?*/ > createImageFromWidget(
+    Widget widget, {
+    Duration wait,
+    Size logicalSize,
+    Size imageSize,
+  }) async {
     final RenderRepaintBoundary repaintBoundary = RenderRepaintBoundary();
 
     logicalSize ??= ui.window.physicalSize / ui.window.devicePixelRatio;
@@ -237,8 +249,8 @@ class Util {
     pipelineOwner.flushPaint();
 
     final ui.Image image = await repaintBoundary.toImage(pixelRatio: 3);
-    final ByteData byteData = await image.toByteData(format: ui.ImageByteFormat.png);
+    final ByteData /*?*/ byteData = await image.toByteData(format: ui.ImageByteFormat.png);
 
-    return byteData.buffer.asUint8List();
+    return byteData != null ? byteData.buffer.asUint8List() : null;
   }
 }

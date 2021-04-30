@@ -3,12 +3,11 @@ import 'package:dolarbot_app/screens/base/base_info_screen.dart';
 import 'package:dolarbot_app/widgets/common/simple_fab_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:share/share.dart' as share2;
 
-typedef FavoriteFunction = Future<bool> Function();
+typedef FavoriteFunction = Future<bool /*!*/ > Function();
 
 class FabMenu extends StatefulWidget {
-  final GlobalKey<SimpleFabMenuState> simpleFabKey;
+  final GlobalKey<SimpleFabMenuState> /*!*/ simpleFabKey;
   final bool showFavoriteButton;
   final FavoriteFunction onFavoriteButtonTap;
   final bool isFavorite;
@@ -25,7 +24,7 @@ class FabMenu extends StatefulWidget {
   final Function onOpened;
   final Function onClosed;
   final bool visible;
-  final Axis direction;
+  final Axis /*!*/ direction;
 
   const FabMenu({
     Key key,
@@ -54,7 +53,7 @@ class FabMenu extends StatefulWidget {
 }
 
 class _FabMenuState extends State<FabMenu> {
-  bool isFavorite;
+  /*late*/ bool /*!*/ isFavorite;
 
   @override
   void initState() {
@@ -81,7 +80,9 @@ class _FabMenuState extends State<FabMenu> {
             backgroundColor: Colors.white,
             icon: IconFonts.info,
             onPressed: () {
-              widget.onShowDescriptionTap();
+              if (widget.onHistoricalChartButtonTap != null) {
+                widget.onShowDescriptionTap();
+              }
               closeFabMenu();
             },
           ),
@@ -92,7 +93,9 @@ class _FabMenuState extends State<FabMenu> {
             backgroundColor: Colors.white,
             icon: Icons.copy,
             onPressed: () {
-              widget.onClipboardButtonTap();
+              if (widget.onClipboardButtonTap != null) {
+                widget.onClipboardButtonTap();
+              }
               closeFabMenu();
             },
           ),
@@ -103,7 +106,9 @@ class _FabMenuState extends State<FabMenu> {
             backgroundColor: Colors.white,
             icon: FontAwesomeIcons.calculator,
             onPressed: () {
-              widget.onCalculatorButtonTap();
+              if (widget.onCalculatorButtonTap != null) {
+                widget.onCalculatorButtonTap();
+              }
               closeFabMenu();
             },
           ),
@@ -114,7 +119,9 @@ class _FabMenuState extends State<FabMenu> {
             backgroundColor: Colors.white,
             icon: FontAwesomeIcons.chartBar,
             onPressed: () {
-              widget.onHistoricalChartButtonTap();
+              if (widget.onHistoricalChartButtonTap != null) {
+                widget.onHistoricalChartButtonTap();
+              }
               closeFabMenu();
             },
           ),
@@ -126,7 +133,9 @@ class _FabMenuState extends State<FabMenu> {
               icon: IconFonts.share,
               onPressed: () {
                 closeFabMenu();
-                widget.onShareButtonTap();
+                if (widget.onShareButtonTap != null) {
+                  widget.onShareButtonTap();
+                }
               }),
         if (widget.showFavoriteButton)
           SimpleFabOption(
@@ -135,9 +144,11 @@ class _FabMenuState extends State<FabMenu> {
             backgroundColor: Colors.white,
             icon: isFavorite ? IconFonts.heart : IconFonts.heart_empty,
             onPressed: () async {
-              bool result = await widget.onFavoriteButtonTap();
-              setState(() => isFavorite = result);
-              Future.delayed(const Duration(milliseconds: 200), () => closeFabMenu());
+              if (widget.onFavoriteButtonTap != null) {
+                bool result = await widget.onFavoriteButtonTap();
+                setState(() => isFavorite = result);
+                Future.delayed(const Duration(milliseconds: 200), () => closeFabMenu());
+              }
             },
           ),
       ],
@@ -145,13 +156,8 @@ class _FabMenuState extends State<FabMenu> {
   }
 
   void closeFabMenu() {
-    if (widget.simpleFabKey?.currentState?.isOpen ?? false) {
+    if (widget.simpleFabKey.currentState?.isOpen ?? false) {
       widget.simpleFabKey.currentState.closeMenu();
     }
-  }
-
-  void share(String text, {String title}) {
-    share2.Share.share(text, subject: title != null ? 'Cotización $title' : '');
-    closeFabMenu();
   }
 }

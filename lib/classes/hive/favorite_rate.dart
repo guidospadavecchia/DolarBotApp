@@ -3,19 +3,19 @@ import 'package:hive/hive.dart';
 @HiveType(typeId: 1)
 class FavoriteRate extends HiveObject {
   @HiveField(0)
-  final String endpoint;
+  final String/*!*/ endpoint;
   @HiveField(1)
-  final String cardResponseType;
+  final String/*!*/ cardResponseType;
   @HiveField(2)
-  final String cardTitle;
+  final String/*!*/ cardTitle;
   @HiveField(3)
   final String cardSubtitle;
   @HiveField(4)
   final String cardSymbol;
   @HiveField(5)
-  final String cardTag;
+  final String/*!*/ cardTag;
   @HiveField(6)
-  final List<int> cardColors;
+  final List<int>/*!*/ cardColors;
   @HiveField(7)
   final int cardIconData;
   @HiveField(8)

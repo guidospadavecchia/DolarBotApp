@@ -23,30 +23,31 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  font_awesome_flutter: ^8.11.0
-  crypto_font_icons: ^0.1.0
-  cupertino_icons: ^1.0.0
-  flutter_launcher_icons: "^0.8.1"
-  adaptive_theme: ^1.1.0
-  loading_indicator: ^1.2.0
-  http: ^0.12.2
-  global_configuration: ^1.6.0
-  show_up_animation: ^1.0.2
-  hive: ^1.4.4+1
-  hive_flutter: ^0.3.1
-  provider: ^4.0.0
-  page_transition: ^1.1.7+6
-  oktoast: ^2.3.2
-  share: '>=0.6.5+4 <2.0.0'
+  font_awesome_flutter: ^9.0.0
+  crypto_font_icons: ^1.0.0+1
+  cupertino_icons: ^1.0.2
+  flutter_launcher_icons: ^0.9.0
+  adaptive_theme: ^2.2.0
+  loading_indicator: ^2.0.1
+  http: ^0.13.2
+  intl: ^0.17.0
+  global_configuration: ^2.0.0-nullsafety.1
+  show_up_animation: ^2.0.0-nullsafety.0
+  hive: ^2.0.4
+  hive_flutter: ^1.0.0
+  provider: ^5.0.0
+  page_transition: ^2.0.1-nullsafety.0
+  oktoast: ^3.0.0
+  share: ^2.0.1
   extended_masked_text: ^2.1.0
-  auto_size_text_field: ^0.1.7
-  decimal: ^0.3.5
-  url_launcher: ^5.7.10
-  package_info: ^0.4.3+4
-  simple_animations: '>=2.0.0 <3.0.0'
-  carousel_slider: ^3.0.0
-  connectivity: ^3.0.2
-  fl_chart: ^0.30.0
+  auto_size_text_field: ^1.0.0-nullsafety.1
+  decimal: ^1.0.0+1
+  url_launcher: ^6.0.3
+  package_info: ^2.0.0
+  simple_animations: ^3.1.1
+  carousel_slider: ^4.0.0-nullsafety.0
+  connectivity: ^3.0.3
+  fl_chart: ^0.35.0
   flutter_scroll_to_top: ^1.1.0
 
 flutter_icons:
@@ -57,8 +58,8 @@ flutter_icons:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  hive_generator: ^0.8.2
-  build_runner: ^1.11.1
+  hive_generator: ^1.1.0
+  build_runner: ^2.0.1
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

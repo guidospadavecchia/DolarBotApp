@@ -11,8 +11,9 @@ class EmptyFavorites extends StatelessWidget {
 
   const EmptyFavorites({
     Key key,
-    this.topText,
-    this.bottomText,
+    this.topText = "Tu inicio está vacío",
+    this.bottomText =
+        "Podés dirigirte a cualquier cotización y agregarla como favorita desde allí.",
     this.imageOpacity = 0.4,
     this.textOpacity = 0.8,
   }) : super(key: key);
@@ -32,7 +33,7 @@ class EmptyFavorites extends StatelessWidget {
             Opacity(
               opacity: textOpacity,
               child: Text(
-                topText ?? "Tu inicio está vacío",
+                topText,
                 style: TextStyle(
                     fontSize: SizeConfig.blockSizeVertical * 3,
                     fontFamily: "Raleway",
@@ -51,8 +52,7 @@ class EmptyFavorites extends StatelessWidget {
             Opacity(
               opacity: textOpacity,
               child: Text(
-                bottomText ??
-                    "Podés dirigirte a cualquier cotización y agregarla como favorita desde allí.",
+                bottomText,
                 style: TextStyle(
                     height: SizeConfig.blockSizeVertical * 0.18,
                     fontSize: SizeConfig.blockSizeVertical * 2,

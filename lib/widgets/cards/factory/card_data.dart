@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 class CardData {
-  final String title;
-  final String bannerTitle;
+  final String /*!*/ title;
+  final String /*!*/ bannerTitle;
   final String subtitle;
   final String symbol;
-  final String tag;
-  final List<Color> colors;
+  final String /*!*/ tag;
+  final List<Color /*!*/ > /*!*/ colors;
   final IconData iconData;
   final String iconAsset;
   final String endpoint;
@@ -56,7 +56,7 @@ class CardData {
       endpoint: endpoint ?? this.endpoint,
       responseType: response ?? this.responseType,
       showButtons: showButtons ?? this.showButtons,
-      showPoweredBy: response ?? this.showPoweredBy,
+      showPoweredBy: showPoweredBy ?? this.showPoweredBy,
     );
   }
 }

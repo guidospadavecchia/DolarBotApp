@@ -23,17 +23,10 @@ abstract class BuildScreen {
     if (responseType == CountryRiskResponse) return _CountryRisk();
     if (responseType == VenezuelaResponse) return _Venezuela();
 
-    return _Empty();
+    throw 'Unknown ApiResponse type';
   }
 
   BaseInfoScreen fromCardData(BuildContext context, CardData cardData);
-}
-
-class _Empty implements BuildScreen {
-  @override
-  BaseInfoScreen fromCardData(BuildContext context, CardData cardData) {
-    return null;
-  }
 }
 
 class _FiatCurrency implements BuildScreen {

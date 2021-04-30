@@ -6,7 +6,7 @@ class ToastCustom extends StatelessWidget {
   final Color iconColor;
   final double iconSize;
   final double size;
-  final Color backgroundColor;
+  final Color/*!*/ backgroundColor;
   final AlignmentGeometry alignment;
   final EdgeInsetsGeometry padding;
 

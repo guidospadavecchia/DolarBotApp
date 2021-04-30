@@ -35,7 +35,7 @@ class _FiatCurrencyInfoScreenState<T extends GenericCurrencyResponse>
   @override
   Future loadData() async {
     _getResponse().then((value) {
-      if (value != null) {
+      if (value != null && value.timestamp != null) {
         HistoricalRateManager.saveRate(
           widget.cardData.endpoint,
           widget.cardData.responseType.toString(),
@@ -71,17 +71,19 @@ class _FiatCurrencyInfoScreenState<T extends GenericCurrencyResponse>
       physics: BouncingScrollPhysics(),
       child: CurrencyInfoContainer(
         items: [
-          CurrencyInfo(
-            title: "COMPRA",
-            symbol: '\$',
-            value: data.buyPrice,
-          ),
-          CurrencyInfo(
-            title: "VENTA",
-            symbol: '\$',
-            value: data.sellPrice,
-          ),
-          if (data.sellPriceWithTaxes != null)
+          if (data?.buyPrice != null)
+            CurrencyInfo(
+              title: "COMPRA",
+              symbol: '\$',
+              value: data.buyPrice,
+            ),
+          if (data?.sellPrice != null)
+            CurrencyInfo(
+              title: "VENTA",
+              symbol: '\$',
+              value: data.sellPrice,
+            ),
+          if (data?.sellPriceWithTaxes != null)
             CurrencyInfo(
               title: "VENTA + IMPUESTOS",
               symbol: '\$',
@@ -109,11 +111,13 @@ class _FiatCurrencyInfoScreenState<T extends GenericCurrencyResponse>
     NumberFormat numberFormat = settings.getNumberFormat();
 
     String shareText = '';
-    if (data != null) {
-      final buyPrice =
-          data.buyPrice.isNumeric() ? numberFormat.format(double.parse(data.buyPrice)) : 'N/A';
-      final sellPrice =
-          data.sellPrice.isNumeric() ? numberFormat.format(double.parse(data.sellPrice)) : 'N/A';
+    if (data != null && data.timestamp != null) {
+      final buyPrice = data.buyPrice?.isNumeric() ?? false
+          ? numberFormat.format(double.parse(data.buyPrice))
+          : 'N/A';
+      final sellPrice = data.sellPrice?.isNumeric() ?? false
+          ? numberFormat.format(double.parse(data.sellPrice))
+          : 'N/A';
       DateTime date = DateTime.parse(data.timestamp.replaceAll('/', '-'));
       String formattedTime =
           DateFormat(DateTime.now().isSameDayAs(date) ? 'HH:mm' : 'HH:mm - dd-MM-yyyy')

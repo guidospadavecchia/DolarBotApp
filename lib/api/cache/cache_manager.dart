@@ -6,7 +6,7 @@ class CacheManager {
   static final cache = Hive.box('cache');
   static final cfg = GlobalConfiguration();
 
-  static CacheEntry read(String key) {
+  static CacheEntry read(String /*!*/ key) {
     return cache.get(key);
   }
 
@@ -17,7 +17,7 @@ class CacheManager {
 
   static DateTime _getNewExpiration() {
     int expirationMinutes =
-        int.parse(cfg.get("apiRequestCacheMinutes").toString());
+        int.tryParse(cfg.get("apiRequestCacheMinutes").toString()) ?? Duration.minutesPerHour;
     return DateTime.now().add(Duration(minutes: expirationMinutes));
   }
 }

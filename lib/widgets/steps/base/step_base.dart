@@ -7,8 +7,8 @@ export 'package:dolarbot_app/classes/size_config.dart';
 export 'package:dolarbot_app/classes/theme_manager.dart';
 
 abstract class StepBase extends StatelessWidget {
-  final int stepIndex;
-  final String title;
+  final int/*!*/ stepIndex;
+  final String/*!*/ title;
   final bool showStep;
 
   const StepBase({

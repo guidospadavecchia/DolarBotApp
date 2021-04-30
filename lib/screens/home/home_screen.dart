@@ -78,7 +78,7 @@ class HomeScreenState extends State<HomeScreen> {
       _buildCards();
     }
 
-    if (_checkIsFirstTime()) {
+    if (_checkIsFirstTime() && SchedulerBinding.instance != null) {
       SchedulerBinding.instance.addPostFrameCallback((_) async {
         if (Navigator.of(context).canPop()) Navigator.of(context).pop();
         await Util.showFirstTimeDialog(context, false);
@@ -245,27 +245,27 @@ class HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  Future onRefresh(BuildContext context) async {
+  void onRefresh(BuildContext context) async {
     _cards.clear();
     _cardsLoaded = false;
     _hasErrorsAll = false;
     _showRefreshButton = false;
     Util.hideSnackBar(context);
-    await Future.delayed(Duration.zero, () {
-      setState(() {
-        _loadFavorites(true)
-            .then((_) => WidgetsBinding.instance.addPostFrameCallback(
-                  (_) => setState(() => _buildCards()),
-                ))
-            .then(
-              (_) => Util.showSnackBar(
-                context,
-                '¡Cotizaciones actualizadas!',
-                ThemeManager.getSnackBarColor(context),
-              ),
-            );
-      });
-    });
+    setState(
+      () => _loadFavorites(true)
+          .then(
+            (_) => WidgetsBinding.instance.addPostFrameCallback(
+              (_) => setState(() => _buildCards()),
+            ),
+          )
+          .then(
+            (_) => Util.showSnackBar(
+              context,
+              '¡Cotizaciones actualizadas!',
+              ThemeManager.getSnackBarColor(context),
+            ),
+          ),
+    );
   }
 
   bool _checkIsFirstTime() {
@@ -303,8 +303,8 @@ class HomeScreenState extends State<HomeScreen> {
   }
 
   Future _loadFavorites(bool forceRefresh) async {
-    List<dynamic> cards = favoritesBox.get('favoriteCards');
-    if (cards != null) {
+    List<dynamic> cards = favoritesBox.get('favoriteCards') ?? [];
+    if (cards.isNotEmpty) {
       if (!forceRefresh) {
         _favoriteRates.addAll(cards.cast<FavoriteRate>());
       }
@@ -320,7 +320,7 @@ class HomeScreenState extends State<HomeScreen> {
         Map json = _responses[x.endpoint];
         ApiResponse response =
             json != null ? ApiResponseBuilder.fromTypeName(x.cardResponseType, json) : null;
-        if (response != null) {
+        if (response != null && response.timestamp != null) {
           HistoricalRateManager.saveRate(
             x.endpoint,
             x.cardResponseType,
@@ -418,8 +418,8 @@ class _DismissFavoriteButton extends StatelessWidget {
 }
 
 class _AnimationContainer extends StatelessWidget {
-  final Duration duration;
-  final Widget child;
+  final Duration /*!*/ duration;
+  final Widget /*!*/ child;
 
   const _AnimationContainer({
     Key key,

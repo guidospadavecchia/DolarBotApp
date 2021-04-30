@@ -41,7 +41,7 @@ getIconAsset(BuildContext context, String assetPath) {
   );
 }
 
-getIconData(BuildContext context, IconData iconData) {
+getIconData(BuildContext context, IconData/*!*/ iconData) {
   return Icon(
     iconData,
     color: ThemeManager.getDrawerMenuItemIconColor(context),

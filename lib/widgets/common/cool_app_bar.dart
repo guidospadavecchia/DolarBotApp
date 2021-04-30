@@ -12,7 +12,7 @@ class CoolAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   const CoolAppBar({
     Key key,
-    this.title,
+    this.title = ' ',
     this.isMainMenu = true,
     this.showRefreshButton = false,
     this.onRefresh,
@@ -71,7 +71,7 @@ class CoolAppBar extends StatelessWidget implements PreferredSizeWidget {
         alignment: Alignment.center,
         fit: BoxFit.fitWidth,
         child: Text(
-          title ?? ' ',
+          title,
           style: TextStyle(
             fontFamily: 'Raleway',
             fontWeight: FontWeight.bold,

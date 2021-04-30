@@ -3,7 +3,7 @@ import 'package:dolarbot_app/screens/common/icon_fonts.dart';
 import 'package:flutter/material.dart';
 
 class CardShareButton extends StatelessWidget {
-  final Function onSharePressed;
+  final Function /*!*/ onSharePressed;
 
   const CardShareButton({
     Key key,
@@ -23,7 +23,7 @@ class CardShareButton extends StatelessWidget {
           child: RawMaterialButton(
             shape: CircleBorder(),
             constraints: const BoxConstraints(minWidth: 50, minHeight: 80),
-            onPressed: onSharePressed,
+            onPressed: () => onSharePressed(),
             child: const Icon(
               IconFonts.share,
               color: Colors.white,

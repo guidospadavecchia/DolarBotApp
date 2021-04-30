@@ -8,12 +8,12 @@ class Settings extends ChangeNotifier {
 
   final settings = Hive.box('settings');
 
-  void saveCurrencyFormat(String format) {
+  void saveCurrencyFormat(String /*!*/ format) {
     settings.put('currencyFormat', format);
     notifyListeners();
   }
 
-  String getCurrencyFormat() {
+  String /*!*/ getCurrencyFormat() {
     return settings.get('currencyFormat') ?? CurrencyFormats.AR.value;
   }
 
@@ -37,7 +37,7 @@ class Settings extends ChangeNotifier {
   }
 
   DismissDirection getCardGestureDismiss() {
-    final int indexValue = settings.get('cardGestureDelete');
+    final int indexValue = settings.get('cardGestureDelete') ?? -1;
 
     switch (indexValue) {
       case 1:
@@ -77,5 +77,5 @@ extension CurrencyFormatsExtension on CurrencyFormats {
     CurrencyFormats.US: 'en_US',
   };
 
-  String get value => formats[this];
+  String/*!*/ get value => formats[this];
 }

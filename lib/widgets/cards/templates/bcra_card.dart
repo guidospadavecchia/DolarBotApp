@@ -10,9 +10,9 @@ class BcraCard extends BaseCard {
 
   final String title;
   final String bannerTitle;
-  final String subtitle;
+  final String/*!*/ subtitle;
   final String tag;
-  final String symbol;
+  final String/*!*/ symbol;
   final BcraResponse data;
   final List<Color> gradiantColors;
   final IconData iconData;

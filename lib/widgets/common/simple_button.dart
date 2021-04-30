@@ -14,7 +14,7 @@ class SimpleButton extends StatelessWidget {
 
   const SimpleButton({
     Key key,
-    this.text,
+    this.text = '',
     this.icon,
     this.iconSize = 32,
     this.iconColor,
@@ -30,9 +30,7 @@ class SimpleButton extends StatelessWidget {
     return TextButton(
       style: ButtonStyle(
         padding: MaterialStateProperty.all<EdgeInsets>(
-          padding ??
-              EdgeInsets.only(
-                  top: 7, right: text != null && text != '' ? 25 : 15, left: 15, bottom: 7),
+          padding ?? EdgeInsets.only(top: 7, right: text != '' ? 25 : 15, left: 15, bottom: 7),
         ),
         overlayColor: MaterialStateColor.resolveWith(
             (states) => ThemeManager.getDrawerMenuItemIconColor(context).withOpacity(0.2)),
@@ -53,11 +51,11 @@ class SimpleButton extends StatelessWidget {
             size: iconSize,
             color: iconColor ?? ThemeManager.getPrimaryAccentColor(context),
           ),
-          if (text != null && text != '')
+          if (text != '')
             const SizedBox(
               width: 10,
             ),
-          if (text != null && text != '')
+          if (text != '')
             Text(
               text,
               style: TextStyle(

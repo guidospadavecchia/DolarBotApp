@@ -5,7 +5,7 @@ import 'package:extended_masked_text/extended_masked_text.dart';
 import 'package:intl/intl.dart';
 
 class CryptoCalculatorReversed extends BaseCalculatorScreen {
-  final double usdValue;
+  final double /*!*/ usdValue;
   final String cryptoCode;
   final NumberFormat numberFormat;
 
@@ -30,11 +30,11 @@ class CryptoCalculatorReversed extends BaseCalculatorScreen {
 
 class _CryptoCalculatorReversedState extends BaseCalculatorState<CryptoCalculatorReversed>
     with BaseCalculator {
-  final double usdValue;
+  final double /*!*/ usdValue;
   final String cryptoCode;
   final NumberFormat numberFormat;
-  MoneyMaskedTextController _textControllerInput;
-  TextEditingController _textControllerCryptoValue;
+  /*late*/ MoneyMaskedTextController _textControllerInput;
+  /*late*/ TextEditingController _textControllerCryptoValue;
 
   _CryptoCalculatorReversedState(
     this.usdValue,

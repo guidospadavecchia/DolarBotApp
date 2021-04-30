@@ -34,7 +34,7 @@ class HistoricalRatesScreen extends StatefulWidget {
 }
 
 class _HistoricalRatesScreenState extends State<HistoricalRatesScreen> {
-  List<HistoricalRate> _historicalRates;
+  /*late */ List<HistoricalRate> /*!*/ _historicalRates;
   String _dataTimeSpan = '';
 
   @override

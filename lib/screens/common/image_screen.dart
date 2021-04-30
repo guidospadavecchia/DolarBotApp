@@ -14,8 +14,8 @@ class ImageScreen extends StatelessWidget {
   const ImageScreen({
     Key key,
     @required this.image,
-    this.text,
-    this.textStyle,
+    this.text = '',
+    this.textStyle = const TextStyle(fontSize: 20, fontFamily: "Raleway"),
     this.textOpacity = 1,
     this.imageColor = Colors.white,
     this.imageColorFilterBlendMode = BlendMode.srcATop,
@@ -45,20 +45,16 @@ class ImageScreen extends StatelessWidget {
               ),
             ),
           ),
-          if (text != null && text != '')
+          if (text != '')
             const SizedBox(
               height: 50,
             ),
-          if (text != null && text != '')
+          if (text != '')
             Opacity(
               opacity: textOpacity,
               child: Text(
                 text,
-                style: textStyle ??
-                    const TextStyle(
-                      fontSize: 20,
-                      fontFamily: "Raleway",
-                    ),
+                style: textStyle,
                 textAlign: TextAlign.center,
               ),
             ),

@@ -63,16 +63,16 @@ class _FiatCurrency implements BuildHistoricalChartData {
       if (jsonMap != null) {
         GenericCurrencyResponse data = GenericCurrencyResponse(jsonMap);
         DateTime date = DateTime.parse(historicalRate.timestamp.replaceAll('/', '-'));
-        if (data.buyPrice.isNumeric()) {
-          double buyPrice = double.tryParse(data.buyPrice);
+        if (data.buyPrice?.isNumeric() ?? false) {
+          double buyPrice = double.tryParse(data.buyPrice) ?? 0;
           buyPrices.add(FlSpot(date.millisecondsSinceEpoch.toDouble(), buyPrice));
         }
-        if (data.sellPrice.isNumeric()) {
-          double sellPrice = double.tryParse(data.sellPrice);
+        if (data.sellPrice?.isNumeric() ?? false) {
+          double sellPrice = double.tryParse(data.sellPrice) ?? 0;
           sellPrices.add(FlSpot(date.millisecondsSinceEpoch.toDouble(), sellPrice));
         }
-        if (data.sellPriceWithTaxes.isNumeric()) {
-          double sellPriceWithTaxes = double.tryParse(data.sellPriceWithTaxes);
+        if (data.sellPriceWithTaxes?.isNumeric() ?? false) {
+          double sellPriceWithTaxes = double.tryParse(data.sellPriceWithTaxes) ?? 0;
           sellPricesWithTaxes
               .add(FlSpot(date.millisecondsSinceEpoch.toDouble(), sellPriceWithTaxes));
         }
@@ -149,16 +149,16 @@ class _Crypto implements BuildHistoricalChartData {
       if (jsonMap != null) {
         CryptoResponse data = CryptoResponse(jsonMap);
         DateTime date = DateTime.parse(historicalRate.timestamp.replaceAll('/', '-'));
-        if (data.arsPrice.isNumeric()) {
-          double arsPrice = double.tryParse(data.arsPrice);
+        if (data.arsPrice?.isNumeric() ?? false) {
+          double arsPrice = double.tryParse(data.arsPrice) ?? 0;
           arsPrices.add(FlSpot(date.millisecondsSinceEpoch.toDouble(), arsPrice));
         }
-        if (data.arsPriceWithTaxes.isNumeric()) {
-          double arsPriceWithTaxes = double.tryParse(data.arsPriceWithTaxes);
+        if (data.arsPriceWithTaxes?.isNumeric() ?? false) {
+          double arsPriceWithTaxes = double.tryParse(data.arsPriceWithTaxes) ?? 0;
           arsPricesWithTaxes.add(FlSpot(date.millisecondsSinceEpoch.toDouble(), arsPriceWithTaxes));
         }
-        if (data.usdPrice.isNumeric()) {
-          double usdPrice = double.tryParse(data.usdPrice);
+        if (data.usdPrice?.isNumeric() ?? false) {
+          double usdPrice = double.tryParse(data.usdPrice) ?? 0;
           usdPrices.add(FlSpot(date.millisecondsSinceEpoch.toDouble(), usdPrice));
         }
       }
@@ -233,8 +233,8 @@ class _Metal implements BuildHistoricalChartData {
       if (jsonMap != null) {
         MetalResponse data = MetalResponse(jsonMap);
         DateTime date = DateTime.parse(historicalRate.timestamp.replaceAll('/', '-'));
-        if (data.value.isNumeric()) {
-          double value = double.tryParse(data.value);
+        if (data.value?.isNumeric() ?? false) {
+          double value = double.tryParse(data.value) ?? 0;
           values.add(FlSpot(date.millisecondsSinceEpoch.toDouble(), value));
         }
         if (unit == null) unit = data.unit;
@@ -276,8 +276,8 @@ class _Bcra implements BuildHistoricalChartData {
       if (jsonMap != null) {
         BcraResponse data = BcraResponse(jsonMap);
         DateTime date = DateTime.parse(historicalRate.timestamp.replaceAll('/', '-'));
-        if (data.value.isNumeric()) {
-          double value = double.tryParse(data.value);
+        if (data.value?.isNumeric() ?? false) {
+          double value = double.tryParse(data.value) ?? 0;
           values.add(FlSpot(date.millisecondsSinceEpoch.toDouble(), value));
         }
         if (symbol == null) symbol = data.currency;
@@ -318,8 +318,8 @@ class _CountryRisk implements BuildHistoricalChartData {
       if (jsonMap != null) {
         CountryRiskResponse data = CountryRiskResponse(jsonMap);
         DateTime date = DateTime.parse(historicalRate.timestamp.replaceAll('/', '-'));
-        if (data.value.isNumeric()) {
-          double value = double.tryParse(data.value);
+        if (data.value?.isNumeric() ?? false) {
+          double value = double.tryParse(data.value) ?? 0;
           values.add(FlSpot(date.millisecondsSinceEpoch.toDouble(), value));
         }
       }
@@ -360,12 +360,12 @@ class _Venezuela implements BuildHistoricalChartData {
       if (jsonMap != null) {
         VenezuelaResponse data = VenezuelaResponse(jsonMap);
         DateTime date = DateTime.parse(historicalRate.timestamp.replaceAll('/', '-'));
-        if (data.bankPrice.isNumeric()) {
-          double bankPrice = double.tryParse(data.bankPrice);
+        if (data.bankPrice?.isNumeric() ?? false) {
+          double bankPrice = double.tryParse(data.bankPrice) ?? 0;
           bankPrices.add(FlSpot(date.millisecondsSinceEpoch.toDouble(), bankPrice));
         }
-        if (data.blackMarketPrice.isNumeric()) {
-          double blackMarketPrice = double.tryParse(data.blackMarketPrice);
+        if (data.blackMarketPrice?.isNumeric() ?? false) {
+          double blackMarketPrice = double.tryParse(data.blackMarketPrice) ?? 0;
           blackMarketPrices.add(FlSpot(date.millisecondsSinceEpoch.toDouble(), blackMarketPrice));
         }
       }

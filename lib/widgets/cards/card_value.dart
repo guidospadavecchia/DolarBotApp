@@ -5,9 +5,9 @@ import 'package:intl/intl.dart' as intl;
 enum Spacing { none, small, medium, large }
 
 class CardValue extends StatelessWidget {
-  final String title;
+  final String /*!*/ title;
   final String value;
-  final String symbol;
+  final String /*!*/ symbol;
   final TextDirection textDirection;
   final Axis direction;
   final WrapCrossAlignment crossAlignment;
@@ -16,7 +16,7 @@ class CardValue extends StatelessWidget {
   final Spacing spaceBetweenTitle;
   final Spacing spaceMainAxisEnd;
   final bool hideDecimals;
-  final intl.NumberFormat numberFormat;
+  final intl.NumberFormat /*!*/ numberFormat;
 
   const CardValue({
     Key key,
@@ -89,7 +89,7 @@ class CardValue extends StatelessWidget {
   }
 
   String _getFormatedValue(intl.NumberFormat numberFormat) {
-    if (value.isNumeric()) {
+    if (value != null && value.isNumeric()) {
       String formattedNumber;
       if (hideDecimals) {
         numberFormat.maximumFractionDigits = 0;
@@ -104,44 +104,28 @@ class CardValue extends StatelessWidget {
   }
 
   double _getSpaceBetweenTitle() {
-    double spaceSize;
-
     switch (spaceBetweenTitle) {
-      case Spacing.none:
-        spaceSize = 0;
-        break;
       case Spacing.small:
-        spaceSize = 5;
-        break;
+        return 5;
       case Spacing.medium:
-        spaceSize = 10;
-        break;
+        return 10;
       case Spacing.large:
-        spaceSize = 15;
-        break;
+        return 15;
+      default:
+        return 0;
     }
-
-    return spaceSize;
   }
 
   double _getSpaceMainAxisEnd() {
-    double spaceSize;
-
     switch (spaceMainAxisEnd) {
-      case Spacing.none:
-        spaceSize = 10;
-        break;
       case Spacing.small:
-        spaceSize = 15;
-        break;
+        return 15;
       case Spacing.medium:
-        spaceSize = 20;
-        break;
+        return 20;
       case Spacing.large:
-        spaceSize = 25;
-        break;
+        return 25;
+      default:
+        return 10;
     }
-
-    return spaceSize;
   }
 }

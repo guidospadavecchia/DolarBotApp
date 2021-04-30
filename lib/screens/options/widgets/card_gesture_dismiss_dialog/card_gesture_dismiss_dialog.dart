@@ -16,7 +16,7 @@ class CardGestureDismissDialog extends StatefulWidget {
 }
 
 class _CardGestureDismissDialogState extends State<CardGestureDismissDialog> {
-  DismissDirection _dismissDirection;
+  /*late*/ DismissDirection _dismissDirection;
   DismissDirection _actualDismissDirection;
 
   @override
