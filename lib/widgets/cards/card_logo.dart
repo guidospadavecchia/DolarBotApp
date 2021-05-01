@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
 class CardLogo extends StatelessWidget {
-  final String iconAsset;
-  final IconData iconData;
+  final String? iconAsset;
+  final IconData? iconData;
   final String tag;
 
   const CardLogo({
-    Key key,
+    Key? key,
     this.iconAsset,
     this.iconData,
-    @required this.tag,
+    required this.tag,
   })  : assert(iconAsset != null || iconData != null),
         super(key: key);
 
@@ -22,7 +22,7 @@ class CardLogo extends StatelessWidget {
           iconAsset != null
               ? Container(
                   child: Image.asset(
-                    iconAsset,
+                    iconAsset!,
                     width: 32,
                     height: 32,
                     filterQuality: FilterQuality.high,

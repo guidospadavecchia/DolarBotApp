@@ -21,7 +21,7 @@ import 'package:flutter_scroll_to_top/flutter_scroll_to_top.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -33,7 +33,7 @@ class HomeScreenState extends State<HomeScreen> {
   final Duration kDoubleTapToLeaveDuration = const Duration(seconds: 2);
   final Box settings = Hive.box('settings');
   final Box favoritesBox = Hive.box('favorites');
-  final Map<String, Map> _responses = Map<String, Map>();
+  final Map<String, Map?> _responses = Map<String, Map?>();
   final List<Widget> _cards = [];
   final List<FavoriteRate> _favoriteRates = [];
   final ScrollController _scrollController = ScrollController();
@@ -43,14 +43,14 @@ class HomeScreenState extends State<HomeScreen> {
   bool _animateEmptyFavorites = false;
   bool _hideIconTrashCard = false;
   bool _showRefreshButton = false;
-  DateTime lastBackPressTimestamp;
+  DateTime? lastBackPressTimestamp;
 
   Future<bool> onWillPopScope(BuildContext context) {
     final DateTime now = DateTime.now();
 
     dismissAllToast();
     if (lastBackPressTimestamp == null ||
-        now.difference(lastBackPressTimestamp) > kDoubleTapToLeaveDuration) {
+        now.difference(lastBackPressTimestamp!) > kDoubleTapToLeaveDuration) {
       lastBackPressTimestamp = now;
       Util.showSnackBar(
         context,
@@ -70,7 +70,7 @@ class HomeScreenState extends State<HomeScreen> {
       _loadFavorites(false).then(
         (_) {
           if (this.mounted) {
-            WidgetsBinding.instance.addPostFrameCallback((_) => setState(() => _buildCards()));
+            WidgetsBinding.instance!.addPostFrameCallback((_) => setState(() => _buildCards()));
           }
         },
       );
@@ -79,7 +79,7 @@ class HomeScreenState extends State<HomeScreen> {
     }
 
     if (_checkIsFirstTime() && SchedulerBinding.instance != null) {
-      SchedulerBinding.instance.addPostFrameCallback((_) async {
+      SchedulerBinding.instance!.addPostFrameCallback((_) async {
         if (Navigator.of(context).canPop()) Navigator.of(context).pop();
         await Util.showFirstTimeDialog(context, false);
       });
@@ -246,26 +246,26 @@ class HomeScreenState extends State<HomeScreen> {
   }
 
   void onRefresh(BuildContext context) async {
-    _cards.clear();
-    _cardsLoaded = false;
-    _hasErrorsAll = false;
-    _showRefreshButton = false;
+    setState(() {
+      _cards.clear();
+      _cardsLoaded = false;
+      _hasErrorsAll = false;
+      _showRefreshButton = false;
+    });
     Util.hideSnackBar(context);
-    setState(
-      () => _loadFavorites(true)
-          .then(
-            (_) => WidgetsBinding.instance.addPostFrameCallback(
-              (_) => setState(() => _buildCards()),
-            ),
-          )
-          .then(
-            (_) => Util.showSnackBar(
-              context,
-              '¡Cotizaciones actualizadas!',
-              ThemeManager.getSnackBarColor(context),
-            ),
+    _loadFavorites(true)
+        .then(
+          (_) => WidgetsBinding.instance!.addPostFrameCallback(
+            (_) => setState(() => _buildCards()),
           ),
-    );
+        )
+        .then(
+          (_) => Util.showSnackBar(
+            context,
+            '¡Cotizaciones actualizadas!',
+            ThemeManager.getSnackBarColor(context),
+          ),
+        );
   }
 
   bool _checkIsFirstTime() {
@@ -293,7 +293,7 @@ class HomeScreenState extends State<HomeScreen> {
     favoritesBox.put('favoriteCards', _favoriteRates);
 
     Future.delayed(
-      kAnimationDuration ?? Duration.zero,
+      kAnimationDuration,
       () => setState(() {
         _animateEmptyFavorites = _favoriteRates.isEmpty;
         _showRefreshButton = _favoriteRates.isNotEmpty;
@@ -317,14 +317,14 @@ class HomeScreenState extends State<HomeScreen> {
       );
 
       _favoriteRates.forEach((x) {
-        Map json = _responses[x.endpoint];
-        ApiResponse response =
+        Map? json = _responses[x.endpoint];
+        ApiResponse? response =
             json != null ? ApiResponseBuilder.fromTypeName(x.cardResponseType, json) : null;
         if (response != null && response.timestamp != null) {
           HistoricalRateManager.saveRate(
             x.endpoint,
             x.cardResponseType,
-            response.timestamp,
+            response.timestamp!,
             response,
           );
         }
@@ -335,8 +335,8 @@ class HomeScreenState extends State<HomeScreen> {
   void _buildCards() {
     for (FavoriteRate favoriteRate in _favoriteRates) {
       String type = favoriteRate.cardResponseType;
-      Map json = _responses[favoriteRate.endpoint];
-      ApiResponse response = json != null ? ApiResponseBuilder.fromTypeName(type, json) : null;
+      Map? json = _responses[favoriteRate.endpoint];
+      ApiResponse? response = json != null ? ApiResponseBuilder.fromTypeName(type, json) : null;
 
       _cards.add(
         Consumer<Settings>(builder: (context, settings, child) {
@@ -371,8 +371,8 @@ class _DismissFavoriteButton extends StatelessWidget {
   final bool hideIcon;
 
   const _DismissFavoriteButton({
-    Key key,
-    @required this.direction,
+    Key? key,
+    required this.direction,
     this.hideIcon = false,
   }) : super(key: key);
 
@@ -418,13 +418,13 @@ class _DismissFavoriteButton extends StatelessWidget {
 }
 
 class _AnimationContainer extends StatelessWidget {
-  final Duration /*!*/ duration;
-  final Widget /*!*/ child;
+  final Duration duration;
+  final Widget child;
 
   const _AnimationContainer({
-    Key key,
-    this.duration,
-    this.child,
+    Key? key,
+    required this.duration,
+    required this.child,
   }) : super(key: key);
 
   @override

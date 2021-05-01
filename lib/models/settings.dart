@@ -8,12 +8,12 @@ class Settings extends ChangeNotifier {
 
   final settings = Hive.box('settings');
 
-  void saveCurrencyFormat(String /*!*/ format) {
+  void saveCurrencyFormat(String format) {
     settings.put('currencyFormat', format);
     notifyListeners();
   }
 
-  String /*!*/ getCurrencyFormat() {
+  String getCurrencyFormat() {
     return settings.get('currencyFormat') ?? CurrencyFormats.AR.value;
   }
 
@@ -42,13 +42,10 @@ class Settings extends ChangeNotifier {
     switch (indexValue) {
       case 1:
         return DismissDirection.horizontal;
-        break;
       case 2:
         return DismissDirection.endToStart;
-        break;
       case 3:
         return DismissDirection.startToEnd;
-        break;
       default:
         return DismissDirection.endToStart;
     }
@@ -77,5 +74,5 @@ extension CurrencyFormatsExtension on CurrencyFormats {
     CurrencyFormats.US: 'en_US',
   };
 
-  String/*!*/ get value => formats[this];
+  String get value => formats[this]!;
 }

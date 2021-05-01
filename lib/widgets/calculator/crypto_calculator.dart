@@ -5,19 +5,19 @@ import 'package:extended_masked_text/extended_masked_text.dart';
 import 'package:intl/intl.dart';
 
 class CryptoCalculator extends BaseCalculatorScreen {
-  final double /*!*/ arsValue;
-  final double /*!*/ arsValueWithTaxes;
-  final double /*!*/ usdValue;
-  final String /*!*/ cryptoCode;
+  final double arsValue;
+  final double arsValueWithTaxes;
+  final double usdValue;
+  final String cryptoCode;
   final NumberFormat numberFormat;
 
   CryptoCalculator({
-    Key key,
-    @required this.arsValue,
-    @required this.arsValueWithTaxes,
-    @required this.usdValue,
-    @required this.cryptoCode,
-    @required this.numberFormat,
+    Key? key,
+    required this.arsValue,
+    required this.arsValueWithTaxes,
+    required this.usdValue,
+    required this.cryptoCode,
+    required this.numberFormat,
   }) : super(
           key: key,
           symbol: cryptoCode,
@@ -35,15 +35,15 @@ class CryptoCalculator extends BaseCalculatorScreen {
 }
 
 class _CryptoCalculatorState extends BaseCalculatorState<CryptoCalculator> with BaseCalculator {
-  final double /*!*/ arsValue;
-  final double /*!*/ arsValueWithTaxes;
-  final double /*!*/ usdValue;
-  final String /*!*/ cryptoCode;
+  final double arsValue;
+  final double arsValueWithTaxes;
+  final double usdValue;
+  final String cryptoCode;
   final NumberFormat numberFormat;
-  /*late*/ MoneyMaskedTextController _textControllerInput;
-  /*late*/ TextEditingController _textControllerArsValue;
-  /*late*/ TextEditingController _textControllerArsValueWithTaxes;
-  /*late*/ TextEditingController _textControllerUsdValue;
+  late MoneyMaskedTextController _textControllerInput;
+  late TextEditingController _textControllerArsValue;
+  late TextEditingController _textControllerArsValueWithTaxes;
+  late TextEditingController _textControllerUsdValue;
 
   _CryptoCalculatorState(
     this.arsValue,

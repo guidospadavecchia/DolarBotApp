@@ -10,7 +10,7 @@ class EmptyFavorites extends StatelessWidget {
   final double textOpacity;
 
   const EmptyFavorites({
-    Key key,
+    Key? key,
     this.topText = "Tu inicio está vacío",
     this.bottomText =
         "Podés dirigirte a cualquier cotización y agregarla como favorita desde allí.",

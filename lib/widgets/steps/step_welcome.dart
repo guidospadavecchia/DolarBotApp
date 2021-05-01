@@ -11,8 +11,8 @@ class StepWelcome extends StepBase {
   StepWelcome(
     this.context, {
     this.stepIndex = 0,
-    @required this.title,
-    @required this.showStep,
+    required this.title,
+    required this.showStep,
   }) : super(stepIndex: stepIndex, title: title, showStep: showStep);
 
   @override

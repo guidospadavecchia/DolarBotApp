@@ -96,7 +96,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void _waitAndGoHome(BuildContext context, Duration waitToHome) {
-    return WidgetsBinding.instance.addPostFrameCallback(
+    return WidgetsBinding.instance!.addPostFrameCallback(
       (_) => Future.delayed(
         waitToHome,
         () async {
@@ -122,7 +122,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
 class Footer extends StatelessWidget {
   const Footer({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

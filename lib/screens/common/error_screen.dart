@@ -3,12 +3,12 @@ import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:flutter/material.dart';
 
 class ErrorScreen extends StatelessWidget {
-  final Color color;
+  final Color? color;
   final double opacity;
   final double textOpacity;
 
   const ErrorScreen({
-    Key key,
+    Key? key,
     this.color,
     this.opacity = 0.6,
     this.textOpacity = 0.7,
@@ -45,7 +45,7 @@ class ErrorScreen extends StatelessWidget {
                 colorFilter: ColorFilter.mode(
                     color == null
                         ? ThemeManager.getForegroundColor().withOpacity(opacity)
-                        : color.withOpacity(opacity),
+                        : color!.withOpacity(opacity),
                     BlendMode.srcATop),
                 image: const AssetImage("assets/images/general/error.png"),
               ),

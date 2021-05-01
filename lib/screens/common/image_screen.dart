@@ -7,13 +7,13 @@ class ImageScreen extends StatelessWidget {
   final double textOpacity;
   final Color imageColor;
   final BlendMode imageColorFilterBlendMode;
-  final double imageHeight;
+  final double? imageHeight;
   final double imageOpacity;
   final EdgeInsets containerPadding;
 
   const ImageScreen({
-    Key key,
-    @required this.image,
+    Key? key,
+    required this.image,
     this.text = '',
     this.textStyle = const TextStyle(fontSize: 20, fontFamily: "Raleway"),
     this.textOpacity = 1,

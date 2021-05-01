@@ -5,9 +5,9 @@ import 'package:intl/intl.dart' as intl;
 enum Spacing { none, small, medium, large }
 
 class CardValue extends StatelessWidget {
-  final String /*!*/ title;
-  final String value;
-  final String /*!*/ symbol;
+  final String title;
+  final String? value;
+  final String symbol;
   final TextDirection textDirection;
   final Axis direction;
   final WrapCrossAlignment crossAlignment;
@@ -16,13 +16,13 @@ class CardValue extends StatelessWidget {
   final Spacing spaceBetweenTitle;
   final Spacing spaceMainAxisEnd;
   final bool hideDecimals;
-  final intl.NumberFormat /*!*/ numberFormat;
+  final intl.NumberFormat numberFormat;
 
   const CardValue({
-    Key key,
-    @required this.title,
-    @required this.value,
-    @required this.symbol,
+    Key? key,
+    required this.title,
+    required this.value,
+    required this.symbol,
     this.textDirection = TextDirection.ltr,
     this.direction = Axis.vertical,
     this.crossAlignment = WrapCrossAlignment.start,
@@ -31,7 +31,7 @@ class CardValue extends StatelessWidget {
     this.spaceBetweenTitle = Spacing.none,
     this.spaceMainAxisEnd = Spacing.none,
     this.hideDecimals = false,
-    this.numberFormat,
+    required this.numberFormat,
   }) : super(key: key);
 
   @override
@@ -89,13 +89,13 @@ class CardValue extends StatelessWidget {
   }
 
   String _getFormatedValue(intl.NumberFormat numberFormat) {
-    if (value != null && value.isNumeric()) {
+    if (value != null && value!.isNumeric()) {
       String formattedNumber;
       if (hideDecimals) {
         numberFormat.maximumFractionDigits = 0;
-        formattedNumber = numberFormat.format(double.parse(value).round());
+        formattedNumber = numberFormat.format(double.parse(value!).round());
       } else {
-        formattedNumber = numberFormat.format(double.parse(value));
+        formattedNumber = numberFormat.format(double.parse(value!));
       }
       return "$symbol ${formattedNumber}";
     } else {

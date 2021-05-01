@@ -9,7 +9,7 @@ class BcraInfoScreen extends BaseInfoScreen {
   final CardData cardData;
 
   BcraInfoScreen({
-    @required this.cardData,
+    required this.cardData,
   }) : super(cardData: cardData);
 
   BcraEndpoints getEndpoint() {
@@ -31,7 +31,7 @@ class _BcraInfoScreenState extends BaseInfoScreenState<BcraInfoScreen> with Base
   bool showCalculatorButton() => false;
 
   @override
-  FabOptionCalculatorDialog getCalculatorWidget() => null;
+  FabOptionCalculatorDialog? getCalculatorWidget() => null;
 
   @override
   void initState() {
@@ -102,16 +102,16 @@ class _BcraInfoScreenState extends BaseInfoScreenState<BcraInfoScreen> with Base
       }
       return BcraResponse(json);
     }, shouldForceRefresh).then((value) {
-      ApiResponse response = value;
+      ApiResponse? response = value;
       if (response != null && response.timestamp != null) {
         HistoricalRateManager.saveRate(
           widget.cardData.endpoint,
           widget.cardData.responseType.toString(),
-          response.timestamp,
+          response.timestamp!,
           response,
         );
       }
-      WidgetsBinding.instance.addPostFrameCallback(
+      WidgetsBinding.instance!.addPostFrameCallback(
         (_) => setState(() {
           data = value;
           timestamp = data?.timestamp;
@@ -148,7 +148,7 @@ class _BcraInfoScreenState extends BaseInfoScreenState<BcraInfoScreen> with Base
     final numberFormat = settings.getNumberFormat();
 
     if (data != null) {
-      String value;
+      String? value;
       DateTime date = DateTime.parse(data.timestamp.replaceAll('/', '-'));
       String formattedTime =
           DateFormat(DateTime.now().isSameDayAs(date) ? 'HH:mm' : 'HH:mm - dd-MM-yyyy')

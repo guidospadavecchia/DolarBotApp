@@ -2,10 +2,10 @@ import 'dart:convert';
 import 'package:dolarbot_app/api/responses/base/api_response.dart';
 
 class CryptoResponse extends ApiResponse {
-  String arsPrice;
-  String arsPriceWithTaxes;
-  String usdPrice;
-  String code;
+  String? arsPrice;
+  String? arsPriceWithTaxes;
+  String? usdPrice;
+  String? code;
 
   CryptoResponse(Map json) : super(json);
 

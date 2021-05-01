@@ -13,7 +13,7 @@ class CardFavorite extends StatelessWidget {
   final CardHeader header;
   final List<CardValue> rates;
   final CardLogo logo;
-  final CardLastUpdated/*?*/ lastUpdated;
+  final CardLastUpdated? lastUpdated;
   final List<Color> gradiantColors;
   final double height;
   final Spacing spaceBetweenHeader;
@@ -21,12 +21,12 @@ class CardFavorite extends StatelessWidget {
   final Axis direction;
 
   const CardFavorite({
-    Key key,
-    @required this.header,
-    @required this.rates,
-    @required this.logo,
-    @required this.lastUpdated,
-    @required this.gradiantColors,
+    Key? key,
+    required this.header,
+    required this.rates,
+    required this.logo,
+    required this.lastUpdated,
+    required this.gradiantColors,
     this.height = 140,
     this.spaceBetweenHeader = Spacing.large,
     this.spaceBetweenItems = Spacing.none,

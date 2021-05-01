@@ -5,19 +5,19 @@ import 'package:flutter/material.dart';
 
 export 'package:loading_indicator/loading_indicator.dart';
 
-typedef ScreenDataBuildFunction<T> = Widget Function(T/*!*/ data);
+typedef ScreenDataBuildFunction<T> = Widget Function(T data);
 
 class FutureScreenDelegate extends StatelessWidget {
   final Future response;
   final ScreenDataBuildFunction screen;
-  final LoadingScreen loadingWidget;
-  final Function onLoading;
-  final Function onSuccessfulLoad;
-  final Function onFailedLoad;
+  final LoadingScreen? loadingWidget;
+  final Function? onLoading;
+  final Function? onSuccessfulLoad;
+  final Function? onFailedLoad;
 
   FutureScreenDelegate({
-    @required this.response,
-    @required this.screen,
+    required this.response,
+    required this.screen,
     this.loadingWidget,
     this.onLoading,
     this.onSuccessfulLoad,
@@ -31,22 +31,22 @@ class FutureScreenDelegate extends StatelessWidget {
       builder: (context, snapshot) {
         if (snapshot.connectionState != ConnectionState.done) {
           if (onLoading != null) {
-            onLoading();
+            onLoading!();
           }
-          return loadingWidget != null ? loadingWidget : LoadingScreen();
+          return loadingWidget != null ? loadingWidget! : LoadingScreen();
         }
 
-        Widget screenWidget;
+        late Widget screenWidget;
         if (snapshot.hasError || snapshot.hasData) {
           if (snapshot.hasError) {
             screenWidget = ErrorScreen();
             if (onFailedLoad != null) {
-              onFailedLoad();
+              onFailedLoad!();
             }
           } else {
             screenWidget = screen(snapshot.data);
             if (onSuccessfulLoad != null) {
-              onSuccessfulLoad();
+              onSuccessfulLoad!();
             }
           }
         }

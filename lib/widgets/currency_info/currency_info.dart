@@ -6,15 +6,15 @@ import 'package:provider/provider.dart';
 
 class CurrencyInfo extends StatelessWidget {
   final String title;
-  final String symbol;
-  final String/*!*/ value;
+  final String? symbol;
+  final String value;
   final bool hideDecimals;
 
   const CurrencyInfo({
-    Key key,
-    @required this.title,
+    Key? key,
+    required this.title,
     this.symbol,
-    @required this.value,
+    required this.value,
     this.hideDecimals = false,
   }) : super(key: key);
 
@@ -61,7 +61,7 @@ class CurrencyInfo extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(right: SizeConfig.blockSizeVertical * 1.5),
                 child: Text(
-                  symbol,
+                  symbol!,
                   style: TextStyle(
                     fontSize: SizeConfig.blockSizeVertical * 5,
                     color: Colors.grey[200],
@@ -88,7 +88,7 @@ class CurrencyInfo extends StatelessWidget {
                   '${numberFormat.symbols.DECIMAL_SEP}${value.split('.')[1].substring(0, 2)}',
                   style: TextStyle(
                     fontSize: SizeConfig.blockSizeVertical * 3,
-                    color: Colors.grey[200].withAlpha(150),
+                    color: Colors.grey[200]!.withAlpha(150),
                     fontFamily: 'Montserrat',
                   ),
                 ),

@@ -6,13 +6,13 @@ export 'package:dolarbot_app/widgets/calculator/inputs/input_amount.dart';
 export 'package:dolarbot_app/widgets/calculator/inputs/input_converted.dart';
 
 abstract class BaseCalculatorScreen extends StatefulWidget {
-  final String/*!*/ symbol;
-  final NumberFormat/*!*/ numberFormat;
+  final String symbol;
+  final NumberFormat numberFormat;
 
   BaseCalculatorScreen({
-    Key key,
-    this.symbol,
-    this.numberFormat,
+    Key? key,
+    required this.symbol,
+    required this.numberFormat,
   }) : super(key: key);
 }
 

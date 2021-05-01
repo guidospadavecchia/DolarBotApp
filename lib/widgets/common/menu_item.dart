@@ -3,22 +3,22 @@ import 'package:flutter/material.dart';
 
 class MenuItem extends StatelessWidget {
   final String text;
-  final String subtitle;
+  final String? subtitle;
   final Widget leading;
-  final Widget trailing;
-  final Function onTap;
+  final Widget? trailing;
+  final Function? onTap;
   final int depthLevel;
-  final List<MenuItem> subItems;
+  final List<MenuItem>? subItems;
   final bool disableHighlight;
 
   const MenuItem(
-      {@required this.text,
+      {required this.text,
       this.subtitle,
-      @required this.leading,
+      required this.leading,
       this.trailing,
       this.onTap,
       this.subItems,
-      @required this.depthLevel,
+      required this.depthLevel,
       this.disableHighlight = false});
 
   @override
@@ -29,7 +29,7 @@ class MenuItem extends StatelessWidget {
       return EdgeInsets.only(left: depthLevel * _paddingOffset, right: 20);
     }
 
-    return (subItems != null && subItems.length > 0)
+    return (subItems != null && subItems!.length > 0)
         ? Theme(
             data: ThemeManager.getThemeForDrawerMenu(context, disableHighlight: disableHighlight),
             child: (ExpansionTile(
@@ -49,7 +49,7 @@ class MenuItem extends StatelessWidget {
               trailing: trailing,
               subtitle: subtitle != null
                   ? Text(
-                      subtitle,
+                      subtitle!,
                       style: const TextStyle(
                         fontSize: 12,
                         fontFamily: 'Raleway',
@@ -57,7 +57,7 @@ class MenuItem extends StatelessWidget {
                       ),
                     )
                   : null,
-              children: [...subItems],
+              children: [...subItems!],
             )),
           )
         : Theme(
@@ -79,7 +79,7 @@ class MenuItem extends StatelessWidget {
               trailing: trailing,
               subtitle: subtitle != null
                   ? Text(
-                      subtitle,
+                      subtitle!,
                       style: const TextStyle(
                         fontSize: 12,
                         fontFamily: 'Raleway',
@@ -89,7 +89,7 @@ class MenuItem extends StatelessWidget {
                   : null,
               onTap: () {
                 if (onTap != null) {
-                  onTap();
+                  onTap!();
                 }
               },
             )),

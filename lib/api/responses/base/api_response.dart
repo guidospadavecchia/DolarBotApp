@@ -9,7 +9,7 @@ export 'package:dolarbot_app/api/responses/crypto_response.dart';
 export 'package:dolarbot_app/api/responses/metal_response.dart';
 
 abstract class ApiResponse {
-  String timestamp;
+  String? timestamp;
 
   ApiResponse(Map json) {
     map(json);

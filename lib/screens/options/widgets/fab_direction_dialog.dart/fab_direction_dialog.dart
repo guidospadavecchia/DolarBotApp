@@ -15,8 +15,8 @@ class FabDirectionDialog extends StatefulWidget {
 }
 
 class _FabDirectionDialogState extends State<FabDirectionDialog> {
-  /*late*/ Axis _fabDirection;
-  Axis _actualFabDirection;
+  late Axis _fabDirection;
+  Axis? _actualFabDirection;
 
   @override
   Widget build(BuildContext context) {
@@ -94,7 +94,7 @@ class _FabDirectionDialogState extends State<FabDirectionDialog> {
                 child: SimpleButton(
                   text: 'Aplicar',
                   icon: Icons.check_outlined,
-                  onPressed: () => saveValueAndPop(_actualFabDirection),
+                  onPressed: () => saveValueAndPop(_actualFabDirection!),
                 ),
               )
             ],

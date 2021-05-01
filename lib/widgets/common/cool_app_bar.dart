@@ -6,12 +6,12 @@ class CoolAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final bool isMainMenu;
   final bool showRefreshButton;
-  final Function onRefresh;
-  final Color foregroundColor;
-  final Color backgroundColor;
+  final Function? onRefresh;
+  final Color? foregroundColor;
+  final Color? backgroundColor;
 
   const CoolAppBar({
-    Key key,
+    Key? key,
     this.title = ' ',
     this.isMainMenu = true,
     this.showRefreshButton = false,
@@ -59,7 +59,7 @@ class CoolAppBar extends StatelessWidget implements PreferredSizeWidget {
                     iconSize: 18,
                     splashRadius: 25,
                     tooltip: 'Refrescar cotización',
-                    onPressed: () => onRefresh(),
+                    onPressed: () => onRefresh!(),
                   ),
                 )
               : null,

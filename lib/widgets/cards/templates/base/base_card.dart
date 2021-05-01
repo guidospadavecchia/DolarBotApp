@@ -10,35 +10,35 @@ export 'package:dolarbot_app/screens/home/home_screen.dart';
 export 'package:intl/intl.dart';
 
 abstract class BaseCard extends StatefulWidget {
-  final String /*!*/ title;
-  final String /*!*/ bannerTitle;
-  final String/*!*/ subtitle;
-  final String /*!*/ tag;
-  final String/*!*/ symbol;
-  final ApiResponse data;
-  final List<Color> /*!*/ gradiantColors;
-  final IconData iconData;
-  final String iconAsset;
-  final bool/*!*/ showPoweredBy;
-  final bool/*!*/ showShareButton;
+  final String title;
+  final String bannerTitle;
+  final String? subtitle;
+  final String tag;
+  final String? symbol;
+  final ApiResponse? data;
+  final List<Color> gradiantColors;
+  final IconData? iconData;
+  final String? iconAsset;
+  final bool showPoweredBy;
+  final bool showShareButton;
   final String endpoint;
   final NumberFormat numberFormat;
 
   const BaseCard({
-    Key key,
-    this.title,
-    this.bannerTitle,
+    Key? key,
+    required this.title,
+    required this.bannerTitle,
     this.subtitle,
-    this.tag,
+    required this.tag,
     this.symbol,
     this.data,
-    this.gradiantColors,
+    required this.gradiantColors,
     this.iconAsset,
     this.iconData,
-    this.showPoweredBy,
-    this.showShareButton,
-    @required this.endpoint,
-    @required this.numberFormat,
+    required this.showPoweredBy,
+    required this.showShareButton,
+    required this.endpoint,
+    required this.numberFormat,
   }) : assert(iconAsset != null || iconData != null);
 }
 
@@ -76,7 +76,7 @@ abstract class BaseCardState<Card extends BaseCard> extends State<BaseCard> {
       colors: widget.gradiantColors,
       iconAsset: widget.iconAsset,
       iconData: widget.iconData,
-      showPoweredBy: false,
+      showPoweredBy: true,
       showButtons: false,
       endpoint: widget.endpoint,
       responseType: widget.data.runtimeType,

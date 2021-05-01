@@ -8,21 +8,21 @@ import 'package:dolarbot_app/screens/common/error_screen.dart';
 import 'package:dolarbot_app/screens/common/loading_screen.dart';
 import 'package:intl/intl.dart';
 
-class FiatCurrencyInfoScreen<T extends GenericCurrencyResponse> extends BaseInfoScreen {
+class FiatCurrencyInfoScreen<T extends GenericCurrencyResponse?> extends BaseInfoScreen {
   final CardData cardData;
 
   FiatCurrencyInfoScreen({
-    Key key,
-    this.cardData,
+    Key? key,
+    required this.cardData,
   }) : super(cardData: cardData);
 
   @override
   _FiatCurrencyInfoScreenState<T> createState() => _FiatCurrencyInfoScreenState<T>();
 }
 
-class _FiatCurrencyInfoScreenState<T extends GenericCurrencyResponse>
+class _FiatCurrencyInfoScreenState<T extends GenericCurrencyResponse?>
     extends BaseInfoScreenState<FiatCurrencyInfoScreen<T>> with BaseScreen {
-  T data;
+  T? data;
 
   @override
   void initState() {
@@ -39,13 +39,13 @@ class _FiatCurrencyInfoScreenState<T extends GenericCurrencyResponse>
         HistoricalRateManager.saveRate(
           widget.cardData.endpoint,
           widget.cardData.responseType.toString(),
-          value.timestamp,
+          value.timestamp!,
           value,
         );
       }
-      WidgetsBinding.instance.addPostFrameCallback(
+      WidgetsBinding.instance!.addPostFrameCallback(
         (_) => setState(() {
-          data = value;
+          data = value as T?;
           timestamp = data?.timestamp;
           isDataLoaded = true;
           errorOnLoad = value == null;
@@ -75,19 +75,19 @@ class _FiatCurrencyInfoScreenState<T extends GenericCurrencyResponse>
             CurrencyInfo(
               title: "COMPRA",
               symbol: '\$',
-              value: data.buyPrice,
+              value: data!.buyPrice!,
             ),
           if (data?.sellPrice != null)
             CurrencyInfo(
               title: "VENTA",
               symbol: '\$',
-              value: data.sellPrice,
+              value: data!.sellPrice!,
             ),
           if (data?.sellPriceWithTaxes != null)
             CurrencyInfo(
               title: "VENTA + IMPUESTOS",
               symbol: '\$',
-              value: data.sellPriceWithTaxes,
+              value: data!.sellPriceWithTaxes!,
             ),
         ],
       ),
@@ -111,21 +111,21 @@ class _FiatCurrencyInfoScreenState<T extends GenericCurrencyResponse>
     NumberFormat numberFormat = settings.getNumberFormat();
 
     String shareText = '';
-    if (data != null && data.timestamp != null) {
-      final buyPrice = data.buyPrice?.isNumeric() ?? false
-          ? numberFormat.format(double.parse(data.buyPrice))
+    if (data != null && data!.timestamp != null) {
+      final buyPrice = data!.buyPrice?.isNumeric() ?? false
+          ? numberFormat.format(double.parse(data!.buyPrice!))
           : 'N/A';
-      final sellPrice = data.sellPrice?.isNumeric() ?? false
-          ? numberFormat.format(double.parse(data.sellPrice))
+      final sellPrice = data!.sellPrice?.isNumeric() ?? false
+          ? numberFormat.format(double.parse(data!.sellPrice!))
           : 'N/A';
-      DateTime date = DateTime.parse(data.timestamp.replaceAll('/', '-'));
+      DateTime date = DateTime.parse(data!.timestamp!.replaceAll('/', '-'));
       String formattedTime =
           DateFormat(DateTime.now().isSameDayAs(date) ? 'HH:mm' : 'HH:mm - dd-MM-yyyy')
               .format(date);
 
-      if (data.sellPriceWithTaxes != null) {
-        final sellPriceWithTaxes = data.sellPriceWithTaxes.isNumeric()
-            ? numberFormat.format(double.parse(data.sellPriceWithTaxes))
+      if (data!.sellPriceWithTaxes != null) {
+        final sellPriceWithTaxes = data!.sellPriceWithTaxes!.isNumeric()
+            ? numberFormat.format(double.parse(data!.sellPriceWithTaxes!))
             : 'N/A';
         shareText =
             'Compra: \t\t\$ $buyPrice\nVenta: \t\t\$ $sellPrice\nVenta Ahorro: \t\$ $sellPriceWithTaxes\nHora: \t\t$formattedTime';
@@ -142,16 +142,16 @@ class _FiatCurrencyInfoScreenState<T extends GenericCurrencyResponse>
     NumberFormat numberFormat = Provider.of<Settings>(context, listen: false).getNumberFormat();
     return FabOptionCalculatorDialog(
       calculator: FiatCurrencyCalculator(
-        buyValue: double.tryParse(data?.buyPrice ?? ''),
-        sellValue: double.tryParse(data?.sellPrice ?? ''),
+        buyValue: double.tryParse(data?.buyPrice ?? '') ?? 0,
+        sellValue: double.tryParse(data?.sellPrice ?? '') ?? 0,
         sellValueWithTaxes: double.tryParse(data?.sellPriceWithTaxes ?? ''),
-        symbol: Util.getFiatCurrencySymbol(data),
+        symbol: Util.getFiatCurrencySymbol(data)!,
         numberFormat: numberFormat,
       ),
       calculatorReversed: FiatCurrencyCalculatorReversed(
-        sellValue: data?.sellPriceWithTaxes == null ? double.tryParse(data?.sellPrice ?? '') : null,
+        sellValue: double.tryParse(data?.sellPrice ?? '') ?? 0,
         sellValueWithTaxes: double.tryParse(data?.sellPriceWithTaxes ?? ''),
-        symbol: Util.getFiatCurrencySymbol(data),
+        symbol: Util.getFiatCurrencySymbol(data)!,
         numberFormat: numberFormat,
       ),
     );
@@ -171,18 +171,16 @@ class _FiatCurrencyInfoScreenState<T extends GenericCurrencyResponse>
         cardIconAsset: widget.cardData.iconAsset);
   }
 
-  Future<GenericCurrencyResponse> _getResponse() async {
+  Future<GenericCurrencyResponse?> _getResponse() async {
     switch (widget.cardData.responseType) {
       case DollarResponse:
         DollarEndpoints endpoint =
             DollarEndpoints.values.firstWhere((e) => e.value == widget.cardData.endpoint);
         return await API.getDollarRate(endpoint, forceRefresh: shouldForceRefresh);
-        break;
       case EuroResponse:
         EuroEndpoints endpoint =
             EuroEndpoints.values.firstWhere((e) => e.value == widget.cardData.endpoint);
         return await API.getEuroRate(endpoint, forceRefresh: shouldForceRefresh);
-
       case RealResponse:
         RealEndpoints endpoint =
             RealEndpoints.values.firstWhere((e) => e.value == widget.cardData.endpoint);

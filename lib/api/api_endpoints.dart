@@ -107,7 +107,7 @@ extension DollarEndpointsExtension on DollarEndpoints {
     DollarEndpoints.pampa: '/api/dolar/bancos/pampa',
   };
 
-  String /*!*/ get value => endpoints[this];
+  String get value => endpoints[this]!;
 }
 
 extension EuroEndpointsExtension on EuroEndpoints {
@@ -120,7 +120,7 @@ extension EuroEndpointsExtension on EuroEndpoints {
     EuroEndpoints.hipotecario: '/api/euro/bancos/hipotecario',
   };
 
-  String /*!*/ get value => endpoints[this];
+  String get value => endpoints[this]!;
 }
 
 extension RealEndpointsExtension on RealEndpoints {
@@ -130,7 +130,7 @@ extension RealEndpointsExtension on RealEndpoints {
     RealEndpoints.chaco: '/api/real/bancos/chaco',
   };
 
-  String /*!*/ get value => endpoints[this];
+  String get value => endpoints[this]!;
 }
 
 extension MetalEndpointsExtension on MetalEndpoints {
@@ -140,7 +140,7 @@ extension MetalEndpointsExtension on MetalEndpoints {
     MetalEndpoints.cobre: '/api/metales/cobre',
   };
 
-  String /*!*/ get value => endpoints[this];
+  String get value => endpoints[this]!;
 }
 
 extension CryptoEndpointsExtension on CryptoEndpoints {
@@ -164,7 +164,7 @@ extension CryptoEndpointsExtension on CryptoEndpoints {
     CryptoEndpoints.theta: '/api/crypto/theta-token',
   };
 
-  String /*!*/ get value => endpoints[this];
+  String get value => endpoints[this]!;
 }
 
 extension VenezuelaEndpointsExtension on VenezuelaEndpoints {
@@ -173,7 +173,7 @@ extension VenezuelaEndpointsExtension on VenezuelaEndpoints {
     VenezuelaEndpoints.euro: '/api/vzla/euro',
   };
 
-  String /*!*/ get value => endpoints[this];
+  String get value => endpoints[this]!;
 }
 
 extension BcraEndpointsExtension on BcraEndpoints {
@@ -183,7 +183,7 @@ extension BcraEndpointsExtension on BcraEndpoints {
     BcraEndpoints.circulante: '/api/bcra/circulante',
   };
 
-  String /*!*/ get value => endpoints[this];
+  String get value => endpoints[this]!;
 }
 
 extension HistoricalRateEndpointExtension on HistoricalRateEndpoints {
@@ -197,5 +197,5 @@ extension HistoricalRateEndpointExtension on HistoricalRateEndpoints {
     HistoricalRateEndpoints.realAhorro: '/api/evolucion/real/ahorro',
   };
 
-  String /*!*/ get value => endpoints[this];
+  String get value => endpoints[this]!;
 }

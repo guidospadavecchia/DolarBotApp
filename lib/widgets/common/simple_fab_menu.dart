@@ -3,20 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:simple_animations/simple_animations.dart';
 
 class SimpleFabOption {
-  final IconData /*!*/ icon;
-  final Color /*!*/ iconColor;
+  final IconData icon;
+  final Color iconColor;
   final Color backgroundColor;
-  final Color splashColor;
-  final String tooltip;
+  final Color? splashColor;
+  final String? tooltip;
   final VoidCallback onPressed;
 
   const SimpleFabOption({
-    @required this.icon,
-    @required this.iconColor,
-    @required this.backgroundColor,
+    required this.icon,
+    required this.iconColor,
+    required this.backgroundColor,
     this.splashColor,
     this.tooltip,
-    @required this.onPressed,
+    required this.onPressed,
   });
 }
 
@@ -24,28 +24,28 @@ class SimpleFabMenu extends StatefulWidget {
   final IconData icon;
   final IconData iconClose;
   final Color iconColor;
-  final double iconSize;
+  final double? iconSize;
   final Axis direction;
   final List<SimpleFabOption> items;
-  final double childrenItemSize;
+  final double? childrenItemSize;
   final Color backGroundColor;
   final EdgeInsets padding;
   final double animationForce;
-  final Function onOpened;
-  final Function onClosed;
+  final Function? onOpened;
+  final Function? onClosed;
   final bool visible;
   final bool showInitialAnimation;
 
   const SimpleFabMenu({
-    Key key,
-    @required this.icon,
+    Key? key,
+    required this.icon,
     this.iconClose = Icons.close,
-    @required this.iconColor,
+    required this.iconColor,
     this.iconSize,
-    @required this.direction,
-    @required this.items,
+    required this.direction,
+    required this.items,
     this.childrenItemSize,
-    @required this.backGroundColor,
+    required this.backGroundColor,
     this.padding = EdgeInsets.zero,
     this.animationForce = 100,
     this.onOpened,
@@ -59,12 +59,12 @@ class SimpleFabMenu extends StatefulWidget {
 }
 
 class SimpleFabMenuState extends State<SimpleFabMenu> with SingleTickerProviderStateMixin {
-  Animation<double> _listAnimation;
-  AnimationController _animationController;
+  late Animation<double> _listAnimation;
+  late AnimationController _animationController;
   bool _isOpen = false;
   bool _isAnimating = false;
-  bool _visible;
-  IconData _iconFab;
+  late bool _visible;
+  late IconData _iconFab;
 
   bool get isOpen => _isOpen;
 
@@ -87,7 +87,7 @@ class SimpleFabMenuState extends State<SimpleFabMenu> with SingleTickerProviderS
 
   void show() {
     if (!_visible) {
-      WidgetsBinding.instance.addPostFrameCallback(
+      WidgetsBinding.instance!.addPostFrameCallback(
         (_) => setState(() => _visible = true),
       );
     }
@@ -95,7 +95,7 @@ class SimpleFabMenuState extends State<SimpleFabMenu> with SingleTickerProviderS
 
   void hide() {
     if (_visible) {
-      WidgetsBinding.instance.addPostFrameCallback(
+      WidgetsBinding.instance!.addPostFrameCallback(
         (_) => setState(() => _visible = false),
       );
     }
@@ -112,7 +112,7 @@ class SimpleFabMenuState extends State<SimpleFabMenu> with SingleTickerProviderS
     });
 
     if (widget.onClosed != null) {
-      widget.onClosed();
+      widget.onClosed!();
     }
   }
 
@@ -127,7 +127,7 @@ class SimpleFabMenuState extends State<SimpleFabMenu> with SingleTickerProviderS
     });
 
     if (widget.onOpened != null) {
-      widget.onOpened();
+      widget.onOpened!();
     }
   }
 
@@ -213,12 +213,12 @@ class _SimpleFabMenuListAnimated extends AnimatedWidget {
   final double size;
 
   const _SimpleFabMenuListAnimated({
-    @required this.items,
-    @required this.direction,
-    @required double this.screenInset,
-    @required this.padding,
-    @required this.size,
-    @required Animation animation,
+    required this.items,
+    required this.direction,
+    required double this.screenInset,
+    required this.padding,
+    required this.size,
+    required Animation animation,
   }) : super(listenable: animation);
 
   get _listAnimation => listenable;
@@ -274,9 +274,9 @@ class _FabCircularOption extends StatelessWidget {
   final Axis direction;
 
   const _FabCircularOption({
-    Key key,
-    @required this.size,
-    @required this.item,
+    Key? key,
+    required this.size,
+    required this.item,
     this.direction = Axis.vertical,
   }) : super(key: key);
 
@@ -297,7 +297,7 @@ class _FabCircularOption extends StatelessWidget {
                     ? EdgeInsets.only(right: SizeConfig.blockSizeHorizontal * 15)
                     : EdgeInsets.zero,
                 verticalOffset: direction == Axis.vertical ? -15 : size - 10,
-                message: item.tooltip,
+                message: item.tooltip!,
                 child: Icon(
                   item.icon,
                   size: size / 2,

@@ -35,8 +35,8 @@ class _AboutScreenState extends State<AboutScreen> {
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
-              Colors.teal[900],
-              Colors.blueGrey[900],
+              Colors.teal[900]!,
+              Colors.blueGrey[900]!,
             ],
           ),
           image: const DecorationImage(
@@ -153,8 +153,8 @@ class _AboutScreenState extends State<AboutScreen> {
     final List<Widget> authorWidgets = [];
     final authors = cfg.getDeepValue("github:authors");
     for (final author in authors) {
-      String name = author["name"];
-      String link = author["link"];
+      String? name = author["name"];
+      String? link = author["link"];
       if (name != null && link != null) {
         authorWidgets.add(Tooltip(
           message: "Visitar GitHub de $name",
@@ -210,7 +210,7 @@ class _AboutScreenState extends State<AboutScreen> {
       height: SizeConfig.blockSizeVertical * 5,
       decoration: BoxDecoration(
         color: Colors.blueGrey[900],
-        border: Border.all(color: Colors.blueGrey[800], width: 0),
+        border: Border.all(color: Colors.blueGrey[800]!, width: 0),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,

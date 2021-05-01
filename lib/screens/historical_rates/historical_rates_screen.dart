@@ -14,16 +14,16 @@ class HistoricalRatesScreen extends StatefulWidget {
   final String endpoint;
   final Type responseType;
   final List<Color> colors;
-  final String iconAsset;
-  final IconData iconData;
+  final String? iconAsset;
+  final IconData? iconData;
 
   HistoricalRatesScreen({
-    Key key,
-    @required this.title,
-    @required this.subtitle,
-    @required this.endpoint,
-    @required this.responseType,
-    @required this.colors,
+    Key? key,
+    required this.title,
+    required this.subtitle,
+    required this.endpoint,
+    required this.responseType,
+    required this.colors,
     this.iconAsset,
     this.iconData,
   })  : assert((iconAsset != null || iconData != null)),
@@ -34,7 +34,7 @@ class HistoricalRatesScreen extends StatefulWidget {
 }
 
 class _HistoricalRatesScreenState extends State<HistoricalRatesScreen> {
-  /*late */ List<HistoricalRate> /*!*/ _historicalRates;
+  late List<HistoricalRate> _historicalRates;
   String _dataTimeSpan = '';
 
   @override

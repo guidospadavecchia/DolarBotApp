@@ -5,19 +5,18 @@ import 'package:extended_masked_text/extended_masked_text.dart';
 import 'package:intl/intl.dart';
 
 class FiatCurrencyCalculatorReversed extends BaseCalculatorScreen {
-  final double /*!*/ sellValue;
-  final double sellValueWithTaxes;
-  final String /*!*/ symbol;
+  final double sellValue;
+  final double? sellValueWithTaxes;
+  final String symbol;
   final NumberFormat numberFormat;
 
   FiatCurrencyCalculatorReversed({
-    Key key,
-    this.sellValue,
+    Key? key,
+    required this.sellValue,
     this.sellValueWithTaxes,
-    @required this.symbol,
-    @required this.numberFormat,
-  })  : assert((sellValue != null) ^ (sellValueWithTaxes != null)),
-        super(
+    required this.symbol,
+    required this.numberFormat,
+  }) : super(
           key: key,
           symbol: symbol,
           numberFormat: numberFormat,
@@ -34,13 +33,13 @@ class FiatCurrencyCalculatorReversed extends BaseCalculatorScreen {
 
 class _FiatCurrencyCalculatorReversedState
     extends BaseCalculatorState<FiatCurrencyCalculatorReversed> with BaseCalculator {
-  final double /*!*/ sellValue;
-  final double sellValueWithTaxes;
-  final String /*!*/ symbol;
+  final double sellValue;
+  final double? sellValueWithTaxes;
+  final String symbol;
   final NumberFormat numberFormat;
-  /*late*/ MoneyMaskedTextController _textControllerInput;
-  /*late*/ TextEditingController _textControllerSellValue;
-  /*late*/ TextEditingController _textControllerSellValueWithTaxes;
+  late MoneyMaskedTextController _textControllerInput;
+  late TextEditingController _textControllerSellValue;
+  late TextEditingController _textControllerSellValueWithTaxes;
 
   _FiatCurrencyCalculatorReversedState(
     this.sellValue,
@@ -85,9 +84,16 @@ class _FiatCurrencyCalculatorReversedState
           textController: _textControllerSellValue,
         ),
         if (sellValueWithTaxes != null)
-          InputConverted(
-            title: "Comprás con impuestos",
-            textController: _textControllerSellValueWithTaxes,
+          Column(
+            children: [
+              const SizedBox(
+                height: 20,
+              ),
+              InputConverted(
+                title: "Comprás con impuestos",
+                textController: _textControllerSellValueWithTaxes,
+              ),
+            ],
           ),
         const SizedBox(
           height: 30,
@@ -119,7 +125,7 @@ class _FiatCurrencyCalculatorReversedState
       String formattedSellValue = numberFormat.format(DecimalAdapter(value));
       _textControllerSellValue.text = "$symbol $formattedSellValue";
     }
-    if (sellValueWithTaxes != null && sellValueWithTaxes > 0) {
+    if (sellValueWithTaxes != null && sellValueWithTaxes! > 0) {
       Decimal dSellValueWithTaxes = Decimal.parse(sellValueWithTaxes.toString());
       Decimal value = ((input / dSellValueWithTaxes) * d100).truncate() / d100;
       String formattedSellValueWithTaxes = numberFormat.format(DecimalAdapter(value));

@@ -10,7 +10,7 @@ class MetalInfoScreen extends BaseInfoScreen {
   final CardData cardData;
 
   MetalInfoScreen({
-    @required this.cardData,
+    required this.cardData,
   }) : super(cardData: cardData);
 
   @override
@@ -18,7 +18,7 @@ class MetalInfoScreen extends BaseInfoScreen {
 }
 
 class _MetalInfoScreenState extends BaseInfoScreenState<MetalInfoScreen> with BaseScreen {
-  MetalResponse data;
+  MetalResponse? data;
 
   @override
   void initState() {
@@ -45,9 +45,9 @@ class _MetalInfoScreenState extends BaseInfoScreenState<MetalInfoScreen> with Ba
         items: [
           if (data?.value != null)
             CurrencyInfo(
-              title: '/ ${data.unit}',
+              title: '/ ${data!.unit}',
               symbol: (data?.currency ?? '') == 'USD' ? 'US\$' : '\$',
-              value: data.value,
+              value: data!.value!,
             ),
         ],
       ),
@@ -70,16 +70,16 @@ class _MetalInfoScreenState extends BaseInfoScreenState<MetalInfoScreen> with Ba
           HistoricalRateManager.saveRate(
             widget.cardData.endpoint,
             widget.cardData.responseType.toString(),
-            response.timestamp,
+            response.timestamp!,
             response,
           );
         }
-        WidgetsBinding.instance.addPostFrameCallback(
+        WidgetsBinding.instance!.addPostFrameCallback(
           (_) => setState(() {
             data = response;
             timestamp = data?.timestamp;
             isDataLoaded = true;
-            errorOnLoad = response == null || response.value == null || response.value.trim() == '';
+            errorOnLoad = response == null || response.value == null || response.value!.trim() == '';
             showRefreshButton = true;
             if (!errorOnLoad) showSimpleFabMenu();
           }),
@@ -100,16 +100,16 @@ class _MetalInfoScreenState extends BaseInfoScreenState<MetalInfoScreen> with Ba
 
     String shareText = '';
 
-    if (data != null && data.timestamp != null && data.unit != null) {
+    if (data != null && data!.timestamp != null && data!.unit != null) {
       final value =
-          data.value?.isNumeric() ?? false ? numberFormat.format(double.parse(data.value)) : 'N/A';
-      final symbol = (data.currency ?? '') == 'USD' ? 'US\$' : '\$';
-      DateTime date = DateTime.parse(data.timestamp.replaceAll('/', '-'));
+          data!.value?.isNumeric() ?? false ? numberFormat.format(double.parse(data!.value!)) : 'N/A';
+      final symbol = (data!.currency ?? '') == 'USD' ? 'US\$' : '\$';
+      DateTime date = DateTime.parse(data!.timestamp!.replaceAll('/', '-'));
       String formattedTime =
           DateFormat(DateTime.now().isSameDayAs(date) ? 'HH:mm' : 'HH:mm - dd-MM-yyyy')
               .format(date);
 
-      shareText = '$symbol $value / ${data.unit}\nHora: $formattedTime';
+      shareText = '$symbol $value / ${data!.unit}\nHora: $formattedTime';
     }
 
     return shareText;

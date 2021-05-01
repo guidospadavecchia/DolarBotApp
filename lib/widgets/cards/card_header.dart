@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 export 'package:dolarbot_app/widgets/cards/card_share_button.dart';
 
 class CardHeader extends StatelessWidget {
-  final String /*!*/ title;
-  final CardShareButton shareButton;
+  final String title;
+  final CardShareButton? shareButton;
 
   const CardHeader({
-    Key key,
-    this.title,
+    Key? key,
+    required this.title,
     this.shareButton,
   }) : super(key: key);
 

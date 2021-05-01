@@ -10,33 +10,33 @@ class BcraCard extends BaseCard {
 
   final String title;
   final String bannerTitle;
-  final String/*!*/ subtitle;
+  final String subtitle;
   final String tag;
-  final String/*!*/ symbol;
+  final String symbol;
   final BcraResponse data;
   final List<Color> gradiantColors;
-  final IconData iconData;
-  final String iconAsset;
+  final IconData? iconData;
+  final String? iconAsset;
   final bool showPoweredBy;
   final bool showShareButton;
   final String endpoint;
   final NumberFormat numberFormat;
 
   const BcraCard({
-    Key key,
-    @required this.title,
-    @required this.bannerTitle,
-    @required this.subtitle,
-    @required this.tag,
-    @required this.symbol,
-    @required this.data,
-    @required this.gradiantColors,
+    Key? key,
+    required this.title,
+    required this.bannerTitle,
+    required this.subtitle,
+    required this.tag,
+    required this.symbol,
+    required this.data,
+    required this.gradiantColors,
     this.iconAsset,
     this.iconData,
     this.showPoweredBy = false,
     this.showShareButton = true,
-    @required this.endpoint,
-    @required this.numberFormat,
+    required this.endpoint,
+    required this.numberFormat,
   }) : super(
           title: title,
           bannerTitle: bannerTitle,
@@ -76,9 +76,9 @@ class _BcraCardState extends BaseCardState<BcraCard> {
       rates: [
         CardValue(
           numberFormat: widget.numberFormat,
-          title: widget.subtitle,
+          title: widget.subtitle!,
           value: data.value,
-          symbol: widget.symbol,
+          symbol: widget.symbol!,
           valueSize: 22,
         ),
       ],

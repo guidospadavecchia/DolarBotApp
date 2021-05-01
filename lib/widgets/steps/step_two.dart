@@ -9,9 +9,9 @@ class StepTwo extends StepBase {
 
   StepTwo(
     this.context, {
-    this.stepIndex,
-    @required this.title,
-    @required this.showStep,
+    required this.stepIndex,
+    required this.title,
+    required this.showStep,
   }) : super(stepIndex: stepIndex, title: title, showStep: showStep);
 
   @override

@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:dolarbot_app/api/responses/base/api_response.dart';
 
 class CountryRiskResponse extends ApiResponse {
-  String value;
+  String? value;
 
   CountryRiskResponse(Map json) : super(json);
 

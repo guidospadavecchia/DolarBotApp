@@ -2,20 +2,20 @@ import 'package:dolarbot_app/classes/size_config.dart';
 import 'package:flutter/material.dart';
 
 class TitleBanner extends StatelessWidget {
-  final String/*!*/ text;
-  final TextStyle textStyle;
-  final String iconAsset;
-  final IconData iconData;
-  final double iconSize;
+  final String text;
+  final TextStyle? textStyle;
+  final String? iconAsset;
+  final IconData? iconData;
+  final double? iconSize;
   final bool showTimeStamp;
-  final String timeStampValue;
-  final TextStyle timeStampTextStyle;
-  final double topPadding;
-  final EdgeInsets innerPadding;
+  final String? timeStampValue;
+  final TextStyle? timeStampTextStyle;
+  final double? topPadding;
+  final EdgeInsets? innerPadding;
 
   TitleBanner({
-    Key key,
-    this.text,
+    Key? key,
+    required this.text,
     this.textStyle,
     this.iconAsset,
     this.iconData,
@@ -33,7 +33,7 @@ class TitleBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(top: topPadding ?? Scaffold.of(context).appBarMaxHeight),
+      padding: EdgeInsets.only(top: topPadding ?? Scaffold.of(context).appBarMaxHeight!),
       child: Column(
         children: [
           Container(
@@ -47,7 +47,7 @@ class TitleBanner extends StatelessWidget {
                 iconAsset != null
                     ? Container(
                         child: Image.asset(
-                          iconAsset,
+                          iconAsset!,
                           width: iconSize ?? SizeConfig.blockSizeVertical * 5,
                           height: iconSize ?? SizeConfig.blockSizeVertical * 5,
                           filterQuality: FilterQuality.high,
@@ -100,7 +100,7 @@ class TitleBanner extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.only(left: SizeConfig.blockSizeHorizontal),
                       child: Text(
-                        timeStampValue,
+                        timeStampValue!,
                         style: timeStampTextStyle ??
                             TextStyle(
                               fontSize: SizeConfig.blockSizeVertical * 1.5,

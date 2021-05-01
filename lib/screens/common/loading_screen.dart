@@ -7,10 +7,10 @@ export 'package:loading_indicator/loading_indicator.dart';
 class LoadingScreen extends StatelessWidget {
   final Indicator indicatorType;
   final double size;
-  final Color color;
+  final Color? color;
 
   const LoadingScreen({
-    Key key,
+    Key? key,
     this.indicatorType = Indicator.ballScale,
     this.size = 64,
     this.color,

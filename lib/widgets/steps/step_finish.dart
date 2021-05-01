@@ -13,8 +13,8 @@ class StepFinish extends StepBase {
   StepFinish(
     this.context, {
     this.stepIndex = 0,
-    @required this.title,
-    @required this.showStep,
+    required this.title,
+    required this.showStep,
     this.isComingFromOptions = false,
   }) : super(stepIndex: stepIndex, title: title, showStep: showStep);
 

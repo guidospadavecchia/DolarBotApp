@@ -2,19 +2,19 @@ import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:flutter/material.dart';
 
 class SimpleButton extends StatelessWidget {
-  final IconData /*!*/ icon;
+  final IconData icon;
   final double iconSize;
-  final Color iconColor;
+  final Color? iconColor;
   final String text;
-  final Color textColor;
+  final Color? textColor;
   final double fontSize;
-  final Color backgroundColor;
-  final EdgeInsets padding;
+  final Color? backgroundColor;
+  final EdgeInsets? padding;
   final Function onPressed;
 
   const SimpleButton({
-    Key key,
-    this.icon,
+    Key? key,
+    required this.icon,
     this.iconSize = 32,
     this.iconColor,
     this.text = '',
@@ -22,7 +22,7 @@ class SimpleButton extends StatelessWidget {
     this.fontSize = 16,
     this.backgroundColor,
     this.padding,
-    @required this.onPressed,
+    required this.onPressed,
   }) : super(key: key);
 
   @override

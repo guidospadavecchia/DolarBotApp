@@ -6,13 +6,13 @@ class ToastCustom extends StatelessWidget {
   final Color iconColor;
   final double iconSize;
   final double size;
-  final Color/*!*/ backgroundColor;
+  final Color backgroundColor;
   final AlignmentGeometry alignment;
-  final EdgeInsetsGeometry padding;
+  final EdgeInsetsGeometry? padding;
 
   const ToastCustom({
-    Key key,
-    @required this.icon,
+    Key? key,
+    required this.icon,
     this.iconColor = Colors.white,
     this.iconSize = 30,
     this.size = 50,

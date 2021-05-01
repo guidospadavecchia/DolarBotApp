@@ -10,7 +10,7 @@ class CryptoInfoScreen extends BaseInfoScreen {
   final CardData cardData;
 
   CryptoInfoScreen({
-    @required this.cardData,
+    required this.cardData,
   }) : super(cardData: cardData);
 
   @override
@@ -18,7 +18,7 @@ class CryptoInfoScreen extends BaseInfoScreen {
 }
 
 class _CryptoInfoScreenState extends BaseInfoScreenState<CryptoInfoScreen> with BaseScreen {
-  /*late*/ CryptoResponse data;
+  late CryptoResponse? data;
 
   @override
   void initState() {
@@ -47,19 +47,19 @@ class _CryptoInfoScreenState extends BaseInfoScreenState<CryptoInfoScreen> with 
             CurrencyInfo(
               title: "PESOS ARGENTINOS",
               symbol: '\$',
-              value: data.arsPrice,
+              value: data!.arsPrice!,
             ),
           if (data?.arsPriceWithTaxes != null)
             CurrencyInfo(
               title: "PESOS ARGENTINOS + IMPUESTOS",
               symbol: '\$',
-              value: data.arsPriceWithTaxes,
+              value: data!.arsPriceWithTaxes!,
             ),
           if (data?.usdPrice != null)
             CurrencyInfo(
               title: "DÓLARES ESTADOUNIDENSES",
               symbol: 'US\$',
-              value: data.usdPrice,
+              value: data!.usdPrice!,
             ),
         ],
       ),
@@ -83,11 +83,11 @@ class _CryptoInfoScreenState extends BaseInfoScreenState<CryptoInfoScreen> with 
           HistoricalRateManager.saveRate(
             widget.cardData.endpoint,
             widget.cardData.responseType.toString(),
-            value.timestamp,
+            value.timestamp!,
             value,
           );
         }
-        WidgetsBinding.instance.addPostFrameCallback(
+        WidgetsBinding.instance!.addPostFrameCallback(
           (_) => setState(() {
             data = value;
             timestamp = data?.timestamp;
@@ -113,17 +113,17 @@ class _CryptoInfoScreenState extends BaseInfoScreenState<CryptoInfoScreen> with 
 
     String shareText = '';
 
-    if (data != null && data.timestamp != null) {
-      final arsPrice = data.arsPrice?.isNumeric() ?? false
-          ? numberFormat.format(double.parse(data.arsPrice))
+    if (data != null && data!.timestamp != null) {
+      final arsPrice = data!.arsPrice?.isNumeric() ?? false
+          ? numberFormat.format(double.parse(data!.arsPrice!))
           : 'N/A';
-      final arsPriceWithTaxes = data.arsPriceWithTaxes?.isNumeric() ?? false
-          ? numberFormat.format(double.parse(data.arsPriceWithTaxes))
+      final arsPriceWithTaxes = data!.arsPriceWithTaxes?.isNumeric() ?? false
+          ? numberFormat.format(double.parse(data!.arsPriceWithTaxes!))
           : 'N/A';
-      final usdPrice = data.usdPrice?.isNumeric() ?? false
-          ? numberFormat.format(double.parse(data.usdPrice))
+      final usdPrice = data!.usdPrice?.isNumeric() ?? false
+          ? numberFormat.format(double.parse(data!.usdPrice!))
           : 'N/A';
-      DateTime date = DateTime.parse(data.timestamp.replaceAll('/', '-'));
+      DateTime date = DateTime.parse(data!.timestamp!.replaceAll('/', '-'));
       String formattedTime =
           DateFormat(DateTime.now().isSameDayAs(date) ? 'HH:mm' : 'HH:mm - dd-MM-yyyy')
               .format(date);

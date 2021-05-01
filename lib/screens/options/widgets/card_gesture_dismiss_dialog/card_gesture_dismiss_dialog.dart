@@ -16,8 +16,8 @@ class CardGestureDismissDialog extends StatefulWidget {
 }
 
 class _CardGestureDismissDialogState extends State<CardGestureDismissDialog> {
-  /*late*/ DismissDirection _dismissDirection;
-  DismissDirection _actualDismissDirection;
+  late DismissDirection _dismissDirection;
+  DismissDirection? _actualDismissDirection;
 
   @override
   Widget build(BuildContext context) {
@@ -125,7 +125,7 @@ class _CardGestureDismissDialogState extends State<CardGestureDismissDialog> {
                 child: SimpleButton(
                   text: 'Aplicar',
                   icon: Icons.check_outlined,
-                  onPressed: () => saveValueAndPop(_actualDismissDirection),
+                  onPressed: () => saveValueAndPop(_actualDismissDirection!),
                 ),
               )
             ],

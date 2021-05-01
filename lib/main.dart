@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:dolarbot_app/classes/hive/adapters/cache_entry_adapter.dart';
 import 'package:dolarbot_app/classes/hive/adapters/favorite_rate_adapter.dart';
@@ -32,11 +31,11 @@ void main() async {
   initializeHive();
 
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then((_) {
-    runApp(DolarBotApp(savedThemeMode: savedThemeMode));
+    runApp(DolarBotApp(themeMode: savedThemeMode));
   });
 }
 
-void _preloadImages() async {
+Future _preloadImages() async {
   final manifestContent = await rootBundle.loadString('AssetManifest.json');
   final Map<String, dynamic> manifestMap = json.decode(manifestContent);
   final imagePaths = manifestMap.keys.where((String key) => key.contains('images/')).toList();
@@ -50,16 +49,19 @@ void _preloadImages() async {
 }
 
 class DolarBotApp extends StatelessWidget {
-  final AdaptiveThemeMode savedThemeMode;
+  final AdaptiveThemeMode? themeMode;
 
-  const DolarBotApp({Key key, this.savedThemeMode}) : super(key: key);
+  const DolarBotApp({
+    Key? key,
+    this.themeMode,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AdaptiveTheme(
       light: ThemeManager.getLightThemeData(),
       dark: ThemeManager.getDarkThemeData(),
-      initial: savedThemeMode ?? ThemeManager.getDefaultTheme(context),
+      initial: themeMode ?? ThemeManager.getDefaultTheme(context),
       builder: (lightTheme, darkTheme) => MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (context) => Settings()),
@@ -70,11 +72,11 @@ class DolarBotApp extends StatelessWidget {
             title: 'DolarBot',
             theme: lightTheme,
             darkTheme: darkTheme,
-            builder: (BuildContext context, Widget child) {
+            builder: (BuildContext context, Widget? child) {
               SizeConfig().init(context);
               return MediaQuery(
                 data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
-                child: child,
+                child: child!,
               );
             },
             home: SplashScreen(),
@@ -94,7 +96,6 @@ class DolarBotApp extends StatelessWidget {
                     duration: const Duration(milliseconds: 200),
                     reverseDuration: const Duration(milliseconds: 200),
                   );
-                  break;
                 default:
                   return null;
               }

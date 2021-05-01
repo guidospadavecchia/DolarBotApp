@@ -2,8 +2,8 @@ import 'dart:convert';
 import 'package:dolarbot_app/api/responses/base/api_response.dart';
 
 class BcraResponse extends ApiResponse {
-  String value;
-  String currency;
+  String? value;
+  String? currency;
 
   BcraResponse(Map json) : super(json);
 

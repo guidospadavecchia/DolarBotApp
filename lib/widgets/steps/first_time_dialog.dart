@@ -9,7 +9,7 @@ class FirstTimeDialog extends StatelessWidget {
   final bool dismissable;
 
   const FirstTimeDialog({
-    Key key,
+    Key? key,
     this.dismissable = false,
   }) : super(key: key);
 

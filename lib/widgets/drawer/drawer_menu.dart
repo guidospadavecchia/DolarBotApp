@@ -5,10 +5,10 @@ import 'package:dolarbot_app/widgets/drawer/drawer_menu_header.dart';
 import 'package:flutter/material.dart';
 
 class DrawerMenu extends StatefulWidget {
-  final DrawerCallback onDrawerDisplayChanged;
+  final DrawerCallback? onDrawerDisplayChanged;
 
   const DrawerMenu({
-    Key key,
+    Key? key,
     this.onDrawerDisplayChanged,
   }) : super(key: key);
 
@@ -20,7 +20,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
   @override
   void initState() {
     if (widget.onDrawerDisplayChanged != null) {
-      widget.onDrawerDisplayChanged(true);
+      widget.onDrawerDisplayChanged!(true);
     }
 
     super.initState();
@@ -29,7 +29,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
   @override
   void dispose() {
     if (widget.onDrawerDisplayChanged != null) {
-      widget.onDrawerDisplayChanged(false);
+      widget.onDrawerDisplayChanged!(false);
     }
     super.dispose();
   }

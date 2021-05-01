@@ -3,11 +3,11 @@ import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:flutter/material.dart';
 
 class InputConverted extends StatelessWidget {
-  final String title;
-  final TextEditingController textController;
+  final String? title;
+  final TextEditingController? textController;
 
   const InputConverted({
-    Key key,
+    Key? key,
     this.title,
     this.textController,
   }) : super(key: key);
@@ -19,7 +19,7 @@ class InputConverted extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
-          title,
+          title!,
           style: TextStyle(
             fontSize: 18,
             fontFamily: 'Raleway',

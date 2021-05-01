@@ -5,12 +5,12 @@ import 'package:extended_masked_text/extended_masked_text.dart';
 
 class InputAmount extends StatelessWidget {
   final MoneyMaskedTextController textController;
-  final String title;
+  final String? title;
   final int maxDigits;
 
   const InputAmount({
-    Key key,
-    @required this.textController,
+    Key? key,
+    required this.textController,
     this.title,
     this.maxDigits = 15,
   }) : super(key: key);

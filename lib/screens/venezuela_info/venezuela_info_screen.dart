@@ -11,7 +11,7 @@ class VenezuelaInfoScreen extends BaseInfoScreen {
   final CardData cardData;
 
   VenezuelaInfoScreen({
-    @required this.cardData,
+    required this.cardData,
   }) : super(cardData: cardData);
 
   @override
@@ -19,7 +19,7 @@ class VenezuelaInfoScreen extends BaseInfoScreen {
 }
 
 class _VenezuelaInfoScreenState extends BaseInfoScreenState<VenezuelaInfoScreen> with BaseScreen {
-  VenezuelaResponse data;
+  VenezuelaResponse? data;
 
   @override
   void initState() {
@@ -48,13 +48,13 @@ class _VenezuelaInfoScreenState extends BaseInfoScreenState<VenezuelaInfoScreen>
             CurrencyInfo(
               title: 'PROMEDIO BANCOS',
               symbol: 'Bs.',
-              value: data.bankPrice,
+              value: data!.bankPrice!,
             ),
           if (data?.blackMarketPrice != null)
             CurrencyInfo(
               title: "PARALELO",
               symbol: 'Bs.',
-              value: data.blackMarketPrice,
+              value: data!.blackMarketPrice!,
             ),
         ],
       ),
@@ -79,11 +79,11 @@ class _VenezuelaInfoScreenState extends BaseInfoScreenState<VenezuelaInfoScreen>
           HistoricalRateManager.saveRate(
             widget.cardData.endpoint,
             widget.cardData.responseType.toString(),
-            value.timestamp,
+            value.timestamp!,
             value,
           );
         }
-        WidgetsBinding.instance.addPostFrameCallback(
+        WidgetsBinding.instance!.addPostFrameCallback(
           (_) => setState(() {
             data = value;
             timestamp = data?.timestamp;
@@ -109,14 +109,14 @@ class _VenezuelaInfoScreenState extends BaseInfoScreenState<VenezuelaInfoScreen>
 
     String shareText = '';
 
-    if (data != null && data.timestamp != null) {
-      final blackMarketValue = data.blackMarketPrice?.isNumeric() ?? false
-          ? numberFormat.format(double.parse(data.blackMarketPrice))
+    if (data != null && data!.timestamp != null) {
+      final blackMarketValue = data!.blackMarketPrice?.isNumeric() ?? false
+          ? numberFormat.format(double.parse(data!.blackMarketPrice!))
           : 'N/A';
-      final banksValue = data.bankPrice?.isNumeric() ?? false
-          ? numberFormat.format(double.parse(data.bankPrice))
+      final banksValue = data!.bankPrice?.isNumeric() ?? false
+          ? numberFormat.format(double.parse(data!.bankPrice!))
           : 'N/A';
-      DateTime date = DateTime.parse(data.timestamp.replaceAll('/', '-'));
+      DateTime date = DateTime.parse(data!.timestamp!.replaceAll('/', '-'));
       String formattedTime =
           DateFormat(DateTime.now().isSameDayAs(date) ? 'HH:mm' : 'HH:mm - dd-MM-yyyy')
               .format(date);

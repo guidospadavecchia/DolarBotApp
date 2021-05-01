@@ -16,7 +16,7 @@ class OptionsScreen extends StatefulWidget {
   static const routeName = '/options';
 
   OptionsScreen({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -62,10 +62,12 @@ class _OptionsScreenState extends State<OptionsScreen> {
                 activeColor: ThemeManager.getPrimaryAccentColor(context),
                 value: AdaptiveTheme.of(context).mode == AdaptiveThemeMode.dark,
                 onChanged: (bool value) {
-                  setState(() {
-                    AdaptiveTheme.of(context).toggleThemeMode();
-                    Provider.of<Settings>(context, listen: false).notifyThemeChange();
-                  });
+                  if (AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light) {
+                    AdaptiveTheme.of(context).setDark();
+                  } else {
+                    AdaptiveTheme.of(context).setLight();
+                  }
+                  Provider.of<Settings>(context, listen: false).notifyThemeChange();
                 },
               ),
               onTap: () => null,

@@ -9,7 +9,7 @@ class Discord extends StatelessWidget {
   final double fontSize;
 
   Discord({
-    Key key,
+    Key? key,
     this.imageSize = 24,
     this.fontSize = 14,
   }) : super(key: key);

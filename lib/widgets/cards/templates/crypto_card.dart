@@ -13,26 +13,26 @@ class CryptoCard extends BaseCard {
   final String tag;
   final CryptoResponse data;
   final List<Color> gradiantColors;
-  final IconData iconData;
-  final String iconAsset;
+  final IconData? iconData;
+  final String? iconAsset;
   final bool showPoweredBy;
   final bool showShareButton;
   final String endpoint;
   final NumberFormat numberFormat;
 
   const CryptoCard({
-    Key key,
-    @required this.title,
-    @required this.bannerTitle,
-    @required this.tag,
-    @required this.data,
-    @required this.gradiantColors,
+    Key? key,
+    required this.title,
+    required this.bannerTitle,
+    required this.tag,
+    required this.data,
+    required this.gradiantColors,
     this.iconData,
     this.iconAsset,
     this.showPoweredBy = false,
     this.showShareButton = true,
-    @required this.endpoint,
-    @required this.numberFormat,
+    required this.endpoint,
+    required this.numberFormat,
   }) : super(
           title: title,
           bannerTitle: bannerTitle,

@@ -8,7 +8,7 @@ class ThemeManager {
   static Color _accentColor = const Color.fromRGBO(140, 216, 18, 1);
 
   static AdaptiveThemeMode getDefaultTheme(BuildContext context) {
-    Brightness brightness = SchedulerBinding.instance.window.platformBrightness;
+    Brightness brightness = SchedulerBinding.instance!.window.platformBrightness;
     return brightness == Brightness.light ? AdaptiveThemeMode.light : AdaptiveThemeMode.dark;
   }
 
@@ -24,31 +24,31 @@ class ThemeManager {
     return _accentColor;
   }
 
-  static Color /*!*/ getForegroundColor() {
-    return Colors.grey[200];
+  static Color getForegroundColor() {
+    return Colors.grey[200]!;
   }
 
-  static Color /*!*/ getPrimaryTextColor(BuildContext context) {
+  static Color getPrimaryTextColor(BuildContext context) {
     return AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
-        ? Colors.grey[700]
-        : Colors.grey[200];
+        ? Colors.grey[700]!
+        : Colors.grey[200]!;
   }
 
-  static Color /*!*/ getSecondaryTextColor(BuildContext context) {
+  static Color getSecondaryTextColor(BuildContext context) {
     return AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
-        ? Colors.grey[700]
-        : Colors.grey[300];
+        ? Colors.grey[700]!
+        : Colors.grey[300]!;
   }
 
-  static Color /*!*/ getDrawerMenuItemIconColor(BuildContext context) {
+  static Color getDrawerMenuItemIconColor(BuildContext context) {
     return AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
-        ? Colors.grey[600]
+        ? Colors.grey[600]!
         : Colors.white;
   }
 
-  static Color /*!*/ getDrawerMenuFooterSloganBackgroundColor(BuildContext context) {
+  static Color getDrawerMenuFooterSloganBackgroundColor(BuildContext context) {
     return AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
-        ? Colors.blueGrey[900]
+        ? Colors.blueGrey[900]!
         : Colors.black54;
   }
 
@@ -64,10 +64,10 @@ class ThemeManager {
         : const Color.fromRGBO(60, 60, 60, 1);
   }
 
-  static Color /*!*/ getDividerColor(BuildContext context) {
+  static Color getDividerColor(BuildContext context) {
     return AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
-        ? Colors.grey[300]
-        : Colors.grey[900];
+        ? Colors.grey[300]!
+        : Colors.grey[900]!;
   }
 
   static Color getGlobalBackgroundColor(BuildContext context) {
@@ -80,16 +80,16 @@ class ThemeManager {
     return AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light ? _primaryColor : _accentColor;
   }
 
-  static Color /*!*/ getHighlightDrawerMenuItem(BuildContext context) {
+  static Color getHighlightDrawerMenuItem(BuildContext context) {
     return AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
         ? Theme.of(context).highlightColor
-        : Colors.grey[800];
+        : Colors.grey[800]!;
   }
 
-  static Color /*!*/ getLoadingIndicatorColor(BuildContext context) {
+  static Color getLoadingIndicatorColor(BuildContext context) {
     return AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
-        ? Colors.grey[400]
-        : Colors.grey[700];
+        ? Colors.grey[400]!
+        : Colors.grey[700]!;
   }
 
   static ThemeData getTooltipTheme(BuildContext context) {
@@ -108,7 +108,7 @@ class ThemeManager {
       ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(const Radius.circular(3)),
-        color: Colors.grey[200].withOpacity(0.9),
+        color: Colors.grey[200]!.withOpacity(0.9),
       ),
     );
   }
@@ -121,7 +121,7 @@ class ThemeManager {
       ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(const Radius.circular(3)),
-        color: Colors.grey[800].withOpacity(0.9),
+        color: Colors.grey[800]!.withOpacity(0.9),
       ),
     );
   }

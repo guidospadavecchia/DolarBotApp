@@ -4,31 +4,31 @@ import 'package:dolarbot_app/widgets/common/simple_fab_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-typedef FavoriteFunction = Future<bool /*!*/ > Function();
+typedef FavoriteFunction = Future<bool > Function();
 
 class FabMenu extends StatefulWidget {
-  final GlobalKey<SimpleFabMenuState> /*!*/ simpleFabKey;
+  final GlobalKey<SimpleFabMenuState> simpleFabKey;
   final bool showFavoriteButton;
-  final FavoriteFunction onFavoriteButtonTap;
+  final FavoriteFunction? onFavoriteButtonTap;
   final bool isFavorite;
   final bool showShareButton;
-  final Function onShareButtonTap;
+  final Function? onShareButtonTap;
   final bool showClipboardButton;
-  final Function onClipboardButtonTap;
+  final Function? onClipboardButtonTap;
   final bool showCalculatorButton;
-  final Function onCalculatorButtonTap;
+  final Function? onCalculatorButtonTap;
   final bool showDescriptionButton;
-  final Function onShowDescriptionTap;
+  final Function? onShowDescriptionTap;
   final bool showHistoricalChartButton;
-  final Function onHistoricalChartButtonTap;
-  final Function onOpened;
-  final Function onClosed;
+  final Function? onHistoricalChartButtonTap;
+  final Function? onOpened;
+  final Function? onClosed;
   final bool visible;
-  final Axis /*!*/ direction;
+  final Axis direction;
 
   const FabMenu({
-    Key key,
-    this.simpleFabKey,
+    Key? key,
+    required this.simpleFabKey,
     this.showFavoriteButton = false,
     this.onFavoriteButtonTap,
     this.isFavorite = false,
@@ -45,7 +45,7 @@ class FabMenu extends StatefulWidget {
     this.onOpened,
     this.onClosed,
     this.visible = true,
-    this.direction,
+    required this.direction,
   }) : super(key: key);
 
   @override
@@ -53,7 +53,7 @@ class FabMenu extends StatefulWidget {
 }
 
 class _FabMenuState extends State<FabMenu> {
-  /*late*/ bool /*!*/ isFavorite;
+  late bool isFavorite;
 
   @override
   void initState() {
@@ -76,12 +76,12 @@ class _FabMenuState extends State<FabMenu> {
         if (widget.showDescriptionButton)
           SimpleFabOption(
             tooltip: "Ver descripción 📖",
-            iconColor: Colors.blue[800],
+            iconColor: Colors.blue[800]!,
             backgroundColor: Colors.white,
             icon: IconFonts.info,
             onPressed: () {
               if (widget.onHistoricalChartButtonTap != null) {
-                widget.onShowDescriptionTap();
+                widget.onShowDescriptionTap!();
               }
               closeFabMenu();
             },
@@ -89,12 +89,12 @@ class _FabMenuState extends State<FabMenu> {
         if (widget.showClipboardButton)
           SimpleFabOption(
             tooltip: "Copiar al portapapeles 📝",
-            iconColor: Colors.brown[600],
+            iconColor: Colors.brown[600]!,
             backgroundColor: Colors.white,
             icon: Icons.copy,
             onPressed: () {
               if (widget.onClipboardButtonTap != null) {
-                widget.onClipboardButtonTap();
+                widget.onClipboardButtonTap!();
               }
               closeFabMenu();
             },
@@ -102,12 +102,12 @@ class _FabMenuState extends State<FabMenu> {
         if (widget.showCalculatorButton)
           SimpleFabOption(
             tooltip: "Calculadora 💱",
-            iconColor: Colors.blueGrey[700],
+            iconColor: Colors.blueGrey[700]!,
             backgroundColor: Colors.white,
             icon: FontAwesomeIcons.calculator,
             onPressed: () {
               if (widget.onCalculatorButtonTap != null) {
-                widget.onCalculatorButtonTap();
+                widget.onCalculatorButtonTap!();
               }
               closeFabMenu();
             },
@@ -115,12 +115,12 @@ class _FabMenuState extends State<FabMenu> {
         if (widget.showHistoricalChartButton)
           SimpleFabOption(
             tooltip: "Gráfico histórico 📈",
-            iconColor: Colors.deepOrange[800],
+            iconColor: Colors.deepOrange[800]!,
             backgroundColor: Colors.white,
             icon: FontAwesomeIcons.chartBar,
             onPressed: () {
               if (widget.onHistoricalChartButtonTap != null) {
-                widget.onHistoricalChartButtonTap();
+                widget.onHistoricalChartButtonTap!();
               }
               closeFabMenu();
             },
@@ -128,24 +128,24 @@ class _FabMenuState extends State<FabMenu> {
         if (widget.showShareButton)
           SimpleFabOption(
               tooltip: "Compartir 📲",
-              iconColor: Colors.green[700],
+              iconColor: Colors.green[700]!,
               backgroundColor: Colors.white,
               icon: IconFonts.share,
               onPressed: () {
                 closeFabMenu();
                 if (widget.onShareButtonTap != null) {
-                  widget.onShareButtonTap();
+                  widget.onShareButtonTap!();
                 }
               }),
         if (widget.showFavoriteButton)
           SimpleFabOption(
             tooltip: "Agregar a Favoritos ❤",
-            iconColor: Colors.red[400],
+            iconColor: Colors.red[400]!,
             backgroundColor: Colors.white,
             icon: isFavorite ? IconFonts.heart : IconFonts.heart_empty,
             onPressed: () async {
               if (widget.onFavoriteButtonTap != null) {
-                bool result = await widget.onFavoriteButtonTap();
+                bool result = await widget.onFavoriteButtonTap!();
                 setState(() => isFavorite = result);
                 Future.delayed(const Duration(milliseconds: 200), () => closeFabMenu());
               }
@@ -157,7 +157,7 @@ class _FabMenuState extends State<FabMenu> {
 
   void closeFabMenu() {
     if (widget.simpleFabKey.currentState?.isOpen ?? false) {
-      widget.simpleFabKey.currentState.closeMenu();
+      widget.simpleFabKey.currentState!.closeMenu();
     }
   }
 }

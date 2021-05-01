@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class CardPoweredBy extends StatelessWidget {
   const CardPoweredBy({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

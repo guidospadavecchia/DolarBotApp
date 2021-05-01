@@ -15,9 +15,9 @@ class HistoricalChart extends StatefulWidget {
   final List<HistoricalRate> values;
 
   const HistoricalChart({
-    Key key,
-    @required this.values,
-    @required this.responseType,
+    Key? key,
+    required this.values,
+    required this.responseType,
   }) : super(key: key);
 
   @override
@@ -28,12 +28,12 @@ class _HistoricalChartState extends State<HistoricalChart> with TickerProviderSt
   static const double kMaxScale = 2.5;
   static const double kMinScale = 0.5;
 
-  final Matrix4 /*!*/ defaultZoom = Matrix4.identity() * kMinScale;
-  HistoricalChartData historicalChartData;
-  /*late*/ TransformationController _transformationController;
-  /*late*/ TabController _tabController;
-  AnimationController _animationController;
-  Animation<Matrix4> _animation;
+  final Matrix4 defaultZoom = Matrix4.identity() * kMinScale;
+  late HistoricalChartData historicalChartData;
+  late TransformationController _transformationController;
+  late TabController _tabController;
+  late AnimationController _animationController;
+  late Animation<Matrix4> _animation;
   bool _chartDataLoaded = false;
 
   @override

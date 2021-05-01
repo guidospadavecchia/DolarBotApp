@@ -6,7 +6,7 @@ class CacheManager {
   static final cache = Hive.box('cache');
   static final cfg = GlobalConfiguration();
 
-  static CacheEntry read(String /*!*/ key) {
+  static CacheEntry? read(String key) {
     return cache.get(key);
   }
 

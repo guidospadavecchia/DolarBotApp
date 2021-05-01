@@ -22,7 +22,7 @@ class RootMenuCrypto extends StatelessWidget {
       subItems: [
         MenuItem(
           text: "Bitcoin",
-          leading: getIconData(context, CryptoFontIcons.BTC),
+          leading: getIconData(context, CryptoFontIcons.BTC!),
           depthLevel: 2,
           onTap: () => {
             Util.navigateTo(
@@ -43,7 +43,7 @@ class RootMenuCrypto extends StatelessWidget {
         ),
         MenuItem(
           text: "Bitcoin Cash",
-          leading: getIconData(context, CryptoFontIcons.BTC_ALT),
+          leading: getIconData(context, CryptoFontIcons.BTC_ALT!),
           depthLevel: 2,
           onTap: () => {
             Util.navigateTo(
@@ -148,7 +148,7 @@ class RootMenuCrypto extends StatelessWidget {
         ),
         MenuItem(
           text: "DASH",
-          leading: getIconData(context, CryptoFontIcons.DASH),
+          leading: getIconData(context, CryptoFontIcons.DASH!),
           depthLevel: 2,
           onTap: () => {
             Util.navigateTo(
@@ -169,7 +169,7 @@ class RootMenuCrypto extends StatelessWidget {
         ),
         MenuItem(
           text: "Dogecoin",
-          leading: getIconData(context, CryptoFontIcons.DOGE),
+          leading: getIconData(context, CryptoFontIcons.DOGE!),
           depthLevel: 2,
           onTap: () => {
             Util.navigateTo(
@@ -211,7 +211,7 @@ class RootMenuCrypto extends StatelessWidget {
         ),
         MenuItem(
           text: "Litecoin",
-          leading: getIconData(context, CryptoFontIcons.LTC),
+          leading: getIconData(context, CryptoFontIcons.LTC!),
           depthLevel: 2,
           onTap: () => {
             Util.navigateTo(
@@ -232,7 +232,7 @@ class RootMenuCrypto extends StatelessWidget {
         ),
         MenuItem(
           text: "Monero",
-          leading: getIconData(context, CryptoFontIcons.XMR),
+          leading: getIconData(context, CryptoFontIcons.XMR!),
           depthLevel: 2,
           onTap: () => {
             Util.navigateTo(
@@ -274,7 +274,7 @@ class RootMenuCrypto extends StatelessWidget {
         ),
         MenuItem(
           text: "Ripple",
-          leading: getIconData(context, CryptoFontIcons.XRP),
+          leading: getIconData(context, CryptoFontIcons.XRP!),
           depthLevel: 2,
           onTap: () => {
             Util.navigateTo(

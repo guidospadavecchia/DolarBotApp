@@ -2,10 +2,10 @@ import 'dart:convert';
 import 'package:dolarbot_app/api/responses/base/api_response.dart';
 
 class VenezuelaResponse extends ApiResponse {
-  String blackMarketPrice;
-  String bankPrice;
-  String cucutaPrice;
-  String currencyCode;
+  String? blackMarketPrice;
+  String? bankPrice;
+  String? cucutaPrice;
+  String? currencyCode;
 
   VenezuelaResponse(Map json) : super(json);
 

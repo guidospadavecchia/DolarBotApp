@@ -7,14 +7,14 @@ export 'package:dolarbot_app/classes/size_config.dart';
 export 'package:dolarbot_app/classes/theme_manager.dart';
 
 abstract class StepBase extends StatelessWidget {
-  final int/*!*/ stepIndex;
-  final String/*!*/ title;
+  final int stepIndex;
+  final String title;
   final bool showStep;
 
   const StepBase({
-    Key key,
+    Key? key,
     this.stepIndex = 0,
-    this.title,
+    required this.title,
     this.showStep = true,
   }) : super(key: key);
 
@@ -139,7 +139,7 @@ TextSpan writeNewLine(BuildContext context, {int lines = 1}) {
 }
 
 TextSpan writeText(BuildContext context, String text,
-    {bool bold = false, bool italic = false, double fontSize}) {
+    {bool bold = false, bool italic = false, double? fontSize}) {
   return TextSpan(
     text: text,
     style: TextStyle(
@@ -157,8 +157,8 @@ List<InlineSpan> writeIcon(
   IconData icon,
   Color color, {
   PlaceholderAlignment alignment = PlaceholderAlignment.middle,
-  double size,
-  String text,
+  double? size,
+  String? text,
   bool hideBrackets = false,
 }) {
   return [

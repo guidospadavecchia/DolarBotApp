@@ -16,8 +16,8 @@ class FormatCurrencyDialog extends StatefulWidget {
 }
 
 class _FormatCurrencyDialogState extends State<FormatCurrencyDialog> {
-  /*late*/ String _currencyFormat;
-  String _actualCurrencyFormat;
+  late String _currencyFormat;
+  String? _actualCurrencyFormat;
 
   @override
   Widget build(BuildContext context) {
@@ -95,7 +95,7 @@ class _FormatCurrencyDialogState extends State<FormatCurrencyDialog> {
                 child: SimpleButton(
                   text: 'Aplicar',
                   icon: Icons.check_outlined,
-                  onPressed: () => saveValueAndPop(_actualCurrencyFormat),
+                  onPressed: () => saveValueAndPop(_actualCurrencyFormat!),
                 ),
               )
             ],

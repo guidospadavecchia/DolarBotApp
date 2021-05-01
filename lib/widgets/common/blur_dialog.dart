@@ -7,9 +7,9 @@ class BlurDialog extends StatelessWidget {
   final Dialog dialog;
 
   const BlurDialog({
-    Key key,
+    Key? key,
     this.strength = 5,
-    @required this.dialog,
+    required this.dialog,
   }) : super(key: key);
 
   @override

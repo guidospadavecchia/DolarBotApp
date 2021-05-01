@@ -15,12 +15,12 @@ class FavoriteRateAdapter extends TypeAdapter<FavoriteRate> {
       endpoint: fields[0] as String,
       cardResponseType: fields[1] as String,
       cardTitle: fields[2] as String,
-      cardSubtitle: fields[3] as String,
-      cardSymbol: fields[4] as String,
+      cardSubtitle: fields[3] as String?,
+      cardSymbol: fields[4] as String?,
       cardTag: fields[5] as String,
-      cardColors: (fields[6] as List)?.cast<int>(),
-      cardIconData: fields[7] as int,
-      cardIconAsset: fields[8] as String,
+      cardColors: (fields[6] as List).cast<int>(),
+      cardIconData: fields[7] as int?,
+      cardIconAsset: fields[8] as String?,
     );
   }
 
@@ -54,7 +54,5 @@ class FavoriteRateAdapter extends TypeAdapter<FavoriteRate> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is FavoriteRateAdapter &&
-          runtimeType == other.runtimeType &&
-          typeId == other.typeId;
+      other is FavoriteRateAdapter && runtimeType == other.runtimeType && typeId == other.typeId;
 }

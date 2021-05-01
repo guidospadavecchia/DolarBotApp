@@ -2,11 +2,11 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
 class HistoricalChartData {
-  List<HistoricalRateData> ratesData;
+  late List<HistoricalRateData> ratesData;
 
   HistoricalChartData({
-    List<HistoricalRateData> ratesData,
-  }) : assert(ratesData != null) {
+    required List<HistoricalRateData> ratesData,
+  }) {
     this.ratesData = ratesData;
   }
 }
@@ -14,32 +14,32 @@ class HistoricalChartData {
 class HistoricalRateData {
   static const double _kIntervalPartitionsRatio = 10;
 
-  String /*!*/ title;
-  String leftSymbol;
-  String rightSymbol;
-  TextStyle /*!*/ tooltipTextStyle;
-  double /*!*/ maxValue;
-  /*late*/ double minValue;
-  double /*!*/ interval;
-  bool isInteger;
-  LineChartBarData /*!*/ lineChartBarData;
+  late final String title;
+  String? leftSymbol;
+  String? rightSymbol;
+  late final TextStyle tooltipTextStyle;
+  late final double maxValue;
+  late final double minValue;
+  late final double interval;
+  late final bool isInteger;
+  late final LineChartBarData lineChartBarData;
 
   HistoricalRateData({
-    String title,
-    String leftSymbol,
-    String rightSymbol,
-    TextStyle tooltipTextStyle,
-    double maxValue,
+    required String title,
+    String? leftSymbol,
+    String? rightSymbol,
+    required TextStyle tooltipTextStyle,
+    double? maxValue,
     double minValue = 0,
     bool isInteger = false,
     bool extendedInterval = true,
-    LineChartBarData lineChartBarData,
+    required LineChartBarData lineChartBarData,
   }) : assert(leftSymbol != null || rightSymbol != null) {
     this.title = title;
     this.leftSymbol = leftSymbol ?? '';
     this.rightSymbol = rightSymbol ?? '';
     this.tooltipTextStyle = tooltipTextStyle;
-    this.maxValue = extendedInterval ? maxValue * 2 : maxValue;
+    this.maxValue = extendedInterval ? maxValue! * 2 : maxValue!;
     this.minValue = extendedInterval ? minValue / 2 : minValue;
     this.interval = _calculateInterval(
       maxValue: this.maxValue,
@@ -49,7 +49,7 @@ class HistoricalRateData {
     this.lineChartBarData = lineChartBarData;
   }
 
-  double _calculateInterval({double maxValue, double minValue}) {
+  double _calculateInterval({required double maxValue, required double minValue}) {
     var difference = maxValue - minValue;
     if (difference < _kIntervalPartitionsRatio) {
       int partitionSize = difference ~/ 2;

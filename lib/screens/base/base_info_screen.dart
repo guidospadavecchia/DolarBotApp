@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:collection/collection.dart' show IterableExtension;
 import 'package:dolarbot_app/api/api.dart';
 import 'package:dolarbot_app/api/responses/base/api_response.dart';
 import 'package:dolarbot_app/api/responses/metal_response.dart';
@@ -48,11 +49,11 @@ export 'package:flutter/material.dart';
 export 'package:provider/provider.dart';
 
 abstract class BaseInfoScreen extends StatefulWidget {
-  final CardData /*!*/ cardData;
+  final CardData cardData;
 
   BaseInfoScreen({
-    Key key,
-    this.cardData,
+    Key? key,
+    required this.cardData,
   }) : super(key: key);
 }
 
@@ -73,7 +74,7 @@ abstract class BaseInfoScreenState<Page extends BaseInfoScreen> extends State<Ba
 mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
   static final cfg = GlobalConfiguration();
 
-  String timestamp;
+  String? timestamp;
   bool showRefreshButton = false;
   bool shouldForceRefresh = false;
   bool isDataLoaded = false;
@@ -86,15 +87,15 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
   String getShareTitle();
   String getShareText();
   Future loadData();
-  FabOptionCalculatorDialog getCalculatorWidget();
+  FabOptionCalculatorDialog? getCalculatorWidget();
 
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addObserver(this);
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance!.addObserver(this);
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
       hideSnackBar();
-      if (this.mounted && widget.cardData.endpoint != null) {
+      if (this.mounted) {
         _getRateDescription().then(
           (value) => setState(
             () {
@@ -108,7 +109,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
 
   @override
   void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
+    WidgetsBinding.instance!.removeObserver(this);
     super.dispose();
   }
 
@@ -122,7 +123,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
   @nonVirtual
   String getTimestamp() {
     if (timestamp != null) {
-      return DateTime.parse(timestamp.replaceAll('/', '-')).toRelativeString();
+      return DateTime.parse(timestamp!.replaceAll('/', '-')).toRelativeString();
     }
 
     return '';
@@ -206,7 +207,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
     String text, {
     Duration duration = const Duration(seconds: 2),
     TextAlign textAlign = TextAlign.center,
-    Icon leadingIcon = null,
+    Icon? leadingIcon = null,
   }) {
     hideSnackBar();
 
@@ -244,14 +245,15 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
   }
 
   void onRefresh() async {
+    simpleFabKey.currentState?.closeMenu();
     hideSimpleFabMenu();
     setState(() {
       isDataLoaded = false;
       errorOnLoad = false;
       showRefreshButton = false;
       shouldForceRefresh = true;
-      loadData();
     });
+    loadData();
   }
 
   Future<bool> onWillPopScope() async {
@@ -268,13 +270,13 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
   }
 
   Widget _banner() {
-    if (isDataLoaded && widget.cardData.bannerTitle != null) {
+    if (isDataLoaded) {
       String timestampValue = getTimestamp();
       return TitleBanner(
         text: widget.cardData.bannerTitle,
         iconAsset: widget.cardData.iconAsset,
         iconData: widget.cardData.iconData,
-        showTimeStamp: (timestampValue ?? '') != '',
+        showTimeStamp: timestampValue != '',
         timeStampValue: "Última actualización: $timestampValue",
       );
     } else {
@@ -289,11 +291,11 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
   Future<void> _onClipboardButtonTap() async {
     String shareText = getShareText();
     String shareTitle = getShareTitle();
-    String poweredBy = Util.cfg.getDeepValue("share:poweredBy");
+    String? poweredBy = Util.cfg.getDeepValue("share:poweredBy");
     String text = "$shareTitle\n\n$shareText\n\n$poweredBy";
 
     if (simpleFabKey.currentState != null) {
-      simpleFabKey.currentState.closeMenu();
+      simpleFabKey.currentState!.closeMenu();
     }
     await Clipboard.setData(
       new ClipboardData(text: text),
@@ -310,10 +312,8 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
   }
 
   void _onCalculatorButtonTap() {
-    if (simpleFabKey.currentState != null) {
-      simpleFabKey.currentState.closeMenu();
-    }
-    FabOptionCalculatorDialog calculatorWidget = getCalculatorWidget();
+    simpleFabKey.currentState?.closeMenu();
+    FabOptionCalculatorDialog? calculatorWidget = getCalculatorWidget();
     if (calculatorWidget != null) {
       showDialog(
         barrierDismissible: false,
@@ -361,38 +361,38 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
     switch (response) {
       case DollarResponse:
         endpointName = DollarEndpoints.values
-            .firstWhere((e) => e.value == widget.cardData.endpoint, orElse: () => null)
+            .firstWhereOrNull((e) => e.value == widget.cardData.endpoint)
             .toString();
         break;
       case EuroResponse:
         endpointName = EuroEndpoints.values
-            .firstWhere((e) => e.value == widget.cardData.endpoint, orElse: () => null)
+            .firstWhereOrNull((e) => e.value == widget.cardData.endpoint)
             .toString();
         break;
       case RealResponse:
         endpointName = RealEndpoints.values
-            .firstWhere((e) => e.value == widget.cardData.endpoint, orElse: () => null)
+            .firstWhereOrNull((e) => e.value == widget.cardData.endpoint)
             .toString();
         break;
       case CryptoResponse:
         endpointName = CryptoEndpoints.values
-            .firstWhere((e) => e.value == widget.cardData.endpoint, orElse: () => null)
+            .firstWhereOrNull((e) => e.value == widget.cardData.endpoint)
             .toString();
         break;
       case MetalResponse:
         endpointName = MetalEndpoints.values
-            .firstWhere((e) => e.value == widget.cardData.endpoint, orElse: () => null)
+            .firstWhereOrNull((e) => e.value == widget.cardData.endpoint)
             .toString();
         break;
       case CountryRiskResponse:
       case BcraResponse:
         endpointName = BcraEndpoints.values
-            .firstWhere((e) => e.value == widget.cardData.endpoint, orElse: () => null)
+            .firstWhereOrNull((e) => e.value == widget.cardData.endpoint)
             .toString();
         break;
       case VenezuelaResponse:
         endpointName = VenezuelaEndpoints.values
-            .firstWhere((e) => e.value == widget.cardData.endpoint, orElse: () => null)
+            .firstWhereOrNull((e) => e.value == widget.cardData.endpoint)
             .toString();
         break;
       default:
@@ -404,7 +404,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
 
   Future<void> _onShowDescriptionTap() async {
     String description = await _getRateDescription();
-    if (description != null && description != '') {
+    if (description != '') {
       showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -469,7 +469,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
 
   void _onDrawerDisplayChange(bool isOpen) {
     if (isOpen && (simpleFabKey.currentState?.isOpen ?? false)) {
-      simpleFabKey.currentState.closeMenu();
+      simpleFabKey.currentState!.closeMenu();
     }
     dismissAllToast();
   }
@@ -492,8 +492,8 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
       List<FavoriteRate> favoriteCards =
           favoritesBox.get('favoriteCards', defaultValue: []).cast<FavoriteRate>();
 
-      FavoriteRate favoriteCard = favoriteCards
-          .firstWhere((fav) => fav.endpoint == widget.cardData.endpoint, orElse: () => null);
+      FavoriteRate? favoriteCard =
+          favoriteCards.firstWhereOrNull((fav) => fav.endpoint == widget.cardData.endpoint);
       if (favoriteCard == null) {
         //Add favorite
         favoriteCards.add(createFavorite());

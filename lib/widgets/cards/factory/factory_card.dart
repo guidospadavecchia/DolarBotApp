@@ -12,7 +12,7 @@ import 'package:dolarbot_app/widgets/cards/templates/metal_card.dart';
 import 'package:dolarbot_app/widgets/cards/templates/venezuela_card.dart';
 
 abstract class BuildCard {
-  factory BuildCard(ApiResponse data) {
+  factory BuildCard(ApiResponse? data) {
     if (data != null) {
       if (data is DollarResponse)
         return _FiatCurrency<DollarResponse>(data, FiatCurrencyCard.kHeight);
@@ -173,8 +173,8 @@ class _Bcra implements BuildCard {
     return BcraCard(
       title: buildCardData.title,
       bannerTitle: buildCardData.bannerTitle,
-      subtitle: buildCardData.subtitle,
-      symbol: buildCardData.symbol,
+      subtitle: buildCardData.subtitle!,
+      symbol: buildCardData.symbol!,
       data: data,
       tag: buildCardData.tag,
       iconAsset: buildCardData.iconAsset,
@@ -192,8 +192,8 @@ class _Bcra implements BuildCard {
     return BcraCard(
       title: favoriteRate.cardTag,
       bannerTitle: favoriteRate.cardTitle,
-      subtitle: favoriteRate.cardSubtitle,
-      symbol: favoriteRate.cardSymbol,
+      subtitle: favoriteRate.cardSubtitle!,
+      symbol: favoriteRate.cardSymbol!,
       data: data,
       tag: favoriteRate.cardTag,
       iconAsset: favoriteRate.cardIconAsset,

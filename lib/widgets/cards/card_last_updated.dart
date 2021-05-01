@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:dolarbot_app/util/extensions/datetime_extensions.dart';
 
 class CardLastUpdated extends StatefulWidget {
-  final String timestamp;
+  final String? timestamp;
   final bool showPoweredBy;
 
   const CardLastUpdated({
-    Key key,
-    @required this.timestamp,
+    Key? key,
+    required this.timestamp,
     this.showPoweredBy = true,
   }) : super(key: key);
 
@@ -20,12 +20,12 @@ class _CardLastUpdatedState extends State<CardLastUpdated> with WidgetsBindingOb
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addObserver(this);
+    WidgetsBinding.instance!.addObserver(this);
   }
 
   @override
   void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
+    WidgetsBinding.instance!.removeObserver(this);
     super.dispose();
   }
 
@@ -39,12 +39,12 @@ class _CardLastUpdatedState extends State<CardLastUpdated> with WidgetsBindingOb
   String _getFormattedDateTime() {
     if (widget.showPoweredBy) {
       return widget.timestamp != null
-          ? DateTime.parse(widget.timestamp.replaceAll('/', '-')).toLongDateString()
+          ? DateTime.parse(widget.timestamp!.replaceAll('/', '-')).toLongDateString()
           : DateTime.now().toLongDateString();
     }
 
     return widget.timestamp != null
-        ? DateTime.parse(widget.timestamp.replaceAll('/', '-')).toRelativeString()
+        ? DateTime.parse(widget.timestamp!.replaceAll('/', '-')).toRelativeString()
         : DateTime.now().toRelativeString();
   }
 

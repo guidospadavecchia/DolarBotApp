@@ -2,9 +2,9 @@ import 'dart:convert';
 import 'package:dolarbot_app/api/responses/base/api_response.dart';
 
 class HistoricalRateResponse extends ApiResponse {
-  String value;
-  String currency;
-  List<HistoricalMonthRate> monthlyRates;
+  String? value;
+  String? currency;
+  late List<HistoricalMonthRate> monthlyRates;
 
   HistoricalRateResponse(Map json) : super(json);
 
@@ -36,9 +36,9 @@ class HistoricalRateResponse extends ApiResponse {
 }
 
 class HistoricalMonthRate {
-  final String year;
-  final String month;
-  final String value;
+  final String? year;
+  final String? month;
+  final String? value;
 
   HistoricalMonthRate({
     this.year,

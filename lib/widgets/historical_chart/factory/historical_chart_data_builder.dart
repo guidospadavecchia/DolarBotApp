@@ -59,20 +59,20 @@ class _FiatCurrency implements BuildHistoricalChartData {
     List<FlSpot> sellPricesWithTaxes = [];
 
     for (HistoricalRate historicalRate in historicalRates) {
-      Map<dynamic, dynamic> jsonMap = json.decode(historicalRate.json);
+      Map<dynamic, dynamic>? jsonMap = json.decode(historicalRate.json);
       if (jsonMap != null) {
         GenericCurrencyResponse data = GenericCurrencyResponse(jsonMap);
         DateTime date = DateTime.parse(historicalRate.timestamp.replaceAll('/', '-'));
         if (data.buyPrice?.isNumeric() ?? false) {
-          double buyPrice = double.tryParse(data.buyPrice) ?? 0;
+          double buyPrice = double.tryParse(data.buyPrice!) ?? 0;
           buyPrices.add(FlSpot(date.millisecondsSinceEpoch.toDouble(), buyPrice));
         }
         if (data.sellPrice?.isNumeric() ?? false) {
-          double sellPrice = double.tryParse(data.sellPrice) ?? 0;
+          double sellPrice = double.tryParse(data.sellPrice!) ?? 0;
           sellPrices.add(FlSpot(date.millisecondsSinceEpoch.toDouble(), sellPrice));
         }
         if (data.sellPriceWithTaxes?.isNumeric() ?? false) {
-          double sellPriceWithTaxes = double.tryParse(data.sellPriceWithTaxes) ?? 0;
+          double sellPriceWithTaxes = double.tryParse(data.sellPriceWithTaxes!) ?? 0;
           sellPricesWithTaxes
               .add(FlSpot(date.millisecondsSinceEpoch.toDouble(), sellPriceWithTaxes));
         }
@@ -145,20 +145,20 @@ class _Crypto implements BuildHistoricalChartData {
     List<FlSpot> usdPrices = [];
 
     for (HistoricalRate historicalRate in historicalRates) {
-      Map<dynamic, dynamic> jsonMap = json.decode(historicalRate.json);
+      Map<dynamic, dynamic>? jsonMap = json.decode(historicalRate.json);
       if (jsonMap != null) {
         CryptoResponse data = CryptoResponse(jsonMap);
         DateTime date = DateTime.parse(historicalRate.timestamp.replaceAll('/', '-'));
         if (data.arsPrice?.isNumeric() ?? false) {
-          double arsPrice = double.tryParse(data.arsPrice) ?? 0;
+          double arsPrice = double.tryParse(data.arsPrice!) ?? 0;
           arsPrices.add(FlSpot(date.millisecondsSinceEpoch.toDouble(), arsPrice));
         }
         if (data.arsPriceWithTaxes?.isNumeric() ?? false) {
-          double arsPriceWithTaxes = double.tryParse(data.arsPriceWithTaxes) ?? 0;
+          double arsPriceWithTaxes = double.tryParse(data.arsPriceWithTaxes!) ?? 0;
           arsPricesWithTaxes.add(FlSpot(date.millisecondsSinceEpoch.toDouble(), arsPriceWithTaxes));
         }
         if (data.usdPrice?.isNumeric() ?? false) {
-          double usdPrice = double.tryParse(data.usdPrice) ?? 0;
+          double usdPrice = double.tryParse(data.usdPrice!) ?? 0;
           usdPrices.add(FlSpot(date.millisecondsSinceEpoch.toDouble(), usdPrice));
         }
       }
@@ -226,15 +226,15 @@ class _Metal implements BuildHistoricalChartData {
   @override
   HistoricalChartData fromHistoricalRates(List<HistoricalRate> historicalRates) {
     List<FlSpot> values = [];
-    String unit;
+    String? unit;
 
     for (HistoricalRate historicalRate in historicalRates) {
-      Map<dynamic, dynamic> jsonMap = json.decode(historicalRate.json);
+      Map<dynamic, dynamic>? jsonMap = json.decode(historicalRate.json);
       if (jsonMap != null) {
         MetalResponse data = MetalResponse(jsonMap);
         DateTime date = DateTime.parse(historicalRate.timestamp.replaceAll('/', '-'));
         if (data.value?.isNumeric() ?? false) {
-          double value = double.tryParse(data.value) ?? 0;
+          double value = double.tryParse(data.value!) ?? 0;
           values.add(FlSpot(date.millisecondsSinceEpoch.toDouble(), value));
         }
         if (unit == null) unit = data.unit;
@@ -269,15 +269,15 @@ class _Bcra implements BuildHistoricalChartData {
   @override
   HistoricalChartData fromHistoricalRates(List<HistoricalRate> historicalRates) {
     List<FlSpot> values = [];
-    String symbol;
+    String? symbol;
 
     for (HistoricalRate historicalRate in historicalRates) {
-      Map<dynamic, dynamic> jsonMap = json.decode(historicalRate.json);
+      Map<dynamic, dynamic>? jsonMap = json.decode(historicalRate.json);
       if (jsonMap != null) {
         BcraResponse data = BcraResponse(jsonMap);
         DateTime date = DateTime.parse(historicalRate.timestamp.replaceAll('/', '-'));
         if (data.value?.isNumeric() ?? false) {
-          double value = double.tryParse(data.value) ?? 0;
+          double value = double.tryParse(data.value!) ?? 0;
           values.add(FlSpot(date.millisecondsSinceEpoch.toDouble(), value));
         }
         if (symbol == null) symbol = data.currency;
@@ -288,7 +288,7 @@ class _Bcra implements BuildHistoricalChartData {
       ratesData: [
         if (values.length > 0)
           HistoricalRateData(
-            title: symbol,
+            title: symbol!,
             leftSymbol: symbol,
             maxValue: values.map((spot) => spot.y).reduce(max),
             tooltipTextStyle: _kTooltipTextStyle,
@@ -314,12 +314,12 @@ class _CountryRisk implements BuildHistoricalChartData {
     List<FlSpot> values = [];
 
     for (HistoricalRate historicalRate in historicalRates) {
-      Map<dynamic, dynamic> jsonMap = json.decode(historicalRate.json);
+      Map<dynamic, dynamic>? jsonMap = json.decode(historicalRate.json);
       if (jsonMap != null) {
         CountryRiskResponse data = CountryRiskResponse(jsonMap);
         DateTime date = DateTime.parse(historicalRate.timestamp.replaceAll('/', '-'));
         if (data.value?.isNumeric() ?? false) {
-          double value = double.tryParse(data.value) ?? 0;
+          double value = double.tryParse(data.value!) ?? 0;
           values.add(FlSpot(date.millisecondsSinceEpoch.toDouble(), value));
         }
       }
@@ -356,16 +356,16 @@ class _Venezuela implements BuildHistoricalChartData {
     List<FlSpot> blackMarketPrices = [];
 
     for (HistoricalRate historicalRate in historicalRates) {
-      Map<dynamic, dynamic> jsonMap = json.decode(historicalRate.json);
+      Map<dynamic, dynamic>? jsonMap = json.decode(historicalRate.json);
       if (jsonMap != null) {
         VenezuelaResponse data = VenezuelaResponse(jsonMap);
         DateTime date = DateTime.parse(historicalRate.timestamp.replaceAll('/', '-'));
         if (data.bankPrice?.isNumeric() ?? false) {
-          double bankPrice = double.tryParse(data.bankPrice) ?? 0;
+          double bankPrice = double.tryParse(data.bankPrice!) ?? 0;
           bankPrices.add(FlSpot(date.millisecondsSinceEpoch.toDouble(), bankPrice));
         }
         if (data.blackMarketPrice?.isNumeric() ?? false) {
-          double blackMarketPrice = double.tryParse(data.blackMarketPrice) ?? 0;
+          double blackMarketPrice = double.tryParse(data.blackMarketPrice!) ?? 0;
           blackMarketPrices.add(FlSpot(date.millisecondsSinceEpoch.toDouble(), blackMarketPrice));
         }
       }

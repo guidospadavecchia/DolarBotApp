@@ -5,12 +5,12 @@ import 'package:global_configuration/global_configuration.dart';
 
 class GitHub extends StatelessWidget {
   final cfg = GlobalConfiguration();
-  final Color color;
+  final Color? color;
   final double imageSize;
   final double fontSize;
 
   GitHub({
-    Key key,
+    Key? key,
     this.color,
     this.imageSize = 24,
     this.fontSize = 14,

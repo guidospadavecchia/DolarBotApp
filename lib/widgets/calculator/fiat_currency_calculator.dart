@@ -7,19 +7,18 @@ import 'package:intl/intl.dart';
 class FiatCurrencyCalculator extends BaseCalculatorScreen {
   final double buyValue;
   final double sellValue;
-  final double sellValueWithTaxes;
-  final String /*!*/ symbol;
+  final double? sellValueWithTaxes;
+  final String symbol;
   final NumberFormat numberFormat;
 
   FiatCurrencyCalculator({
-    Key key,
-    this.buyValue,
-    this.sellValue,
+    Key? key,
+    required this.buyValue,
+    required this.sellValue,
     this.sellValueWithTaxes,
-    @required this.symbol,
-    @required this.numberFormat,
-  })  : assert(buyValue != null || sellValue != null || sellValueWithTaxes != null),
-        super(
+    required this.symbol,
+    required this.numberFormat,
+  }) : super(
           key: key,
           symbol: symbol,
           numberFormat: numberFormat,
@@ -37,15 +36,15 @@ class FiatCurrencyCalculator extends BaseCalculatorScreen {
 
 class _FiatCurrencyCalculatorState extends BaseCalculatorState<FiatCurrencyCalculator>
     with BaseCalculator {
-  final double buyValue;
-  final double sellValue;
-  final double sellValueWithTaxes;
+  final double? buyValue;
+  final double? sellValue;
+  final double? sellValueWithTaxes;
   final String symbol;
   final NumberFormat numberFormat;
-  /*late*/ MoneyMaskedTextController _textControllerInput;
-  /*late*/ TextEditingController _textControllerBuyValue;
-  /*late*/ TextEditingController _textControllerSellValue;
-  /*late*/ TextEditingController _textControllerSellValueWithTaxes;
+  late MoneyMaskedTextController _textControllerInput;
+  late TextEditingController _textControllerBuyValue;
+  late TextEditingController _textControllerSellValue;
+  late TextEditingController _textControllerSellValueWithTaxes;
 
   _FiatCurrencyCalculatorState(
     this.buyValue,

@@ -10,10 +10,10 @@ class MetalCalculatorReversed extends BaseCalculatorScreen {
   final NumberFormat numberFormat;
 
   MetalCalculatorReversed({
-    Key key,
-    @required this.usdValue,
-    @required this.unit,
-    @required this.numberFormat,
+    Key? key,
+    required this.usdValue,
+    required this.unit,
+    required this.numberFormat,
   }) : super(
           key: key,
           symbol: unit,
@@ -33,8 +33,8 @@ class _MetalCalculatorReversedState extends BaseCalculatorState<MetalCalculatorR
   final double usdValue;
   final String unit;
   final NumberFormat numberFormat;
-  /*late*/ MoneyMaskedTextController _textControllerInput;
-  /*late*/ TextEditingController _textControllerValue;
+  late MoneyMaskedTextController _textControllerInput;
+  late TextEditingController _textControllerValue;
 
   _MetalCalculatorReversedState(
     this.usdValue,

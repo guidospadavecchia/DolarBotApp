@@ -6,11 +6,11 @@ import 'package:flutter/material.dart';
 
 class FabOptionCalculatorDialog extends StatefulWidget {
   final BaseCalculatorScreen calculator;
-  final BaseCalculatorScreen calculatorReversed;
+  final BaseCalculatorScreen? calculatorReversed;
 
   const FabOptionCalculatorDialog({
-    Key key,
-    @required this.calculator,
+    Key? key,
+    required this.calculator,
     this.calculatorReversed,
   }) : super(key: key);
 
@@ -32,7 +32,7 @@ class _FabOptionCalculatorDialogState extends State<FabOptionCalculatorDialog> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
-              !isReversed ? widget.calculator : widget.calculatorReversed,
+              !isReversed ? widget.calculator : widget.calculatorReversed!,
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.center,

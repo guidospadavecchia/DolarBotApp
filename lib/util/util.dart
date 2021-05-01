@@ -1,15 +1,13 @@
+import 'dart:ui' as ui;
 import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
-import 'dart:ui' as ui;
-
 import 'package:dolarbot_app/widgets/steps/first_time_dialog.dart';
 import 'package:dolarbot_app/widgets/common/toasts/toast_error.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
-
 import 'package:dolarbot_app/api/responses/base/api_response.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +24,7 @@ export 'package:oktoast/oktoast.dart';
 class Util {
   static final cfg = GlobalConfiguration();
 
-  static String getFiatCurrencySymbol(ApiResponse data) {
+  static String? getFiatCurrencySymbol(ApiResponse? data) {
     if (data != null) {
       if (data is DollarResponse) return "US\$";
       if (data is EuroResponse) return "€";
@@ -53,7 +51,7 @@ class Util {
   static shareCard(BuildContext context, Widget widget) async {
     final Directory tempDir = await getTemporaryDirectory();
 
-    createImageFromWidget(
+    await createImageFromWidget(
             Container(
               width: MediaQuery.of(context).size.width,
               child: MediaQuery(
@@ -65,22 +63,26 @@ class Util {
               ),
             ),
             wait: const Duration(milliseconds: 100))
-        .then((Uint8List image) async {
+        .then((Uint8List? image) async {
       if (image != null) {
-        final String fileName = 'dolarbot_${DateTime.now().microsecondsSinceEpoch}.png';
+        try {
+          final String fileName = 'dolarbot_${DateTime.now().microsecondsSinceEpoch}.png';
 
-        final File file = await File('${tempDir.path}/${fileName}').create();
-        await file.writeAsBytesSync(image);
+          final File file = await File('${tempDir.path}/${fileName}').create();
+          file.writeAsBytesSync(image);
 
-        List<String> files = []..add(file.path);
-        List<String> mimeTypes = []..add('image/png');
-        await Share.shareFiles(
-          files,
-          mimeTypes: mimeTypes,
-          subject: cfg.getDeepValue("share:subject"),
-          text: cfg.getDeepValue("share:message"),
-        );
-        return true;
+          List<String> files = []..add(file.path);
+          List<String> mimeTypes = []..add('image/png');
+          await Share.shareFiles(
+            files,
+            mimeTypes: mimeTypes,
+            subject: cfg.getDeepValue("share:subject"),
+            text: cfg.getDeepValue("share:message"),
+          );
+          return true;
+        } catch (e) {
+          return false;
+        }
       }
       return false;
     }).then((result) {
@@ -128,7 +130,7 @@ class Util {
     Color backgroundColor, {
     Duration duration = const Duration(seconds: 2),
     TextAlign textAlign = TextAlign.center,
-    Icon leadingIcon = null,
+    Icon? leadingIcon = null,
   }) {
     hideSnackBar(context);
 
@@ -169,12 +171,12 @@ class Util {
     for (ImageProvider provider in providers) {
       final ImageStream stream = provider.resolve(config);
 
-      ImageStreamListener listener;
+      late ImageStreamListener listener;
       listener = ImageStreamListener((ImageInfo image, bool sync) {
         debugPrint("Image ${image.debugLabel} finished loading");
 
         stream.removeListener(listener);
-      }, onError: (dynamic exception, StackTrace stackTrace) {
+      }, onError: (dynamic exception, StackTrace? stackTrace) {
         stream.removeListener(listener);
         FlutterError.reportError(FlutterErrorDetails(
           context: ErrorDescription('image failed to load'),
@@ -195,11 +197,11 @@ class Util {
   /// then waiting for the given [wait] amount of time and then creating an image via a [RepaintBoundary].
   ///
   /// The final image will be of size [imageSize] and the the widget will be layout, ... with the given [logicalSize].
-  static Future<Uint8List /*?*/ > createImageFromWidget(
+  static Future<Uint8List?> createImageFromWidget(
     Widget widget, {
-    Duration wait,
-    Size logicalSize,
-    Size imageSize,
+    Duration? wait,
+    Size? logicalSize,
+    Size? imageSize,
   }) async {
     final RenderRepaintBoundary repaintBoundary = RenderRepaintBoundary();
 
@@ -249,7 +251,7 @@ class Util {
     pipelineOwner.flushPaint();
 
     final ui.Image image = await repaintBoundary.toImage(pixelRatio: 3);
-    final ByteData /*?*/ byteData = await image.toByteData(format: ui.ImageByteFormat.png);
+    final ByteData? byteData = await image.toByteData(format: ui.ImageByteFormat.png);
 
     return byteData != null ? byteData.buffer.asUint8List() : null;
   }

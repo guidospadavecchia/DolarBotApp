@@ -7,7 +7,7 @@ class ToastError extends StatelessWidget {
     return ToastCustom(
       icon: Icons.close,
       iconColor: Colors.white,
-      backgroundColor: Colors.red[800],
+      backgroundColor: Colors.red[800]!,
     );
   }
 }
