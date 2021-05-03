@@ -1,5 +1,6 @@
 import 'package:dolarbot_app/classes/app_config.dart';
 import 'package:dolarbot_app/screens/home/home_screen.dart';
+import 'package:dolarbot_app/widgets/common/pills/pill.dart';
 import 'package:flutter/material.dart';
 import 'package:show_up_animation/show_up_animation.dart';
 
@@ -27,9 +28,9 @@ class _SplashScreenState extends State<SplashScreen> {
               decoration: BoxDecoration(
                 gradient:
                     LinearGradient(begin: Alignment.topLeft, end: Alignment.bottomRight, colors: [
-                  const Color.fromRGBO(51, 148, 34, 1),
-                  const Color.fromRGBO(50, 177, 40, 1),
-                  const Color.fromRGBO(40, 245, 51, 1),
+                  const Color.fromRGBO(51, 150, 34, 1),
+                  const Color.fromRGBO(50, 180, 40, 1),
+                  const Color.fromRGBO(40, 255, 51, 1),
                 ]),
               ),
             ),
@@ -51,7 +52,7 @@ class _SplashScreenState extends State<SplashScreen> {
                           filterQuality: FilterQuality.high,
                         ),
                         const SizedBox(
-                          height: 25,
+                          height: 30,
                         ),
                         ShowUpAnimation(
                           delayStart: Duration.zero,
@@ -59,14 +60,25 @@ class _SplashScreenState extends State<SplashScreen> {
                           curve: Curves.easeIn,
                           direction: Direction.vertical,
                           offset: 0,
-                          child: Text(
-                            AppConfig.of(context).appDisplayName,
-                            style: const TextStyle(
-                                fontSize: 40,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.white,
-                                fontFamily: 'Raleway',
-                                letterSpacing: 0.5),
+                          child: Column(
+                            children: [
+                              Text(
+                                AppConfig.of(context).appDisplayName,
+                                style: const TextStyle(
+                                    fontSize: 40,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.white,
+                                    fontFamily: 'Raleway',
+                                    letterSpacing: 0.5),
+                              ),
+                              const SizedBox(
+                                height: 15,
+                              ),
+                              Pill(
+                                text: AppConfig.of(context).getFlavorValue(),
+                                fontSize: 11,
+                              ),
+                            ],
                           ),
                         ),
                       ],
