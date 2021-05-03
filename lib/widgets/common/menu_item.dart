@@ -1,10 +1,11 @@
-import 'package:dolarbot_app/widgets/common/blur_dialog.dart';
+import 'package:dolarbot_app/widgets/common/pro_features/pro_features_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:dolarbot_app/widgets/common/pills/pro_pill.dart';
 
 class MenuItem extends StatelessWidget {
   final String text;
+  final Color? textColor;
   final String? subtitle;
   final Widget leading;
   final Widget? trailing;
@@ -16,6 +17,7 @@ class MenuItem extends StatelessWidget {
 
   const MenuItem({
     required this.text,
+    this.textColor,
     this.subtitle,
     required this.leading,
     this.trailing,
@@ -44,7 +46,7 @@ class MenuItem extends StatelessWidget {
                 style: TextStyle(
                     fontSize: 16,
                     fontFamily: 'Raleway',
-                    color: ThemeManager.getPrimaryTextColor(context),
+                    color: textColor ?? ThemeManager.getPrimaryTextColor(context),
                     fontWeight: FontWeight.w600),
               ),
               leading: Padding(
@@ -74,7 +76,7 @@ class MenuItem extends StatelessWidget {
                 style: TextStyle(
                     fontSize: 16,
                     fontFamily: 'Raleway',
-                    color: ThemeManager.getPrimaryTextColor(context),
+                    color: textColor ?? ThemeManager.getPrimaryTextColor(context),
                     fontWeight: FontWeight.w600),
               ),
               leading: Padding(
@@ -94,21 +96,10 @@ class MenuItem extends StatelessWidget {
                   : null,
               onTap: () {
                 if (lockedBehindProFeature) {
-                  //TODO: Construir dialog de pro features
                   showDialog(
                     context: context,
                     builder: (BuildContext context) {
-                      return BlurDialog(
-                        dialog: Dialog(
-                          child: Container(
-                            padding: EdgeInsets.all(20),
-                            height: 100,
-                            width: 50,
-                            alignment: Alignment.center,
-                            child: Placeholder(),
-                          ),
-                        ),
-                      );
+                      return ProFeaturesDialog();
                     },
                   );
                 } else {
