@@ -8,11 +8,11 @@ import 'package:dolarbot_app/widgets/common/menu_item.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+const String _title = 'BCRA';
+
 class RootMenuBCRA extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    const String _title = 'BCRA';
-
     return MenuItem(
       text: "Indicadores BCRA",
       leading: getIconData(context, FontAwesomeIcons.chartLine),

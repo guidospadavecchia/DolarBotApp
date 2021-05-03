@@ -1,4 +1,6 @@
+import 'package:dolarbot_app/classes/app_config.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
+import 'package:dolarbot_app/widgets/common/pills/pro_pill.dart';
 import 'package:flutter/material.dart';
 
 class DrawerMenuHeader extends StatelessWidget {
@@ -9,7 +11,7 @@ class DrawerMenuHeader extends StatelessWidget {
     return Column(
       children: [
         Padding(
-          padding: EdgeInsets.only(top: paddingTop, left: 35, bottom: 10),
+          padding: EdgeInsets.only(top: paddingTop, left: 25, bottom: 10),
           child: Center(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -17,7 +19,7 @@ class DrawerMenuHeader extends StatelessWidget {
               children: [
                 SizedBox(
                   child: Image.asset(
-                    'assets/images/logos/borderless/logo.png',
+                    AppConfig.of(context).logo.borderless,
                     scale: 3.0,
                     height: 64,
                     width: 64,
@@ -46,6 +48,15 @@ class DrawerMenuHeader extends StatelessWidget {
                       color: ThemeManager.getPrimaryColor(),
                       letterSpacing: 0.5),
                 ),
+                if (AppConfig.of(context).flavor == AppFlavor.Pro)
+                  Row(
+                    children: [
+                      const SizedBox(
+                        width: 15,
+                      ),
+                      ProPill(),
+                    ],
+                  ),
               ],
             ),
           ),

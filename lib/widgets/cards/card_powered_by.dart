@@ -1,3 +1,4 @@
+import 'package:dolarbot_app/classes/app_config.dart';
 import 'package:flutter/material.dart';
 
 class CardPoweredBy extends StatelessWidget {
@@ -24,7 +25,7 @@ class CardPoweredBy extends StatelessWidget {
         ),
         SizedBox(
           child: Image.asset(
-            "assets/images/logos/borderless/logo.png",
+            AppConfig.of(context).logo.borderless,
             filterQuality: FilterQuality.high,
           ),
           width: 16,
@@ -33,7 +34,7 @@ class CardPoweredBy extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(left: 3, top: 2),
           child: Text(
-            "DolarBot",
+            AppConfig.of(context).appDisplayName,
             style: const TextStyle(
               fontSize: 10,
               fontFamily: 'Raleway',

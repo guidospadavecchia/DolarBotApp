@@ -1,3 +1,4 @@
+import 'package:dolarbot_app/classes/app_config.dart';
 import 'package:dolarbot_app/widgets/common/simple_button.dart';
 import 'package:dolarbot_app/widgets/steps/base/step_base.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -56,7 +57,7 @@ class StepFinish extends StepBase {
       ),
       writeText(
         context,
-        "DolarBot",
+        AppConfig.of(context).appDisplayName,
         bold: true,
         fontSize: SizeConfig.blockSizeVertical * 3,
       ),

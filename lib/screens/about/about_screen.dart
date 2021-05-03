@@ -1,10 +1,11 @@
-import 'package:dolarbot_app/classes/globals.dart';
+import 'package:dolarbot_app/classes/app_config.dart';
 import 'package:dolarbot_app/classes/size_config.dart';
 import 'package:dolarbot_app/util/util.dart';
 import 'package:dolarbot_app/widgets/common/blur_dialog.dart';
 import 'package:dolarbot_app/widgets/common/cool_app_bar.dart';
 import 'package:dolarbot_app/widgets/common/social/discord.dart';
 import 'package:dolarbot_app/widgets/common/social/github.dart';
+import 'package:dolarbot_app/widgets/common/pills/pill.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:global_configuration/global_configuration.dart';
@@ -64,7 +65,7 @@ class _AboutScreenState extends State<AboutScreen> {
     return Column(
       children: [
         Text(
-          Globals.packageInfo.appName,
+          AppConfig.of(context).appDisplayName,
           style: TextStyle(
             fontSize: SizeConfig.blockSizeVertical * 4.5,
             fontWeight: FontWeight.bold,
@@ -73,10 +74,18 @@ class _AboutScreenState extends State<AboutScreen> {
           ),
         ),
         SizedBox(
+          height: SizeConfig.blockSizeVertical * 2,
+        ),
+        Pill(
+          text: AppConfig.of(context).getFlavorValue(),
+          fontSize: 11,
+          padding: EdgeInsets.symmetric(vertical: SizeConfig.blockSizeVertical / 2),
+        ),
+        SizedBox(
           height: SizeConfig.blockSizeVertical,
         ),
         Text(
-          "Versión ${Globals.packageInfo.version}",
+          "Versión ${AppConfig.of(context).version}",
           style: _getTextStyle(),
         ),
         SizedBox(
@@ -84,7 +93,7 @@ class _AboutScreenState extends State<AboutScreen> {
         ),
         InkWell(
           child: Image.asset(
-            'assets/images/logos/border/logo.png',
+            AppConfig.of(context).logo.border,
             scale: 3.0,
             height: SizeConfig.screenHeight / 5,
             width: SizeConfig.screenHeight / 5,
@@ -93,7 +102,7 @@ class _AboutScreenState extends State<AboutScreen> {
           onTap: () => _onTapLogo(),
         ),
         SizedBox(
-          height: SizeConfig.blockSizeVertical * 3,
+          height: SizeConfig.blockSizeVertical * 4,
         ),
       ],
     );
@@ -128,13 +137,7 @@ class _AboutScreenState extends State<AboutScreen> {
     return Column(
       children: [
         Text(
-          "© ${DateTime.now().year}",
-          style: _getTextStyle(),
-          textAlign: TextAlign.center,
-        ),
-        SizedBox(height: SizeConfig.blockSizeVertical * 1.5),
-        Text(
-          "Hecho en 🇦🇷 Argentina",
+          "Hecho en 🇦🇷 Argentina - © ${DateTime.now().year}",
           style: _getTextStyle(),
           textAlign: TextAlign.center,
         ),

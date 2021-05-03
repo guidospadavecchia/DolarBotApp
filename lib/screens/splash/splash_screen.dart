@@ -1,7 +1,6 @@
-import 'package:dolarbot_app/classes/globals.dart';
+import 'package:dolarbot_app/classes/app_config.dart';
 import 'package:dolarbot_app/screens/home/home_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:package_info/package_info.dart';
 import 'package:show_up_animation/show_up_animation.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -60,8 +59,8 @@ class _SplashScreenState extends State<SplashScreen> {
                           curve: Curves.easeIn,
                           direction: Direction.vertical,
                           offset: 0,
-                          child: const Text(
-                            'DolarBot',
+                          child: Text(
+                            AppConfig.of(context).appDisplayName,
                             style: const TextStyle(
                                 fontSize: 40,
                                 fontWeight: FontWeight.w600,
@@ -100,7 +99,6 @@ class _SplashScreenState extends State<SplashScreen> {
       (_) => Future.delayed(
         waitToHome,
         () async {
-          Globals.packageInfo = await PackageInfo.fromPlatform();
           await Navigator.pushReplacement(
             context,
             PageRouteBuilder(

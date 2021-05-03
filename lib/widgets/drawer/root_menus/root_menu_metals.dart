@@ -9,11 +9,11 @@ import 'package:dolarbot_app/widgets/common/menu_item.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+const String _title = 'Metal';
+
 class RootMenuMetals extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    const String _title = 'Metal';
-
     return MenuItem(
       text: "Metales",
       leading: getIconData(context, FontAwesomeIcons.sketch),

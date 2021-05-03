@@ -9,11 +9,11 @@ import 'package:dolarbot_app/widgets/common/menu_item.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+const String _title = 'Venezuela';
+
 class RootMenuVenezuela extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    const String _title = 'Venezuela';
-
     return MenuItem(
       text: "Venezuela",
       leading: getIconAsset(context, DolarBotIcons.general.venezuela),

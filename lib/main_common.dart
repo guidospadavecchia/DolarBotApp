@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:adaptive_theme/adaptive_theme.dart';
+import 'package:dolarbot_app/classes/app_config.dart';
 import 'package:dolarbot_app/classes/hive/adapters/cache_entry_adapter.dart';
 import 'package:dolarbot_app/classes/hive/adapters/favorite_rate_adapter.dart';
 import 'package:dolarbot_app/classes/hive/adapters/historical_rate_adapter.dart';
@@ -20,7 +22,11 @@ import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/foundation.dart';
 
-void main() async {
+export 'package:dolarbot_app/classes/app_config.dart';
+
+void mainCommon(AppFlavor appFlavor) async {
+  log("Starting as ${appFlavor.toString().split('.').last} version");
+
   WidgetsFlutterBinding.ensureInitialized();
   final savedThemeMode = await AdaptiveTheme.getThemeMode();
 
@@ -30,9 +36,14 @@ void main() async {
   await GlobalConfiguration().loadFromAsset("app_settings");
   initializeHive();
 
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then((_) {
-    runApp(DolarBotApp(themeMode: savedThemeMode));
-  });
+  AppConfig appConfig = await AppConfig.initialize(
+      flavor: appFlavor,
+      child: DolarBotApp(
+        themeMode: savedThemeMode,
+      ));
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then(
+    (_) => runApp(appConfig),
+  );
 }
 
 Future _preloadImages() async {
@@ -69,7 +80,7 @@ class DolarBotApp extends StatelessWidget {
         child: OKToast(
           child: MaterialApp(
             debugShowCheckedModeBanner: false,
-            title: 'DolarBot',
+            title: AppConfig.of(context).appName,
             theme: lightTheme,
             darkTheme: darkTheme,
             builder: (BuildContext context, Widget? child) {

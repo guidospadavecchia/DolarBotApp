@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:dolarbot_app/widgets/common/pills/pill.dart';
 
 class CardLogo extends StatelessWidget {
   final String? iconAsset;
@@ -10,7 +11,7 @@ class CardLogo extends StatelessWidget {
     this.iconAsset,
     this.iconData,
     required this.tag,
-  })  : assert(iconAsset != null || iconData != null),
+  })   : assert(iconAsset != null || iconData != null),
         super(key: key);
 
   @override
@@ -37,23 +38,8 @@ class CardLogo extends StatelessWidget {
                 ),
           Padding(
             padding: const EdgeInsets.only(top: 15),
-            child: Container(
-              width: 45,
-              padding: const EdgeInsets.only(top: 3, bottom: 2),
-              decoration: BoxDecoration(
-                color: Colors.black54,
-                borderRadius: BorderRadius.circular(5),
-              ),
-              child: Text(
-                tag.toUpperCase(),
-                style: const TextStyle(
-                  fontSize: 9,
-                  fontFamily: 'Raleway',
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-                textAlign: TextAlign.center,
-              ),
+            child: Pill(
+              text: tag,
             ),
           ),
         ],

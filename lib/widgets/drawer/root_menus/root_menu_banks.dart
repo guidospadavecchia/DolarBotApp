@@ -2,6 +2,7 @@ import 'package:dolarbot_app/api/api_endpoints.dart';
 import 'package:dolarbot_app/api/responses/dollar_response.dart';
 import 'package:dolarbot_app/api/responses/euro_response.dart';
 import 'package:dolarbot_app/api/responses/real_response.dart';
+import 'package:dolarbot_app/classes/app_config.dart';
 import 'package:dolarbot_app/util/constants.dart';
 import 'package:dolarbot_app/classes/dolarbot_icons.dart';
 import 'package:dolarbot_app/widgets/drawer/drawer_menu_body.dart';
@@ -11,12 +12,14 @@ import 'package:dolarbot_app/widgets/common/menu_item.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+const String _titleDolar = "Dólar";
+const String _titleEuro = "Euro";
+const String _titleReal = "Real";
+
 class RootMenuBanks extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    const String _titleDolar = 'Dólar';
-    const String _titleEuro = 'Euro';
-    const String _titleReal = 'Real';
+    final bool isProVersion = AppConfig.of(context).flavor == AppFlavor.Pro;
 
     return MenuItem(
       text: "Bancos",
@@ -27,6 +30,7 @@ class RootMenuBanks extends StatelessWidget {
           text: "BBVA",
           leading: getIconAsset(context, DolarBotIcons.banks.bbva),
           depthLevel: 2,
+          lockedBehindProFeature: !isProVersion,
           subItems: [
             MenuItem(
               text: _titleDolar,
@@ -97,6 +101,7 @@ class RootMenuBanks extends StatelessWidget {
           text: "Chaco",
           leading: getIconAsset(context, DolarBotIcons.banks.chaco),
           depthLevel: 2,
+          lockedBehindProFeature: !isProVersion,
           subItems: [
             MenuItem(
               text: _titleDolar,
@@ -167,6 +172,7 @@ class RootMenuBanks extends StatelessWidget {
           text: "Ciudad",
           leading: getIconAsset(context, DolarBotIcons.banks.ciudad),
           depthLevel: 2,
+          lockedBehindProFeature: !isProVersion,
           subItems: [
             MenuItem(
               text: _titleDolar,
@@ -195,6 +201,7 @@ class RootMenuBanks extends StatelessWidget {
           text: "Comafi",
           leading: getIconAsset(context, DolarBotIcons.banks.comafi),
           depthLevel: 2,
+          lockedBehindProFeature: !isProVersion,
           subItems: [
             MenuItem(
               text: _titleDolar,
@@ -223,6 +230,7 @@ class RootMenuBanks extends StatelessWidget {
           text: "Córdoba",
           leading: getIconAsset(context, DolarBotIcons.banks.cordoba),
           depthLevel: 2,
+          lockedBehindProFeature: !isProVersion,
           subItems: [
             MenuItem(
               text: _titleDolar,
@@ -251,6 +259,7 @@ class RootMenuBanks extends StatelessWidget {
           text: "Galicia",
           leading: getIconAsset(context, DolarBotIcons.banks.galicia),
           depthLevel: 2,
+          lockedBehindProFeature: !isProVersion,
           subItems: [
             MenuItem(
               text: _titleDolar,
@@ -300,6 +309,7 @@ class RootMenuBanks extends StatelessWidget {
           text: "Hipotecario",
           leading: getIconAsset(context, DolarBotIcons.banks.hipotecario),
           depthLevel: 2,
+          lockedBehindProFeature: !isProVersion,
           subItems: [
             MenuItem(
               text: _titleDolar,
@@ -349,6 +359,7 @@ class RootMenuBanks extends StatelessWidget {
           text: "La Pampa",
           leading: getIconAsset(context, DolarBotIcons.banks.pampa),
           depthLevel: 2,
+          lockedBehindProFeature: !isProVersion,
           subItems: [
             MenuItem(
               text: _titleDolar,
@@ -398,6 +409,7 @@ class RootMenuBanks extends StatelessWidget {
           text: "Nación",
           leading: getIconAsset(context, DolarBotIcons.banks.nacion),
           depthLevel: 2,
+          lockedBehindProFeature: !isProVersion,
           subItems: [
             MenuItem(
               text: _titleDolar,
@@ -468,6 +480,7 @@ class RootMenuBanks extends StatelessWidget {
           text: "Patagonia",
           leading: getIconAsset(context, DolarBotIcons.banks.patagonia),
           depthLevel: 2,
+          lockedBehindProFeature: !isProVersion,
           subItems: [
             MenuItem(
               text: _titleDolar,
@@ -496,6 +509,7 @@ class RootMenuBanks extends StatelessWidget {
           text: "Piano",
           leading: getIconAsset(context, DolarBotIcons.banks.piano),
           depthLevel: 2,
+          lockedBehindProFeature: !isProVersion,
           subItems: [
             MenuItem(
               text: _titleDolar,
@@ -524,6 +538,7 @@ class RootMenuBanks extends StatelessWidget {
           text: "Santander",
           leading: getIconAsset(context, DolarBotIcons.banks.santander),
           depthLevel: 2,
+          lockedBehindProFeature: !isProVersion,
           subItems: [
             MenuItem(
               text: _titleDolar,
@@ -552,6 +567,7 @@ class RootMenuBanks extends StatelessWidget {
           text: "Supervielle",
           leading: getIconAsset(context, DolarBotIcons.banks.supervielle),
           depthLevel: 2,
+          lockedBehindProFeature: !isProVersion,
           subItems: [
             MenuItem(
               text: _titleDolar,

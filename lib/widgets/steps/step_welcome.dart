@@ -1,3 +1,4 @@
+import 'package:dolarbot_app/classes/app_config.dart';
 import 'package:dolarbot_app/classes/size_config.dart';
 import 'package:dolarbot_app/widgets/steps/base/step_base.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -33,7 +34,7 @@ class StepWelcome extends StepBase {
             ),
             writeText(
               context,
-              "DolarBot",
+              AppConfig.of(context).appDisplayName,
               bold: true,
               fontSize: SizeConfig.blockSizeVertical * 3,
             ),

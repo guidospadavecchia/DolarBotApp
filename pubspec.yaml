@@ -26,7 +26,6 @@ dependencies:
   font_awesome_flutter: ^9.0.0
   crypto_font_icons: ^1.0.0+1
   cupertino_icons: ^1.0.2
-  flutter_launcher_icons: ^0.9.0
   adaptive_theme: ^2.2.0
   loading_indicator: ^2.0.1
   http: ^0.13.2
@@ -50,11 +49,6 @@ dependencies:
   fl_chart: ^0.35.0
   flutter_scroll_to_top: ^1.1.0
   collection: ^1.15.0-nullsafety.4
-
-flutter_icons:
-  android: true
-  ios: false
-  image_path: "assets/images/logos/borderless/logo.png"
 
 dev_dependencies:
   flutter_test:
