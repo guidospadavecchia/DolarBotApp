@@ -25,7 +25,7 @@ class CardPoweredBy extends StatelessWidget {
         ),
         SizedBox(
           child: Image.asset(
-            AppConfig.of(context).logo.borderless,
+            AppConfig.logo.borderless,
             filterQuality: FilterQuality.high,
           ),
           width: 16,
@@ -34,7 +34,7 @@ class CardPoweredBy extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(left: 3, top: 2),
           child: Text(
-            AppConfig.of(context).appDisplayName,
+            AppConfig.appDisplayName,
             style: const TextStyle(
               fontSize: 10,
               fontFamily: 'Raleway',

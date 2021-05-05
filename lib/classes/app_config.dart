@@ -12,8 +12,8 @@ class AppLogo {
 }
 
 class AppConfig extends InheritedWidget {
-  final String appDisplayName = "DolarBot";
-  final AppLogo logo = const AppLogo._create();
+  static const String appDisplayName = "DolarBot";
+  static const AppLogo logo = const AppLogo._create();
   final AppFlavor flavor;
   late final String appName;
   late final String packageName;

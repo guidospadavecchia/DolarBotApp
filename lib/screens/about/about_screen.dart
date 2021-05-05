@@ -65,7 +65,7 @@ class _AboutScreenState extends State<AboutScreen> {
     return Column(
       children: [
         Text(
-          AppConfig.of(context).appDisplayName,
+          AppConfig.appDisplayName,
           style: TextStyle(
             fontSize: SizeConfig.blockSizeVertical * 4.5,
             fontWeight: FontWeight.bold,
@@ -93,7 +93,7 @@ class _AboutScreenState extends State<AboutScreen> {
         ),
         InkWell(
           child: Image.asset(
-            AppConfig.of(context).logo.border,
+            AppConfig.logo.border,
             scale: 3.0,
             height: SizeConfig.screenHeight / 5,
             width: SizeConfig.screenHeight / 5,

@@ -19,7 +19,7 @@ class DrawerMenuHeader extends StatelessWidget {
               children: [
                 SizedBox(
                   child: Image.asset(
-                    AppConfig.of(context).logo.borderless,
+                    AppConfig.logo.borderless,
                     scale: 3.0,
                     height: 64,
                     width: 64,

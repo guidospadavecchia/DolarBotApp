@@ -63,7 +63,7 @@ class _SplashScreenState extends State<SplashScreen> {
                           child: Column(
                             children: [
                               Text(
-                                AppConfig.of(context).appDisplayName,
+                                AppConfig.appDisplayName,
                                 style: const TextStyle(
                                     fontSize: 40,
                                     fontWeight: FontWeight.w600,

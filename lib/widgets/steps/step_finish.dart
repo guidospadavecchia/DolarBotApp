@@ -57,7 +57,7 @@ class StepFinish extends StepBase {
       ),
       writeText(
         context,
-        AppConfig.of(context).appDisplayName,
+        AppConfig.appDisplayName,
         bold: true,
         fontSize: SizeConfig.blockSizeVertical * 3,
       ),
