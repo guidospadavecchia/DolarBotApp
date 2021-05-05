@@ -11,6 +11,7 @@ import 'package:dolarbot_app/screens/base/widgets/title_banner.dart';
 import 'package:dolarbot_app/screens/historical_rates/historical_rates_screen.dart';
 import 'package:dolarbot_app/util/constants.dart';
 import 'package:dolarbot_app/widgets/calculator/exports/calculator_exports.dart';
+import 'package:dolarbot_app/widgets/common/text_dialog.dart';
 import 'package:dolarbot_app/widgets/common/toasts/toast_error.dart';
 import 'package:dolarbot_app/widgets/common/toasts/toast_ok.dart';
 import 'package:dolarbot_app/widgets/drawer/drawer_menu.dart';
@@ -18,9 +19,7 @@ import 'package:dolarbot_app/screens/base/widgets/fab_menu.dart';
 import 'package:dolarbot_app/screens/home/home_screen.dart';
 import 'package:dolarbot_app/util/util.dart';
 import 'package:dolarbot_app/widgets/cards/factory/card_data.dart';
-import 'package:dolarbot_app/widgets/common/blur_dialog.dart';
 import 'package:dolarbot_app/widgets/common/cool_app_bar.dart';
-import 'package:dolarbot_app/widgets/common/simple_button.dart';
 import 'package:dolarbot_app/widgets/common/simple_fab_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -408,54 +407,9 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
       showDialog(
         context: context,
         builder: (BuildContext context) {
-          return BlurDialog(
-            dialog: Dialog(
-              insetPadding: const EdgeInsets.all(25),
-              child: Container(
-                width: MediaQuery.of(context).size.width * 0.8,
-                padding: const EdgeInsets.only(bottom: 20),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(15.0),
-                      child: Text(
-                        "Descripción",
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontFamily: 'Raleway',
-                          fontWeight: FontWeight.bold,
-                          color: ThemeManager.getPrimaryTextColor(context),
-                        ),
-                      ),
-                    ),
-                    const Divider(
-                      color: Colors.black,
-                      indent: 15,
-                      endIndent: 15,
-                      height: 0,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(25),
-                      child: Text(description, textAlign: TextAlign.justify),
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    Center(
-                      child: SimpleButton(
-                          text: 'Cerrar',
-                          icon: Icons.close,
-                          onPressed: () {
-                            if (Navigator.of(context).canPop()) Navigator.of(context).pop();
-                          }),
-                    )
-                  ],
-                ),
-              ),
-            ),
+          return TextDialog(
+            title: "Descripción",
+            text: description,
           );
         },
       );

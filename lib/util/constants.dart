@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class DolarBotConstants {
   static const String kDescriptionsFile = 'assets/cfg/rate_descriptions.json';
+  static const String kTermosOfServiceFile = 'assets/cfg/tos.json';
 
   static List<Color> kGradiantError = [
     Colors.grey[900]!,

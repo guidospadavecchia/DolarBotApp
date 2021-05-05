@@ -7,6 +7,7 @@ import 'package:dolarbot_app/screens/options/widgets/card_gesture_dismiss_dialog
 import 'package:dolarbot_app/screens/options/widgets/fab_direction_dialog/fab_direction_dialog.dart';
 import 'package:dolarbot_app/screens/options/widgets/format_currency_dialog/format_currency_dialog.dart';
 import 'package:dolarbot_app/screens/options/widgets/clear_historical_data_dialog/clear_historical_data_dialog.dart';
+import 'package:dolarbot_app/screens/options/widgets/tos_dialog/terms_of_service_dialog.dart';
 import 'package:dolarbot_app/util/util.dart';
 import 'package:dolarbot_app/widgets/common/cool_app_bar.dart';
 import 'package:dolarbot_app/widgets/common/menu_item.dart';
@@ -99,25 +100,6 @@ class _OptionsScreenState extends State<OptionsScreen> {
               onTap: () => _showCardGestureDismissDialog(context),
               disableHighlight: false,
             ),
-            _buildDivider("Otros"),
-            MenuItem(
-                text: "Ayuda",
-                subtitle: "Muestra una breve guía sobre la aplicación",
-                leading: const Icon(FontAwesomeIcons.solidQuestionCircle),
-                depthLevel: 1,
-                disableHighlight: false,
-                onTap: () {
-                  dismissAllToast();
-                  Util.showFirstTimeDialog(context, true);
-                }),
-            MenuItem(
-              text: "Información de la aplicación",
-              subtitle: "Versión del producto y enlaces",
-              leading: const Icon(FontAwesomeIcons.infoCircle),
-              depthLevel: 1,
-              disableHighlight: false,
-              onTap: () => Navigator.of(context).pushNamed("/about"),
-            ),
             MenuItem(
               text: "Limpiar cotizaciones históricas",
               subtitle: "Elimina los datos de las cotizaciones consultadas",
@@ -125,6 +107,34 @@ class _OptionsScreenState extends State<OptionsScreen> {
               depthLevel: 1,
               disableHighlight: false,
               onTap: () => _showClearHistoricalDataDialog(context),
+            ),
+            _buildDivider("Otros"),
+            MenuItem(
+              text: "Ayuda",
+              subtitle: "Muestra una breve guía sobre la aplicación",
+              leading: const Icon(FontAwesomeIcons.solidQuestionCircle),
+              depthLevel: 1,
+              disableHighlight: false,
+              onTap: () {
+                dismissAllToast();
+                Util.showFirstTimeDialog(context, true);
+              },
+            ),
+            MenuItem(
+              text: "Legales",
+              subtitle: "Terminos de uso y renuncia de responsabilidad",
+              leading: const Icon(FontAwesomeIcons.fileContract),
+              depthLevel: 1,
+              disableHighlight: false,
+              onTap: () => _showTermsAndConditionsDialog(context),
+            ),
+            MenuItem(
+              text: "Información de la aplicación",
+              subtitle: "Versión del producto y enlaces",
+              leading: const Icon(FontAwesomeIcons.infoCircle),
+              depthLevel: 1,
+              disableHighlight: false,
+              onTap: () => Navigator.of(context).pushNamed("/about"),
             ),
           ],
         ),
@@ -171,6 +181,7 @@ class _OptionsScreenState extends State<OptionsScreen> {
   }
 
   _showClearHistoricalDataDialog(BuildContext context) {
+    dismissAllToast();
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -180,6 +191,7 @@ class _OptionsScreenState extends State<OptionsScreen> {
   }
 
   _showFormatCurrencyDialog(BuildContext context) {
+    dismissAllToast();
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -189,6 +201,7 @@ class _OptionsScreenState extends State<OptionsScreen> {
   }
 
   _showFabDirectionDialog(BuildContext context) {
+    dismissAllToast();
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -197,7 +210,18 @@ class _OptionsScreenState extends State<OptionsScreen> {
     );
   }
 
+  _showTermsAndConditionsDialog(BuildContext context) {
+    dismissAllToast();
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return TermsOfServiceDialog();
+      },
+    );
+  }
+
   _showCardGestureDismissDialog(BuildContext context) {
+    dismissAllToast();
     showDialog(
       context: context,
       builder: (BuildContext context) {
