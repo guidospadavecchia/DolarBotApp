@@ -70,19 +70,16 @@ class TextDialog extends StatelessWidget {
                     return false;
                   },
                   child: Padding(
-                    padding: EdgeInsets.fromLTRB(
-                      SizeConfig.blockSizeVertical / 2,
-                      SizeConfig.blockSizeVertical * 2,
-                      SizeConfig.blockSizeVertical * 2,
-                      SizeConfig.blockSizeVertical * 2,
-                    ),
+                    padding: EdgeInsets.symmetric(
+                        vertical: SizeConfig.blockSizeVertical * 2,
+                        horizontal: SizeConfig.blockSizeVertical * 2),
                     child: Scrollbar(
                       isAlwaysShown: false,
                       radius: Radius.circular(SizeConfig.blockSizeVertical),
                       child: SingleChildScrollView(
                         child: Padding(
                           padding:
-                              EdgeInsets.symmetric(horizontal: SizeConfig.blockSizeVertical * 3),
+                              EdgeInsets.symmetric(horizontal: SizeConfig.blockSizeHorizontal * 5),
                           child: Text(
                             text,
                             textAlign: textAlign,
