@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:async';
 import 'package:dolarbot_app/api/responses/factory/api_response_builder.dart';
+import 'package:dolarbot_app/classes/app_config.dart';
 import 'package:dolarbot_app/classes/size_config.dart';
 import 'package:dolarbot_app/widgets/historical_chart/historical_rate_manager.dart';
 import 'package:dolarbot_app/classes/hive/favorite_rate.dart';
@@ -132,6 +133,22 @@ class HomeScreenState extends State<HomeScreen> {
               ],
             ),
           ),
+          //TODO: Configurar Ad.
+          bottomNavigationBar:
+              AppConfig.of(context).flavor == AppFlavor.Lite && _cardsLoaded && !_hasErrorsAll
+                  ? Container(
+                      height: 55,
+                      color: ThemeManager.getGlobalBackgroundColor(context),
+                      child: Center(
+                        child: Container(
+                          color: Colors.red,
+                          child: Placeholder(),
+                          width: 320,
+                          height: 50,
+                        ),
+                      ),
+                    )
+                  : null,
         );
       }),
     );
@@ -148,7 +165,6 @@ class HomeScreenState extends State<HomeScreen> {
     if (_hasErrorsAll) {
       return ErrorScreen(
         color: ThemeManager.getPrimaryTextColor(context),
-        opacity: 0.2,
       );
     }
 
@@ -159,7 +175,9 @@ class HomeScreenState extends State<HomeScreen> {
           child: Container(
             constraints: const BoxConstraints(maxWidth: 400),
             height: MediaQuery.of(context).size.height,
-            padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom + 110),
+            padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom +
+                    (AppConfig.of(context).flavor == AppFlavor.Lite ? 150 : 110)),
             child: NotificationListener<OverscrollIndicatorNotification>(
               onNotification: (OverscrollIndicatorNotification overScroll) {
                 overScroll.disallowGlow();
