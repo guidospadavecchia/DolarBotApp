@@ -30,4 +30,16 @@ mixin BaseCalculator<Page extends BaseCalculatorScreen> on BaseCalculatorState<P
   Widget build(BuildContext context) {
     return body();
   }
+
+  int getPrecision(double value) {
+    if (value > 100000) {
+      return 8;
+    } else if (value > 10000) {
+      return 6;
+    } else if (value > 1000) {
+      return 4;
+    } else {
+      return 2;
+    }
+  }
 }

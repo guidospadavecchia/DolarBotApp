@@ -89,8 +89,7 @@ class _CryptoCalculatorReversedState extends BaseCalculatorState<CryptoCalculato
         decimalSeparator: numberFormat.symbols.DECIMAL_SEP,
         thousandSeparator: numberFormat.symbols.GROUP_SEP,
         leftSymbol: "US\$ ");
-    _textControllerCryptoValue =
-        TextEditingController(text: "0${numberFormat.symbols.DECIMAL_SEP}00 $cryptoCode");
+    _textControllerCryptoValue = TextEditingController();
   }
 
   void _setConversion() {

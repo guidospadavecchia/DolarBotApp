@@ -141,12 +141,9 @@ class _FiatCurrencyCalculatorState extends BaseCalculatorState<FiatCurrencyCalcu
         thousandSeparator: numberFormat.symbols.GROUP_SEP,
         leftSymbol: "$symbol ");
 
-    _textControllerBuyValue =
-        TextEditingController(text: "\$ 0${numberFormat.symbols.DECIMAL_SEP}00");
-    _textControllerSellValue =
-        TextEditingController(text: "\$ 0${numberFormat.symbols.DECIMAL_SEP}00");
-    _textControllerSellValueWithTaxes =
-        TextEditingController(text: "\$ 0${numberFormat.symbols.DECIMAL_SEP}00");
+    _textControllerBuyValue = TextEditingController();
+    _textControllerSellValue = TextEditingController();
+    _textControllerSellValueWithTaxes = TextEditingController();
   }
 
   void _setConversion() {

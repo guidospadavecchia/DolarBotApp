@@ -68,7 +68,7 @@ class _MetalCalculatorReversedState extends BaseCalculatorState<MetalCalculatorR
         InputAmount(
           title: "Ingresá una cantidad en ${unit.toLowerCase()}s:",
           textController: _textControllerInput,
-          maxDigits: 9,
+          maxDigits: 16,
         ),
         const SizedBox(
           height: 30,
@@ -85,15 +85,12 @@ class _MetalCalculatorReversedState extends BaseCalculatorState<MetalCalculatorR
   }
 
   void _createControllers() {
-    String pluralUnit = "${unit.toLowerCase()}s";
     _textControllerInput = MoneyMaskedTextController(
-      precision: 2,
+      precision: getPrecision(usdValue),
       decimalSeparator: numberFormat.symbols.DECIMAL_SEP,
       thousandSeparator: numberFormat.symbols.GROUP_SEP,
-      rightSymbol: " $pluralUnit",
     );
-    _textControllerValue =
-        TextEditingController(text: "US\$ 0${numberFormat.symbols.DECIMAL_SEP}00");
+    _textControllerValue = TextEditingController();
   }
 
   void _setConversion() {

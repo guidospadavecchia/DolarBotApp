@@ -79,15 +79,13 @@ class _MetalCalculatorState extends BaseCalculatorState<MetalCalculator> with Ba
   }
 
   void _createControllers() {
-    String pluralUnit = "${unit.toLowerCase()}s";
     _textControllerInput = MoneyMaskedTextController(
       precision: 2,
       decimalSeparator: numberFormat.symbols.DECIMAL_SEP,
       thousandSeparator: numberFormat.symbols.GROUP_SEP,
       leftSymbol: "US\$ ",
     );
-    _textControllerValue =
-        TextEditingController(text: "0${numberFormat.symbols.DECIMAL_SEP}00 $pluralUnit");
+    _textControllerValue = TextEditingController();
   }
 
   void _setConversion() {

@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:dolarbot_app/classes/decimal_adapter.dart';
 import 'package:dolarbot_app/widgets/calculator/base/base_calculator.dart';
 import 'package:flutter/material.dart';
@@ -81,7 +82,7 @@ class _CryptoCalculatorState extends BaseCalculatorState<CryptoCalculator> with 
         InputAmount(
           title: cryptoCode != '' ? "Ingresá la cantidad en $cryptoCode:" : "Ingresá la cantidad:",
           textController: _textControllerInput,
-          maxDigits: 12,
+          maxDigits: 16,
         ),
         const SizedBox(
           height: 30,
@@ -115,17 +116,15 @@ class _CryptoCalculatorState extends BaseCalculatorState<CryptoCalculator> with 
   }
 
   void _createControllers() {
+    double value = [arsValue, arsValueWithTaxes, usdValue].reduce(max);
     _textControllerInput = MoneyMaskedTextController(
-        precision: 2,
-        decimalSeparator: numberFormat.symbols.DECIMAL_SEP,
-        thousandSeparator: numberFormat.symbols.GROUP_SEP,
-        rightSymbol: cryptoCode != '' ? " $cryptoCode" : cryptoCode);
-    _textControllerArsValue =
-        TextEditingController(text: "\$ 0${numberFormat.symbols.DECIMAL_SEP}00");
-    _textControllerArsValueWithTaxes =
-        TextEditingController(text: "\$ 0${numberFormat.symbols.DECIMAL_SEP}00");
-    _textControllerUsdValue =
-        TextEditingController(text: "US\$ 0${numberFormat.symbols.DECIMAL_SEP}00");
+      precision: getPrecision(value),
+      decimalSeparator: numberFormat.symbols.DECIMAL_SEP,
+      thousandSeparator: numberFormat.symbols.GROUP_SEP,
+    );
+    _textControllerArsValue = TextEditingController();
+    _textControllerArsValueWithTaxes = TextEditingController();
+    _textControllerUsdValue = TextEditingController();
   }
 
   void _setConversion() {

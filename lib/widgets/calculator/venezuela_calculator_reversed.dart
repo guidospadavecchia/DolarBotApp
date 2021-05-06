@@ -99,16 +99,13 @@ class _VenezuelaCalculatorState extends BaseCalculatorState<VenezuelaCalculatorR
   }
 
   void _createControllers() {
-    String currencySymbol = currencyCode == 'USD' ? 'US\$' : '€';
     _textControllerInput = MoneyMaskedTextController(
         precision: 2,
         decimalSeparator: numberFormat.symbols.DECIMAL_SEP,
         thousandSeparator: numberFormat.symbols.GROUP_SEP,
         leftSymbol: "$symbol ");
-    _textControllerBankValue =
-        TextEditingController(text: "$currencySymbol 0${numberFormat.symbols.DECIMAL_SEP}00");
-    _textControllerBlackMarketValue =
-        TextEditingController(text: "$currencySymbol 0${numberFormat.symbols.DECIMAL_SEP}00");
+    _textControllerBankValue = TextEditingController();
+    _textControllerBlackMarketValue = TextEditingController();
   }
 
   void _setConversion() {

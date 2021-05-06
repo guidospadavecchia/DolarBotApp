@@ -106,10 +106,8 @@ class _VenezuelaCalculatorState extends BaseCalculatorState<VenezuelaCalculator>
         decimalSeparator: numberFormat.symbols.DECIMAL_SEP,
         thousandSeparator: numberFormat.symbols.GROUP_SEP,
         leftSymbol: "$currencySymbol ");
-    _textControllerBankValue =
-        TextEditingController(text: "$symbol 0${numberFormat.symbols.DECIMAL_SEP}00");
-    _textControllerBlackMarketValue =
-        TextEditingController(text: "$symbol 0${numberFormat.symbols.DECIMAL_SEP}00");
+    _textControllerBankValue = TextEditingController();
+    _textControllerBlackMarketValue = TextEditingController();
   }
 
   void _setConversion() {

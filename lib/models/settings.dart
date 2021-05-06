@@ -4,7 +4,7 @@ import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 
 class Settings extends ChangeNotifier {
-  static const String FORMAT_PATTERN = "#,###,##0.00";
+  static const String CURRENCY_FORMAT_PATTERN = "#,###,##0.00";
 
   final settings = Hive.box('settings');
 
@@ -53,7 +53,7 @@ class Settings extends ChangeNotifier {
 
   NumberFormat getNumberFormat() {
     return NumberFormat(
-      FORMAT_PATTERN,
+      CURRENCY_FORMAT_PATTERN,
       getCurrencyFormat(),
     );
   }

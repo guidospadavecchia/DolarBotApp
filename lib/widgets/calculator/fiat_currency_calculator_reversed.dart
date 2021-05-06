@@ -108,11 +108,9 @@ class _FiatCurrencyCalculatorReversedState
         decimalSeparator: numberFormat.symbols.DECIMAL_SEP,
         thousandSeparator: numberFormat.symbols.GROUP_SEP,
         leftSymbol: "\$ ");
-    _textControllerSellValue =
-        TextEditingController(text: "US\$ 0${numberFormat.symbols.DECIMAL_SEP}00");
+    _textControllerSellValue = TextEditingController();
     if (sellValueWithTaxes != null) {
-      _textControllerSellValueWithTaxes =
-          TextEditingController(text: "US\$ 0${numberFormat.symbols.DECIMAL_SEP}00");
+      _textControllerSellValueWithTaxes = TextEditingController();
     }
   }
 
