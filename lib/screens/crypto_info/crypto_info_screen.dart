@@ -81,6 +81,7 @@ class _CryptoInfoScreenState extends BaseInfoScreenState<CryptoInfoScreen> with 
       (value) {
         if (value != null && value.timestamp != null) {
           HistoricalRateManager.saveRate(
+            context,
             widget.cardData.endpoint,
             widget.cardData.responseType.toString(),
             value.timestamp!,

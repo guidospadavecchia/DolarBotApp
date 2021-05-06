@@ -68,6 +68,7 @@ class _MetalInfoScreenState extends BaseInfoScreenState<MetalInfoScreen> with Ba
       (response) {
         if (response != null && response.timestamp != null) {
           HistoricalRateManager.saveRate(
+            context,
             widget.cardData.endpoint,
             widget.cardData.responseType.toString(),
             response.timestamp!,
@@ -79,7 +80,8 @@ class _MetalInfoScreenState extends BaseInfoScreenState<MetalInfoScreen> with Ba
             data = response;
             timestamp = data?.timestamp;
             isDataLoaded = true;
-            errorOnLoad = response == null || response.value == null || response.value!.trim() == '';
+            errorOnLoad =
+                response == null || response.value == null || response.value!.trim() == '';
             showRefreshButton = true;
             if (!errorOnLoad) showSimpleFabMenu();
           }),
@@ -101,8 +103,9 @@ class _MetalInfoScreenState extends BaseInfoScreenState<MetalInfoScreen> with Ba
     String shareText = '';
 
     if (data != null && data!.timestamp != null && data!.unit != null) {
-      final value =
-          data!.value?.isNumeric() ?? false ? numberFormat.format(double.parse(data!.value!)) : 'N/A';
+      final value = data!.value?.isNumeric() ?? false
+          ? numberFormat.format(double.parse(data!.value!))
+          : 'N/A';
       final symbol = (data!.currency ?? '') == 'USD' ? 'US\$' : '\$';
       DateTime date = DateTime.parse(data!.timestamp!.replaceAll('/', '-'));
       String formattedTime =

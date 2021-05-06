@@ -4,6 +4,7 @@ import 'package:collection/collection.dart' show IterableExtension;
 import 'package:dolarbot_app/api/api.dart';
 import 'package:dolarbot_app/api/responses/base/api_response.dart';
 import 'package:dolarbot_app/api/responses/metal_response.dart';
+import 'package:dolarbot_app/classes/app_config.dart';
 import 'package:dolarbot_app/classes/hive/favorite_rate.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:dolarbot_app/models/settings.dart';
@@ -66,7 +67,7 @@ abstract class BaseInfoScreenState<Page extends BaseInfoScreen> extends State<Ba
   bool showClipboardButton() => true;
   bool showCalculatorButton() => true;
   bool showFavoriteButton() => true;
-  bool showHistoricalChartButton() => true;
+  bool showHistoricalChartButton() => AppConfig.of(context).flavor == AppFlavor.Pro;
   bool extendBodyBehindAppBar() => true;
 }
 

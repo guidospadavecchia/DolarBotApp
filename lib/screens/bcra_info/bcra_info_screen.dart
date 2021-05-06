@@ -105,6 +105,7 @@ class _BcraInfoScreenState extends BaseInfoScreenState<BcraInfoScreen> with Base
       ApiResponse? response = value;
       if (response != null && response.timestamp != null) {
         HistoricalRateManager.saveRate(
+          context,
           widget.cardData.endpoint,
           widget.cardData.responseType.toString(),
           response.timestamp!,

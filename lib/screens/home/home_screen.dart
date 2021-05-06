@@ -333,6 +333,7 @@ class HomeScreenState extends State<HomeScreen> {
             json != null ? ApiResponseBuilder.fromTypeName(x.cardResponseType, json) : null;
         if (response != null && response.timestamp != null) {
           HistoricalRateManager.saveRate(
+            context,
             x.endpoint,
             x.cardResponseType,
             response.timestamp!,

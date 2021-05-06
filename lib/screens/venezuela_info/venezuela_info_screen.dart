@@ -77,6 +77,7 @@ class _VenezuelaInfoScreenState extends BaseInfoScreenState<VenezuelaInfoScreen>
       (value) {
         if (value != null && value.timestamp != null) {
           HistoricalRateManager.saveRate(
+            context,
             widget.cardData.endpoint,
             widget.cardData.responseType.toString(),
             value.timestamp!,

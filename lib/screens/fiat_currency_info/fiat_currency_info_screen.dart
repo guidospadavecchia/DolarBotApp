@@ -37,6 +37,7 @@ class _FiatCurrencyInfoScreenState<T extends GenericCurrencyResponse?>
     _getResponse().then((value) {
       if (value != null && value.timestamp != null) {
         HistoricalRateManager.saveRate(
+          context,
           widget.cardData.endpoint,
           widget.cardData.responseType.toString(),
           value.timestamp!,
