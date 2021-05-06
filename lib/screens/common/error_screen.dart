@@ -10,7 +10,7 @@ class ErrorScreen extends StatelessWidget {
   const ErrorScreen({
     Key? key,
     this.color,
-    this.opacity = 0.6,
+    this.opacity = 0.5,
     this.textOpacity = 0.7,
   }) : super(key: key);
 
@@ -20,21 +20,6 @@ class ErrorScreen extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Opacity(
-          opacity: textOpacity,
-          child: Text(
-            "Ouch! Ocurrió un error\nal obtener la cotización",
-            style: TextStyle(
-              fontSize: SizeConfig.blockSizeVertical * 3,
-              fontFamily: "Raleway",
-              color: color,
-            ),
-            textAlign: TextAlign.center,
-          ),
-        ),
-        SizedBox(
-          height: SizeConfig.blockSizeVertical * 4,
-        ),
         Opacity(
           opacity: opacity,
           child: Container(
@@ -50,6 +35,21 @@ class ErrorScreen extends StatelessWidget {
                 image: const AssetImage("assets/images/general/error.png"),
               ),
             ),
+          ),
+        ),
+        SizedBox(
+          height: SizeConfig.blockSizeVertical * 4,
+        ),
+        Opacity(
+          opacity: textOpacity,
+          child: Text(
+            "Ouch! Ocurrió un error\nal obtener la cotización",
+            style: TextStyle(
+              fontSize: SizeConfig.blockSizeVertical * 3,
+              fontFamily: "Raleway",
+              color: color,
+            ),
+            textAlign: TextAlign.center,
           ),
         ),
       ],

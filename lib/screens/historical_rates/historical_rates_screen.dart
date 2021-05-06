@@ -1,4 +1,5 @@
 import 'package:dolarbot_app/classes/hive/historical_rate.dart';
+import 'package:dolarbot_app/classes/size_config.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
 import 'package:dolarbot_app/screens/base/widgets/title_banner.dart';
 import 'package:dolarbot_app/screens/common/image_screen.dart';
@@ -97,10 +98,10 @@ class _HistoricalRatesScreenState extends State<HistoricalRatesScreen> {
         text: "Aún no hay datos suficientes para mostrar los gráficos de evolución",
         textStyle: TextStyle(
           color: Colors.white.withOpacity(0.9),
-          fontSize: 18,
+          fontSize: SizeConfig.blockSizeVertical * 3,
           fontFamily: "Raleway",
         ),
-        imageOpacity: 0.7,
+        imageOpacity: 0.5,
         textOpacity: 0.7,
       );
     }

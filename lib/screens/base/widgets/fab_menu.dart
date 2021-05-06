@@ -4,7 +4,7 @@ import 'package:dolarbot_app/widgets/common/simple_fab_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-typedef FavoriteFunction = Future<bool > Function();
+typedef FavoriteFunction = Future<bool> Function();
 
 class FabMenu extends StatefulWidget {
   final GlobalKey<SimpleFabMenuState> simpleFabKey;
@@ -139,7 +139,7 @@ class _FabMenuState extends State<FabMenu> {
               }),
         if (widget.showFavoriteButton)
           SimpleFabOption(
-            tooltip: "Agregar a Favoritos ❤",
+            tooltip: isFavorite ? "Quitar de Favoritos 💔" : "Agregar a Favoritos ❤",
             iconColor: Colors.red[400]!,
             backgroundColor: Colors.white,
             icon: isFavorite ? IconFonts.heart : IconFonts.heart_empty,

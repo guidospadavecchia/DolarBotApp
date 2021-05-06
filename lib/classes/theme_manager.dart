@@ -108,7 +108,7 @@ class ThemeManager {
       ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(const Radius.circular(3)),
-        color: Colors.grey[200]!.withOpacity(0.9),
+        color: Colors.grey[200]!.withOpacity(0.95),
       ),
     );
   }
@@ -121,7 +121,7 @@ class ThemeManager {
       ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(const Radius.circular(3)),
-        color: Colors.grey[800]!.withOpacity(0.9),
+        color: Colors.grey[800]!.withOpacity(0.95),
       ),
     );
   }

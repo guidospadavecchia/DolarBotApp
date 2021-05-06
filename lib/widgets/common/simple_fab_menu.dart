@@ -294,9 +294,9 @@ class _FabCircularOption extends StatelessWidget {
             ? Tooltip(
                 preferBelow: false,
                 margin: direction == Axis.vertical
-                    ? EdgeInsets.only(right: SizeConfig.blockSizeHorizontal * 15)
+                    ? EdgeInsets.only(right: SizeConfig.blockSizeHorizontal * 20)
                     : EdgeInsets.zero,
-                verticalOffset: direction == Axis.vertical ? -15 : size - 10,
+                verticalOffset: direction == Axis.vertical ? -15 : size,
                 message: item.tooltip!,
                 child: Icon(
                   item.icon,

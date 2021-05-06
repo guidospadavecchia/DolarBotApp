@@ -26,7 +26,7 @@ class EmptyFavorites extends StatelessWidget {
       height: SizeConfig.screenHeight / 2,
       child: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Opacity(
@@ -34,7 +34,7 @@ class EmptyFavorites extends StatelessWidget {
               child: Text(
                 topText,
                 style: TextStyle(
-                    fontSize: SizeConfig.blockSizeVertical * 3,
+                    fontSize: SizeConfig.blockSizeVertical * 3.5,
                     fontFamily: "Raleway",
                     color: ThemeManager.getPrimaryTextColor(context).withOpacity(0.8),
                     fontWeight: FontWeight.w600),
@@ -54,7 +54,7 @@ class EmptyFavorites extends StatelessWidget {
                 bottomText,
                 style: TextStyle(
                     height: SizeConfig.blockSizeVertical * 0.18,
-                    fontSize: SizeConfig.blockSizeVertical * 2,
+                    fontSize: SizeConfig.blockSizeVertical * 2.5,
                     fontFamily: "Raleway",
                     color: ThemeManager.getPrimaryTextColor(context).withOpacity(0.9)),
                 textAlign: TextAlign.center,
