@@ -1,4 +1,5 @@
 import 'dart:ui' as ui;
+import 'package:dolarbot_app/classes/size_config.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:dolarbot_app/models/settings.dart';
 import 'package:dolarbot_app/util/constants.dart';
@@ -139,6 +140,9 @@ class _CardGestureDismissDialogState extends State<CardGestureDismissDialog> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        const SizedBox(
+          height: 3,
+        ),
         Wrap(
           crossAxisAlignment: WrapCrossAlignment.center,
           runAlignment: WrapAlignment.center,
