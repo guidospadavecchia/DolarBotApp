@@ -23,10 +23,9 @@ class EmptyFavorites extends StatelessWidget {
       margin: EdgeInsets.only(bottom: (Scaffold.of(context).appBarMaxHeight ?? 0) / 2),
       padding: EdgeInsets.symmetric(horizontal: SizeConfig.blockSizeHorizontal * 8),
       alignment: Alignment.center,
-      height: SizeConfig.screenHeight / 2,
       child: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Opacity(
@@ -41,12 +40,18 @@ class EmptyFavorites extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
             ),
+            SizedBox(
+              height: SizeConfig.blockSizeVertical * 5,
+            ),
             Opacity(
               opacity: imageOpacity,
               child: SizedBox(
                 width: SizeConfig.screenWidth * 0.7,
                 child: Image.asset("assets/images/general/home_bg.png"),
               ),
+            ),
+            SizedBox(
+              height: SizeConfig.blockSizeVertical * 5,
             ),
             Opacity(
               opacity: textOpacity,
