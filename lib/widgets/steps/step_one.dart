@@ -1,3 +1,4 @@
+import 'package:dolarbot_app/widgets/common/rich_text_span/rich_text_span.dart';
 import 'package:dolarbot_app/widgets/steps/base/step_base.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -21,16 +22,16 @@ class StepOne extends StepBase {
         textAlign: TextAlign.center,
         text: TextSpan(
           children: [
-            writeText(
+            RichTextSpan.text(
                 context, "Podés agregar tus cotizaciones a favoritos para que aparezcan en el"),
-            ...writeIcon(
+            ...RichTextSpan.icon(
               context,
               FontAwesomeIcons.home,
               ThemeManager.getPrimaryTextColor(context),
               alignment: PlaceholderAlignment.bottom,
               text: " Inicio",
             ),
-            writeText(context, "."),
+            RichTextSpan.text(context, "."),
           ],
         ),
       ),
@@ -45,20 +46,20 @@ class StepOne extends StepBase {
         textAlign: TextAlign.center,
         text: TextSpan(
           children: [
-            writeText(
+            RichTextSpan.text(
                 context, "Para hacerlo, entrá a la cotización que quieras agregar, y tocá en el"),
-            ...writeIcon(
+            ...RichTextSpan.icon(
               context,
               Icons.favorite_border_rounded,
               Colors.red,
             ),
-            writeText(context, "que está dentro del menú"),
-            ...writeIcon(
+            RichTextSpan.text(context, "que está dentro del menú"),
+            ...RichTextSpan.icon(
               context,
               Icons.more_horiz,
               ThemeManager.getPrimaryTextColor(context),
             ),
-            writeText(context, "en la parte inferior derecha."),
+            RichTextSpan.text(context, "en la parte inferior derecha."),
           ],
         ),
       ),

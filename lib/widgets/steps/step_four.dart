@@ -1,3 +1,4 @@
+import 'package:dolarbot_app/widgets/common/rich_text_span/rich_text_span.dart';
 import 'package:dolarbot_app/widgets/steps/base/step_base.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -21,11 +22,12 @@ class StepFour extends StepBase {
         textAlign: TextAlign.center,
         text: TextSpan(
           children: [
-            writeText(context, "Pensamos en todo.", bold: true, italic: true),
-            writeNewLine(context, lines: 2),
-            writeText(context, "Por eso, si querés realizar conversiones, podés hacerlo con la "),
-            writeText(context, "calculadora", bold: true),
-            writeText(context, " integrada en cada cotización.")
+            RichTextSpan.text(context, "Pensamos en todo.", bold: true, italic: true),
+            RichTextSpan.newLine(context, lines: 2),
+            RichTextSpan.text(
+                context, "Por eso, si querés realizar conversiones, podés hacerlo con la "),
+            RichTextSpan.text(context, "calculadora", bold: true),
+            RichTextSpan.text(context, " integrada en cada cotización.")
           ],
         ),
       ),
@@ -40,13 +42,14 @@ class StepFour extends StepBase {
         textAlign: TextAlign.center,
         text: TextSpan(
           children: [
-            writeText(context, "Presioná"),
-            ...writeIcon(
+            RichTextSpan.text(context, "Presioná"),
+            ...RichTextSpan.icon(
                 context, FontAwesomeIcons.calculator, ThemeManager.getPrimaryTextColor(context),
                 alignment: PlaceholderAlignment.bottom),
-            writeText(context, "en el menú"),
-            ...writeIcon(context, Icons.more_horiz, ThemeManager.getPrimaryTextColor(context)),
-            writeText(context,
+            RichTextSpan.text(context, "en el menú"),
+            ...RichTextSpan.icon(
+                context, Icons.more_horiz, ThemeManager.getPrimaryTextColor(context)),
+            RichTextSpan.text(context,
                 "dentro de la cotización para abrir la calculadora y realizar tus conversiones. Simple, ¿No?"),
           ],
         ),

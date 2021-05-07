@@ -1,4 +1,5 @@
 import 'package:dolarbot_app/classes/app_config.dart';
+import 'package:dolarbot_app/widgets/common/rich_text_span/rich_text_span.dart';
 import 'package:dolarbot_app/widgets/common/simple_button.dart';
 import 'package:dolarbot_app/widgets/steps/base/step_base.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -28,8 +29,8 @@ class StepFinish extends StepBase {
         text: TextSpan(
           style: const TextStyle(height: 1.3),
           children: [
-            writeText(context, "¡Listo 👌!", fontSize: SizeConfig.blockSizeVertical * 5),
-            writeNewLine(context, lines: 4),
+            RichTextSpan.text(context, "¡Listo 👌!", fontSize: SizeConfig.blockSizeVertical * 5),
+            RichTextSpan.newLine(context, lines: 4),
             if (!isComingFromOptions) ..._buildFinishText() else ..._buildOptionsFinishText(),
           ],
         ),
@@ -50,21 +51,21 @@ class StepFinish extends StepBase {
 
   List<InlineSpan> _buildFinishText() {
     return [
-      writeText(
+      RichTextSpan.text(
         context,
         "Ya podés comenzar a utilizar ",
         fontSize: SizeConfig.blockSizeVertical * 2.5,
       ),
-      writeText(
+      RichTextSpan.text(
         context,
         AppConfig.appDisplayName,
         bold: true,
         fontSize: SizeConfig.blockSizeVertical * 3,
       ),
-      writeNewLine(context, lines: 3),
-      writeText(context, "Recordá que esta guía siempre está accesible desde el menú:"),
-      writeNewLine(context, lines: 2),
-      ...writeIcon(
+      RichTextSpan.newLine(context, lines: 3),
+      RichTextSpan.text(context, "Recordá que esta guía siempre está accesible desde el menú:"),
+      RichTextSpan.newLine(context, lines: 2),
+      ...RichTextSpan.icon(
         context,
         FontAwesomeIcons.cog,
         ThemeManager.getDrawerMenuItemIconColor(context),
@@ -72,8 +73,8 @@ class StepFinish extends StepBase {
         text: "Opciones",
         hideBrackets: true,
       ),
-      writeText(context, ">", bold: true),
-      ...writeIcon(
+      RichTextSpan.text(context, ">", bold: true),
+      ...RichTextSpan.icon(
         context,
         FontAwesomeIcons.solidQuestionCircle,
         ThemeManager.getDrawerMenuItemIconColor(context),
@@ -86,14 +87,14 @@ class StepFinish extends StepBase {
 
   List<InlineSpan> _buildOptionsFinishText() {
     return [
-      writeText(
+      RichTextSpan.text(
         context,
         "Podés volver a ver esta",
         fontSize: SizeConfig.blockSizeVertical * 3,
         italic: true,
       ),
-      writeNewLine(context),
-      writeText(
+      RichTextSpan.newLine(context),
+      RichTextSpan.text(
         context,
         "guía cuando quieras :)",
         fontSize: SizeConfig.blockSizeVertical * 3,

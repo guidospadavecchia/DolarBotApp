@@ -1,5 +1,6 @@
 import 'package:dolarbot_app/classes/app_config.dart';
 import 'package:dolarbot_app/classes/size_config.dart';
+import 'package:dolarbot_app/widgets/common/rich_text_span/rich_text_span.dart';
 import 'package:dolarbot_app/widgets/steps/base/step_base.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -25,14 +26,15 @@ class StepWelcome extends StepBase {
         text: TextSpan(
           style: const TextStyle(height: 1.3),
           children: [
-            writeText(context, "¡Hola 👋!", fontSize: SizeConfig.blockSizeVertical * 5, bold: true),
-            writeNewLine(context, lines: 4),
-            writeText(
+            RichTextSpan.text(context, "¡Hola 👋!",
+                fontSize: SizeConfig.blockSizeVertical * 5, bold: true),
+            RichTextSpan.newLine(context, lines: 4),
+            RichTextSpan.text(
               context,
               "En esta breve guía vas a conocer todas las funcionalidades de ",
               fontSize: SizeConfig.blockSizeVertical * 2.5,
             ),
-            writeText(
+            RichTextSpan.text(
               context,
               AppConfig.appDisplayName,
               bold: true,
@@ -45,14 +47,14 @@ class StepWelcome extends StepBase {
         textAlign: TextAlign.center,
         text: TextSpan(
           children: [
-            writeText(
+            RichTextSpan.text(
               context,
               "Deslizá para pasar de página",
               fontSize: SizeConfig.blockSizeVertical * 2.5,
               italic: true,
             ),
-            writeNewLine(context, lines: 2),
-            ...writeIcon(
+            RichTextSpan.newLine(context, lines: 2),
+            ...RichTextSpan.icon(
               context,
               FontAwesomeIcons.chevronLeft,
               ThemeManager.getPrimaryAccentColor(context),

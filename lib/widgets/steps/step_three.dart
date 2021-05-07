@@ -1,3 +1,4 @@
+import 'package:dolarbot_app/widgets/common/rich_text_span/rich_text_span.dart';
 import 'package:dolarbot_app/widgets/steps/base/step_base.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -21,13 +22,14 @@ class StepThree extends StepBase {
         textAlign: TextAlign.center,
         text: TextSpan(
           children: [
-            writeText(context,
+            RichTextSpan.text(context,
                 "Podés compartir cualquier cotización de forma muy sencilla, y a través del medio que más te guste."),
-            writeNewLine(context, lines: 2),
-            writeText(context, "Pueden ser tanto las que están en tu"),
-            ...writeIcon(context, FontAwesomeIcons.home, ThemeManager.getPrimaryTextColor(context),
+            RichTextSpan.newLine(context, lines: 2),
+            RichTextSpan.text(context, "Pueden ser tanto las que están en tu"),
+            ...RichTextSpan.icon(
+                context, FontAwesomeIcons.home, ThemeManager.getPrimaryTextColor(context),
                 alignment: PlaceholderAlignment.bottom, text: " Inicio"),
-            writeText(context, "como las que no.")
+            RichTextSpan.text(context, "como las que no.")
           ],
         ),
       ),
@@ -42,11 +44,12 @@ class StepThree extends StepBase {
         textAlign: TextAlign.center,
         text: TextSpan(
           children: [
-            writeText(context, "Presioná"),
-            ...writeIcon(context, Icons.share, ThemeManager.getPrimaryAccentColor(context)),
-            writeText(context, "desde el menú"),
-            ...writeIcon(context, Icons.more_horiz, ThemeManager.getPrimaryTextColor(context)),
-            writeText(context, "de la cotización. O bien, desde la tarjeta."),
+            RichTextSpan.text(context, "Presioná"),
+            ...RichTextSpan.icon(context, Icons.share, ThemeManager.getPrimaryAccentColor(context)),
+            RichTextSpan.text(context, "desde el menú"),
+            ...RichTextSpan.icon(
+                context, Icons.more_horiz, ThemeManager.getPrimaryTextColor(context)),
+            RichTextSpan.text(context, "de la cotización. O bien, desde la tarjeta."),
           ],
         ),
       ),

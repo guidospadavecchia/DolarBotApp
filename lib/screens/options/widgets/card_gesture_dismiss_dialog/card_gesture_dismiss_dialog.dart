@@ -1,5 +1,4 @@
 import 'dart:ui' as ui;
-import 'package:dolarbot_app/classes/size_config.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:dolarbot_app/models/settings.dart';
 import 'package:dolarbot_app/util/constants.dart';
