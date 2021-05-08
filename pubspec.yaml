@@ -46,9 +46,10 @@ dependencies:
   simple_animations: ^3.1.1
   carousel_slider: ^4.0.0-nullsafety.0
   connectivity: ^3.0.3
-  fl_chart: ^0.35.0
+  fl_chart: ^0.36.1
   flutter_scroll_to_top: ^1.1.0
   collection: ^1.15.0-nullsafety.4
+  google_mobile_ads: ^0.12.1+1
 
 dev_dependencies:
   flutter_test:
