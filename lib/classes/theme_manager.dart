@@ -92,6 +92,10 @@ class ThemeManager {
         : Colors.grey[700]!;
   }
 
+  static Color getAdBorderColor(BuildContext context) {
+    return AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light ? Colors.grey : Colors.black54;
+  }
+
   static ThemeData getTooltipTheme(BuildContext context) {
     return Theme.of(context).copyWith(
       tooltipTheme: AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light

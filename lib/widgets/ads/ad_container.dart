@@ -1,9 +1,8 @@
-import 'dart:developer';
 import 'package:dolarbot_app/classes/ad_state.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:native_admob_flutter/native_admob_flutter.dart';
 import 'package:provider/provider.dart';
 
 class AdContainer extends StatefulWidget {
@@ -22,21 +21,17 @@ class _AdContainerState extends State<AdContainer> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     final adState = Provider.of<AdState>(context);
-    adState.initialization.then((status) => setState(() {
-          //Todo: Probar https://pub.dev/packages/native_admob_flutter/install
+    adState.initialization.then(
+      (status) => setState(
+        () {
           banner = BannerAd(
-            size: AdSize.banner,
-            adUnitId: adState.bannerAdUnitId,
-            request: AdRequest(),
-            listener: AdListener(
-              onAdLoaded: (ad) => log('[AddState] Ad loaded: ${ad.adUnitId}.'),
-              onAdOpened: (ad) => log('[AddState] Ad opened: ${ad.adUnitId}.'),
-              onAdClosed: (ad) => log('[AddState] Ad closed: ${ad.adUnitId}.'),
-              onAdFailedToLoad: (ad, error) =>
-                  log('[AddState] Ad failed to load: ${ad.adUnitId} ($error).'),
-            ),
-          )..load();
-        }));
+            size: BannerSize.BANNER,
+            loading: _AdLoading(),
+            error: _AdError(),
+          );
+        },
+      ),
+    );
   }
 
   @override
@@ -46,26 +41,51 @@ class _AdContainerState extends State<AdContainer> {
         color: ThemeManager.getGlobalBackgroundColor(context),
         border: Border(
           top: BorderSide(
-            color: Colors.black,
+            color: ThemeManager.getAdBorderColor(context),
             width: 1,
           ),
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black,
+            color: ThemeManager.getAdBorderColor(context),
             offset: Offset(0.0, 1.0),
             blurRadius: 5.0,
           ),
         ],
       ),
-      height: 55,
+      height: BannerSize.BANNER.size.height * 1.2,
       child: Center(
         child: Container(
           color: Colors.transparent,
-          child: banner != null ? AdWidget(ad: banner!) : SizedBox.shrink(),
-          width: 320,
-          height: 50,
+          child: banner != null ? banner! : SizedBox.shrink(),
+          width: BannerSize.BANNER.size.width,
+          height: BannerSize.BANNER.size.height,
         ),
+      ),
+    );
+  }
+}
+
+class _AdError extends StatelessWidget {
+  const _AdError({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.black.withOpacity(0.3),
+    );
+  }
+}
+
+class _AdLoading extends StatelessWidget {
+  const _AdLoading({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: LoadingIndicator(
+        color: ThemeManager.getLoadingIndicatorColor(context),
+        indicatorType: Indicator.ballPulse,
       ),
     );
   }

@@ -16,7 +16,6 @@ import 'package:dolarbot_app/util/util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:global_configuration/global_configuration.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:oktoast/oktoast.dart';
@@ -30,7 +29,7 @@ void mainCommon(AppFlavor appFlavor) async {
   log("Starting as ${appFlavor.toString().split('.').last} version");
 
   WidgetsFlutterBinding.ensureInitialized();
-  final adState = AdState(MobileAds.instance.initialize());
+  final adState = AdState();
   final savedThemeMode = await AdaptiveTheme.getThemeMode();
 
   if (!kDebugMode) {

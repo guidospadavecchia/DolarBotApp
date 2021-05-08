@@ -1,18 +1,14 @@
 import 'package:flutter/foundation.dart' as Foundation;
-import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:native_admob_flutter/native_admob_flutter.dart';
 
 class AdState {
   static const String _kbannerAdUnitId = 'ca-app-pub-6542333312397599/3833588942';
-  static const String _kbannerTestAdUnitId = 'ca-app-pub-3940256099942544/6300978111';
 
-  Future<InitializationStatus> initialization;
-  Function? onAdLoaded;
-  Function? onAdFailedToLoad;
-  String get bannerAdUnitId => Foundation.kReleaseMode ? _kbannerAdUnitId : _kbannerTestAdUnitId;
+  late final Future<void> initialization;
+  static String get _bannerAdUnitId =>
+      Foundation.kReleaseMode ? _kbannerAdUnitId : MobileAds.bannerAdTestUnitId;
 
-  AdState(
-    this.initialization, {
-    this.onAdLoaded,
-    this.onAdFailedToLoad,
-  });
+  AdState() {
+    initialization = MobileAds.initialize(bannerAdUnitId: AdState._bannerAdUnitId);
+  }
 }
