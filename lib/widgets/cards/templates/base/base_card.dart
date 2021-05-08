@@ -1,4 +1,4 @@
-import 'package:dolarbot_app/models/settings.dart';
+import 'package:dolarbot_app/classes/settings.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
 import 'package:dolarbot_app/screens/base/factory/factory_screen.dart';
 import 'package:dolarbot_app/util/util.dart';

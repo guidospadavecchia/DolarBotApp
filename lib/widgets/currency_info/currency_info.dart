@@ -1,5 +1,5 @@
 import 'package:dolarbot_app/classes/size_config.dart';
-import 'package:dolarbot_app/models/settings.dart';
+import 'package:dolarbot_app/classes/settings.dart';
 import 'package:dolarbot_app/util/extensions/string_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

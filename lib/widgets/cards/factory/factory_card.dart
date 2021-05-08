@@ -1,6 +1,6 @@
 import 'package:dolarbot_app/api/responses/base/api_response.dart';
 import 'package:dolarbot_app/api/responses/base/generic_currency_response.dart';
-import 'package:dolarbot_app/models/settings.dart';
+import 'package:dolarbot_app/classes/settings.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
 import 'package:dolarbot_app/widgets/cards/templates/base/base_card.dart';
 import 'package:dolarbot_app/widgets/cards/templates/bcra_card.dart';

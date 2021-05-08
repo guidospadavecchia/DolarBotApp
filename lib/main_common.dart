@@ -8,7 +8,7 @@ import 'package:dolarbot_app/classes/hive/adapters/favorite_rate_adapter.dart';
 import 'package:dolarbot_app/classes/hive/adapters/historical_rate_adapter.dart';
 import 'package:dolarbot_app/classes/size_config.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
-import 'package:dolarbot_app/models/settings.dart';
+import 'package:dolarbot_app/classes/settings.dart';
 import 'package:dolarbot_app/screens/about/about_screen.dart';
 import 'package:dolarbot_app/screens/options/options_screen.dart';
 import 'package:dolarbot_app/screens/splash/splash_screen.dart';

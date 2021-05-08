@@ -1,5 +1,5 @@
 import 'package:dolarbot_app/classes/hive/historical_rate.dart';
-import 'package:dolarbot_app/models/settings.dart';
+import 'package:dolarbot_app/classes/settings.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
 import 'package:dolarbot_app/widgets/common/simple_button.dart';
 import 'package:dolarbot_app/widgets/historical_chart/factory/historical_chart_data.dart';

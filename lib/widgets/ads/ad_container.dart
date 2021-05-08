@@ -23,6 +23,7 @@ class _AdContainerState extends State<AdContainer> {
     super.didChangeDependencies();
     final adState = Provider.of<AdState>(context);
     adState.initialization.then((status) => setState(() {
+          //Todo: Probar https://pub.dev/packages/native_admob_flutter/install
           banner = BannerAd(
             size: AdSize.banner,
             adUnitId: adState.bannerAdUnitId,

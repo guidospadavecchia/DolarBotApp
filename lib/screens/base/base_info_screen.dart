@@ -7,7 +7,7 @@ import 'package:dolarbot_app/api/responses/metal_response.dart';
 import 'package:dolarbot_app/classes/app_config.dart';
 import 'package:dolarbot_app/classes/hive/favorite_rate.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
-import 'package:dolarbot_app/models/settings.dart';
+import 'package:dolarbot_app/classes/settings.dart';
 import 'package:dolarbot_app/screens/base/widgets/title_banner.dart';
 import 'package:dolarbot_app/screens/historical_rates/historical_rates_screen.dart';
 import 'package:dolarbot_app/util/constants.dart';
@@ -44,7 +44,7 @@ export 'package:dolarbot_app/widgets/calculator/exports/calculator_exports.dart'
 export 'package:dolarbot_app/widgets/currency_info/currency_info_container.dart';
 export 'package:dolarbot_app/util/extensions/string_extensions.dart';
 export 'package:dolarbot_app/util/extensions/datetime_extensions.dart';
-export 'package:dolarbot_app/models/settings.dart';
+export 'package:dolarbot_app/classes/settings.dart';
 export 'package:flutter/material.dart';
 export 'package:provider/provider.dart';
 

@@ -7,7 +7,7 @@ import 'package:dolarbot_app/widgets/ads/ad_container.dart';
 import 'package:dolarbot_app/widgets/historical_chart/historical_rate_manager.dart';
 import 'package:dolarbot_app/classes/hive/favorite_rate.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
-import 'package:dolarbot_app/models/settings.dart';
+import 'package:dolarbot_app/classes/settings.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
 import 'package:dolarbot_app/screens/common/error_screen.dart';
 import 'package:dolarbot_app/screens/home/widgets/empty_favorites.dart';
