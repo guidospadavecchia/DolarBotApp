@@ -2,6 +2,7 @@ import 'package:dolarbot_app/classes/ad_state.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:native_admob_flutter/native_admob_flutter.dart';
 import 'package:provider/provider.dart';
 
@@ -73,6 +74,12 @@ class _AdError extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.black.withOpacity(0.3),
+      alignment: Alignment.center,
+      child: Icon(
+        FontAwesomeIcons.solidFrown,
+        size: 36,
+        color: ThemeManager.getAdErrorIconColor(context),
+      ),
     );
   }
 }

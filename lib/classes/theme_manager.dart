@@ -96,6 +96,12 @@ class ThemeManager {
     return AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light ? Colors.grey : Colors.black54;
   }
 
+  static Color getAdErrorIconColor(BuildContext context) {
+    return AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
+        ? Colors.white.withOpacity(0.5)
+        : Colors.grey[700]!.withOpacity(0.5);
+  }
+
   static ThemeData getTooltipTheme(BuildContext context) {
     return Theme.of(context).copyWith(
       tooltipTheme: AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
