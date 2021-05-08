@@ -53,7 +53,7 @@ class _AdContainerState extends State<AdContainer> {
           ),
         ],
       ),
-      height: BannerSize.BANNER.size.height * 1.1,
+      height: BannerSize.BANNER.size.height + 10,
       child: Center(
         child: Container(
           color: Colors.transparent,

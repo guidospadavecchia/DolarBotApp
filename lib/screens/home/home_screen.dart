@@ -166,7 +166,7 @@ class HomeScreenState extends State<HomeScreen> {
             height: MediaQuery.of(context).size.height,
             padding: EdgeInsets.only(
                 bottom: MediaQuery.of(context).viewInsets.bottom +
-                    (AppConfig.of(context).flavor == AppFlavor.Lite ? 150 : 110)),
+                    (AppConfig.of(context).flavor == AppFlavor.Lite ? 160 : 110)),
             child: NotificationListener<OverscrollIndicatorNotification>(
               onNotification: (OverscrollIndicatorNotification overScroll) {
                 overScroll.disallowGlow();
@@ -217,30 +217,32 @@ class HomeScreenState extends State<HomeScreen> {
                               color: Colors.transparent,
                             ),
                             margin: const EdgeInsets.fromLTRB(15, 0, 15, 15),
-                            child: Consumer<Settings>(builder: (context, settings, child) {
-                              return Dismissible(
-                                dismissThresholds: {
-                                  DismissDirection.endToStart: 0.4,
-                                  DismissDirection.startToEnd: 0.4,
-                                },
-                                child: _cards[i],
-                                direction: settings.getCardGestureDismiss(),
-                                background: _DismissFavoriteButton(
-                                    direction: DismissDirection.startToEnd,
-                                    hideIcon: _hideIconTrashCard),
-                                secondaryBackground: _DismissFavoriteButton(
-                                    direction: DismissDirection.endToStart,
-                                    hideIcon: _hideIconTrashCard),
-                                key: ValueKey(_cards[i]),
-                                confirmDismiss: (direction) => Future.delayed(Duration.zero, () {
-                                  setState(() => _hideIconTrashCard = true);
-                                  return true;
-                                }),
-                                onDismissed: (direction) {
-                                  _onDismissCard(i);
-                                },
-                              );
-                            }),
+                            child: Consumer<Settings>(
+                              builder: (context, settings, child) {
+                                return Dismissible(
+                                  dismissThresholds: {
+                                    DismissDirection.endToStart: 0.4,
+                                    DismissDirection.startToEnd: 0.4,
+                                  },
+                                  child: _cards[i],
+                                  direction: settings.getCardGestureDismiss(),
+                                  background: _DismissFavoriteButton(
+                                      direction: DismissDirection.startToEnd,
+                                      hideIcon: _hideIconTrashCard),
+                                  secondaryBackground: _DismissFavoriteButton(
+                                      direction: DismissDirection.endToStart,
+                                      hideIcon: _hideIconTrashCard),
+                                  key: ValueKey(_cards[i]),
+                                  confirmDismiss: (direction) => Future.delayed(Duration.zero, () {
+                                    setState(() => _hideIconTrashCard = true);
+                                    return true;
+                                  }),
+                                  onDismissed: (direction) {
+                                    _onDismissCard(i);
+                                  },
+                                );
+                              },
+                            ),
                           ),
                       ],
                     ),
