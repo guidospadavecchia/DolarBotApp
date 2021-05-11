@@ -1,10 +1,7 @@
 import 'package:dolarbot_app/util/util.dart';
 import 'package:flutter/material.dart';
-import 'package:global_configuration/global_configuration.dart';
 
 class Discord extends StatelessWidget {
-  final cfg = GlobalConfiguration();
-
   final double imageSize;
   final double fontSize;
 
@@ -41,7 +38,7 @@ class Discord extends StatelessWidget {
             ),
           ],
         ),
-        onTap: () => Util.launchURL(cfg.get("discordUrl")),
+        onTap: () => Util.launchURL(Util.cfg.get("discordUrl").toString()),
       ),
     );
   }

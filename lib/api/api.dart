@@ -6,14 +6,12 @@ import 'package:dolarbot_app/api/responses/base/api_response.dart';
 import 'package:dolarbot_app/api/responses/metal_response.dart';
 import 'package:dolarbot_app/api/api_endpoints.dart';
 import 'package:dolarbot_app/classes/connectivity_status.dart';
-import 'package:global_configuration/global_configuration.dart';
+import 'package:dolarbot_app/util/util.dart';
 import 'package:http/http.dart' as http;
 
 export 'package:dolarbot_app/api/api_endpoints.dart';
 
 class API {
-  static final cfg = GlobalConfiguration();
-
   static Future<DollarResponse?> getDollarRate(DollarEndpoints endpoint,
       {bool forceRefresh = false}) async {
     return getData(
@@ -102,16 +100,16 @@ class API {
   }
 
   static Future<String> _fetch(String endpoint) async {
-    Map<String, String > requestHeaders = {
+    Map<String, String> requestHeaders = {
       'Content-type': 'application/json',
       'Accept': 'application/json',
-      'DOLARBOT_APIKEY': cfg.get("apiKey"),
+      'DOLARBOT_APIKEY': Util.cfg.get("apiKey"),
     };
     try {
       bool isConnected = await ConnectivityStatus.isConnected();
       if (isConnected) {
-        String? urlBase = cfg.get("apiBaseUrl");
-        int timeoutSeconds = cfg.get("apiRequestTimeoutSeconds");
+        String? urlBase = Util.cfg.get("apiBaseUrl");
+        int timeoutSeconds = Util.cfg.get("apiRequestTimeoutSeconds");
         String url = "$urlBase$endpoint";
 
         String data = '';

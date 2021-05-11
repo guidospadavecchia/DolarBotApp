@@ -1,10 +1,8 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:dolarbot_app/util/util.dart';
 import 'package:flutter/material.dart';
-import 'package:global_configuration/global_configuration.dart';
 
 class GitHub extends StatelessWidget {
-  final cfg = GlobalConfiguration();
   final Color? color;
   final double imageSize;
   final double fontSize;
@@ -52,7 +50,7 @@ class GitHub extends StatelessWidget {
             ),
           ],
         ),
-        onTap: () => Util.launchURL(cfg.getDeepValue("github:app")),
+        onTap: () => Util.launchURL(Util.cfg.getDeepValue<String>("github:app")!),
       ),
     );
   }

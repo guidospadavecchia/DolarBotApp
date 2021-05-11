@@ -1,13 +1,11 @@
 import 'package:dolarbot_app/classes/app_config.dart';
+import 'package:dolarbot_app/util/util.dart';
 import 'package:flutter/material.dart';
 import 'package:dolarbot_app/api/responses/base/api_response.dart';
 import 'package:dolarbot_app/classes/hive/historical_rate.dart';
-import 'package:global_configuration/global_configuration.dart';
 import 'package:hive/hive.dart';
 
 class HistoricalRateManager {
-  static final cfg = GlobalConfiguration();
-
   static void saveRate(BuildContext context, String endpoint, String responseType, String timestamp,
       ApiResponse data) {
     bool shouldSave = AppConfig.of(context).flavor == AppFlavor.Pro;
@@ -17,7 +15,7 @@ class HistoricalRateManager {
       List<HistoricalRate> historicalRates =
           historicalRatesBox.get(endpoint, defaultValue: []).cast<HistoricalRate>();
 
-      int saveFreq = cfg.get("historicalRateSaveFrequencyMinutes") ?? Duration.minutesPerDay;
+      int saveFreq = Util.cfg.get("historicalRateSaveFrequencyMinutes") ?? Duration.minutesPerDay;
       timestamp = timestamp.replaceAll('/', '-');
 
       bool rateExists = historicalRates.any((x) => (saveFreq <= 0 ||

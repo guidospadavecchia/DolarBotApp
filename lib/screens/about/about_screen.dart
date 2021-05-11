@@ -8,7 +8,6 @@ import 'package:dolarbot_app/widgets/common/social/github.dart';
 import 'package:dolarbot_app/widgets/common/pills/pill.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:global_configuration/global_configuration.dart';
 
 class AboutScreen extends StatefulWidget {
   static const String routeName = '/about';
@@ -18,7 +17,6 @@ class AboutScreen extends StatefulWidget {
 }
 
 class _AboutScreenState extends State<AboutScreen> {
-  final cfg = GlobalConfiguration();
   int tapCount = 0;
 
   @override
@@ -154,7 +152,7 @@ class _AboutScreenState extends State<AboutScreen> {
 
   Widget _buildAuthors() {
     final List<Widget> authorWidgets = [];
-    final authors = cfg.getDeepValue("github:authors");
+    final authors = Util.cfg.getDeepValue("github:authors");
     for (final author in authors) {
       String? name = author["name"];
       String? link = author["link"];

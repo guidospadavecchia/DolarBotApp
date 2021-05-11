@@ -9,12 +9,17 @@
         "app": "https://github.com/guidospadavecchia/DolarBotApp",
         "authors": [
             {
-                "name": "",
-                "link": ""
+                "name": "YOUR_NAME_HERE",
+                "link": "YOUR_LINK_HERE"
             }
         ]
     },
-    "discordUrl": ""
+    "discordUrl": "DISCORD_LINK_HERE",
+    "playStoreUrls": {
+        "lite": "https://play.google.com/store/apps/details?id=ar.dolarbot",
+        "pro": "https://play.google.com/store/apps/details?id=ar.dolarbot.pro",
+        "devPage": "https://play.google.com/store/apps/dev?id=5199794200136245272"
+    },
     "share": {
         "subject": "DolarBot",
         "message": "Descargá la app en: cutt.ly/dolarbot",

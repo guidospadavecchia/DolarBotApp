@@ -25,7 +25,6 @@ import 'package:dolarbot_app/widgets/common/simple_fab_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
-import 'package:global_configuration/global_configuration.dart';
 import 'package:hive/hive.dart';
 import 'package:meta/meta.dart';
 import 'package:oktoast/oktoast.dart';
@@ -72,8 +71,6 @@ abstract class BaseInfoScreenState<Page extends BaseInfoScreen> extends State<Ba
 }
 
 mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
-  static final cfg = GlobalConfiguration();
-
   String? timestamp;
   bool showRefreshButton = false;
   bool shouldForceRefresh = false;
