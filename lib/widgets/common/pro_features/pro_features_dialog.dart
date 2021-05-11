@@ -212,24 +212,28 @@ class ProFeaturesDialog extends StatelessWidget {
             ),
           ),
           SizedBox(height: SizeConfig.blockSizeVertical * 3),
-          Stack(
-            children: <Widget>[
-              Image.asset(
-                "assets/images/general/google-play-badge.png",
-                scale: 2.5,
-                filterQuality: FilterQuality.high,
-              ),
-              Positioned.fill(
-                child: Material(
-                  color: Colors.transparent,
-                  child: InkWell(
-                    borderRadius: BorderRadius.circular(10),
-                    //TODO: Agregar link a la PlayStore (tomarlo del app_settings.json)
-                    onTap: () => null,
+          Theme(
+            data: Theme.of(context)
+                .copyWith(splashColor: Colors.white24, highlightColor: Colors.white10),
+            child: Stack(
+              children: <Widget>[
+                Image.asset(
+                  "assets/images/general/google-play-badge.png",
+                  scale: 2.5,
+                  filterQuality: FilterQuality.high,
+                ),
+                Positioned.fill(
+                  child: Material(
+                    color: Colors.transparent,
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(10),
+                      //TODO: Agregar link a la PlayStore (tomarlo del app_settings.json)
+                      onTap: () => null,
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
           SizedBox(height: SizeConfig.blockSizeVertical * 2),
         ],

@@ -142,12 +142,6 @@ class ThemeManager {
       splashColor: Colors.transparent,
       highlightColor: disableHighlight ? Colors.transparent : getHighlightDrawerMenuItem(context),
       unselectedWidgetColor: ThemeManager.getDrawerMenuItemIconColor(context),
-      textTheme: TextTheme(
-        bodyText1: TextStyle(
-          color: ThemeManager.getSecondaryTextColor(context),
-          // fontWeight: FontWeight.w600,
-        ),
-      ),
       dividerColor: Colors.transparent,
     );
   }
