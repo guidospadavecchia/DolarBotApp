@@ -126,7 +126,7 @@ Widget buildStepFooter(BuildContext context, int stepIndex) {
             ),
           ),
           margin: const EdgeInsets.symmetric(horizontal: 45, vertical: 20),
-          width: 35 * (stepIndex.toDouble() + 1),
+          width: 33 * (stepIndex.toDouble() + 1),
           height: 10,
         ),
       ],
