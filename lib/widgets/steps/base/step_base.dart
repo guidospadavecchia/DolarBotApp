@@ -38,7 +38,7 @@ abstract class StepBase extends StatelessWidget {
             ),
           ),
         ),
-        buildStepFooter(context, stepIndex),
+        buildStepFooter(context, stepIndex, totalStepCount),
       ],
     );
   }
@@ -100,7 +100,7 @@ Widget buildStepHeader(BuildContext context, int step, String title, bool showSt
   );
 }
 
-Widget buildStepFooter(BuildContext context, int stepIndex) {
+Widget buildStepFooter(BuildContext context, int stepIndex, int totalStepCount) {
   double stepBarWidth = SizeConfig.screenWidth / 1.5;
   return Align(
     alignment: Alignment.bottomCenter,
@@ -127,7 +127,7 @@ Widget buildStepFooter(BuildContext context, int stepIndex) {
             ),
           ),
           margin: const EdgeInsets.symmetric(horizontal: 45, vertical: 20),
-          width: (stepBarWidth / 8) * (stepIndex.toDouble() + 1),
+          width: (stepBarWidth / totalStepCount) * (stepIndex.toDouble() + 1),
           height: 10,
         ),
       ],
