@@ -27,11 +27,11 @@ abstract class StepBase extends StatelessWidget {
         Expanded(
           child: Container(
             padding: EdgeInsets.symmetric(
-              vertical: SizeConfig.blockSizeVertical * 2,
-              horizontal: SizeConfig.blockSizeHorizontal * 5,
+              vertical: SizeConfig.blockSizeVertical,
+              horizontal: SizeConfig.blockSizeHorizontal * 8,
             ),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 ...body(),
               ],
@@ -114,7 +114,7 @@ Widget buildStepFooter(BuildContext context, int stepIndex) {
             ),
           ),
           margin: const EdgeInsets.symmetric(horizontal: 45, vertical: 20),
-          width: 250,
+          width: 300,
           height: 10,
         ),
         Container(
@@ -126,7 +126,7 @@ Widget buildStepFooter(BuildContext context, int stepIndex) {
             ),
           ),
           margin: const EdgeInsets.symmetric(horizontal: 45, vertical: 20),
-          width: 42 * (stepIndex.toDouble() + 1),
+          width: 35 * (stepIndex.toDouble() + 1),
           height: 10,
         ),
       ],

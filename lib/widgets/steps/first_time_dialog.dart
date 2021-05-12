@@ -3,6 +3,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dolarbot_app/classes/size_config.dart';
 import 'package:dolarbot_app/widgets/common/blur_dialog.dart';
 import 'package:dolarbot_app/widgets/steps/exports/step_exports.dart';
+import 'package:dolarbot_app/widgets/steps/step_five.dart';
+import 'package:dolarbot_app/widgets/steps/step_six.dart';
 import 'package:flutter/material.dart';
 
 class FirstTimeDialog extends StatelessWidget {
@@ -71,12 +73,24 @@ class FirstTimeDialog extends StatelessWidget {
                 StepFour(
                   context,
                   stepIndex: 4,
+                  title: "Ordenar Tarjetas",
+                  showStep: true,
+                ),
+                StepFive(
+                  context,
+                  stepIndex: 5,
+                  title: "Quitar Tarjetas",
+                  showStep: true,
+                ),
+                StepSix(
+                  context,
+                  stepIndex: 6,
                   title: "Calculadora",
                   showStep: true,
                 ),
                 StepFinish(
                   context,
-                  stepIndex: 5,
+                  stepIndex: 7,
                   title: "Eso es todo",
                   showStep: false,
                   isComingFromOptions: dismissable,

@@ -2,13 +2,13 @@ import 'package:dolarbot_app/widgets/common/rich_text_span/rich_text_span.dart';
 import 'package:dolarbot_app/widgets/steps/base/step_base.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class StepOne extends StepBase {
+class StepFive extends StepBase {
   final BuildContext context;
   final int stepIndex;
   final String title;
   final bool showStep;
 
-  StepOne(
+  StepFive(
     this.context, {
     required this.stepIndex,
     required this.title,
@@ -22,22 +22,16 @@ class StepOne extends StepBase {
         textAlign: TextAlign.center,
         text: TextSpan(
           children: [
-            RichTextSpan.text(context,
-                "Podés agregar tus cotizaciones a favoritos para que aparezcan en la pantalla principal: el"),
-            ...RichTextSpan.icon(
-              context,
-              FontAwesomeIcons.home,
-              ThemeManager.getPrimaryTextColor(context),
-              alignment: PlaceholderAlignment.bottom,
-              text: " Inicio",
-            ),
+            RichTextSpan.text(context, "¿Querés quitar una tarjeta de favoritos?"),
+            RichTextSpan.newLine(context, lines: 2),
+            RichTextSpan.text(context, "Deslizá.\nTan simple como eso.", bold: true),
           ],
         ),
       ),
       SizedBox(
-        width: SizeConfig.screenWidth / 1.5,
+        width: SizeConfig.screenHeight / 2,
         child: Image.asset(
-          "assets/images/general/menu_fav.png",
+          "assets/images/general/delete.png",
           filterQuality: FilterQuality.high,
         ),
       ),
@@ -45,20 +39,24 @@ class StepOne extends StepBase {
         textAlign: TextAlign.center,
         text: TextSpan(
           children: [
-            RichTextSpan.text(
-                context, "Para hacerlo, entrá a la cotización que quieras agregar, y tocá en el"),
+            RichTextSpan.text(context, "En la sección de"),
             ...RichTextSpan.icon(
               context,
-              Icons.favorite_border_rounded,
-              Colors.red,
+              FontAwesomeIcons.cog,
+              ThemeManager.getDrawerMenuItemIconColor(context),
+              alignment: PlaceholderAlignment.bottom,
+              text: "Opciones",
             ),
-            RichTextSpan.text(context, "que está dentro del menú"),
+            RichTextSpan.text(context, ">", bold: true),
             ...RichTextSpan.icon(
               context,
-              Icons.more_horiz,
-              ThemeManager.getPrimaryTextColor(context),
+              FontAwesomeIcons.exchangeAlt,
+              ThemeManager.getDrawerMenuItemIconColor(context),
+              alignment: PlaceholderAlignment.bottom,
+              text: "Gesto de eliminación de tarjeta",
             ),
-            RichTextSpan.text(context, "en la parte inferior derecha."),
+            RichTextSpan.text(context,
+                " tenés la posibilidad de elegir el gesto que prefieras y que más cómodo te quede."),
           ],
         ),
       ),

@@ -22,19 +22,19 @@ class StepFour extends StepBase {
         textAlign: TextAlign.center,
         text: TextSpan(
           children: [
-            RichTextSpan.text(context, "Pensamos en todo.", bold: true, italic: true),
-            RichTextSpan.newLine(context, lines: 2),
-            RichTextSpan.text(
-                context, "Por eso, si querés realizar conversiones, podés hacerlo con la "),
-            RichTextSpan.text(context, "calculadora", bold: true),
-            RichTextSpan.text(context, " integrada en cada cotización.")
+            RichTextSpan.text(context, "Las tarjetas se agregan al"),
+            ...RichTextSpan.icon(
+                context, FontAwesomeIcons.home, ThemeManager.getPrimaryTextColor(context),
+                alignment: PlaceholderAlignment.bottom, text: " Inicio"),
+            RichTextSpan.text(context,
+                "según las vayas añadiendo históricamente, pero también podés ordenarlas a tu gusto."),
           ],
         ),
       ),
       SizedBox(
-        width: SizeConfig.screenWidth / 2.3,
+        width: SizeConfig.screenHeight / 2,
         child: Image.asset(
-          "assets/images/general/menu_calc.png",
+          "assets/images/general/reorder.png",
           filterQuality: FilterQuality.high,
         ),
       ),
@@ -42,15 +42,14 @@ class StepFour extends StepBase {
         textAlign: TextAlign.center,
         text: TextSpan(
           children: [
-            RichTextSpan.text(context, "Presioná"),
+            RichTextSpan.text(context, "Mantené presionada una tarjeta"),
             ...RichTextSpan.icon(
-                context, FontAwesomeIcons.calculator, ThemeManager.getPrimaryTextColor(context),
-                alignment: PlaceholderAlignment.bottom),
-            RichTextSpan.text(context, "en el menú"),
-            ...RichTextSpan.icon(
-                context, Icons.more_horiz, ThemeManager.getPrimaryTextColor(context)),
+                context, Icons.touch_app_rounded, ThemeManager.getPrimaryAccentColor(context),
+                alignment: PlaceholderAlignment.bottom, size: 20),
             RichTextSpan.text(context,
-                "dentro de la cotización para abrir la calculadora y realizar tus conversiones. Simple, ¿No?"),
+                "hasta que ésta se achique y se torne semi transparente. Luego, arrastrala a la posición que quieras y soltala"),
+            ...RichTextSpan.icon(context, FontAwesomeIcons.solidHandPaper,
+                ThemeManager.getPrimaryAccentColor(context)),
           ],
         ),
       ),
