@@ -8,6 +8,7 @@ import 'package:dolarbot_app/widgets/steps/step_six.dart';
 import 'package:flutter/material.dart';
 
 class FirstTimeDialog extends StatelessWidget {
+  static const int _kTotalStepCount = 8;
   final bool dismissable;
 
   const FirstTimeDialog({
@@ -49,48 +50,56 @@ class FirstTimeDialog extends StatelessWidget {
                 StepWelcome(
                   context,
                   stepIndex: 0,
+                  totalStepCount: _kTotalStepCount,
                   title: "Bienvenido",
                   showStep: false,
                 ),
                 StepOne(
                   context,
                   stepIndex: 1,
+                  totalStepCount: _kTotalStepCount,
                   title: "Favoritos",
                   showStep: true,
                 ),
                 StepTwo(
                   context,
                   stepIndex: 2,
+                  totalStepCount: _kTotalStepCount,
                   title: "Inicio",
                   showStep: true,
                 ),
                 StepThree(
                   context,
                   stepIndex: 3,
+                  totalStepCount: _kTotalStepCount,
                   title: "Compartir Cotización",
                   showStep: true,
                 ),
                 StepFour(
                   context,
                   stepIndex: 4,
+                  totalStepCount: _kTotalStepCount,
                   title: "Ordenar Tarjetas",
                   showStep: true,
                 ),
                 StepFive(
                   context,
                   stepIndex: 5,
+                  totalStepCount: _kTotalStepCount,
                   title: "Quitar Tarjetas",
                   showStep: true,
                 ),
                 StepSix(
                   context,
                   stepIndex: 6,
+                  totalStepCount: _kTotalStepCount,
                   title: "Calculadora",
                   showStep: true,
                 ),
                 StepFinish(
                   context,
                   stepIndex: 7,
+                  totalStepCount: _kTotalStepCount,
                   title: "Eso es todo",
                   showStep: false,
                   isComingFromOptions: dismissable,

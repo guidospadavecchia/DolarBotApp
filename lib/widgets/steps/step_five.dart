@@ -5,15 +5,22 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 class StepFive extends StepBase {
   final BuildContext context;
   final int stepIndex;
+  final int totalStepCount;
   final String title;
   final bool showStep;
 
   StepFive(
     this.context, {
     required this.stepIndex,
+    required this.totalStepCount,
     required this.title,
     required this.showStep,
-  }) : super(stepIndex: stepIndex, title: title, showStep: showStep);
+  }) : super(
+          stepIndex: stepIndex,
+          totalStepCount: totalStepCount,
+          title: title,
+          showStep: showStep,
+        );
 
   @override
   List<Widget> body() {
@@ -24,7 +31,9 @@ class StepFive extends StepBase {
           children: [
             RichTextSpan.text(context, "¿Querés quitar una tarjeta de favoritos?"),
             RichTextSpan.newLine(context, lines: 2),
-            RichTextSpan.text(context, "Deslizá.\nTan simple como eso.", bold: true),
+            RichTextSpan.text(context, "Deslizala hacia el costado.\n", bold: true, italic: true),
+            RichTextSpan.newLine(context),
+            RichTextSpan.text(context, "Así de simple."),
           ],
         ),
       ),

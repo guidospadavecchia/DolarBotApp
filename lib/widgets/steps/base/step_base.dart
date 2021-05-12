@@ -8,12 +8,14 @@ export 'package:dolarbot_app/classes/theme_manager.dart';
 
 abstract class StepBase extends StatelessWidget {
   final int stepIndex;
+  final int totalStepCount;
   final String title;
   final bool showStep;
 
   const StepBase({
     Key? key,
     this.stepIndex = 0,
+    required this.totalStepCount,
     required this.title,
     this.showStep = true,
   }) : super(key: key);
@@ -27,14 +29,12 @@ abstract class StepBase extends StatelessWidget {
         Expanded(
           child: Container(
             padding: EdgeInsets.symmetric(
-              vertical: SizeConfig.blockSizeVertical,
+              vertical: SizeConfig.blockSizeVertical * 2,
               horizontal: SizeConfig.blockSizeHorizontal * 8,
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                ...body(),
-              ],
+              children: body(),
             ),
           ),
         ),
@@ -50,7 +50,7 @@ Widget buildStepHeader(BuildContext context, int step, String title, bool showSt
   return Stack(
     children: [
       Padding(
-        padding: EdgeInsets.only(left: showStep ? 45 : 0, top: 22, bottom: 20, right: 20),
+        padding: EdgeInsets.only(left: showStep ? 45 : 0, top: 22, bottom: 10, right: 20),
         child: Container(
           alignment: Alignment.center,
           width: double.infinity,
@@ -101,6 +101,7 @@ Widget buildStepHeader(BuildContext context, int step, String title, bool showSt
 }
 
 Widget buildStepFooter(BuildContext context, int stepIndex) {
+  double stepBarWidth = SizeConfig.screenWidth / 1.5;
   return Align(
     alignment: Alignment.bottomCenter,
     child: Stack(
@@ -114,7 +115,7 @@ Widget buildStepFooter(BuildContext context, int stepIndex) {
             ),
           ),
           margin: const EdgeInsets.symmetric(horizontal: 45, vertical: 20),
-          width: 300,
+          width: stepBarWidth,
           height: 10,
         ),
         Container(
@@ -126,7 +127,7 @@ Widget buildStepFooter(BuildContext context, int stepIndex) {
             ),
           ),
           margin: const EdgeInsets.symmetric(horizontal: 45, vertical: 20),
-          width: 33 * (stepIndex.toDouble() + 1),
+          width: (stepBarWidth / 8) * (stepIndex.toDouble() + 1),
           height: 10,
         ),
       ],

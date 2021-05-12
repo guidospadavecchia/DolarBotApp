@@ -5,15 +5,22 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 class StepOne extends StepBase {
   final BuildContext context;
   final int stepIndex;
+  final int totalStepCount;
   final String title;
   final bool showStep;
 
   StepOne(
     this.context, {
     required this.stepIndex,
+    required this.totalStepCount,
     required this.title,
     required this.showStep,
-  }) : super(stepIndex: stepIndex, title: title, showStep: showStep);
+  }) : super(
+          stepIndex: stepIndex,
+          totalStepCount: totalStepCount,
+          title: title,
+          showStep: showStep,
+        );
 
   @override
   List<Widget> body() {
@@ -23,7 +30,7 @@ class StepOne extends StepBase {
         text: TextSpan(
           children: [
             RichTextSpan.text(context,
-                "Podés agregar tus cotizaciones a favoritos para que aparezcan en la pantalla principal: el"),
+                "Podés agregar tus cotizaciones a favoritos para que aparezcan en la pantalla principal: El"),
             ...RichTextSpan.icon(
               context,
               FontAwesomeIcons.home,

@@ -8,6 +8,7 @@ import 'package:hive/hive.dart';
 class StepFinish extends StepBase {
   final BuildContext context;
   final int stepIndex;
+  final int totalStepCount;
   final String title;
   final bool showStep;
   final bool isComingFromOptions;
@@ -15,15 +16,31 @@ class StepFinish extends StepBase {
   StepFinish(
     this.context, {
     this.stepIndex = 0,
+    required this.totalStepCount,
     required this.title,
     required this.showStep,
     this.isComingFromOptions = false,
-  }) : super(stepIndex: stepIndex, title: title, showStep: showStep);
+  }) : super(
+          stepIndex: stepIndex,
+          totalStepCount: totalStepCount,
+          title: title,
+          showStep: showStep,
+        );
 
   @override
   List<Widget> body() {
     return [
-      const SizedBox.shrink(),
+      SizedBox(
+        child: Image.asset(
+          AppConfig.logo.border,
+          scale: 3.0,
+          height: 128,
+          width: 128,
+          filterQuality: FilterQuality.high,
+        ),
+        width: 128,
+        height: 128,
+      ),
       RichText(
         textAlign: TextAlign.center,
         text: TextSpan(
