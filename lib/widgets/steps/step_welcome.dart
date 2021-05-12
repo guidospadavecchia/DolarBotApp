@@ -55,7 +55,7 @@ class StepWelcome extends StepBase {
               context,
               AppConfig.appDisplayName,
               bold: true,
-              fontSize: SizeConfig.blockSizeVertical * 3,
+              fontSize: SizeConfig.blockSizeVertical * 2.5,
             ),
           ],
         ),

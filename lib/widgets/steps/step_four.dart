@@ -54,7 +54,7 @@ class StepFour extends StepBase {
                 context, Icons.touch_app_rounded, ThemeManager.getPrimaryAccentColor(context),
                 alignment: PlaceholderAlignment.bottom, size: 20),
             RichTextSpan.text(context,
-                "hasta que se achique y se torne semi transparente. Luego, arrastrala a la posición que quieras y soltala!"),
+                "hasta que se achique y se torne semi transparente. Luego, arrastrala a la posición que quieras y soltala"),
             ...RichTextSpan.icon(context, FontAwesomeIcons.solidHandPaper,
                 ThemeManager.getPrimaryAccentColor(context)),
             RichTextSpan.text(context, "."),
