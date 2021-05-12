@@ -57,7 +57,6 @@ class StepFinish extends StepBase {
         text: "Entendido",
         onPressed: () => _finishTutorial(),
       ),
-      const SizedBox.shrink(),
     ];
   }
 
@@ -107,14 +106,14 @@ class StepFinish extends StepBase {
       RichTextSpan.text(
         context,
         "Podés volver a ver esta",
-        fontSize: SizeConfig.blockSizeVertical * 3,
+        fontSize: SizeConfig.blockSizeVertical * 2.5,
         italic: true,
       ),
       RichTextSpan.newLine(context),
       RichTextSpan.text(
         context,
         "guía cuando quieras :)",
-        fontSize: SizeConfig.blockSizeVertical * 3,
+        fontSize: SizeConfig.blockSizeVertical * 2.5,
         italic: true,
       ),
     ];
