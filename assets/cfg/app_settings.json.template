@@ -15,6 +15,10 @@
         ]
     },
     "discordUrl": "DISCORD_LINK_HERE",
+    "termsOfServiceUrls": {
+        "lite": "YOUR_TOS_HERE",
+        "pro": "YOUR_TOS_HERE"
+    },
     "playStoreUrls": {
         "lite": "https://play.google.com/store/apps/details?id=ar.dolarbot",
         "pro": "https://play.google.com/store/apps/details?id=ar.dolarbot.pro",

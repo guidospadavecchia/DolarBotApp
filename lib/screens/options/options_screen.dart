@@ -1,4 +1,5 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
+import 'package:dolarbot_app/classes/app_config.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:dolarbot_app/classes/settings.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
@@ -7,10 +8,10 @@ import 'package:dolarbot_app/screens/options/widgets/card_gesture_dismiss_dialog
 import 'package:dolarbot_app/screens/options/widgets/fab_direction_dialog/fab_direction_dialog.dart';
 import 'package:dolarbot_app/screens/options/widgets/format_currency_dialog/format_currency_dialog.dart';
 import 'package:dolarbot_app/screens/options/widgets/clear_historical_data_dialog/clear_historical_data_dialog.dart';
-import 'package:dolarbot_app/screens/options/widgets/tos_dialog/terms_of_service_dialog.dart';
 import 'package:dolarbot_app/util/util.dart';
 import 'package:dolarbot_app/widgets/common/cool_app_bar.dart';
 import 'package:dolarbot_app/widgets/common/menu_item.dart';
+import 'package:dolarbot_app/widgets/common/toasts/toast_error.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class OptionsScreen extends StatefulWidget {
@@ -126,7 +127,7 @@ class _OptionsScreenState extends State<OptionsScreen> {
               leading: const Icon(FontAwesomeIcons.fileContract),
               depthLevel: 1,
               disableHighlight: false,
-              onTap: () => _showTermsAndConditionsDialog(context),
+              onTap: () => _showTermsAndConditions(context),
             ),
             MenuItem(
               text: "Información de la aplicación",
@@ -210,14 +211,19 @@ class _OptionsScreenState extends State<OptionsScreen> {
     );
   }
 
-  _showTermsAndConditionsDialog(BuildContext context) {
+  _showTermsAndConditions(BuildContext context) {
     dismissAllToast();
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return TermsOfServiceDialog();
-      },
-    );
+    String? url = AppConfig.of(context).flavor == AppFlavor.Lite
+        ? Util.cfg.getDeepValue<String>("termsOfServiceUrls:lite")
+        : Util.cfg.getDeepValue<String>("termsOfServiceUrls:pro");
+    if (url != null && url.trim() != '') {
+      Util.launchURL(url);
+    } else {
+      Future.delayed(
+        const Duration(milliseconds: 500),
+        () => showToastWidget(ToastError()),
+      );
+    }
   }
 
   _showCardGestureDismissDialog(BuildContext context) {
