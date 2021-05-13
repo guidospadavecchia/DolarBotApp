@@ -1,4 +1,4 @@
-**Terminos de uso**
+**Terminos de uso de DolarBot Pro**
 
 Estos términos aplican para la versión **Pro** de la aplicación móvil de **DolarBot**, en adelante "**DolarBot Pro**".  
 Puede ver los **Términos de Uso** para la versión gratuita en el siguiente enlace: [Términos de uso de DolarBot](https://github.com/guidospadavecchia/DolarBotApp/blob/main/docs/terms-of-service-dolarbot-lite.md).
