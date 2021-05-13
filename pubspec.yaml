@@ -71,7 +71,6 @@ flutter:
   assets:
     - assets/cfg/app_settings.json
     - assets/cfg/rate_descriptions.json
-    - assets/cfg/tos.json
     - assets/images/
     - assets/images/banks/
     - assets/images/metals/
