@@ -227,8 +227,12 @@ class ProFeaturesDialog extends StatelessWidget {
                     color: Colors.transparent,
                     child: InkWell(
                       borderRadius: BorderRadius.circular(10),
-                      onTap: () =>
-                          Util.launchURL(Util.cfg.getDeepValue<String>("playStoreUrls:pro")!),
+                      onTap: () {
+                        Util.launchURL(Util.cfg.getDeepValue<String>("playStoreUrls:pro")!);
+                        if (Navigator.canPop(context)) {
+                          Navigator.pop(context);
+                        }
+                      },
                     ),
                   ),
                 ),

@@ -35,7 +35,7 @@ class Util {
     return null;
   }
 
-  static launchURL(String url) async {
+  static Future<void> launchURL(String url) async {
     if (await canLaunch(url)) {
       await launch(url);
     } else {
