@@ -30,6 +30,9 @@ class CryptoCalculatorReversed extends BaseCalculatorScreen {
 
 class _CryptoCalculatorReversedState extends BaseCalculatorState<CryptoCalculatorReversed>
     with BaseCalculator {
+  static const int _kMinimumFractionDigits = 2;
+  static const int _kMaximumFractionDigits = 8;
+
   final double usdValue;
   final String cryptoCode;
   final NumberFormat numberFormat;
@@ -90,14 +93,15 @@ class _CryptoCalculatorReversedState extends BaseCalculatorState<CryptoCalculato
         thousandSeparator: numberFormat.symbols.GROUP_SEP,
         leftSymbol: "US\$ ");
     _textControllerCryptoValue = TextEditingController();
+    numberFormat.minimumFractionDigits = _kMinimumFractionDigits;
+    numberFormat.maximumFractionDigits = _kMaximumFractionDigits;
   }
 
   void _setConversion() {
     if (usdValue > 0) {
       Decimal input = Decimal.parse(_textControllerInput.numberValue.toString());
       Decimal dUsdValue = Decimal.parse(usdValue.toString());
-      Decimal d100 = Decimal.parse("100.00");
-      Decimal value = ((input / dUsdValue) * d100).truncate() / d100;
+      Decimal value = input / dUsdValue;
       String formattedValue = numberFormat.format(DecimalAdapter(value));
       _textControllerCryptoValue.text = ("$formattedValue $cryptoCode");
     }
