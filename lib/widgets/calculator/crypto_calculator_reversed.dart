@@ -30,7 +30,8 @@ class CryptoCalculatorReversed extends BaseCalculatorScreen {
 
 class _CryptoCalculatorReversedState extends BaseCalculatorState<CryptoCalculatorReversed>
     with BaseCalculator {
-  static const int _kMinimumFractionDigits = 2;
+  static const int _kPrecision = 2;
+  static const int _kMinimumFractionDigits = 0;
   static const int _kMaximumFractionDigits = 8;
 
   final double usdValue;
@@ -88,7 +89,7 @@ class _CryptoCalculatorReversedState extends BaseCalculatorState<CryptoCalculato
 
   void _createControllers() {
     _textControllerInput = MoneyMaskedTextController(
-        precision: 2,
+        precision: _kPrecision,
         decimalSeparator: numberFormat.symbols.DECIMAL_SEP,
         thousandSeparator: numberFormat.symbols.GROUP_SEP,
         leftSymbol: "US\$ ");

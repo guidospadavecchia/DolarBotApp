@@ -30,6 +30,9 @@ class MetalCalculatorReversed extends BaseCalculatorScreen {
 
 class _MetalCalculatorReversedState extends BaseCalculatorState<MetalCalculatorReversed>
     with BaseCalculator {
+  static const int _kMinimumFractionDigits = 2;
+  static const int _kMaximumFractionDigits = 2;
+
   final double usdValue;
   final String unit;
   final NumberFormat numberFormat;
@@ -86,11 +89,13 @@ class _MetalCalculatorReversedState extends BaseCalculatorState<MetalCalculatorR
 
   void _createControllers() {
     _textControllerInput = MoneyMaskedTextController(
-      precision: getPrecision(usdValue),
+      precision: 8,
       decimalSeparator: numberFormat.symbols.DECIMAL_SEP,
       thousandSeparator: numberFormat.symbols.GROUP_SEP,
     );
     _textControllerValue = TextEditingController();
+    numberFormat.minimumFractionDigits = _kMinimumFractionDigits;
+    numberFormat.maximumFractionDigits = _kMaximumFractionDigits;
   }
 
   void _setConversion() {

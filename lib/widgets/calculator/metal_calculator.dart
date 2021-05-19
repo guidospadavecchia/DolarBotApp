@@ -25,6 +25,9 @@ class MetalCalculator extends BaseCalculatorScreen {
 }
 
 class _MetalCalculatorState extends BaseCalculatorState<MetalCalculator> with BaseCalculator {
+  static const int _kMinimumFractionDigits = 0;
+  static const int _kMaximumFractionDigits = 8;
+
   final double usdValue;
   final String unit;
   final NumberFormat numberFormat;
@@ -86,15 +89,16 @@ class _MetalCalculatorState extends BaseCalculatorState<MetalCalculator> with Ba
       leftSymbol: "US\$ ",
     );
     _textControllerValue = TextEditingController();
+    numberFormat.minimumFractionDigits = _kMinimumFractionDigits;
+    numberFormat.maximumFractionDigits = _kMaximumFractionDigits;
   }
 
   void _setConversion() {
     if (usdValue > 0) {
       Decimal input = Decimal.parse(_textControllerInput.numberValue.toString());
       Decimal dUsdValue = Decimal.parse(usdValue.toString());
-      Decimal d100 = Decimal.parse("100.00");
       Decimal d1 = Decimal.parse("1.00");
-      Decimal value = ((input / dUsdValue) * d100).truncate() / d100;
+      Decimal value = input / dUsdValue;
       String formattedValue = numberFormat.format(
         DecimalAdapter(value),
       );
