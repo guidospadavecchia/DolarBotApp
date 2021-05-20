@@ -92,7 +92,7 @@ class _HistoricalRatesScreenState extends State<HistoricalRatesScreen> {
   }
 
   Widget _body() {
-    if (_historicalRates.length <= 1) {
+    if (_historicalRates.length <= 2) {
       return ImageScreen(
         image: const AssetImage("assets/images/general/collecting_data.png"),
         text: "Aún no hay datos suficientes para mostrar los gráficos de evolución",
