@@ -18,7 +18,7 @@
 Esta aplicación está disponible para **Android**, y se distribuye en dos variedades: **DolarBot Lite** y **DolarBot Pro**.
 
 ## Características
-La aplicación es **100% open-source**, y **gratuita** para la versión **Lite**, no así la versión **Pro**. Sin embargo, se permite compilar e instalar la versión **Pro** por medios propios sin limitaciones a quien lo desee. Para ello, ver la sección [Compilación](https://github.com/guidospadavecchia/DolarBotApp/blob/main/README.md#compilaci%C3%B3n). A continuación se listan las características de cada versión:
+La aplicación es **100% open-source**, y **gratuita** para la versión **Lite**. Sin embargo, se permite compilar e instalar la versión **Pro** por medios propios sin limitaciones a quien lo desee. Para ello, ver la sección [Compilación](https://github.com/guidospadavecchia/DolarBotApp/blob/main/README.md#compilaci%C3%B3n). A continuación se listan las características de cada versión:
 
 | DolarBot | **Lite** | **Pro** |
 | ------ | ------ | ------ |
