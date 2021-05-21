@@ -14,7 +14,7 @@
 [![License](https://img.shields.io/github/license/guidospadavecchia/DolarBotApp?color=orange&style=flat-square)](https://github.com/guidospadavecchia/DolarBotApp/blob/main/LICENSE)
 
 ## Descripción  
-**DolarBot App** es la aplicación móvil de [DolarBot](https://github.com/guidospadavecchia/DolarBot), el bot argentino de Discord para ver las distintas cotizaciones disponibles en Argentina.  
+**DolarBot App** es la aplicación móvil de [DolarBot](https://github.com/guidospadavecchia/DolarBot), el bot argentino de Discord para ver las cotizaciones del dólar, euro, real, indicadores y más.  
 Esta aplicación está disponible para **Android**, y se distribuye en dos variedades: **DolarBot Lite** y **DolarBot Pro**.
 
 ## Características
