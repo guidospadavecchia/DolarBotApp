@@ -49,7 +49,7 @@ Colaborá con el desarrollo de **DolarBot** enviando tu [pull request](https://g
 - **Juan Manuel Flecha** (Contacto: flechajm@gmail.com).  
 
 ## Licencia
-**DolarBot** es *100% open-source*. Está licenciado bajo la [GNU General Public License v3.0](https://github.com/guidospadavecchia/DolarBotApp/blob/main/LICENSE).
+**DolarBot** es ***100% open-source***. Está licenciado bajo la [GNU General Public License v3.0](https://github.com/guidospadavecchia/DolarBotApp/blob/main/LICENSE).
 
 ## 
 
