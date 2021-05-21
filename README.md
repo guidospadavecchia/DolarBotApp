@@ -31,14 +31,14 @@ La aplicación es **100% open-source**, y **gratuita** para la versión **Lite**
 **DolarBot** muestra y recopila información provista por terceros. Para más información al respecto, visitar el apartado de [Integraciones](https://github.com/guidospadavecchia/DolarBot-Api#integraciones) en [DolarBot-API](https://github.com/guidospadavecchia/DolarBot-Api).
 
 ## Compilación
-1. Para compilar y correr la aplicación, será necesario correr por cuenta propia una instancia de [DolarBot-API](https://github.com/guidospadavecchia/DolarBot-Api). Para más información acerca de ello, ver la sección [Configuración](https://github.com/guidospadavecchia/DolarBot-Api#configuraci%C3%B3n) dentro del repositorio.
-2. Clonar este repositorio.
-3. Configurar el archivo `app_settings.json` a partir del `app_settings.json.template` incluído en este repositorio; colocando, entre otros parámetros, la `apiKey` configurada en **DolarBot-Api**.
-4. Configurar la constante `_kbannerAdUnitId` dentro de `lib/classes/ad_state.dart` con el ID del Ad Unit de [AdMob](https://admob.google.com/home/). De lo contrario, es completamente factible modificar el código para utilizar otros proveedores de anuncios, o eliminar esta funcionalidad completamente.
-5. Ejecutar `flutter pub get`.
-6. Generar el *app bundle*:  
-  6.1 Versión **Lite**: `flutter build appbundle --flavor lite -t lib/main_lite.dart --no-tree-shake-icons`  
-  6.2 Versión **Pro**: `flutter build appbundle --flavor pro -t lib/main_pro.dart --no-tree-shake-icons`
+0. Para compilar y correr la aplicación, será necesario correr por cuenta propia una instancia de [DolarBot-API](https://github.com/guidospadavecchia/DolarBot-Api). Para más información acerca de ello, ver la sección [Configuración](https://github.com/guidospadavecchia/DolarBot-Api#configuraci%C3%B3n) dentro del repositorio.
+1. Clonar este repositorio.
+2. Configurar el archivo `app_settings.json` a partir del `app_settings.json.template` incluído en este repositorio; colocando, entre otros parámetros, la `apiKey` configurada en **DolarBot-Api**.
+3. Para la versión **Lite**, configurar la constante `_kbannerAdUnitId` dentro de `lib/classes/ad_state.dart` con el ID del Ad Unit de [AdMob](https://admob.google.com/home/). De lo contrario, es completamente factible modificar el código para utilizar otros proveedores de anuncios, o eliminar esta funcionalidad completamente.
+4. Ejecutar `flutter pub get`.
+5. Generar el *app bundle*:  
+  5.1 Versión **Lite**: `flutter build appbundle --flavor lite -t lib/main_lite.dart --no-tree-shake-icons`  
+  5.2 Versión **Pro**: `flutter build appbundle --flavor pro -t lib/main_pro.dart --no-tree-shake-icons`
 
 
 ## Contribuciones
