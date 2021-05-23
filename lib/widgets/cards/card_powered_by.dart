@@ -11,18 +11,6 @@ class CardPoweredBy extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 3, top: 2, right: 3),
-          child: Text(
-            "Powered by",
-            style: const TextStyle(
-              fontSize: 10,
-              fontFamily: 'Raleway',
-              fontWeight: FontWeight.normal,
-              color: Colors.white,
-            ),
-          ),
-        ),
         SizedBox(
           child: Image.asset(
             AppConfig.logo.borderless,
