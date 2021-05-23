@@ -21,7 +21,7 @@ class Pill extends StatelessWidget {
     this.fontSize = 9,
     this.fontWeight = FontWeight.bold,
     this.width,
-    this.padding = const EdgeInsets.only(top: 3, bottom: 3),
+    this.padding = const EdgeInsets.only(top: 4, bottom: 3),
     this.borderRadius,
     this.capitalizeText = true,
   }) : super(key: key);

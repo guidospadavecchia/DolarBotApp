@@ -82,7 +82,7 @@ class RootMenuDollar extends StatelessWidget {
           },
         ),
         MenuItem(
-          text: "Bolsa (MEP)",
+          text: "MEP (Bolsa)",
           leading: getIconData(context, FontAwesomeIcons.poll),
           depthLevel: 2,
           onTap: () => {
@@ -91,7 +91,7 @@ class RootMenuDollar extends StatelessWidget {
               FiatCurrencyInfoScreen<DollarResponse>(
                 cardData: CardData(
                   title: _title,
-                  bannerTitle: "Bolsa (MEP)",
+                  bannerTitle: "MEP (Bolsa)",
                   tag: _title,
                   iconData: FontAwesomeIcons.poll,
                   colors: DolarBotConstants.kGradiantDefault,
