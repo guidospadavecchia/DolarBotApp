@@ -70,7 +70,7 @@ class _CardLastUpdatedState extends State<CardLastUpdated> with WidgetsBindingOb
                       child: Text(
                         widget.showPoweredBy
                             ? "${_getFormattedDateTime()}"
-                            : "Última actualización: ${_getFormattedDateTime()}",
+                            : "Actualizado: ${_getFormattedDateTime()}",
                         style: TextStyle(
                           fontSize: widget.showPoweredBy ? 11 : 12,
                           fontFamily: 'Montserrat',
