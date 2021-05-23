@@ -32,7 +32,7 @@ class Discord extends StatelessWidget {
               style: TextStyle(
                 fontSize: fontSize,
                 fontFamily: 'Raleway',
-                color: const Color.fromRGBO(114, 137, 218, 1),
+                color: const Color.fromRGBO(88, 101, 242, 1),
                 fontWeight: FontWeight.w600,
               ),
             ),
