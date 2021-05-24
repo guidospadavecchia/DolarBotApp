@@ -3,7 +3,7 @@
     "apiKey": "YOUR_API_KEY_HERE",
     "apiRequestCacheMinutes": 30,
     "apiRequestTimeoutSeconds": 20,
-    "historicalRateSaveFrequencyMinutes": 240,
+    "historicalRateSaveFrequencyMinutes": 15,
     "taxPercent": 65,
     "github": {
         "app": "https://github.com/guidospadavecchia/DolarBotApp",
