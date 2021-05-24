@@ -168,7 +168,7 @@ class _Crypto implements BuildHistoricalChartData {
       ratesData: [
         if (usdPrices.length > 0)
           HistoricalRateData(
-            title: "Dólares",
+            title: "USD",
             leftSymbol: "US\$",
             maxValue: usdPrices.map((spot) => spot.y).reduce(max),
             tooltipTextStyle: _kTooltipTextStyle,
@@ -185,7 +185,7 @@ class _Crypto implements BuildHistoricalChartData {
           ),
         if (arsPrices.length > 0)
           HistoricalRateData(
-            title: "Pesos",
+            title: "ARS",
             leftSymbol: "\$",
             maxValue: arsPrices.map((spot) => spot.y).reduce(max),
             tooltipTextStyle: _kTooltipTextStyle,
@@ -202,7 +202,7 @@ class _Crypto implements BuildHistoricalChartData {
           ),
         if (arsPricesWithTaxes.length > 0)
           HistoricalRateData(
-            title: "Pesos + Imp.",
+            title: "ARS + Impuestos",
             leftSymbol: "\$",
             maxValue: arsPricesWithTaxes.map((spot) => spot.y).reduce(max),
             tooltipTextStyle: _kTooltipTextStyle,
