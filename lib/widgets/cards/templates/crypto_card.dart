@@ -70,6 +70,14 @@ class _CryptoCardState extends BaseCardState<CryptoCard> {
       rates: [
         CardValue(
           numberFormat: widget.numberFormat,
+          title: "Dólares Estadounidenses",
+          value: data.usdPrice,
+          symbol: "US\$",
+          titleSize: 16,
+          valueSize: 22,
+        ),
+        CardValue(
+          numberFormat: widget.numberFormat,
           title: "Pesos Argentinos",
           value: data.arsPrice,
           symbol: "\$",
@@ -81,14 +89,6 @@ class _CryptoCardState extends BaseCardState<CryptoCard> {
           title: "Pesos Argentinos + Impuestos",
           value: data.arsPriceWithTaxes,
           symbol: "\$",
-          titleSize: 16,
-          valueSize: 22,
-        ),
-        CardValue(
-          numberFormat: widget.numberFormat,
-          title: "Dólares Estadounidenses",
-          value: data.usdPrice,
-          symbol: "US\$",
           titleSize: 16,
           valueSize: 22,
         ),

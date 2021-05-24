@@ -43,6 +43,12 @@ class _CryptoInfoScreenState extends BaseInfoScreenState<CryptoInfoScreen> with 
       physics: BouncingScrollPhysics(),
       child: CurrencyInfoContainer(
         items: [
+          if (data?.usdPrice != null)
+            CurrencyInfo(
+              title: "DÓLARES ESTADOUNIDENSES",
+              symbol: 'US\$',
+              value: data!.usdPrice!,
+            ),
           if (data?.arsPrice != null)
             CurrencyInfo(
               title: "PESOS ARGENTINOS",
@@ -54,12 +60,6 @@ class _CryptoInfoScreenState extends BaseInfoScreenState<CryptoInfoScreen> with 
               title: "PESOS ARGENTINOS + IMPUESTOS",
               symbol: '\$',
               value: data!.arsPriceWithTaxes!,
-            ),
-          if (data?.usdPrice != null)
-            CurrencyInfo(
-              title: "DÓLARES ESTADOUNIDENSES",
-              symbol: 'US\$',
-              value: data!.usdPrice!,
             ),
         ],
       ),

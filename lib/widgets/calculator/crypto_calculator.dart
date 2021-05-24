@@ -88,6 +88,16 @@ class _CryptoCalculatorState extends BaseCalculatorState<CryptoCalculator> with 
           height: 30,
         ),
         InputConverted(
+          title: "Dólares",
+          textController: _textControllerUsdValue,
+        ),
+        const Divider(
+          color: Colors.black,
+          indent: 50,
+          endIndent: 50,
+          height: 30,
+        ),
+        InputConverted(
           title: "Pesos",
           textController: _textControllerArsValue,
         ),
@@ -97,16 +107,6 @@ class _CryptoCalculatorState extends BaseCalculatorState<CryptoCalculator> with 
         InputConverted(
           title: "Pesos + Impuestos",
           textController: _textControllerArsValueWithTaxes,
-        ),
-        const Divider(
-          color: Colors.black,
-          indent: 50,
-          endIndent: 50,
-          height: 30,
-        ),
-        InputConverted(
-          title: "Dólares",
-          textController: _textControllerUsdValue,
         ),
         const SizedBox(
           height: 30,

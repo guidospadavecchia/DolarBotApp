@@ -140,15 +140,19 @@ class _FiatCurrency implements BuildHistoricalChartData {
 class _Crypto implements BuildHistoricalChartData {
   @override
   HistoricalChartData fromHistoricalRates(List<HistoricalRate> historicalRates) {
+    List<FlSpot> usdPrices = [];
     List<FlSpot> arsPrices = [];
     List<FlSpot> arsPricesWithTaxes = [];
-    List<FlSpot> usdPrices = [];
 
     for (HistoricalRate historicalRate in historicalRates) {
       Map<dynamic, dynamic>? jsonMap = json.decode(historicalRate.json);
       if (jsonMap != null) {
         CryptoResponse data = CryptoResponse(jsonMap);
         DateTime date = DateTime.parse(historicalRate.timestamp.replaceAll('/', '-'));
+        if (data.usdPrice?.isNumeric() ?? false) {
+          double usdPrice = double.tryParse(data.usdPrice!) ?? 0;
+          usdPrices.add(FlSpot(date.millisecondsSinceEpoch.toDouble(), usdPrice));
+        }
         if (data.arsPrice?.isNumeric() ?? false) {
           double arsPrice = double.tryParse(data.arsPrice!) ?? 0;
           arsPrices.add(FlSpot(date.millisecondsSinceEpoch.toDouble(), arsPrice));
@@ -157,18 +161,31 @@ class _Crypto implements BuildHistoricalChartData {
           double arsPriceWithTaxes = double.tryParse(data.arsPriceWithTaxes!) ?? 0;
           arsPricesWithTaxes.add(FlSpot(date.millisecondsSinceEpoch.toDouble(), arsPriceWithTaxes));
         }
-        if (data.usdPrice?.isNumeric() ?? false) {
-          double usdPrice = double.tryParse(data.usdPrice!) ?? 0;
-          usdPrices.add(FlSpot(date.millisecondsSinceEpoch.toDouble(), usdPrice));
-        }
       }
     }
 
     return HistoricalChartData(
       ratesData: [
+        if (usdPrices.length > 0)
+          HistoricalRateData(
+            title: "Dólares",
+            leftSymbol: "US\$",
+            maxValue: usdPrices.map((spot) => spot.y).reduce(max),
+            tooltipTextStyle: _kTooltipTextStyle,
+            lineChartBarData: LineChartBarData(
+              spots: usdPrices,
+              isCurved: false,
+              colors: _kTabColorGradient3,
+              belowBarData: BarAreaData(
+                show: true,
+                colors: _kTabColorGradient3.map((x) => x.withAlpha(100)).toList(),
+              ),
+              barWidth: _barWidth,
+            ),
+          ),
         if (arsPrices.length > 0)
           HistoricalRateData(
-            title: "\$ Pesos",
+            title: "Pesos",
             leftSymbol: "\$",
             maxValue: arsPrices.map((spot) => spot.y).reduce(max),
             tooltipTextStyle: _kTooltipTextStyle,
@@ -185,7 +202,7 @@ class _Crypto implements BuildHistoricalChartData {
           ),
         if (arsPricesWithTaxes.length > 0)
           HistoricalRateData(
-            title: "\$ Pesos + Imp.",
+            title: "Pesos + Imp.",
             leftSymbol: "\$",
             maxValue: arsPricesWithTaxes.map((spot) => spot.y).reduce(max),
             tooltipTextStyle: _kTooltipTextStyle,
@@ -196,23 +213,6 @@ class _Crypto implements BuildHistoricalChartData {
               belowBarData: BarAreaData(
                 show: true,
                 colors: _kTabColorGradient2.map((x) => x.withAlpha(100)).toList(),
-              ),
-              barWidth: _barWidth,
-            ),
-          ),
-        if (usdPrices.length > 0)
-          HistoricalRateData(
-            title: "US\$ Dólares",
-            leftSymbol: "US\$",
-            maxValue: usdPrices.map((spot) => spot.y).reduce(max),
-            tooltipTextStyle: _kTooltipTextStyle,
-            lineChartBarData: LineChartBarData(
-              spots: usdPrices,
-              isCurved: false,
-              colors: _kTabColorGradient3,
-              belowBarData: BarAreaData(
-                show: true,
-                colors: _kTabColorGradient3.map((x) => x.withAlpha(100)).toList(),
               ),
               barWidth: _barWidth,
             ),
