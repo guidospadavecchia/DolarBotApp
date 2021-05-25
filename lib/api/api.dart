@@ -108,7 +108,10 @@ class API {
     try {
       bool isConnected = await ConnectivityStatus.isConnected();
       if (isConnected) {
-        String? urlBase = Util.cfg.get("apiBaseUrl");
+        String urlBase = Util.cfg.get("apiBaseUrl")!;
+        if (urlBase.endsWith("/")) {
+          urlBase = urlBase.substring(0, urlBase.lastIndexOf("/"));
+        }
         int timeoutSeconds = Util.cfg.get("apiRequestTimeoutSeconds");
         String url = "$urlBase$endpoint";
 
