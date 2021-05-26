@@ -1,3 +1,7 @@
-function onJoinClick() {
-    window.open('https://discord.gg/tCkbjuM', '_blank');
+function onClickLite() {
+    window.open('https://cutt.ly/dolarbot', '_blank');
+}
+
+function onClickPro() {
+    window.open('https://cutt.ly/dolarbotpro', '_blank');
 }

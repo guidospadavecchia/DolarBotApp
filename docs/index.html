@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>DolarBot | Discord</title>
+	<title>DolarBot</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
@@ -25,24 +25,46 @@
 	
 	<div class="bg-g1 size1 flex-w flex-col-c-sb p-l-15 p-r-15 p-t-55 p-b-35 respon1">
 		<span></span>
-		<div class="flex-col-c p-t-50 p-b-50">
-			<img class="logo" src="images/dolarbot-logo.png" alt="DolarBot-Logo" width="200" height="200" />
-			<h3 class="titleText l1-txt1 txt-center p-b-10">
+		<div class="flex-col-c">
+			<img class="logo" src="images/dolarbot-logo.png" alt="DolarBot-Logo" height="200" />
+			<h3 class="titleText l1-txt1 txt-center p-t-10 p-b-10">
 				<span class="dolarText">Dolar</span><span class="botText">Bot</span>
 			</h3>
 			
-			<p class="txt-center l1-txt2 p-b-60">
-				<i>Sitio web próximamente...</i>
+			<p class="subTitleText txt-center">
+				<i>Una app, todas las cotizaciones</i>
 			</p>
-			
-			<button class="flex-c-m s1-txt2 size3 how-btn" onclick="onJoinClick()">
-				Mientras, unite al servidor de soporte!
-			</button>
+		</div>
+		<div class="container txt-center p-b-60">
+			<div class="row align-items-center">
+				<div class="col-md-2"></div>
+				<div class="col-md-3 versionTitle p-b-30">
+					Lite					
+				</div>
+				<div class="col-md-2"></div>
+				<div class="col-md-3 versionTitle p-b-30">
+					Pro
+				</div>
+				<div class="col-md-2"></div>
+				<div class="w-100"></div>
+				<div class="col-md-2">
+				</div>
+				<div class="col-md-3 versionTitle">
+					<img class="google-play-button" src="images/google-play-badge-small.png" title="DolarBot Lite" onclick="onClickLite()">
+				</div>
+				<div class="col-md-2"></div>
+				<div class="col-md-3 versionTitle">
+					<img class="google-play-button" src="images/google-play-badge-small.png" title="DolarBot Pro" onclick="onClickPro()">
+				</div>
+				<div class="col-md-2"></div>
+			</div>
 		</div>
 		
-		<a class="link s1-txt3 txt-center" href="https://discordapp.com/users/252991790376943617/" target="_blank">
-			<span>@Svenjörn#9806</span>
-		</span>
+		<!-- TODO: Privacy Policy, Terms of service -->
+		<div class="s1-txt3 txt-center">
+			<a class="link" href="https://discordapp.com/users/252991790376943617/" target="_blank">@Svenjörn#9806</a> <span class="linkSeparator">-</span> <a class="link" href="">Política de privacidad</a>
+		</div>
+		</a>
 	</div>
 	
 	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>

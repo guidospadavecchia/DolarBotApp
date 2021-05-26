@@ -241,6 +241,14 @@ input.input100 {
   line-height: 1.2;
 }
 
+.link {
+  color: white !important;
+}
+
+.linkSeparator {
+  color: white !important;
+}
+
 .link:hover{
   color: #64ff78 !important;
 }
@@ -363,10 +371,10 @@ input.input100 {
 /*---------------------------------------------*/
 .bg-g1 {
   background: #11681d;
-  background: -webkit-linear-gradient(-45deg, #0c3616, #0b4212, #1b4e12);
-  background: -o-linear-gradient(-45deg, #0c3616, #0b4212, #1b4e12);
-  background: -moz-linear-gradient(-45deg, #0c3616, #0b4212,#1b4e12);
-  background: linear-gradient(-45deg, #0c3616, #0b4212, #1b4e12);
+  background: -webkit-linear-gradient(0deg, #2d831e, #299721, #24e02d);
+  background: -o-linear-gradient(0deg, #2d831e, #299721, #24e02d);
+  background: -moz-linear-gradient(0deg, #2d831e, #299721,#24e02d);
+  background: linear-gradient(0deg, #2d831e, #299721, #24e02d);
 }
 
 
@@ -435,10 +443,10 @@ input.input100 {
   top: 0;
   left: 0;
   background: #11681d;
-  background: -webkit-linear-gradient(45deg, #215221, #11661c, #1e6816);
-  background: -o-linear-gradient(45deg, #215221, #11661c, #1e6816);
-  background: -moz-linear-gradient(45deg, #215221, #11661c, #1e6816);
-  background: linear-gradient(45deg, #215221, #11661c, #1e6816);
+  background: -webkit-linear-gradient(45deg, #339622, #32b428, #28ff33);
+  background: -o-linear-gradient(45deg, #339622, #32b428, #28ff33);
+  background: -moz-linear-gradient(45deg, #339622, #32b428, #28ff33);
+  background: linear-gradient(45deg, #339622, #32b428, #28ff33);
   -webkit-transition: all 0.4s;
   -o-transition: all 0.4s;
   -moz-transition: all 0.4s;
@@ -497,16 +505,29 @@ input.input100 {
   font-family: Raleway-Bold !important;
 }
 
+.subTitleText {
+  font-family: Raleway !important;
+  font-size: large;
+  color: white;
+}
+
+.versionTitle {
+  font-family: Montserrat !important;
+  font-size: xx-large;
+  color: white;
+}
+
 .dolarText {
-  color: #b1b1b1 !important;
+  color: white !important;
 }
 
 .botText {
-  color: #32B128 !important;
+  color: #A6F533 !important;
 }
 
-
-
+.google-play-button:hover {
+  cursor: pointer;
+}
 
 
 /*==================================================================
