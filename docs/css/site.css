@@ -173,6 +173,7 @@ body {
 
 #footer .social-media img {
   cursor: pointer;
+  height: 32px;
 }
 
 #disclaimer {
