@@ -1,0 +1,230 @@
+:root {
+  --bg-color-1: #2d831e;
+  --bg-color-2: #299721;
+  --bg-color-3: #24e02d;
+  --primary-color: #11681d;
+  --accent-color: #a6f533;
+  --base-color: #ffffff;
+  --pill: rgba(0, 0, 0, 0.54);
+}
+
+@font-face {
+  font-family: Montserrat-Regular;
+  src: url("../fonts/Montserrat/Montserrat-Regular.ttf");
+}
+
+@font-face {
+  font-family: Montserrat-Light;
+  src: url("../fonts/Montserrat/Montserrat-Light.ttf");
+}
+
+@font-face {
+  font-family: Montserrat-Black;
+  src: url("../fonts/Montserrat/Montserrat-Black.ttf");
+}
+
+@font-face {
+  font-family: Montserrat-Bold;
+  src: url("../fonts/Montserrat/Montserrat-Bold.ttf");
+}
+
+@font-face {
+  font-family: Raleway-Regular;
+  src: url("../fonts/Raleway/Raleway-Regular.ttf");
+}
+
+@font-face {
+  font-family: Raleway-SemiBold;
+  src: url("../fonts/Raleway/Raleway-SemiBold.ttf");
+}
+
+@font-face {
+  font-family: Raleway-Bold;
+  src: url("../fonts/Raleway/Raleway-Bold.ttf");
+}
+
+body {
+  margin: auto;
+  background: var(--primary-color);
+  background: -webkit-linear-gradient(
+    0deg,
+    var(--bg-color-1),
+    var(--bg-color-2),
+    var(--bg-color-3)
+  );
+  background: -o-linear-gradient(
+    0deg,
+    var(--bg-color-1),
+    var(--bg-color-2),
+    var(--bg-color-3)
+  );
+  background: -moz-linear-gradient(
+    0deg,
+    var(--bg-color-1),
+    var(--bg-color-2),
+    var(--bg-color-3)
+  );
+  background: linear-gradient(
+    0deg,
+    var(--bg-color-1),
+    var(--bg-color-2),
+    var(--bg-color-3)
+  );
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+#container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+#logo {
+  margin-top: 8rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#logo img {
+  margin-bottom: 2rem;
+}
+
+#logo .title {
+  display: flex;
+  font-family: "Raleway-Bold";
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+}
+
+#logo .title .dolar {
+  color: var(--base-color);
+}
+
+#logo .title .bot {
+  color: var(--accent-color);
+}
+
+#logo .subtitle {
+  font-family: "Raleway-Regular";
+  font-size: large;
+  font-style: italic;
+  color: var(--base-color);
+}
+
+#version {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  line-height: 7rem;
+  padding: 0 10rem;
+  color: var(--base-color);
+}
+
+#version .type {
+  cursor: default;
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  align-items: center;
+}
+
+#version .pill {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Montserrat-Regular";
+  font-size: 2rem;
+  width: 7rem;
+  height: 3.7rem;
+  margin-bottom: 1rem;
+  border-radius: 0.5rem;
+  letter-spacing: 0.5px;
+  background-color: var(--pill);
+  color: var(--base-color);
+}
+
+#footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: "Raleway-Regular";
+  font-size: 0.7rem;
+  padding-bottom: 1.5rem;
+  line-height: 1.3rem;
+  color: var(--base-color);
+}
+
+#footer .terms-privacy {
+  display: flex;
+  justify-content: space-evenly;
+  width: 16rem;
+}
+
+#footer .social-media {
+  display: flex;
+  justify-content: space-evenly;
+  width: 15rem;
+  padding-bottom: 2rem;
+}
+
+#footer .social-media img {
+  cursor: pointer;
+}
+
+#disclaimer {
+  display: flex;
+  font-family: "Raleway-Regular";
+  font-size: 0.6rem;
+  align-self: center;
+  color: var(--base-color);
+  opacity: 0.4;
+}
+
+.link {
+  color: white !important;
+}
+
+.link:hover {
+  color: var(--accent-color) !important;
+}
+
+.google-play-button:hover {
+  cursor: pointer;
+}
+
+@media (max-width: 900px) {
+  #logo {
+    margin-top: 5rem;
+  }
+
+  #logo img {
+    height: 150px;
+  }
+
+  #logo .title {
+    font-size: 3rem;
+  }
+
+  #version {
+    flex-direction: column;
+    margin-top: 4rem;
+  }
+
+  #version .type {
+    margin-bottom: 4rem;
+  }
+
+  #version .pill {
+    font-size: 1.5rem;
+    width: 5rem;
+    height: 3rem;
+  }
+
+  .google-play-button {
+    width: 250px;
+  }
+}
