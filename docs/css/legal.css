@@ -111,8 +111,7 @@ body {
   background: var(--frame-color);
   color: var(--base-color);
   font-family: "Raleway-Regular";
-  max-width: 50%;
-  min-width: 50%;
+  width: 50%;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -228,5 +227,9 @@ body {
 
   #logo .title {
     font-size: 3rem;
+  }
+
+  #content-frame {
+    width: 75%;
   }
 }
