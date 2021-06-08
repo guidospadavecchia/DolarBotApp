@@ -141,7 +141,7 @@ body {
   width: 8rem;
   height: 3.8rem;
   margin-bottom: 2rem;
-  border-radius: 2rem;
+  border-radius: 0.7rem;
   letter-spacing: 0.5px;
   background-color: var(--pill);
   color: var(--base-color);
