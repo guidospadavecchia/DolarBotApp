@@ -218,15 +218,15 @@ body {
 
 @media (max-width: 900px) {
   #logo {
-    margin-top: 5rem;
+    margin-top: 2rem;
   }
 
   #logo img {
-    height: 150px;
+    height: 64px;
   }
 
   #logo .title {
-    font-size: 3rem;
+    font-size: 2rem;
   }
 
   #content-frame {
