@@ -109,7 +109,7 @@ body {
 
 #content-frame {
   background: var(--frame-color);
-  color: white;
+  color: var(--base-color);
   font-family: "Raleway-Regular";
   max-width: 50%;
   min-width: 50%;
@@ -181,7 +181,7 @@ body {
 }
 
 #content-frame .link {
-  color: white !important;
+  color: var(--base-color) !important;
   text-decoration: none;
   font-size: 0.9rem;
 }
@@ -208,7 +208,7 @@ body {
 }
 
 .link {
-  color: white !important;
+  color: var(--base-color) !important;
   text-decoration: none;
   font-size: 0.8rem;
 }
