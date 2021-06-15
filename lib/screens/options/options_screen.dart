@@ -231,7 +231,8 @@ class _OptionsScreenState extends State<OptionsScreen> {
     dismissAllToast();
     String? contactEmail = Util.cfg.getDeepValue<String>("contactEmail");
     if (contactEmail != null && contactEmail.trim() != '') {
-      Util.launchURL("mailto:$contactEmail");
+      String subject = Uri.encodeComponent("Hola DolarBot!");
+      Util.launchURL("mailto:$contactEmail?subject=$subject");
     } else {
       Future.delayed(
         const Duration(milliseconds: 500),
