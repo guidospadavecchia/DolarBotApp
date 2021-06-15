@@ -36,9 +36,9 @@ class Util {
   }
 
   static Future<void> launchURL(String url) async {
-    if (await canLaunch(url)) {
+    try {
       await launch(url);
-    } else {
+    } catch (e) {
       Future.delayed(
         const Duration(milliseconds: 100),
         () => showToastWidget(
