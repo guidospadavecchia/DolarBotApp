@@ -6,7 +6,7 @@
     "historicalRateSaveFrequencyMinutes": 15,
     "taxPercent": 65,
     "github": {
-        "app": "https://github.com/guidospadavecchia/DolarBotApp",
+        "app": "YOUR_LINK_HERE",
         "authors": [
             {
                 "name": "YOUR_NAME_HERE",
@@ -15,14 +15,13 @@
         ]
     },
     "discordUrl": "DISCORD_LINK_HERE",
-    "termsOfServiceUrls": {
-        "lite": "YOUR_TOS_HERE",
-        "pro": "YOUR_TOS_HERE"
-    },
+    "contactEmail": "YOUR_EMAIL_HERE",
+    "termsOfServiceUrl": "YOUR_LINK_HERE",
+    "privacyPolicyUrl": "YOUR_LINK_HERE",
     "playStoreUrls": {
-        "lite": "https://play.google.com/store/apps/details?id=ar.dolarbot",
-        "pro": "https://play.google.com/store/apps/details?id=ar.dolarbot.pro",
-        "devPage": "https://play.google.com/store/apps/dev?id=5199794200136245272"
+        "lite": "YOUR_LINK_HERE",
+        "pro": "YOUR_LINK_HERE",
+        "devPage": "YOUR_LINK_HERE"
     },
     "share": {
         "subject": "DolarBot",

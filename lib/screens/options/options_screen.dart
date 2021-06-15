@@ -101,14 +101,6 @@ class _OptionsScreenState extends State<OptionsScreen> {
               onTap: () => _showCardGestureDismissDialog(context),
               disableHighlight: false,
             ),
-            MenuItem(
-              text: "Limpiar cotizaciones históricas",
-              subtitle: "Elimina los datos de las cotizaciones consultadas",
-              leading: const Icon(FontAwesomeIcons.eraser),
-              depthLevel: 1,
-              disableHighlight: false,
-              onTap: () => _showClearHistoricalDataDialog(context),
-            ),
             _buildDivider("Otros"),
             MenuItem(
               text: "Ayuda",
@@ -122,12 +114,20 @@ class _OptionsScreenState extends State<OptionsScreen> {
               },
             ),
             MenuItem(
-              text: "Legales",
-              subtitle: "Terminos de uso y renuncia de responsabilidad",
-              leading: const Icon(FontAwesomeIcons.fileContract),
+              text: "Contacto",
+              subtitle: "¿Problemas o sugerencias? ¡Escribínos!",
+              leading: const Icon(FontAwesomeIcons.solidEnvelope),
               depthLevel: 1,
               disableHighlight: false,
-              onTap: () => _showTermsAndConditions(context),
+              onTap: () => _showSendMail(context),
+            ),
+            MenuItem(
+              text: "Limpiar cotizaciones históricas",
+              subtitle: "Elimina los datos de las cotizaciones consultadas",
+              leading: const Icon(FontAwesomeIcons.eraser),
+              depthLevel: 1,
+              disableHighlight: false,
+              onTap: () => _showClearHistoricalDataDialog(context),
             ),
             MenuItem(
               text: "Información de la aplicación",
@@ -136,6 +136,23 @@ class _OptionsScreenState extends State<OptionsScreen> {
               depthLevel: 1,
               disableHighlight: false,
               onTap: () => Navigator.of(context).pushNamed("/about"),
+            ),
+            _buildDivider("Legales"),
+            MenuItem(
+              text: "Términos de uso",
+              subtitle: "La letra chica",
+              leading: const Icon(FontAwesomeIcons.solidFileAlt),
+              depthLevel: 1,
+              disableHighlight: false,
+              onTap: () => _showTermsAndConditions(context),
+            ),
+            MenuItem(
+              text: "Política de Privacidad",
+              subtitle: "Qué datos recolectamos",
+              leading: const Icon(FontAwesomeIcons.fileContract),
+              depthLevel: 1,
+              disableHighlight: false,
+              onTap: () => _showPrivacyPolicy(context),
             ),
           ],
         ),
@@ -211,11 +228,35 @@ class _OptionsScreenState extends State<OptionsScreen> {
     );
   }
 
+  _showSendMail(BuildContext context) {
+    dismissAllToast();
+    String? contactEmail = Util.cfg.getDeepValue<String>("contactEmail");
+    if (contactEmail != null && contactEmail.trim() != '') {
+      Util.launchURL("mailto:$contactEmail");
+    } else {
+      Future.delayed(
+        const Duration(milliseconds: 500),
+        () => showToastWidget(ToastError()),
+      );
+    }
+  }
+
+  _showPrivacyPolicy(BuildContext context) {
+    dismissAllToast();
+    String? url = Util.cfg.getDeepValue<String>("privacyPolicyUrl");
+    if (url != null && url.trim() != '') {
+      Util.launchURL(url);
+    } else {
+      Future.delayed(
+        const Duration(milliseconds: 500),
+        () => showToastWidget(ToastError()),
+      );
+    }
+  }
+
   _showTermsAndConditions(BuildContext context) {
     dismissAllToast();
-    String? url = AppConfig.of(context).flavor == AppFlavor.Lite
-        ? Util.cfg.getDeepValue<String>("termsOfServiceUrls:lite")
-        : Util.cfg.getDeepValue<String>("termsOfServiceUrls:pro");
+    String? url = Util.cfg.getDeepValue<String>("termsOfServiceUrl");
     if (url != null && url.trim() != '') {
       Util.launchURL(url);
     } else {
