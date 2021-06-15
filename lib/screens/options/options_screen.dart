@@ -1,5 +1,4 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
-import 'package:dolarbot_app/classes/app_config.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:dolarbot_app/classes/settings.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
