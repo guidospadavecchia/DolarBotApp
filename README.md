@@ -8,7 +8,7 @@
 </p>  
 
 ## Status
-[![Site](https://img.shields.io/website?down_color=red&down_message=offline&up_message=online&url=https%3A%2F%2Fdolarbot.com.ar)](https://dolarbot.com.ar)
+[![Site](https://img.shields.io/website?down_color=red&down_message=offline&up_message=online&url=https%3A%2F%2Fdolarbot.com.ar&style=flat-square)](https://dolarbot.com.ar)
 [![API](https://img.shields.io/github/package-json/v/guidospadavecchia/DolarBot-Api?color=teal&label=api&style=flat-square)](https://dolarbot-api.herokuapp.com/)
 [![Discord](https://img.shields.io/discord/752312522769694780?color=7289DA&label=Support%20Server&style=flat-square)](https://discord.gg/tCkbjuM)
 [![License](https://img.shields.io/github/license/guidospadavecchia/DolarBotApp?color=orange&style=flat-square)](https://github.com/guidospadavecchia/DolarBotApp/blob/main/LICENSE)
