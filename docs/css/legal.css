@@ -1,7 +1,5 @@
 :root {
-  --bg-color-1: #2d831e;
-  --bg-color-2: #299721;
-  --bg-color-3: #24e02d;
+  --bg-color: #32B129;
   --primary-color: #11681d;
   --accent-color: #a6f533;
   --base-color: #ffffff;
@@ -45,33 +43,14 @@
 
 body {
   margin: auto;
-  background: var(--primary-color);
-  background: -webkit-linear-gradient(
-    0deg,
-    var(--bg-color-1),
-    var(--bg-color-2),
-    var(--bg-color-3)
-  );
-  background: -o-linear-gradient(
-    0deg,
-    var(--bg-color-1),
-    var(--bg-color-2),
-    var(--bg-color-3)
-  );
-  background: -moz-linear-gradient(
-    0deg,
-    var(--bg-color-1),
-    var(--bg-color-2),
-    var(--bg-color-3)
-  );
-  background: linear-gradient(
-    0deg,
-    var(--bg-color-1),
-    var(--bg-color-2),
-    var(--bg-color-3)
-  );
+  background-image: url("../images/background.png");
+  background-color: var(--bg-color);
   background-repeat: no-repeat;
-  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
 }
 
 #container {
@@ -217,6 +196,10 @@ body {
 }
 
 @media (max-width: 900px) {
+  #container {
+    height: auto;
+  }
+  
   #logo {
     margin-top: 2rem;
   }
