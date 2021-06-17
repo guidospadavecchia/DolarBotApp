@@ -196,10 +196,6 @@ body {
 }
 
 @media (max-width: 900px) {
-  #container {
-    height: auto;
-  }
-  
   #logo {
     margin-top: 2rem;
   }
