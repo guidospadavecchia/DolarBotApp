@@ -1,5 +1,5 @@
 :root {
-  --bg-color: #32B129;
+  --bg-color: #32b129;
   --primary-color: #11681d;
   --accent-color: #a6f533;
   --base-color: #ffffff;
@@ -150,13 +150,17 @@ body {
   padding-bottom: 2rem;
 }
 
-#footer .social-media img {
+#footer .social-media div {
   cursor: pointer;
-  height: 32px;
   opacity: 0.6;
+  filter: none;
+  backface-visibility: hidden;
+  -webkit-filter: blur(0px);
+  -moz-filter: blur(0px);
+  -ms-filter: blur(0px);
 }
 
-#footer .social-media img:hover {
+#footer .social-media div:hover {
   transform: scale(1.1);
   opacity: 1;
 }
@@ -181,6 +185,30 @@ body {
 
 .google-play-button:hover {
   cursor: pointer;
+}
+
+.ab-icon {
+  background-image: url("../images/ab_l.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 52px;
+  height: 32px;
+}
+
+.discord-icon {
+  background-image: url("../images/discord_l.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 42px;
+  height: 32px;
+}
+
+.github-icon {
+  background-image: url("../images/github_l.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 33px;
+  height: 32px;
 }
 
 @media (max-width: 900px) {
