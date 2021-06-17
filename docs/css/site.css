@@ -45,6 +45,8 @@ body {
   margin: auto;
   background-image: url("../images/background.png");
   background-color: var(--bg-color);
+  background-repeat: no-repeat;
+  background-position: center;
   background-size: cover;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -182,6 +184,10 @@ body {
 }
 
 @media (max-width: 900px) {
+  #container {
+    height: auto;
+  }
+
   #logo {
     margin-top: 5rem;
   }
