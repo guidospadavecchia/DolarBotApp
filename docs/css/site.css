@@ -49,19 +49,7 @@ body {
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
-  -webkit-animation: fadeIn 1s;
-  animation: fadeIn 1s;
 }
-
-  @-webkit-keyframes fadeIn {
-    from {opacity: 0.2;}
-    to {opacity: 1;}
-  }
-
-  @keyframes fadeIn {
-    from {opacity: 0.2;}
-    to {opacity: 1;}
-  }
 
 #container {
   height: 100vh;
