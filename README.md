@@ -45,8 +45,11 @@ La aplicación es **100% open-source**, y **gratuita** para la versión **Lite**
 Colaborá con el desarrollo de **DolarBot** enviando tu [pull request](https://github.com/guidospadavecchia/DolarBotApp/pulls). 
 
 ## Autores
-- **Guido Spadavecchia** (Contacto: guido.spadavecchia@gmail.com).  
-- **Juan Manuel Flecha** (Contacto: flechajm@gmail.com).  
+- **Guido Spadavecchia**
+- **Juan Manuel Flecha**
+
+## Contacto
+[hola@dolarbot.com.ar](mailto:hola@dolarbot.com.ar?subject=Hola%20DolarBot%21)
 
 ## Licencia
 **DolarBot** es ***100% open-source***. Está licenciado bajo la [GNU General Public License v3.0](https://github.com/guidospadavecchia/DolarBotApp/blob/main/LICENSE).
