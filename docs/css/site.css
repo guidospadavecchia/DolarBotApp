@@ -188,7 +188,7 @@ body {
 }
 
 .ab-icon {
-  background-image: url("../images/ab_l.png");
+  background-image: url("../images/ab.png");
   background-repeat: no-repeat;
   background-size: contain;
   width: 52px;
@@ -196,7 +196,7 @@ body {
 }
 
 .discord-icon {
-  background-image: url("../images/discord_l.png");
+  background-image: url("../images/discord.png");
   background-repeat: no-repeat;
   background-size: contain;
   width: 42px;
@@ -204,7 +204,7 @@ body {
 }
 
 .github-icon {
-  background-image: url("../images/github_l.png");
+  background-image: url("../images/github.png");
   background-repeat: no-repeat;
   background-size: contain;
   width: 33px;
