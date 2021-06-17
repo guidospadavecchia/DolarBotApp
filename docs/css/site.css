@@ -1,7 +1,5 @@
 :root {
-  --bg-color-1: #2d831e;
-  --bg-color-2: #299721;
-  --bg-color-3: #24e02d;
+  --bg-color: #32B129;
   --primary-color: #11681d;
   --accent-color: #a6f533;
   --base-color: #ffffff;
@@ -45,34 +43,25 @@
 
 body {
   margin: auto;
-  background: var(--primary-color);
-  background: -webkit-linear-gradient(
-    0deg,
-    var(--bg-color-1),
-    var(--bg-color-2),
-    var(--bg-color-3)
-  );
-  background: -o-linear-gradient(
-    0deg,
-    var(--bg-color-1),
-    var(--bg-color-2),
-    var(--bg-color-3)
-  );
-  background: -moz-linear-gradient(
-    0deg,
-    var(--bg-color-1),
-    var(--bg-color-2),
-    var(--bg-color-3)
-  );
-  background: linear-gradient(
-    0deg,
-    var(--bg-color-1),
-    var(--bg-color-2),
-    var(--bg-color-3)
-  );
-  background-repeat: no-repeat;
-  background-attachment: fixed;
+  background-image: url("../images/background.png");
+  background-color: var(--bg-color);
+  background-size: cover;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s;
 }
+
+  @-webkit-keyframes fadeIn {
+    from {opacity: 0.2;}
+    to {opacity: 1;}
+  }
+
+  @keyframes fadeIn {
+    from {opacity: 0.2;}
+    to {opacity: 1;}
+  }
 
 #container {
   height: 100vh;
