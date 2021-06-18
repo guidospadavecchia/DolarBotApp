@@ -43,8 +43,8 @@ class _FormatCurrencyDialogState extends State<FormatCurrencyDialog> {
               Padding(
                 padding: EdgeInsets.only(
                   top: SizeConfig.blockSizeVertical * 3,
-                  left: SizeConfig.blockSizeHorizontal * 5,
-                  right: SizeConfig.blockSizeHorizontal * 5,
+                  left: SizeConfig.blockSizeHorizontal * 7,
+                  right: SizeConfig.blockSizeHorizontal * 7,
                 ),
                 child: const Text(
                   "Elegí el formato de moneda que aparecerá en todas las cotizaciones:",

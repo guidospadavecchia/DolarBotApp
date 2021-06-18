@@ -29,8 +29,9 @@ class _ClearHistoricalDataDialogState extends State<ClearHistoricalDataDialog> {
             children: [
               Padding(
                 padding: EdgeInsets.symmetric(
-                    horizontal: SizeConfig.blockSizeHorizontal * 5,
-                    vertical: SizeConfig.blockSizeVertical * 3),
+                  horizontal: SizeConfig.blockSizeHorizontal * 7,
+                  vertical: SizeConfig.blockSizeVertical * 3,
+                ),
                 child: const Text(
                   "Al limpiar los datos de las cotizaciones, dejará de mostrarse la información guardada relativa a los gráficos históricos.",
                   textAlign: TextAlign.center,
@@ -40,7 +41,7 @@ class _ClearHistoricalDataDialogState extends State<ClearHistoricalDataDialog> {
                 height: SizeConfig.blockSizeVertical,
               ),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: SizeConfig.blockSizeHorizontal * 5),
+                padding: EdgeInsets.symmetric(horizontal: SizeConfig.blockSizeHorizontal * 7),
                 child: const Text(
                   "¿Estás seguro que deseas continuar?",
                   textAlign: TextAlign.center,
@@ -52,8 +53,9 @@ class _ClearHistoricalDataDialogState extends State<ClearHistoricalDataDialog> {
               Center(
                 child: Padding(
                   padding: EdgeInsets.symmetric(
-                      horizontal: SizeConfig.blockSizeHorizontal * 5,
-                      vertical: SizeConfig.blockSizeVertical * 3),
+                    horizontal: SizeConfig.blockSizeHorizontal * 7,
+                    vertical: SizeConfig.blockSizeVertical * 3,
+                  ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

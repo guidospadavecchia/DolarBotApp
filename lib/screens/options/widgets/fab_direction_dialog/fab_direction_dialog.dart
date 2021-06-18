@@ -45,8 +45,8 @@ class _FabDirectionDialogState extends State<FabDirectionDialog> {
               Padding(
                 padding: EdgeInsets.only(
                   top: SizeConfig.blockSizeVertical * 3,
-                  left: SizeConfig.blockSizeHorizontal * 5,
-                  right: SizeConfig.blockSizeHorizontal * 5,
+                  left: SizeConfig.blockSizeHorizontal * 7,
+                  right: SizeConfig.blockSizeHorizontal * 7,
                 ),
                 child: const Text(
                   "Elegí la dirección en la que se desplegará el menú de acciones en las pantallas de cotización:",

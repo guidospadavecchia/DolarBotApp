@@ -50,9 +50,10 @@ class _CardGestureDismissDialogState extends State<CardGestureDismissDialog> {
               children: [
                 Padding(
                   padding: EdgeInsets.only(
-                      top: SizeConfig.blockSizeVertical * 3,
-                      left: SizeConfig.blockSizeHorizontal * 5,
-                      right: SizeConfig.blockSizeHorizontal * 5),
+                    top: SizeConfig.blockSizeVertical * 3,
+                    left: SizeConfig.blockSizeHorizontal * 7,
+                    right: SizeConfig.blockSizeHorizontal * 7,
+                  ),
                   child: const Text(
                       "Seleccioná la forma que te quede más cómoda para eliminar las tarjetas del Inicio:"),
                 ),
