@@ -200,8 +200,8 @@ class SimpleFabMenuState extends State<SimpleFabMenu> with SingleTickerProviderS
 
   _getScreenInset() {
     return widget.direction == Axis.vertical
-        ? MediaQuery.of(context).viewInsets.bottom + widget.animationForce
-        : MediaQuery.of(context).viewInsets.right + widget.animationForce;
+        ? SizeConfig.viewInsets.bottom + widget.animationForce
+        : SizeConfig.viewInsets.right + widget.animationForce;
   }
 }
 

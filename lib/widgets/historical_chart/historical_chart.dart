@@ -1,5 +1,6 @@
 import 'package:dolarbot_app/classes/hive/historical_rate.dart';
 import 'package:dolarbot_app/classes/settings.dart';
+import 'package:dolarbot_app/classes/size_config.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
 import 'package:dolarbot_app/widgets/common/simple_button.dart';
 import 'package:dolarbot_app/widgets/historical_chart/factory/historical_chart_data.dart';
@@ -56,7 +57,7 @@ class _HistoricalChartState extends State<HistoricalChart> with TickerProviderSt
     }
 
     return Container(
-      height: MediaQuery.of(context).size.height * 0.7,
+      height: SizeConfig.screenHeight * 0.7,
       decoration: BoxDecoration(
         border: Border.all(
           color: Colors.white.withOpacity(0.2),
@@ -172,7 +173,7 @@ class _HistoricalChartState extends State<HistoricalChart> with TickerProviderSt
         constrained: false,
         child: Container(
           width: _calculateChartWidth(context),
-          height: MediaQuery.of(context).size.height,
+          height: SizeConfig.screenHeight,
           child: LineChart(
             LineChartData(
               gridData: _getGridData(context, rateData),
@@ -230,10 +231,9 @@ class _HistoricalChartState extends State<HistoricalChart> with TickerProviderSt
 
   double _calculateChartWidth(BuildContext context) {
     if (historicalChartData.ratesData.length <= 10) {
-      return MediaQuery.of(context).size.width * 2;
+      return SizeConfig.screenWidth * 2;
     } else {
-      return MediaQuery.of(context).size.width *
-          (2 + (historicalChartData.ratesData.length * 0.02));
+      return SizeConfig.screenWidth * (2 + (historicalChartData.ratesData.length * 0.02));
     }
   }
 
@@ -262,7 +262,7 @@ class _HistoricalChartState extends State<HistoricalChart> with TickerProviderSt
         fitInsideVertically: true,
         fitInsideHorizontally: true,
         tooltipBgColor: Colors.black54.withOpacity(0.7),
-        maxContentWidth: MediaQuery.of(context).size.width / 2,
+        maxContentWidth: SizeConfig.screenWidth / 2,
         tooltipRoundedRadius: 15,
         getTooltipItems: (touchedSpots) {
           NumberFormat numberFormat =

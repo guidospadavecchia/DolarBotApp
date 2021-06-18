@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:dolarbot_app/classes/size_config.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:dolarbot_app/widgets/common/blur_dialog.dart';
 import 'package:dolarbot_app/widgets/common/simple_button.dart';
@@ -18,7 +19,7 @@ class HistoricalChartHelpDialog extends StatelessWidget {
       dialog: Dialog(
         insetPadding: const EdgeInsets.all(25),
         child: Container(
-          width: MediaQuery.of(context).size.width * 0.8,
+          width: SizeConfig.screenWidth * 0.8,
           padding: const EdgeInsets.only(bottom: 20),
           child: Column(
             mainAxisSize: MainAxisSize.min,

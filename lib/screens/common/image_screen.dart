@@ -1,3 +1,4 @@
+import 'package:dolarbot_app/classes/size_config.dart';
 import 'package:flutter/material.dart';
 
 class ImageScreen extends StatelessWidget {
@@ -35,7 +36,7 @@ class ImageScreen extends StatelessWidget {
           Opacity(
             opacity: imageOpacity,
             child: Container(
-              height: imageHeight ?? MediaQuery.of(context).size.height / 5,
+              height: imageHeight ?? SizeConfig.screenHeight / 5,
               decoration: BoxDecoration(
                 image: new DecorationImage(
                   fit: BoxFit.scaleDown,

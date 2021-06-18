@@ -164,9 +164,9 @@ class HomeScreenState extends State<HomeScreen> {
         child: Center(
           child: Container(
             constraints: const BoxConstraints(maxWidth: 400),
-            height: MediaQuery.of(context).size.height,
+            height: SizeConfig.screenHeight,
             padding: EdgeInsets.only(
-                bottom: MediaQuery.of(context).viewInsets.bottom +
+                bottom: SizeConfig.viewInsets.bottom +
                     (AppConfig.of(context).flavor == AppFlavor.Lite ? 160 : 100)),
             child: NotificationListener<OverscrollIndicatorNotification>(
               onNotification: (OverscrollIndicatorNotification overScroll) {

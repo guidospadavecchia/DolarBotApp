@@ -1,4 +1,5 @@
 import 'package:dolarbot_app/classes/app_config.dart';
+import 'package:dolarbot_app/classes/size_config.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:dolarbot_app/widgets/common/pills/pro_pill.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +7,7 @@ import 'package:flutter/material.dart';
 class DrawerMenuHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final paddingTop = MediaQuery.of(context).padding.top + 15;
+    final paddingTop = SizeConfig.padding.top + 15;
 
     return Column(
       children: [

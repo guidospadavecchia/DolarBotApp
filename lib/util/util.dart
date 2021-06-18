@@ -2,6 +2,7 @@ import 'dart:ui' as ui;
 import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:dolarbot_app/classes/size_config.dart';
 import 'package:dolarbot_app/widgets/steps/first_time_dialog.dart';
 import 'package:dolarbot_app/widgets/common/toasts/toast_error.dart';
 import 'package:flutter/foundation.dart';
@@ -53,7 +54,7 @@ class Util {
 
     await createImageFromWidget(
             Container(
-              width: MediaQuery.of(context).size.width,
+              width: SizeConfig.screenWidth,
               child: MediaQuery(
                 data: MediaQueryData(),
                 child: Container(
