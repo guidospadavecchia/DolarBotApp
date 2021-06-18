@@ -27,7 +27,6 @@ class _AdContainerState extends State<AdContainer> {
         () {
           banner = BannerAd(
             size: BannerSize.BANNER,
-            loading: _AdLoading(),
             error: _AdError(),
           );
         },
@@ -54,7 +53,7 @@ class _AdContainerState extends State<AdContainer> {
           ),
         ],
       ),
-      height: BannerSize.BANNER.size.height + 10,
+      height: BannerSize.BANNER.size.height,
       child: Center(
         child: Container(
           color: Colors.transparent,
@@ -79,20 +78,6 @@ class _AdError extends StatelessWidget {
         FontAwesomeIcons.solidFrown,
         size: 36,
         color: ThemeManager.getAdErrorIconColor(context),
-      ),
-    );
-  }
-}
-
-class _AdLoading extends StatelessWidget {
-  const _AdLoading({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: LoadingIndicator(
-        color: ThemeManager.getLoadingIndicatorColor(context),
-        indicatorType: Indicator.ballPulse,
       ),
     );
   }
