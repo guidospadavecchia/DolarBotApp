@@ -1,3 +1,4 @@
+import 'package:dolarbot_app/classes/size_config.dart';
 import 'package:dolarbot_app/widgets/common/pro_features/pro_features_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
@@ -30,10 +31,15 @@ class MenuItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double _paddingOffset = 15;
+    final double leftPaddingOffset = SizeConfig.blockSizeHorizontal * 4.5;
+    final double rightPaddingOffset = SizeConfig.blockSizeHorizontal * 4.5;
+    final double fontSizeTitle = SizeConfig.blockSizeVertical * 2;
+    final double fontSizeSubtitle = SizeConfig.blockSizeVertical * 1.4;
+    final double leadingLeftPadding = SizeConfig.blockSizeHorizontal * 3;
+    final double leadingTopPadding = SizeConfig.blockSizeVertical;
 
     EdgeInsetsGeometry _calculatePaddingOffset() {
-      return EdgeInsets.only(left: depthLevel * _paddingOffset, right: 20);
+      return EdgeInsets.only(left: depthLevel * leftPaddingOffset, right: rightPaddingOffset);
     }
 
     return (!lockedBehindProFeature && subItems != null && subItems!.length > 0)
@@ -44,21 +50,23 @@ class MenuItem extends StatelessWidget {
               title: Text(
                 text,
                 style: TextStyle(
-                    fontSize: 16,
+                    fontSize: fontSizeTitle,
                     fontFamily: 'Raleway',
                     color: textColor ?? ThemeManager.getPrimaryTextColor(context),
                     fontWeight: FontWeight.w600),
               ),
               leading: Padding(
-                padding: const EdgeInsets.only(left: 12),
+                padding: EdgeInsets.only(
+                  left: leadingLeftPadding,
+                ),
                 child: leading,
               ),
               trailing: trailing,
               subtitle: subtitle != null
                   ? Text(
                       subtitle!,
-                      style: const TextStyle(
-                        fontSize: 12,
+                      style: TextStyle(
+                        fontSize: fontSizeSubtitle,
                         fontFamily: 'Raleway',
                         color: Colors.grey,
                       ),
@@ -74,21 +82,22 @@ class MenuItem extends StatelessWidget {
               title: Text(
                 text,
                 style: TextStyle(
-                    fontSize: 16,
+                    fontSize: fontSizeTitle,
                     fontFamily: 'Raleway',
                     color: textColor ?? ThemeManager.getPrimaryTextColor(context),
                     fontWeight: FontWeight.w600),
               ),
               leading: Padding(
-                padding: EdgeInsets.only(top: subtitle != null ? 7 : 0, left: 12),
+                padding: EdgeInsets.only(
+                    top: subtitle != null ? leadingTopPadding : 0, left: leadingLeftPadding),
                 child: leading,
               ),
               trailing: lockedBehindProFeature ? ProPill() : trailing,
               subtitle: subtitle != null
                   ? Text(
                       subtitle!,
-                      style: const TextStyle(
-                        fontSize: 12,
+                      style: TextStyle(
+                        fontSize: fontSizeSubtitle,
                         fontFamily: 'Raleway',
                         color: Colors.grey,
                       ),

@@ -21,6 +21,8 @@ class _FormatCurrencyDialogState extends State<FormatCurrencyDialog> {
 
   @override
   Widget build(BuildContext context) {
+    final double fontSizeTitle = SizeConfig.blockSizeVertical * 2.3;
+    final double fontSizeSubtitle = SizeConfig.blockSizeVertical * 1.8;
     _currencyFormat = Provider.of<Settings>(context, listen: false).getCurrencyFormat();
 
     if (_actualCurrencyFormat == null) {
@@ -29,34 +31,43 @@ class _FormatCurrencyDialogState extends State<FormatCurrencyDialog> {
 
     return BlurDialog(
       dialog: Dialog(
-        insetPadding: const EdgeInsets.all(25),
+        insetPadding: EdgeInsets.all(SizeConfig.blockSizeVertical * 3),
         child: Container(
           width: SizeConfig.screenWidth * 0.8,
-          height: 310,
+          height: SizeConfig.screenHeight * 0.45,
           child: Column(
             mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Padding(
-                padding: const EdgeInsets.only(left: 25, right: 25),
+              Padding(
+                padding: EdgeInsets.only(
+                  top: SizeConfig.blockSizeVertical * 3,
+                  left: SizeConfig.blockSizeHorizontal * 5,
+                  right: SizeConfig.blockSizeHorizontal * 5,
+                ),
                 child: const Text(
-                    "Elegí el formato de moneda que aparecerá en todas las cotizaciones:"),
+                  "Elegí el formato de moneda que aparecerá en todas las cotizaciones:",
+                ),
               ),
-              const SizedBox(
-                height: 10,
+              Expanded(
+                child: SizedBox.shrink(),
               ),
               Container(
-                width: 230,
                 child: RadioListTile<String>(
-                  title: const Text(
+                  title: Text(
                     'Argentina',
-                    style: const TextStyle(
-                      fontSize: 16,
+                    style: TextStyle(
+                      fontSize: fontSizeTitle,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                  subtitle: const Text('Ejemplo: \$1.234,56'),
+                  subtitle: Text(
+                    'Ejemplo: \$1.234,56',
+                    style: TextStyle(
+                      fontSize: fontSizeSubtitle,
+                    ),
+                  ),
                   value: CurrencyFormats.AR.value,
                   groupValue: _actualCurrencyFormat,
                   activeColor: ThemeManager.getPrimaryAccentColor(context),
@@ -67,17 +78,24 @@ class _FormatCurrencyDialogState extends State<FormatCurrencyDialog> {
                   },
                 ),
               ),
+              SizedBox(
+                height: SizeConfig.blockSizeVertical,
+              ),
               Container(
-                width: 230,
                 child: RadioListTile<String>(
-                  title: const Text(
+                  title: Text(
                     'Estados Unidos',
-                    style: const TextStyle(
-                      fontSize: 16,
+                    style: TextStyle(
+                      fontSize: fontSizeTitle,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                  subtitle: const Text('Ejemplo: \$1,234.56'),
+                  subtitle: Text(
+                    'Ejemplo: \$1,234.56',
+                    style: TextStyle(
+                      fontSize: fontSizeSubtitle,
+                    ),
+                  ),
                   value: CurrencyFormats.US.value,
                   groupValue: _actualCurrencyFormat,
                   activeColor: ThemeManager.getPrimaryAccentColor(context),
@@ -88,14 +106,21 @@ class _FormatCurrencyDialogState extends State<FormatCurrencyDialog> {
                   },
                 ),
               ),
-              const SizedBox(
-                height: 20,
+              Expanded(
+                child: SizedBox.shrink(),
               ),
               Center(
-                child: SimpleButton(
-                  text: 'Aplicar',
-                  icon: Icons.check_outlined,
-                  onPressed: () => saveValueAndPop(_actualCurrencyFormat!),
+                child: Padding(
+                  padding: EdgeInsets.only(
+                    left: SizeConfig.blockSizeHorizontal * 5,
+                    right: SizeConfig.blockSizeHorizontal * 5,
+                    bottom: SizeConfig.blockSizeVertical * 3,
+                  ),
+                  child: SimpleButton(
+                    text: 'Aplicar',
+                    icon: Icons.check_outlined,
+                    onPressed: () => saveValueAndPop(_actualCurrencyFormat!),
+                  ),
                 ),
               )
             ],

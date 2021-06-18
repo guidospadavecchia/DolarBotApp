@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:dolarbot_app/classes/size_config.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:dolarbot_app/classes/settings.dart';
 import 'package:dolarbot_app/widgets/common/blur_dialog.dart';
@@ -20,6 +21,8 @@ class _FabDirectionDialogState extends State<FabDirectionDialog> {
 
   @override
   Widget build(BuildContext context) {
+    final double fontSizeTitle = SizeConfig.blockSizeVertical * 2.3;
+    final double fontSizeSubtitle = SizeConfig.blockSizeVertical * 1.8;
     _fabDirection = Provider.of<Settings>(context, listen: false).getFabDirection();
 
     if (_actualFabDirection == null) {
@@ -28,34 +31,45 @@ class _FabDirectionDialogState extends State<FabDirectionDialog> {
 
     return BlurDialog(
       dialog: Dialog(
-        insetPadding: const EdgeInsets.all(25),
+        insetPadding: EdgeInsets.all(
+          SizeConfig.blockSizeVertical * 3,
+        ),
         child: Container(
-          width: MediaQuery.of(context).size.width * 0.8,
-          height: 320,
+          width: SizeConfig.screenWidth * 0.8,
+          height: SizeConfig.screenHeight * 0.45,
           child: Column(
             mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Padding(
-                padding: const EdgeInsets.only(left: 25, right: 25),
+              Padding(
+                padding: EdgeInsets.only(
+                  top: SizeConfig.blockSizeVertical * 3,
+                  left: SizeConfig.blockSizeHorizontal * 5,
+                  right: SizeConfig.blockSizeHorizontal * 5,
+                ),
                 child: const Text(
-                    "Elegí la dirección en la que se desplegará el menú de acciones en las pantallas de cotización:"),
+                  "Elegí la dirección en la que se desplegará el menú de acciones en las pantallas de cotización:",
+                ),
               ),
-              const SizedBox(
-                height: 10,
+              Expanded(
+                child: SizedBox.shrink(),
               ),
               Container(
-                width: 280,
                 child: RadioListTile<Axis>(
-                  title: const Text(
+                  title: Text(
                     'Vertical',
-                    style: const TextStyle(
-                      fontSize: 16,
+                    style: TextStyle(
+                      fontSize: fontSizeTitle,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                  subtitle: const Text('Despliegue hacia arriba.'),
+                  subtitle: Text(
+                    'Despliegue hacia arriba.',
+                    style: TextStyle(
+                      fontSize: fontSizeSubtitle,
+                    ),
+                  ),
                   value: Axis.vertical,
                   groupValue: _actualFabDirection,
                   activeColor: ThemeManager.getPrimaryAccentColor(context),
@@ -66,17 +80,24 @@ class _FabDirectionDialogState extends State<FabDirectionDialog> {
                   },
                 ),
               ),
+              SizedBox(
+                height: SizeConfig.blockSizeVertical,
+              ),
               Container(
-                width: 280,
                 child: RadioListTile<Axis>(
                   title: Text(
                     'Horizontal',
-                    style: const TextStyle(
-                      fontSize: 16,
+                    style: TextStyle(
+                      fontSize: fontSizeTitle,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                  subtitle: const Text('Despliegue hacia la izquierda.'),
+                  subtitle: Text(
+                    'Despliegue hacia la izquierda.',
+                    style: TextStyle(
+                      fontSize: fontSizeSubtitle,
+                    ),
+                  ),
                   value: Axis.horizontal,
                   groupValue: _actualFabDirection,
                   activeColor: ThemeManager.getPrimaryAccentColor(context),
@@ -87,14 +108,21 @@ class _FabDirectionDialogState extends State<FabDirectionDialog> {
                   },
                 ),
               ),
-              const SizedBox(
-                height: 20,
+              Expanded(
+                child: SizedBox.shrink(),
               ),
               Center(
-                child: SimpleButton(
-                  text: 'Aplicar',
-                  icon: Icons.check_outlined,
-                  onPressed: () => saveValueAndPop(_actualFabDirection!),
+                child: Padding(
+                  padding: EdgeInsets.only(
+                    left: SizeConfig.blockSizeHorizontal * 5,
+                    right: SizeConfig.blockSizeHorizontal * 5,
+                    bottom: SizeConfig.blockSizeVertical * 3,
+                  ),
+                  child: SimpleButton(
+                    text: 'Aplicar',
+                    icon: Icons.check_outlined,
+                    onPressed: () => saveValueAndPop(_actualFabDirection!),
+                  ),
                 ),
               )
             ],

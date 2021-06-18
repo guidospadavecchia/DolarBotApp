@@ -1,3 +1,4 @@
+import 'package:dolarbot_app/classes/size_config.dart';
 import 'package:dolarbot_app/widgets/common/blur_dialog.dart';
 import 'package:dolarbot_app/widgets/common/simple_button.dart';
 import 'package:dolarbot_app/widgets/common/toasts/toast_ok.dart';
@@ -15,47 +16,56 @@ class _ClearHistoricalDataDialogState extends State<ClearHistoricalDataDialog> {
   Widget build(BuildContext context) {
     return BlurDialog(
       dialog: Dialog(
-        insetPadding: const EdgeInsets.all(25),
+        insetPadding: EdgeInsets.all(
+          SizeConfig.blockSizeVertical * 3,
+        ),
         child: Container(
-          width: MediaQuery.of(context).size.width * 0.8,
-          height: 230,
+          width: SizeConfig.screenWidth * 0.8,
+          height: SizeConfig.screenHeight * 0.35,
           child: Column(
             mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Padding(
-                padding: const EdgeInsets.only(left: 25, right: 25),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: SizeConfig.blockSizeHorizontal * 5,
+                    vertical: SizeConfig.blockSizeVertical * 3),
                 child: const Text(
                   "Al limpiar los datos de las cotizaciones, dejará de mostrarse la información guardada relativa a los gráficos históricos.",
                   textAlign: TextAlign.center,
                 ),
               ),
-              const SizedBox(
-                height: 30,
+              SizedBox(
+                height: SizeConfig.blockSizeVertical,
               ),
-              const Padding(
-                padding: const EdgeInsets.only(left: 25, right: 25),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: SizeConfig.blockSizeHorizontal * 5),
                 child: const Text(
                   "¿Estás seguro que deseas continuar?",
                   textAlign: TextAlign.center,
                 ),
               ),
-              const SizedBox(
-                height: 30,
+              Expanded(
+                child: SizedBox.shrink(),
               ),
               Center(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SimpleButton(
-                      text: 'Sí, eliminar',
-                      icon: Icons.delete,
-                      iconColor: Colors.red,
-                      textColor: Colors.red,
-                      onPressed: () => clearData(),
-                    ),
-                  ],
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: SizeConfig.blockSizeHorizontal * 5,
+                      vertical: SizeConfig.blockSizeVertical * 3),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SimpleButton(
+                        text: 'Sí, eliminar',
+                        icon: Icons.delete,
+                        iconColor: Colors.red,
+                        textColor: Colors.red,
+                        onPressed: () => clearData(),
+                      ),
+                    ],
+                  ),
                 ),
               )
             ],

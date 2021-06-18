@@ -1,4 +1,5 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
+import 'package:dolarbot_app/classes/size_config.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:dolarbot_app/classes/settings.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
@@ -171,24 +172,32 @@ class _OptionsScreenState extends State<OptionsScreen> {
   }
 
   _buildDivider(String text, {bool supressPaddingTop = false}) {
+    final EdgeInsets dividerPadding = EdgeInsets.only(
+      bottom: SizeConfig.blockSizeVertical,
+      top: supressPaddingTop ? 0 : SizeConfig.blockSizeVertical,
+    );
+    final EdgeInsets innerPadding = EdgeInsets.only(
+      left: SizeConfig.blockSizeHorizontal * 5,
+      top: supressPaddingTop ? 0 : SizeConfig.blockSizeVertical * 2,
+    );
     return Padding(
-      padding: EdgeInsets.only(bottom: 5, top: supressPaddingTop ? 0 : 10),
+      padding: dividerPadding,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
             width: double.infinity,
-            height: supressPaddingTop ? 0 : 10,
+            height: supressPaddingTop ? 0 : SizeConfig.blockSizeVertical * 1.5,
             color: ThemeManager.getDividerColor(context),
           ),
           Padding(
-            padding: EdgeInsets.only(left: 20, top: supressPaddingTop ? 0 : 20),
+            padding: innerPadding,
             child: Text(
               text,
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontFamily: 'Raleway',
-                  fontSize: 14,
+                  fontSize: SizeConfig.blockSizeVertical * 2,
                   color: ThemeManager.getPrimaryAccentColor(context)),
             ),
           ),
