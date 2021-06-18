@@ -119,13 +119,13 @@ class CardValue extends StatelessWidget {
   double _getSpaceMainAxisEnd() {
     switch (spaceMainAxisEnd) {
       case Spacing.small:
-        return 15;
-      case Spacing.medium:
-        return 20;
-      case Spacing.large:
-        return 25;
-      default:
         return 10;
+      case Spacing.medium:
+        return 15;
+      case Spacing.large:
+        return 20;
+      default:
+        return 5;
     }
   }
 }

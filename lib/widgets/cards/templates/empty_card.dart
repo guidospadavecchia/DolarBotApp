@@ -5,7 +5,7 @@ class EmptyCard extends BaseCard {
   EmptyCard()
       : super(
           title: '',
-          showShareButton: false,
+          showButtons: false,
           bannerTitle: '',
           gradiantColors: [],
           endpoint: '',

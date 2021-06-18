@@ -208,8 +208,6 @@ class Util {
     logicalSize ??= ui.window.physicalSize / ui.window.devicePixelRatio;
     imageSize ??= ui.window.physicalSize;
 
-    assert(logicalSize.aspectRatio == imageSize.aspectRatio);
-
     final RenderView renderView = RenderView(
       window: ui.window,
       child: RenderPositionedBox(

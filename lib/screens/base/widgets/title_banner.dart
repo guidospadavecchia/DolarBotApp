@@ -61,7 +61,7 @@ class TitleBanner extends StatelessWidget {
                           color: Colors.white,
                         ),
                       ),
-                SizedBox(width: SizeConfig.blockSizeHorizontal * 4),
+                SizedBox(width: SizeConfig.blockSizeHorizontal * 5),
                 Container(
                   constraints: BoxConstraints(maxWidth: SizeConfig.screenHeight * 0.7),
                   child: FittedBox(
@@ -70,7 +70,7 @@ class TitleBanner extends StatelessWidget {
                       text,
                       style: textStyle ??
                           TextStyle(
-                            fontSize: SizeConfig.blockSizeVertical * 3.5,
+                            fontSize: SizeConfig.blockSizeVertical * 3.3,
                             fontFamily: 'Raleway',
                             fontWeight: FontWeight.bold,
                             color: Colors.white,

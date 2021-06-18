@@ -1,4 +1,5 @@
 import 'package:dolarbot_app/api/responses/bcra_response.dart';
+import 'package:dolarbot_app/classes/size_config.dart';
 import 'package:dolarbot_app/widgets/cards/card_favorite.dart';
 import 'package:dolarbot_app/widgets/cards/templates/base/base_card.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +19,7 @@ class BcraCard extends BaseCard {
   final IconData? iconData;
   final String? iconAsset;
   final bool showPoweredBy;
-  final bool showShareButton;
+  final bool showButtons;
   final String endpoint;
   final NumberFormat numberFormat;
 
@@ -34,7 +35,7 @@ class BcraCard extends BaseCard {
     this.iconAsset,
     this.iconData,
     this.showPoweredBy = false,
-    this.showShareButton = true,
+    this.showButtons = true,
     required this.endpoint,
     required this.numberFormat,
   }) : super(
@@ -47,7 +48,7 @@ class BcraCard extends BaseCard {
           iconAsset: iconAsset,
           iconData: iconData,
           showPoweredBy: showPoweredBy,
-          showShareButton: showShareButton,
+          showButtons: showButtons,
           endpoint: endpoint,
           numberFormat: numberFormat,
         );
@@ -67,8 +68,9 @@ class _BcraCardState extends BaseCardState<BcraCard> {
       height: BcraCard.kHeight,
       header: CardHeader(
         title: widget.bannerTitle,
+        titleFontSize: SizeConfig.blockSizeVertical * 2.5,
         shareButton:
-            widget.showShareButton ? CardShareButton(onSharePressed: () => onSharePressed()) : null,
+            widget.showButtons ? CardShareButton(onSharePressed: () => onSharePressed()) : null,
       ),
       spaceBetweenHeader: Spacing.small,
       spaceBetweenItems: Spacing.large,
@@ -79,12 +81,15 @@ class _BcraCardState extends BaseCardState<BcraCard> {
           title: widget.subtitle!,
           value: data.value,
           symbol: widget.symbol!,
-          valueSize: 22,
+          titleSize: SizeConfig.blockSizeVertical * 2.2,
+          valueSize: SizeConfig.blockSizeVertical * 2,
+          spaceBetweenTitle: Spacing.small,
         ),
       ],
       logo: CardLogo(
         iconData: widget.iconData,
         iconAsset: widget.iconAsset,
+        showDragHandle: widget.showButtons,
         tag: widget.tag,
       ),
       lastUpdated: CardLastUpdated(

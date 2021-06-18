@@ -1,4 +1,5 @@
 import 'package:dolarbot_app/api/responses/crypto_response.dart';
+import 'package:dolarbot_app/classes/size_config.dart';
 import 'package:dolarbot_app/widgets/cards/card_favorite.dart';
 import 'package:dolarbot_app/widgets/cards/templates/base/base_card.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,7 @@ class CryptoCard extends BaseCard {
   final IconData? iconData;
   final String? iconAsset;
   final bool showPoweredBy;
-  final bool showShareButton;
+  final bool showButtons;
   final String endpoint;
   final NumberFormat numberFormat;
 
@@ -30,7 +31,7 @@ class CryptoCard extends BaseCard {
     this.iconData,
     this.iconAsset,
     this.showPoweredBy = false,
-    this.showShareButton = true,
+    this.showButtons = true,
     required this.endpoint,
     required this.numberFormat,
   }) : super(
@@ -41,7 +42,7 @@ class CryptoCard extends BaseCard {
           iconAsset: iconAsset,
           iconData: iconData,
           showPoweredBy: showPoweredBy,
-          showShareButton: showShareButton,
+          showButtons: showButtons,
           endpoint: endpoint,
           numberFormat: numberFormat,
         );
@@ -62,10 +63,10 @@ class _CryptoCardState extends BaseCardState<CryptoCard> {
       header: CardHeader(
         title: widget.bannerTitle,
         shareButton:
-            widget.showShareButton ? CardShareButton(onSharePressed: () => onSharePressed()) : null,
+            widget.showButtons ? CardShareButton(onSharePressed: () => onSharePressed()) : null,
       ),
-      spaceBetweenHeader: Spacing.medium,
-      spaceBetweenItems: Spacing.medium,
+      spaceBetweenHeader: Spacing.small,
+      spaceBetweenItems: Spacing.small,
       direction: Axis.vertical,
       rates: [
         CardValue(
@@ -73,29 +74,33 @@ class _CryptoCardState extends BaseCardState<CryptoCard> {
           title: "Dólares Estadounidenses",
           value: data.usdPrice,
           symbol: "US\$",
-          titleSize: 16,
-          valueSize: 22,
+          spaceBetweenTitle: Spacing.small,
+          titleSize: SizeConfig.blockSizeVertical * 2,
+          valueSize: SizeConfig.blockSizeVertical * 2.5,
         ),
         CardValue(
           numberFormat: widget.numberFormat,
           title: "Pesos Argentinos",
           value: data.arsPrice,
           symbol: "\$",
-          titleSize: 16,
-          valueSize: 22,
+          spaceBetweenTitle: Spacing.small,
+          titleSize: SizeConfig.blockSizeVertical * 2,
+          valueSize: SizeConfig.blockSizeVertical * 2.5,
         ),
         CardValue(
           numberFormat: widget.numberFormat,
           title: "Pesos Argentinos + Impuestos",
           value: data.arsPriceWithTaxes,
           symbol: "\$",
-          titleSize: 16,
-          valueSize: 22,
+          spaceBetweenTitle: Spacing.small,
+          titleSize: SizeConfig.blockSizeVertical * 2,
+          valueSize: SizeConfig.blockSizeVertical * 2.5,
         ),
       ],
       logo: CardLogo(
         iconData: widget.iconData,
         iconAsset: widget.iconAsset,
+        showDragHandle: widget.showButtons,
         tag: widget.tag,
       ),
       lastUpdated: CardLastUpdated(

@@ -1,4 +1,5 @@
 import 'package:dolarbot_app/api/responses/country_risk_response.dart';
+import 'package:dolarbot_app/classes/size_config.dart';
 import 'package:dolarbot_app/widgets/cards/card_favorite.dart';
 import 'package:dolarbot_app/widgets/cards/templates/base/base_card.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +18,7 @@ class CountryRiskCard extends BaseCard {
   final IconData? iconData;
   final String? iconAsset;
   final bool showPoweredBy;
-  final bool showShareButton;
+  final bool showButtons;
   final String endpoint;
   final NumberFormat numberFormat;
 
@@ -31,7 +32,7 @@ class CountryRiskCard extends BaseCard {
     this.iconData,
     this.iconAsset,
     this.showPoweredBy = false,
-    this.showShareButton = true,
+    this.showButtons = true,
     required this.endpoint,
     required this.numberFormat,
   }) : super(
@@ -42,7 +43,7 @@ class CountryRiskCard extends BaseCard {
           iconAsset: iconAsset,
           iconData: iconData,
           showPoweredBy: showPoweredBy,
-          showShareButton: showShareButton,
+          showButtons: showButtons,
           endpoint: endpoint,
           numberFormat: numberFormat,
         );
@@ -62,7 +63,7 @@ class _CountryRiskCardState extends BaseCardState<CountryRiskCard> {
       header: CardHeader(
         title: widget.bannerTitle,
         shareButton:
-            widget.showShareButton ? CardShareButton(onSharePressed: () => onSharePressed()) : null,
+            widget.showButtons ? CardShareButton(onSharePressed: () => onSharePressed()) : null,
       ),
       spaceBetweenHeader: Spacing.none,
       spaceBetweenItems: Spacing.large,
@@ -78,12 +79,14 @@ class _CountryRiskCardState extends BaseCardState<CountryRiskCard> {
           textDirection: ui.TextDirection.rtl,
           spaceBetweenTitle: Spacing.medium,
           crossAlignment: WrapCrossAlignment.center,
-          valueSize: 32,
+          titleSize: SizeConfig.blockSizeVertical * 2.2,
+          valueSize: SizeConfig.blockSizeVertical * 4,
         ),
       ],
       logo: CardLogo(
         iconData: widget.iconData,
         iconAsset: widget.iconAsset,
+        showDragHandle: widget.showButtons,
         tag: widget.tag,
       ),
       lastUpdated: CardLastUpdated(

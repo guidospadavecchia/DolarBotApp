@@ -20,7 +20,7 @@ abstract class BaseCard extends StatefulWidget {
   final IconData? iconData;
   final String? iconAsset;
   final bool showPoweredBy;
-  final bool showShareButton;
+  final bool showButtons;
   final String endpoint;
   final NumberFormat numberFormat;
 
@@ -36,7 +36,7 @@ abstract class BaseCard extends StatefulWidget {
     this.iconAsset,
     this.iconData,
     required this.showPoweredBy,
-    required this.showShareButton,
+    required this.showButtons,
     required this.endpoint,
     required this.numberFormat,
   }) : assert(iconAsset != null || iconData != null);
