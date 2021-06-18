@@ -105,14 +105,15 @@ class HomeScreenState extends State<HomeScreen> {
             onRefresh: () => onRefresh(context),
           ),
           drawer: Container(
-            width: 290,
+            constraints: BoxConstraints(minWidth: 290),
+            width: SizeConfig.screenWidth * 0.7,
             child: Drawer(
               child: DrawerMenu(
                 onDrawerDisplayChanged: (_) => dismissAllToast(),
               ),
             ),
           ),
-          drawerEdgeDragWidth: SizeConfig.screenWidth / 3,
+          drawerEdgeDragWidth: SizeConfig.screenWidth / 2.5,
           drawerEnableOpenDragGesture: true,
           body: Container(
             height: double.infinity,

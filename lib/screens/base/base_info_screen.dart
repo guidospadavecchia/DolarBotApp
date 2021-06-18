@@ -6,6 +6,7 @@ import 'package:dolarbot_app/api/responses/base/api_response.dart';
 import 'package:dolarbot_app/api/responses/metal_response.dart';
 import 'package:dolarbot_app/classes/app_config.dart';
 import 'package:dolarbot_app/classes/hive/favorite_rate.dart';
+import 'package:dolarbot_app/classes/size_config.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:dolarbot_app/classes/settings.dart';
 import 'package:dolarbot_app/screens/base/widgets/title_banner.dart';
@@ -142,14 +143,15 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
             onRefresh: () => onRefresh(),
           ),
           drawer: Container(
-            width: 290,
+            constraints: BoxConstraints(minWidth: 290),
+            width: SizeConfig.screenWidth * 0.7,
             child: Drawer(
               child: DrawerMenu(
                 onDrawerDisplayChanged: (isOpen) => _onDrawerDisplayChange(isOpen),
               ),
             ),
           ),
-          drawerEdgeDragWidth: 80,
+          drawerEdgeDragWidth: SizeConfig.screenWidth / 2.5,
           drawerEnableOpenDragGesture: true,
           body: Container(
             height: double.infinity,
