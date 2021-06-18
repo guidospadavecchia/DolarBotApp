@@ -39,7 +39,8 @@ class StepSix extends StepBase {
         ),
       ),
       SizedBox(
-        width: SizeConfig.screenWidth / 1.8,
+        width: SizeConfig.screenWidth / 2,
+        height: SizeConfig.screenHeight / 3,
         child: Image.asset(
           "assets/images/general/menu_calc.png",
           filterQuality: FilterQuality.high,

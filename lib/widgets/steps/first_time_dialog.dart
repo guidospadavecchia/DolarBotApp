@@ -100,7 +100,7 @@ class FirstTimeDialog extends StatelessWidget {
                   context,
                   stepIndex: 7,
                   totalStepCount: _kTotalStepCount,
-                  title: "Eso es todo",
+                  title: "¡Eso es todo!",
                   showStep: false,
                   isComingFromOptions: dismissable,
                 )

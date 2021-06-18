@@ -52,7 +52,7 @@ class StepFour extends StepBase {
             RichTextSpan.text(context, "Mantené presionada una tarjeta"),
             ...RichTextSpan.icon(
                 context, Icons.touch_app_rounded, ThemeManager.getPrimaryAccentColor(context),
-                alignment: PlaceholderAlignment.bottom, size: 20),
+                alignment: PlaceholderAlignment.bottom, size: 18),
             RichTextSpan.text(context,
                 "hasta que se achique y se torne semi transparente. Luego, arrastrala a la posición que quieras y soltala"),
             ...RichTextSpan.icon(context, FontAwesomeIcons.solidHandPaper,

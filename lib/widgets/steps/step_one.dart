@@ -43,6 +43,7 @@ class StepOne extends StepBase {
       ),
       SizedBox(
         width: SizeConfig.screenWidth / 1.5,
+        height: SizeConfig.screenHeight / 3,
         child: Image.asset(
           "assets/images/general/menu_fav.png",
           filterQuality: FilterQuality.high,

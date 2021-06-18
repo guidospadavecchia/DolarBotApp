@@ -39,6 +39,7 @@ class StepFive extends StepBase {
       ),
       SizedBox(
         width: SizeConfig.screenHeight / 2,
+        height: SizeConfig.screenHeight / 4,
         child: Image.asset(
           "assets/images/general/delete.png",
           filterQuality: FilterQuality.high,

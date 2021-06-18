@@ -29,12 +29,29 @@ abstract class StepBase extends StatelessWidget {
         Expanded(
           child: Container(
             padding: EdgeInsets.symmetric(
-              vertical: SizeConfig.blockSizeVertical * 2,
-              horizontal: SizeConfig.blockSizeHorizontal * 8,
+              horizontal: SizeConfig.blockSizeHorizontal * 2,
             ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: body(),
+            child: Scrollbar(
+              isAlwaysShown: false,
+              radius: Radius.circular(SizeConfig.blockSizeVertical),
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: SizeConfig.blockSizeHorizontal * 5),
+                child: NotificationListener<OverscrollIndicatorNotification>(
+                  onNotification: (OverscrollIndicatorNotification overScroll) {
+                    overScroll.disallowGlow();
+                    return false;
+                  },
+                  child: SingleChildScrollView(
+                    child: Container(
+                      height: SizeConfig.screenHeight * 0.62,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: body(),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
             ),
           ),
         ),
@@ -47,15 +64,22 @@ abstract class StepBase extends StatelessWidget {
 }
 
 Widget buildStepHeader(BuildContext context, int step, String title, bool showStep) {
+  double horizontalPadding = SizeConfig.blockSizeHorizontal * 8;
+  double verticalPadding = SizeConfig.blockSizeVertical * 3;
+  double stepSize = SizeConfig.blockSizeVertical * 5.5;
   return Stack(
     children: [
       Padding(
-        padding: EdgeInsets.only(left: showStep ? 45 : 0, top: 22, bottom: 10, right: 20),
+        padding: EdgeInsets.only(
+            left: showStep ? horizontalPadding * 2 : 0,
+            top: verticalPadding,
+            bottom: verticalPadding,
+            right: horizontalPadding),
         child: Container(
           alignment: Alignment.center,
           width: double.infinity,
-          height: 35,
-          margin: const EdgeInsets.only(left: 25),
+          height: SizeConfig.blockSizeVertical * 4,
+          margin: EdgeInsets.only(left: horizontalPadding),
           decoration: BoxDecoration(
             shape: BoxShape.rectangle,
             borderRadius: const BorderRadius.horizontal(
@@ -68,7 +92,9 @@ Widget buildStepHeader(BuildContext context, int step, String title, bool showSt
             title,
             style: TextStyle(
                 fontFamily: 'Raleway',
-                fontSize: showStep ? 16 : 18,
+                fontSize: showStep
+                    ? SizeConfig.blockSizeVertical * 2
+                    : SizeConfig.blockSizeVertical * 2.5,
                 color: ThemeManager.getGlobalBackgroundColor(context),
                 fontWeight: FontWeight.w600),
           ),
@@ -76,10 +102,11 @@ Widget buildStepHeader(BuildContext context, int step, String title, bool showSt
       ),
       if (showStep)
         Padding(
-          padding: const EdgeInsets.only(left: 20, top: 20, right: 20),
+          padding: EdgeInsets.only(
+              left: horizontalPadding, top: verticalPadding * 0.75, right: horizontalPadding),
           child: Container(
-            width: 38,
-            height: 38,
+            width: stepSize,
+            height: stepSize,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               color: ThemeManager.getPrimaryAccentColor(context),
@@ -102,6 +129,8 @@ Widget buildStepHeader(BuildContext context, int step, String title, bool showSt
 
 Widget buildStepFooter(BuildContext context, int stepIndex, int totalStepCount) {
   double stepBarWidth = SizeConfig.screenWidth / 1.5;
+  double horizontalMargin = SizeConfig.screenWidth / 10;
+  double verticalMargin = SizeConfig.blockSizeVertical * 3;
   return Align(
     alignment: Alignment.bottomCenter,
     child: Stack(
@@ -114,9 +143,9 @@ Widget buildStepFooter(BuildContext context, int stepIndex, int totalStepCount) 
               right: Radius.circular(8),
             ),
           ),
-          margin: const EdgeInsets.symmetric(horizontal: 45, vertical: 20),
+          margin: EdgeInsets.symmetric(horizontal: horizontalMargin, vertical: verticalMargin),
           width: stepBarWidth,
-          height: 10,
+          height: 5,
         ),
         Container(
           decoration: BoxDecoration(
@@ -126,9 +155,9 @@ Widget buildStepFooter(BuildContext context, int stepIndex, int totalStepCount) 
               right: Radius.circular(8),
             ),
           ),
-          margin: const EdgeInsets.symmetric(horizontal: 45, vertical: 20),
+          margin: EdgeInsets.symmetric(horizontal: horizontalMargin, vertical: verticalMargin),
           width: (stepBarWidth / totalStepCount) * (stepIndex.toDouble() + 1),
-          height: 10,
+          height: 5,
         ),
       ],
     ),

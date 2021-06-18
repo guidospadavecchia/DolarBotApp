@@ -51,6 +51,7 @@ class StepTwo extends StepBase {
           "assets/images/general/home_bg.png",
           filterQuality: FilterQuality.high,
         ),
+        height: SizeConfig.screenHeight * 0.22,
       ),
       RichText(
         textAlign: TextAlign.center,

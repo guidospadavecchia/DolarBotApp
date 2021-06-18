@@ -42,6 +42,7 @@ class StepThree extends StepBase {
       ),
       SizedBox(
         width: SizeConfig.screenWidth / 1.5,
+        height: SizeConfig.screenHeight / 3.5,
         child: Image.asset(
           "assets/images/general/menu_share.png",
           filterQuality: FilterQuality.high,

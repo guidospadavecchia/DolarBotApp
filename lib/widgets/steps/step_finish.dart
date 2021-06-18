@@ -30,25 +30,21 @@ class StepFinish extends StepBase {
   @override
   List<Widget> body() {
     return [
-      SizedBox(
-        child: Image.asset(
-          AppConfig.logo.border,
-          scale: 3.0,
-          height: 128,
-          width: 128,
-          filterQuality: FilterQuality.high,
-        ),
-        width: 128,
-        height: 128,
-      ),
-      RichText(
-        textAlign: TextAlign.center,
-        text: TextSpan(
-          style: const TextStyle(height: 1.3),
+      Expanded(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            RichTextSpan.text(context, "¡Listo 👌!", fontSize: SizeConfig.blockSizeVertical * 4),
-            RichTextSpan.newLine(context, lines: 4),
-            if (!isComingFromOptions) ..._buildFinishText() else ..._buildOptionsFinishText(),
+            RichText(
+              textAlign: TextAlign.center,
+              text: TextSpan(
+                children: [
+                  RichTextSpan.text(context, "¡Listo 👌!",
+                      fontSize: SizeConfig.blockSizeVertical * 4),
+                  RichTextSpan.newLine(context, lines: 4),
+                  if (!isComingFromOptions) ..._buildFinishText() else ..._buildOptionsFinishText(),
+                ],
+              ),
+            ),
           ],
         ),
       ),

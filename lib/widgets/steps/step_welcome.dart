@@ -35,13 +35,12 @@ class StepWelcome extends StepBase {
           width: 128,
           filterQuality: FilterQuality.high,
         ),
-        width: 128,
-        height: 128,
+        width: SizeConfig.blockSizeVertical * 18,
       ),
       RichText(
         textAlign: TextAlign.center,
         text: TextSpan(
-          style: const TextStyle(height: 1.3),
+          style: TextStyle(height: SizeConfig.blockSizeVertical * 0.2),
           children: [
             RichTextSpan.text(context, "¡Hola 👋!",
                 fontSize: SizeConfig.blockSizeVertical * 4, bold: true),
