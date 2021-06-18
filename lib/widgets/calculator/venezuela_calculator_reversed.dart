@@ -77,22 +77,22 @@ class _VenezuelaCalculatorState extends BaseCalculatorState<VenezuelaCalculatorR
           title: "Ingresá un monto en bolívares:",
           textController: _textControllerInput,
         ),
-        const SizedBox(
-          height: 30,
+        SizedBox(
+          height: SizeConfig.blockSizeVertical * 4,
         ),
         InputConverted(
           title: "Comprás en bancos",
           textController: _textControllerBankValue,
         ),
-        const SizedBox(
-          height: 20,
+        SizedBox(
+          height: SizeConfig.blockSizeVertical * 3,
         ),
         InputConverted(
           title: "Comprás en el paralelo",
           textController: _textControllerBlackMarketValue,
         ),
-        const SizedBox(
-          height: 30,
+        SizedBox(
+          height: SizeConfig.blockSizeVertical * 4,
         ),
       ],
     );

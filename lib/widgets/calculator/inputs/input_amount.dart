@@ -1,3 +1,4 @@
+import 'package:dolarbot_app/classes/size_config.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -17,19 +18,19 @@ class InputAmount extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width * 0.7,
+      width: SizeConfig.screenWidth * 0.8,
       child: TextField(
         autofocus: true,
         controller: textController,
         decoration: InputDecoration(
           labelText: title ?? "Ingresá un monto:",
-          labelStyle: const TextStyle(
-            fontSize: 18,
+          labelStyle: TextStyle(
+            fontSize: SizeConfig.blockSizeVertical * 2.5,
             height: 0.5,
             fontFamily: 'Raleway',
             fontWeight: FontWeight.bold,
           ),
-          contentPadding: const EdgeInsets.only(left: 0, bottom: 10, right: 0),
+          contentPadding: EdgeInsets.only(bottom: SizeConfig.blockSizeVertical),
           isDense: true,
         ),
         inputFormatters: [

@@ -76,8 +76,8 @@ class _FiatCurrencyCalculatorReversedState
           title: "Ingresá un monto en pesos:",
           textController: _textControllerInput,
         ),
-        const SizedBox(
-          height: 30,
+        SizedBox(
+          height: SizeConfig.blockSizeVertical * 4,
         ),
         InputConverted(
           title: "Comprás",
@@ -86,8 +86,8 @@ class _FiatCurrencyCalculatorReversedState
         if (sellValueWithTaxes != null)
           Column(
             children: [
-              const SizedBox(
-                height: 20,
+              SizedBox(
+                height: SizeConfig.blockSizeVertical * 3,
               ),
               InputConverted(
                 title: "Comprás con impuestos",
@@ -95,8 +95,8 @@ class _FiatCurrencyCalculatorReversedState
               ),
             ],
           ),
-        const SizedBox(
-          height: 30,
+        SizedBox(
+          height: SizeConfig.blockSizeVertical * 4,
         ),
       ],
     );

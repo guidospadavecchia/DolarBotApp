@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 
 export 'package:dolarbot_app/widgets/calculator/inputs/input_amount.dart';
 export 'package:dolarbot_app/widgets/calculator/inputs/input_converted.dart';
+export 'package:dolarbot_app/classes/size_config.dart';
 
 abstract class BaseCalculatorScreen extends StatefulWidget {
   final String symbol;

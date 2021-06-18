@@ -82,8 +82,8 @@ class _FiatCurrencyCalculatorState extends BaseCalculatorState<FiatCurrencyCalcu
         InputAmount(
           textController: _textControllerInput,
         ),
-        const SizedBox(
-          height: 30,
+        SizedBox(
+          height: SizeConfig.blockSizeVertical * 4,
         ),
         if (sellValue != null)
           Column(
@@ -92,8 +92,8 @@ class _FiatCurrencyCalculatorState extends BaseCalculatorState<FiatCurrencyCalcu
                 title: "Comprás a",
                 textController: _textControllerSellValue,
               ),
-              const SizedBox(
-                height: 20,
+              SizedBox(
+                height: SizeConfig.blockSizeVertical * 3,
               ),
             ],
           ),
@@ -105,28 +105,28 @@ class _FiatCurrencyCalculatorState extends BaseCalculatorState<FiatCurrencyCalcu
                 textController: _textControllerSellValueWithTaxes,
               ),
               SizedBox(
-                height: buyValue != null ? 20 : 30,
+                height: SizeConfig.blockSizeVertical * (buyValue != null ? 2 : 3),
               ),
             ],
           ),
         if (buyValue != null)
           Column(
             children: [
-              const Divider(
+              Divider(
                 color: Colors.black,
-                indent: 50,
-                endIndent: 50,
+                indent: SizeConfig.screenWidth / 10,
+                endIndent: SizeConfig.screenWidth / 10,
                 height: 0,
               ),
-              const SizedBox(
-                height: 20,
+              SizedBox(
+                height: SizeConfig.blockSizeVertical * 2,
               ),
               InputConverted(
                 title: "Vendés a",
                 textController: _textControllerBuyValue,
               ),
-              const SizedBox(
-                height: 30,
+              SizedBox(
+                height: SizeConfig.blockSizeVertical * 3,
               ),
             ],
           ),

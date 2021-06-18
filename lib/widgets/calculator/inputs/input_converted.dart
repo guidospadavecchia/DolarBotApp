@@ -1,4 +1,5 @@
 import 'package:auto_size_text_field/auto_size_text_field.dart';
+import 'package:dolarbot_app/classes/size_config.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:flutter/material.dart';
 
@@ -21,30 +22,30 @@ class InputConverted extends StatelessWidget {
         Text(
           title!,
           style: TextStyle(
-            fontSize: 18,
+            fontSize: SizeConfig.blockSizeVertical * 2,
             fontFamily: 'Raleway',
             fontWeight: FontWeight.normal,
             color: ThemeManager.getPrimaryTextColor(context),
           ),
         ),
-        const SizedBox(
-          height: 10,
+        SizedBox(
+          height: SizeConfig.blockSizeVertical,
         ),
         Container(
-          width: MediaQuery.of(context).size.width * 0.7,
+          width: SizeConfig.screenWidth * 0.7,
           child: AutoSizeTextField(
             enabled: true,
             readOnly: true,
             controller: textController,
             decoration: InputDecoration(
               border: InputBorder.none,
-              contentPadding: const EdgeInsets.only(bottom: 3),
+              contentPadding: EdgeInsets.only(bottom: SizeConfig.blockSizeVertical / 2),
               isDense: true,
             ),
             textAlign: TextAlign.center,
             keyboardType: TextInputType.number,
             style: TextStyle(
-              fontSize: 22,
+              fontSize: SizeConfig.blockSizeVertical * 3,
               fontWeight: FontWeight.bold,
               fontFamily: 'Montserrat',
               color: ThemeManager.getPrimaryTextColor(context),

@@ -1,3 +1,4 @@
+import 'package:dolarbot_app/classes/size_config.dart';
 import 'package:dolarbot_app/widgets/calculator/base/base_calculator.dart';
 import 'package:dolarbot_app/widgets/common/blur_dialog.dart';
 import 'package:dolarbot_app/widgets/common/simple_button.dart';
@@ -25,8 +26,14 @@ class _FabOptionCalculatorDialogState extends State<FabOptionCalculatorDialog> {
   Widget build(BuildContext context) {
     return BlurDialog(
       dialog: Dialog(
+        insetPadding: EdgeInsets.symmetric(
+          horizontal: SizeConfig.blockSizeHorizontal * 3,
+        ),
         child: Container(
-          padding: const EdgeInsets.only(top: 30, bottom: 20),
+          padding: EdgeInsets.only(
+            top: SizeConfig.blockSizeVertical * 4,
+            bottom: SizeConfig.blockSizeVertical * 3,
+          ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.center,

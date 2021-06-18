@@ -73,15 +73,15 @@ class _MetalCalculatorReversedState extends BaseCalculatorState<MetalCalculatorR
           textController: _textControllerInput,
           maxDigits: 16,
         ),
-        const SizedBox(
-          height: 30,
+        SizedBox(
+          height: SizeConfig.blockSizeVertical * 4,
         ),
         InputConverted(
           title: "Vendés a",
           textController: _textControllerValue,
         ),
-        const SizedBox(
-          height: 30,
+        SizedBox(
+          height: SizeConfig.blockSizeVertical * 4,
         ),
       ],
     );
