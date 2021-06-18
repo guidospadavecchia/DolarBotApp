@@ -76,6 +76,7 @@ class _VenezuelaCalculatorState extends BaseCalculatorState<VenezuelaCalculator>
         InputAmount(
           title: "Ingresá un monto en ${currencyCode == 'USD' ? "dólares" : "euros"}:",
           textController: _textControllerInput,
+          onSubmitted: onSubmitted,
           maxDigits: 10,
         ),
         SizedBox(

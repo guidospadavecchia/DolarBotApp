@@ -66,6 +66,7 @@ class _MetalCalculatorState extends BaseCalculatorState<MetalCalculator> with Ba
         InputAmount(
           title: "Ingresá un monto en dólares:",
           textController: _textControllerInput,
+          onSubmitted: onSubmitted,
         ),
         SizedBox(
           height: SizeConfig.blockSizeVertical * 4,

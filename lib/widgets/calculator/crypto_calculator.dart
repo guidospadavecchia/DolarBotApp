@@ -83,6 +83,7 @@ class _CryptoCalculatorState extends BaseCalculatorState<CryptoCalculator> with 
           title: cryptoCode != '' ? "Ingresá la cantidad en $cryptoCode:" : "Ingresá la cantidad:",
           textController: _textControllerInput,
           maxDigits: 16,
+          onSubmitted: onSubmitted,
         ),
         SizedBox(
           height: SizeConfig.blockSizeVertical * 4,

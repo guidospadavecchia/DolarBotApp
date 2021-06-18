@@ -71,6 +71,7 @@ class _MetalCalculatorReversedState extends BaseCalculatorState<MetalCalculatorR
         InputAmount(
           title: "Ingresá una cantidad en ${unit.toLowerCase()}s:",
           textController: _textControllerInput,
+          onSubmitted: onSubmitted,
           maxDigits: 16,
         ),
         SizedBox(

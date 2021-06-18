@@ -81,6 +81,7 @@ class _FiatCurrencyCalculatorState extends BaseCalculatorState<FiatCurrencyCalcu
       children: [
         InputAmount(
           textController: _textControllerInput,
+          onSubmitted: onSubmitted,
         ),
         SizedBox(
           height: SizeConfig.blockSizeVertical * 4,

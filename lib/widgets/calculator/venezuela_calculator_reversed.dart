@@ -76,6 +76,7 @@ class _VenezuelaCalculatorState extends BaseCalculatorState<VenezuelaCalculatorR
         InputAmount(
           title: "Ingresá un monto en bolívares:",
           textController: _textControllerInput,
+          onSubmitted: onSubmitted,
         ),
         SizedBox(
           height: SizeConfig.blockSizeVertical * 4,

@@ -75,6 +75,7 @@ class _FiatCurrencyCalculatorReversedState
         InputAmount(
           title: "Ingresá un monto en pesos:",
           textController: _textControllerInput,
+          onSubmitted: onSubmitted,
         ),
         SizedBox(
           height: SizeConfig.blockSizeVertical * 4,

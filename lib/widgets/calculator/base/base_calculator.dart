@@ -26,6 +26,7 @@ mixin BaseCalculator<Page extends BaseCalculatorScreen> on BaseCalculatorState<P
   static const int inputFactor = 7;
 
   Widget body();
+  void onSubmitted(String _) => Navigator.pop(context);
 
   @override
   Widget build(BuildContext context) {

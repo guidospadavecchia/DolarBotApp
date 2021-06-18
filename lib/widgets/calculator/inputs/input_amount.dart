@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 class InputAmount extends StatelessWidget {
   final TextEditingController textController;
   final String? title;
+  final Function(String)? onSubmitted;
   final int maxDigits;
 
   const InputAmount({
@@ -13,6 +14,7 @@ class InputAmount extends StatelessWidget {
     required this.textController,
     this.title,
     this.maxDigits = 15,
+    this.onSubmitted,
   }) : super(key: key);
 
   @override
@@ -22,6 +24,7 @@ class InputAmount extends StatelessWidget {
       child: TextField(
         autofocus: true,
         controller: textController,
+        onSubmitted: (String value) => onSubmitted != null ? onSubmitted!(value) : null,
         decoration: InputDecoration(
           labelText: title ?? "Ingresá un monto:",
           labelStyle: TextStyle(
