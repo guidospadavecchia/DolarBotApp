@@ -49,7 +49,11 @@ Colaborá con el desarrollo de **DolarBot** enviando tu [pull request](https://g
 - **Juan Manuel Flecha**
 
 ## Contacto
-[hola@dolarbot.com.ar](mailto:hola@dolarbot.com.ar?subject=Hola%20DolarBot%21)
+Escribinos a [hola@dolarbot.com.ar](mailto:hola@dolarbot.com.ar?subject=Hola%20DolarBot%21)!
+
+## Legales
+- [Términos y Condiciones](https://dolarbot.com.ar/tos)  
+- [Política de Privacidad](https://dolarbot.com.ar/privacypolicy)  
 
 ## Licencia
 **DolarBot** es ***100% open-source***. Está licenciado bajo la [GNU General Public License v3.0](https://github.com/guidospadavecchia/DolarBotApp/blob/main/LICENSE).
