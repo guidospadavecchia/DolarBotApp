@@ -201,7 +201,7 @@ class ProFeaturesDialog extends StatelessWidget {
             textAlign: TextAlign.center,
             text: TextSpan(
               children: [
-                RichTextSpan.text(context, "gráficos de evolución histórica, y mucho más.",
+                RichTextSpan.text(context, "gráficos históricos de tus consultas, y mucho más.",
                     fontSize: fontSize),
                 RichTextSpan.newLine(context),
                 RichTextSpan.newLine(context),
