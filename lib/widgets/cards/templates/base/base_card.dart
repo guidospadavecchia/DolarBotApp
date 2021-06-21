@@ -66,7 +66,7 @@ abstract class BaseCardState<Card extends BaseCard> extends State<BaseCard> {
     );
   }
 
-  void onDoubleTap() async {
+  void onTap() async {
     CardData cardData = CardData(
       title: widget.title,
       bannerTitle: widget.bannerTitle,
@@ -90,7 +90,7 @@ abstract class BaseCardState<Card extends BaseCard> extends State<BaseCard> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onDoubleTap: onDoubleTap,
+      onTap: onTap,
       child: card(),
     );
   }
