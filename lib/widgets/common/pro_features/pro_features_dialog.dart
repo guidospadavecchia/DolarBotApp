@@ -97,7 +97,8 @@ class ProFeaturesDialog extends StatelessWidget {
             textAlign: TextAlign.center,
             text: TextSpan(
               children: [
-                RichTextSpan.text(context, "Accedé a las las cotizaciones de la mayoría de los",
+                RichTextSpan.text(context,
+                    "Accedé a las las cotizaciones del dólar, euro y real de la mayoría de los",
                     fontSize: fontSize),
                 RichTextSpan.text(context, " Bancos Argentinos", bold: true, fontSize: fontSize),
                 RichTextSpan.text(context, ",", fontSize: fontSize),
