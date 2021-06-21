@@ -1,4 +1,5 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
+import 'package:dolarbot_app/classes/app_config.dart';
 import 'package:dolarbot_app/classes/size_config.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:dolarbot_app/classes/settings.dart';
@@ -121,14 +122,15 @@ class _OptionsScreenState extends State<OptionsScreen> {
               disableHighlight: false,
               onTap: () => _showSendMail(context),
             ),
-            MenuItem(
-              text: "Limpiar cotizaciones históricas",
-              subtitle: "Elimina los datos de las cotizaciones consultadas",
-              leading: const Icon(FontAwesomeIcons.eraser),
-              depthLevel: 1,
-              disableHighlight: false,
-              onTap: () => _showClearHistoricalDataDialog(context),
-            ),
+            if (AppConfig.of(context).flavor == AppFlavor.Pro)
+              MenuItem(
+                text: "Limpiar cotizaciones históricas",
+                subtitle: "Elimina los datos de las cotizaciones consultadas",
+                leading: const Icon(FontAwesomeIcons.eraser),
+                depthLevel: 1,
+                disableHighlight: false,
+                onTap: () => _showClearHistoricalDataDialog(context),
+              ),
             MenuItem(
               text: "Información de la aplicación",
               subtitle: "Versión del producto y enlaces",
