@@ -44,4 +44,7 @@ class DolarBotIconsBanks {
   final piano = 'assets/images/banks/piano.png';
   final santander = 'assets/images/banks/santander.png';
   final supervielle = 'assets/images/banks/supervielle.png';
+  final reba = 'assets/images/banks/reba.png';
+  final provincia = 'assets/images/banks/provincia.png';
+  final icbc = 'assets/images/banks/icbc.png';
 }

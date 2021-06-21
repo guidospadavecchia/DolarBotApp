@@ -19,6 +19,9 @@ enum DollarEndpoints {
   bancor,
   chaco,
   pampa,
+  reba,
+  provincia,
+  icbc,
 }
 
 enum EuroEndpoints {
@@ -28,12 +31,22 @@ enum EuroEndpoints {
   pampa,
   chaco,
   hipotecario,
+  piano,
+  santander,
+  ciudad,
+  supervielle,
+  patagonia,
+  comafi,
+  reba,
 }
 
 enum RealEndpoints {
   nacion,
   bbva,
   chaco,
+  piano,
+  ciudad,
+  supervielle,
 }
 
 enum MetalEndpoints {
@@ -59,7 +72,7 @@ enum CryptoEndpoints {
   dai,
   stellar,
   uniswap,
-  theta
+  theta,
 }
 
 enum VenezuelaEndpoints {
@@ -105,6 +118,9 @@ extension DollarEndpointsExtension on DollarEndpoints {
     DollarEndpoints.bancor: '/api/dolar/bancos/bancor',
     DollarEndpoints.chaco: '/api/dolar/bancos/chaco',
     DollarEndpoints.pampa: '/api/dolar/bancos/pampa',
+    DollarEndpoints.reba: '/api/dolar/bancos/reba',
+    DollarEndpoints.provincia: '/api/dolar/bancos/provincia',
+    DollarEndpoints.icbc: '/api/dolar/bancos/icbc',
   };
 
   String get value => endpoints[this]!;
@@ -118,6 +134,13 @@ extension EuroEndpointsExtension on EuroEndpoints {
     EuroEndpoints.pampa: '/api/euro/bancos/pampa',
     EuroEndpoints.chaco: '/api/euro/bancos/chaco',
     EuroEndpoints.hipotecario: '/api/euro/bancos/hipotecario',
+    EuroEndpoints.piano: '/api/euro/bancos/piano',
+    EuroEndpoints.santander: '/api/euro/bancos/santander',
+    EuroEndpoints.ciudad: '/api/euro/bancos/ciudad',
+    EuroEndpoints.supervielle: '/api/euro/bancos/supervielle',
+    EuroEndpoints.patagonia: '/api/euro/bancos/patagonia',
+    EuroEndpoints.comafi: '/api/euro/bancos/comafi',
+    EuroEndpoints.reba: '/api/euro/bancos/reba',
   };
 
   String get value => endpoints[this]!;
@@ -128,6 +151,9 @@ extension RealEndpointsExtension on RealEndpoints {
     RealEndpoints.nacion: '/api/real/bancos/nacion',
     RealEndpoints.bbva: '/api/real/bancos/bbva',
     RealEndpoints.chaco: '/api/real/bancos/chaco',
+    RealEndpoints.piano: '/api/real/bancos/piano',
+    RealEndpoints.ciudad: '/api/real/bancos/ciudad',
+    RealEndpoints.supervielle: '/api/real/bancos/supervielle',
   };
 
   String get value => endpoints[this]!;

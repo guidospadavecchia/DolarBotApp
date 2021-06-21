@@ -195,6 +195,48 @@ class RootMenuBanks extends StatelessWidget {
                 )
               },
             ),
+            MenuItem(
+              text: _titleEuro,
+              leading: getIconData(context, FontAwesomeIcons.euroSign),
+              depthLevel: 3,
+              onTap: () => {
+                Util.navigateTo(
+                  context,
+                  FiatCurrencyInfoScreen<EuroResponse>(
+                    cardData: CardData(
+                      title: _titleEuro,
+                      bannerTitle: "Banco Ciudad",
+                      tag: _titleEuro,
+                      iconAsset: DolarBotIcons.banks.ciudad,
+                      colors: DolarBotConstants.kGradiantCiudad,
+                      endpoint: EuroEndpoints.ciudad.value,
+                      responseType: EuroResponse,
+                    ),
+                  ),
+                )
+              },
+            ),
+            MenuItem(
+              text: _titleReal,
+              leading: getIconAsset(context, DolarBotIcons.general.real),
+              depthLevel: 3,
+              onTap: () => {
+                Util.navigateTo(
+                  context,
+                  FiatCurrencyInfoScreen<RealResponse>(
+                    cardData: CardData(
+                      title: _titleReal,
+                      bannerTitle: "Banco Ciudad",
+                      tag: _titleReal,
+                      iconAsset: DolarBotIcons.banks.ciudad,
+                      colors: DolarBotConstants.kGradiantCiudad,
+                      endpoint: RealEndpoints.ciudad.value,
+                      responseType: RealResponse,
+                    ),
+                  ),
+                )
+              },
+            ),
           ],
         ),
         MenuItem(
@@ -219,6 +261,27 @@ class RootMenuBanks extends StatelessWidget {
                       colors: DolarBotConstants.kGradiantComafi,
                       endpoint: DollarEndpoints.comafi.value,
                       responseType: DollarResponse,
+                    ),
+                  ),
+                )
+              },
+            ),
+            MenuItem(
+              text: _titleEuro,
+              leading: getIconData(context, FontAwesomeIcons.euroSign),
+              depthLevel: 3,
+              onTap: () => {
+                Util.navigateTo(
+                  context,
+                  FiatCurrencyInfoScreen<EuroResponse>(
+                    cardData: CardData(
+                      title: _titleEuro,
+                      bannerTitle: "Banco Comafi",
+                      tag: _titleEuro,
+                      iconAsset: DolarBotIcons.banks.comafi,
+                      colors: DolarBotConstants.kGradiantComafi,
+                      endpoint: EuroEndpoints.comafi.value,
+                      responseType: EuroResponse,
                     ),
                   ),
                 )
@@ -348,6 +411,35 @@ class RootMenuBanks extends StatelessWidget {
                       colors: DolarBotConstants.kGradiantHipotecario,
                       endpoint: EuroEndpoints.hipotecario.value,
                       responseType: EuroResponse,
+                    ),
+                  ),
+                )
+              },
+            ),
+          ],
+        ),
+        MenuItem(
+          text: "ICBC",
+          leading: getIconAsset(context, DolarBotIcons.banks.icbc),
+          depthLevel: 2,
+          lockedBehindProFeature: !isProVersion,
+          subItems: [
+            MenuItem(
+              text: _titleDolar,
+              leading: getIconData(context, FontAwesomeIcons.dollarSign),
+              depthLevel: 3,
+              onTap: () => {
+                Util.navigateTo(
+                  context,
+                  FiatCurrencyInfoScreen<DollarResponse>(
+                    cardData: CardData(
+                      title: _titleDolar,
+                      bannerTitle: "Banco ICBC",
+                      tag: _titleDolar,
+                      iconAsset: DolarBotIcons.banks.icbc,
+                      colors: DolarBotConstants.kGradiantICBC,
+                      endpoint: DollarEndpoints.icbc.value,
+                      responseType: DollarResponse,
                     ),
                   ),
                 )
@@ -503,6 +595,27 @@ class RootMenuBanks extends StatelessWidget {
                 )
               },
             ),
+            MenuItem(
+              text: _titleEuro,
+              leading: getIconData(context, FontAwesomeIcons.euroSign),
+              depthLevel: 3,
+              onTap: () => {
+                Util.navigateTo(
+                  context,
+                  FiatCurrencyInfoScreen<EuroResponse>(
+                    cardData: CardData(
+                      title: _titleEuro,
+                      bannerTitle: "Banco Patagonia",
+                      tag: _titleEuro,
+                      iconAsset: DolarBotIcons.banks.patagonia,
+                      colors: DolarBotConstants.kGradiantPatagonia,
+                      endpoint: EuroEndpoints.patagonia.value,
+                      responseType: EuroResponse,
+                    ),
+                  ),
+                )
+              },
+            ),
           ],
         ),
         MenuItem(
@@ -527,6 +640,127 @@ class RootMenuBanks extends StatelessWidget {
                       colors: DolarBotConstants.kGradiantPiano,
                       endpoint: DollarEndpoints.piano.value,
                       responseType: DollarResponse,
+                    ),
+                  ),
+                )
+              },
+            ),
+            MenuItem(
+              text: _titleEuro,
+              leading: getIconData(context, FontAwesomeIcons.euroSign),
+              depthLevel: 3,
+              onTap: () => {
+                Util.navigateTo(
+                  context,
+                  FiatCurrencyInfoScreen<EuroResponse>(
+                    cardData: CardData(
+                      title: _titleEuro,
+                      bannerTitle: "Banco Piano",
+                      tag: _titleEuro,
+                      iconAsset: DolarBotIcons.banks.piano,
+                      colors: DolarBotConstants.kGradiantPiano,
+                      endpoint: EuroEndpoints.piano.value,
+                      responseType: EuroResponse,
+                    ),
+                  ),
+                )
+              },
+            ),
+            MenuItem(
+              text: _titleReal,
+              leading: getIconAsset(context, DolarBotIcons.general.real),
+              depthLevel: 3,
+              onTap: () => {
+                Util.navigateTo(
+                  context,
+                  FiatCurrencyInfoScreen<RealResponse>(
+                    cardData: CardData(
+                      title: _titleReal,
+                      bannerTitle: "Banco Piano",
+                      tag: _titleReal,
+                      iconAsset: DolarBotIcons.banks.piano,
+                      colors: DolarBotConstants.kGradiantPiano,
+                      endpoint: RealEndpoints.piano.value,
+                      responseType: RealResponse,
+                    ),
+                  ),
+                )
+              },
+            ),
+          ],
+        ),
+        MenuItem(
+          text: "Provincia",
+          leading: getIconAsset(context, DolarBotIcons.banks.provincia),
+          depthLevel: 2,
+          lockedBehindProFeature: !isProVersion,
+          subItems: [
+            MenuItem(
+              text: _titleDolar,
+              leading: getIconData(context, FontAwesomeIcons.dollarSign),
+              depthLevel: 3,
+              onTap: () => {
+                Util.navigateTo(
+                  context,
+                  FiatCurrencyInfoScreen<DollarResponse>(
+                    cardData: CardData(
+                      title: _titleDolar,
+                      bannerTitle: "Banco Provincia",
+                      tag: _titleDolar,
+                      iconAsset: DolarBotIcons.banks.provincia,
+                      colors: DolarBotConstants.kGradiantProvincia,
+                      endpoint: DollarEndpoints.provincia.value,
+                      responseType: DollarResponse,
+                    ),
+                  ),
+                )
+              },
+            ),
+          ],
+        ),
+        MenuItem(
+          text: "Reba",
+          leading: getIconAsset(context, DolarBotIcons.banks.reba),
+          depthLevel: 2,
+          lockedBehindProFeature: !isProVersion,
+          subItems: [
+            MenuItem(
+              text: _titleDolar,
+              leading: getIconData(context, FontAwesomeIcons.dollarSign),
+              depthLevel: 3,
+              onTap: () => {
+                Util.navigateTo(
+                  context,
+                  FiatCurrencyInfoScreen<DollarResponse>(
+                    cardData: CardData(
+                      title: _titleDolar,
+                      bannerTitle: "Rebanking",
+                      tag: _titleDolar,
+                      iconAsset: DolarBotIcons.banks.reba,
+                      colors: DolarBotConstants.kGradiantReba,
+                      endpoint: DollarEndpoints.reba.value,
+                      responseType: DollarResponse,
+                    ),
+                  ),
+                )
+              },
+            ),
+            MenuItem(
+              text: _titleEuro,
+              leading: getIconData(context, FontAwesomeIcons.euroSign),
+              depthLevel: 3,
+              onTap: () => {
+                Util.navigateTo(
+                  context,
+                  FiatCurrencyInfoScreen<EuroResponse>(
+                    cardData: CardData(
+                      title: _titleEuro,
+                      bannerTitle: "Rebanking",
+                      tag: _titleEuro,
+                      iconAsset: DolarBotIcons.banks.reba,
+                      colors: DolarBotConstants.kGradiantReba,
+                      endpoint: EuroEndpoints.reba.value,
+                      responseType: EuroResponse,
                     ),
                   ),
                 )
@@ -561,6 +795,27 @@ class RootMenuBanks extends StatelessWidget {
                 )
               },
             ),
+            MenuItem(
+              text: _titleEuro,
+              leading: getIconData(context, FontAwesomeIcons.euroSign),
+              depthLevel: 3,
+              onTap: () => {
+                Util.navigateTo(
+                  context,
+                  FiatCurrencyInfoScreen<EuroResponse>(
+                    cardData: CardData(
+                      title: _titleEuro,
+                      bannerTitle: "Banco Santander",
+                      tag: _titleEuro,
+                      iconAsset: DolarBotIcons.banks.santander,
+                      colors: DolarBotConstants.kGradiantSantander,
+                      endpoint: EuroEndpoints.santander.value,
+                      responseType: EuroResponse,
+                    ),
+                  ),
+                )
+              },
+            ),
           ],
         ),
         MenuItem(
@@ -585,6 +840,48 @@ class RootMenuBanks extends StatelessWidget {
                       colors: DolarBotConstants.kGradiantSupervielle,
                       endpoint: DollarEndpoints.supervielle.value,
                       responseType: DollarResponse,
+                    ),
+                  ),
+                )
+              },
+            ),
+            MenuItem(
+              text: _titleEuro,
+              leading: getIconData(context, FontAwesomeIcons.euroSign),
+              depthLevel: 3,
+              onTap: () => {
+                Util.navigateTo(
+                  context,
+                  FiatCurrencyInfoScreen<EuroResponse>(
+                    cardData: CardData(
+                      title: _titleEuro,
+                      bannerTitle: "Banco Supervielle",
+                      tag: _titleEuro,
+                      iconAsset: DolarBotIcons.banks.supervielle,
+                      colors: DolarBotConstants.kGradiantSupervielle,
+                      endpoint: EuroEndpoints.supervielle.value,
+                      responseType: EuroResponse,
+                    ),
+                  ),
+                )
+              },
+            ),
+            MenuItem(
+              text: _titleReal,
+              leading: getIconAsset(context, DolarBotIcons.general.real),
+              depthLevel: 3,
+              onTap: () => {
+                Util.navigateTo(
+                  context,
+                  FiatCurrencyInfoScreen<RealResponse>(
+                    cardData: CardData(
+                      title: _titleReal,
+                      bannerTitle: "Banco Supervielle",
+                      tag: _titleReal,
+                      iconAsset: DolarBotIcons.banks.supervielle,
+                      colors: DolarBotConstants.kGradiantSupervielle,
+                      endpoint: RealEndpoints.supervielle.value,
+                      responseType: RealResponse,
                     ),
                   ),
                 )
