@@ -59,7 +59,13 @@ class StepTwo extends StepBase {
           children: [
             RichTextSpan.text(context, "¡Y no hay límite!"),
             RichTextSpan.newLine(context),
-            RichTextSpan.text(context, "Podés agregar todas las que quieras.", bold: true)
+            RichTextSpan.text(context, "Podés agregar todas las que quieras.", bold: true),
+            RichTextSpan.newLine(context, lines: 2),
+            RichTextSpan.text(context, "Además, presionando una vez sobre la tarjeta"),
+            ...RichTextSpan.icon(
+                context, Icons.touch_app_rounded, ThemeManager.getPrimaryAccentColor(context),
+                alignment: PlaceholderAlignment.bottom, size: 18),
+            RichTextSpan.text(context, "accedés directamente a la pantalla de su cotización."),
           ],
         ),
       ),
