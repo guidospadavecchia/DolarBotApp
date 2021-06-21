@@ -51,6 +51,14 @@ Colaborá con el desarrollo de **DolarBot** enviando tu [pull request](https://g
 ## Contacto
 Escribinos a [hola@dolarbot.com.ar](mailto:hola@dolarbot.com.ar?subject=Hola%20DolarBot%21)!
 
+## Agradecimientos
+
+#### Alpha & Beta testers
+- Nazareno Allegue
+- Carolina D'Alfonso
+- Matías Correa
+- Bruno Taraborrelli
+
 ## Legales
 - [Términos y Condiciones](https://dolarbot.com.ar/tos)  
 - [Política de Privacidad](https://dolarbot.com.ar/privacypolicy)  
