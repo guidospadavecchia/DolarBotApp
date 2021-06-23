@@ -88,7 +88,7 @@ class _AboutScreenState extends State<AboutScreen> {
           style: _getTextStyle(),
         ),
         SizedBox(
-          height: SizeConfig.blockSizeVertical * 4,
+          height: SizeConfig.blockSizeVertical * 3,
         ),
         InkWell(
           child: Image.asset(
@@ -101,7 +101,7 @@ class _AboutScreenState extends State<AboutScreen> {
           onTap: () => _onTapLogo(),
         ),
         SizedBox(
-          height: SizeConfig.blockSizeVertical * 4,
+          height: SizeConfig.blockSizeVertical * 3,
         ),
       ],
     );
@@ -136,7 +136,13 @@ class _AboutScreenState extends State<AboutScreen> {
     return Column(
       children: [
         Text(
-          "Hecho en 🇦🇷 Argentina  © ${DateTime.now().year}",
+          "Hecho en 🇦🇷 Argentina",
+          style: _getTextStyle(),
+          textAlign: TextAlign.center,
+        ),
+        SizedBox(height: SizeConfig.blockSizeVertical),
+        Text(
+          "© ${DateTime.now().year} ArrowBlade Software",
           style: _getTextStyle(),
           textAlign: TextAlign.center,
         ),
