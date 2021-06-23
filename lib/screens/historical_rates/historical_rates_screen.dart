@@ -5,7 +5,10 @@ import 'package:dolarbot_app/screens/base/widgets/title_banner.dart';
 import 'package:dolarbot_app/screens/common/image_screen.dart';
 import 'package:dolarbot_app/util/util.dart';
 import 'package:dolarbot_app/widgets/common/cool_app_bar.dart';
+import 'package:dolarbot_app/widgets/common/simple_button.dart';
 import 'package:dolarbot_app/widgets/historical_chart/historical_chart.dart';
+import 'package:dolarbot_app/widgets/historical_chart/historical_chart_help_dialog.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 
@@ -93,17 +96,7 @@ class _HistoricalRatesScreenState extends State<HistoricalRatesScreen> {
 
   Widget _body() {
     if (_historicalRates.length <= 2) {
-      return ImageScreen(
-        image: const AssetImage("assets/images/general/collecting_data.png"),
-        text: "Aún no hay datos suficientes para mostrar los gráficos de evolución",
-        textStyle: TextStyle(
-          color: Colors.white.withOpacity(0.9),
-          fontSize: SizeConfig.blockSizeVertical * 3,
-          fontFamily: "Raleway",
-        ),
-        imageOpacity: 0.5,
-        textOpacity: 0.7,
-      );
+      return _EmptyChart();
     }
 
     return Container(
@@ -148,5 +141,54 @@ class _HistoricalRatesScreenState extends State<HistoricalRatesScreen> {
       DateTime date = DateTime.parse(_historicalRates.single.timestamp);
       _dataTimeSpan = dateFormat.format(date);
     }
+  }
+}
+
+class _EmptyChart extends StatelessWidget {
+  const _EmptyChart({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        ImageScreen(
+          image: const AssetImage("assets/images/general/collecting_data.png"),
+          text: "Aún no hay datos suficientes para mostrar los gráficos de evolución",
+          textStyle: TextStyle(
+            color: Colors.white.withOpacity(0.9),
+            fontSize: SizeConfig.blockSizeVertical * 3,
+            fontFamily: "Raleway",
+          ),
+          imageOpacity: 0.5,
+          textOpacity: 0.7,
+        ),
+        SizedBox(
+          height: SizeConfig.blockSizeVertical,
+        ),
+        SimpleButton(
+          icon: FontAwesomeIcons.questionCircle,
+          iconColor: Colors.white.withOpacity(0.7),
+          iconSize: 22,
+          text: '¿Qué es esto?',
+          fontSize: 13,
+          textColor: Colors.white.withOpacity(0.8),
+          backgroundColor: Colors.black26.withOpacity(0.2),
+          padding: const EdgeInsets.only(top: 10, right: 20, left: 20, bottom: 10),
+          onPressed: () => _showHelpDialog(context),
+        ),
+      ],
+    );
+  }
+
+  void _showHelpDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return const HistoricalChartHelpDialog();
+      },
+    );
   }
 }
