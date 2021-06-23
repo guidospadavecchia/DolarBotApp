@@ -1,6 +1,7 @@
 import 'package:dolarbot_app/classes/app_config.dart';
 import 'package:dolarbot_app/classes/size_config.dart';
 import 'package:dolarbot_app/util/util.dart';
+import 'package:dolarbot_app/widgets/about/special_thanks_dialog.dart';
 import 'package:dolarbot_app/widgets/common/blur_dialog.dart';
 import 'package:dolarbot_app/widgets/common/cool_app_bar.dart';
 import 'package:dolarbot_app/widgets/common/social/discord.dart';
@@ -135,10 +136,12 @@ class _AboutScreenState extends State<AboutScreen> {
     return Column(
       children: [
         Text(
-          "Hecho en 🇦🇷 Argentina - © ${DateTime.now().year}",
+          "Hecho en 🇦🇷 Argentina  © ${DateTime.now().year}",
           style: _getTextStyle(),
           textAlign: TextAlign.center,
         ),
+        SizedBox(height: SizeConfig.blockSizeVertical * 1.5),
+        _buildSpecialThanks(),
         SizedBox(height: SizeConfig.blockSizeVertical * 4),
         Text(
           "Desarrollado por",
@@ -157,16 +160,18 @@ class _AboutScreenState extends State<AboutScreen> {
       String? name = author["name"];
       String? link = author["link"];
       if (name != null && link != null) {
-        authorWidgets.add(Tooltip(
-          message: "Visitar GitHub de $name",
-          child: RichText(
-            text: TextSpan(
-              text: name,
-              style: _getTextStyle(isLink: true),
-              recognizer: TapGestureRecognizer()..onTap = () => Util.launchURL(link),
+        authorWidgets.add(
+          Tooltip(
+            message: "Visitar GitHub de $name",
+            child: RichText(
+              text: TextSpan(
+                text: name,
+                style: _getTextStyle(isLink: true),
+                recognizer: TapGestureRecognizer()..onTap = () => Util.launchURL(link),
+              ),
             ),
           ),
-        ));
+        );
         authorWidgets.add(
           SizedBox(height: SizeConfig.blockSizeVertical * 1.2),
         );
@@ -176,6 +181,33 @@ class _AboutScreenState extends State<AboutScreen> {
     return Column(
       children: authorWidgets,
     );
+  }
+
+  Widget _buildSpecialThanks() {
+    final List<dynamic>? specialThanksNames = Util.cfg.getDeepValue("specialThanks");
+    if (specialThanksNames != null && specialThanksNames.length > 0) {
+      List<String> names = specialThanksNames.map((x) => x.toString()).toList();
+      return Tooltip(
+        message: "Ver agradecimientos",
+        child: RichText(
+          text: TextSpan(
+            text: "Agradecimientos",
+            style: _getTextStyle(isLink: true),
+            recognizer: TapGestureRecognizer()
+              ..onTap = () => showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return SpecialThanksDialog(
+                        names: names,
+                      );
+                    },
+                  ),
+          ),
+        ),
+      );
+    } else {
+      return SizedBox.shrink();
+    }
   }
 
   Widget _buildSocialMedia() {

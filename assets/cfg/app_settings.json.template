@@ -23,6 +23,11 @@
         "pro": "YOUR_LINK_HERE",
         "devPage": "YOUR_LINK_HERE"
     },
+    "specialThanks": [
+        "NAME1",
+        "NAME2",
+        "NAME3",
+    ],
     "share": {
         "subject": "DolarBot",
         "message": "Descargá la app en: dolarbot.com.ar",
