@@ -1,6 +1,8 @@
+import 'package:dolarbot_app/classes/settings.dart';
 import 'package:dolarbot_app/classes/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:dolarbot_app/widgets/common/pills/pill.dart';
+import 'package:provider/provider.dart';
 
 class CardLogo extends StatelessWidget {
   final String? iconAsset;
@@ -41,9 +43,13 @@ class CardLogo extends StatelessWidget {
                 ),
           Padding(
             padding: const EdgeInsets.only(top: 15),
-            child: Pill(
-              text: tag,
-            ),
+            child: Consumer<Settings>(builder: (context, settings, child) {
+              return Pill(
+                text: tag,
+                color: settings.getIsTagColored() ? _getPillColor(tag) : Colors.black54,
+                foreColor: settings.getIsTagColored() ? _getPillForeColor(tag) : Colors.white,
+              );
+            }),
           ),
           if (showDragHandle)
             Expanded(
@@ -60,5 +66,25 @@ class CardLogo extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Color _getPillColor(String tag) {
+    switch (tag.toUpperCase()) {
+      case 'DÓLAR':
+        return Color.fromRGBO(30, 90, 50, 1);
+
+      case 'EURO':
+        return Color.fromRGBO(0, 64, 180, 1);
+
+      case 'REAL':
+        return Colors.orange.shade400;
+
+      default:
+        return Colors.black45;
+    }
+  }
+
+  Color _getPillForeColor(String tag) {
+    return tag.toUpperCase() == 'REAL' ? Colors.black87 : Colors.white;
   }
 }

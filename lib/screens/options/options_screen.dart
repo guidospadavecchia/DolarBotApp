@@ -6,6 +6,7 @@ import 'package:dolarbot_app/classes/settings.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
 import 'package:dolarbot_app/screens/home/home_screen.dart';
 import 'package:dolarbot_app/screens/options/widgets/card_gesture_dismiss_dialog/card_gesture_dismiss_dialog.dart';
+import 'package:dolarbot_app/screens/options/widgets/card_tag_colors_dialog/card_tag_colors_dialog.dart';
 import 'package:dolarbot_app/screens/options/widgets/fab_direction_dialog/fab_direction_dialog.dart';
 import 'package:dolarbot_app/screens/options/widgets/format_currency_dialog/format_currency_dialog.dart';
 import 'package:dolarbot_app/screens/options/widgets/clear_historical_data_dialog/clear_historical_data_dialog.dart';
@@ -100,6 +101,14 @@ class _OptionsScreenState extends State<OptionsScreen> {
               leading: const Icon(FontAwesomeIcons.exchangeAlt),
               depthLevel: 1,
               onTap: () => _showCardGestureDismissDialog(context),
+              disableHighlight: false,
+            ),
+            MenuItem(
+              text: "Etiquetas de colores",
+              subtitle: "Diferencia las etiquetas de monedas por color",
+              leading: const Icon(FontAwesomeIcons.tag),
+              depthLevel: 1,
+              onTap: () => _showCardTagColorsDialog(context),
               disableHighlight: false,
             ),
             _buildDivider("Otros"),
@@ -284,6 +293,16 @@ class _OptionsScreenState extends State<OptionsScreen> {
       context: context,
       builder: (BuildContext context) {
         return CardGestureDismissDialog();
+      },
+    );
+  }
+
+  _showCardTagColorsDialog(BuildContext context) {
+    dismissAllToast();
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return CardTagColorsDialog();
       },
     );
   }

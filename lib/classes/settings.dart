@@ -17,6 +17,15 @@ class Settings extends ChangeNotifier {
     return settings.get('currencyFormat') ?? CurrencyFormats.AR.value;
   }
 
+  void saveIsTagColored(bool isColored) {
+    settings.put('isTagColored', isColored);
+    notifyListeners();
+  }
+
+  bool getIsTagColored() {
+    return settings.get('isTagColored') ?? true;
+  }
+
   void saveFabDirection(Axis direction) {
     settings.put('fabDirection', direction.index);
     notifyListeners();
