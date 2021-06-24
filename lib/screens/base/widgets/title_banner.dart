@@ -70,7 +70,7 @@ class TitleBanner extends StatelessWidget {
                       text,
                       style: textStyle ??
                           TextStyle(
-                            fontSize: SizeConfig.blockSizeVertical * 3.3,
+                            fontSize: SizeConfig.blockSizeVertical * 2.7,
                             fontFamily: 'Raleway',
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
