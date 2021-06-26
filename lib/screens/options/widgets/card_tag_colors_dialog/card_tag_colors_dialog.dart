@@ -1,13 +1,10 @@
 import 'dart:ui';
 
-import 'package:dolarbot_app/api/responses/base/api_response.dart';
 import 'package:dolarbot_app/classes/dolarbot_icons.dart';
 import 'package:dolarbot_app/classes/size_config.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:dolarbot_app/classes/settings.dart';
 import 'package:dolarbot_app/util/constants.dart';
-import 'package:dolarbot_app/widgets/cards/card_favorite.dart';
-import 'package:dolarbot_app/widgets/cards/factory/factory_card.dart';
 import 'package:dolarbot_app/widgets/common/blur_dialog.dart';
 import 'package:dolarbot_app/widgets/common/pills/pill.dart';
 import 'package:dolarbot_app/widgets/common/simple_button.dart';
