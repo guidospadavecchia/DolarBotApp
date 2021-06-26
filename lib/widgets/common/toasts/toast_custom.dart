@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 class ToastCustom extends StatelessWidget {
   final IconData icon;
   final Color iconColor;
-  final double iconSize;
-  final double size;
+  final double? iconSize;
+  final double? size;
   final Color backgroundColor;
   final AlignmentGeometry alignment;
   final EdgeInsetsGeometry? padding;
@@ -14,8 +14,8 @@ class ToastCustom extends StatelessWidget {
     Key? key,
     required this.icon,
     this.iconColor = Colors.white,
-    this.iconSize = 30,
-    this.size = 50,
+    this.iconSize,
+    this.size,
     this.backgroundColor = Colors.black87,
     this.alignment = Alignment.bottomCenter,
     this.padding,
@@ -29,8 +29,8 @@ class ToastCustom extends StatelessWidget {
         alignment: alignment,
         child: Container(
           alignment: Alignment.center,
-          width: size,
-          height: size,
+          width: size ?? SizeConfig.blockSizeVertical * 6,
+          height: size ?? SizeConfig.blockSizeVertical * 8,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             color: backgroundColor,
