@@ -38,18 +38,22 @@ class _MetalInfoScreenState extends BaseInfoScreenState<MetalInfoScreen> with Ba
       return LoadingScreen();
     }
 
-    return SingleChildScrollView(
-      scrollDirection: Axis.vertical,
-      physics: BouncingScrollPhysics(),
-      child: CurrencyInfoContainer(
-        items: [
-          if (data?.value != null)
-            CurrencyInfo(
-              title: '/ ${data!.unit}',
-              symbol: (data?.currency ?? '') == 'USD' ? 'US\$' : '\$',
-              value: data!.value!,
-            ),
-        ],
+    return addRefreshIndicator(
+      SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        physics: BouncingScrollPhysics(
+          parent: AlwaysScrollableScrollPhysics(),
+        ),
+        child: CurrencyInfoContainer(
+          items: [
+            if (data?.value != null)
+              CurrencyInfo(
+                title: '/ ${data!.unit}',
+                symbol: (data?.currency ?? '') == 'USD' ? 'US\$' : '\$',
+                value: data!.value!,
+              ),
+          ],
+        ),
       ),
     );
   }

@@ -39,24 +39,28 @@ class _VenezuelaInfoScreenState extends BaseInfoScreenState<VenezuelaInfoScreen>
       return LoadingScreen();
     }
 
-    return SingleChildScrollView(
-      scrollDirection: Axis.vertical,
-      physics: BouncingScrollPhysics(),
-      child: CurrencyInfoContainer(
-        items: [
-          if (data?.bankPrice != null)
-            CurrencyInfo(
-              title: 'PROMEDIO BANCOS',
-              symbol: 'Bs.',
-              value: data!.bankPrice!,
-            ),
-          if (data?.blackMarketPrice != null)
-            CurrencyInfo(
-              title: "PARALELO",
-              symbol: 'Bs.',
-              value: data!.blackMarketPrice!,
-            ),
-        ],
+    return addRefreshIndicator(
+      SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        physics: BouncingScrollPhysics(
+          parent: AlwaysScrollableScrollPhysics(),
+        ),
+        child: CurrencyInfoContainer(
+          items: [
+            if (data?.bankPrice != null)
+              CurrencyInfo(
+                title: 'PROMEDIO BANCOS',
+                symbol: 'Bs.',
+                value: data!.bankPrice!,
+              ),
+            if (data?.blackMarketPrice != null)
+              CurrencyInfo(
+                title: "PARALELO",
+                symbol: 'Bs.',
+                value: data!.blackMarketPrice!,
+              ),
+          ],
+        ),
       ),
     );
   }

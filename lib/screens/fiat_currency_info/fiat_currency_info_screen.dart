@@ -67,30 +67,34 @@ class _FiatCurrencyInfoScreenState<T extends GenericCurrencyResponse?>
       return LoadingScreen();
     }
 
-    return SingleChildScrollView(
-      scrollDirection: Axis.vertical,
-      physics: BouncingScrollPhysics(),
-      child: CurrencyInfoContainer(
-        items: [
-          if (data?.buyPrice != null)
-            CurrencyInfo(
-              title: "COMPRA",
-              symbol: '\$',
-              value: data!.buyPrice!,
-            ),
-          if (data?.sellPrice != null)
-            CurrencyInfo(
-              title: "VENTA",
-              symbol: '\$',
-              value: data!.sellPrice!,
-            ),
-          if (data?.sellPriceWithTaxes != null)
-            CurrencyInfo(
-              title: "VENTA + IMPUESTOS",
-              symbol: '\$',
-              value: data!.sellPriceWithTaxes!,
-            ),
-        ],
+    return addRefreshIndicator(
+      SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        physics: BouncingScrollPhysics(
+          parent: AlwaysScrollableScrollPhysics(),
+        ),
+        child: CurrencyInfoContainer(
+          items: [
+            if (data?.buyPrice != null)
+              CurrencyInfo(
+                title: "COMPRA",
+                symbol: '\$',
+                value: data!.buyPrice!,
+              ),
+            if (data?.sellPrice != null)
+              CurrencyInfo(
+                title: "VENTA",
+                symbol: '\$',
+                value: data!.sellPrice!,
+              ),
+            if (data?.sellPriceWithTaxes != null)
+              CurrencyInfo(
+                title: "VENTA + IMPUESTOS",
+                symbol: '\$',
+                value: data!.sellPriceWithTaxes!,
+              ),
+          ],
+        ),
       ),
     );
   }

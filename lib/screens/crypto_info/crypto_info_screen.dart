@@ -38,30 +38,34 @@ class _CryptoInfoScreenState extends BaseInfoScreenState<CryptoInfoScreen> with 
       return LoadingScreen();
     }
 
-    return SingleChildScrollView(
-      scrollDirection: Axis.vertical,
-      physics: BouncingScrollPhysics(),
-      child: CurrencyInfoContainer(
-        items: [
-          if (data?.usdPrice != null)
-            CurrencyInfo(
-              title: "DÓLARES ESTADOUNIDENSES",
-              symbol: 'US\$',
-              value: data!.usdPrice!,
-            ),
-          if (data?.arsPrice != null)
-            CurrencyInfo(
-              title: "PESOS ARGENTINOS",
-              symbol: '\$',
-              value: data!.arsPrice!,
-            ),
-          if (data?.arsPriceWithTaxes != null)
-            CurrencyInfo(
-              title: "PESOS ARGENTINOS + IMPUESTOS",
-              symbol: '\$',
-              value: data!.arsPriceWithTaxes!,
-            ),
-        ],
+    return addRefreshIndicator(
+      SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        physics: BouncingScrollPhysics(
+          parent: AlwaysScrollableScrollPhysics(),
+        ),
+        child: CurrencyInfoContainer(
+          items: [
+            if (data?.usdPrice != null)
+              CurrencyInfo(
+                title: "DÓLARES ESTADOUNIDENSES",
+                symbol: 'US\$',
+                value: data!.usdPrice!,
+              ),
+            if (data?.arsPrice != null)
+              CurrencyInfo(
+                title: "PESOS ARGENTINOS",
+                symbol: '\$',
+                value: data!.arsPrice!,
+              ),
+            if (data?.arsPriceWithTaxes != null)
+              CurrencyInfo(
+                title: "PESOS ARGENTINOS + IMPUESTOS",
+                symbol: '\$',
+                value: data!.arsPriceWithTaxes!,
+              ),
+          ],
+        ),
       ),
     );
   }

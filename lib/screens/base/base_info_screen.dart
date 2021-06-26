@@ -243,6 +243,21 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
     simpleFabKey.currentState?.show();
   }
 
+  @nonVirtual
+  Widget addRefreshIndicator(SingleChildScrollView scrollView) {
+    return RefreshIndicator(
+      strokeWidth: 3,
+      color: ThemeManager.getPrimaryAccentColor(context),
+      displacement: 40,
+      backgroundColor: ThemeManager.getButtonColor(context).withOpacity(0.8),
+      onRefresh: () => Future.delayed(
+        Duration(milliseconds: 200),
+        () => onRefresh(),
+      ),
+      child: scrollView,
+    );
+  }
+
   void onRefresh() async {
     simpleFabKey.currentState?.closeMenu();
     hideSimpleFabMenu();

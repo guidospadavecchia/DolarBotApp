@@ -50,10 +50,14 @@ class _BcraInfoScreenState extends BaseInfoScreenState<BcraInfoScreen> with Base
       return LoadingScreen();
     }
 
-    return SingleChildScrollView(
-      scrollDirection: Axis.vertical,
-      physics: BouncingScrollPhysics(),
-      child: _buildChildScreen(),
+    return addRefreshIndicator(
+      SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        physics: BouncingScrollPhysics(
+          parent: AlwaysScrollableScrollPhysics(),
+        ),
+        child: _buildChildScreen(),
+      ),
     );
   }
 
