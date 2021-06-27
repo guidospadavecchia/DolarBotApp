@@ -12,6 +12,7 @@ class VenezuelaCard extends BaseCard {
   final String title;
   final String bannerTitle;
   final String tag;
+  final bool coloredTag;
   final VenezuelaResponse data;
   final List<Color> gradiantColors;
   final IconData? iconData;
@@ -26,6 +27,7 @@ class VenezuelaCard extends BaseCard {
     required this.title,
     required this.bannerTitle,
     required this.tag,
+    required this.coloredTag,
     required this.data,
     required this.gradiantColors,
     this.iconData,
@@ -38,6 +40,7 @@ class VenezuelaCard extends BaseCard {
           title: title,
           bannerTitle: bannerTitle,
           tag: tag,
+          coloredTag: coloredTag,
           gradiantColors: gradiantColors,
           iconAsset: iconAsset,
           iconData: iconData,
@@ -92,6 +95,7 @@ class _VenezuelaCardState extends BaseCardState<VenezuelaCard> {
         iconData: widget.iconData,
         showDragHandle: widget.showButtons,
         tag: widget.tag,
+        coloredTag: widget.coloredTag,
       ),
       lastUpdated: CardLastUpdated(
         timestamp: data.timestamp,

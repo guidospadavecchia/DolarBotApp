@@ -13,6 +13,7 @@ class MetalCard extends BaseCard {
   final String title;
   final String bannerTitle;
   final String tag;
+  final bool coloredTag;
   final MetalResponse data;
   final List<Color> gradiantColors;
   final IconData? iconData;
@@ -27,6 +28,7 @@ class MetalCard extends BaseCard {
     required this.title,
     required this.bannerTitle,
     required this.tag,
+    required this.coloredTag,
     required this.data,
     required this.gradiantColors,
     this.iconData,
@@ -39,6 +41,7 @@ class MetalCard extends BaseCard {
           title: title,
           bannerTitle: bannerTitle,
           tag: tag,
+          coloredTag: coloredTag,
           gradiantColors: gradiantColors,
           iconAsset: iconAsset,
           iconData: iconData,
@@ -85,6 +88,7 @@ class _MetalCardState extends BaseCardState<MetalCard> {
         iconAsset: widget.iconAsset,
         showDragHandle: widget.showButtons,
         tag: widget.tag,
+        coloredTag: widget.coloredTag,
       ),
       lastUpdated: CardLastUpdated(
         timestamp: data.timestamp,

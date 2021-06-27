@@ -11,6 +11,7 @@ class EmptyCard extends BaseCard {
           endpoint: '',
           showPoweredBy: false,
           tag: '',
+          coloredTag: false,
           numberFormat: NumberFormat.simpleCurrency(),
         );
 

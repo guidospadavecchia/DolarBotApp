@@ -29,7 +29,7 @@ class _CardTagColorsDialogState extends State<CardTagColorsDialog> {
 
   @override
   Widget build(BuildContext context) {
-    _isTagColored = Provider.of<Settings>(context, listen: false).getIsTagColored();
+    _isTagColored = Provider.of<Settings>(context, listen: false).getTagIsColored();
 
     if (_actualIsTagColored == null) {
       _actualIsTagColored = _isTagColored;

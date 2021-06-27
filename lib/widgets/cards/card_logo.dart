@@ -1,14 +1,13 @@
-import 'package:dolarbot_app/classes/settings.dart';
 import 'package:dolarbot_app/classes/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:dolarbot_app/widgets/common/pills/pill.dart';
-import 'package:provider/provider.dart';
 
 class CardLogo extends StatelessWidget {
   final String? iconAsset;
   final IconData? iconData;
   final bool showDragHandle;
   final String tag;
+  final bool coloredTag;
 
   const CardLogo({
     Key? key,
@@ -16,6 +15,7 @@ class CardLogo extends StatelessWidget {
     this.iconData,
     this.showDragHandle = true,
     required this.tag,
+    required this.coloredTag,
   })   : assert(iconAsset != null || iconData != null),
         super(key: key);
 
@@ -43,13 +43,11 @@ class CardLogo extends StatelessWidget {
                 ),
           Padding(
             padding: const EdgeInsets.only(top: 15),
-            child: Consumer<Settings>(builder: (context, settings, child) {
-              return Pill(
-                text: tag,
-                color: settings.getIsTagColored() ? _getPillColor(tag) : Colors.black54,
-                foreColor: settings.getIsTagColored() ? _getPillForeColor(tag) : Colors.white,
-              );
-            }),
+            child: Pill(
+              text: tag,
+              color: coloredTag ? _getPillColor(tag) : Colors.black54,
+              foreColor: coloredTag ? _getPillForeColor(tag) : Colors.white,
+            ),
           ),
           if (showDragHandle)
             Expanded(

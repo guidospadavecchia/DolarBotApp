@@ -13,6 +13,7 @@ class BcraCard extends BaseCard {
   final String bannerTitle;
   final String subtitle;
   final String tag;
+  final bool coloredTag;
   final String symbol;
   final BcraResponse data;
   final List<Color> gradiantColors;
@@ -29,6 +30,7 @@ class BcraCard extends BaseCard {
     required this.bannerTitle,
     required this.subtitle,
     required this.tag,
+    required this.coloredTag,
     required this.symbol,
     required this.data,
     required this.gradiantColors,
@@ -43,6 +45,7 @@ class BcraCard extends BaseCard {
           bannerTitle: bannerTitle,
           subtitle: subtitle,
           tag: tag,
+          coloredTag: coloredTag,
           symbol: symbol,
           gradiantColors: gradiantColors,
           iconAsset: iconAsset,
@@ -91,6 +94,7 @@ class _BcraCardState extends BaseCardState<BcraCard> {
         iconAsset: widget.iconAsset,
         showDragHandle: widget.showButtons,
         tag: widget.tag,
+        coloredTag: widget.coloredTag,
       ),
       lastUpdated: CardLastUpdated(
         timestamp: data.timestamp,

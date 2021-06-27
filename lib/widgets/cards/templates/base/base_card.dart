@@ -14,6 +14,7 @@ abstract class BaseCard extends StatefulWidget {
   final String bannerTitle;
   final String? subtitle;
   final String tag;
+  final bool coloredTag;
   final String? symbol;
   final ApiResponse? data;
   final List<Color> gradiantColors;
@@ -30,6 +31,7 @@ abstract class BaseCard extends StatefulWidget {
     required this.bannerTitle,
     this.subtitle,
     required this.tag,
+    required this.coloredTag,
     this.symbol,
     this.data,
     required this.gradiantColors,

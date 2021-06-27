@@ -22,7 +22,7 @@ class Settings extends ChangeNotifier {
     notifyListeners();
   }
 
-  bool getIsTagColored() {
+  bool getTagIsColored() {
     return settings.get('isTagColored') ?? true;
   }
 
