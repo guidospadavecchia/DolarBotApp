@@ -67,6 +67,7 @@ class _FiatCurrencyCardState extends BaseCardState<FiatCurrencyCard> {
       height: FiatCurrencyCard.kHeight,
       header: CardHeader(
         title: widget.bannerTitle,
+        titleFontSize: SizeConfig.blockSizeVertical * 2.8,
         shareButton:
             widget.showButtons ? CardShareButton(onSharePressed: () => onSharePressed()) : null,
       ),
