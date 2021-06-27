@@ -4,7 +4,6 @@ import 'package:dolarbot_app/classes/size_config.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:dolarbot_app/classes/settings.dart';
 import 'package:dolarbot_app/screens/base/base_info_screen.dart';
-import 'package:dolarbot_app/screens/home/home_screen.dart';
 import 'package:dolarbot_app/screens/options/widgets/card_gesture_dismiss_dialog/card_gesture_dismiss_dialog.dart';
 import 'package:dolarbot_app/screens/options/widgets/card_tag_colors_dialog/card_tag_colors_dialog.dart';
 import 'package:dolarbot_app/screens/options/widgets/fab_direction_dialog/fab_direction_dialog.dart';
@@ -173,12 +172,9 @@ class _OptionsScreenState extends State<OptionsScreen> {
 
   Future<bool> _onWillPopScope(BuildContext context) {
     dismissAllToast();
-    Util.navigateTo(
-      context,
-      HomeScreen(
-        key: GlobalKey<HomeScreenState>(),
-      ),
-    );
+    if (Navigator.canPop(context)) {
+      Navigator.pop(context);
+    }
     return Future.value(false);
   }
 
