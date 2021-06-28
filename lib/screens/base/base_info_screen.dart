@@ -67,7 +67,7 @@ abstract class BaseInfoScreenState<Page extends BaseInfoScreen> extends State<Ba
   bool showClipboardButton() => true;
   bool showCalculatorButton() => true;
   bool showFavoriteButton() => true;
-  bool showHistoricalChartButton() => AppConfig.of(context).flavor == AppFlavor.Pro;
+  bool showHistoricalChartButton() => AppConfig.isProVersion;
   bool extendBodyBehindAppBar() => true;
 }
 

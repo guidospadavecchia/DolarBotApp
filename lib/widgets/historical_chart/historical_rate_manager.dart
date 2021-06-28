@@ -8,7 +8,7 @@ import 'package:hive/hive.dart';
 class HistoricalRateManager {
   static void saveRate(BuildContext context, String endpoint, String responseType, String timestamp,
       ApiResponse data) {
-    bool shouldSave = AppConfig.of(context).flavor == AppFlavor.Pro;
+    bool shouldSave = AppConfig.isProVersion;
 
     if (shouldSave) {
       Box historicalRatesBox = Hive.box('historicalRates');

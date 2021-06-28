@@ -14,6 +14,7 @@ class AppLogo {
 class AppConfig extends InheritedWidget {
   static const String appDisplayName = "DolarBot";
   static const AppLogo logo = const AppLogo._create();
+  static late final bool isProVersion;
   final AppFlavor flavor;
   late final String appName;
   late final String packageName;
@@ -29,6 +30,7 @@ class AppConfig extends InheritedWidget {
     this.appInternalId = flavor == AppFlavor.Lite ? 1 : 2;
     this.packageName = packageInfo.packageName;
     this.version = packageInfo.version;
+    isProVersion = flavor == AppFlavor.Pro;
   }
 
   static Future<AppConfig> initialize({

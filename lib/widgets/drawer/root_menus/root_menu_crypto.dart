@@ -16,8 +16,6 @@ const String _title = "Crypto";
 class RootMenuCrypto extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final bool isProVersion = AppConfig.of(context).flavor == AppFlavor.Pro;
-
     return MenuItem(
       text: "Crypto",
       leading: getIconAsset(context, DolarBotIcons.general.crypto),
@@ -26,7 +24,7 @@ class RootMenuCrypto extends StatelessWidget {
         MenuItem(
           text: "Bitcoin",
           leading: getIconData(context, CryptoFontIcons.BTC!),
-          lockedBehindProFeature: !isProVersion,
+          lockedBehindProFeature: !AppConfig.isProVersion,
           depthLevel: 2,
           onTap: () => {
             Util.navigateTo(
@@ -48,7 +46,7 @@ class RootMenuCrypto extends StatelessWidget {
         MenuItem(
           text: "Bitcoin Cash",
           leading: getIconData(context, CryptoFontIcons.BTC_ALT!),
-          lockedBehindProFeature: !isProVersion,
+          lockedBehindProFeature: !AppConfig.isProVersion,
           depthLevel: 2,
           onTap: () => {
             Util.navigateTo(
@@ -70,7 +68,7 @@ class RootMenuCrypto extends StatelessWidget {
         MenuItem(
           text: "Binance Coin",
           leading: getIconAsset(context, DolarBotIcons.crypto.binance),
-          lockedBehindProFeature: !isProVersion,
+          lockedBehindProFeature: !AppConfig.isProVersion,
           depthLevel: 2,
           onTap: () => {
             Util.navigateTo(
@@ -92,7 +90,7 @@ class RootMenuCrypto extends StatelessWidget {
         MenuItem(
           text: "Cardano",
           leading: getIconAsset(context, DolarBotIcons.crypto.cardano),
-          lockedBehindProFeature: !isProVersion,
+          lockedBehindProFeature: !AppConfig.isProVersion,
           depthLevel: 2,
           onTap: () => {
             Util.navigateTo(
@@ -114,7 +112,7 @@ class RootMenuCrypto extends StatelessWidget {
         MenuItem(
           text: "Chainlink",
           leading: getIconAsset(context, DolarBotIcons.crypto.chainlink),
-          lockedBehindProFeature: !isProVersion,
+          lockedBehindProFeature: !AppConfig.isProVersion,
           depthLevel: 2,
           onTap: () => {
             Util.navigateTo(
@@ -136,7 +134,7 @@ class RootMenuCrypto extends StatelessWidget {
         MenuItem(
           text: "DAI",
           leading: getIconAsset(context, DolarBotIcons.crypto.dai),
-          lockedBehindProFeature: !isProVersion,
+          lockedBehindProFeature: !AppConfig.isProVersion,
           depthLevel: 2,
           onTap: () => {
             Util.navigateTo(
@@ -158,7 +156,7 @@ class RootMenuCrypto extends StatelessWidget {
         MenuItem(
           text: "DASH",
           leading: getIconData(context, CryptoFontIcons.DASH!),
-          lockedBehindProFeature: !isProVersion,
+          lockedBehindProFeature: !AppConfig.isProVersion,
           depthLevel: 2,
           onTap: () => {
             Util.navigateTo(
@@ -180,7 +178,7 @@ class RootMenuCrypto extends StatelessWidget {
         MenuItem(
           text: "Dogecoin",
           leading: getIconData(context, CryptoFontIcons.DOGE!),
-          lockedBehindProFeature: !isProVersion,
+          lockedBehindProFeature: !AppConfig.isProVersion,
           depthLevel: 2,
           onTap: () => {
             Util.navigateTo(
@@ -202,7 +200,7 @@ class RootMenuCrypto extends StatelessWidget {
         MenuItem(
           text: "Ethereum",
           leading: getIconData(context, FontAwesomeIcons.ethereum),
-          lockedBehindProFeature: !isProVersion,
+          lockedBehindProFeature: !AppConfig.isProVersion,
           depthLevel: 2,
           onTap: () => {
             Util.navigateTo(
@@ -224,7 +222,7 @@ class RootMenuCrypto extends StatelessWidget {
         MenuItem(
           text: "Litecoin",
           leading: getIconData(context, CryptoFontIcons.LTC!),
-          lockedBehindProFeature: !isProVersion,
+          lockedBehindProFeature: !AppConfig.isProVersion,
           depthLevel: 2,
           onTap: () => {
             Util.navigateTo(
@@ -246,7 +244,7 @@ class RootMenuCrypto extends StatelessWidget {
         MenuItem(
           text: "Monero",
           leading: getIconData(context, CryptoFontIcons.XMR!),
-          lockedBehindProFeature: !isProVersion,
+          lockedBehindProFeature: !AppConfig.isProVersion,
           depthLevel: 2,
           onTap: () => {
             Util.navigateTo(
@@ -268,7 +266,7 @@ class RootMenuCrypto extends StatelessWidget {
         MenuItem(
           text: "Polkadot",
           leading: getIconAsset(context, DolarBotIcons.crypto.polkadot),
-          lockedBehindProFeature: !isProVersion,
+          lockedBehindProFeature: !AppConfig.isProVersion,
           depthLevel: 2,
           onTap: () => {
             Util.navigateTo(
@@ -290,7 +288,7 @@ class RootMenuCrypto extends StatelessWidget {
         MenuItem(
           text: "Ripple",
           leading: getIconData(context, CryptoFontIcons.XRP!),
-          lockedBehindProFeature: !isProVersion,
+          lockedBehindProFeature: !AppConfig.isProVersion,
           depthLevel: 2,
           onTap: () => {
             Util.navigateTo(
@@ -312,7 +310,7 @@ class RootMenuCrypto extends StatelessWidget {
         MenuItem(
           text: "Stellar",
           leading: getIconAsset(context, DolarBotIcons.crypto.stellar),
-          lockedBehindProFeature: !isProVersion,
+          lockedBehindProFeature: !AppConfig.isProVersion,
           depthLevel: 2,
           onTap: () => {
             Util.navigateTo(
@@ -334,7 +332,7 @@ class RootMenuCrypto extends StatelessWidget {
         MenuItem(
           text: "Tether",
           leading: getIconAsset(context, DolarBotIcons.crypto.tether),
-          lockedBehindProFeature: !isProVersion,
+          lockedBehindProFeature: !AppConfig.isProVersion,
           depthLevel: 2,
           onTap: () => {
             Util.navigateTo(
@@ -356,7 +354,7 @@ class RootMenuCrypto extends StatelessWidget {
         MenuItem(
           text: "Theta",
           leading: getIconAsset(context, DolarBotIcons.crypto.theta),
-          lockedBehindProFeature: !isProVersion,
+          lockedBehindProFeature: !AppConfig.isProVersion,
           depthLevel: 2,
           onTap: () => {
             Util.navigateTo(
@@ -378,7 +376,7 @@ class RootMenuCrypto extends StatelessWidget {
         MenuItem(
           text: "Uniswap",
           leading: getIconAsset(context, DolarBotIcons.crypto.uniswap),
-          lockedBehindProFeature: !isProVersion,
+          lockedBehindProFeature: !AppConfig.isProVersion,
           depthLevel: 2,
           onTap: () => {
             Util.navigateTo(

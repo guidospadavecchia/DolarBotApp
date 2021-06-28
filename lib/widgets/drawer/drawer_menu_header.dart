@@ -49,7 +49,7 @@ class DrawerMenuHeader extends StatelessWidget {
                       color: ThemeManager.getPrimaryColor(),
                       letterSpacing: 0.5),
                 ),
-                if (AppConfig.of(context).flavor == AppFlavor.Pro)
+                if (AppConfig.isProVersion)
                   Row(
                     children: [
                       const SizedBox(

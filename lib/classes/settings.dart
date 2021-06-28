@@ -1,3 +1,4 @@
+import 'package:dolarbot_app/classes/app_config.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
@@ -23,7 +24,7 @@ class Settings extends ChangeNotifier {
   }
 
   bool getTagIsColored() {
-    return settings.get('isTagColored') ?? true;
+    return settings.get('isTagColored') ?? AppConfig.isProVersion;
   }
 
   void saveFabDirection(Axis direction) {

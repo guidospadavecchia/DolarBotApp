@@ -136,9 +136,7 @@ class HomeScreenState extends State<HomeScreen> {
             ),
           ),
           bottomNavigationBar:
-              AppConfig.of(context).flavor == AppFlavor.Lite && _cardsLoaded && !_hasErrorsAll
-                  ? AdContainer()
-                  : null,
+              !AppConfig.isProVersion && _cardsLoaded && !_hasErrorsAll ? AdContainer() : null,
         );
       }),
     );
@@ -166,8 +164,7 @@ class HomeScreenState extends State<HomeScreen> {
             constraints: const BoxConstraints(maxWidth: 400),
             height: SizeConfig.screenHeight,
             padding: EdgeInsets.only(
-                bottom: SizeConfig.viewInsets.bottom +
-                    (AppConfig.of(context).flavor == AppFlavor.Lite ? 160 : 100)),
+                bottom: SizeConfig.viewInsets.bottom + (AppConfig.isProVersion ? 100 : 160)),
             child: NotificationListener<OverscrollIndicatorNotification>(
               onNotification: (OverscrollIndicatorNotification overScroll) {
                 overScroll.disallowGlow();

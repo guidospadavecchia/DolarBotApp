@@ -19,7 +19,7 @@ class DrawerMenuFooter extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
             const Divider(),
-            if (AppConfig.of(context).flavor == AppFlavor.Lite)
+            if (!AppConfig.isProVersion)
               Column(
                 children: [
                   MenuItem(

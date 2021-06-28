@@ -102,14 +102,15 @@ class _OptionsScreenState extends State<OptionsScreen> {
               onTap: () => _showCardGestureDismissDialog(context),
               disableHighlight: false,
             ),
-            MenuItem(
-              text: "Etiquetas de colores",
-              subtitle: "Diferencia las etiquetas de monedas por color",
-              leading: const Icon(FontAwesomeIcons.tag),
-              depthLevel: 1,
-              onTap: () => _showCardTagColorsDialog(context),
-              disableHighlight: false,
-            ),
+            if (AppConfig.isProVersion)
+              MenuItem(
+                text: "Etiquetas de colores",
+                subtitle: "Diferencia las etiquetas de monedas por color",
+                leading: const Icon(FontAwesomeIcons.tag),
+                depthLevel: 1,
+                onTap: () => _showCardTagColorsDialog(context),
+                disableHighlight: false,
+              ),
             _buildDivider("Otros"),
             MenuItem(
               text: "Ayuda",
@@ -130,7 +131,7 @@ class _OptionsScreenState extends State<OptionsScreen> {
               disableHighlight: false,
               onTap: () => _showSendMail(context),
             ),
-            if (AppConfig.of(context).flavor == AppFlavor.Pro)
+            if (AppConfig.isProVersion)
               MenuItem(
                 text: "Limpiar cotizaciones históricas",
                 subtitle: "Elimina los datos de las cotizaciones consultadas",
