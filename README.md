@@ -57,7 +57,7 @@ Escribinos a [hola@dolarbot.com.ar](mailto:hola@dolarbot.com.ar?subject=Hola%20D
 #### Alpha & Beta testers
 - Nazareno Allegue
 - Pablo Benitez
-- Carolina D'Alfonso
+- Carolina Andrea D'Alfonso
 - Matías Correa
 - Bruno Taraborrelli
 
