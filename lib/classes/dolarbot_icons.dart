@@ -9,6 +9,8 @@ class DolarBotIconsGeneral {
   final venezuela = "assets/images/general/venezuela.png";
   final real = "assets/images/general/real.png";
   final crypto = "assets/images/general/crypto.png";
+  final euroBlue = "assets/images/general/euro_blue.png";
+  final realBlue = "assets/images/general/real_blue.png";
 }
 
 class DolarBotIconsMetals {
