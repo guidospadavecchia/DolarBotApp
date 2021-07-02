@@ -38,6 +38,9 @@ enum EuroEndpoints {
   patagonia,
   comafi,
   reba,
+  oficial,
+  ahorro,
+  blue,
 }
 
 enum RealEndpoints {
@@ -47,6 +50,8 @@ enum RealEndpoints {
   piano,
   ciudad,
   supervielle,
+  oficial,
+  blue,
 }
 
 enum MetalEndpoints {
@@ -141,6 +146,9 @@ extension EuroEndpointsExtension on EuroEndpoints {
     EuroEndpoints.patagonia: '/api/euro/bancos/patagonia',
     EuroEndpoints.comafi: '/api/euro/bancos/comafi',
     EuroEndpoints.reba: '/api/euro/bancos/reba',
+    EuroEndpoints.oficial: '/api/euro/oficial',
+    EuroEndpoints.ahorro: '/api/euro/ahorro',
+    EuroEndpoints.blue: '/api/euro/blue',
   };
 
   String get value => endpoints[this]!;
@@ -154,6 +162,8 @@ extension RealEndpointsExtension on RealEndpoints {
     RealEndpoints.piano: '/api/real/bancos/piano',
     RealEndpoints.ciudad: '/api/real/bancos/ciudad',
     RealEndpoints.supervielle: '/api/real/bancos/supervielle',
+    RealEndpoints.oficial: '/api/real/oficial',
+    RealEndpoints.blue: '/api/real/blue',
   };
 
   String get value => endpoints[this]!;
