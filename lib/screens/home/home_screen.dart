@@ -196,7 +196,7 @@ class HomeScreenState extends State<HomeScreen> {
                         return Transform.scale(
                           scale: 0.95,
                           child: Opacity(
-                            opacity: 0.9,
+                            opacity: 0.6,
                             child: child,
                           ),
                         );
