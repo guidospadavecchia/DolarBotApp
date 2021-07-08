@@ -25,6 +25,9 @@ enum DollarEndpoints {
 }
 
 enum EuroEndpoints {
+  oficial,
+  ahorro,
+  blue,
   nacion,
   galicia,
   bbva,
@@ -38,20 +41,18 @@ enum EuroEndpoints {
   patagonia,
   comafi,
   reba,
-  oficial,
-  ahorro,
-  blue,
 }
 
 enum RealEndpoints {
+  oficial,
+  ahorro,
+  blue,
   nacion,
   bbva,
   chaco,
   piano,
   ciudad,
   supervielle,
-  oficial,
-  blue,
 }
 
 enum MetalEndpoints {
@@ -133,6 +134,9 @@ extension DollarEndpointsExtension on DollarEndpoints {
 
 extension EuroEndpointsExtension on EuroEndpoints {
   static const endpoints = {
+    EuroEndpoints.oficial: '/api/euro/oficial',
+    EuroEndpoints.ahorro: '/api/euro/ahorro',
+    EuroEndpoints.blue: '/api/euro/blue',
     EuroEndpoints.nacion: '/api/euro/bancos/nacion',
     EuroEndpoints.galicia: '/api/euro/bancos/galicia',
     EuroEndpoints.bbva: '/api/euro/bancos/bbva',
@@ -146,9 +150,6 @@ extension EuroEndpointsExtension on EuroEndpoints {
     EuroEndpoints.patagonia: '/api/euro/bancos/patagonia',
     EuroEndpoints.comafi: '/api/euro/bancos/comafi',
     EuroEndpoints.reba: '/api/euro/bancos/reba',
-    EuroEndpoints.oficial: '/api/euro/oficial',
-    EuroEndpoints.ahorro: '/api/euro/ahorro',
-    EuroEndpoints.blue: '/api/euro/blue',
   };
 
   String get value => endpoints[this]!;
@@ -156,14 +157,15 @@ extension EuroEndpointsExtension on EuroEndpoints {
 
 extension RealEndpointsExtension on RealEndpoints {
   static const endpoints = {
+    RealEndpoints.oficial: '/api/real/oficial',
+    RealEndpoints.ahorro: '/api/real/ahorro',
+    RealEndpoints.blue: '/api/real/blue',
     RealEndpoints.nacion: '/api/real/bancos/nacion',
     RealEndpoints.bbva: '/api/real/bancos/bbva',
     RealEndpoints.chaco: '/api/real/bancos/chaco',
     RealEndpoints.piano: '/api/real/bancos/piano',
     RealEndpoints.ciudad: '/api/real/bancos/ciudad',
     RealEndpoints.supervielle: '/api/real/bancos/supervielle',
-    RealEndpoints.oficial: '/api/real/oficial',
-    RealEndpoints.blue: '/api/real/blue',
   };
 
   String get value => endpoints[this]!;

@@ -41,6 +41,27 @@ class RootMenuReal extends StatelessWidget {
           },
         ),
         MenuItem(
+          text: "Ahorro",
+          leading: getIconData(context, FontAwesomeIcons.piggyBank),
+          depthLevel: 2,
+          onTap: () => {
+            Util.navigateTo(
+              context,
+              FiatCurrencyInfoScreen<RealResponse>(
+                cardData: CardData(
+                  title: _title,
+                  bannerTitle: "Ahorro",
+                  tag: _title,
+                  iconData: FontAwesomeIcons.piggyBank,
+                  colors: DolarBotConstants.kGradiantReal,
+                  endpoint: RealEndpoints.ahorro.value,
+                  responseType: RealResponse,
+                ),
+              ),
+            )
+          },
+        ),
+        MenuItem(
           text: "Blue",
           leading: getIconAsset(context, DolarBotIcons.general.realBlue),
           depthLevel: 2,
