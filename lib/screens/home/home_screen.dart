@@ -4,6 +4,7 @@ import 'package:dolarbot_app/api/responses/factory/api_response_builder.dart';
 import 'package:dolarbot_app/classes/app_config.dart';
 import 'package:dolarbot_app/classes/size_config.dart';
 import 'package:dolarbot_app/widgets/ads/ad_container.dart';
+import 'package:dolarbot_app/widgets/common/snackbars/undo_action_snackbar.dart';
 import 'package:dolarbot_app/widgets/historical_chart/historical_rate_manager.dart';
 import 'package:dolarbot_app/classes/hive/favorite_rate.dart';
 import 'package:dolarbot_app/classes/theme_manager.dart';
@@ -324,51 +325,18 @@ class HomeScreenState extends State<HomeScreen> {
         padding: const EdgeInsets.all(0),
         margin: const EdgeInsets.all(25),
         duration: Duration(seconds: 5),
-        content: Row(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(
-                  FontAwesomeIcons.solidCheckCircle,
-                  color: ThemeManager.getPrimaryTextColor(context),
-                ),
-                SizedBox(width: 10),
-                Text(
-                  "Tarjeta eliminada",
-                  style: TextStyle(
-                    color: ThemeManager.getPrimaryTextColor(context),
-                    fontFamily: 'Raleway',
-                  ),
-                ),
-              ],
-            ),
-            TextButton(
-              style: TextButton.styleFrom(
-                side: BorderSide.none,
-                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                alignment: Alignment.centerLeft,
-              ),
-              onPressed: () {
-                setState(() {
-                  _cards.insert(cardIndex, _card);
-                  _favoriteRates.insert(cardIndex, _favoriteRate);
-                  favoritesBox.put('favoriteCards', _favoriteRates);
-                  ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                });
-              },
-              child: Text(
-                "DESHACER",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.red,
-                ),
-              ),
-            )
-          ],
+        content: UndoActionSnackBarContent(
+          icon: Icon(
+            FontAwesomeIcons.solidCheckCircle,
+            color: ThemeManager.getPrimaryTextColor(context),
+          ),
+          text: "Tarjeta eliminada",
+          onUndoAction: () => setState(() {
+            _cards.insert(cardIndex, _card);
+            _favoriteRates.insert(cardIndex, _favoriteRate);
+            favoritesBox.put('favoriteCards', _favoriteRates);
+            ScaffoldMessenger.of(context).hideCurrentSnackBar();
+          }),
         ),
       ),
     );
