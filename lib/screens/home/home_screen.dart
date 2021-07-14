@@ -18,6 +18,7 @@ import 'package:dolarbot_app/widgets/common/cool_app_bar.dart';
 import 'package:dolarbot_app/widgets/drawer/drawer_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hive/hive.dart';
 import 'package:simple_animations/simple_animations.dart';
 import 'package:flutter_scroll_to_top/flutter_scroll_to_top.dart';
@@ -306,9 +307,71 @@ class HomeScreenState extends State<HomeScreen> {
   }
 
   void _onDismissCard(int cardIndex) {
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+
+    Widget _card = _cards[cardIndex];
+    FavoriteRate _favoriteRate = _favoriteRates[cardIndex];
+
     _cards.removeAt(cardIndex);
     _favoriteRates.removeAt(cardIndex);
     favoritesBox.put('favoriteCards', _favoriteRates);
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        behavior: SnackBarBehavior.floating,
+        elevation: 0,
+        backgroundColor: ThemeManager.getDividerColor(context),
+        padding: const EdgeInsets.all(0),
+        margin: const EdgeInsets.all(25),
+        duration: Duration(seconds: 5),
+        content: Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(
+                  FontAwesomeIcons.solidCheckCircle,
+                  color: ThemeManager.getPrimaryTextColor(context),
+                ),
+                SizedBox(width: 10),
+                Text(
+                  "Tarjeta eliminada",
+                  style: TextStyle(
+                    color: ThemeManager.getPrimaryTextColor(context),
+                    fontFamily: 'Raleway',
+                  ),
+                ),
+              ],
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                side: BorderSide.none,
+                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                alignment: Alignment.centerLeft,
+              ),
+              onPressed: () {
+                setState(() {
+                  _cards.insert(cardIndex, _card);
+                  _favoriteRates.insert(cardIndex, _favoriteRate);
+                  favoritesBox.put('favoriteCards', _favoriteRates);
+                  ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                });
+              },
+              child: Text(
+                "DESHACER",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.red,
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
+    );
 
     Future.delayed(
       kAnimationDuration,
