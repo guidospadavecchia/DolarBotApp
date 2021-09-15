@@ -93,8 +93,16 @@ body {
   color: var(--base-color);
 }
 
+#logo .forDiscord {
+  font-family: "Raleway-Regular";
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--base-color);
+  padding-top: 1.5rem;
+}
+
 #version {
-  margin-top: 2rem;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
