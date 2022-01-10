@@ -46,6 +46,7 @@ class MenuItem extends StatelessWidget {
         ? Theme(
             data: ThemeManager.getThemeForDrawerMenu(context, disableHighlight: disableHighlight),
             child: ExpansionTile(
+              iconColor: textColor ?? ThemeManager.getPrimaryTextColor(context),
               tilePadding: _calculatePaddingOffset(),
               title: Text(
                 text,

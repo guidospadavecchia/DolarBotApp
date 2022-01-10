@@ -138,19 +138,18 @@ class ThemeManager {
 
   static ThemeData getThemeForDrawerMenu(BuildContext context, {bool disableHighlight = false}) {
     return Theme.of(context).copyWith(
-      accentColor: ThemeManager.getDrawerMenuItemIconColor(context),
       splashColor: Colors.transparent,
       highlightColor: disableHighlight ? Colors.transparent : getHighlightDrawerMenuItem(context),
       unselectedWidgetColor: ThemeManager.getDrawerMenuItemIconColor(context),
       dividerColor: Colors.transparent,
+      colorScheme: ColorScheme.fromSwatch()
+          .copyWith(secondary: ThemeManager.getDrawerMenuItemIconColor(context)),
     );
   }
 
   static ThemeData getLightThemeData() {
     return ThemeData(
         primaryColor: getPrimaryColor(),
-        accentColor: getAccentColor(),
-        brightness: Brightness.light,
         fontFamily: 'Raleway',
         appBarTheme: AppBarTheme(
           iconTheme: IconThemeData(
@@ -178,14 +177,14 @@ class ThemeManager {
           selectionHandleColor: getPrimaryColor(),
           cursorColor: getPrimaryColor(),
         ),
-        visualDensity: VisualDensity.adaptivePlatformDensity);
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+        colorScheme: ColorScheme.fromSwatch()
+            .copyWith(brightness: Brightness.light, secondary: getAccentColor()));
   }
 
   static ThemeData getDarkThemeData() {
     return ThemeData(
         primaryColor: getPrimaryColor(),
-        accentColor: getAccentColor(),
-        brightness: Brightness.dark,
         fontFamily: 'Raleway',
         appBarTheme: AppBarTheme(
           iconTheme: IconThemeData(
@@ -213,6 +212,9 @@ class ThemeManager {
           selectionHandleColor: getSecondaryColor(),
           cursorColor: getSecondaryColor(),
         ),
-        visualDensity: VisualDensity.adaptivePlatformDensity);
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+        colorScheme: ColorScheme.fromSwatch(
+          brightness: Brightness.dark,
+        ).copyWith(secondary: getAccentColor()));
   }
 }
