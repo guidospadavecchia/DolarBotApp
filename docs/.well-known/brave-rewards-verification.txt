@@ -1,0 +1,4 @@
+This is a Brave Creators publisher verification file.
+
+Domain: dolarbot.com.ar
+Token: 6181098c42fc90bb40a1005ce2bbc58f9e67910808a8d1a63d457cb5e83a35d1
