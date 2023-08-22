@@ -34,6 +34,10 @@ if (keystorePropertiesFile.exists()) {
 android {
     compileSdkVersion 33
 
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+
     lintOptions {
         disable 'InvalidPackage'
         checkReleaseBuilds false
@@ -94,5 +98,6 @@ flutter {
 }
 
 dependencies {
+    implementation 'androidx.work:work-runtime-ktx:2.8.1'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
