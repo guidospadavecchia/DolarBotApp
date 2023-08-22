@@ -8,9 +8,9 @@
 </p>  
 
 ## Status
-[![Site](https://img.shields.io/website?down_color=red&down_message=offline&up_message=online&url=https%3A%2F%2Fdolarbot.com.ar&style=flat-square)](https://dolarbot.com.ar)
-[![Play Store](https://img.shields.io/endpoint?color=green&logo=google-play&logoColor=green&url=https%3A%2F%2Fplayshields.herokuapp.com%2Fplay%3Fi%3Dar.dolarbot%26l%3DInstalls%26m%3D%24installs)](https://play.google.com/store/apps/details?id=ar.dolarbot)
-[![API](https://img.shields.io/github/package-json/v/guidospadavecchia/DolarBot-Api?color=teal&label=api&style=flat-square)](https://dolarbot-api.herokuapp.com/)
+[![Site](https://img.shields.io/website?down_color=red&down_message=offline&up_message=online&up_color=218530&url=https%3A%2F%2Fdolarbot.com.ar&style=flat-square)](https://dolarbot.com.ar)
+[![Play Store](https://img.shields.io/badge/Google_Play-Downloads?style=flat&logo=google-play&logoColor=green&label=Download)](https://play.google.com/store/apps/details?id=ar.dolarbot)
+[![API](https://img.shields.io/github/package-json/v/guidospadavecchia/DolarBot-Api?color=teal&label=api&style=flat-square)](https://dolarbot-api.vercel.app/)
 [![Discord](https://img.shields.io/discord/752312522769694780?color=7289DA&label=Support%20Server&style=flat-square)](https://discord.gg/tCkbjuM)
 [![License](https://img.shields.io/github/license/guidospadavecchia/DolarBotApp?color=important&style=flat-square)](https://github.com/guidospadavecchia/DolarBotApp/blob/main/LICENSE)
 
