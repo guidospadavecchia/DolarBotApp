@@ -1,13 +1,13 @@
-import 'package:dolarbot_app/classes/hive/historical_rate.dart';
-import 'package:dolarbot_app/classes/size_config.dart';
-import 'package:dolarbot_app/screens/base/base_info_screen.dart';
-import 'package:dolarbot_app/screens/base/widgets/title_banner.dart';
-import 'package:dolarbot_app/screens/common/image_screen.dart';
-import 'package:dolarbot_app/util/util.dart';
-import 'package:dolarbot_app/widgets/common/cool_app_bar.dart';
-import 'package:dolarbot_app/widgets/common/simple_button.dart';
-import 'package:dolarbot_app/widgets/historical_chart/historical_chart.dart';
-import 'package:dolarbot_app/widgets/historical_chart/historical_chart_help_dialog.dart';
+import '../../classes/hive/historical_rate.dart';
+import '../../classes/size_config.dart';
+import '../base/base_info_screen.dart';
+import '../base/widgets/title_banner.dart';
+import '../common/image_screen.dart';
+import '../../util/util.dart';
+import '../../widgets/common/cool_app_bar.dart';
+import '../../widgets/common/simple_button.dart';
+import '../../widgets/historical_chart/historical_chart.dart';
+import '../../widgets/historical_chart/historical_chart_help_dialog.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
@@ -118,8 +118,7 @@ class _HistoricalRatesScreenState extends State<HistoricalRatesScreen> {
 
   void _loadHistoricalData() {
     Box historicalRatesBox = Hive.box('historicalRates');
-    _historicalRates =
-        historicalRatesBox.get(widget.endpoint, defaultValue: []).cast<HistoricalRate>();
+    _historicalRates = historicalRatesBox.get(widget.endpoint, defaultValue: []).cast<HistoricalRate>();
 
     if (_historicalRates.isEmpty) {
       return;
@@ -134,9 +133,7 @@ class _HistoricalRatesScreenState extends State<HistoricalRatesScreen> {
       String formattedStartDate = dateFormat.format(startDate);
       DateTime endDate = DateTime.parse(_historicalRates.last.timestamp);
       String formattedEndDate = dateFormat.format(endDate);
-      _dataTimeSpan = startDate.isSameDayAs(endDate)
-          ? "$formattedStartDate"
-          : "$formattedStartDate - $formattedEndDate";
+      _dataTimeSpan = startDate.isSameDayAs(endDate) ? "$formattedStartDate" : "$formattedStartDate - $formattedEndDate";
     } else {
       DateTime date = DateTime.parse(_historicalRates.single.timestamp);
       _dataTimeSpan = dateFormat.format(date);

@@ -1,5 +1,5 @@
-import 'package:dolarbot_app/classes/size_config.dart';
-import 'package:dolarbot_app/classes/theme_manager.dart';
+import '../../classes/size_config.dart';
+import '../../classes/theme_manager.dart';
 import 'package:flutter/material.dart';
 
 class ErrorScreen extends StatelessWidget {
@@ -28,10 +28,7 @@ class ErrorScreen extends StatelessWidget {
               image: new DecorationImage(
                 fit: BoxFit.scaleDown,
                 colorFilter: ColorFilter.mode(
-                    color == null
-                        ? ThemeManager.getForegroundColor().withOpacity(opacity)
-                        : color!.withOpacity(opacity),
-                    BlendMode.srcATop),
+                    color == null ? ThemeManager.getForegroundColor().withOpacity(opacity) : color!.withOpacity(opacity), BlendMode.srcATop),
                 image: const AssetImage("assets/images/general/error.png"),
               ),
             ),

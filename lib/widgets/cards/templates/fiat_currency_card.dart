@@ -1,10 +1,10 @@
-import 'package:dolarbot_app/api/responses/base/generic_currency_response.dart';
-import 'package:dolarbot_app/classes/size_config.dart';
-import 'package:dolarbot_app/screens/base/base_info_screen.dart';
-import 'package:dolarbot_app/widgets/cards/card_favorite.dart';
-import 'package:dolarbot_app/widgets/cards/templates/base/base_card.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+
+import '../../../api/responses/base/generic_currency_response.dart';
+import '../../../classes/size_config.dart';
+import '../../../screens/base/base_info_screen.dart';
+import '../card_favorite.dart';
+import 'base/base_card.dart';
 
 export 'package:dolarbot_app/api/responses/base/generic_currency_response.dart';
 
@@ -68,8 +68,7 @@ class _FiatCurrencyCardState extends BaseCardState<FiatCurrencyCard> {
       header: CardHeader(
         title: widget.bannerTitle,
         titleFontSize: SizeConfig.blockSizeVertical * 2.8,
-        shareButton:
-            widget.showButtons ? CardShareButton(onSharePressed: () => onSharePressed()) : null,
+        shareButton: widget.showButtons ? CardShareButton(onSharePressed: () => onSharePressed()) : null,
       ),
       spaceBetweenItems: Spacing.small,
       spaceBetweenHeader: (data.sellPriceWithTaxes != null) ? Spacing.medium : Spacing.small,
@@ -81,9 +80,7 @@ class _FiatCurrencyCardState extends BaseCardState<FiatCurrencyCard> {
           symbol: "\$",
           spaceBetweenTitle: Spacing.small,
           titleSize: SizeConfig.blockSizeVertical * 2,
-          valueSize: data.sellPriceWithTaxes == null
-              ? SizeConfig.blockSizeVertical * 3
-              : SizeConfig.blockSizeVertical * 2.1,
+          valueSize: data.sellPriceWithTaxes == null ? SizeConfig.blockSizeVertical * 3 : SizeConfig.blockSizeVertical * 2.1,
         ),
         CardValue(
           numberFormat: widget.numberFormat,
@@ -92,9 +89,7 @@ class _FiatCurrencyCardState extends BaseCardState<FiatCurrencyCard> {
           symbol: "\$",
           spaceBetweenTitle: Spacing.small,
           titleSize: SizeConfig.blockSizeVertical * 2,
-          valueSize: data.sellPriceWithTaxes == null
-              ? SizeConfig.blockSizeVertical * 3
-              : SizeConfig.blockSizeVertical * 2.1,
+          valueSize: data.sellPriceWithTaxes == null ? SizeConfig.blockSizeVertical * 3 : SizeConfig.blockSizeVertical * 2.1,
         ),
         if (data.sellPriceWithTaxes != null)
           CardValue(

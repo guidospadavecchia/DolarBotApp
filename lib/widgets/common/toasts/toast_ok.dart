@@ -1,5 +1,5 @@
-import 'package:dolarbot_app/classes/theme_manager.dart';
-import 'package:dolarbot_app/widgets/common/toasts/toast_custom.dart';
+import '../../../classes/theme_manager.dart';
+import 'toast_custom.dart';
 import 'package:flutter/material.dart';
 
 class ToastOk extends StatelessWidget {

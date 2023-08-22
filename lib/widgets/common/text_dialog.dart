@@ -1,8 +1,8 @@
-import 'package:dolarbot_app/classes/size_config.dart';
-import 'package:dolarbot_app/widgets/common/simple_button.dart';
+import '../../classes/size_config.dart';
+import 'simple_button.dart';
 import 'package:flutter/material.dart';
-import 'package:dolarbot_app/classes/theme_manager.dart';
-import 'package:dolarbot_app/widgets/common/blur_dialog.dart';
+import '../../classes/theme_manager.dart';
+import 'blur_dialog.dart';
 
 class TextDialog extends StatelessWidget {
   final String title;
@@ -66,20 +66,17 @@ class TextDialog extends StatelessWidget {
                 maxHeight: SizeConfig.screenHeight * 0.5,
                 child: NotificationListener<OverscrollIndicatorNotification>(
                   onNotification: (OverscrollIndicatorNotification overScroll) {
-                    overScroll.disallowGlow();
+                    overScroll.disallowIndicator();
                     return false;
                   },
                   child: Padding(
-                    padding: EdgeInsets.symmetric(
-                        vertical: SizeConfig.blockSizeVertical * 2,
-                        horizontal: SizeConfig.blockSizeVertical * 2),
+                    padding: EdgeInsets.symmetric(vertical: SizeConfig.blockSizeVertical * 2, horizontal: SizeConfig.blockSizeVertical * 2),
                     child: Scrollbar(
-                      isAlwaysShown: false,
+                      thumbVisibility: false,
                       radius: Radius.circular(SizeConfig.blockSizeVertical),
                       child: SingleChildScrollView(
                         child: Padding(
-                          padding:
-                              EdgeInsets.symmetric(horizontal: SizeConfig.blockSizeHorizontal * 5),
+                          padding: EdgeInsets.symmetric(horizontal: SizeConfig.blockSizeHorizontal * 5),
                           child: Text(
                             text,
                             textAlign: textAlign,

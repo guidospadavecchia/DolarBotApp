@@ -1,6 +1,6 @@
-import 'package:dolarbot_app/classes/size_config.dart';
+import '../../classes/size_config.dart';
 import 'package:flutter/material.dart';
-import 'package:dolarbot_app/widgets/common/pills/pill.dart';
+import '../common/pills/pill.dart';
 
 class CardLogo extends StatelessWidget {
   final String? iconAsset;
@@ -16,7 +16,7 @@ class CardLogo extends StatelessWidget {
     this.showDragHandle = true,
     required this.tag,
     required this.coloredTag,
-  })   : assert(iconAsset != null || iconData != null),
+  })  : assert(iconAsset != null || iconData != null),
         super(key: key);
 
   @override

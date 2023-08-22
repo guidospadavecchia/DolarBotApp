@@ -1,10 +1,9 @@
-import 'package:dolarbot_app/classes/ad_state.dart';
-import 'package:dolarbot_app/screens/base/base_info_screen.dart';
-import 'package:flutter/material.dart';
-import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:native_admob_flutter/native_admob_flutter.dart';
-import 'package:provider/provider.dart';
+
+import '../../classes/ad_state.dart';
+import '../../classes/theme_manager.dart';
+import '../../screens/base/base_info_screen.dart';
 
 class AdContainer extends StatefulWidget {
   const AdContainer({

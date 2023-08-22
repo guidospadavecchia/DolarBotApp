@@ -1,9 +1,8 @@
-import 'package:dolarbot_app/classes/size_config.dart';
-import 'package:dolarbot_app/widgets/calculator/base/base_calculator.dart';
-import 'package:dolarbot_app/widgets/common/blur_dialog.dart';
-import 'package:dolarbot_app/widgets/common/simple_button.dart';
-
 import 'package:flutter/material.dart';
+
+import '../../common/blur_dialog.dart';
+import '../../common/simple_button.dart';
+import '../base/base_calculator.dart';
 
 class FabOptionCalculatorDialog extends StatefulWidget {
   final BaseCalculatorScreen calculator;

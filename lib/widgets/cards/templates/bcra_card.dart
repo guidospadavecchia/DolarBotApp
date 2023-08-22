@@ -1,7 +1,7 @@
-import 'package:dolarbot_app/api/responses/bcra_response.dart';
-import 'package:dolarbot_app/classes/size_config.dart';
-import 'package:dolarbot_app/widgets/cards/card_favorite.dart';
-import 'package:dolarbot_app/widgets/cards/templates/base/base_card.dart';
+import '../../../api/responses/bcra_response.dart';
+import '../../../classes/size_config.dart';
+import '../card_favorite.dart';
+import 'base/base_card.dart';
 import 'package:flutter/material.dart';
 
 export 'package:dolarbot_app/api/responses/bcra_response.dart';
@@ -72,8 +72,7 @@ class _BcraCardState extends BaseCardState<BcraCard> {
       header: CardHeader(
         title: widget.bannerTitle,
         titleFontSize: SizeConfig.blockSizeVertical * 2.5,
-        shareButton:
-            widget.showButtons ? CardShareButton(onSharePressed: () => onSharePressed()) : null,
+        shareButton: widget.showButtons ? CardShareButton(onSharePressed: () => onSharePressed()) : null,
       ),
       spaceBetweenHeader: Spacing.small,
       spaceBetweenItems: Spacing.large,

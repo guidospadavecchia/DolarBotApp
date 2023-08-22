@@ -1,19 +1,19 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
-import 'package:dolarbot_app/classes/app_config.dart';
-import 'package:dolarbot_app/classes/size_config.dart';
-import 'package:dolarbot_app/classes/theme_manager.dart';
-import 'package:dolarbot_app/classes/settings.dart';
-import 'package:dolarbot_app/screens/base/base_info_screen.dart';
-import 'package:dolarbot_app/screens/options/widgets/card_gesture_dismiss_dialog/card_gesture_dismiss_dialog.dart';
-import 'package:dolarbot_app/screens/options/widgets/card_tag_colors_dialog/card_tag_colors_dialog.dart';
-import 'package:dolarbot_app/screens/options/widgets/fab_direction_dialog/fab_direction_dialog.dart';
-import 'package:dolarbot_app/screens/options/widgets/format_currency_dialog/format_currency_dialog.dart';
-import 'package:dolarbot_app/screens/options/widgets/clear_historical_data_dialog/clear_historical_data_dialog.dart';
-import 'package:dolarbot_app/util/util.dart';
-import 'package:dolarbot_app/widgets/common/cool_app_bar.dart';
-import 'package:dolarbot_app/widgets/common/menu_item.dart';
-import 'package:dolarbot_app/widgets/common/toasts/toast_error.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import '../../classes/app_config.dart';
+import '../../classes/size_config.dart';
+import '../../classes/theme_manager.dart';
+import '../../util/util.dart';
+import '../../widgets/common/cool_app_bar.dart';
+import '../../widgets/common/menu_item.dart';
+import '../../widgets/common/toasts/toast_error.dart';
+import '../base/base_info_screen.dart';
+import 'widgets/card_gesture_dismiss_dialog/card_gesture_dismiss_dialog.dart';
+import 'widgets/card_tag_colors_dialog/card_tag_colors_dialog.dart';
+import 'widgets/clear_historical_data_dialog/clear_historical_data_dialog.dart';
+import 'widgets/fab_direction_dialog/fab_direction_dialog.dart';
+import 'widgets/format_currency_dialog/format_currency_dialog.dart';
 
 class OptionsScreen extends StatefulWidget {
   static const routeName = '/options';
@@ -50,7 +50,7 @@ class _OptionsScreenState extends State<OptionsScreen> {
     return Container(
       child: NotificationListener<OverscrollIndicatorNotification>(
         onNotification: (OverscrollIndicatorNotification overScroll) {
-          overScroll.disallowGlow();
+          overScroll.disallowIndicator();
           return false;
         },
         child: ListView(
@@ -60,7 +60,10 @@ class _OptionsScreenState extends State<OptionsScreen> {
             MenuItem(
               text: "Modo oscuro",
               subtitle: "Habilita o deshabilita el modo oscuro",
-              leading: const Icon(FontAwesomeIcons.solidMoon),
+              leading: Icon(
+                FontAwesomeIcons.solidMoon,
+                color: ThemeManager.getDrawerMenuItemIconColor(context),
+              ),
               trailing: Switch(
                 activeColor: ThemeManager.getPrimaryAccentColor(context),
                 value: AdaptiveTheme.of(context).mode == AdaptiveThemeMode.dark,
@@ -81,7 +84,10 @@ class _OptionsScreenState extends State<OptionsScreen> {
             MenuItem(
               text: "Formato de moneda",
               subtitle: "Cambia el formato de moneda entre AR y US",
-              leading: const Icon(FontAwesomeIcons.globeAmericas),
+              leading: Icon(
+                FontAwesomeIcons.globeAmericas,
+                color: ThemeManager.getDrawerMenuItemIconColor(context),
+              ),
               depthLevel: 1,
               onTap: () => _showFormatCurrencyDialog(context),
               disableHighlight: false,
@@ -89,7 +95,10 @@ class _OptionsScreenState extends State<OptionsScreen> {
             MenuItem(
               text: "Menú de acciones",
               subtitle: "Permite elegir entre despliegue horizontal y vertical",
-              leading: const Icon(FontAwesomeIcons.ellipsisH),
+              leading: Icon(
+                FontAwesomeIcons.ellipsisH,
+                color: ThemeManager.getDrawerMenuItemIconColor(context),
+              ),
               depthLevel: 1,
               onTap: () => _showFabDirectionDialog(context),
               disableHighlight: false,
@@ -97,7 +106,10 @@ class _OptionsScreenState extends State<OptionsScreen> {
             MenuItem(
               text: "Gesto de eliminación de tarjeta",
               subtitle: "Ajusta el gesto para eliminar tarjetas en el Inicio",
-              leading: const Icon(FontAwesomeIcons.exchangeAlt),
+              leading: Icon(
+                FontAwesomeIcons.exchangeAlt,
+                color: ThemeManager.getDrawerMenuItemIconColor(context),
+              ),
               depthLevel: 1,
               onTap: () => _showCardGestureDismissDialog(context),
               disableHighlight: false,
@@ -106,7 +118,10 @@ class _OptionsScreenState extends State<OptionsScreen> {
               MenuItem(
                 text: "Etiquetas de colores",
                 subtitle: "Diferencia las etiquetas de monedas por color",
-                leading: const Icon(FontAwesomeIcons.tag),
+                leading: Icon(
+                  FontAwesomeIcons.tag,
+                  color: ThemeManager.getDrawerMenuItemIconColor(context),
+                ),
                 depthLevel: 1,
                 onTap: () => _showCardTagColorsDialog(context),
                 disableHighlight: false,
@@ -115,7 +130,10 @@ class _OptionsScreenState extends State<OptionsScreen> {
             MenuItem(
               text: "Ayuda",
               subtitle: "Muestra una breve guía sobre la aplicación",
-              leading: const Icon(FontAwesomeIcons.solidQuestionCircle),
+              leading: Icon(
+                FontAwesomeIcons.solidQuestionCircle,
+                color: ThemeManager.getDrawerMenuItemIconColor(context),
+              ),
               depthLevel: 1,
               disableHighlight: false,
               onTap: () {
@@ -126,7 +144,10 @@ class _OptionsScreenState extends State<OptionsScreen> {
             MenuItem(
               text: "Contacto",
               subtitle: "¿Problemas o sugerencias? ¡Escribínos!",
-              leading: const Icon(FontAwesomeIcons.solidEnvelope),
+              leading: Icon(
+                FontAwesomeIcons.solidEnvelope,
+                color: ThemeManager.getDrawerMenuItemIconColor(context),
+              ),
               depthLevel: 1,
               disableHighlight: false,
               onTap: () => _showSendMail(context),
@@ -135,7 +156,10 @@ class _OptionsScreenState extends State<OptionsScreen> {
               MenuItem(
                 text: "Limpiar cotizaciones históricas",
                 subtitle: "Elimina los datos de las cotizaciones consultadas",
-                leading: const Icon(FontAwesomeIcons.eraser),
+                leading: Icon(
+                  FontAwesomeIcons.eraser,
+                  color: ThemeManager.getDrawerMenuItemIconColor(context),
+                ),
                 depthLevel: 1,
                 disableHighlight: false,
                 onTap: () => _showClearHistoricalDataDialog(context),
@@ -143,7 +167,10 @@ class _OptionsScreenState extends State<OptionsScreen> {
             MenuItem(
               text: "Información de la aplicación",
               subtitle: "Versión del producto y enlaces",
-              leading: const Icon(FontAwesomeIcons.infoCircle),
+              leading: Icon(
+                FontAwesomeIcons.infoCircle,
+                color: ThemeManager.getDrawerMenuItemIconColor(context),
+              ),
               depthLevel: 1,
               disableHighlight: false,
               onTap: () => Navigator.of(context).pushNamed("/about"),
@@ -152,7 +179,10 @@ class _OptionsScreenState extends State<OptionsScreen> {
             MenuItem(
               text: "Términos de uso",
               subtitle: "La letra chica",
-              leading: const Icon(FontAwesomeIcons.solidFileAlt),
+              leading: Icon(
+                FontAwesomeIcons.solidFileAlt,
+                color: ThemeManager.getDrawerMenuItemIconColor(context),
+              ),
               depthLevel: 1,
               disableHighlight: false,
               onTap: () => _showTermsAndConditions(context),
@@ -160,7 +190,10 @@ class _OptionsScreenState extends State<OptionsScreen> {
             MenuItem(
               text: "Política de Privacidad",
               subtitle: "Qué datos recolectamos",
-              leading: const Icon(FontAwesomeIcons.fileContract),
+              leading: Icon(
+                FontAwesomeIcons.fileContract,
+                color: ThemeManager.getDrawerMenuItemIconColor(context),
+              ),
               depthLevel: 1,
               disableHighlight: false,
               onTap: () => _showPrivacyPolicy(context),

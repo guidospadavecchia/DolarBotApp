@@ -1,10 +1,9 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+export 'package:dolarbot_app/classes/size_config.dart';
 export 'package:dolarbot_app/widgets/calculator/inputs/input_amount.dart';
 export 'package:dolarbot_app/widgets/calculator/inputs/input_converted.dart';
-export 'package:dolarbot_app/classes/size_config.dart';
 
 abstract class BaseCalculatorScreen extends StatefulWidget {
   final String symbol;
@@ -17,8 +16,7 @@ abstract class BaseCalculatorScreen extends StatefulWidget {
   }) : super(key: key);
 }
 
-abstract class BaseCalculatorState<Page extends BaseCalculatorScreen>
-    extends State<BaseCalculatorScreen> {}
+abstract class BaseCalculatorState<Page extends BaseCalculatorScreen> extends State<BaseCalculatorScreen> {}
 
 mixin BaseCalculator<Page extends BaseCalculatorScreen> on BaseCalculatorState<Page> {
   static const int kMaxDigits = 12;

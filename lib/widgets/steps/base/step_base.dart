@@ -1,10 +1,11 @@
-import 'package:dolarbot_app/classes/size_config.dart';
-import 'package:dolarbot_app/classes/theme_manager.dart';
 import 'package:flutter/material.dart';
 
-export 'package:flutter/material.dart';
+import '../../../classes/size_config.dart';
+import '../../../classes/theme_manager.dart';
+
 export 'package:dolarbot_app/classes/size_config.dart';
 export 'package:dolarbot_app/classes/theme_manager.dart';
+export 'package:flutter/material.dart';
 
 abstract class StepBase extends StatelessWidget {
   final int stepIndex;
@@ -32,13 +33,13 @@ abstract class StepBase extends StatelessWidget {
               horizontal: SizeConfig.blockSizeHorizontal * 2,
             ),
             child: Scrollbar(
-              isAlwaysShown: false,
+              thumbVisibility: false,
               radius: Radius.circular(SizeConfig.blockSizeVertical),
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: SizeConfig.blockSizeHorizontal * 5),
                 child: NotificationListener<OverscrollIndicatorNotification>(
                   onNotification: (OverscrollIndicatorNotification overScroll) {
-                    overScroll.disallowGlow();
+                    overScroll.disallowIndicator();
                     return false;
                   },
                   child: SingleChildScrollView(
@@ -70,11 +71,7 @@ Widget buildStepHeader(BuildContext context, int step, String title, bool showSt
   return Stack(
     children: [
       Padding(
-        padding: EdgeInsets.only(
-            left: showStep ? horizontalPadding * 2 : 0,
-            top: verticalPadding,
-            bottom: verticalPadding,
-            right: horizontalPadding),
+        padding: EdgeInsets.only(left: showStep ? horizontalPadding * 2 : 0, top: verticalPadding, bottom: verticalPadding, right: horizontalPadding),
         child: Container(
           alignment: Alignment.center,
           width: double.infinity,
@@ -92,9 +89,7 @@ Widget buildStepHeader(BuildContext context, int step, String title, bool showSt
             title,
             style: TextStyle(
                 fontFamily: 'Raleway',
-                fontSize: showStep
-                    ? SizeConfig.blockSizeVertical * 2
-                    : SizeConfig.blockSizeVertical * 2.5,
+                fontSize: showStep ? SizeConfig.blockSizeVertical * 2 : SizeConfig.blockSizeVertical * 2.5,
                 color: ThemeManager.getGlobalBackgroundColor(context),
                 fontWeight: FontWeight.w600),
           ),
@@ -102,8 +97,7 @@ Widget buildStepHeader(BuildContext context, int step, String title, bool showSt
       ),
       if (showStep)
         Padding(
-          padding: EdgeInsets.only(
-              left: horizontalPadding, top: verticalPadding * 0.75, right: horizontalPadding),
+          padding: EdgeInsets.only(left: horizontalPadding, top: verticalPadding * 0.75, right: horizontalPadding),
           child: Container(
             width: stepSize,
             height: stepSize,

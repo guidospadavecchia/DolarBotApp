@@ -1,8 +1,8 @@
-import 'package:dolarbot_app/classes/size_config.dart';
-import 'package:dolarbot_app/widgets/common/pro_features/pro_features_dialog.dart';
+import '../../classes/size_config.dart';
+import 'pro_features/pro_features_dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:dolarbot_app/classes/theme_manager.dart';
-import 'package:dolarbot_app/widgets/common/pills/pro_pill.dart';
+import '../../classes/theme_manager.dart';
+import 'pills/pro_pill.dart';
 
 class MenuItem extends StatelessWidget {
   final String text;
@@ -89,8 +89,7 @@ class MenuItem extends StatelessWidget {
                     fontWeight: FontWeight.w600),
               ),
               leading: Padding(
-                padding: EdgeInsets.only(
-                    top: subtitle != null ? leadingTopPadding : 0, left: leadingLeftPadding),
+                padding: EdgeInsets.only(top: subtitle != null ? leadingTopPadding : 0, left: leadingLeftPadding),
                 child: leading,
               ),
               trailing: lockedBehindProFeature ? ProPill() : trailing,

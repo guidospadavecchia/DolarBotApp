@@ -1,8 +1,8 @@
-import 'package:dolarbot_app/widgets/historical_chart/historical_rate_manager.dart';
-import 'package:dolarbot_app/screens/base/base_info_screen.dart';
-import 'package:dolarbot_app/widgets/cards/factory/factory_card.dart';
-import 'package:dolarbot_app/screens/common/error_screen.dart';
-import 'package:dolarbot_app/screens/common/loading_screen.dart';
+import '../../widgets/historical_chart/historical_rate_manager.dart';
+import '../base/base_info_screen.dart';
+import '../../widgets/cards/factory/factory_card.dart';
+import '../common/error_screen.dart';
+import '../common/loading_screen.dart';
 import 'package:intl/intl.dart';
 
 class BcraInfoScreen extends BaseInfoScreen {
@@ -116,7 +116,7 @@ class _BcraInfoScreenState extends BaseInfoScreenState<BcraInfoScreen> with Base
           response,
         );
       }
-      WidgetsBinding.instance!.addPostFrameCallback(
+      WidgetsBinding.instance.addPostFrameCallback(
         (_) => setState(() {
           data = value;
           timestamp = data?.timestamp;
@@ -155,22 +155,17 @@ class _BcraInfoScreenState extends BaseInfoScreenState<BcraInfoScreen> with Base
     if (data != null) {
       String? value;
       DateTime date = DateTime.parse(data.timestamp.replaceAll('/', '-'));
-      String formattedTime =
-          DateFormat(DateTime.now().isSameDayAs(date) ? 'HH:mm' : 'HH:mm - dd-MM-yyyy')
-              .format(date);
+      String formattedTime = DateFormat(DateTime.now().isSameDayAs(date) ? 'HH:mm' : 'HH:mm - dd-MM-yyyy').format(date);
       if (data is CountryRiskResponse) {
         numberFormat.maximumFractionDigits = 0;
         value = data.value;
-        value = value != null && value.split('.')[0].toString().isNumeric()
-            ? numberFormat.format(int.parse(data.value.split('.')[0]))
-            : 'N/A';
+        value = value != null && value.split('.')[0].toString().isNumeric() ? numberFormat.format(int.parse(data.value.split('.')[0])) : 'N/A';
         return '$value puntos\nHora: $formattedTime';
       }
       if (data is BcraResponse) {
         value = data.value;
         final symbol = data.currency == 'USD' ? 'US\$' : '\$';
-        value =
-            value != null && value.isNumeric() ? numberFormat.format(int.parse(data.value)) : 'N/A';
+        value = value != null && value.isNumeric() ? numberFormat.format(int.parse(data.value)) : 'N/A';
         return '$symbol $value\nHora: $formattedTime';
       }
     }

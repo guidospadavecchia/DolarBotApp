@@ -1,4 +1,4 @@
-import 'package:dolarbot_app/classes/hive/favorite_rate.dart';
+import '../favorite_rate.dart';
 import 'package:hive/hive.dart';
 
 class FavoriteRateAdapter extends TypeAdapter<FavoriteRate> {
@@ -53,6 +53,5 @@ class FavoriteRateAdapter extends TypeAdapter<FavoriteRate> {
 
   @override
   bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is FavoriteRateAdapter && runtimeType == other.runtimeType && typeId == other.typeId;
+      identical(this, other) || other is FavoriteRateAdapter && runtimeType == other.runtimeType && typeId == other.typeId;
 }

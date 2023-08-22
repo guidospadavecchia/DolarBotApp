@@ -1,4 +1,4 @@
-import 'package:dolarbot_app/classes/hive/cache_entry.dart';
+import '../cache_entry.dart';
 import 'package:hive/hive.dart';
 
 class CacheEntryAdapter extends TypeAdapter<CacheEntry> {
@@ -32,8 +32,5 @@ class CacheEntryAdapter extends TypeAdapter<CacheEntry> {
 
   @override
   bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is CacheEntryAdapter &&
-          runtimeType == other.runtimeType &&
-          typeId == other.typeId;
+      identical(this, other) || other is CacheEntryAdapter && runtimeType == other.runtimeType && typeId == other.typeId;
 }

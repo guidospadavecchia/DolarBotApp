@@ -1,6 +1,6 @@
 import 'dart:math';
-import 'package:dolarbot_app/classes/decimal_adapter.dart';
-import 'package:dolarbot_app/widgets/calculator/base/base_calculator.dart';
+import '../../classes/decimal_adapter.dart';
+import 'base/base_calculator.dart';
 import 'package:flutter/material.dart';
 import 'package:extended_masked_text/extended_masked_text.dart';
 import 'package:intl/intl.dart';

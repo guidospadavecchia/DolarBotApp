@@ -1,7 +1,7 @@
-import 'package:dolarbot_app/widgets/cards/card_header.dart';
-import 'package:dolarbot_app/widgets/cards/card_last_updated.dart';
-import 'package:dolarbot_app/widgets/cards/card_logo.dart';
-import 'package:dolarbot_app/widgets/cards/card_value.dart';
+import 'card_header.dart';
+import 'card_last_updated.dart';
+import 'card_logo.dart';
+import 'card_value.dart';
 import 'package:flutter/material.dart';
 
 export 'package:dolarbot_app/widgets/cards/card_header.dart';

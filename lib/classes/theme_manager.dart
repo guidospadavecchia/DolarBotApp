@@ -1,6 +1,7 @@
+import 'dart:ui';
+
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 
 class ThemeManager {
   static Color _primaryColor = const Color.fromRGBO(50, 177, 40, 1);
@@ -8,7 +9,7 @@ class ThemeManager {
   static Color _accentColor = const Color.fromRGBO(140, 216, 18, 1);
 
   static AdaptiveThemeMode getDefaultTheme(BuildContext context) {
-    Brightness brightness = SchedulerBinding.instance!.window.platformBrightness;
+    Brightness brightness = PlatformDispatcher.instance.platformBrightness;
     return brightness == Brightness.light ? AdaptiveThemeMode.light : AdaptiveThemeMode.dark;
   }
 
@@ -29,51 +30,35 @@ class ThemeManager {
   }
 
   static Color getPrimaryTextColor(BuildContext context) {
-    return AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
-        ? Colors.grey[700]!
-        : Colors.grey[200]!;
+    return AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light ? Colors.grey[700]! : Colors.grey[200]!;
   }
 
   static Color getSecondaryTextColor(BuildContext context) {
-    return AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
-        ? Colors.grey[700]!
-        : Colors.grey[300]!;
+    return AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light ? Colors.grey[700]! : Colors.grey[300]!;
   }
 
   static Color getDrawerMenuItemIconColor(BuildContext context) {
-    return AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
-        ? Colors.grey[600]!
-        : Colors.white;
+    return AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light ? Colors.grey[600]! : Colors.white;
   }
 
   static Color getDrawerMenuFooterSloganBackgroundColor(BuildContext context) {
-    return AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
-        ? Colors.blueGrey[900]!
-        : Colors.black54;
+    return AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light ? Colors.blueGrey[900]! : Colors.black54;
   }
 
   static Color getButtonColor(BuildContext context) {
-    return AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
-        ? const Color.fromRGBO(230, 230, 230, 1)
-        : const Color.fromRGBO(50, 50, 50, 1);
+    return AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light ? const Color.fromRGBO(230, 230, 230, 1) : const Color.fromRGBO(50, 50, 50, 1);
   }
 
   static Color getSnackBarColor(BuildContext context) {
-    return AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
-        ? _secondaryColor
-        : const Color.fromRGBO(60, 60, 60, 1);
+    return AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light ? _secondaryColor : const Color.fromRGBO(60, 60, 60, 1);
   }
 
   static Color getDividerColor(BuildContext context) {
-    return AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
-        ? Colors.grey[300]!
-        : Colors.grey[900]!;
+    return AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light ? Colors.grey[300]! : Colors.grey[900]!;
   }
 
   static Color getGlobalBackgroundColor(BuildContext context) {
-    return AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
-        ? const Color.fromRGBO(250, 250, 250, 1)
-        : const Color.fromRGBO(48, 48, 48, 1);
+    return AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light ? const Color.fromRGBO(250, 250, 250, 1) : const Color.fromRGBO(48, 48, 48, 1);
   }
 
   static Color getPrimaryAccentColor(BuildContext context) {
@@ -81,15 +66,11 @@ class ThemeManager {
   }
 
   static Color getHighlightDrawerMenuItem(BuildContext context) {
-    return AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
-        ? Theme.of(context).highlightColor
-        : Colors.grey[800]!;
+    return AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light ? Theme.of(context).highlightColor : Colors.grey[800]!;
   }
 
   static Color getLoadingIndicatorColor(BuildContext context) {
-    return AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
-        ? Colors.grey[400]!
-        : Colors.grey[700]!;
+    return AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light ? Colors.grey[400]! : Colors.grey[700]!;
   }
 
   static Color getAdBorderColor(BuildContext context) {
@@ -97,16 +78,12 @@ class ThemeManager {
   }
 
   static Color getAdErrorIconColor(BuildContext context) {
-    return AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
-        ? Colors.white.withOpacity(0.5)
-        : Colors.grey[700]!.withOpacity(0.5);
+    return AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light ? Colors.white.withOpacity(0.5) : Colors.grey[700]!.withOpacity(0.5);
   }
 
   static ThemeData getTooltipTheme(BuildContext context) {
     return Theme.of(context).copyWith(
-      tooltipTheme: AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
-          ? _getTooltipThemeLight()
-          : _getTooltipThemeDark(),
+      tooltipTheme: AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light ? _getTooltipThemeLight() : _getTooltipThemeDark(),
     );
   }
 
@@ -142,8 +119,7 @@ class ThemeManager {
       highlightColor: disableHighlight ? Colors.transparent : getHighlightDrawerMenuItem(context),
       unselectedWidgetColor: ThemeManager.getDrawerMenuItemIconColor(context),
       dividerColor: Colors.transparent,
-      colorScheme: ColorScheme.fromSwatch()
-          .copyWith(secondary: ThemeManager.getDrawerMenuItemIconColor(context)),
+      colorScheme: ColorScheme.fromSwatch().copyWith(secondary: ThemeManager.getDrawerMenuItemIconColor(context)),
     );
   }
 
@@ -158,10 +134,10 @@ class ThemeManager {
         ),
         tooltipTheme: _getTooltipThemeLight(),
         textTheme: TextTheme(
-          bodyText1: TextStyle(
+          bodyLarge: TextStyle(
             color: Colors.grey[800],
           ),
-          bodyText2: TextStyle(
+          bodyMedium: TextStyle(
             color: Colors.grey[800],
           ),
         ),
@@ -178,8 +154,7 @@ class ThemeManager {
           cursorColor: getPrimaryColor(),
         ),
         visualDensity: VisualDensity.adaptivePlatformDensity,
-        colorScheme: ColorScheme.fromSwatch()
-            .copyWith(brightness: Brightness.light, secondary: getAccentColor()));
+        colorScheme: ColorScheme.fromSwatch().copyWith(brightness: Brightness.light, secondary: getAccentColor()));
   }
 
   static ThemeData getDarkThemeData() {
@@ -193,10 +168,10 @@ class ThemeManager {
         ),
         tooltipTheme: _getTooltipThemeDark(),
         textTheme: TextTheme(
-          bodyText1: TextStyle(
+          bodyLarge: TextStyle(
             color: Colors.grey[200],
           ),
-          bodyText2: TextStyle(
+          bodyMedium: TextStyle(
             color: Colors.grey[200],
           ),
         ),

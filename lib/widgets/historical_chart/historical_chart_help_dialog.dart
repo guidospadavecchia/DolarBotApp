@@ -1,9 +1,9 @@
-import 'dart:ui';
-import 'package:dolarbot_app/classes/size_config.dart';
-import 'package:dolarbot_app/classes/theme_manager.dart';
-import 'package:dolarbot_app/widgets/common/blur_dialog.dart';
-import 'package:dolarbot_app/widgets/common/simple_button.dart';
 import 'package:flutter/material.dart';
+
+import '../../classes/size_config.dart';
+import '../../classes/theme_manager.dart';
+import '../common/blur_dialog.dart';
+import '../common/simple_button.dart';
 
 class HistoricalChartHelpDialog extends StatelessWidget {
   static const String _kDescriptionText =

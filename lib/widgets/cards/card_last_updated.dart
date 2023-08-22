@@ -1,6 +1,7 @@
-import 'package:dolarbot_app/widgets/cards/card_powered_by.dart';
 import 'package:flutter/material.dart';
-import 'package:dolarbot_app/util/extensions/datetime_extensions.dart';
+
+import '../../util/extensions/datetime_extensions.dart';
+import 'card_powered_by.dart';
 
 class CardLastUpdated extends StatefulWidget {
   final String? timestamp;
@@ -20,12 +21,12 @@ class _CardLastUpdatedState extends State<CardLastUpdated> with WidgetsBindingOb
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance!.addObserver(this);
+    WidgetsBinding.instance.addObserver(this);
   }
 
   @override
   void dispose() {
-    WidgetsBinding.instance!.removeObserver(this);
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 
@@ -38,14 +39,10 @@ class _CardLastUpdatedState extends State<CardLastUpdated> with WidgetsBindingOb
 
   String _getFormattedDateTime() {
     if (widget.showPoweredBy) {
-      return widget.timestamp != null
-          ? DateTime.parse(widget.timestamp!.replaceAll('/', '-')).toLongDateString()
-          : DateTime.now().toLongDateString();
+      return widget.timestamp != null ? DateTime.parse(widget.timestamp!.replaceAll('/', '-')).toLongDateString() : DateTime.now().toLongDateString();
     }
 
-    return widget.timestamp != null
-        ? DateTime.parse(widget.timestamp!.replaceAll('/', '-')).toRelativeString()
-        : DateTime.now().toRelativeString();
+    return widget.timestamp != null ? DateTime.parse(widget.timestamp!.replaceAll('/', '-')).toRelativeString() : DateTime.now().toRelativeString();
   }
 
   @override
@@ -68,9 +65,7 @@ class _CardLastUpdatedState extends State<CardLastUpdated> with WidgetsBindingOb
                     Padding(
                       padding: const EdgeInsets.only(left: 5, top: 0),
                       child: Text(
-                        widget.showPoweredBy
-                            ? "${_getFormattedDateTime()}"
-                            : "Actualizado: ${_getFormattedDateTime()}",
+                        widget.showPoweredBy ? "${_getFormattedDateTime()}" : "Actualizado: ${_getFormattedDateTime()}",
                         style: TextStyle(
                           fontSize: widget.showPoweredBy ? 11 : 12,
                           fontFamily: 'Montserrat',

@@ -1,5 +1,5 @@
-import 'package:dolarbot_app/classes/size_config.dart';
-import 'package:dolarbot_app/classes/theme_manager.dart';
+import '../../../classes/size_config.dart';
+import '../../../classes/theme_manager.dart';
 import 'package:flutter/material.dart';
 
 class RichTextSpan {
@@ -7,8 +7,7 @@ class RichTextSpan {
     return text(context, "\n" * lines);
   }
 
-  static TextSpan text(BuildContext context, String text,
-      {bool bold = false, bool italic = false, double? fontSize}) {
+  static TextSpan text(BuildContext context, String text, {bool bold = false, bool italic = false, double? fontSize}) {
     return TextSpan(
       text: text,
       style: TextStyle(
@@ -31,9 +30,7 @@ class RichTextSpan {
     bool hideBrackets = false,
   }) {
     return [
-      hideBrackets
-          ? RichTextSpan.text(context, " ", bold: false)
-          : RichTextSpan.text(context, " [ ", bold: false),
+      hideBrackets ? RichTextSpan.text(context, " ", bold: false) : RichTextSpan.text(context, " [ ", bold: false),
       WidgetSpan(
         alignment: alignment,
         child: Icon(
@@ -43,9 +40,7 @@ class RichTextSpan {
         ),
       ),
       if (text != null) RichTextSpan.text(context, " ${text}", bold: true),
-      hideBrackets
-          ? RichTextSpan.text(context, " ", bold: false)
-          : RichTextSpan.text(context, " ] ", bold: false),
+      hideBrackets ? RichTextSpan.text(context, " ", bold: false) : RichTextSpan.text(context, " ] ", bold: false),
     ];
   }
 }

@@ -1,12 +1,12 @@
-import 'package:dolarbot_app/classes/app_config.dart';
-import 'package:dolarbot_app/classes/size_config.dart';
-import 'package:dolarbot_app/util/util.dart';
-import 'package:dolarbot_app/widgets/about/special_thanks_dialog.dart';
-import 'package:dolarbot_app/widgets/common/blur_dialog.dart';
-import 'package:dolarbot_app/widgets/common/cool_app_bar.dart';
-import 'package:dolarbot_app/widgets/common/social/discord.dart';
-import 'package:dolarbot_app/widgets/common/social/github.dart';
-import 'package:dolarbot_app/widgets/common/pills/pill.dart';
+import '../../classes/app_config.dart';
+import '../../classes/size_config.dart';
+import '../../util/util.dart';
+import '../../widgets/about/special_thanks_dialog.dart';
+import '../../widgets/common/blur_dialog.dart';
+import '../../widgets/common/cool_app_bar.dart';
+import '../../widgets/common/social/discord.dart';
+import '../../widgets/common/social/github.dart';
+import '../../widgets/common/pills/pill.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -39,8 +39,7 @@ class _AboutScreenState extends State<AboutScreen> {
               Colors.blueGrey[900]!,
             ],
           ),
-          image: const DecorationImage(
-              image: AssetImage("assets/images/general/about.png"), fit: BoxFit.cover),
+          image: const DecorationImage(image: AssetImage("assets/images/general/about.png"), fit: BoxFit.cover),
         ),
         child: Padding(
           padding: EdgeInsets.only(top: SizeConfig.blockSizeVertical * 12),
@@ -229,14 +228,9 @@ class _AboutScreenState extends State<AboutScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Discord(
-                  imageSize: SizeConfig.blockSizeVertical * 4,
-                  fontSize: SizeConfig.blockSizeVertical * 2.3),
+              Discord(imageSize: SizeConfig.blockSizeVertical * 4, fontSize: SizeConfig.blockSizeVertical * 2.3),
               SizedBox(width: SizeConfig.blockSizeHorizontal * 10),
-              GitHub(
-                  imageSize: SizeConfig.blockSizeVertical * 4,
-                  fontSize: SizeConfig.blockSizeVertical * 2.3,
-                  color: Colors.white70),
+              GitHub(imageSize: SizeConfig.blockSizeVertical * 4, fontSize: SizeConfig.blockSizeVertical * 2.3, color: Colors.white70),
             ],
           ),
         ],
@@ -272,9 +266,7 @@ class _AboutScreenState extends State<AboutScreen> {
             ),
           ),
           Image.asset('assets/images/general/flutter.png',
-              width: SizeConfig.blockSizeVertical * 2,
-              height: SizeConfig.blockSizeVertical * 2,
-              filterQuality: FilterQuality.high),
+              width: SizeConfig.blockSizeVertical * 2, height: SizeConfig.blockSizeVertical * 2, filterQuality: FilterQuality.high),
         ],
       ),
     );

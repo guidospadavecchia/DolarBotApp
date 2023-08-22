@@ -1,8 +1,8 @@
-import 'package:dolarbot_app/classes/app_config.dart';
-import 'package:dolarbot_app/classes/size_config.dart';
-import 'package:dolarbot_app/widgets/common/rich_text_span/rich_text_span.dart';
-import 'package:dolarbot_app/widgets/steps/base/step_base.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import '../../classes/app_config.dart';
+import '../common/rich_text_span/rich_text_span.dart';
+import 'base/step_base.dart';
 
 class StepWelcome extends StepBase {
   final BuildContext context;
@@ -42,8 +42,7 @@ class StepWelcome extends StepBase {
         text: TextSpan(
           style: TextStyle(height: SizeConfig.blockSizeVertical * 0.2),
           children: [
-            RichTextSpan.text(context, "¡Hola 👋!",
-                fontSize: SizeConfig.blockSizeVertical * 4, bold: true),
+            RichTextSpan.text(context, "¡Hola 👋!", fontSize: SizeConfig.blockSizeVertical * 4, bold: true),
             RichTextSpan.newLine(context, lines: 3),
             RichTextSpan.text(
               context,

@@ -1,5 +1,5 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
-import 'package:dolarbot_app/util/util.dart';
+import '../../../util/util.dart';
 import 'package:flutter/material.dart';
 
 class GitHub extends StatelessWidget {
@@ -26,11 +26,7 @@ class GitHub extends StatelessWidget {
               width: imageSize,
               height: imageSize,
               filterQuality: FilterQuality.high,
-              color: color == null
-                  ? (AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
-                      ? Colors.black87
-                      : Colors.white70)
-                  : color,
+              color: color == null ? (AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light ? Colors.black87 : Colors.white70) : color,
             ),
             const SizedBox(
               width: 10,
@@ -40,11 +36,7 @@ class GitHub extends StatelessWidget {
               style: TextStyle(
                 fontSize: fontSize,
                 fontFamily: 'Raleway',
-                color: color == null
-                    ? (AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
-                        ? Colors.black87
-                        : Colors.white70)
-                    : color,
+                color: color == null ? (AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light ? Colors.black87 : Colors.white70) : color,
                 fontWeight: FontWeight.w600,
               ),
             ),

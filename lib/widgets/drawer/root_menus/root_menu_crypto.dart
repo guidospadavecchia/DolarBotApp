@@ -1,15 +1,16 @@
 import 'package:crypto_font_icons/crypto_font_icons.dart';
-import 'package:dolarbot_app/api/api_endpoints.dart';
-import 'package:dolarbot_app/api/responses/base/api_response.dart';
-import 'package:dolarbot_app/classes/app_config.dart';
-import 'package:dolarbot_app/classes/dolarbot_icons.dart';
-import 'package:dolarbot_app/util/constants.dart';
-import 'package:dolarbot_app/widgets/drawer/drawer_menu_body.dart';
-import 'package:dolarbot_app/screens/crypto_info/crypto_info_screen.dart';
-import 'package:dolarbot_app/widgets/cards/factory/card_data.dart';
-import 'package:dolarbot_app/widgets/common/menu_item.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import '../../../api/api_endpoints.dart';
+import '../../../api/responses/base/api_response.dart';
+import '../../../classes/app_config.dart';
+import '../../../classes/dolarbot_icons.dart';
+import '../../../screens/crypto_info/crypto_info_screen.dart';
+import '../../../util/constants.dart';
+import '../../cards/factory/card_data.dart';
+import '../../common/menu_item.dart';
+import '../drawer_menu_body.dart';
 
 const String _title = "Crypto";
 
@@ -23,7 +24,7 @@ class RootMenuCrypto extends StatelessWidget {
       subItems: [
         MenuItem(
           text: "Bitcoin",
-          leading: getIconData(context, CryptoFontIcons.BTC!),
+          leading: getIconData(context, CryptoFontIcons.BTC),
           lockedBehindProFeature: !AppConfig.isProVersion,
           depthLevel: 2,
           onTap: () => {
@@ -45,7 +46,7 @@ class RootMenuCrypto extends StatelessWidget {
         ),
         MenuItem(
           text: "Bitcoin Cash",
-          leading: getIconData(context, CryptoFontIcons.BTC_ALT!),
+          leading: getIconData(context, CryptoFontIcons.BTC_ALT),
           lockedBehindProFeature: !AppConfig.isProVersion,
           depthLevel: 2,
           onTap: () => {
@@ -155,7 +156,7 @@ class RootMenuCrypto extends StatelessWidget {
         ),
         MenuItem(
           text: "DASH",
-          leading: getIconData(context, CryptoFontIcons.DASH!),
+          leading: getIconData(context, CryptoFontIcons.DASH),
           lockedBehindProFeature: !AppConfig.isProVersion,
           depthLevel: 2,
           onTap: () => {
@@ -177,7 +178,7 @@ class RootMenuCrypto extends StatelessWidget {
         ),
         MenuItem(
           text: "Dogecoin",
-          leading: getIconData(context, CryptoFontIcons.DOGE!),
+          leading: getIconData(context, CryptoFontIcons.DOGE),
           lockedBehindProFeature: !AppConfig.isProVersion,
           depthLevel: 2,
           onTap: () => {
@@ -221,7 +222,7 @@ class RootMenuCrypto extends StatelessWidget {
         ),
         MenuItem(
           text: "Litecoin",
-          leading: getIconData(context, CryptoFontIcons.LTC!),
+          leading: getIconData(context, CryptoFontIcons.LTC),
           lockedBehindProFeature: !AppConfig.isProVersion,
           depthLevel: 2,
           onTap: () => {
@@ -243,7 +244,7 @@ class RootMenuCrypto extends StatelessWidget {
         ),
         MenuItem(
           text: "Monero",
-          leading: getIconData(context, CryptoFontIcons.XMR!),
+          leading: getIconData(context, CryptoFontIcons.XMR),
           lockedBehindProFeature: !AppConfig.isProVersion,
           depthLevel: 2,
           onTap: () => {
@@ -287,7 +288,7 @@ class RootMenuCrypto extends StatelessWidget {
         ),
         MenuItem(
           text: "Ripple",
-          leading: getIconData(context, CryptoFontIcons.XRP!),
+          leading: getIconData(context, CryptoFontIcons.XRP),
           lockedBehindProFeature: !AppConfig.isProVersion,
           depthLevel: 2,
           onTap: () => {

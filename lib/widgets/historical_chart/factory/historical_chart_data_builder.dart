@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'dart:math';
-import 'package:dolarbot_app/api/responses/base/api_response.dart';
-import 'package:dolarbot_app/api/responses/base/generic_currency_response.dart';
-import 'package:dolarbot_app/classes/hive/historical_rate.dart';
-import 'package:dolarbot_app/widgets/historical_chart/factory/historical_chart_data.dart';
-import 'package:dolarbot_app/util/extensions/string_extensions.dart';
+import '../../../api/responses/base/api_response.dart';
+import '../../../api/responses/base/generic_currency_response.dart';
+import '../../../classes/hive/historical_rate.dart';
+import 'historical_chart_data.dart';
+import '../../../util/extensions/string_extensions.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
@@ -36,9 +36,7 @@ const TextStyle _kTooltipTextStyle = const TextStyle(
 
 abstract class BuildHistoricalChartData {
   factory BuildHistoricalChartData(Type responseType) {
-    if (responseType == DollarResponse ||
-        responseType == EuroResponse ||
-        responseType == RealResponse) return _FiatCurrency();
+    if (responseType == DollarResponse || responseType == EuroResponse || responseType == RealResponse) return _FiatCurrency();
     if (responseType == CryptoResponse) return _Crypto();
     if (responseType == MetalResponse) return _Metal();
     if (responseType == BcraResponse) return _Bcra();
@@ -73,8 +71,7 @@ class _FiatCurrency implements BuildHistoricalChartData {
         }
         if (data.sellPriceWithTaxes?.isNumeric() ?? false) {
           double sellPriceWithTaxes = double.tryParse(data.sellPriceWithTaxes!) ?? 0;
-          sellPricesWithTaxes
-              .add(FlSpot(date.millisecondsSinceEpoch.toDouble(), sellPriceWithTaxes));
+          sellPricesWithTaxes.add(FlSpot(date.millisecondsSinceEpoch.toDouble(), sellPriceWithTaxes));
         }
       }
     }

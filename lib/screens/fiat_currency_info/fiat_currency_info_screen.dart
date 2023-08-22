@@ -1,11 +1,11 @@
-import 'package:dolarbot_app/api/responses/base/generic_currency_response.dart';
-import 'package:dolarbot_app/widgets/historical_chart/historical_rate_manager.dart';
-import 'package:dolarbot_app/screens/base/base_info_screen.dart';
-import 'package:dolarbot_app/util/util.dart';
-import 'package:dolarbot_app/widgets/cards/factory/factory_card.dart';
-import 'package:dolarbot_app/widgets/cards/templates/fiat_currency_card.dart';
-import 'package:dolarbot_app/screens/common/error_screen.dart';
-import 'package:dolarbot_app/screens/common/loading_screen.dart';
+import '../../api/responses/base/generic_currency_response.dart';
+import '../../widgets/historical_chart/historical_rate_manager.dart';
+import '../base/base_info_screen.dart';
+import '../../util/util.dart';
+import '../../widgets/cards/factory/factory_card.dart';
+import '../../widgets/cards/templates/fiat_currency_card.dart';
+import '../common/error_screen.dart';
+import '../common/loading_screen.dart';
 import 'package:intl/intl.dart';
 
 class FiatCurrencyInfoScreen<T extends GenericCurrencyResponse?> extends BaseInfoScreen {
@@ -20,8 +20,7 @@ class FiatCurrencyInfoScreen<T extends GenericCurrencyResponse?> extends BaseInf
   _FiatCurrencyInfoScreenState<T> createState() => _FiatCurrencyInfoScreenState<T>();
 }
 
-class _FiatCurrencyInfoScreenState<T extends GenericCurrencyResponse?>
-    extends BaseInfoScreenState<FiatCurrencyInfoScreen<T>> with BaseScreen {
+class _FiatCurrencyInfoScreenState<T extends GenericCurrencyResponse?> extends BaseInfoScreenState<FiatCurrencyInfoScreen<T>> with BaseScreen {
   T? data;
 
   @override
@@ -44,7 +43,7 @@ class _FiatCurrencyInfoScreenState<T extends GenericCurrencyResponse?>
           value,
         );
       }
-      WidgetsBinding.instance!.addPostFrameCallback(
+      WidgetsBinding.instance.addPostFrameCallback(
         (_) => setState(() {
           data = value as T?;
           timestamp = data?.timestamp;
@@ -117,23 +116,14 @@ class _FiatCurrencyInfoScreenState<T extends GenericCurrencyResponse?>
 
     String shareText = '';
     if (data != null && data!.timestamp != null) {
-      final buyPrice = data!.buyPrice?.isNumeric() ?? false
-          ? numberFormat.format(double.parse(data!.buyPrice!))
-          : 'N/A';
-      final sellPrice = data!.sellPrice?.isNumeric() ?? false
-          ? numberFormat.format(double.parse(data!.sellPrice!))
-          : 'N/A';
+      final buyPrice = data!.buyPrice?.isNumeric() ?? false ? numberFormat.format(double.parse(data!.buyPrice!)) : 'N/A';
+      final sellPrice = data!.sellPrice?.isNumeric() ?? false ? numberFormat.format(double.parse(data!.sellPrice!)) : 'N/A';
       DateTime date = DateTime.parse(data!.timestamp!.replaceAll('/', '-'));
-      String formattedTime =
-          DateFormat(DateTime.now().isSameDayAs(date) ? 'HH:mm' : 'HH:mm - dd-MM-yyyy')
-              .format(date);
+      String formattedTime = DateFormat(DateTime.now().isSameDayAs(date) ? 'HH:mm' : 'HH:mm - dd-MM-yyyy').format(date);
 
       if (data!.sellPriceWithTaxes != null) {
-        final sellPriceWithTaxes = data!.sellPriceWithTaxes!.isNumeric()
-            ? numberFormat.format(double.parse(data!.sellPriceWithTaxes!))
-            : 'N/A';
-        shareText =
-            'Compra: \t\t\$ $buyPrice\nVenta: \t\t\$ $sellPrice\nVenta Ahorro: \t\$ $sellPriceWithTaxes\nHora: \t\t$formattedTime';
+        final sellPriceWithTaxes = data!.sellPriceWithTaxes!.isNumeric() ? numberFormat.format(double.parse(data!.sellPriceWithTaxes!)) : 'N/A';
+        shareText = 'Compra: \t\t\$ $buyPrice\nVenta: \t\t\$ $sellPrice\nVenta Ahorro: \t\$ $sellPriceWithTaxes\nHora: \t\t$formattedTime';
       } else {
         shareText = 'Compra: \t\t\$ $buyPrice\nVenta: \t\t\$ $sellPrice\nHora: \t\t$formattedTime';
       }
@@ -179,16 +169,13 @@ class _FiatCurrencyInfoScreenState<T extends GenericCurrencyResponse?>
   Future<GenericCurrencyResponse?> _getResponse() async {
     switch (widget.cardData.responseType) {
       case DollarResponse:
-        DollarEndpoints endpoint =
-            DollarEndpoints.values.firstWhere((e) => e.value == widget.cardData.endpoint);
+        DollarEndpoints endpoint = DollarEndpoints.values.firstWhere((e) => e.value == widget.cardData.endpoint);
         return await API.getDollarRate(endpoint, forceRefresh: shouldForceRefresh);
       case EuroResponse:
-        EuroEndpoints endpoint =
-            EuroEndpoints.values.firstWhere((e) => e.value == widget.cardData.endpoint);
+        EuroEndpoints endpoint = EuroEndpoints.values.firstWhere((e) => e.value == widget.cardData.endpoint);
         return await API.getEuroRate(endpoint, forceRefresh: shouldForceRefresh);
       case RealResponse:
-        RealEndpoints endpoint =
-            RealEndpoints.values.firstWhere((e) => e.value == widget.cardData.endpoint);
+        RealEndpoints endpoint = RealEndpoints.values.firstWhere((e) => e.value == widget.cardData.endpoint);
         return await API.getRealRate(endpoint, forceRefresh: shouldForceRefresh);
       default:
         return throw 'Error endpoint';

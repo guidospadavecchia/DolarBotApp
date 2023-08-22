@@ -1,8 +1,8 @@
-import 'package:dolarbot_app/classes/app_config.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
+
+import 'app_config.dart';
 
 class Settings extends ChangeNotifier {
   static const String CURRENCY_FORMAT_PATTERN = "#,###,##0.00";

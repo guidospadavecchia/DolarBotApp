@@ -1,22 +1,15 @@
-import 'package:dolarbot_app/api/responses/base/api_response.dart';
-import 'package:dolarbot_app/screens/base/base_info_screen.dart';
-import 'package:dolarbot_app/screens/bcra_info/bcra_info_screen.dart';
-import 'package:dolarbot_app/screens/crypto_info/crypto_info_screen.dart';
-import 'package:dolarbot_app/screens/fiat_currency_info/fiat_currency_info_screen.dart';
-import 'package:dolarbot_app/screens/metal_info/metal_info_screen.dart';
-import 'package:dolarbot_app/screens/venezuela_info/venezuela_info_screen.dart';
-import 'package:dolarbot_app/widgets/cards/templates/bcra_card.dart';
-import 'package:dolarbot_app/widgets/cards/templates/country_risk_card.dart';
-import 'package:dolarbot_app/widgets/cards/templates/crypto_card.dart';
-import 'package:dolarbot_app/widgets/cards/templates/metal_card.dart';
-import 'package:dolarbot_app/widgets/cards/templates/venezuela_card.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import '../../bcra_info/bcra_info_screen.dart';
+import '../../crypto_info/crypto_info_screen.dart';
+import '../../fiat_currency_info/fiat_currency_info_screen.dart';
+import '../../metal_info/metal_info_screen.dart';
+import '../../venezuela_info/venezuela_info_screen.dart';
+import '../base_info_screen.dart';
 
 abstract class BuildScreen {
   factory BuildScreen(Type responseType) {
-    if (responseType == DollarResponse ||
-        responseType == EuroResponse ||
-        responseType == RealResponse) return _FiatCurrency();
+    if (responseType == DollarResponse || responseType == EuroResponse || responseType == RealResponse) return _FiatCurrency();
     if (responseType == CryptoResponse) return _Crypto();
     if (responseType == MetalResponse) return _Metal();
     if (responseType == BcraResponse) return _Bcra();

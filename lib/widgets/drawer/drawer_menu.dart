@@ -1,6 +1,6 @@
-import 'package:dolarbot_app/widgets/drawer/drawer_menu_body.dart';
-import 'package:dolarbot_app/widgets/drawer/drawer_menu_footer.dart';
-import 'package:dolarbot_app/widgets/drawer/drawer_menu_header.dart';
+import 'drawer_menu_body.dart';
+import 'drawer_menu_footer.dart';
+import 'drawer_menu_header.dart';
 
 import 'package:flutter/material.dart';
 

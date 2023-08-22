@@ -1,5 +1,5 @@
-import 'package:dolarbot_app/classes/hive/cache_entry.dart';
-import 'package:dolarbot_app/util/util.dart';
+import '../../classes/hive/cache_entry.dart';
+import '../../util/util.dart';
 import 'package:hive/hive.dart';
 
 class CacheManager {
@@ -15,8 +15,7 @@ class CacheManager {
   }
 
   static DateTime _getNewExpiration() {
-    int expirationMinutes =
-        int.tryParse(Util.cfg.get("apiRequestCacheMinutes").toString()) ?? Duration.minutesPerHour;
+    int expirationMinutes = int.tryParse(Util.cfg.get("apiRequestCacheMinutes").toString()) ?? Duration.minutesPerHour;
     return DateTime.now().add(Duration(minutes: expirationMinutes));
   }
 }

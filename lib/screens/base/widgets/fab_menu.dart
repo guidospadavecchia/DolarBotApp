@@ -1,6 +1,6 @@
-import 'package:dolarbot_app/screens/common/icon_fonts.dart';
-import 'package:dolarbot_app/screens/base/base_info_screen.dart';
-import 'package:dolarbot_app/widgets/common/simple_fab_menu.dart';
+import '../../common/icon_fonts.dart';
+import '../base_info_screen.dart';
+import '../../../widgets/common/simple_fab_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 

@@ -1,5 +1,5 @@
-import 'package:dolarbot_app/classes/decimal_adapter.dart';
-import 'package:dolarbot_app/widgets/calculator/base/base_calculator.dart';
+import '../../classes/decimal_adapter.dart';
+import 'base/base_calculator.dart';
 import 'package:flutter/material.dart';
 import 'package:extended_masked_text/extended_masked_text.dart';
 import 'package:intl/intl.dart';
@@ -30,8 +30,7 @@ class VenezuelaCalculatorReversed extends BaseCalculatorScreen {
       );
 }
 
-class _VenezuelaCalculatorState extends BaseCalculatorState<VenezuelaCalculatorReversed>
-    with BaseCalculator {
+class _VenezuelaCalculatorState extends BaseCalculatorState<VenezuelaCalculatorReversed> with BaseCalculator {
   final double bankValue;
   final double blackMarketValue;
   final String symbol;
@@ -101,10 +100,7 @@ class _VenezuelaCalculatorState extends BaseCalculatorState<VenezuelaCalculatorR
 
   void _createControllers() {
     _textControllerInput = MoneyMaskedTextController(
-        precision: 2,
-        decimalSeparator: numberFormat.symbols.DECIMAL_SEP,
-        thousandSeparator: numberFormat.symbols.GROUP_SEP,
-        leftSymbol: "$symbol ");
+        precision: 2, decimalSeparator: numberFormat.symbols.DECIMAL_SEP, thousandSeparator: numberFormat.symbols.GROUP_SEP, leftSymbol: "$symbol ");
     _textControllerBankValue = TextEditingController();
     _textControllerBlackMarketValue = TextEditingController();
   }

@@ -1,5 +1,5 @@
-import 'package:dolarbot_app/classes/decimal_adapter.dart';
-import 'package:dolarbot_app/widgets/calculator/base/base_calculator.dart';
+import '../../classes/decimal_adapter.dart';
+import 'base/base_calculator.dart';
 import 'package:flutter/material.dart';
 import 'package:extended_masked_text/extended_masked_text.dart';
 import 'package:intl/intl.dart';
@@ -34,8 +34,7 @@ class FiatCurrencyCalculator extends BaseCalculatorScreen {
       );
 }
 
-class _FiatCurrencyCalculatorState extends BaseCalculatorState<FiatCurrencyCalculator>
-    with BaseCalculator {
+class _FiatCurrencyCalculatorState extends BaseCalculatorState<FiatCurrencyCalculator> with BaseCalculator {
   final double? buyValue;
   final double? sellValue;
   final double? sellValueWithTaxes;
@@ -137,10 +136,7 @@ class _FiatCurrencyCalculatorState extends BaseCalculatorState<FiatCurrencyCalcu
 
   void _createControllers() {
     _textControllerInput = MoneyMaskedTextController(
-        precision: 2,
-        decimalSeparator: numberFormat.symbols.DECIMAL_SEP,
-        thousandSeparator: numberFormat.symbols.GROUP_SEP,
-        leftSymbol: "$symbol ");
+        precision: 2, decimalSeparator: numberFormat.symbols.DECIMAL_SEP, thousandSeparator: numberFormat.symbols.GROUP_SEP, leftSymbol: "$symbol ");
 
     _textControllerBuyValue = TextEditingController();
     _textControllerSellValue = TextEditingController();

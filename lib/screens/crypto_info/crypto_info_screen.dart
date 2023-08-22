@@ -1,9 +1,9 @@
-import 'package:dolarbot_app/widgets/historical_chart/historical_rate_manager.dart';
-import 'package:dolarbot_app/screens/base/base_info_screen.dart';
-import 'package:dolarbot_app/widgets/cards/factory/factory_card.dart';
-import 'package:dolarbot_app/widgets/cards/templates/base/base_card.dart';
-import 'package:dolarbot_app/screens/common/error_screen.dart';
-import 'package:dolarbot_app/screens/common/loading_screen.dart';
+import '../../widgets/historical_chart/historical_rate_manager.dart';
+import '../base/base_info_screen.dart';
+import '../../widgets/cards/factory/factory_card.dart';
+import '../../widgets/cards/templates/base/base_card.dart';
+import '../common/error_screen.dart';
+import '../common/loading_screen.dart';
 import 'package:intl/intl.dart';
 
 class CryptoInfoScreen extends BaseInfoScreen {
@@ -78,8 +78,7 @@ class _CryptoInfoScreenState extends BaseInfoScreenState<CryptoInfoScreen> with 
 
   @override
   Future loadData() async {
-    CryptoEndpoints cryptoEndpoint =
-        CryptoEndpoints.values.firstWhere((e) => e.value == widget.cardData.endpoint);
+    CryptoEndpoints cryptoEndpoint = CryptoEndpoints.values.firstWhere((e) => e.value == widget.cardData.endpoint);
 
     API.getCryptoRate(cryptoEndpoint, forceRefresh: shouldForceRefresh).then(
       (value) {
@@ -92,7 +91,7 @@ class _CryptoInfoScreenState extends BaseInfoScreenState<CryptoInfoScreen> with 
             value,
           );
         }
-        WidgetsBinding.instance!.addPostFrameCallback(
+        WidgetsBinding.instance.addPostFrameCallback(
           (_) => setState(() {
             data = value;
             timestamp = data?.timestamp;
@@ -119,22 +118,13 @@ class _CryptoInfoScreenState extends BaseInfoScreenState<CryptoInfoScreen> with 
     String shareText = '';
 
     if (data != null && data!.timestamp != null) {
-      final arsPrice = data!.arsPrice?.isNumeric() ?? false
-          ? numberFormat.format(double.parse(data!.arsPrice!))
-          : 'N/A';
-      final arsPriceWithTaxes = data!.arsPriceWithTaxes?.isNumeric() ?? false
-          ? numberFormat.format(double.parse(data!.arsPriceWithTaxes!))
-          : 'N/A';
-      final usdPrice = data!.usdPrice?.isNumeric() ?? false
-          ? numberFormat.format(double.parse(data!.usdPrice!))
-          : 'N/A';
+      final arsPrice = data!.arsPrice?.isNumeric() ?? false ? numberFormat.format(double.parse(data!.arsPrice!)) : 'N/A';
+      final arsPriceWithTaxes = data!.arsPriceWithTaxes?.isNumeric() ?? false ? numberFormat.format(double.parse(data!.arsPriceWithTaxes!)) : 'N/A';
+      final usdPrice = data!.usdPrice?.isNumeric() ?? false ? numberFormat.format(double.parse(data!.usdPrice!)) : 'N/A';
       DateTime date = DateTime.parse(data!.timestamp!.replaceAll('/', '-'));
-      String formattedTime =
-          DateFormat(DateTime.now().isSameDayAs(date) ? 'HH:mm' : 'HH:mm - dd-MM-yyyy')
-              .format(date);
+      String formattedTime = DateFormat(DateTime.now().isSameDayAs(date) ? 'HH:mm' : 'HH:mm - dd-MM-yyyy').format(date);
 
-      shareText =
-          'Dólares: \t\tUS\$ $usdPrice\nPesos: \t\t\$ $arsPrice\nPesos + Imp.: \t\$ $arsPriceWithTaxes\nHora: \t\t$formattedTime';
+      shareText = 'Dólares: \t\tUS\$ $usdPrice\nPesos: \t\t\$ $arsPrice\nPesos + Imp.: \t\$ $arsPriceWithTaxes\nHora: \t\t$formattedTime';
     }
 
     return shareText;

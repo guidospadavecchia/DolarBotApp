@@ -1,10 +1,9 @@
-import 'package:dolarbot_app/classes/settings.dart';
-import 'package:dolarbot_app/screens/base/base_info_screen.dart';
-import 'package:dolarbot_app/screens/base/factory/factory_screen.dart';
-import 'package:dolarbot_app/util/util.dart';
-import 'package:dolarbot_app/widgets/cards/factory/factory_card.dart';
-import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+
+import '../../../../screens/base/base_info_screen.dart';
+import '../../../../screens/base/factory/factory_screen.dart';
+import '../../../../util/util.dart';
+import '../../factory/factory_card.dart';
 
 export 'package:dolarbot_app/screens/home/home_screen.dart';
 export 'package:intl/intl.dart';

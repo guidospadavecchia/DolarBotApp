@@ -1,7 +1,7 @@
-import 'package:dolarbot_app/classes/app_config.dart';
-import 'package:dolarbot_app/classes/size_config.dart';
-import 'package:dolarbot_app/classes/theme_manager.dart';
-import 'package:dolarbot_app/widgets/common/pills/pro_pill.dart';
+import '../../classes/app_config.dart';
+import '../../classes/size_config.dart';
+import '../../classes/theme_manager.dart';
+import '../common/pills/pro_pill.dart';
 import 'package:flutter/material.dart';
 
 class DrawerMenuHeader extends StatelessWidget {
@@ -34,20 +34,12 @@ class DrawerMenuHeader extends StatelessWidget {
                 ),
                 const Text(
                   'Dolar',
-                  style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.w600,
-                      fontFamily: 'Raleway',
-                      letterSpacing: 0.5),
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600, fontFamily: 'Raleway', letterSpacing: 0.5),
                 ),
                 Text(
                   'Bot',
                   style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.w600,
-                      fontFamily: 'Raleway',
-                      color: ThemeManager.getPrimaryColor(),
-                      letterSpacing: 0.5),
+                      fontSize: 24, fontWeight: FontWeight.w600, fontFamily: 'Raleway', color: ThemeManager.getPrimaryColor(), letterSpacing: 0.5),
                 ),
                 if (AppConfig.isProVersion)
                   Row(

@@ -1,50 +1,46 @@
 import 'dart:convert';
 
 import 'package:collection/collection.dart' show IterableExtension;
-import 'package:dolarbot_app/api/api.dart';
-import 'package:dolarbot_app/api/responses/base/api_response.dart';
-import 'package:dolarbot_app/api/responses/metal_response.dart';
-import 'package:dolarbot_app/classes/app_config.dart';
-import 'package:dolarbot_app/classes/hive/favorite_rate.dart';
-import 'package:dolarbot_app/classes/size_config.dart';
-import 'package:dolarbot_app/classes/theme_manager.dart';
-import 'package:dolarbot_app/classes/settings.dart';
-import 'package:dolarbot_app/screens/base/widgets/title_banner.dart';
-import 'package:dolarbot_app/screens/historical_rates/historical_rates_screen.dart';
-import 'package:dolarbot_app/util/constants.dart';
-import 'package:dolarbot_app/widgets/calculator/exports/calculator_exports.dart';
-import 'package:dolarbot_app/widgets/common/text_dialog.dart';
-import 'package:dolarbot_app/widgets/common/toasts/toast_error.dart';
-import 'package:dolarbot_app/widgets/common/toasts/toast_ok.dart';
-import 'package:dolarbot_app/widgets/drawer/drawer_menu.dart';
-import 'package:dolarbot_app/screens/base/widgets/fab_menu.dart';
-import 'package:dolarbot_app/screens/home/home_screen.dart';
-import 'package:dolarbot_app/util/util.dart';
-import 'package:dolarbot_app/widgets/cards/factory/card_data.dart';
-import 'package:dolarbot_app/widgets/common/cool_app_bar.dart';
-import 'package:dolarbot_app/widgets/common/simple_fab_menu.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
 import 'package:meta/meta.dart';
-import 'package:oktoast/oktoast.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
-import 'package:dolarbot_app/util/extensions/datetime_extensions.dart';
+
+import '../../api/api.dart';
+import '../../api/responses/base/api_response.dart';
+import '../../classes/app_config.dart';
+import '../../classes/hive/favorite_rate.dart';
+import '../../classes/settings.dart';
+import '../../classes/size_config.dart';
+import '../../classes/theme_manager.dart';
+import '../../util/constants.dart';
+import '../../util/extensions/datetime_extensions.dart';
+import '../../util/util.dart';
+import '../../widgets/calculator/exports/calculator_exports.dart';
+import '../../widgets/cards/factory/card_data.dart';
+import '../../widgets/common/cool_app_bar.dart';
+import '../../widgets/common/simple_fab_menu.dart';
+import '../../widgets/common/text_dialog.dart';
+import '../../widgets/common/toasts/toast_error.dart';
+import '../../widgets/common/toasts/toast_ok.dart';
+import '../../widgets/drawer/drawer_menu.dart';
+import '../historical_rates/historical_rates_screen.dart';
+import '../home/home_screen.dart';
+import 'widgets/fab_menu.dart';
+import 'widgets/title_banner.dart';
 
 export 'package:dolarbot_app/api/api.dart';
 export 'package:dolarbot_app/api/responses/base/api_response.dart';
 export 'package:dolarbot_app/classes/hive/favorite_rate.dart';
+export 'package:dolarbot_app/classes/settings.dart';
 export 'package:dolarbot_app/util/extensions/datetime_extensions.dart';
 export 'package:dolarbot_app/util/extensions/string_extensions.dart';
+export 'package:dolarbot_app/widgets/calculator/exports/calculator_exports.dart';
 export 'package:dolarbot_app/widgets/cards/factory/card_data.dart';
 export 'package:dolarbot_app/widgets/common/future_screen_delegate/future_screen_delegate.dart';
-export 'package:dolarbot_app/widgets/calculator/exports/calculator_exports.dart';
 export 'package:dolarbot_app/widgets/currency_info/currency_info_container.dart';
-export 'package:dolarbot_app/util/extensions/string_extensions.dart';
-export 'package:dolarbot_app/util/extensions/datetime_extensions.dart';
-export 'package:dolarbot_app/classes/settings.dart';
 export 'package:flutter/material.dart';
 export 'package:provider/provider.dart';
 
@@ -90,8 +86,8 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance!.addObserver(this);
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addObserver(this);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       hideSnackBar();
       if (this.mounted) {
         _getRateDescription().then(
@@ -107,7 +103,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
 
   @override
   void dispose() {
-    WidgetsBinding.instance!.removeObserver(this);
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 
@@ -374,40 +370,26 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
 
     switch (response) {
       case DollarResponse:
-        endpointName = DollarEndpoints.values
-            .firstWhereOrNull((e) => e.value == widget.cardData.endpoint)
-            .toString();
+        endpointName = DollarEndpoints.values.firstWhereOrNull((e) => e.value == widget.cardData.endpoint).toString();
         break;
       case EuroResponse:
-        endpointName = EuroEndpoints.values
-            .firstWhereOrNull((e) => e.value == widget.cardData.endpoint)
-            .toString();
+        endpointName = EuroEndpoints.values.firstWhereOrNull((e) => e.value == widget.cardData.endpoint).toString();
         break;
       case RealResponse:
-        endpointName = RealEndpoints.values
-            .firstWhereOrNull((e) => e.value == widget.cardData.endpoint)
-            .toString();
+        endpointName = RealEndpoints.values.firstWhereOrNull((e) => e.value == widget.cardData.endpoint).toString();
         break;
       case CryptoResponse:
-        endpointName = CryptoEndpoints.values
-            .firstWhereOrNull((e) => e.value == widget.cardData.endpoint)
-            .toString();
+        endpointName = CryptoEndpoints.values.firstWhereOrNull((e) => e.value == widget.cardData.endpoint).toString();
         break;
       case MetalResponse:
-        endpointName = MetalEndpoints.values
-            .firstWhereOrNull((e) => e.value == widget.cardData.endpoint)
-            .toString();
+        endpointName = MetalEndpoints.values.firstWhereOrNull((e) => e.value == widget.cardData.endpoint).toString();
         break;
       case CountryRiskResponse:
       case BcraResponse:
-        endpointName = BcraEndpoints.values
-            .firstWhereOrNull((e) => e.value == widget.cardData.endpoint)
-            .toString();
+        endpointName = BcraEndpoints.values.firstWhereOrNull((e) => e.value == widget.cardData.endpoint).toString();
         break;
       case VenezuelaResponse:
-        endpointName = VenezuelaEndpoints.values
-            .firstWhereOrNull((e) => e.value == widget.cardData.endpoint)
-            .toString();
+        endpointName = VenezuelaEndpoints.values.firstWhereOrNull((e) => e.value == widget.cardData.endpoint).toString();
         break;
       default:
         throw 'Unknown ApiResponse type';
@@ -445,8 +427,7 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
 
   bool _getIsFavorite() {
     Box favoritesBox = Hive.box('favorites');
-    List<FavoriteRate> favoriteCards =
-        favoritesBox.get('favoriteCards', defaultValue: []).cast<FavoriteRate>();
+    List<FavoriteRate> favoriteCards = favoritesBox.get('favoriteCards', defaultValue: []).cast<FavoriteRate>();
 
     return favoriteCards.any(
       (fav) => fav.endpoint == widget.cardData.endpoint,
@@ -458,11 +439,9 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
 
     try {
       Box favoritesBox = Hive.box('favorites');
-      List<FavoriteRate> favoriteCards =
-          favoritesBox.get('favoriteCards', defaultValue: []).cast<FavoriteRate>();
+      List<FavoriteRate> favoriteCards = favoritesBox.get('favoriteCards', defaultValue: []).cast<FavoriteRate>();
 
-      FavoriteRate? favoriteCard =
-          favoriteCards.firstWhereOrNull((fav) => fav.endpoint == widget.cardData.endpoint);
+      FavoriteRate? favoriteCard = favoriteCards.firstWhereOrNull((fav) => fav.endpoint == widget.cardData.endpoint);
       if (favoriteCard == null) {
         //Add favorite
         favoriteCards.add(createFavorite());

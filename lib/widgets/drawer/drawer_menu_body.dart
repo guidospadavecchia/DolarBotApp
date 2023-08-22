@@ -1,8 +1,9 @@
-import 'package:dolarbot_app/classes/theme_manager.dart';
-import 'package:dolarbot_app/screens/base/base_info_screen.dart';
-import 'package:dolarbot_app/widgets/drawer/root_menus/exports/root_menu_exports.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_scroll_to_top/flutter_scroll_to_top.dart';
+
+import '../../classes/theme_manager.dart';
+import '../../screens/base/base_info_screen.dart';
+import 'root_menus/exports/root_menu_exports.dart';
 
 export 'package:dolarbot_app/util/util.dart';
 
@@ -14,7 +15,7 @@ class DrawerMenuBody extends StatelessWidget {
     return Expanded(
       child: NotificationListener<OverscrollIndicatorNotification>(
         onNotification: (OverscrollIndicatorNotification overScroll) {
-          overScroll.disallowGlow();
+          overScroll.disallowIndicator();
           return false;
         },
         child: ScrollWrapper(
@@ -22,7 +23,7 @@ class DrawerMenuBody extends StatelessWidget {
           promptAlignment: Alignment.topCenter,
           promptDuration: const Duration(milliseconds: 500),
           promptTheme: PromptButtonTheme(
-            color: ThemeManager.getDarkThemeData().backgroundColor.withOpacity(0.9),
+            color: ThemeManager.getDarkThemeData().colorScheme.background.withOpacity(0.9),
             padding: const EdgeInsets.only(top: 15),
             iconPadding: const EdgeInsets.all(10),
           ),

@@ -1,4 +1,4 @@
-import 'package:dolarbot_app/classes/app_config.dart';
+import '../../classes/app_config.dart';
 import 'package:flutter/material.dart';
 
 class CardPoweredBy extends StatelessWidget {

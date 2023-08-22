@@ -1,4 +1,4 @@
-import 'package:dolarbot_app/classes/size_config.dart';
+import '../../classes/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:simple_animations/simple_animations.dart';
 
@@ -87,7 +87,7 @@ class SimpleFabMenuState extends State<SimpleFabMenu> with SingleTickerProviderS
 
   void show() {
     if (!_visible) {
-      WidgetsBinding.instance!.addPostFrameCallback(
+      WidgetsBinding.instance.addPostFrameCallback(
         (_) => setState(() => _visible = true),
       );
     }
@@ -95,7 +95,7 @@ class SimpleFabMenuState extends State<SimpleFabMenu> with SingleTickerProviderS
 
   void hide() {
     if (_visible) {
-      WidgetsBinding.instance!.addPostFrameCallback(
+      WidgetsBinding.instance.addPostFrameCallback(
         (_) => setState(() => _visible = false),
       );
     }
@@ -138,9 +138,7 @@ class SimpleFabMenuState extends State<SimpleFabMenu> with SingleTickerProviderS
 
     if (_visible) {
       EdgeInsets paddingContent = widget.direction == Axis.vertical
-          ? EdgeInsets.symmetric(
-              vertical: SizeConfig.blockSizeVertical * 1.5,
-              horizontal: (iconSize / 2) - (childrenItemSize / 2))
+          ? EdgeInsets.symmetric(vertical: SizeConfig.blockSizeVertical * 1.5, horizontal: (iconSize / 2) - (childrenItemSize / 2))
           : EdgeInsets.symmetric(horizontal: SizeConfig.blockSizeHorizontal * 2);
       return PlayAnimation<double>(
         tween: Tween(begin: widget.showInitialAnimation ? SizeConfig.screenHeight : 0, end: 0),
@@ -159,8 +157,7 @@ class SimpleFabMenuState extends State<SimpleFabMenu> with SingleTickerProviderS
             alignment: Alignment.bottomRight,
             child: Wrap(
               crossAxisAlignment: WrapCrossAlignment.end,
-              alignment:
-                  widget.direction == Axis.horizontal ? WrapAlignment.center : WrapAlignment.end,
+              alignment: widget.direction == Axis.horizontal ? WrapAlignment.center : WrapAlignment.end,
               direction: widget.direction == Axis.horizontal ? Axis.vertical : Axis.horizontal,
               children: [
                 _SimpleFabMenuListAnimated(
@@ -224,8 +221,7 @@ class _SimpleFabMenuListAnimated extends AnimatedWidget {
   get _listAnimation => listenable;
 
   Widget buildItem(BuildContext context, int index) {
-    double matrixTranslation =
-        1 * (screenInset - _listAnimation.value * screenInset) * ((items.length - index) / 4);
+    double matrixTranslation = 1 * (screenInset - _listAnimation.value * screenInset) * ((items.length - index) / 4);
 
     final transform = Matrix4.translationValues(
       direction == Axis.horizontal ? matrixTranslation : 0,
@@ -257,9 +253,8 @@ class _SimpleFabMenuListAnimated extends AnimatedWidget {
         scrollDirection: direction,
         shrinkWrap: true,
         physics: NeverScrollableScrollPhysics(),
-        separatorBuilder: (BuildContext context, int i) => SizedBox(
-            height: SizeConfig.blockSizeVertical * 1.5,
-            width: SizeConfig.blockSizeHorizontal * 1.5),
+        separatorBuilder: (BuildContext context, int i) =>
+            SizedBox(height: SizeConfig.blockSizeVertical * 1.5, width: SizeConfig.blockSizeHorizontal * 1.5),
         padding: padding,
         itemCount: items.length,
         itemBuilder: buildItem,
@@ -293,9 +288,7 @@ class _FabCircularOption extends StatelessWidget {
         child: item.tooltip != null
             ? Tooltip(
                 preferBelow: false,
-                margin: direction == Axis.vertical
-                    ? EdgeInsets.only(right: SizeConfig.blockSizeHorizontal * 20)
-                    : EdgeInsets.zero,
+                margin: direction == Axis.vertical ? EdgeInsets.only(right: SizeConfig.blockSizeHorizontal * 20) : EdgeInsets.zero,
                 verticalOffset: direction == Axis.vertical ? -15 : size,
                 message: item.tooltip!,
                 child: Icon(

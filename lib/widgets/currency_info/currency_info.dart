@@ -1,6 +1,6 @@
-import 'package:dolarbot_app/classes/size_config.dart';
-import 'package:dolarbot_app/classes/settings.dart';
-import 'package:dolarbot_app/util/extensions/string_extensions.dart';
+import '../../classes/size_config.dart';
+import '../../classes/settings.dart';
+import '../../util/extensions/string_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -36,11 +36,7 @@ class CurrencyInfo extends StatelessWidget {
   Text _getTitle(BuildContext context) {
     return Text(
       title,
-      style: TextStyle(
-          fontSize: SizeConfig.blockSizeVertical * 2.2,
-          fontFamily: 'Raleway',
-          color: Colors.grey[200],
-          fontWeight: FontWeight.normal),
+      style: TextStyle(fontSize: SizeConfig.blockSizeVertical * 2.2, fontFamily: 'Raleway', color: Colors.grey[200], fontWeight: FontWeight.normal),
     );
   }
 
@@ -49,8 +45,7 @@ class CurrencyInfo extends StatelessWidget {
     final numberFormat = settings.getNumberFormat()..maximumFractionDigits = 0;
 
     return Padding(
-      padding: EdgeInsets.only(
-          left: SizeConfig.blockSizeVertical * 6, right: SizeConfig.blockSizeVertical * 6),
+      padding: EdgeInsets.only(left: SizeConfig.blockSizeVertical * 6, right: SizeConfig.blockSizeVertical * 6),
       child: FittedBox(
         fit: BoxFit.fitWidth,
         child: Row(
@@ -81,9 +76,7 @@ class CurrencyInfo extends StatelessWidget {
             ),
             if (value.split('.').length == 2 && !hideDecimals)
               Padding(
-                padding: EdgeInsets.only(
-                    left: SizeConfig.blockSizeVertical * 0.5,
-                    bottom: SizeConfig.blockSizeVertical * 5),
+                padding: EdgeInsets.only(left: SizeConfig.blockSizeVertical * 0.5, bottom: SizeConfig.blockSizeVertical * 5),
                 child: Text(
                   '${numberFormat.symbols.DECIMAL_SEP}${value.split('.')[1].substring(0, 2)}',
                   style: TextStyle(
