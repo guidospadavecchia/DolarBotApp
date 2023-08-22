@@ -1,14 +1,13 @@
-import 'dart:ui';
-
-import 'package:dolarbot_app/classes/size_config.dart';
-import 'package:dolarbot_app/classes/theme_manager.dart';
-import 'package:dolarbot_app/classes/settings.dart';
-import 'package:dolarbot_app/widgets/common/blur_dialog.dart';
-import 'package:dolarbot_app/widgets/common/simple_button.dart';
-import 'package:dolarbot_app/widgets/common/toasts/toast_ok.dart';
 import 'package:flutter/material.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';
+
+import '../../../../classes/settings.dart';
+import '../../../../classes/size_config.dart';
+import '../../../../classes/theme_manager.dart';
+import '../../../../widgets/common/blur_dialog.dart';
+import '../../../../widgets/common/simple_button.dart';
+import '../../../../widgets/common/toasts/toast_ok.dart';
 
 class FormatCurrencyDialog extends StatefulWidget {
   @override

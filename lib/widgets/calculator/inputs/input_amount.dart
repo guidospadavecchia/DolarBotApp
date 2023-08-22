@@ -1,5 +1,5 @@
-import 'package:dolarbot_app/classes/size_config.dart';
-import 'package:dolarbot_app/classes/theme_manager.dart';
+import '../../../classes/size_config.dart';
+import '../../../classes/theme_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -36,10 +36,7 @@ class InputAmount extends StatelessWidget {
           contentPadding: EdgeInsets.only(bottom: SizeConfig.blockSizeVertical),
           isDense: true,
         ),
-        inputFormatters: [
-          FilteringTextInputFormatter.digitsOnly,
-          LengthLimitingTextInputFormatter(maxDigits)
-        ],
+        inputFormatters: [FilteringTextInputFormatter.digitsOnly, LengthLimitingTextInputFormatter(maxDigits)],
         textAlign: TextAlign.left,
         keyboardType: TextInputType.number,
         style: TextStyle(

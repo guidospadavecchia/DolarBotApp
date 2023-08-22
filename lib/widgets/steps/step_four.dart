@@ -1,5 +1,5 @@
-import 'package:dolarbot_app/widgets/common/rich_text_span/rich_text_span.dart';
-import 'package:dolarbot_app/widgets/steps/base/step_base.dart';
+import '../common/rich_text_span/rich_text_span.dart';
+import 'base/step_base.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class StepFour extends StepBase {
@@ -30,11 +30,9 @@ class StepFour extends StepBase {
         text: TextSpan(
           children: [
             RichTextSpan.text(context, "Las tarjetas se agregan al"),
-            ...RichTextSpan.icon(
-                context, FontAwesomeIcons.home, ThemeManager.getPrimaryTextColor(context),
+            ...RichTextSpan.icon(context, FontAwesomeIcons.home, ThemeManager.getPrimaryTextColor(context),
                 alignment: PlaceholderAlignment.bottom, text: " Inicio"),
-            RichTextSpan.text(
-                context, "según las vayas añadiendo, pero también podés ordenarlas a tu gusto."),
+            RichTextSpan.text(context, "según las vayas añadiendo, pero también podés ordenarlas a tu gusto."),
           ],
         ),
       ),
@@ -50,13 +48,10 @@ class StepFour extends StepBase {
         text: TextSpan(
           children: [
             RichTextSpan.text(context, "Mantené presionada una tarjeta"),
-            ...RichTextSpan.icon(
-                context, Icons.touch_app_rounded, ThemeManager.getPrimaryAccentColor(context),
+            ...RichTextSpan.icon(context, Icons.touch_app_rounded, ThemeManager.getPrimaryAccentColor(context),
                 alignment: PlaceholderAlignment.bottom, size: 18),
-            RichTextSpan.text(context,
-                "hasta que se achique y se torne semi transparente. Luego, arrastrala a la posición que quieras y soltala"),
-            ...RichTextSpan.icon(context, FontAwesomeIcons.solidHandPaper,
-                ThemeManager.getPrimaryAccentColor(context)),
+            RichTextSpan.text(context, "hasta que se achique y se torne semi transparente. Luego, arrastrala a la posición que quieras y soltala"),
+            ...RichTextSpan.icon(context, FontAwesomeIcons.solidHandPaper, ThemeManager.getPrimaryAccentColor(context)),
             RichTextSpan.text(context, "."),
           ],
         ),

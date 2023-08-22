@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:dolarbot_app/api/responses/base/api_response.dart';
+import 'base/api_response.dart';
 
 class MetalResponse extends ApiResponse {
   String? value;

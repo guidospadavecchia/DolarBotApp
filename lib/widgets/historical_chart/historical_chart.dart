@@ -1,15 +1,14 @@
-import 'package:dolarbot_app/classes/hive/historical_rate.dart';
-import 'package:dolarbot_app/classes/settings.dart';
-import 'package:dolarbot_app/classes/size_config.dart';
-import 'package:dolarbot_app/screens/base/base_info_screen.dart';
-import 'package:dolarbot_app/widgets/common/simple_button.dart';
-import 'package:dolarbot_app/widgets/historical_chart/factory/historical_chart_data.dart';
-import 'package:dolarbot_app/widgets/historical_chart/factory/historical_chart_data_builder.dart';
-import 'package:dolarbot_app/widgets/historical_chart/historical_chart_help_dialog.dart';
 import 'package:fl_chart/fl_chart.dart';
-import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
+
+import '../../classes/hive/historical_rate.dart';
+import '../../classes/size_config.dart';
+import '../../screens/base/base_info_screen.dart';
+import '../common/simple_button.dart';
+import 'factory/historical_chart_data.dart';
+import 'factory/historical_chart_data_builder.dart';
+import 'historical_chart_help_dialog.dart';
 
 class HistoricalChart extends StatefulWidget {
   final Type responseType;
@@ -204,8 +203,7 @@ class _HistoricalChartState extends State<HistoricalChart> with TickerProviderSt
   }
 
   void _loadChartData() {
-    historicalChartData =
-        BuildHistoricalChartData(widget.responseType).fromHistoricalRates(widget.values);
+    historicalChartData = BuildHistoricalChartData(widget.responseType).fromHistoricalRates(widget.values);
     _chartDataLoaded = true;
   }
 
@@ -265,8 +263,7 @@ class _HistoricalChartState extends State<HistoricalChart> with TickerProviderSt
         maxContentWidth: SizeConfig.screenWidth / 2,
         tooltipRoundedRadius: 15,
         getTooltipItems: (touchedSpots) {
-          NumberFormat numberFormat =
-              Provider.of<Settings>(context, listen: false).getNumberFormat();
+          NumberFormat numberFormat = Provider.of<Settings>(context, listen: false).getNumberFormat();
           List<LineTooltipItem> tooltipItems = [];
           for (int i = 0; i < touchedSpots.length; i++) {
             LineBarSpot touchedSpot = touchedSpots[i];
@@ -279,9 +276,7 @@ class _HistoricalChartState extends State<HistoricalChart> with TickerProviderSt
             String formattedDate = dateFormat.format(date);
             String leftSymbol = "${rateData.leftSymbol ?? ''} ";
             String rightSymbol = " ${rateData.rightSymbol ?? ''}";
-            String tooltip = i + 1 < touchedSpots.length
-                ? "$leftSymbol$value$rightSymbol"
-                : "$leftSymbol$value$rightSymbol\n\n$formattedDate";
+            String tooltip = i + 1 < touchedSpots.length ? "$leftSymbol$value$rightSymbol" : "$leftSymbol$value$rightSymbol\n\n$formattedDate";
             tooltipItems.add(LineTooltipItem(tooltip, rateData.tooltipTextStyle));
           }
           return tooltipItems;
@@ -306,7 +301,7 @@ class _HistoricalChartState extends State<HistoricalChart> with TickerProviderSt
   SideTitles _getLeftTitles(BuildContext context, HistoricalRateData rateData) {
     return SideTitles(
       showTitles: true,
-      getTextStyles: (value) => TextStyle(
+      getTextStyles: (value, _) => TextStyle(
         color: Colors.white.withOpacity(0.7),
         fontSize: 22,
         fontWeight: FontWeight.w600,

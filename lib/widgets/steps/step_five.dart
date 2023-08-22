@@ -1,5 +1,5 @@
-import 'package:dolarbot_app/widgets/common/rich_text_span/rich_text_span.dart';
-import 'package:dolarbot_app/widgets/steps/base/step_base.dart';
+import '../common/rich_text_span/rich_text_span.dart';
+import 'base/step_base.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class StepFive extends StepBase {
@@ -65,8 +65,7 @@ class StepFive extends StepBase {
               alignment: PlaceholderAlignment.bottom,
               text: "Gesto de eliminación de tarjeta",
             ),
-            RichTextSpan.text(context,
-                " tenés la posibilidad de elegir el gesto que prefieras y que más cómodo te quede."),
+            RichTextSpan.text(context, " tenés la posibilidad de elegir el gesto que prefieras y que más cómodo te quede."),
           ],
         ),
       ),

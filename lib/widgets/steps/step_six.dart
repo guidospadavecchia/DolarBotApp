@@ -1,5 +1,5 @@
-import 'package:dolarbot_app/widgets/common/rich_text_span/rich_text_span.dart';
-import 'package:dolarbot_app/widgets/steps/base/step_base.dart';
+import '../common/rich_text_span/rich_text_span.dart';
+import 'base/step_base.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class StepSix extends StepBase {
@@ -31,8 +31,7 @@ class StepSix extends StepBase {
           children: [
             RichTextSpan.text(context, "Pensamos en todo.", bold: true, italic: true),
             RichTextSpan.newLine(context, lines: 2),
-            RichTextSpan.text(
-                context, "Por eso, si querés realizar conversiones, podés hacerlo con la "),
+            RichTextSpan.text(context, "Por eso, si querés realizar conversiones, podés hacerlo con la "),
             RichTextSpan.text(context, "calculadora", bold: true),
             RichTextSpan.text(context, " integrada en cada cotización."),
           ],
@@ -51,14 +50,11 @@ class StepSix extends StepBase {
         text: TextSpan(
           children: [
             RichTextSpan.text(context, "Presioná"),
-            ...RichTextSpan.icon(
-                context, FontAwesomeIcons.calculator, ThemeManager.getPrimaryTextColor(context),
+            ...RichTextSpan.icon(context, FontAwesomeIcons.calculator, ThemeManager.getPrimaryTextColor(context),
                 alignment: PlaceholderAlignment.bottom),
             RichTextSpan.text(context, "en el menú"),
-            ...RichTextSpan.icon(
-                context, Icons.more_horiz, ThemeManager.getPrimaryTextColor(context)),
-            RichTextSpan.text(context,
-                "dentro de la cotización para abrir la calculadora y realizar tus conversiones."),
+            ...RichTextSpan.icon(context, Icons.more_horiz, ThemeManager.getPrimaryTextColor(context)),
+            RichTextSpan.text(context, "dentro de la cotización para abrir la calculadora y realizar tus conversiones."),
           ],
         ),
       ),

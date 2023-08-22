@@ -1,7 +1,7 @@
-import 'package:dolarbot_app/classes/size_config.dart';
-import 'package:dolarbot_app/classes/theme_manager.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
+import '../../../classes/size_config.dart';
+import '../../../classes/theme_manager.dart';
 
 class EmptyFavorites extends StatelessWidget {
   final String topText;

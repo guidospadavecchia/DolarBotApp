@@ -1,4 +1,4 @@
-import 'package:dolarbot_app/classes/theme_manager.dart';
+import '../../classes/theme_manager.dart';
 import 'package:flutter/material.dart';
 
 class SimpleButton extends StatelessWidget {
@@ -32,8 +32,7 @@ class SimpleButton extends StatelessWidget {
         padding: MaterialStateProperty.all<EdgeInsets>(
           padding ?? EdgeInsets.only(top: 7, right: text != '' ? 25 : 15, left: 15, bottom: 7),
         ),
-        overlayColor: MaterialStateColor.resolveWith(
-            (states) => ThemeManager.getDrawerMenuItemIconColor(context).withOpacity(0.2)),
+        overlayColor: MaterialStateColor.resolveWith((states) => ThemeManager.getDrawerMenuItemIconColor(context).withOpacity(0.2)),
         backgroundColor: MaterialStateProperty.resolveWith<Color>(
           (Set<MaterialState> states) {
             return backgroundColor ?? ThemeManager.getButtonColor(context);

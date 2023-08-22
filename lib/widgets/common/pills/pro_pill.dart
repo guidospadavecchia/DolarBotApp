@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:dolarbot_app/widgets/common/pills/pill.dart';
+import 'pill.dart';
 
 class ProPill extends StatelessWidget {
   @override

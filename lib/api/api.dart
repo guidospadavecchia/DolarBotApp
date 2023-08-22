@@ -1,19 +1,19 @@
-import 'dart:convert';
 import 'dart:async';
-import 'package:dolarbot_app/api/cache/cache_manager.dart';
-import 'package:dolarbot_app/classes/hive/cache_entry.dart';
-import 'package:dolarbot_app/api/responses/base/api_response.dart';
-import 'package:dolarbot_app/api/responses/metal_response.dart';
-import 'package:dolarbot_app/api/api_endpoints.dart';
-import 'package:dolarbot_app/classes/connectivity_status.dart';
-import 'package:dolarbot_app/util/util.dart';
+import 'dart:convert';
+
 import 'package:http/http.dart' as http;
+
+import '../classes/connectivity_status.dart';
+import '../classes/hive/cache_entry.dart';
+import '../util/util.dart';
+import 'api_endpoints.dart';
+import 'cache/cache_manager.dart';
+import 'responses/base/api_response.dart';
 
 export 'package:dolarbot_app/api/api_endpoints.dart';
 
 class API {
-  static Future<DollarResponse?> getDollarRate(DollarEndpoints endpoint,
-      {bool forceRefresh = false}) async {
+  static Future<DollarResponse?> getDollarRate(DollarEndpoints endpoint, {bool forceRefresh = false}) async {
     return getData(
       endpoint.value,
       (json) => new DollarResponse(json),
@@ -21,8 +21,7 @@ class API {
     );
   }
 
-  static Future<EuroResponse?> getEuroRate(EuroEndpoints endpoint,
-      {bool forceRefresh = false}) async {
+  static Future<EuroResponse?> getEuroRate(EuroEndpoints endpoint, {bool forceRefresh = false}) async {
     return getData(
       endpoint.value,
       (json) => new EuroResponse(json),
@@ -30,8 +29,7 @@ class API {
     );
   }
 
-  static Future<RealResponse?> getRealRate(RealEndpoints endpoint,
-      {bool forceRefresh = false}) async {
+  static Future<RealResponse?> getRealRate(RealEndpoints endpoint, {bool forceRefresh = false}) async {
     return getData(
       endpoint.value,
       (json) => new RealResponse(json),
@@ -39,8 +37,7 @@ class API {
     );
   }
 
-  static Future<MetalResponse?> getMetalRate(MetalEndpoints endpoint,
-      {bool forceRefresh = false}) async {
+  static Future<MetalResponse?> getMetalRate(MetalEndpoints endpoint, {bool forceRefresh = false}) async {
     return getData(
       endpoint.value,
       (json) => new MetalResponse(json),
@@ -48,8 +45,7 @@ class API {
     );
   }
 
-  static Future<CryptoResponse?> getCryptoRate(CryptoEndpoints endpoint,
-      {bool forceRefresh = false}) async {
+  static Future<CryptoResponse?> getCryptoRate(CryptoEndpoints endpoint, {bool forceRefresh = false}) async {
     return getData(
       endpoint.value,
       (json) => new CryptoResponse(json),
@@ -57,8 +53,7 @@ class API {
     );
   }
 
-  static Future<VenezuelaResponse?> getVzlaRate(VenezuelaEndpoints endpoint,
-      {bool forceRefresh = false}) async {
+  static Future<VenezuelaResponse?> getVzlaRate(VenezuelaEndpoints endpoint, {bool forceRefresh = false}) async {
     return getData(
       endpoint.value,
       (json) => new VenezuelaResponse(json),
@@ -90,8 +85,7 @@ class API {
     );
   }
 
-  static Future<HistoricalRateResponse?> getHistoricalRates(HistoricalRateEndpoints endpoint,
-      {bool forceRefresh = false}) async {
+  static Future<HistoricalRateResponse?> getHistoricalRates(HistoricalRateEndpoints endpoint, {bool forceRefresh = false}) async {
     return getData(
       endpoint.value,
       (json) => new HistoricalRateResponse(json),
@@ -116,12 +110,8 @@ class API {
         String url = "$urlBase$endpoint";
 
         String data = '';
-        Duration timeout =
-            Duration(seconds: timeoutSeconds > 0 ? timeoutSeconds : Duration.secondsPerDay);
-        await http
-            .get(Uri.parse(url), headers: requestHeaders)
-            .timeout(timeout)
-            .then((response) => data = response.body);
+        Duration timeout = Duration(seconds: timeoutSeconds > 0 ? timeoutSeconds : Duration.secondsPerDay);
+        await http.get(Uri.parse(url), headers: requestHeaders).timeout(timeout).then((response) => data = response.body);
         return data;
       } else {
         return '';
@@ -155,8 +145,7 @@ class API {
     }
   }
 
-  static Future<T?> getData<T extends ApiResponse>(
-      String endpoint, T Function(Map json) creator, bool forceRefresh) async {
+  static Future<T?> getData<T extends ApiResponse>(String endpoint, T Function(Map json) creator, bool forceRefresh) async {
     try {
       Map? jsonMap = await getRawData(endpoint, forceRefresh);
       return jsonMap != null ? creator(jsonMap) : null;

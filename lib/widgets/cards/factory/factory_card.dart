@@ -1,21 +1,17 @@
-import 'package:dolarbot_app/api/responses/base/api_response.dart';
-import 'package:dolarbot_app/api/responses/base/generic_currency_response.dart';
-import 'package:dolarbot_app/classes/settings.dart';
-import 'package:dolarbot_app/screens/base/base_info_screen.dart';
-import 'package:dolarbot_app/widgets/cards/templates/base/base_card.dart';
-import 'package:dolarbot_app/widgets/cards/templates/bcra_card.dart';
-import 'package:dolarbot_app/widgets/cards/templates/country_risk_card.dart';
-import 'package:dolarbot_app/widgets/cards/templates/crypto_card.dart';
-import 'package:dolarbot_app/widgets/cards/templates/empty_card.dart';
-import 'package:dolarbot_app/widgets/cards/templates/fiat_currency_card.dart';
-import 'package:dolarbot_app/widgets/cards/templates/metal_card.dart';
-import 'package:dolarbot_app/widgets/cards/templates/venezuela_card.dart';
+import '../../../screens/base/base_info_screen.dart';
+import '../templates/base/base_card.dart';
+import '../templates/bcra_card.dart';
+import '../templates/country_risk_card.dart';
+import '../templates/crypto_card.dart';
+import '../templates/empty_card.dart';
+import '../templates/fiat_currency_card.dart';
+import '../templates/metal_card.dart';
+import '../templates/venezuela_card.dart';
 
 abstract class BuildCard {
   factory BuildCard(ApiResponse? data) {
     if (data != null) {
-      if (data is DollarResponse)
-        return _FiatCurrency<DollarResponse>(data, FiatCurrencyCard.kHeight);
+      if (data is DollarResponse) return _FiatCurrency<DollarResponse>(data, FiatCurrencyCard.kHeight);
       if (data is EuroResponse) return _FiatCurrency<EuroResponse>(data, FiatCurrencyCard.kHeight);
       if (data is RealResponse) return _FiatCurrency<RealResponse>(data, FiatCurrencyCard.kHeight);
       if (data is CryptoResponse) return _Crypto(data, MetalCard.kHeight);
@@ -76,8 +72,7 @@ class _FiatCurrency<T extends GenericCurrencyResponse> implements BuildCard {
       tag: favoriteRate.cardTag,
       coloredTag: settings.getTagIsColored(),
       iconAsset: favoriteRate.cardIconAsset,
-      iconData: IconData(favoriteRate.cardIconData ?? 0,
-          fontFamily: "FontAwesomeSolid", fontPackage: "font_awesome_flutter"),
+      iconData: IconData(favoriteRate.cardIconData ?? 0, fontFamily: "FontAwesomeSolid", fontPackage: "font_awesome_flutter"),
       gradiantColors: favoriteRate.cardColors.map((n) => Color(n)).toList(),
       endpoint: favoriteRate.endpoint,
       numberFormat: settings.getNumberFormat(),
@@ -118,8 +113,7 @@ class _Crypto implements BuildCard {
       tag: favoriteRate.cardTag,
       coloredTag: settings.getTagIsColored(),
       iconAsset: favoriteRate.cardIconAsset,
-      iconData: IconData(favoriteRate.cardIconData ?? 0,
-          fontFamily: 'CryptoFont', fontPackage: 'crypto_font_icons'),
+      iconData: IconData(favoriteRate.cardIconData ?? 0, fontFamily: 'CryptoFont', fontPackage: 'crypto_font_icons'),
       gradiantColors: favoriteRate.cardColors.map((n) => Color(n)).toList(),
       endpoint: favoriteRate.endpoint,
       numberFormat: settings.getNumberFormat(),
@@ -205,8 +199,7 @@ class _Bcra implements BuildCard {
       tag: favoriteRate.cardTag,
       coloredTag: settings.getTagIsColored(),
       iconAsset: favoriteRate.cardIconAsset,
-      iconData: IconData(favoriteRate.cardIconData ?? 0,
-          fontFamily: "FontAwesomeSolid", fontPackage: "font_awesome_flutter"),
+      iconData: IconData(favoriteRate.cardIconData ?? 0, fontFamily: "FontAwesomeSolid", fontPackage: "font_awesome_flutter"),
       gradiantColors: favoriteRate.cardColors.map((n) => Color(n)).toList(),
       endpoint: favoriteRate.endpoint,
       numberFormat: settings.getNumberFormat(),
@@ -247,8 +240,7 @@ class _CountryRisk implements BuildCard {
       tag: favoriteRate.cardTag,
       coloredTag: settings.getTagIsColored(),
       iconAsset: favoriteRate.cardIconAsset,
-      iconData: IconData(favoriteRate.cardIconData ?? 0,
-          fontFamily: "FontAwesomeSolid", fontPackage: "font_awesome_flutter"),
+      iconData: IconData(favoriteRate.cardIconData ?? 0, fontFamily: "FontAwesomeSolid", fontPackage: "font_awesome_flutter"),
       gradiantColors: favoriteRate.cardColors.map((n) => Color(n)).toList(),
       endpoint: favoriteRate.endpoint,
       numberFormat: settings.getNumberFormat(),

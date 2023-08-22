@@ -1,11 +1,11 @@
 import 'dart:ui' as ui;
-import 'package:dolarbot_app/classes/size_config.dart';
-import 'package:dolarbot_app/classes/theme_manager.dart';
-import 'package:dolarbot_app/classes/settings.dart';
-import 'package:dolarbot_app/util/constants.dart';
-import 'package:dolarbot_app/widgets/common/blur_dialog.dart';
-import 'package:dolarbot_app/widgets/common/simple_button.dart';
-import 'package:dolarbot_app/widgets/common/toasts/toast_ok.dart';
+import '../../../../classes/size_config.dart';
+import '../../../../classes/theme_manager.dart';
+import '../../../../classes/settings.dart';
+import '../../../../util/constants.dart';
+import '../../../../widgets/common/blur_dialog.dart';
+import '../../../../widgets/common/simple_button.dart';
+import '../../../../widgets/common/toasts/toast_ok.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:oktoast/oktoast.dart';
@@ -22,9 +22,8 @@ class _CardGestureDismissDialogState extends State<CardGestureDismissDialog> {
 
   @override
   Widget build(BuildContext context) {
-    final EdgeInsets tileContentPadding = EdgeInsets.symmetric(
-        vertical: SizeConfig.blockSizeVertical * 1.5,
-        horizontal: SizeConfig.blockSizeHorizontal * 4);
+    final EdgeInsets tileContentPadding =
+        EdgeInsets.symmetric(vertical: SizeConfig.blockSizeVertical * 1.5, horizontal: SizeConfig.blockSizeHorizontal * 4);
     final double fontSize = SizeConfig.blockSizeVertical * 2.2;
     _dismissDirection = Provider.of<Settings>(context, listen: false).getCardGestureDismiss();
 
@@ -40,7 +39,7 @@ class _CardGestureDismissDialogState extends State<CardGestureDismissDialog> {
           height: SizeConfig.screenHeight * 0.65,
           child: NotificationListener<OverscrollIndicatorNotification>(
             onNotification: (OverscrollIndicatorNotification overScroll) {
-              overScroll.disallowGlow();
+              overScroll.disallowIndicator();
               return false;
             },
             child: Column(
@@ -54,8 +53,7 @@ class _CardGestureDismissDialogState extends State<CardGestureDismissDialog> {
                     left: SizeConfig.blockSizeHorizontal * 7,
                     right: SizeConfig.blockSizeHorizontal * 7,
                   ),
-                  child: const Text(
-                      "Seleccioná la forma que te quede más cómoda para eliminar las tarjetas del Inicio:"),
+                  child: const Text("Seleccioná la forma que te quede más cómoda para eliminar las tarjetas del Inicio:"),
                 ),
                 SizedBox(
                   height: SizeConfig.blockSizeVertical * 2,
@@ -161,9 +159,7 @@ class _CardGestureDismissDialogState extends State<CardGestureDismissDialog> {
         Wrap(
           crossAxisAlignment: WrapCrossAlignment.center,
           runAlignment: WrapAlignment.center,
-          textDirection: direction == DismissDirection.endToStart
-              ? ui.TextDirection.ltr
-              : ui.TextDirection.rtl,
+          textDirection: direction == DismissDirection.endToStart ? ui.TextDirection.ltr : ui.TextDirection.rtl,
           children: [
             if (direction == DismissDirection.horizontal)
               Container(
@@ -181,12 +177,8 @@ class _CardGestureDismissDialogState extends State<CardGestureDismissDialog> {
                         : direction == DismissDirection.horizontal
                             ? const Radius.circular(0)
                             : Radius.circular(SizeConfig.blockSizeVertical),
-                    topRight: direction == DismissDirection.startToEnd
-                        ? const Radius.circular(0)
-                        : Radius.circular(SizeConfig.blockSizeVertical),
-                    bottomRight: direction == DismissDirection.startToEnd
-                        ? const Radius.circular(0)
-                        : Radius.circular(SizeConfig.blockSizeVertical),
+                    topRight: direction == DismissDirection.startToEnd ? const Radius.circular(0) : Radius.circular(SizeConfig.blockSizeVertical),
+                    bottomRight: direction == DismissDirection.startToEnd ? const Radius.circular(0) : Radius.circular(SizeConfig.blockSizeVertical),
                   ),
                   color: Colors.red[800],
                 ),
@@ -201,23 +193,12 @@ class _CardGestureDismissDialogState extends State<CardGestureDismissDialog> {
               width: direction == DismissDirection.horizontal ? greenAreaWidth * 2 : greenAreaWidth,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.only(
-                  topLeft: direction == DismissDirection.endToStart
-                      ? const Radius.circular(0)
-                      : Radius.circular(SizeConfig.blockSizeVertical),
-                  bottomLeft: direction == DismissDirection.endToStart
-                      ? const Radius.circular(0)
-                      : Radius.circular(SizeConfig.blockSizeVertical),
-                  topRight: direction == DismissDirection.startToEnd
-                      ? const Radius.circular(0)
-                      : Radius.circular(SizeConfig.blockSizeVertical),
-                  bottomRight: direction == DismissDirection.startToEnd
-                      ? const Radius.circular(0)
-                      : Radius.circular(SizeConfig.blockSizeVertical),
+                  topLeft: direction == DismissDirection.endToStart ? const Radius.circular(0) : Radius.circular(SizeConfig.blockSizeVertical),
+                  bottomLeft: direction == DismissDirection.endToStart ? const Radius.circular(0) : Radius.circular(SizeConfig.blockSizeVertical),
+                  topRight: direction == DismissDirection.startToEnd ? const Radius.circular(0) : Radius.circular(SizeConfig.blockSizeVertical),
+                  bottomRight: direction == DismissDirection.startToEnd ? const Radius.circular(0) : Radius.circular(SizeConfig.blockSizeVertical),
                 ),
-                gradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    colors: DolarBotConstants.kGradiantDefault),
+                gradient: LinearGradient(begin: Alignment.topLeft, end: Alignment.bottomRight, colors: DolarBotConstants.kGradiantDefault),
               ),
               child: direction == DismissDirection.endToStart
                   ? Icon(
@@ -253,20 +234,14 @@ class _CardGestureDismissDialogState extends State<CardGestureDismissDialog> {
               width: redAreaWidth,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.only(
-                  topLeft: direction == DismissDirection.endToStart
-                      ? const Radius.circular(0)
-                      : Radius.circular(SizeConfig.blockSizeVertical),
-                  bottomLeft: direction == DismissDirection.endToStart
-                      ? const Radius.circular(0)
-                      : Radius.circular(SizeConfig.blockSizeVertical),
+                  topLeft: direction == DismissDirection.endToStart ? const Radius.circular(0) : Radius.circular(SizeConfig.blockSizeVertical),
+                  bottomLeft: direction == DismissDirection.endToStart ? const Radius.circular(0) : Radius.circular(SizeConfig.blockSizeVertical),
                   topRight: direction == DismissDirection.startToEnd
                       ? const Radius.circular(0)
                       : direction == DismissDirection.horizontal
                           ? const Radius.circular(0)
                           : Radius.circular(SizeConfig.blockSizeVertical),
-                  bottomRight: direction == DismissDirection.endToStart
-                      ? Radius.circular(SizeConfig.blockSizeVertical)
-                      : const Radius.circular(0),
+                  bottomRight: direction == DismissDirection.endToStart ? Radius.circular(SizeConfig.blockSizeVertical) : const Radius.circular(0),
                 ),
                 color: Colors.red[800],
               ),

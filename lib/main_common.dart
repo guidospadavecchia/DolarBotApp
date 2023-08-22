@@ -1,27 +1,27 @@
 import 'dart:convert';
 import 'dart:developer';
+
 import 'package:adaptive_theme/adaptive_theme.dart';
-import 'package:dolarbot_app/classes/ad_state.dart';
-import 'package:dolarbot_app/classes/app_config.dart';
-import 'package:dolarbot_app/classes/hive/adapters/cache_entry_adapter.dart';
-import 'package:dolarbot_app/classes/hive/adapters/favorite_rate_adapter.dart';
-import 'package:dolarbot_app/classes/hive/adapters/historical_rate_adapter.dart';
-import 'package:dolarbot_app/classes/size_config.dart';
-import 'package:dolarbot_app/classes/theme_manager.dart';
-import 'package:dolarbot_app/classes/settings.dart';
-import 'package:dolarbot_app/screens/about/about_screen.dart';
-import 'package:dolarbot_app/screens/options/options_screen.dart';
-import 'package:dolarbot_app/screens/splash/splash_screen.dart';
-import 'package:dolarbot_app/util/util.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:global_configuration/global_configuration.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:oktoast/oktoast.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter/foundation.dart';
+
+import 'classes/ad_state.dart';
+import 'classes/app_config.dart';
+import 'classes/hive/adapters/cache_entry_adapter.dart';
+import 'classes/hive/adapters/favorite_rate_adapter.dart';
+import 'classes/hive/adapters/historical_rate_adapter.dart';
+import 'classes/settings.dart';
+import 'classes/size_config.dart';
+import 'classes/theme_manager.dart';
+import 'screens/about/about_screen.dart';
+import 'screens/options/options_screen.dart';
+import 'screens/splash/splash_screen.dart';
+import 'util/util.dart';
 
 export 'package:dolarbot_app/classes/app_config.dart';
 

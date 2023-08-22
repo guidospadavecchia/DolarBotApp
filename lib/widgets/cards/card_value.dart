@@ -1,6 +1,6 @@
-import 'package:dolarbot_app/screens/base/base_info_screen.dart';
-import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
+
+import '../../screens/base/base_info_screen.dart';
 
 enum Spacing { none, small, medium, large }
 
@@ -81,9 +81,7 @@ class CardValue extends StatelessWidget {
             ),
           ],
         ),
-        direction == Axis.vertical
-            ? SizedBox(height: _getSpaceMainAxisEnd() * 2)
-            : const SizedBox.shrink(),
+        direction == Axis.vertical ? SizedBox(height: _getSpaceMainAxisEnd() * 2) : const SizedBox.shrink(),
       ],
     );
   }

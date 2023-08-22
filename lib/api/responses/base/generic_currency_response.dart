@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:dolarbot_app/api/responses/base/api_response.dart';
+import 'api_response.dart';
 
 class GenericCurrencyResponse extends ApiResponse {
   String? buyPrice;

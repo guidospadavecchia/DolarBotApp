@@ -1,10 +1,10 @@
-import 'package:dolarbot_app/classes/dolarbot_icons.dart';
-import 'package:dolarbot_app/widgets/historical_chart/historical_rate_manager.dart';
-import 'package:dolarbot_app/screens/base/base_info_screen.dart';
-import 'package:dolarbot_app/util/util.dart';
-import 'package:dolarbot_app/widgets/cards/factory/factory_card.dart';
-import 'package:dolarbot_app/screens/common/error_screen.dart';
-import 'package:dolarbot_app/screens/common/loading_screen.dart';
+import '../../classes/dolarbot_icons.dart';
+import '../../widgets/historical_chart/historical_rate_manager.dart';
+import '../base/base_info_screen.dart';
+import '../../util/util.dart';
+import '../../widgets/cards/factory/factory_card.dart';
+import '../common/error_screen.dart';
+import '../common/loading_screen.dart';
 import 'package:intl/intl.dart';
 
 class VenezuelaInfoScreen extends BaseInfoScreen {
@@ -67,16 +67,14 @@ class _VenezuelaInfoScreenState extends BaseInfoScreenState<VenezuelaInfoScreen>
 
   @override
   Widget card() {
-    CardData newCardData =
-        widget.cardData.clone(bannerTitle: "Venezuela", iconAsset: DolarBotIcons.general.venezuela);
+    CardData newCardData = widget.cardData.clone(bannerTitle: "Venezuela", iconAsset: DolarBotIcons.general.venezuela);
     Settings settings = Provider.of<Settings>(context, listen: false);
     return BuildCard(data).fromCardData(context, newCardData, settings);
   }
 
   @override
   Future loadData() async {
-    VenezuelaEndpoints venezuelaEndpoint =
-        VenezuelaEndpoints.values.firstWhere((e) => e.value == widget.cardData.endpoint);
+    VenezuelaEndpoints venezuelaEndpoint = VenezuelaEndpoints.values.firstWhere((e) => e.value == widget.cardData.endpoint);
     API.getVzlaRate(venezuelaEndpoint, forceRefresh: shouldForceRefresh).then(
       (value) {
         if (value != null && value.timestamp != null) {
@@ -88,7 +86,7 @@ class _VenezuelaInfoScreenState extends BaseInfoScreenState<VenezuelaInfoScreen>
             value,
           );
         }
-        WidgetsBinding.instance!.addPostFrameCallback(
+        WidgetsBinding.instance.addPostFrameCallback(
           (_) => setState(() {
             data = value;
             timestamp = data?.timestamp;
@@ -115,19 +113,12 @@ class _VenezuelaInfoScreenState extends BaseInfoScreenState<VenezuelaInfoScreen>
     String shareText = '';
 
     if (data != null && data!.timestamp != null) {
-      final blackMarketValue = data!.blackMarketPrice?.isNumeric() ?? false
-          ? numberFormat.format(double.parse(data!.blackMarketPrice!))
-          : 'N/A';
-      final banksValue = data!.bankPrice?.isNumeric() ?? false
-          ? numberFormat.format(double.parse(data!.bankPrice!))
-          : 'N/A';
+      final blackMarketValue = data!.blackMarketPrice?.isNumeric() ?? false ? numberFormat.format(double.parse(data!.blackMarketPrice!)) : 'N/A';
+      final banksValue = data!.bankPrice?.isNumeric() ?? false ? numberFormat.format(double.parse(data!.bankPrice!)) : 'N/A';
       DateTime date = DateTime.parse(data!.timestamp!.replaceAll('/', '-'));
-      String formattedTime =
-          DateFormat(DateTime.now().isSameDayAs(date) ? 'HH:mm' : 'HH:mm - dd-MM-yyyy')
-              .format(date);
+      String formattedTime = DateFormat(DateTime.now().isSameDayAs(date) ? 'HH:mm' : 'HH:mm - dd-MM-yyyy').format(date);
 
-      shareText =
-          'Bancos: \t Bs. $banksValue\nParalelo: \t Bs. $blackMarketValue\nHora: \t $formattedTime';
+      shareText = 'Bancos: \t Bs. $banksValue\nParalelo: \t Bs. $blackMarketValue\nHora: \t $formattedTime';
     }
 
     return shareText;

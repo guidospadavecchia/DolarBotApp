@@ -1,6 +1,6 @@
-import 'package:dolarbot_app/classes/app_config.dart';
-import 'package:dolarbot_app/screens/home/home_screen.dart';
-import 'package:dolarbot_app/widgets/common/pills/pill.dart';
+import '../../classes/app_config.dart';
+import '../home/home_screen.dart';
+import '../../widgets/common/pills/pill.dart';
 import 'package:flutter/material.dart';
 import 'package:show_up_animation/show_up_animation.dart';
 
@@ -26,8 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
           children: [
             Container(
               decoration: BoxDecoration(
-                gradient:
-                    LinearGradient(begin: Alignment.topLeft, end: Alignment.bottomRight, colors: [
+                gradient: LinearGradient(begin: Alignment.topLeft, end: Alignment.bottomRight, colors: [
                   const Color.fromRGBO(51, 150, 34, 1),
                   const Color.fromRGBO(50, 180, 40, 1),
                   const Color.fromRGBO(40, 255, 51, 1),
@@ -65,11 +64,7 @@ class _SplashScreenState extends State<SplashScreen> {
                               Text(
                                 AppConfig.appDisplayName,
                                 style: const TextStyle(
-                                    fontSize: 40,
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.white,
-                                    fontFamily: 'Raleway',
-                                    letterSpacing: 0.5),
+                                    fontSize: 40, fontWeight: FontWeight.w600, color: Colors.white, fontFamily: 'Raleway', letterSpacing: 0.5),
                               ),
                               const SizedBox(
                                 height: 15,
@@ -107,7 +102,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void _waitAndGoHome(BuildContext context, Duration waitToHome) {
-    return WidgetsBinding.instance!.addPostFrameCallback(
+    return WidgetsBinding.instance.addPostFrameCallback(
       (_) => Future.delayed(
         waitToHome,
         () async {

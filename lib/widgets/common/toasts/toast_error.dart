@@ -1,4 +1,4 @@
-import 'package:dolarbot_app/widgets/common/toasts/toast_custom.dart';
+import 'toast_custom.dart';
 import 'package:flutter/material.dart';
 
 class ToastError extends StatelessWidget {

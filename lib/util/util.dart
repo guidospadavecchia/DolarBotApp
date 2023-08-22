@@ -1,25 +1,24 @@
-import 'dart:ui' as ui;
 import 'dart:async';
 import 'dart:io';
-import 'dart:typed_data';
-import 'package:dolarbot_app/classes/size_config.dart';
-import 'package:dolarbot_app/widgets/steps/first_time_dialog.dart';
-import 'package:dolarbot_app/widgets/common/toasts/toast_error.dart';
+import 'dart:ui' as ui;
+
 import 'package:flutter/foundation.dart';
-import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
-import 'package:dolarbot_app/api/responses/base/api_response.dart';
-import 'package:dolarbot_app/screens/base/base_info_screen.dart';
-import 'package:flutter/material.dart';
 import 'package:global_configuration/global_configuration.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:share/share.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+import '../classes/size_config.dart';
+import '../screens/base/base_info_screen.dart';
+import '../widgets/common/toasts/toast_error.dart';
+import '../widgets/steps/first_time_dialog.dart';
 
 export 'dart:typed_data';
+
 export 'package:oktoast/oktoast.dart';
 
 class Util {
@@ -38,7 +37,7 @@ class Util {
 
   static Future<void> launchURL(String url) async {
     try {
-      await launch(url);
+      await launchUrl(Uri.parse(url));
     } catch (e) {
       Future.delayed(
         const Duration(milliseconds: 100),
@@ -50,6 +49,7 @@ class Util {
   }
 
   static shareCard(BuildContext context, Widget widget) async {
+    WidgetsFlutterBinding.ensureInitialized();
     final Directory tempDir = await getTemporaryDirectory();
 
     await createImageFromWidget(
@@ -72,11 +72,10 @@ class Util {
           final File file = await File('${tempDir.path}/${fileName}').create();
           file.writeAsBytesSync(image);
 
-          List<String> files = []..add(file.path);
-          List<String> mimeTypes = []..add('image/png');
-          await Share.shareFiles(
+          List<XFile> files = []..add(XFile(file.path));
+          await Share.shareXFiles(
             files,
-            mimeTypes: mimeTypes,
+            // mimeTypes: mimeTypes,
             subject: cfg.getDeepValue("share:subject"),
             text: cfg.getDeepValue("share:message"),
           );
@@ -109,9 +108,7 @@ class Util {
       reverseDuration: reverseDuration,
     );
     Future.delayed(pushDelay).then(
-      (value) => withReplacement
-          ? Navigator.pushReplacement(context, transition)
-          : Navigator.push(context, transition),
+      (value) => withReplacement ? Navigator.pushReplacement(context, transition) : Navigator.push(context, transition),
     );
   }
 
@@ -206,11 +203,11 @@ class Util {
   }) async {
     final RenderRepaintBoundary repaintBoundary = RenderRepaintBoundary();
 
-    logicalSize ??= ui.window.physicalSize / ui.window.devicePixelRatio;
-    imageSize ??= ui.window.physicalSize;
+    logicalSize ??= PlatformDispatcher.instance.views.first.physicalSize / PlatformDispatcher.instance.views.first.devicePixelRatio;
+    imageSize ??= PlatformDispatcher.instance.views.first.physicalSize;
 
     final RenderView renderView = RenderView(
-      window: ui.window,
+      view: PlatformDispatcher.instance.views.first,
       child: RenderPositionedBox(
         alignment: Alignment.center,
         child: repaintBoundary,
@@ -222,13 +219,14 @@ class Util {
     );
 
     final PipelineOwner pipelineOwner = PipelineOwner();
-    final BuildOwner buildOwner = BuildOwner();
+    final BuildOwner buildOwner = BuildOwner(
+      focusManager: FocusManager(),
+    );
 
     pipelineOwner.rootNode = renderView;
     renderView.prepareInitialFrame();
 
-    final RenderObjectToWidgetElement<RenderBox> rootElement =
-        RenderObjectToWidgetAdapter<RenderBox>(
+    final RenderObjectToWidgetElement<RenderBox> rootElement = RenderObjectToWidgetAdapter<RenderBox>(
       container: repaintBoundary,
       child: Directionality(
         textDirection: TextDirection.ltr,

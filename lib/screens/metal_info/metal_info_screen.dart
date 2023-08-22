@@ -1,10 +1,10 @@
-import 'package:dolarbot_app/api/responses/metal_response.dart';
-import 'package:dolarbot_app/widgets/historical_chart/historical_rate_manager.dart';
-import 'package:dolarbot_app/screens/base/base_info_screen.dart';
-import 'package:dolarbot_app/widgets/cards/factory/factory_card.dart';
-import 'package:dolarbot_app/screens/common/error_screen.dart';
-import 'package:dolarbot_app/screens/common/loading_screen.dart';
 import 'package:intl/intl.dart';
+
+import '../../widgets/cards/factory/factory_card.dart';
+import '../../widgets/historical_chart/historical_rate_manager.dart';
+import '../base/base_info_screen.dart';
+import '../common/error_screen.dart';
+import '../common/loading_screen.dart';
 
 class MetalInfoScreen extends BaseInfoScreen {
   final CardData cardData;
@@ -66,8 +66,7 @@ class _MetalInfoScreenState extends BaseInfoScreenState<MetalInfoScreen> with Ba
 
   @override
   Future loadData() async {
-    MetalEndpoints metalEndpoint =
-        MetalEndpoints.values.firstWhere((e) => e.value == widget.cardData.endpoint);
+    MetalEndpoints metalEndpoint = MetalEndpoints.values.firstWhere((e) => e.value == widget.cardData.endpoint);
     API.getMetalRate(metalEndpoint, forceRefresh: shouldForceRefresh).then(
       (response) {
         if (response != null && response.timestamp != null) {
@@ -79,13 +78,12 @@ class _MetalInfoScreenState extends BaseInfoScreenState<MetalInfoScreen> with Ba
             response,
           );
         }
-        WidgetsBinding.instance!.addPostFrameCallback(
+        WidgetsBinding.instance.addPostFrameCallback(
           (_) => setState(() {
             data = response;
             timestamp = data?.timestamp;
             isDataLoaded = true;
-            errorOnLoad =
-                response == null || response.value == null || response.value!.trim() == '';
+            errorOnLoad = response == null || response.value == null || response.value!.trim() == '';
             showRefreshButton = true;
             if (!errorOnLoad) showSimpleFabMenu();
           }),
@@ -107,14 +105,10 @@ class _MetalInfoScreenState extends BaseInfoScreenState<MetalInfoScreen> with Ba
     String shareText = '';
 
     if (data != null && data!.timestamp != null && data!.unit != null) {
-      final value = data!.value?.isNumeric() ?? false
-          ? numberFormat.format(double.parse(data!.value!))
-          : 'N/A';
+      final value = data!.value?.isNumeric() ?? false ? numberFormat.format(double.parse(data!.value!)) : 'N/A';
       final symbol = (data!.currency ?? '') == 'USD' ? 'US\$' : '\$';
       DateTime date = DateTime.parse(data!.timestamp!.replaceAll('/', '-'));
-      String formattedTime =
-          DateFormat(DateTime.now().isSameDayAs(date) ? 'HH:mm' : 'HH:mm - dd-MM-yyyy')
-              .format(date);
+      String formattedTime = DateFormat(DateTime.now().isSameDayAs(date) ? 'HH:mm' : 'HH:mm - dd-MM-yyyy').format(date);
 
       shareText = '$symbol $value / ${data!.unit}\nHora: $formattedTime';
     }

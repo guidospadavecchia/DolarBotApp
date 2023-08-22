@@ -1,4 +1,4 @@
-import 'package:dolarbot_app/classes/theme_manager.dart';
+import '../../../classes/theme_manager.dart';
 import 'package:flutter/material.dart';
 
 class UndoActionSnackBarContent extends StatelessWidget {

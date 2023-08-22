@@ -1,5 +1,5 @@
-import 'package:dolarbot_app/classes/theme_manager.dart';
-import 'package:dolarbot_app/screens/common/icon_fonts.dart';
+import '../../classes/theme_manager.dart';
+import '../../screens/common/icon_fonts.dart';
 import 'package:flutter/material.dart';
 
 class CardShareButton extends StatelessWidget {

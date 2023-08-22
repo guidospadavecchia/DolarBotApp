@@ -1,5 +1,5 @@
-import 'package:dolarbot_app/classes/decimal_adapter.dart';
-import 'package:dolarbot_app/widgets/calculator/base/base_calculator.dart';
+import '../../classes/decimal_adapter.dart';
+import 'base/base_calculator.dart';
 import 'package:flutter/material.dart';
 import 'package:extended_masked_text/extended_masked_text.dart';
 import 'package:intl/intl.dart';
@@ -28,8 +28,7 @@ class CryptoCalculatorReversed extends BaseCalculatorScreen {
       );
 }
 
-class _CryptoCalculatorReversedState extends BaseCalculatorState<CryptoCalculatorReversed>
-    with BaseCalculator {
+class _CryptoCalculatorReversedState extends BaseCalculatorState<CryptoCalculatorReversed> with BaseCalculator {
   static const int _kPrecision = 2;
   static const int _kMinimumFractionDigits = 0;
   static const int _kMaximumFractionDigits = 8;

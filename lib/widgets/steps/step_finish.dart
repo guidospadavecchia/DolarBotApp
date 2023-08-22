@@ -1,7 +1,7 @@
-import 'package:dolarbot_app/classes/app_config.dart';
-import 'package:dolarbot_app/widgets/common/rich_text_span/rich_text_span.dart';
-import 'package:dolarbot_app/widgets/common/simple_button.dart';
-import 'package:dolarbot_app/widgets/steps/base/step_base.dart';
+import '../../classes/app_config.dart';
+import '../common/rich_text_span/rich_text_span.dart';
+import '../common/simple_button.dart';
+import 'base/step_base.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hive/hive.dart';
 
@@ -38,8 +38,7 @@ class StepFinish extends StepBase {
               textAlign: TextAlign.center,
               text: TextSpan(
                 children: [
-                  RichTextSpan.text(context, "¡Listo 👌!",
-                      fontSize: SizeConfig.blockSizeVertical * 4),
+                  RichTextSpan.text(context, "¡Listo 👌!", fontSize: SizeConfig.blockSizeVertical * 4),
                   RichTextSpan.newLine(context, lines: 4),
                   if (!isComingFromOptions) ..._buildFinishText() else ..._buildOptionsFinishText(),
                 ],

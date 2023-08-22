@@ -1,11 +1,11 @@
-import 'package:dolarbot_app/api/api_endpoints.dart';
-import 'package:dolarbot_app/api/responses/metal_response.dart';
-import 'package:dolarbot_app/util/constants.dart';
-import 'package:dolarbot_app/classes/dolarbot_icons.dart';
-import 'package:dolarbot_app/widgets/drawer/drawer_menu_body.dart';
-import 'package:dolarbot_app/screens/metal_info/metal_info_screen.dart';
-import 'package:dolarbot_app/widgets/cards/factory/card_data.dart';
-import 'package:dolarbot_app/widgets/common/menu_item.dart';
+import '../../../api/api_endpoints.dart';
+import '../../../api/responses/metal_response.dart';
+import '../../../util/constants.dart';
+import '../../../classes/dolarbot_icons.dart';
+import '../drawer_menu_body.dart';
+import '../../../screens/metal_info/metal_info_screen.dart';
+import '../../cards/factory/card_data.dart';
+import '../../common/menu_item.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 

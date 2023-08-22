@@ -1,13 +1,14 @@
 import 'package:crypto_font_icons/crypto_font_icons.dart';
-import 'package:dolarbot_app/classes/app_config.dart';
-import 'package:dolarbot_app/classes/dolarbot_icons.dart';
-import 'package:dolarbot_app/classes/size_config.dart';
-import 'package:dolarbot_app/classes/theme_manager.dart';
-import 'package:dolarbot_app/widgets/common/blur_dialog.dart';
-import 'package:dolarbot_app/widgets/common/pills/pro_pill.dart';
-import 'package:dolarbot_app/widgets/common/rich_text_span/rich_text_span.dart';
-import 'package:dolarbot_app/widgets/drawer/drawer_menu_body.dart';
 import 'package:flutter/material.dart';
+
+import '../../../classes/app_config.dart';
+import '../../../classes/dolarbot_icons.dart';
+import '../../../classes/size_config.dart';
+import '../../../classes/theme_manager.dart';
+import '../../drawer/drawer_menu_body.dart';
+import '../blur_dialog.dart';
+import '../pills/pro_pill.dart';
+import '../rich_text_span/rich_text_span.dart';
 
 class ProFeaturesDialog extends StatelessWidget {
   @override
@@ -54,20 +55,12 @@ class ProFeaturesDialog extends StatelessWidget {
                 children: [
                   const Text(
                     'Dolar',
-                    style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.w600,
-                        fontFamily: 'Raleway',
-                        letterSpacing: 0.5),
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600, fontFamily: 'Raleway', letterSpacing: 0.5),
                   ),
                   Text(
                     'Bot',
                     style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.w600,
-                        fontFamily: 'Raleway',
-                        color: ThemeManager.getPrimaryColor(),
-                        letterSpacing: 0.5),
+                        fontSize: 24, fontWeight: FontWeight.w600, fontFamily: 'Raleway', color: ThemeManager.getPrimaryColor(), letterSpacing: 0.5),
                   ),
                   const SizedBox(width: 15),
                   ProPill(),
@@ -97,9 +90,7 @@ class ProFeaturesDialog extends StatelessWidget {
             textAlign: TextAlign.center,
             text: TextSpan(
               children: [
-                RichTextSpan.text(context,
-                    "Accedé a las las cotizaciones del dólar, euro y real de la mayoría de los",
-                    fontSize: fontSize),
+                RichTextSpan.text(context, "Accedé a las las cotizaciones del dólar, euro y real de la mayoría de los", fontSize: fontSize),
                 RichTextSpan.text(context, " Bancos Argentinos", bold: true, fontSize: fontSize),
                 RichTextSpan.text(context, ",", fontSize: fontSize),
               ],
@@ -107,7 +98,7 @@ class ProFeaturesDialog extends StatelessWidget {
           ),
           NotificationListener<OverscrollIndicatorNotification>(
             onNotification: (OverscrollIndicatorNotification overScroll) {
-              overScroll.disallowGlow();
+              overScroll.disallowIndicator();
               return false;
             },
             child: SingleChildScrollView(
@@ -158,7 +149,7 @@ class ProFeaturesDialog extends StatelessWidget {
           ),
           NotificationListener<OverscrollIndicatorNotification>(
             onNotification: (OverscrollIndicatorNotification overScroll) {
-              overScroll.disallowGlow();
+              overScroll.disallowIndicator();
               return false;
             },
             child: SingleChildScrollView(
@@ -170,17 +161,17 @@ class ProFeaturesDialog extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    getIconData(context, CryptoFontIcons.BTC!),
+                    getIconData(context, CryptoFontIcons.BTC),
                     const SizedBox(width: 10),
-                    getIconData(context, CryptoFontIcons.ETH!),
+                    getIconData(context, CryptoFontIcons.ETH),
                     const SizedBox(width: 10),
                     getIconAsset(context, DolarBotIcons.crypto.dai),
                     const SizedBox(width: 10),
                     getIconAsset(context, DolarBotIcons.crypto.binance),
                     const SizedBox(width: 10),
-                    getIconData(context, CryptoFontIcons.BTC_ALT!),
+                    getIconData(context, CryptoFontIcons.BTC_ALT),
                     const SizedBox(width: 10),
-                    getIconData(context, CryptoFontIcons.LTC!),
+                    getIconData(context, CryptoFontIcons.LTC),
                     const SizedBox(width: 10),
                     getIconAsset(context, DolarBotIcons.crypto.cardano),
                     const SizedBox(width: 10),
@@ -201,21 +192,17 @@ class ProFeaturesDialog extends StatelessWidget {
             textAlign: TextAlign.center,
             text: TextSpan(
               children: [
-                RichTextSpan.text(context, "gráficos históricos de tus consultas, y mucho más.",
-                    fontSize: fontSize),
+                RichTextSpan.text(context, "gráficos históricos de tus consultas, y mucho más.", fontSize: fontSize),
                 RichTextSpan.newLine(context),
                 RichTextSpan.newLine(context),
-                RichTextSpan.text(
-                    context, "Todo esto, sin anuncios, y por menos de lo que cuesta un café",
-                    fontSize: fontSize),
+                RichTextSpan.text(context, "Todo esto, sin anuncios, y por menos de lo que cuesta un café", fontSize: fontSize),
                 RichTextSpan.text(context, " ☕", fontSize: 20),
               ],
             ),
           ),
           SizedBox(height: SizeConfig.blockSizeVertical * 3),
           Theme(
-            data: Theme.of(context)
-                .copyWith(splashColor: Colors.white24, highlightColor: Colors.white10),
+            data: Theme.of(context).copyWith(splashColor: Colors.white24, highlightColor: Colors.white10),
             child: Stack(
               children: <Widget>[
                 Image.asset(

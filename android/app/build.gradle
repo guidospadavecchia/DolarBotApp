@@ -32,20 +32,25 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
-    compileSdkVersion 30
-
-    sourceSets {
-        main.java.srcDirs += 'src/main/kotlin'
-    }
+    compileSdkVersion 33
 
     lintOptions {
         disable 'InvalidPackage'
         checkReleaseBuilds false
     }
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
     defaultConfig {
         minSdkVersion 21
-        targetSdkVersion 30
+        targetSdkVersion 33
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
@@ -77,7 +82,7 @@ android {
             signingConfig signingConfigs.debug
             signingConfig signingConfigs.release
             minifyEnabled true
-            useProguard true
+            shrinkResources true
 
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }

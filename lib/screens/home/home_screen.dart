@@ -1,28 +1,27 @@
-import 'dart:io';
 import 'dart:async';
-import 'package:dolarbot_app/api/responses/factory/api_response_builder.dart';
-import 'package:dolarbot_app/classes/app_config.dart';
-import 'package:dolarbot_app/classes/size_config.dart';
-import 'package:dolarbot_app/widgets/ads/ad_container.dart';
-import 'package:dolarbot_app/widgets/common/snackbars/undo_action_snackbar.dart';
-import 'package:dolarbot_app/widgets/historical_chart/historical_rate_manager.dart';
-import 'package:dolarbot_app/classes/hive/favorite_rate.dart';
-import 'package:dolarbot_app/classes/theme_manager.dart';
-import 'package:dolarbot_app/classes/settings.dart';
-import 'package:dolarbot_app/screens/base/base_info_screen.dart';
-import 'package:dolarbot_app/screens/common/error_screen.dart';
-import 'package:dolarbot_app/screens/home/widgets/empty_favorites.dart';
-import 'package:dolarbot_app/util/util.dart';
-import 'package:dolarbot_app/widgets/cards/factory/factory_card.dart';
-import 'package:dolarbot_app/screens/common/loading_screen.dart';
-import 'package:dolarbot_app/widgets/common/cool_app_bar.dart';
-import 'package:dolarbot_app/widgets/drawer/drawer_menu.dart';
-import 'package:flutter/material.dart';
+import 'dart:io';
+
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_scroll_to_top/flutter_scroll_to_top.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hive/hive.dart';
 import 'package:simple_animations/simple_animations.dart';
-import 'package:flutter_scroll_to_top/flutter_scroll_to_top.dart';
+
+import '../../api/responses/factory/api_response_builder.dart';
+import '../../classes/app_config.dart';
+import '../../classes/size_config.dart';
+import '../../classes/theme_manager.dart';
+import '../../util/util.dart';
+import '../../widgets/ads/ad_container.dart';
+import '../../widgets/cards/factory/factory_card.dart';
+import '../../widgets/common/cool_app_bar.dart';
+import '../../widgets/common/snackbars/undo_action_snackbar.dart';
+import '../../widgets/drawer/drawer_menu.dart';
+import '../../widgets/historical_chart/historical_rate_manager.dart';
+import '../base/base_info_screen.dart';
+import '../common/error_screen.dart';
+import '../common/loading_screen.dart';
+import 'widgets/empty_favorites.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({
@@ -54,8 +53,7 @@ class HomeScreenState extends State<HomeScreen> {
     final DateTime now = DateTime.now();
 
     dismissAllToast();
-    if (lastBackPressTimestamp == null ||
-        now.difference(lastBackPressTimestamp!) > kDoubleTapToLeaveDuration) {
+    if (lastBackPressTimestamp == null || now.difference(lastBackPressTimestamp!) > kDoubleTapToLeaveDuration) {
       lastBackPressTimestamp = now;
       Util.showSnackBar(
         context,
@@ -75,7 +73,7 @@ class HomeScreenState extends State<HomeScreen> {
       _loadFavorites(false).then(
         (_) {
           if (this.mounted) {
-            WidgetsBinding.instance!.addPostFrameCallback((_) => setState(() => _buildCards()));
+            WidgetsBinding.instance.addPostFrameCallback((_) => setState(() => _buildCards()));
           }
         },
       );
@@ -83,8 +81,8 @@ class HomeScreenState extends State<HomeScreen> {
       _buildCards();
     }
 
-    if (_checkIsFirstTime() && SchedulerBinding.instance != null) {
-      SchedulerBinding.instance!.addPostFrameCallback((_) async {
+    if (_checkIsFirstTime()) {
+      SchedulerBinding.instance.addPostFrameCallback((_) async {
         if (Navigator.of(context).canPop()) Navigator.of(context).pop();
         await Util.showFirstTimeDialog(context, false);
       });
@@ -137,8 +135,7 @@ class HomeScreenState extends State<HomeScreen> {
               ],
             ),
           ),
-          bottomNavigationBar:
-              !AppConfig.isProVersion && _cardsLoaded && !_hasErrorsAll ? AdContainer() : null,
+          bottomNavigationBar: !AppConfig.isProVersion && _cardsLoaded && !_hasErrorsAll ? AdContainer() : null,
         );
       }),
     );
@@ -165,11 +162,10 @@ class HomeScreenState extends State<HomeScreen> {
           child: Container(
             constraints: const BoxConstraints(maxWidth: 400),
             height: SizeConfig.screenHeight,
-            padding: EdgeInsets.only(
-                bottom: SizeConfig.viewInsets.bottom + (AppConfig.isProVersion ? 100 : 160)),
+            padding: EdgeInsets.only(bottom: SizeConfig.viewInsets.bottom + (AppConfig.isProVersion ? 100 : 160)),
             child: NotificationListener<OverscrollIndicatorNotification>(
               onNotification: (OverscrollIndicatorNotification overScroll) {
-                overScroll.disallowGlow();
+                overScroll.disallowIndicator();
                 return false;
               },
               child: Theme(
@@ -179,7 +175,7 @@ class HomeScreenState extends State<HomeScreen> {
                   promptAlignment: Alignment.bottomRight,
                   promptDuration: const Duration(milliseconds: 500),
                   promptTheme: PromptButtonTheme(
-                    color: ThemeManager.getDarkThemeData().backgroundColor.withOpacity(0.9),
+                    color: ThemeManager.getDarkThemeData().colorScheme.background.withOpacity(0.9),
                     padding: const EdgeInsets.only(right: 25, bottom: 30),
                     iconPadding: const EdgeInsets.all(12),
                   ),
@@ -226,12 +222,8 @@ class HomeScreenState extends State<HomeScreen> {
                                   },
                                   child: _cards[i],
                                   direction: settings.getCardGestureDismiss(),
-                                  background: _DismissFavoriteButton(
-                                      direction: DismissDirection.startToEnd,
-                                      hideIcon: _hideIconTrashCard),
-                                  secondaryBackground: _DismissFavoriteButton(
-                                      direction: DismissDirection.endToStart,
-                                      hideIcon: _hideIconTrashCard),
+                                  background: _DismissFavoriteButton(direction: DismissDirection.startToEnd, hideIcon: _hideIconTrashCard),
+                                  secondaryBackground: _DismissFavoriteButton(direction: DismissDirection.endToStart, hideIcon: _hideIconTrashCard),
                                   key: ValueKey(_cards[i]),
                                   confirmDismiss: (direction) => Future.delayed(Duration.zero, () {
                                     setState(() => _hideIconTrashCard = true);
@@ -275,7 +267,7 @@ class HomeScreenState extends State<HomeScreen> {
     Util.hideSnackBar(context);
     _loadFavorites(true)
         .then(
-          (_) => WidgetsBinding.instance!.addPostFrameCallback(
+          (_) => WidgetsBinding.instance.addPostFrameCallback(
             (_) => setState(() => _buildCards()),
           ),
         )
@@ -359,16 +351,13 @@ class HomeScreenState extends State<HomeScreen> {
       }
       await Future.wait(
         _favoriteRates.map(
-          (x) => API
-              .getRawData(x.endpoint, forceRefresh)
-              .then((value) => _responses[x.endpoint] = value),
+          (x) => API.getRawData(x.endpoint, forceRefresh).then((value) => _responses[x.endpoint] = value),
         ),
       );
 
       _favoriteRates.forEach((x) {
         Map? json = _responses[x.endpoint];
-        ApiResponse? response =
-            json != null ? ApiResponseBuilder.fromTypeName(x.cardResponseType, json) : null;
+        ApiResponse? response = json != null ? ApiResponseBuilder.fromTypeName(x.cardResponseType, json) : null;
         if (response != null && response.timestamp != null) {
           HistoricalRateManager.saveRate(
             context,
@@ -455,8 +444,7 @@ class _DismissFavoriteButton extends StatelessWidget {
 
     return Container(
       margin: const EdgeInsets.only(top: 20, bottom: 20),
-      alignment:
-          direction == DismissDirection.endToStart ? Alignment.centerRight : Alignment.centerLeft,
+      alignment: direction == DismissDirection.endToStart ? Alignment.centerRight : Alignment.centerLeft,
       padding: const EdgeInsets.only(left: 40, right: 40),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),

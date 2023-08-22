@@ -1,4 +1,4 @@
-import 'package:dolarbot_app/classes/hive/historical_rate.dart';
+import '../historical_rate.dart';
 import 'package:hive/hive.dart';
 
 class HistoricalRateAdapter extends TypeAdapter<HistoricalRate> {
@@ -38,6 +38,5 @@ class HistoricalRateAdapter extends TypeAdapter<HistoricalRate> {
 
   @override
   bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is HistoricalRateAdapter && runtimeType == other.runtimeType && typeId == other.typeId;
+      identical(this, other) || other is HistoricalRateAdapter && runtimeType == other.runtimeType && typeId == other.typeId;
 }

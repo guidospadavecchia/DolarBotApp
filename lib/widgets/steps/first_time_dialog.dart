@@ -1,10 +1,10 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:dolarbot_app/classes/size_config.dart';
-import 'package:dolarbot_app/widgets/common/blur_dialog.dart';
-import 'package:dolarbot_app/widgets/steps/exports/step_exports.dart';
-import 'package:dolarbot_app/widgets/steps/step_five.dart';
-import 'package:dolarbot_app/widgets/steps/step_six.dart';
+import '../../classes/size_config.dart';
+import '../common/blur_dialog.dart';
+import 'exports/step_exports.dart';
+import 'step_five.dart';
+import 'step_six.dart';
 import 'package:flutter/material.dart';
 
 class FirstTimeDialog extends StatelessWidget {
@@ -41,11 +41,7 @@ class FirstTimeDialog extends StatelessWidget {
                   : null,
             ),
             child: CarouselSlider(
-              options: CarouselOptions(
-                  initialPage: 0,
-                  height: SizeConfig.screenHeight * 0.8,
-                  enableInfiniteScroll: false,
-                  viewportFraction: 1),
+              options: CarouselOptions(initialPage: 0, height: SizeConfig.screenHeight * 0.8, enableInfiniteScroll: false, viewportFraction: 1),
               items: [
                 StepWelcome(
                   context,

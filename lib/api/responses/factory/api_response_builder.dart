@@ -1,5 +1,4 @@
-import 'package:dolarbot_app/api/responses/base/api_response.dart';
-import 'package:dolarbot_app/api/responses/metal_response.dart';
+import '../base/api_response.dart';
 
 class ApiResponseBuilder {
   static ApiResponse fromType(Type type, Map json) {

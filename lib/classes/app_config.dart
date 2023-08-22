@@ -1,4 +1,4 @@
-import 'package:dolarbot_app/main_common.dart';
+import '../main_common.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info/package_info.dart';
 

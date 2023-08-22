@@ -1,5 +1,5 @@
-import 'package:dolarbot_app/classes/size_config.dart';
-import 'package:dolarbot_app/widgets/cards/card_share_button.dart';
+import '../../classes/size_config.dart';
+import 'card_share_button.dart';
 import 'package:flutter/material.dart';
 
 export 'package:dolarbot_app/widgets/cards/card_share_button.dart';

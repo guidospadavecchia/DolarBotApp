@@ -1,4 +1,4 @@
-import 'package:dolarbot_app/util/util.dart';
+import '../../../util/util.dart';
 import 'package:flutter/material.dart';
 
 class Discord extends StatelessWidget {

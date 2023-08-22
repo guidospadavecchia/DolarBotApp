@@ -1,6 +1,6 @@
-import 'package:dolarbot_app/screens/base/base_info_screen.dart';
-import 'package:dolarbot_app/screens/common/error_screen.dart';
-import 'package:dolarbot_app/screens/common/loading_screen.dart';
+import '../../../screens/base/base_info_screen.dart';
+import '../../../screens/common/error_screen.dart';
+import '../../../screens/common/loading_screen.dart';
 import 'package:flutter/material.dart';
 
 export 'package:loading_indicator/loading_indicator.dart';

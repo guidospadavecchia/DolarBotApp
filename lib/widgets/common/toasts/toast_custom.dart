@@ -1,4 +1,4 @@
-import 'package:dolarbot_app/classes/size_config.dart';
+import '../../../classes/size_config.dart';
 import 'package:flutter/material.dart';
 
 class ToastCustom extends StatelessWidget {
