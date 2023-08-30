@@ -68,7 +68,10 @@ Escribinos a [hola@dolarbot.com.ar](mailto:hola@dolarbot.com.ar?subject=Hola%20D
 ## Licencia
 **DolarBot** es ***100% open-source***. Está licenciado bajo la [GNU General Public License v3.0](https://github.com/guidospadavecchia/DolarBotApp/blob/main/LICENSE).
 
-## 
+## Contribuciones
+[![Invitame un café en cafecito.app](https://cdn.cafecito.app/imgs/buttons/button_6.svg)](https://cafecito.app/gspadavecchia)  
+
+##   
 
 <p align="center">
   Hecho con 💙 en <b><a href="https://flutter.dev/">Flutter</a></b>
