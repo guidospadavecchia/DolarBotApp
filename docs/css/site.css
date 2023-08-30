@@ -157,11 +157,28 @@ body {
   padding-bottom: 2rem;
 }
 
+#footer .donations {
+  display: flex;
+  justify-content: space-evenly;
+  width: 15rem;
+  padding-bottom: 1rem;
+  transition-duration: 500ms;
+  opacity: 0.7;
+}
+
+#footer .donations:hover {
+  transform: scale(1.1);
+  transition-duration: 500ms;
+  cursor: pointer;
+  opacity: 1;
+}
+
 #footer .social-media div {
   cursor: pointer;
   opacity: 0.6;
   filter: none;
   backface-visibility: hidden;
+  transition-duration: 500ms;
   -webkit-filter: blur(0px);
   -moz-filter: blur(0px);
   -ms-filter: blur(0px);
@@ -169,6 +186,7 @@ body {
 
 #footer .social-media div:hover {
   transform: scale(1.1);
+  transition-duration: 500ms;
   opacity: 1;
 }
 
@@ -190,8 +208,16 @@ body {
   color: var(--accent-color) !important;
 }
 
+.google-play-button {
+  width: 250px;
+  opacity: 0.7;
+  transition-duration: 500ms;
+}
+
 .google-play-button:hover {
   cursor: pointer;
+  opacity: 1;
+  transition-duration: 500ms;
 }
 
 .ab-icon {
@@ -248,9 +274,5 @@ body {
     font-size: 1.5rem;
     width: 5rem;
     height: 3rem;
-  }
-
-  .google-play-button {
-    width: 250px;
   }
 }
