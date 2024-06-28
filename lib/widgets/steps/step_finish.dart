@@ -1,9 +1,10 @@
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:hive/hive.dart';
+
 import '../../classes/app_config.dart';
 import '../common/rich_text_span/rich_text_span.dart';
 import '../common/simple_button.dart';
 import 'base/step_base.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:hive/hive.dart';
 
 class StepFinish extends StepBase {
   final BuildContext context;
@@ -78,7 +79,7 @@ class StepFinish extends StepBase {
       RichTextSpan.newLine(context, lines: 2),
       ...RichTextSpan.icon(
         context,
-        FontAwesomeIcons.cog,
+        FontAwesomeIcons.gear,
         ThemeManager.getDrawerMenuItemIconColor(context),
         alignment: PlaceholderAlignment.middle,
         text: "Opciones",
@@ -87,7 +88,7 @@ class StepFinish extends StepBase {
       RichTextSpan.text(context, ">", bold: true),
       ...RichTextSpan.icon(
         context,
-        FontAwesomeIcons.solidQuestionCircle,
+        FontAwesomeIcons.solidCircleQuestion,
         ThemeManager.getDrawerMenuItemIconColor(context),
         alignment: PlaceholderAlignment.middle,
         text: "Ayuda",

@@ -1,6 +1,7 @@
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import '../common/rich_text_span/rich_text_span.dart';
 import 'base/step_base.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class StepFive extends StepBase {
   final BuildContext context;
@@ -52,7 +53,7 @@ class StepFive extends StepBase {
             RichTextSpan.text(context, "En la sección de"),
             ...RichTextSpan.icon(
               context,
-              FontAwesomeIcons.cog,
+              FontAwesomeIcons.gear,
               ThemeManager.getDrawerMenuItemIconColor(context),
               alignment: PlaceholderAlignment.bottom,
               text: "Opciones",
@@ -60,7 +61,7 @@ class StepFive extends StepBase {
             RichTextSpan.text(context, ">", bold: true),
             ...RichTextSpan.icon(
               context,
-              FontAwesomeIcons.exchangeAlt,
+              FontAwesomeIcons.rightLeft,
               ThemeManager.getDrawerMenuItemIconColor(context),
               alignment: PlaceholderAlignment.bottom,
               text: "Gesto de eliminación de tarjeta",

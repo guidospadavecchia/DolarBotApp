@@ -1,12 +1,14 @@
 import 'dart:convert';
 import 'dart:math';
+
+import 'package:fl_chart/fl_chart.dart';
+import 'package:flutter/material.dart';
+
 import '../../../api/responses/base/api_response.dart';
 import '../../../api/responses/base/generic_currency_response.dart';
 import '../../../classes/hive/historical_rate.dart';
-import 'historical_chart_data.dart';
 import '../../../util/extensions/string_extensions.dart';
-import 'package:fl_chart/fl_chart.dart';
-import 'package:flutter/material.dart';
+import 'historical_chart_data.dart';
 
 const double _barWidth = 3;
 const List<Color> _kTabColorGradient1 = const [
@@ -87,10 +89,10 @@ class _FiatCurrency implements BuildHistoricalChartData {
             lineChartBarData: LineChartBarData(
               spots: buyPrices,
               isCurved: false,
-              colors: _kTabColorGradient1,
+              gradient: LinearGradient(colors: _kTabColorGradient1),
               belowBarData: BarAreaData(
                 show: true,
-                colors: _kTabColorGradient1.map((x) => x.withAlpha(100)).toList(),
+                gradient: LinearGradient(colors: _kTabColorGradient1.map((x) => x.withAlpha(100)).toList()),
               ),
               barWidth: _barWidth,
             ),
@@ -104,10 +106,10 @@ class _FiatCurrency implements BuildHistoricalChartData {
             lineChartBarData: LineChartBarData(
               spots: sellPrices,
               isCurved: false,
-              colors: _kTabColorGradient2,
+              gradient: LinearGradient(colors: _kTabColorGradient2),
               belowBarData: BarAreaData(
                 show: true,
-                colors: _kTabColorGradient2.map((x) => x.withAlpha(100)).toList(),
+                gradient: LinearGradient(colors: _kTabColorGradient2.map((x) => x.withAlpha(100)).toList()),
               ),
               barWidth: _barWidth,
             ),
@@ -121,10 +123,10 @@ class _FiatCurrency implements BuildHistoricalChartData {
             lineChartBarData: LineChartBarData(
               spots: sellPricesWithTaxes,
               isCurved: false,
-              colors: _kTabColorGradient3,
+              gradient: LinearGradient(colors: _kTabColorGradient3),
               belowBarData: BarAreaData(
                 show: true,
-                colors: _kTabColorGradient3.map((x) => x.withAlpha(100)).toList(),
+                gradient: LinearGradient(colors: _kTabColorGradient3.map((x) => x.withAlpha(100)).toList()),
               ),
               barWidth: _barWidth,
             ),
@@ -172,10 +174,10 @@ class _Crypto implements BuildHistoricalChartData {
             lineChartBarData: LineChartBarData(
               spots: usdPrices,
               isCurved: false,
-              colors: _kTabColorGradient3,
+              gradient: LinearGradient(colors: _kTabColorGradient3),
               belowBarData: BarAreaData(
                 show: true,
-                colors: _kTabColorGradient3.map((x) => x.withAlpha(100)).toList(),
+                gradient: LinearGradient(colors: _kTabColorGradient3.map((x) => x.withAlpha(100)).toList()),
               ),
               barWidth: _barWidth,
             ),
@@ -189,10 +191,10 @@ class _Crypto implements BuildHistoricalChartData {
             lineChartBarData: LineChartBarData(
               spots: arsPrices,
               isCurved: false,
-              colors: _kTabColorGradient1,
+              gradient: LinearGradient(colors: _kTabColorGradient1),
               belowBarData: BarAreaData(
                 show: true,
-                colors: _kTabColorGradient1.map((x) => x.withAlpha(100)).toList(),
+                gradient: LinearGradient(colors: _kTabColorGradient1.map((x) => x.withAlpha(100)).toList()),
               ),
               barWidth: _barWidth,
             ),
@@ -206,10 +208,10 @@ class _Crypto implements BuildHistoricalChartData {
             lineChartBarData: LineChartBarData(
               spots: arsPricesWithTaxes,
               isCurved: false,
-              colors: _kTabColorGradient2,
+              gradient: LinearGradient(colors: _kTabColorGradient2),
               belowBarData: BarAreaData(
                 show: true,
-                colors: _kTabColorGradient2.map((x) => x.withAlpha(100)).toList(),
+                gradient: LinearGradient(colors: _kTabColorGradient2.map((x) => x.withAlpha(100)).toList()),
               ),
               barWidth: _barWidth,
             ),
@@ -249,10 +251,10 @@ class _Metal implements BuildHistoricalChartData {
             lineChartBarData: LineChartBarData(
               spots: values,
               isCurved: false,
-              colors: _kTabColorGradient1,
+              gradient: LinearGradient(colors: _kTabColorGradient1),
               belowBarData: BarAreaData(
                 show: true,
-                colors: _kTabColorGradient1.map((x) => x.withAlpha(100)).toList(),
+                gradient: LinearGradient(colors: _kTabColorGradient1.map((x) => x.withAlpha(100)).toList()),
               ),
               barWidth: _barWidth,
             ),
@@ -292,10 +294,10 @@ class _Bcra implements BuildHistoricalChartData {
             lineChartBarData: LineChartBarData(
               spots: values,
               isCurved: false,
-              colors: _kTabColorGradient1,
+              gradient: LinearGradient(colors: _kTabColorGradient1),
               belowBarData: BarAreaData(
                 show: true,
-                colors: _kTabColorGradient1.map((x) => x.withAlpha(100)).toList(),
+                gradient: LinearGradient(colors: _kTabColorGradient1.map((x) => x.withAlpha(100)).toList()),
               ),
               barWidth: _barWidth,
             ),
@@ -333,10 +335,10 @@ class _CountryRisk implements BuildHistoricalChartData {
             lineChartBarData: LineChartBarData(
               spots: values,
               isCurved: false,
-              colors: _kTabColorGradient1,
+              gradient: LinearGradient(colors: _kTabColorGradient1),
               belowBarData: BarAreaData(
                 show: true,
-                colors: _kTabColorGradient1.map((x) => x.withAlpha(100)).toList(),
+                gradient: LinearGradient(colors: _kTabColorGradient1.map((x) => x.withAlpha(100)).toList()),
               ),
               barWidth: _barWidth,
             ),
@@ -379,10 +381,10 @@ class _Venezuela implements BuildHistoricalChartData {
             lineChartBarData: LineChartBarData(
               spots: bankPrices,
               isCurved: false,
-              colors: _kTabColorGradient1,
+              gradient: LinearGradient(colors: _kTabColorGradient1),
               belowBarData: BarAreaData(
                 show: true,
-                colors: _kTabColorGradient1.map((x) => x.withAlpha(100)).toList(),
+                gradient: LinearGradient(colors: _kTabColorGradient1.map((x) => x.withAlpha(100)).toList()),
               ),
               barWidth: _barWidth,
             ),
@@ -396,10 +398,10 @@ class _Venezuela implements BuildHistoricalChartData {
             lineChartBarData: LineChartBarData(
               spots: blackMarketPrices,
               isCurved: false,
-              colors: _kTabColorGradient2,
+              gradient: LinearGradient(colors: _kTabColorGradient2),
               belowBarData: BarAreaData(
                 show: true,
-                colors: _kTabColorGradient2.map((x) => x.withAlpha(100)).toList(),
+                gradient: LinearGradient(colors: _kTabColorGradient2.map((x) => x.withAlpha(100)).toList()),
               ),
               barWidth: _barWidth,
             ),

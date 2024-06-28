@@ -1,6 +1,7 @@
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import '../common/rich_text_span/rich_text_span.dart';
 import 'base/step_base.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class StepOne extends StepBase {
   final BuildContext context;
@@ -32,7 +33,7 @@ class StepOne extends StepBase {
             RichTextSpan.text(context, "Podés agregar tus cotizaciones a favoritos para que aparezcan en la pantalla principal: El"),
             ...RichTextSpan.icon(
               context,
-              FontAwesomeIcons.home,
+              FontAwesomeIcons.house,
               ThemeManager.getPrimaryTextColor(context),
               alignment: PlaceholderAlignment.bottom,
               text: " Inicio",

@@ -1,7 +1,8 @@
-import '../../../classes/size_config.dart';
-import '../../../classes/theme_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+import '../../../classes/size_config.dart';
+import '../../../classes/theme_manager.dart';
 
 class InputAmount extends StatelessWidget {
   final TextEditingController textController;
@@ -32,6 +33,7 @@ class InputAmount extends StatelessWidget {
             height: 0.5,
             fontFamily: 'Raleway',
             fontWeight: FontWeight.bold,
+            color: ThemeManager.getPrimaryTextColor(context),
           ),
           contentPadding: EdgeInsets.only(bottom: SizeConfig.blockSizeVertical),
           isDense: true,

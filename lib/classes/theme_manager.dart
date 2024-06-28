@@ -8,6 +8,9 @@ class ThemeManager {
   static Color _secondaryColor = const Color.fromRGBO(51, 148, 34, 1);
   static Color _accentColor = const Color.fromRGBO(140, 216, 18, 1);
 
+  static Color _backgroundLightColor = const Color.fromRGBO(250, 250, 250, 1);
+  static Color _backgroundDarkColor = const Color.fromRGBO(48, 48, 48, 1);
+
   static AdaptiveThemeMode getDefaultTheme(BuildContext context) {
     Brightness brightness = PlatformDispatcher.instance.platformBrightness;
     return brightness == Brightness.light ? AdaptiveThemeMode.light : AdaptiveThemeMode.dark;
@@ -42,7 +45,7 @@ class ThemeManager {
   }
 
   static Color getDrawerMenuFooterSloganBackgroundColor(BuildContext context) {
-    return AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light ? Colors.blueGrey[900]! : Colors.black54;
+    return AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light ? Colors.blueGrey[900]! : Colors.grey.shade900;
   }
 
   static Color getButtonColor(BuildContext context) {
@@ -58,7 +61,7 @@ class ThemeManager {
   }
 
   static Color getGlobalBackgroundColor(BuildContext context) {
-    return AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light ? const Color.fromRGBO(250, 250, 250, 1) : const Color.fromRGBO(48, 48, 48, 1);
+    return AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light ? _backgroundLightColor : _backgroundDarkColor;
   }
 
   static Color getPrimaryAccentColor(BuildContext context) {
@@ -116,6 +119,7 @@ class ThemeManager {
   static ThemeData getThemeForDrawerMenu(BuildContext context, {bool disableHighlight = false}) {
     return Theme.of(context).copyWith(
       splashColor: Colors.transparent,
+      splashFactory: InkSplash.splashFactory,
       highlightColor: disableHighlight ? Colors.transparent : getHighlightDrawerMenuItem(context),
       unselectedWidgetColor: ThemeManager.getDrawerMenuItemIconColor(context),
       dividerColor: Colors.transparent,
@@ -125,71 +129,133 @@ class ThemeManager {
 
   static ThemeData getLightThemeData() {
     return ThemeData(
-        primaryColor: getPrimaryColor(),
-        fontFamily: 'Raleway',
-        appBarTheme: AppBarTheme(
-          iconTheme: IconThemeData(
-            color: Colors.grey[700],
+      scaffoldBackgroundColor: _backgroundLightColor,
+      primaryColor: getPrimaryColor(),
+      fontFamily: 'Raleway',
+      appBarTheme: AppBarTheme(
+        backgroundColor: _backgroundLightColor,
+        surfaceTintColor: Colors.transparent,
+        iconTheme: IconThemeData(
+          color: Colors.grey[700],
+        ),
+      ),
+      drawerTheme: DrawerThemeData(
+        backgroundColor: _backgroundLightColor,
+      ),
+      tooltipTheme: _getTooltipThemeLight(),
+      textTheme: TextTheme(
+        bodyLarge: TextStyle(
+          color: Colors.grey[800],
+        ),
+        bodyMedium: TextStyle(
+          color: Colors.grey[800],
+        ),
+      ),
+      inputDecorationTheme: InputDecorationTheme(
+        focusedBorder: UnderlineInputBorder(
+          borderSide: BorderSide(
+            color: Colors.grey.shade300,
           ),
         ),
-        tooltipTheme: _getTooltipThemeLight(),
-        textTheme: TextTheme(
-          bodyLarge: TextStyle(
-            color: Colors.grey[800],
-          ),
-          bodyMedium: TextStyle(
-            color: Colors.grey[800],
-          ),
+      ),
+      dialogTheme: DialogTheme(
+        backgroundColor: _backgroundLightColor,
+        surfaceTintColor: Colors.transparent,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
         ),
-        dividerColor: Colors.transparent,
-        dividerTheme: DividerThemeData(
-          color: Colors.grey[400],
-        ),
-        bottomNavigationBarTheme: BottomNavigationBarThemeData(
-          backgroundColor: Colors.green[200],
-        ),
-        textSelectionTheme: TextSelectionThemeData(
-          selectionColor: getPrimaryColor(),
-          selectionHandleColor: getPrimaryColor(),
-          cursorColor: getPrimaryColor(),
-        ),
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-        colorScheme: ColorScheme.fromSwatch().copyWith(brightness: Brightness.light, secondary: getAccentColor()));
+      ),
+      dividerColor: Colors.transparent,
+      dividerTheme: DividerThemeData(
+        color: Colors.grey.shade200,
+      ),
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        backgroundColor: Colors.green[200],
+      ),
+      textSelectionTheme: TextSelectionThemeData(
+        selectionColor: getPrimaryColor(),
+        selectionHandleColor: getPrimaryColor(),
+        cursorColor: getPrimaryColor(),
+      ),
+      switchTheme: SwitchThemeData(
+        thumbColor: WidgetStatePropertyAll(_primaryColor),
+        trackColor: WidgetStatePropertyAll(Colors.grey.shade200),
+        trackOutlineColor: WidgetStatePropertyAll(Colors.grey.shade300),
+      ),
+      expansionTileTheme: ExpansionTileThemeData(
+        iconColor: Colors.grey.shade600,
+        collapsedIconColor: Colors.grey.shade600,
+      ),
+      visualDensity: VisualDensity.adaptivePlatformDensity,
+      colorScheme: ColorScheme.fromSwatch().copyWith(
+        brightness: Brightness.light,
+        secondary: getAccentColor(),
+      ),
+    );
   }
 
   static ThemeData getDarkThemeData() {
     return ThemeData(
-        primaryColor: getPrimaryColor(),
-        fontFamily: 'Raleway',
-        appBarTheme: AppBarTheme(
-          iconTheme: IconThemeData(
-            color: Colors.grey[300],
+      scaffoldBackgroundColor: _backgroundDarkColor,
+      primaryColor: getPrimaryColor(),
+      fontFamily: 'Raleway',
+      appBarTheme: AppBarTheme(
+        backgroundColor: _backgroundDarkColor,
+        surfaceTintColor: Colors.transparent,
+        iconTheme: IconThemeData(
+          color: Colors.grey[300],
+        ),
+      ),
+      drawerTheme: DrawerThemeData(
+        backgroundColor: _backgroundDarkColor,
+      ),
+      tooltipTheme: _getTooltipThemeDark(),
+      textTheme: TextTheme(
+        bodyLarge: TextStyle(
+          color: Colors.grey[200],
+        ),
+        bodyMedium: TextStyle(
+          color: Colors.grey[200],
+        ),
+      ),
+      inputDecorationTheme: InputDecorationTheme(
+        focusedBorder: UnderlineInputBorder(
+          borderSide: BorderSide(
+            color: Colors.grey.shade300,
           ),
         ),
-        tooltipTheme: _getTooltipThemeDark(),
-        textTheme: TextTheme(
-          bodyLarge: TextStyle(
-            color: Colors.grey[200],
+      ),
+      dialogTheme: DialogTheme(
+        backgroundColor: _backgroundDarkColor,
+        surfaceTintColor: Colors.transparent,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+          side: BorderSide(
+            color: Colors.grey.shade800,
           ),
-          bodyMedium: TextStyle(
-            color: Colors.grey[200],
-          ),
         ),
-        dividerColor: Colors.transparent,
-        dividerTheme: DividerThemeData(
-          color: Colors.grey[700],
-        ),
-        bottomNavigationBarTheme: BottomNavigationBarThemeData(
-          backgroundColor: Colors.green[700],
-        ),
-        textSelectionTheme: TextSelectionThemeData(
-          selectionColor: getSecondaryColor(),
-          selectionHandleColor: getSecondaryColor(),
-          cursorColor: getSecondaryColor(),
-        ),
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-        colorScheme: ColorScheme.fromSwatch(
-          brightness: Brightness.dark,
-        ).copyWith(secondary: getAccentColor()));
+      ),
+      dividerColor: Colors.transparent,
+      dividerTheme: DividerThemeData(
+        color: Colors.grey[700],
+      ),
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        backgroundColor: Colors.green[700],
+      ),
+      textSelectionTheme: TextSelectionThemeData(
+        selectionColor: getSecondaryColor(),
+        selectionHandleColor: getSecondaryColor(),
+        cursorColor: getSecondaryColor(),
+      ),
+      expansionTileTheme: ExpansionTileThemeData(
+        iconColor: Colors.white,
+        collapsedIconColor: Colors.white,
+      ),
+      visualDensity: VisualDensity.adaptivePlatformDensity,
+      colorScheme: ColorScheme.fromSwatch().copyWith(
+        brightness: Brightness.dark,
+        secondary: getAccentColor(),
+      ),
+    );
   }
 }

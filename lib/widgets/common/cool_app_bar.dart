@@ -1,6 +1,7 @@
-import '../../screens/base/base_info_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import '../../screens/base/base_info_screen.dart';
 
 class CoolAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -30,20 +31,28 @@ class CoolAppBar extends StatelessWidget implements PreferredSizeWidget {
       leading: Builder(
         builder: (BuildContext context) {
           if (isMainMenu) {
-            return IconButton(
-              icon: const Icon(Icons.menu),
-              splashRadius: 25,
-              color: foregroundColor,
-              onPressed: () => Scaffold.of(context).openDrawer(),
-              tooltip: 'Abrir menú',
+            return Padding(
+              padding: const EdgeInsets.fromLTRB(16, 11, 16, 11),
+              child: IconButton(
+                icon: const Icon(Icons.menu),
+                color: foregroundColor,
+                style: ButtonStyle(splashFactory: InkSplash.splashFactory),
+                splashRadius: 25,
+                onPressed: () => Scaffold.of(context).openDrawer(),
+                tooltip: 'Abrir menú',
+              ),
             );
           } else {
-            return IconButton(
-              icon: const Icon(Icons.arrow_back),
-              splashRadius: 25,
-              color: foregroundColor,
-              onPressed: () => Navigator.of(context).pop(),
-              tooltip: 'Volver',
+            return Padding(
+              padding: const EdgeInsets.fromLTRB(16, 11, 16, 11),
+              child: IconButton(
+                icon: const Icon(Icons.arrow_back),
+                splashRadius: 25,
+                color: foregroundColor,
+                style: ButtonStyle(splashFactory: InkSplash.splashFactory),
+                onPressed: () => Navigator.of(context).pop(),
+                tooltip: 'Volver',
+              ),
             );
           }
         },
@@ -54,7 +63,7 @@ class CoolAppBar extends StatelessWidget implements PreferredSizeWidget {
               ? Padding(
                   padding: const EdgeInsets.only(right: 15),
                   child: IconButton(
-                    icon: const Icon(FontAwesomeIcons.redo),
+                    icon: const Icon(FontAwesomeIcons.arrowRotateRight),
                     color: foregroundColor,
                     iconSize: 18,
                     splashRadius: 25,
@@ -65,7 +74,7 @@ class CoolAppBar extends StatelessWidget implements PreferredSizeWidget {
               : null,
         )
       ],
-      backgroundColor: backgroundColor ?? Colors.transparent,
+      backgroundColor: Colors.transparent,
       centerTitle: true,
       title: FittedBox(
         alignment: Alignment.center,

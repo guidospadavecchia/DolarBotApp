@@ -39,7 +39,7 @@ class _CardTagColorsDialogState extends State<CardTagColorsDialog> {
         insetPadding: EdgeInsets.all(SizeConfig.blockSizeVertical * 3),
         child: Container(
           width: SizeConfig.screenWidth * 0.8,
-          height: SizeConfig.screenHeight * 0.60,
+          height: SizeConfig.screenHeight * 0.75,
           child: Column(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -69,6 +69,7 @@ class _CardTagColorsDialogState extends State<CardTagColorsDialog> {
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
+                          color: ThemeManager.getPrimaryTextColor(context),
                         ),
                       ),
                       SizedBox(height: 5),
@@ -123,6 +124,7 @@ class _CardTagColorsDialogState extends State<CardTagColorsDialog> {
                           style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w600,
+                            color: ThemeManager.getPrimaryTextColor(context),
                           ),
                         ),
                         SizedBox(height: 5),

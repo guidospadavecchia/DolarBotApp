@@ -1,15 +1,17 @@
 import 'dart:ui' as ui;
-import '../../../../classes/size_config.dart';
-import '../../../../classes/theme_manager.dart';
-import '../../../../classes/settings.dart';
-import '../../../../util/constants.dart';
-import '../../../../widgets/common/blur_dialog.dart';
-import '../../../../widgets/common/simple_button.dart';
-import '../../../../widgets/common/toasts/toast_ok.dart';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';
+
+import '../../../../classes/settings.dart';
+import '../../../../classes/size_config.dart';
+import '../../../../classes/theme_manager.dart';
+import '../../../../util/constants.dart';
+import '../../../../widgets/common/blur_dialog.dart';
+import '../../../../widgets/common/simple_button.dart';
+import '../../../../widgets/common/toasts/toast_ok.dart';
 
 class CardGestureDismissDialog extends StatefulWidget {
   @override
@@ -36,7 +38,7 @@ class _CardGestureDismissDialogState extends State<CardGestureDismissDialog> {
         insetPadding: EdgeInsets.all(SizeConfig.blockSizeVertical * 4),
         child: Container(
           width: SizeConfig.screenWidth * 0.8,
-          height: SizeConfig.screenHeight * 0.65,
+          height: SizeConfig.screenHeight * 0.75,
           child: NotificationListener<OverscrollIndicatorNotification>(
             onNotification: (OverscrollIndicatorNotification overScroll) {
               overScroll.disallowIndicator();
@@ -66,6 +68,7 @@ class _CardGestureDismissDialogState extends State<CardGestureDismissDialog> {
                       style: TextStyle(
                         fontSize: fontSize,
                         fontWeight: FontWeight.w600,
+                        color: ThemeManager.getPrimaryTextColor(context),
                       ),
                     ),
                     subtitle: _buildExample(DismissDirection.endToStart),
@@ -87,6 +90,7 @@ class _CardGestureDismissDialogState extends State<CardGestureDismissDialog> {
                       style: TextStyle(
                         fontSize: fontSize,
                         fontWeight: FontWeight.w600,
+                        color: ThemeManager.getPrimaryTextColor(context),
                       ),
                     ),
                     subtitle: _buildExample(DismissDirection.startToEnd),
@@ -108,6 +112,7 @@ class _CardGestureDismissDialogState extends State<CardGestureDismissDialog> {
                       style: TextStyle(
                         fontSize: fontSize,
                         fontWeight: FontWeight.w600,
+                        color: ThemeManager.getPrimaryTextColor(context),
                       ),
                     ),
                     subtitle: _buildExample(DismissDirection.horizontal),

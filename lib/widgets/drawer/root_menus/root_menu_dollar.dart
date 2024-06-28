@@ -1,12 +1,13 @@
+import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import '../../../api/api_endpoints.dart';
 import '../../../api/responses/dollar_response.dart';
-import '../drawer_menu_body.dart';
 import '../../../screens/fiat_currency_info/fiat_currency_info_screen.dart';
 import '../../../util/constants.dart';
 import '../../cards/factory/card_data.dart';
 import '../../common/menu_item.dart';
-import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import '../drawer_menu_body.dart';
 
 const String _title = 'Dólar';
 
@@ -20,7 +21,7 @@ class RootMenuDollar extends StatelessWidget {
       subItems: [
         MenuItem(
           text: "Oficial",
-          leading: getIconData(context, FontAwesomeIcons.solidCheckCircle),
+          leading: getIconData(context, FontAwesomeIcons.solidCircleCheck),
           depthLevel: 2,
           onTap: () => {
             Util.navigateTo(
@@ -83,7 +84,7 @@ class RootMenuDollar extends StatelessWidget {
         ),
         MenuItem(
           text: "MEP (Bolsa)",
-          leading: getIconData(context, FontAwesomeIcons.poll),
+          leading: getIconData(context, FontAwesomeIcons.squarePollVertical),
           depthLevel: 2,
           onTap: () => {
             Util.navigateTo(
@@ -93,7 +94,7 @@ class RootMenuDollar extends StatelessWidget {
                   title: _title,
                   bannerTitle: "MEP (Bolsa)",
                   tag: _title,
-                  iconData: FontAwesomeIcons.poll,
+                  iconData: FontAwesomeIcons.squarePollVertical,
                   colors: DolarBotConstants.kGradiantDefault,
                   endpoint: DollarEndpoints.bolsa.value,
                   responseType: DollarResponse,
@@ -125,7 +126,7 @@ class RootMenuDollar extends StatelessWidget {
         ),
         MenuItem(
           text: "Promedio",
-          leading: getIconData(context, FontAwesomeIcons.percentage),
+          leading: getIconData(context, FontAwesomeIcons.percent),
           depthLevel: 2,
           onTap: () => {
             Util.navigateTo(
@@ -135,7 +136,7 @@ class RootMenuDollar extends StatelessWidget {
                   title: _title,
                   bannerTitle: "Promedio",
                   tag: _title,
-                  iconData: FontAwesomeIcons.percentage,
+                  iconData: FontAwesomeIcons.percent,
                   colors: DolarBotConstants.kGradiantDefault,
                   endpoint: DollarEndpoints.promedio.value,
                   responseType: DollarResponse,

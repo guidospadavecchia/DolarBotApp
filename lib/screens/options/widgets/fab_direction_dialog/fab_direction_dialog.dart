@@ -61,12 +61,14 @@ class _FabDirectionDialogState extends State<FabDirectionDialog> {
                     style: TextStyle(
                       fontSize: fontSizeTitle,
                       fontWeight: FontWeight.w600,
+                      color: ThemeManager.getPrimaryTextColor(context),
                     ),
                   ),
                   subtitle: Text(
                     'Despliegue hacia arriba.',
                     style: TextStyle(
                       fontSize: fontSizeSubtitle,
+                      color: ThemeManager.getPrimaryTextColor(context),
                     ),
                   ),
                   value: Axis.vertical,
@@ -89,12 +91,14 @@ class _FabDirectionDialogState extends State<FabDirectionDialog> {
                     style: TextStyle(
                       fontSize: fontSizeTitle,
                       fontWeight: FontWeight.w600,
+                      color: ThemeManager.getPrimaryTextColor(context),
                     ),
                   ),
                   subtitle: Text(
                     'Despliegue hacia la izquierda.',
                     style: TextStyle(
                       fontSize: fontSizeSubtitle,
+                      color: ThemeManager.getPrimaryTextColor(context),
                     ),
                   ),
                   value: Axis.horizontal,

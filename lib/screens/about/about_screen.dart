@@ -1,3 +1,6 @@
+import 'package:flutter/gestures.dart';
+import 'package:flutter/material.dart';
+
 import '../../classes/app_config.dart';
 import '../../classes/size_config.dart';
 import '../../util/util.dart';
@@ -6,9 +9,6 @@ import '../../widgets/common/blur_dialog.dart';
 import '../../widgets/common/cool_app_bar.dart';
 import '../../widgets/common/social/discord.dart';
 import '../../widgets/common/social/github.dart';
-import '../../widgets/common/pills/pill.dart';
-import 'package:flutter/gestures.dart';
-import 'package:flutter/material.dart';
 
 class AboutScreen extends StatefulWidget {
   static const String routeName = '/about';
@@ -29,31 +29,34 @@ class _AboutScreenState extends State<AboutScreen> {
         foregroundColor: Colors.white,
       ),
       extendBodyBehindAppBar: true,
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              Colors.teal[900]!,
-              Colors.blueGrey[900]!,
-            ],
+      body: Stack(
+        alignment: Alignment.center,
+        children: [
+          Container(
+            // height: MediaQuery.of(context).size.height,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Colors.teal[900]!,
+                  Colors.blueGrey[900]!,
+                ],
+              ),
+              image: const DecorationImage(image: AssetImage("assets/images/general/about.png"), fit: BoxFit.cover),
+            ),
           ),
-          image: const DecorationImage(image: AssetImage("assets/images/general/about.png"), fit: BoxFit.cover),
-        ),
-        child: Padding(
-          padding: EdgeInsets.only(top: SizeConfig.blockSizeVertical * 12),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               _buildAppInfo(),
               _buildDevelopedBy(),
               _buildSocialMedia(),
-              SizedBox(height: SizeConfig.blockSizeVertical * 6),
             ],
           ),
-        ),
+        ],
       ),
       bottomNavigationBar: _getSloganFlutter(context),
     );
@@ -71,24 +74,12 @@ class _AboutScreenState extends State<AboutScreen> {
             color: Colors.white,
           ),
         ),
-        SizedBox(
-          height: SizeConfig.blockSizeVertical * 2,
-        ),
-        Pill(
-          text: AppConfig.of(context).getFlavorValue(),
-          fontSize: 11,
-          padding: EdgeInsets.symmetric(vertical: SizeConfig.blockSizeVertical / 2),
-        ),
-        SizedBox(
-          height: SizeConfig.blockSizeVertical,
-        ),
+        SizedBox(height: SizeConfig.blockSizeVertical * 2),
         Text(
           "Versión ${AppConfig.of(context).version}",
           style: _getTextStyle(),
         ),
-        SizedBox(
-          height: SizeConfig.blockSizeVertical * 3,
-        ),
+        SizedBox(height: SizeConfig.blockSizeVertical * 3),
         InkWell(
           child: Image.asset(
             AppConfig.logo.border,

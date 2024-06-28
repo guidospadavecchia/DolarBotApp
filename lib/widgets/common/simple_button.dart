@@ -1,5 +1,6 @@
-import '../../classes/theme_manager.dart';
 import 'package:flutter/material.dart';
+
+import '../../classes/theme_manager.dart';
 
 class SimpleButton extends StatelessWidget {
   final IconData icon;
@@ -29,12 +30,20 @@ class SimpleButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
       style: ButtonStyle(
-        padding: MaterialStateProperty.all<EdgeInsets>(
+        padding: WidgetStateProperty.all<EdgeInsets>(
           padding ?? EdgeInsets.only(top: 7, right: text != '' ? 25 : 15, left: 15, bottom: 7),
         ),
-        overlayColor: MaterialStateColor.resolveWith((states) => ThemeManager.getDrawerMenuItemIconColor(context).withOpacity(0.2)),
-        backgroundColor: MaterialStateProperty.resolveWith<Color>(
-          (Set<MaterialState> states) {
+        shape: WidgetStatePropertyAll(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(25),
+            side: BorderSide(
+              color: ThemeManager.getDrawerMenuItemIconColor(context).withOpacity(0.2),
+            ),
+          ),
+        ),
+        overlayColor: WidgetStateColor.resolveWith((states) => ThemeManager.getDrawerMenuItemIconColor(context).withOpacity(0.2)),
+        backgroundColor: WidgetStateProperty.resolveWith<Color>(
+          (Set<WidgetState> states) {
             return backgroundColor ?? ThemeManager.getButtonColor(context);
           },
         ),

@@ -1,8 +1,8 @@
-import '../../classes/app_config.dart';
-import '../home/home_screen.dart';
-import '../../widgets/common/pills/pill.dart';
 import 'package:flutter/material.dart';
 import 'package:show_up_animation/show_up_animation.dart';
+
+import '../../classes/app_config.dart';
+import '../home/home_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -18,8 +18,8 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async => false,
+    return PopScope(
+      canPop: false,
       child: Scaffold(
         body: Stack(
           fit: StackFit.expand,
@@ -65,13 +65,6 @@ class _SplashScreenState extends State<SplashScreen> {
                                 AppConfig.appDisplayName,
                                 style: const TextStyle(
                                     fontSize: 40, fontWeight: FontWeight.w600, color: Colors.white, fontFamily: 'Raleway', letterSpacing: 0.5),
-                              ),
-                              const SizedBox(
-                                height: 15,
-                              ),
-                              Pill(
-                                text: AppConfig.of(context).getFlavorValue(),
-                                fontSize: 11,
                               ),
                             ],
                           ),
