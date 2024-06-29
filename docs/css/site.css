@@ -116,6 +116,7 @@ body {
   flex-direction: column;
   align-self: center;
   align-items: center;
+  margin-top: 2rem;
 }
 
 #version .pill {
