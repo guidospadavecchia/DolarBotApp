@@ -29,8 +29,8 @@ class OptionsScreen extends StatefulWidget {
 class _OptionsScreenState extends State<OptionsScreen> {
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () => _onWillPopScope(context),
+    return PopScope(
+      onPopInvoked: (didPop) => _onWillPopScope(context),
       child: Consumer<Settings>(builder: (context, settings, child) {
         return Scaffold(
           extendBodyBehindAppBar: false,
@@ -78,14 +78,13 @@ class _OptionsScreenState extends State<OptionsScreen> {
               ),
               onTap: () => null,
               depthLevel: 1,
-              disableHighlight: true,
             ),
             _buildDivider("Preferencias"),
             MenuItem(
               text: "Formato de moneda",
               subtitle: "Cambia el formato de moneda entre AR y US",
               leading: Icon(
-                FontAwesomeIcons.globeAmericas,
+                FontAwesomeIcons.earthAmericas,
                 color: ThemeManager.getDrawerMenuItemIconColor(context),
               ),
               depthLevel: 1,
@@ -96,7 +95,7 @@ class _OptionsScreenState extends State<OptionsScreen> {
               text: "Menú de acciones",
               subtitle: "Permite elegir entre despliegue horizontal y vertical",
               leading: Icon(
-                FontAwesomeIcons.ellipsisH,
+                FontAwesomeIcons.ellipsis,
                 color: ThemeManager.getDrawerMenuItemIconColor(context),
               ),
               depthLevel: 1,
@@ -107,7 +106,7 @@ class _OptionsScreenState extends State<OptionsScreen> {
               text: "Gesto de eliminación de tarjeta",
               subtitle: "Ajusta el gesto para eliminar tarjetas en el Inicio",
               leading: Icon(
-                FontAwesomeIcons.exchangeAlt,
+                FontAwesomeIcons.rightLeft,
                 color: ThemeManager.getDrawerMenuItemIconColor(context),
               ),
               depthLevel: 1,
@@ -131,7 +130,7 @@ class _OptionsScreenState extends State<OptionsScreen> {
               text: "Ayuda",
               subtitle: "Muestra una breve guía sobre la aplicación",
               leading: Icon(
-                FontAwesomeIcons.solidQuestionCircle,
+                FontAwesomeIcons.solidCircleQuestion,
                 color: ThemeManager.getDrawerMenuItemIconColor(context),
               ),
               depthLevel: 1,
@@ -168,7 +167,7 @@ class _OptionsScreenState extends State<OptionsScreen> {
               text: "Información de la aplicación",
               subtitle: "Versión del producto y enlaces",
               leading: Icon(
-                FontAwesomeIcons.infoCircle,
+                FontAwesomeIcons.circleInfo,
                 color: ThemeManager.getDrawerMenuItemIconColor(context),
               ),
               depthLevel: 1,
@@ -180,7 +179,7 @@ class _OptionsScreenState extends State<OptionsScreen> {
               text: "Términos de uso",
               subtitle: "La letra chica",
               leading: Icon(
-                FontAwesomeIcons.solidFileAlt,
+                FontAwesomeIcons.solidFileLines,
                 color: ThemeManager.getDrawerMenuItemIconColor(context),
               ),
               depthLevel: 1,
@@ -204,12 +203,9 @@ class _OptionsScreenState extends State<OptionsScreen> {
     );
   }
 
-  Future<bool> _onWillPopScope(BuildContext context) {
+  bool _onWillPopScope(BuildContext context) {
     dismissAllToast();
-    if (Navigator.canPop(context)) {
-      Navigator.pop(context);
-    }
-    return Future.value(false);
+    return true;
   }
 
   _buildDivider(String text, {bool supressPaddingTop = false}) {

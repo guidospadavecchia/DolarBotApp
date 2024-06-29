@@ -1,6 +1,7 @@
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import '../common/rich_text_span/rich_text_span.dart';
 import 'base/step_base.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class StepThree extends StepBase {
   final BuildContext context;
@@ -32,7 +33,7 @@ class StepThree extends StepBase {
             RichTextSpan.text(context, "Podés compartir cualquier cotización de forma muy sencilla, y a través del medio que más te guste."),
             RichTextSpan.newLine(context, lines: 2),
             RichTextSpan.text(context, "Pueden ser tanto las que están en tu"),
-            ...RichTextSpan.icon(context, FontAwesomeIcons.home, ThemeManager.getPrimaryTextColor(context),
+            ...RichTextSpan.icon(context, FontAwesomeIcons.house, ThemeManager.getPrimaryTextColor(context),
                 alignment: PlaceholderAlignment.bottom, text: " Inicio"),
             RichTextSpan.text(context, "como las que no.")
           ],

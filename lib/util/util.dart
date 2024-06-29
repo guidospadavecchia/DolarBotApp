@@ -213,7 +213,8 @@ class Util {
         child: repaintBoundary,
       ),
       configuration: ViewConfiguration(
-        size: logicalSize,
+        physicalConstraints: BoxConstraints(minWidth: logicalSize.width, minHeight: logicalSize.height),
+        logicalConstraints: BoxConstraints(minWidth: logicalSize.width, minHeight: logicalSize.height),
         devicePixelRatio: 1.0,
       ),
     );

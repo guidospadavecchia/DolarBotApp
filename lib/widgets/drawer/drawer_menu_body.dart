@@ -23,7 +23,7 @@ class DrawerMenuBody extends StatelessWidget {
           promptAlignment: Alignment.topCenter,
           promptDuration: const Duration(milliseconds: 500),
           promptTheme: PromptButtonTheme(
-            color: ThemeManager.getDarkThemeData().colorScheme.background.withOpacity(0.9),
+            color: ThemeManager.getDrawerMenuFooterSloganBackgroundColor(context),
             padding: const EdgeInsets.only(top: 15),
             iconPadding: const EdgeInsets.all(10),
           ),

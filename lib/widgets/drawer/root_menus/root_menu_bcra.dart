@@ -1,12 +1,13 @@
-import '../../../api/api_endpoints.dart';
-import '../../../api/responses/base/api_response.dart';
-import '../../../util/constants.dart';
-import '../drawer_menu_body.dart';
-import '../../../screens/bcra_info/bcra_info_screen.dart';
-import '../../cards/factory/card_data.dart';
-import '../../common/menu_item.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import '../../../api/api_endpoints.dart';
+import '../../../api/responses/base/api_response.dart';
+import '../../../screens/bcra_info/bcra_info_screen.dart';
+import '../../../util/constants.dart';
+import '../../cards/factory/card_data.dart';
+import '../../common/menu_item.dart';
+import '../drawer_menu_body.dart';
 
 const String _title = 'BCRA';
 
@@ -20,7 +21,7 @@ class RootMenuBCRA extends StatelessWidget {
       subItems: [
         MenuItem(
           text: "Riesgo País",
-          leading: getIconData(context, FontAwesomeIcons.exclamationTriangle),
+          leading: getIconData(context, FontAwesomeIcons.triangleExclamation),
           depthLevel: 2,
           onTap: () => {
             Util.navigateTo(
@@ -41,7 +42,7 @@ class RootMenuBCRA extends StatelessWidget {
         ),
         MenuItem(
           text: "Reservas",
-          leading: getIconData(context, FontAwesomeIcons.handHoldingUsd),
+          leading: getIconData(context, FontAwesomeIcons.handHoldingDollar),
           depthLevel: 2,
           onTap: () => {
             Util.navigateTo(
@@ -53,7 +54,7 @@ class RootMenuBCRA extends StatelessWidget {
                   subtitle: "Dólares Estadounidenses",
                   symbol: "US\$",
                   tag: _title,
-                  iconData: FontAwesomeIcons.handHoldingUsd,
+                  iconData: FontAwesomeIcons.handHoldingDollar,
                   colors: DolarBotConstants.kGradiantBCRA,
                   endpoint: BcraEndpoints.reservas.value,
                   responseType: BcraResponse,

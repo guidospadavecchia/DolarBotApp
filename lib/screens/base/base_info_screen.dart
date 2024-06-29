@@ -125,8 +125,8 @@ mixin BaseScreen<Page extends BaseInfoScreen> on BaseInfoScreenState<Page> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: onWillPopScope,
+    return PopScope(
+      onPopInvoked: (didPop) => onWillPopScope,
       child: Consumer<Settings>(builder: (context, settings, child) {
         return Scaffold(
           extendBodyBehindAppBar: extendBodyBehindAppBar(),

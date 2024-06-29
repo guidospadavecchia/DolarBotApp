@@ -82,12 +82,10 @@ class SpecialThanksDialog extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(
-                height: SizeConfig.blockSizeVertical * 2,
-              ),
+              SizedBox(height: SizeConfig.blockSizeVertical * 2),
               Center(
                 child: SimpleButton(
-                  text: 'Regresar',
+                  text: 'Volver',
                   icon: Icons.arrow_back,
                   onPressed: () {
                     if (Navigator.of(context).canPop()) Navigator.of(context).pop();

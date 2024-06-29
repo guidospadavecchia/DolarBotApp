@@ -1,16 +1,17 @@
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:hive/hive.dart';
+import 'package:intl/intl.dart';
+
 import '../../classes/hive/historical_rate.dart';
 import '../../classes/size_config.dart';
-import '../base/base_info_screen.dart';
-import '../base/widgets/title_banner.dart';
-import '../common/image_screen.dart';
 import '../../util/util.dart';
 import '../../widgets/common/cool_app_bar.dart';
 import '../../widgets/common/simple_button.dart';
 import '../../widgets/historical_chart/historical_chart.dart';
 import '../../widgets/historical_chart/historical_chart_help_dialog.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:hive/hive.dart';
-import 'package:intl/intl.dart';
+import '../base/base_info_screen.dart';
+import '../base/widgets/title_banner.dart';
+import '../common/image_screen.dart';
 
 class HistoricalRatesScreen extends StatefulWidget {
   final String title;
@@ -49,8 +50,8 @@ class _HistoricalRatesScreenState extends State<HistoricalRatesScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () => _onWillPopScope(context),
+    return PopScope(
+      onPopInvoked: (didPop) => _onWillPopScope(context),
       child: Scaffold(
         extendBodyBehindAppBar: true,
         resizeToAvoidBottomInset: false,
@@ -166,7 +167,7 @@ class _EmptyChart extends StatelessWidget {
           height: SizeConfig.blockSizeVertical,
         ),
         SimpleButton(
-          icon: FontAwesomeIcons.questionCircle,
+          icon: FontAwesomeIcons.circleQuestion,
           iconColor: Colors.white.withOpacity(0.7),
           iconSize: 22,
           text: '¿Qué es esto?',

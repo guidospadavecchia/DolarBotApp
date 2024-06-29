@@ -1,11 +1,12 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/material.dart';
+
 import '../../classes/size_config.dart';
 import '../common/blur_dialog.dart';
 import 'exports/step_exports.dart';
 import 'step_five.dart';
 import 'step_six.dart';
-import 'package:flutter/material.dart';
 
 class FirstTimeDialog extends StatelessWidget {
   static const int _kTotalStepCount = 8;
@@ -18,8 +19,8 @@ class FirstTimeDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async => dismissable,
+    return PopScope(
+      canPop: dismissable,
       child: BlurDialog(
         dialog: Dialog(
           insetPadding: const EdgeInsets.all(20),
@@ -28,7 +29,7 @@ class FirstTimeDialog extends StatelessWidget {
             height: SizeConfig.screenHeight * 0.8,
             decoration: BoxDecoration(
               border: Border.all(color: Colors.white10, width: 2),
-              borderRadius: BorderRadius.circular(SizeConfig.blockSizeVertical),
+              borderRadius: BorderRadius.circular(8),
               gradient: AdaptiveTheme.of(context).brightness == Brightness.dark
                   ? LinearGradient(
                       begin: Alignment.topCenter,

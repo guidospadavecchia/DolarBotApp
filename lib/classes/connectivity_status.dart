@@ -1,8 +1,9 @@
-import 'package:connectivity/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 
 class ConnectivityStatus {
   static Future<bool> isConnected() async {
-    ConnectivityResult result = await Connectivity().checkConnectivity();
-    return result != ConnectivityResult.none;
+    List<ConnectivityResult> result = await Connectivity().checkConnectivity();
+
+    return result.any((element) => element != ConnectivityResult.none);
   }
 }

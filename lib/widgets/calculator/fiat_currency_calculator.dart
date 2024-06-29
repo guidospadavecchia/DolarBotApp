@@ -1,8 +1,9 @@
+import 'package:extended_masked_text/extended_masked_text.dart';
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+
 import '../../classes/decimal_adapter.dart';
 import 'base/base_calculator.dart';
-import 'package:flutter/material.dart';
-import 'package:extended_masked_text/extended_masked_text.dart';
-import 'package:intl/intl.dart';
 
 class FiatCurrencyCalculator extends BaseCalculatorScreen {
   final double buyValue;
@@ -113,7 +114,6 @@ class _FiatCurrencyCalculatorState extends BaseCalculatorState<FiatCurrencyCalcu
           Column(
             children: [
               Divider(
-                color: Colors.black,
                 indent: SizeConfig.screenWidth / 10,
                 endIndent: SizeConfig.screenWidth / 10,
                 height: 0,

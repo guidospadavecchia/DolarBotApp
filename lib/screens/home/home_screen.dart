@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_scroll_to_top/flutter_scroll_to_top.dart';
@@ -8,11 +7,9 @@ import 'package:hive/hive.dart';
 import 'package:simple_animations/simple_animations.dart';
 
 import '../../api/responses/factory/api_response_builder.dart';
-import '../../classes/app_config.dart';
 import '../../classes/size_config.dart';
 import '../../classes/theme_manager.dart';
 import '../../util/util.dart';
-import '../../widgets/ads/ad_container.dart';
 import '../../widgets/cards/factory/factory_card.dart';
 import '../../widgets/common/cool_app_bar.dart';
 import '../../widgets/common/snackbars/undo_action_snackbar.dart';
@@ -49,23 +46,6 @@ class HomeScreenState extends State<HomeScreen> {
   bool _showRefreshButton = false;
   DateTime? lastBackPressTimestamp;
 
-  Future<bool> onWillPopScope(BuildContext context) {
-    final DateTime now = DateTime.now();
-
-    dismissAllToast();
-    if (lastBackPressTimestamp == null || now.difference(lastBackPressTimestamp!) > kDoubleTapToLeaveDuration) {
-      lastBackPressTimestamp = now;
-      Util.showSnackBar(
-        context,
-        'Presioná atrás nuevamente para salir',
-        ThemeManager.getSnackBarColor(context),
-      );
-      return Future.value(false);
-    } else {
-      exit(0);
-    }
-  }
-
   @override
   void initState() {
     super.initState();
@@ -91,54 +71,50 @@ class HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () => onWillPopScope(context),
-      child: Consumer<Settings>(builder: (context, settings, child) {
-        return Scaffold(
-          extendBodyBehindAppBar: false,
-          resizeToAvoidBottomInset: false,
-          appBar: CoolAppBar(
-            title: 'Inicio',
-            isMainMenu: true,
-            foregroundColor: ThemeManager.getPrimaryTextColor(context),
-            showRefreshButton: _showRefreshButton,
-            onRefresh: () => onRefresh(context),
-          ),
-          drawer: Container(
-            constraints: BoxConstraints(minWidth: 290),
-            width: SizeConfig.screenWidth * 0.7,
-            child: Drawer(
-              child: DrawerMenu(
-                onDrawerDisplayChanged: (_) => dismissAllToast(),
-              ),
+    return Consumer<Settings>(builder: (context, settings, child) {
+      return Scaffold(
+        extendBodyBehindAppBar: false,
+        resizeToAvoidBottomInset: false,
+        appBar: CoolAppBar(
+          title: 'Inicio',
+          isMainMenu: true,
+          foregroundColor: ThemeManager.getPrimaryTextColor(context),
+          showRefreshButton: _showRefreshButton,
+          onRefresh: () => onRefresh(context),
+        ),
+        drawer: Container(
+          constraints: BoxConstraints(minWidth: 290),
+          width: SizeConfig.screenWidth * 0.7,
+          child: Drawer(
+            child: DrawerMenu(
+              onDrawerDisplayChanged: (_) => dismissAllToast(),
             ),
           ),
-          drawerEdgeDragWidth: SizeConfig.screenWidth / 2.5,
-          drawerEnableOpenDragGesture: true,
-          body: Container(
-            height: double.infinity,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
-                  ThemeManager.getGlobalBackgroundColor(context),
-                  ThemeManager.getGlobalBackgroundColor(context),
-                ],
-              ),
-            ),
-            child: Wrap(
-              runAlignment: WrapAlignment.center,
-              runSpacing: 0,
-              children: [
-                _body(),
+        ),
+        drawerEdgeDragWidth: SizeConfig.screenWidth / 2.5,
+        drawerEnableOpenDragGesture: true,
+        body: Container(
+          height: double.infinity,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                ThemeManager.getGlobalBackgroundColor(context),
+                ThemeManager.getGlobalBackgroundColor(context),
               ],
             ),
           ),
-          bottomNavigationBar: !AppConfig.isProVersion && _cardsLoaded && !_hasErrorsAll ? AdContainer() : null,
-        );
-      }),
-    );
+          child: Wrap(
+            runAlignment: WrapAlignment.center,
+            runSpacing: 0,
+            children: [
+              _body(),
+            ],
+          ),
+        ),
+      );
+    });
   }
 
   Widget _body() {
@@ -162,7 +138,7 @@ class HomeScreenState extends State<HomeScreen> {
           child: Container(
             constraints: const BoxConstraints(maxWidth: 400),
             height: SizeConfig.screenHeight,
-            padding: EdgeInsets.only(bottom: SizeConfig.viewInsets.bottom + (AppConfig.isProVersion ? 100 : 160)),
+            padding: EdgeInsets.only(bottom: SizeConfig.viewInsets.bottom + 100),
             child: NotificationListener<OverscrollIndicatorNotification>(
               onNotification: (OverscrollIndicatorNotification overScroll) {
                 overScroll.disallowIndicator();
@@ -175,7 +151,7 @@ class HomeScreenState extends State<HomeScreen> {
                   promptAlignment: Alignment.bottomRight,
                   promptDuration: const Duration(milliseconds: 500),
                   promptTheme: PromptButtonTheme(
-                    color: ThemeManager.getDarkThemeData().colorScheme.background.withOpacity(0.9),
+                    color: ThemeManager.getDarkThemeData().colorScheme.surface.withOpacity(0.9),
                     padding: const EdgeInsets.only(right: 25, bottom: 30),
                     iconPadding: const EdgeInsets.all(12),
                   ),
@@ -319,7 +295,7 @@ class HomeScreenState extends State<HomeScreen> {
         duration: Duration(seconds: 5),
         content: UndoActionSnackBarContent(
           icon: Icon(
-            FontAwesomeIcons.solidCheckCircle,
+            FontAwesomeIcons.solidCircleCheck,
             color: ThemeManager.getPrimaryTextColor(context),
           ),
           text: "Tarjeta eliminada",

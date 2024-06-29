@@ -130,7 +130,7 @@ class _HistoricalChartState extends State<HistoricalChart> with TickerProviderSt
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 SimpleButton(
-                  icon: FontAwesomeIcons.questionCircle,
+                  icon: FontAwesomeIcons.circleQuestion,
                   iconColor: Colors.white.withOpacity(0.7),
                   iconSize: 22,
                   backgroundColor: Colors.black26.withOpacity(0.2),
@@ -138,7 +138,7 @@ class _HistoricalChartState extends State<HistoricalChart> with TickerProviderSt
                   onPressed: _showHelpDialog,
                 ),
                 SimpleButton(
-                  icon: FontAwesomeIcons.expandArrowsAlt,
+                  icon: FontAwesomeIcons.maximize,
                   iconColor: Colors.white.withOpacity(0.7),
                   iconSize: 22,
                   text: 'Reiniciar vista',
@@ -188,14 +188,16 @@ class _HistoricalChartState extends State<HistoricalChart> with TickerProviderSt
               ),
               titlesData: FlTitlesData(
                 show: true,
-                bottomTitles: SideTitles(showTitles: false),
+                bottomTitles: AxisTitles(
+                  sideTitles: SideTitles(showTitles: false),
+                ),
                 leftTitles: _getLeftTitles(context, rateData),
               ),
               lineBarsData: [
                 rateData.lineChartBarData,
               ],
             ),
-            swapAnimationDuration: const Duration(milliseconds: 150),
+            duration: const Duration(milliseconds: 150),
           ),
         ),
       ),
@@ -259,7 +261,7 @@ class _HistoricalChartState extends State<HistoricalChart> with TickerProviderSt
       touchTooltipData: LineTouchTooltipData(
         fitInsideVertically: true,
         fitInsideHorizontally: true,
-        tooltipBgColor: Colors.black54.withOpacity(0.7),
+        getTooltipColor: (touchedSpot) => Colors.black54.withOpacity(0.7),
         maxContentWidth: SizeConfig.screenWidth / 2,
         tooltipRoundedRadius: 15,
         getTooltipItems: (touchedSpots) {
@@ -298,27 +300,33 @@ class _HistoricalChartState extends State<HistoricalChart> with TickerProviderSt
     );
   }
 
-  SideTitles _getLeftTitles(BuildContext context, HistoricalRateData rateData) {
-    return SideTitles(
-      showTitles: true,
-      getTextStyles: (value, _) => TextStyle(
-        color: Colors.white.withOpacity(0.7),
-        fontSize: 22,
-        fontWeight: FontWeight.w600,
-      ),
-      interval: rateData.interval,
-      margin: 30,
-      reservedSize: 200,
-      getTitles: (value) {
-        NumberFormat numberFormat = Provider.of<Settings>(context, listen: false).getNumberFormat();
-        if (rateData.isInteger) {
-          numberFormat.maximumFractionDigits = 0;
-        }
-        String leftSymbol = "${rateData.leftSymbol ?? ''} ";
-        String rightSymbol = " ${rateData.rightSymbol ?? ''}";
+  AxisTitles _getLeftTitles(BuildContext context, HistoricalRateData rateData) {
+    return AxisTitles(
+      sideTitles: SideTitles(
+        showTitles: true,
+        interval: rateData.interval,
+        reservedSize: 200,
+        getTitlesWidget: (value, meta) {
+          NumberFormat numberFormat = Provider.of<Settings>(context, listen: false).getNumberFormat();
+          if (rateData.isInteger) {
+            numberFormat.maximumFractionDigits = 0;
+          }
+          String leftSymbol = "${rateData.leftSymbol ?? ''} ";
+          String rightSymbol = " ${rateData.rightSymbol ?? ''}";
 
-        return "$leftSymbol${numberFormat.format(value)}$rightSymbol";
-      },
+          return Padding(
+            padding: const EdgeInsets.all(30),
+            child: Text(
+              "$leftSymbol${numberFormat.format(value)}$rightSymbol",
+              style: TextStyle(
+                color: Colors.white.withOpacity(0.7),
+                fontSize: 22,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          );
+        },
+      ),
     );
   }
 }

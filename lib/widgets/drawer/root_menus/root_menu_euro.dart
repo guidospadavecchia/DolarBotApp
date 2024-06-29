@@ -1,13 +1,14 @@
+import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import '../../../api/api_endpoints.dart';
 import '../../../api/responses/base/api_response.dart';
 import '../../../classes/dolarbot_icons.dart';
-import '../drawer_menu_body.dart';
 import '../../../screens/fiat_currency_info/fiat_currency_info_screen.dart';
 import '../../../util/constants.dart';
 import '../../cards/factory/card_data.dart';
 import '../../common/menu_item.dart';
-import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import '../drawer_menu_body.dart';
 
 const String _title = 'Euro';
 
@@ -21,7 +22,7 @@ class RootMenuEuro extends StatelessWidget {
       subItems: [
         MenuItem(
           text: "Oficial",
-          leading: getIconData(context, FontAwesomeIcons.solidCheckCircle),
+          leading: getIconData(context, FontAwesomeIcons.solidCircleCheck),
           depthLevel: 2,
           onTap: () => {
             Util.navigateTo(

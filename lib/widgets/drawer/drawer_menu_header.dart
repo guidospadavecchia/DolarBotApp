@@ -1,8 +1,8 @@
+import 'package:flutter/material.dart';
+
 import '../../classes/app_config.dart';
 import '../../classes/size_config.dart';
 import '../../classes/theme_manager.dart';
-import '../common/pills/pro_pill.dart';
-import 'package:flutter/material.dart';
 
 class DrawerMenuHeader extends StatelessWidget {
   @override
@@ -41,15 +41,6 @@ class DrawerMenuHeader extends StatelessWidget {
                   style: TextStyle(
                       fontSize: 24, fontWeight: FontWeight.w600, fontFamily: 'Raleway', color: ThemeManager.getPrimaryColor(), letterSpacing: 0.5),
                 ),
-                if (AppConfig.isProVersion)
-                  Row(
-                    children: [
-                      const SizedBox(
-                        width: 15,
-                      ),
-                      ProPill(),
-                    ],
-                  ),
               ],
             ),
           ),

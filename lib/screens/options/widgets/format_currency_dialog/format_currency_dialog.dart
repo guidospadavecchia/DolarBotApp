@@ -59,12 +59,14 @@ class _FormatCurrencyDialogState extends State<FormatCurrencyDialog> {
                     style: TextStyle(
                       fontSize: fontSizeTitle,
                       fontWeight: FontWeight.w600,
+                      color: ThemeManager.getPrimaryTextColor(context),
                     ),
                   ),
                   subtitle: Text(
                     'Ejemplo: \$1.234,56',
                     style: TextStyle(
                       fontSize: fontSizeSubtitle,
+                      color: ThemeManager.getPrimaryTextColor(context),
                     ),
                   ),
                   value: CurrencyFormats.AR.value,
@@ -87,12 +89,14 @@ class _FormatCurrencyDialogState extends State<FormatCurrencyDialog> {
                     style: TextStyle(
                       fontSize: fontSizeTitle,
                       fontWeight: FontWeight.w600,
+                      color: ThemeManager.getPrimaryTextColor(context),
                     ),
                   ),
                   subtitle: Text(
                     'Ejemplo: \$1,234.56',
                     style: TextStyle(
                       fontSize: fontSizeSubtitle,
+                      color: ThemeManager.getPrimaryTextColor(context),
                     ),
                   ),
                   value: CurrencyFormats.US.value,

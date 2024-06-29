@@ -10,7 +10,6 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
-import 'classes/ad_state.dart';
 import 'classes/app_config.dart';
 import 'classes/hive/adapters/cache_entry_adapter.dart';
 import 'classes/hive/adapters/favorite_rate_adapter.dart';
@@ -29,7 +28,6 @@ void mainCommon(AppFlavor appFlavor) async {
   log("Starting as ${appFlavor.toString().split('.').last} version");
 
   WidgetsFlutterBinding.ensureInitialized();
-  final adState = AdState();
   final savedThemeMode = await AdaptiveTheme.getThemeMode();
 
   if (!kDebugMode) {
@@ -41,7 +39,6 @@ void mainCommon(AppFlavor appFlavor) async {
   AppConfig appConfig = await AppConfig.initialize(
       flavor: appFlavor,
       child: DolarBotApp(
-        adState: adState,
         themeMode: savedThemeMode,
       ));
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then(
@@ -63,67 +60,60 @@ Future _preloadImages() async {
 }
 
 class DolarBotApp extends StatelessWidget {
-  final AdState adState;
   final AdaptiveThemeMode? themeMode;
 
   const DolarBotApp({
     Key? key,
-    required this.adState,
     this.themeMode,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Provider.value(
-      value: adState,
-      builder: (context, child) {
-        return AdaptiveTheme(
-          light: ThemeManager.getLightThemeData(),
-          dark: ThemeManager.getDarkThemeData(),
-          initial: themeMode ?? ThemeManager.getDefaultTheme(context),
-          builder: (lightTheme, darkTheme) => MultiProvider(
-            providers: [
-              ChangeNotifierProvider(create: (context) => Settings()),
-            ],
-            child: OKToast(
-              child: MaterialApp(
-                debugShowCheckedModeBanner: false,
-                title: AppConfig.of(context).appName,
-                theme: lightTheme,
-                darkTheme: darkTheme,
-                builder: (BuildContext context, Widget? child) {
-                  SizeConfig().init(context);
-                  return MediaQuery(
-                    data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
-                    child: child!,
+    return AdaptiveTheme(
+      light: ThemeManager.getLightThemeData(),
+      dark: ThemeManager.getDarkThemeData(),
+      initial: themeMode ?? ThemeManager.getDefaultTheme(context),
+      builder: (lightTheme, darkTheme) => MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (context) => Settings()),
+        ],
+        child: OKToast(
+          child: MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: AppConfig.of(context).appName,
+            theme: lightTheme,
+            darkTheme: darkTheme,
+            builder: (BuildContext context, Widget? child) {
+              SizeConfig().init(context);
+              return MediaQuery(
+                data: MediaQuery.of(context).copyWith(textScaler: TextScaler.linear(1.0)),
+                child: child!,
+              );
+            },
+            home: SplashScreen(),
+            onGenerateRoute: (settings) {
+              switch (settings.name) {
+                case AboutScreen.routeName:
+                  return PageTransition(
+                    child: AboutScreen(),
+                    type: PageTransitionType.rightToLeft,
+                    duration: const Duration(milliseconds: 200),
+                    reverseDuration: const Duration(milliseconds: 200),
                   );
-                },
-                home: SplashScreen(),
-                onGenerateRoute: (settings) {
-                  switch (settings.name) {
-                    case AboutScreen.routeName:
-                      return PageTransition(
-                        child: AboutScreen(),
-                        type: PageTransitionType.rightToLeft,
-                        duration: const Duration(milliseconds: 200),
-                        reverseDuration: const Duration(milliseconds: 200),
-                      );
-                    case OptionsScreen.routeName:
-                      return PageTransition(
-                        child: OptionsScreen(),
-                        type: PageTransitionType.rightToLeft,
-                        duration: const Duration(milliseconds: 200),
-                        reverseDuration: const Duration(milliseconds: 200),
-                      );
-                    default:
-                      return null;
-                  }
-                },
-              ),
-            ),
+                case OptionsScreen.routeName:
+                  return PageTransition(
+                    child: OptionsScreen(),
+                    type: PageTransitionType.rightToLeft,
+                    duration: const Duration(milliseconds: 200),
+                    reverseDuration: const Duration(milliseconds: 200),
+                  );
+                default:
+                  return null;
+              }
+            },
           ),
-        );
-      },
+        ),
+      ),
     );
   }
 }

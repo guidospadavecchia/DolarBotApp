@@ -1,6 +1,7 @@
-import '../main_common.dart';
 import 'package:flutter/material.dart';
-import 'package:package_info/package_info.dart';
+import 'package:package_info_plus/package_info_plus.dart';
+
+import '../main_common.dart';
 
 enum AppFlavor { Lite, Pro }
 

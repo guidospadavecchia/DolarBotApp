@@ -1,46 +1,27 @@
 import 'dart:io';
-import '../../classes/app_config.dart';
+
+import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import '../../classes/theme_manager.dart';
 import '../../screens/options/options_screen.dart';
 import '../common/menu_item.dart';
-import '../common/pills/pro_pill.dart';
-import '../common/pro_features/pro_features_dialog.dart';
-import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class DrawerMenuFooter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 0),
+      padding: const EdgeInsets.only(bottom: 5),
       child: Align(
         alignment: Alignment.bottomCenter,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
             const Divider(),
-            if (!AppConfig.isProVersion)
-              Column(
-                children: [
-                  MenuItem(
-                    text: "DolarBot Pro",
-                    leading: Image.asset(
-                      "assets/images/general/googleplay.png",
-                      width: 24,
-                      height: 24,
-                      filterQuality: FilterQuality.high,
-                    ),
-                    trailing: ProPill(),
-                    depthLevel: 1,
-                    onTap: () => showDialog(context: context, builder: (_) => ProFeaturesDialog()),
-                  ),
-                  const Divider(),
-                ],
-              ),
             MenuItem(
               text: "Opciones",
               leading: Icon(
-                FontAwesomeIcons.cog,
+                FontAwesomeIcons.gear,
                 color: ThemeManager.getDrawerMenuItemIconColor(context),
               ),
               depthLevel: 1,
@@ -49,7 +30,7 @@ class DrawerMenuFooter extends StatelessWidget {
             MenuItem(
               text: "Salir",
               leading: Icon(
-                FontAwesomeIcons.signOutAlt,
+                FontAwesomeIcons.rightFromBracket,
                 color: ThemeManager.getDrawerMenuItemIconColor(context),
               ),
               depthLevel: 1,
